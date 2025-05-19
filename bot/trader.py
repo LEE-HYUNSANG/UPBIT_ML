@@ -101,7 +101,12 @@ class UpbitTrader:
                     cash += bal
                     total += bal
                 else:
-                    price = pyupbit.get_current_price(f"KRW-{b['currency']}") or 0
+                    try:
+                        price = pyupbit.get_current_price(f"KRW-{b['currency']}") or 0
+                    except Exception:
+                        if self.logger:
+                            self.logger.warning("Price lookup failed for %s", b['currency'])
+                        price = 0
                     total += bal * price
             pnl = ((total - cash) / cash * 100) if cash else 0.0
             return {
@@ -113,3 +118,21 @@ class UpbitTrader:
             if self.logger:
                 self.logger.error(f"Failed to calculate summary: {e}")
             return None
+
+    def build_positions(self, balances):
+        """Convert balance list to dashboard position entries."""
+        positions = []
+        for b in balances:
+            currency = b.get("currency")
+            bal = float(b.get("balance", 0))
+            if currency == "KRW" or bal == 0:
+                continue
+            positions.append({
+                "coin": currency,
+                "entry": 50,
+                "trend": 50,
+                "trend_color": "green",
+                "signal": "sell-wait",
+                "signal_label": "관망",
+            })
+        return positions

@@ -9,7 +9,12 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
 .table th, .table td { vertical-align: middle; }
 ::-webkit-scrollbar { width: 8px; background: #eaeaea; }
 ::-webkit-scrollbar-thumb { background: #d1d7e1; border-radius: 5px; }
-.bar-graph, .trend-bar { height: 16px; background: #e9ecef; border-radius: 7px; }
+.bar-graph, .trend-bar {
+  position: relative;
+  height: 16px;
+  background: #e9ecef;
+  border-radius: 7px;
+}
 
 /* Dashboard page */
 #layout { display: flex; height: calc(100vh - 66px); }
