@@ -1,8 +1,46 @@
 {% extends 'base.html' %}
-{% block title %}Notifications 설정{% endblock %}
+{% block title %}알림 설정{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Notifications 설정</h2>
-  <div class="alert alert-secondary">notifications 페이지 예시입니다.</div>
+  <h2 class="mb-4">알림/이벤트 설정</h2>
+  <div class="card shadow-sm">
+    <div class="card-head">알림 옵션</div>
+    <div class="card-body">
+      <form>
+        <div class="mb-3">
+          <label class="form-label">알림 채널</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="alert_telegram" checked>
+            <label class="form-check-label" for="alert_telegram">텔레그램 알림</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="alert_push" checked>
+            <label class="form-check-label" for="alert_push">브라우저 팝업 알림</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">알림 받을 이벤트</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" checked> 매수 체결
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" checked> 매도 체결
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" checked> 손절/익절
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" checked> 봇 시작/종료
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" checked> 시스템 오류
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary w-100">저장</button>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}
