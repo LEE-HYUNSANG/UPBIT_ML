@@ -19,7 +19,7 @@ def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") ->
             "[%(levelname)s][%(asctime)s][%(name)s] %(message)s",
             "%Y-%m-%d %H:%M:%S",
         )
-        fh = logging.FileHandler(log_file)
+        fh = logging.FileHandler(log_file, encoding="utf-8")
         fh.setFormatter(fmt)
         sh = logging.StreamHandler()
         sh.setFormatter(fmt)

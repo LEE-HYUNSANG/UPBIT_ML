@@ -184,18 +184,26 @@ sample_signals = [
 
 def get_filtered_signals():
     """Return sample signals filtered by price range and volume rank."""
+    logger.info("[MONITOR] 매수 모니터링 요청")
+    logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
     result = []
     for s in sample_signals:
+        logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s["price"] < min_p:
             continue
         if max_p and max_p > 0 and s["price"] > max_p:
             continue
         if rank and s["rank"] > rank:
             continue
-        result.append({k: v for k, v in s.items() if k not in ("price", "rank")})
+        entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
+        logger.debug("[MONITOR] 필터 통과 %s", entry)
+        result.append(entry)
+    logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
+    for s in result:
+        logger.debug("[MONITOR] 응답 데이터 %s", s)
     return result
 
 alerts = []
@@ -761,8 +769,10 @@ def api_signals():
     """Return current buy signals for the dashboard."""
     logger.debug("api_signals called")
     try:
+        logger.info("[MONITOR] 모니터링 대상 %s", config_data.get("tickers"))
+        signals = get_filtered_signals()
         logger.info("Signal check success")
-        return jsonify(result="success", signals=get_filtered_signals())
+        return jsonify(result="success", signals=signals)
     except Exception as e:
         notify_error(f"시그널 조회 실패: {e}")
         return jsonify(result="error", message="시그널 조회 실패"), 500
