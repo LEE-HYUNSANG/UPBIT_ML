@@ -28,6 +28,12 @@ Buttons with a `data-api` attribute automatically send the nearest form data via
 The JavaScript in `main.js` will call `/api/start-bot` and show any returned message via a modal.
 SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
+## Market data
+`app.py` retrieves current prices and 24h volume from Upbit once per minute. The
+coins are filtered by the values in `config/filter.json` (`min_price`,
+`max_price`, `rank`), and this filtered list controls both monitoring and real
+trading targets.
+
 ## Running
 Install requirements and start the server:
 ```bash

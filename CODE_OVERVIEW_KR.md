@@ -15,6 +15,7 @@
 - **bot/indicators.py**: EMA, RSI 등 기술적 지표 계산 함수.
 - **bot/strategy.py**: 9가지 매매 전략 함수와 선택 로직.
 - **bot/trader.py**: 업비트 API를 활용한 메인 트레이더 클래스.
+- **app.py/load_market_signals**: 1분마다 업비트 시세와 거래량을 불러와 필터링에 사용.
 
 ## config 디렉터리
 - **config/config.json**: 예제 설정 값.
