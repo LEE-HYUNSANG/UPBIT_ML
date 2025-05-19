@@ -125,3 +125,4 @@ docker run -p 8000:8000 upbit-bot
 ```
 
 `scripts/run_gunicorn.sh` 는 간단한 운영 자동화 스크립트 예시입니다.
+# UPBIT_AutoTrader_HS
