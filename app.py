@@ -149,9 +149,37 @@ history = [
 ]
 buy_results = signals
 sell_results = signals
+
+# 기본 전략 정보 (9전략 모두 표시)
 strategies = [
-    {"name": "M-BREAK", "key": "MBREAK", "enabled": True, "tp": 0.02, "sl": 0.01, "trail": 0.012, "option": "ATR≥0.035", "recommend": "TP2% SL1%", "desc": "강한 추세 돌파"},
-    {"name": "P-PULL", "key": "PPULL", "enabled": False, "tp": 0.025, "sl": 0.012, "trail": 0.015, "option": "조정 매수", "recommend": "TP2.5%", "desc": "풀백 매수"},
+    {
+        "name": s["name"],
+        "key": s["key"],
+        "enabled": i == 0,
+        "tp": 0.02,
+        "sl": 0.01,
+        "trail": 0.012,
+        "option": s["buy"]["cond"][0] if s.get("buy", {}).get("cond") else "",
+        "recommend": "TP2% SL1%",
+        "desc": " / ".join(s["buy"]["cond"][:2]) if s.get("buy", {}).get("cond") else "",
+    }
+    for i, s in enumerate(
+        [
+            {
+                "key": "MBREAK",
+                "name": "M-BREAK",
+                "buy": {"cond": ["강한 추세 돌파"]},
+            },
+            {"key": "PPULL", "name": "P-PULL", "buy": {"cond": ["조정 매수"]}},
+            {"key": "TFLOW", "name": "T-FLOW", "buy": {"cond": ["추세/OBV"]}},
+            {"key": "BLOW", "name": "B-LOW", "buy": {"cond": ["박스권 하단"]}},
+            {"key": "VREV", "name": "V-REV", "buy": {"cond": ["대폭락 반등"]}},
+            {"key": "GREV", "name": "G-REV", "buy": {"cond": ["골든크로스"]}},
+            {"key": "VOLBRK", "name": "VOL-BRK", "buy": {"cond": ["ATR 폭발"]}},
+            {"key": "EMASTACK", "name": "EMA-STACK", "buy": {"cond": ["다중정렬"]}},
+            {"key": "VWAPBNC", "name": "VWAP-BNC", "buy": {"cond": ["VWAP 근접"]}},
+        ]
+    )
 ]
 
 # AI 분석 페이지에서 사용될 상세 전략 정보
@@ -604,8 +632,9 @@ def api_balances():
     logger.debug("api_balances called")
     try:
         data = get_balances()
+        positions = trader.build_positions(data) if data else []
         logger.info("Balance check success")
-        return jsonify(result="success", balances=data)
+        return jsonify(result="success", balances=positions)
     except Exception as e:
         notify_error(f"잔고 조회 실패: {e}")
         return jsonify(result="error", message="잔고 조회 실패"), 500
