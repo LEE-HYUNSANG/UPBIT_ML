@@ -8,8 +8,15 @@ import shutil
 import logging
 import json  # 기본 모듈들
 from datetime import datetime
+import time
+import pyupbit
 
-from utils import load_secrets, send_telegram, setup_logging
+from utils import (
+    load_secrets,
+    send_telegram,
+    setup_logging,
+    load_market_signals,
+)
 from bot.trader import UpbitTrader
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
@@ -214,21 +221,23 @@ market_signals = load_market_signals()
 
 def get_filtered_signals():
     """Return market signals filtered by price and volume rank."""
+
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
+    signals = load_market_signals()
     result = []
     global market_signals
     market_signals = load_market_signals()
     for s in market_signals:
         logger.debug("[MONITOR] 원본 시그널 %s", s)
-        if min_p and s["price"] < min_p:
+        if min_p and s.get("price", 0) < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and s.get("rank", 0) > rank:
             continue
         entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
         logger.debug("[MONITOR] 필터 통과 %s", entry)
