@@ -98,3 +98,9 @@ input[type="password"] { letter-spacing:0.2em; }
   flex: 1;
   max-width: 160px;
 }
+
+/* Remove scroll limit for tables needing full height */
+.no-scroll {
+  max-height: none !important;
+  overflow: visible !important;
+}

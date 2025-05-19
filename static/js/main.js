@@ -117,6 +117,7 @@ document.addEventListener('click', async e => {
   const result = await callApi(btn.dataset.api, data);
   if(['/save','/api/save-settings'].includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
+    await reloadBuyMonitor();
   }
 });
 
