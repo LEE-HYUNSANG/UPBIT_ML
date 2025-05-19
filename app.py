@@ -459,7 +459,7 @@ def save_settings():
             raise ValueError("Invalid JSON")
         settings.update(data)
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
-        logger.info("Settings saved")
+        logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="저장 완료")
     except Exception as e:
         notify_error(f"설정 저장 실패: {e}")
@@ -471,7 +471,7 @@ def save_risk():
     logger.debug("save_risk called with %s", data)
     try:
         socketio.emit('notification', {'message': '리스크 설정 저장'})
-        logger.info("Risk settings saved")
+        logger.info("Risk settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="리스크 저장 완료")
     except Exception as e:
         notify_error(f"리스크 저장 실패: {e}")
@@ -483,7 +483,7 @@ def save_alerts():
     logger.debug("save_alerts called with %s", data)
     try:
         socketio.emit('notification', {'message': '알림 설정 저장'})
-        logger.info("Alert settings saved")
+        logger.info("Alert settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="알림 설정 저장 완료")
     except Exception as e:
         notify_error(f"알림 설정 저장 실패: {e}")
@@ -496,7 +496,7 @@ def save_funds():
     try:
         settings.update(data)
         socketio.emit('notification', {'message': '자금 설정 저장'})
-        logger.info("Funds settings saved")
+        logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="자금 설정 저장 완료")
     except Exception as e:
         notify_error(f"자금 설정 저장 실패: {e}")
@@ -508,7 +508,7 @@ def save_strategy():
     logger.debug("save_strategy called with %s", data)
     try:
         socketio.emit('notification', {'message': '전략 설정 저장'})
-        logger.info("Strategy settings saved")
+        logger.info("Strategy settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="전략 설정 저장 완료")
     except Exception as e:
         notify_error(f"전략 설정 저장 실패: {e}")
@@ -614,6 +614,7 @@ def save():
         with open("config/user_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        logger.info("User data saved: %s", json.dumps(data, ensure_ascii=False))
         status = get_status()
         return jsonify(result="success", status=status)
     except Exception as e:
