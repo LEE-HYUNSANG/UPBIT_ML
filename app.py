@@ -206,6 +206,32 @@ def get_filtered_signals():
         logger.debug("[MONITOR] 응답 데이터 %s", s)
     return result
 
+def get_filtered_tickers() -> list[str]:
+    """Return config tickers filtered by dashboard conditions."""
+    logger.debug("Filtering tickers with %s", filter_config)
+    tickers = config_data.get("tickers", [])
+    if not tickers:
+        return []
+    min_p = float(filter_config.get("min_price", 0) or 0)
+    max_p = float(filter_config.get("max_price", 0) or 0)
+    rank = int(filter_config.get("rank", 0) or 0)
+    result = []
+    for t in tickers:
+        coin = t.split("-")[-1]
+        sig = next((s for s in sample_signals if s.get("coin") == coin), None)
+        if sig:
+            price = sig.get("price", 0)
+            r = sig.get("rank", 0)
+            if min_p and price < min_p:
+                continue
+            if max_p and max_p > 0 and price > max_p:
+                continue
+            if rank and r > rank:
+                continue
+        result.append(t)
+    logger.debug("Filtered tickers: %s", result)
+    return result
+
 alerts = []
 history = [
     {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
@@ -538,6 +564,7 @@ def start_bot():
     logger.debug("start_bot called")
     logger.info("[API] 봇 시작 요청")
     try:
+        trader.set_tickers(get_filtered_tickers())
         started = trader.start()
         if not started:
             logger.info("Start request ignored: already running")
