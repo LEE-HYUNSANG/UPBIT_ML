@@ -1,1 +1,418 @@
+{% extends 'base.html' %}
+{% block title %}UPBIT AutoTrading · 전략별 AI 비교분석{% endblock %}
+{% block content %}
+<style>
+body{background:#f6f8fb;font-size:18px;}
+.navbar{background:#1e2b45;}
+.card-head{background:#22315a;color:#fff;font-size:1.25rem;padding:1.2rem 2rem;display:flex;align-items:center;gap:.7rem;border-radius:1.25rem 1.25rem 0 0;}
+.card{border-radius:1.25rem;margin-bottom:2.5rem;box-shadow:0 4px 24px #0001;}
+.card-body{padding:2.5rem;}
+.section-label{font-size:1.2rem;font-weight:700;color:#3c63b6;margin-bottom:1.1rem;}
+.btn-ai{background:#3c63b6;color:#fff;}
+.container{max-width:1400px;margin-top:56px;}
+th,td{vertical-align:middle;}
+.table-hover tbody tr:hover{background:#f1f5fb;}
+</style>
+<div class="container">
 
+  <!-- 분석 범위/실행/이력 -->
+  <div class="row mb-4">
+    <div class="col-lg-9">
+      <div class="card">
+        <div class="card-head"><i class="bi bi-funnel"></i> 분석 범위</div>
+        <div class="card-body">
+          <form class="row g-3 align-items-end">
+            <div class="col-md-4">
+              <label class="form-label">기간 선택</label>
+              <select class="form-select">
+                <option>최근 24시간</option>
+                <option>최근 10일</option>
+                <option>최근 30일</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">분석 구분</label>
+              <select class="form-select">
+                <option>전체</option>
+                <option>매수 전략</option>
+                <option>매도 전략</option>
+                <option>고정 매도</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <button type="button" class="btn btn-ai w-100" style="height:48px;">AI 분석 실행</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-head"><i class="bi bi-clock-history"></i> 최근 분석/반영 이력</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item small">2025-05-18 13:00 <span class="text-success">적용</span></li>
+            <li class="list-group-item small">2025-05-17 10:13 <span class="text-primary">분석</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전략별 자동 매수 최적 파라미터 분석 -->
+  <div class="card mb-5">
+    <div class="card-head">
+      <i class="bi bi-arrow-up-circle"></i> <b>전략별 자동 매수 최적 파라미터 분석</b>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover align-middle text-center bg-white">
+        <thead class="table-light">
+          <tr>
+            <th>전략명</th>
+            <th>실행 건수</th>
+            <th>승률</th>
+            <th>수익률</th>
+            <th>AI 분석 결과</th>
+            <th>AI 승률</th>
+            <th>AI 수익률</th>
+            <th>지표 상세</th>
+            <th>지표 적용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 9개 전략 전부 생략 없이! -->
+          <tr>
+            <td>M-BREAK</td><td>84</td><td>55%</td><td>1.2%</td>
+            <td>RSI&lt;26, TP=1.8%, SL=1.0%</td><td>61%</td><td>1.6%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-MBREAK">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>P-PULL</td><td>120</td><td>63%</td><td>1.4%</td>
+            <td>RSI&lt;24, TP=2.2%, SL=1.1%</td><td>68%</td><td>1.8%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-PPULL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>T-FLOW</td><td>97</td><td>51%</td><td>1.0%</td>
+            <td>RSI 48~60, OBV 3봉↑, TP=3.0%</td><td>54%</td><td>1.3%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-TFLOW">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>B-LOW</td><td>67</td><td>45%</td><td>0.9%</td>
+            <td>TP=2.5%, SL=1.3%, RSI&lt;22</td><td>52%</td><td>1.3%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-BLOW">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>V-REV</td><td>44</td><td>50%</td><td>1.2%</td>
+            <td>전봉-4% 급락, RSI 18→상승</td><td>53%</td><td>1.7%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VREV">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>G-REV</td><td>52</td><td>57%</td><td>1.3%</td>
+            <td>EMA50&gt;200 골든, RSI≥48</td><td>60%</td><td>1.5%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-GREV">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>VOL-BRK</td><td>42</td><td>60%</td><td>1.5%</td>
+            <td>ATR폭발, 거래량 2x, RSI≥60</td><td>65%</td><td>1.9%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VOLBRK">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>EMA-STACK</td><td>39</td><td>58%</td><td>1.1%</td>
+            <td>EMA25&gt;100&gt;200, ADX&gt;30</td><td>62%</td><td>1.5%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-EMASTACK">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>VWAP-BNC</td><td>61</td><td>56%</td><td>1.4%</td>
+            <td>VWAP근접, RSI 45~60</td><td>60%</td><td>1.7%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VWAPBNC">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 전략별 자동 매도 파라미터 최적화 분석 (9전략 전부) -->
+  <div class="card mb-5">
+    <div class="card-head">
+      <i class="bi bi-arrow-down-circle"></i> <b>전략별 자동 매도 파라미터 최적화 분석</b>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover align-middle text-center bg-white">
+        <thead class="table-light">
+          <tr>
+            <th>전략명</th>
+            <th>실행 건수</th>
+            <th>승률</th>
+            <th>수익률</th>
+            <th>AI 분석 결과</th>
+            <th>AI 승률</th>
+            <th>AI 수익률</th>
+            <th>지표 상세</th>
+            <th>지표 적용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>M-BREAK</td><td>84</td><td>55%</td><td>1.2%</td>
+            <td>SL=1.1%, 트레일링=1.4%</td><td>63%</td><td>1.7%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-MBREAK-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>P-PULL</td><td>120</td><td>63%</td><td>1.4%</td>
+            <td>SL=1.2%, 트레일링=1.5%</td><td>67%</td><td>1.8%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-PPULL-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>T-FLOW</td><td>97</td><td>51%</td><td>1.0%</td>
+            <td>SL=1.3%, 트레일링=1.7%</td><td>58%</td><td>1.3%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-TFLOW-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>B-LOW</td><td>67</td><td>45%</td><td>0.9%</td>
+            <td>SL=1.3%, 트레일링=1.1%</td><td>54%</td><td>1.0%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-BLOW-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>V-REV</td><td>44</td><td>50%</td><td>1.2%</td>
+            <td>SL=1.2%, 트레일링=1.5%</td><td>56%</td><td>1.5%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VREV-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>G-REV</td><td>52</td><td>57%</td><td>1.3%</td>
+            <td>SL=1.2%, 트레일링=1.4%</td><td>62%</td><td>1.4%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-GREV-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>VOL-BRK</td><td>42</td><td>60%</td><td>1.5%</td>
+            <td>SL=1.1%, 트레일링=1.5%</td><td>67%</td><td>1.9%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VOLBRK-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>EMA-STACK</td><td>39</td><td>58%</td><td>1.1%</td>
+            <td>SL=1.3%, 트레일링=1.2%</td><td>63%</td><td>1.5%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-EMASTACK-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+          <tr>
+            <td>VWAP-BNC</td><td>61</td><td>56%</td><td>1.4%</td>
+            <td>SL=1.1%, 트레일링=1.3%</td><td>61%</td><td>1.6%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VWAPBNC-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 모든 전략의 매수/매도 상세 모달 (9*2=18개) 생략 없이! -->
+{% set strategies = [
+  {"key": "MBREAK", "name": "M-BREAK", "buy": {"cond": [
+    "5EMA > 20EMA > 60EMA",
+    "ATR ≥ 0.035",
+    "20봉 평균 거래량의 1.8배 이상",
+    "전고점 0.15% 돌파 시 진입"
+  ], "ai": [
+    "RSI < 26",
+    "TP(익절) 1.8%",
+    "SL(손절) 1.0%",
+    "분할 진입: 단일"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.1%",
+      "트레일링 익절: 1.4%"
+    ],
+    "ai": [
+      "SL(손절) 1.1%",
+      "트레일링 1.4%"
+    ]
+  }},
+  {"key": "PPULL", "name": "P-PULL", "buy": {"cond": [
+    "5EMA > 20EMA > 60EMA",
+    "RSI ≤ 24",
+    "50EMA 근접",
+    "직전 봉 대비 거래량 1.2배↑"
+  ], "ai": [
+    "TP(익절) 2.2%",
+    "SL(손절) 1.1%",
+    "분할 매수: 3회"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.2%",
+      "트레일링 익절: 1.5%"
+    ],
+    "ai": [
+      "SL(손절) 1.2%",
+      "트레일링 1.5%"
+    ]
+  }},
+  {"key": "TFLOW", "name": "T-FLOW", "buy": {"cond": [
+    "EMA20 5봉 기울기 > 0.15%",
+    "OBV 3봉 연속 상승",
+    "RSI 48~60"
+  ], "ai": [
+    "TP(익절) 3.0%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.3%",
+      "트레일링 익절: 1.7%"
+    ],
+    "ai": [
+      "SL(손절) 1.3%",
+      "트레일링 1.7%"
+    ]
+  }},
+  {"key": "BLOW", "name": "B-LOW", "buy": {"cond": [
+    "박스권 하단, 박스폭 6% 이내",
+    "저점 터치, RSI 25 미만 반등"
+  ], "ai": [
+    "TP(익절) 2.5%",
+    "SL(손절) 1.3%",
+    "RSI < 22"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.3%",
+      "트레일링 익절: 1.1%"
+    ],
+    "ai": [
+      "SL(손절) 1.3%",
+      "트레일링 1.1%"
+    ]
+  }},
+  {"key": "VREV", "name": "V-REV", "buy": {"cond": [
+    "전봉 종가 -4%↓",
+    "거래량 2.5배↑",
+    "RSI 18→상승"
+  ], "ai": [
+    "TP(익절) 1.7%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.2%",
+      "트레일링 익절: 1.5%"
+    ],
+    "ai": [
+      "SL(손절) 1.2%",
+      "트레일링 1.5%"
+    ]
+  }},
+  {"key": "GREV", "name": "G-REV", "buy": {"cond": [
+    "EMA50 > 200 골든크로스",
+    "단기 눌림, RSI 48 이상"
+  ], "ai": [
+    "TP(익절) 1.5%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.2%",
+      "트레일링 익절: 1.4%"
+    ],
+    "ai": [
+      "SL(손절) 1.2%",
+      "트레일링 1.4%"
+    ]
+  }},
+  {"key": "VOLBRK", "name": "VOL-BRK", "buy": {"cond": [
+    "ATR폭발(10봉대비 1.5배↑)",
+    "20봉 거래량 2배↑",
+    "RSI≥60"
+  ], "ai": [
+    "TP(익절) 1.9%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.1%",
+      "트레일링 익절: 1.5%"
+    ],
+    "ai": [
+      "SL(손절) 1.1%",
+      "트레일링 1.5%"
+    ]
+  }},
+  {"key": "EMASTACK", "name": "EMA-STACK", "buy": {"cond": [
+    "EMA25>100>200",
+    "ADX > 30"
+  ], "ai": [
+    "TP(익절) 1.5%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.3%",
+      "트레일링 익절: 1.2%"
+    ],
+    "ai": [
+      "SL(손절) 1.3%",
+      "트레일링 1.2%"
+    ]
+  }},
+  {"key": "VWAPBNC", "name": "VWAP-BNC", "buy": {"cond": [
+    "EMA5>20>60, 종가 VWAP 근접",
+    "RSI 45~60",
+    "거래량 증가"
+  ], "ai": [
+    "TP(익절) 1.7%"
+  ]}, "sell": {
+    "cond": [
+      "손절: -1.1%",
+      "트레일링 익절: 1.3%"
+    ],
+    "ai": [
+      "SL(손절) 1.1%",
+      "트레일링 1.3%"
+    ]
+  }},
+] %}
+<!-- Jinja2 반복문으로 모든 모달 자동 출력 -->
+{% for s in strategies %}
+<div class="modal fade" id="modal-{{s.key}}" tabindex="-1" aria-labelledby="modalLabel-{{s.key}}" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+      <h5 class="modal-title" id="modalLabel-{{s.key}}">{{s.name}} 매수 지표 상세</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body" style="font-size:1.13rem;line-height:2;">
+      <b>진입조건:</b>
+      <ul>
+        {% for c in s.buy.cond %}<li>{{c}}</li>{% endfor %}
+      </ul>
+      <b>AI 추천 파라미터:</b>
+      <ul>
+        {% for c in s.buy.ai %}<li>{{c}}</li>{% endfor %}
+      </ul>
+    </div>
+  </div></div>
+</div>
+<div class="modal fade" id="modal-{{s.key}}-SELL" tabindex="-1" aria-labelledby="modalLabel-{{s.key}}-SELL" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header bg-danger text-white">
+      <h5 class="modal-title" id="modalLabel-{{s.key}}-SELL">{{s.name}} 매도 지표 상세</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body" style="font-size:1.13rem;line-height:2;">
+      <b>청산조건:</b>
+      <ul>
+        {% for c in s.sell.cond %}<li>{{c}}</li>{% endfor %}
+      </ul>
+      <b>AI 추천 파라미터:</b>
+      <ul>
+        {% for c in s.sell.ai %}<li>{{c}}</li>{% endfor %}
+      </ul>
+    </div>
+  </div></div>
+</div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
