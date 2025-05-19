@@ -234,9 +234,10 @@ async function reloadBalance(){
 function updateBalanceTable(list){
   const body = document.getElementById('positionBody');
   if(!body) return;
-  body.innerHTML = list.map((p, i) => `
+  body.innerHTML = list.map(p => `
     <tr>
-      <td>${i+1}</td><td>${p.coin}</td>
+      <td>${p.coin}</td>
+      <td>${p.pnl} %</td>
       <td>
         <div class="bar-graph">
           <span class="dot stop"></span>
@@ -338,5 +339,7 @@ async function reloadAccount(){
 
 document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(reloadAccount, 10000);
+  setInterval(reloadBalance, 5000);
   reloadAccount();
+  reloadBalance();
 });

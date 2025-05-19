@@ -89,3 +89,12 @@ input[type="password"] { letter-spacing:0.2em; }
 /* Reload icon */
 .reload-btn { cursor:pointer; color:#fff; transition:transform .2s; }
 .reload-btn:hover { color:#0d6efd; transform:rotate(90deg); }
+
+/* Coin filter form inline layout */
+#coinFilterForm .form-group .form-label {
+  width: 120px;
+}
+#coinFilterForm .form-group .form-control {
+  flex: 1;
+  max-width: 160px;
+}

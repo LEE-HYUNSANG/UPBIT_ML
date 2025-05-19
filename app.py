@@ -670,8 +670,15 @@ def manual_buy():
             raise ValueError("Invalid coin")
         socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
         global positions, alerts
-        positions.append({"coin": coin, "entry": 50, "trend": 50, "trend_color": "green",
-                          "signal": "sell-wait", "signal_label": "관망"})
+        positions.append({
+            "coin": coin,
+            "pnl": 0,
+            "entry": 50,
+            "trend": 50,
+            "trend_color": "green",
+            "signal": "sell-wait",
+            "signal_label": "관망",
+        })
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매수"})
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
