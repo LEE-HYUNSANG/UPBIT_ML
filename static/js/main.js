@@ -2,11 +2,14 @@
 // 전체 페이지에서 공통으로 쓰는 JS (알림, 모달, API 연동, SocketIO 등)
 
 // 1. Bootstrap 알림 모달 표시 함수
-function showAlert(message, title="알림") {
-  const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+// 모달 인스턴스를 한 번만 생성해 중복 백드롭이 생기지 않도록 한다.
+const alertModalEl = document.getElementById('alertModal');
+const alertModal = new bootstrap.Modal(alertModalEl);
+
+function showAlert(message, title = "알림") {
   document.querySelector('#alertModal .modal-title').innerText = title;
   document.querySelector('#alertModal .modal-body').innerText = message;
-  modal.show();
+  alertModal.show();
 }
 
 // 2. 모든 버튼에 AJAX로 진행 시 로딩 커서 표시
