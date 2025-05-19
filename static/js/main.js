@@ -89,7 +89,7 @@ document.addEventListener('click', async e => {
   // merge dataset values except 'api'
   Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
   const result = await callApi(btn.dataset.api, data);
-  if(btn.dataset.api === '/save' && result && result.result === 'success'){
+  if(['/save','/api/save-settings'].includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
   }
 });
@@ -163,7 +163,11 @@ function updateAlerts(list){
   const box = document.getElementById('liveAlerts');
   const listBox = document.getElementById('alertList');
   if(box){
-    box.innerHTML = list.map(a => `<div>[${a.time}] ${a.message}</div>`).join('');
+    if(list.length){
+      box.innerHTML = list.map(a => `<div>[${a.time}] ${a.message}</div>`).join('');
+    } else {
+      box.innerHTML = '<div class="text-muted">실시간 알림 대기중......</div>';
+    }
   }
   if(listBox){
     listBox.innerHTML = box.innerHTML;
@@ -268,8 +272,12 @@ async function loadStatus(){
     const data = await resp.json();
     if(data.result === 'success' && data.status){
       const el = document.getElementById('bot-status');
+      const timeEl = document.getElementById('updateTime');
       if(el){
         el.textContent = data.status.running ? '실행중' : '정지';
+      }
+      if(timeEl){
+        timeEl.textContent = '업데이트: ' + data.status.updated;
       }
     } else if(data.message){
       showAlert(data.message, '에러');

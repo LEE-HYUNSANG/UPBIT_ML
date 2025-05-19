@@ -104,16 +104,18 @@ def get_status() -> dict:
     logger.debug("Fetching status")
     return {"running": settings["running"], "updated": settings["updated"]}
 
+
+def get_account_summary():
+    logger.debug("Fetching account summary")
+    return {"cash": 1000000, "total": 1500000, "pnl": 5.2}
+
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
 ]
 signals = [
     {"coin": "BTC", "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
 ]
-alerts = [
-    {"time": "14:20", "message": "BTC 매수 체결 (+2.1%)"},
-    {"time": "14:05", "message": "ETH 손절 (-2.9%)"},
-]
+alerts = []
 history = [
     {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
     {"time": "2025-05-17 10:13", "label": "분석", "cls": "primary"},
@@ -354,7 +356,7 @@ analysis_strategies = [
 @app.route("/")
 def dashboard():
     logger.debug("Render dashboard")
-    return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"])
+    return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"], account=get_account_summary())
 
 @app.route("/strategy")
 def strategy_page():
@@ -412,8 +414,9 @@ def start_bot():
         chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
         if config_data.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 시작되었습니다.")
+        update_timestamp()
         logger.info("Bot started")
-        return jsonify(result="success", message="봇이 시작되었습니다.")
+        return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
     except Exception as e:
         notify_error(f"봇 시작 실패: {e}")
         return jsonify(result="error", message="봇 시작 실패"), 500
@@ -430,8 +433,8 @@ def stop_bot():
         chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
         if config_data.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 정지되었습니다.")
-        logger.info("Bot stopped")
-        return jsonify(result="success", message="봇이 정지되었습니다.")
+        update_timestamp()
+        return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
     except Exception as e:
         notify_error(f"봇 중지 실패: {e}")
         return jsonify(result="error", message="봇 중지 실패"), 500
@@ -458,9 +461,10 @@ def save_settings():
         if not isinstance(data, dict):
             raise ValueError("Invalid JSON")
         settings.update(data)
+        update_timestamp()
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
-        return jsonify(result="success", message="저장 완료")
+        return jsonify(result="success", message="저장 완료", status=get_status())
     except Exception as e:
         notify_error(f"설정 저장 실패: {e}")
         return jsonify(result="error", message="설정 저장 실패"), 500
@@ -615,6 +619,7 @@ def save():
             json.dump(data, f, ensure_ascii=False, indent=2)
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
         logger.info("User data saved: %s", json.dumps(data, ensure_ascii=False))
+        update_timestamp()
         status = get_status()
         return jsonify(result="success", status=status)
     except Exception as e:
