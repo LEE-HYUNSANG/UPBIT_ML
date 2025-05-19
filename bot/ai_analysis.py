@@ -1,16 +1,22 @@
 """
-AI 전략 분석/추천 함수 (예시)
-실제 AI 최적화/머신러닝 로직이 들어갈 수 있습니다.
-초보자 설명: 아래 코드는 임시로 랜덤/샘플 값만 반환합니다.
+AI 전략 파라미터 최적화/추천 모듈
+실제 AI 분석(백테스트, 최적화 등) 연동 가능. 
+여기서는 샘플 로직으로, 실전에서는 과거 데이터, 성능 테스트, ML 알고리즘 추가 가능.
 """
+import random
 
-def run_ai_analysis(data, params):
+def run_ai_analysis(df, params):
     """
-    data: 과거 거래 데이터(예: pandas DataFrame)
-    params: 기존 전략 파라미터(딕셔너리)
-    반환: 최적 TP/SL 등 파라미터 추천
+    df: 과거 OHLCV+지표 데이터 (pandas DataFrame)
+    params: 기존 전략별 파라미터(dict)
+    반환: 추천 파라미터 dict 예시
     """
-    # 실제 AI 분석이 들어갈 수 있음. 여기선 예시 값만 반환
-    # 예: 백테스트를 돌려 가장 높은 수익률의 파라미터 찾기
-    best_params = {"TP": 0.018, "SL": 0.01}
-    return best_params
+    # 실제 분석/최적화 코드를 여기에 구현
+    # 예시: TP/SL 랜덤 추천(실전은 백테스트 후 수익률 최대값 사용)
+    best = {
+        "TP": round(random.uniform(0.014, 0.025), 4),
+        "SL": round(random.uniform(0.009, 0.015), 4),
+        "trail": round(random.uniform(0.01, 0.018), 4),
+        "rsi": random.randint(20, 32)
+    }
+    return best
