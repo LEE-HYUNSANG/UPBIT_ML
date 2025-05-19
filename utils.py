@@ -90,3 +90,23 @@ def load_secrets(
 
     logging.info("Secrets loaded from %s", path)
     return secrets
+
+
+def load_market_signals(path: str = "config/market.json") -> list[dict]:
+    """Load market signal data from ``path``.
+
+    The file should contain a list of objects with at least ``coin``,
+    ``price`` and ``rank`` keys. If the file is missing or invalid an empty
+    list is returned so the caller can fall back to defaults.
+    """
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, list):
+            raise ValueError("market data must be a list")
+        return data
+    except FileNotFoundError:
+        logging.warning("Market file not found: %s", path)
+    except Exception as e:  # json error or validation error
+        logging.error("Failed to load market file %s: %s", path, e)
+    return []

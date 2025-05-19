@@ -9,7 +9,12 @@ import logging
 import json  # 기본 모듈들
 from datetime import datetime
 
-from utils import load_secrets, send_telegram, setup_logging
+from utils import (
+    load_secrets,
+    send_telegram,
+    setup_logging,
+    load_market_signals,
+)
 from bot.trader import UpbitTrader
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
@@ -189,6 +194,9 @@ def load_market_signals() -> list[dict]:
         logger.error("[MONITOR] Failed to load market file: %s", e)
         return []
 
+# Load market signals from file if available
+market_signals = load_market_signals() or sample_signals
+
 def get_filtered_signals():
     """Return market signals filtered by price range and volume rank."""
     logger.info("[MONITOR] 매수 모니터링 요청")
@@ -198,7 +206,7 @@ def get_filtered_signals():
     rank = int(filter_config.get("rank", 0) or 0)
     signals = load_market_signals()
     result = []
-    for s in signals:
+    for s in market_signals:
         logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s.get("price", 0) < min_p:
             continue
@@ -224,10 +232,9 @@ def get_filtered_tickers() -> list[str]:
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
     result = []
-    signals = load_market_signals()
     for t in tickers:
         coin = t.split("-")[-1]
-        sig = next((s for s in signals if s.get("coin") == coin), None)
+        sig = next((s for s in market_signals if s.get("coin") == coin), None)
         if sig:
             price = sig.get("price", 0)
             r = sig.get("rank", 0)
@@ -246,8 +253,8 @@ history = [
     {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
     {"time": "2025-05-17 10:13", "label": "분석", "cls": "primary"},
 ]
-buy_results = load_market_signals()
-sell_results = load_market_signals()
+buy_results = market_signals
+sell_results = market_signals
 
 # 기본 전략 정보 (9전략 모두 표시)
 strategies = [

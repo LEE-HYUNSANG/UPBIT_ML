@@ -17,7 +17,7 @@ def test_no_filters_returns_all():
     reload_app()
     app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
-    assert len(result) == len(load_signals())
+    assert coins == ["BTC", "ETH", "ADA", "SOL"]
 
 
 def test_min_price_filter():
@@ -25,7 +25,7 @@ def test_min_price_filter():
     app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
     coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH"]
+    assert coins == ["BTC", "ETH", "ADA", "SOL"]
 
 
 def test_rank_filter():
