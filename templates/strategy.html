@@ -1,8 +1,48 @@
 {% extends 'base.html' %}
-{% block title %}Strategy 설정{% endblock %}
+{% block title %}전략 설정{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Strategy 설정</h2>
-  <div class="alert alert-secondary">strategy 페이지 예시입니다.</div>
+  <h2 class="mb-4">매매 전략 설정</h2>
+  <div class="card shadow-sm mb-4">
+    <div class="card-head">전략별 파라미터</div>
+    <div class="card-body">
+      <form id="form-strategy">
+        <div class="row g-2 mb-3">
+          <div class="col-md-3">
+            <label class="form-label">전략명</label>
+            <select class="form-select" id="strategy">
+              <option>M-BREAK</option><option>P-PULL</option>
+              <option>T-FLOW</option><option>B-LOW</option>
+              <option>V-REV</option><option>G-REV</option>
+              <option>VOL-BRK</option><option>EMA-STACK</option>
+              <option>VWAP-BNC</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="form-label">ATR</label>
+            <input type="number" step="0.001" class="form-control" id="atr" value="0.035">
+          </div>
+          <div class="col">
+            <label class="form-label">RSI</label>
+            <input type="number" class="form-control" id="rsi" value="28">
+          </div>
+          <div class="col">
+            <label class="form-label">TP(익절)</label>
+            <input type="number" step="0.001" class="form-control" id="tp" value="0.02">
+          </div>
+          <div class="col">
+            <label class="form-label">SL(손절)</label>
+            <input type="number" step="0.001" class="form-control" id="sl" value="0.01">
+          </div>
+          <div class="col">
+            <label class="form-label">트레일</label>
+            <input type="number" step="0.001" class="form-control" id="trail" value="0.012">
+          </div>
+        </div>
+        <button type="button" id="btn-apply-strategy" class="btn btn-primary w-100">적용/저장</button>
+      </form>
+    </div>
+  </div>
 </div>
+<script src="/static/js/pages/strategy.js"></script>
 {% endblock %}
