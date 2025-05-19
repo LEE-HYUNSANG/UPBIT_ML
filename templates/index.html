@@ -44,14 +44,16 @@
            title="대시보드에 표시할 코인을 가격·시총 기준으로 필터링합니다."></i>
       </div>
       <div class="card-body">
-        <label class="form-label">최소 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" name="min_price" value="{{ config.get('min_price', 0) }}">
-        <label class="form-label">최대 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" name="max_price" value="{{ config.get('max_price', 0) }}">
-        <label class="form-label">시가총액 순위</label>
-        <input type="number" class="form-control form-control-sm mb-3" name="rank" value="{{ config.get('rank', 0) }}">
-        <button class="btn btn-primary btn-sm w-100 mb-2" data-api="/api/save-settings">저장</button>
-        <button class="btn btn-secondary btn-sm w-100" data-api="/save">파일 저장</button>
+        <form id="coinFilterForm">
+          <label class="form-label">최소 가격(원)</label>
+          <input type="number" class="form-control form-control-sm mb-2" name="min_price" value="{{ config.get('min_price', 0) }}">
+          <label class="form-label">최대 가격(원)</label>
+          <input type="number" class="form-control form-control-sm mb-2" name="max_price" value="{{ config.get('max_price', 0) }}">
+          <label class="form-label">시가총액 순위</label>
+          <input type="number" class="form-control form-control-sm mb-3" name="rank" value="{{ config.get('rank', 0) }}">
+          <button type="button" class="btn btn-primary btn-sm w-100 mb-2" data-api="/api/save-settings">저장</button>
+          <button type="button" class="btn btn-secondary btn-sm w-100" data-api="/save">파일 저장</button>
+        </form>
       </div>
     </div>
     <div class="card shadow-sm">
