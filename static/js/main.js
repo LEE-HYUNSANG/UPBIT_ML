@@ -345,8 +345,10 @@ async function reloadAccount(){
 document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(reloadAccount, 10000);
   setInterval(reloadBalance, 5000);
+  setInterval(reloadBuyMonitor, 5000);
   reloadAccount();
   reloadBalance();
+  reloadBuyMonitor();
   const btn = document.getElementById('btnExcludedList');
   if(btn){
     btn.addEventListener('click', async ()=>{
