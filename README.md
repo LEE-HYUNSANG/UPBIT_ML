@@ -51,15 +51,11 @@ pip install wheel
 pip install -r requirements.txt
 ```
 
-`talib-binary` 패키지를 포함하고 있어 일반적으로 빌드 오류 없이 설치됩니다.
-만약 설치 도중 `numpy` 혹은 `talib` 관련 컴파일 오류가 발생한다면
-Visual Studio C++ 빌드 툴이 제대로 설치됐는지 확인하고 다음 명령으로
-설치 도구를 최신화합니다.
-
-```cmd
-python -m pip install --upgrade setuptools wheel
-pip install --no-binary :all: ta-lib
-```
+`requirements.txt` 는 Windows 환경에서는 `TA-Lib`(미리 컴파일된 whl), 그
+외 환경에서는 `talib-binary` 가 자동 선택되도록 환경 마커를 사용합니다.
+따라서 별도 빌드 과정 없이 설치가 완료됩니다. 만약 TA-Lib 설치가 실패
+한다면 [공식 배포 페이지](https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib)
+에서 파이썬 버전에 맞는 whl 파일을 받아 직접 설치할 수 있습니다.
 
 서버는 아래와 같이 실행합니다.
 
