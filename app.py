@@ -546,6 +546,17 @@ def api_balances():
         notify_error(f"잔고 조회 실패: {e}")
         return jsonify(result="error", message="잔고 조회 실패"), 500
 
+@app.route("/api/signals", methods=["GET"])
+def api_signals():
+    """Return current buy signals for the dashboard."""
+    logger.debug("api_signals called")
+    try:
+        logger.info("Signal check success")
+        return jsonify(result="success", signals=signals)
+    except Exception as e:
+        notify_error(f"시그널 조회 실패: {e}")
+        return jsonify(result="error", message="시그널 조회 실패"), 500
+
 @socketio.on('refresh')
 def handle_refresh(data):
     logger.debug("handle_refresh called")
