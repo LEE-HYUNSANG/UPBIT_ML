@@ -173,3 +173,45 @@ document.addEventListener('click', e => {
   const type = btn.dataset.refresh;
   socket.emit('refresh', {type});
 });
+
+// 잔고 테이블 실시간 갱신
+async function reloadBalance(){
+  try {
+    const resp = await fetch('/api/balances');
+    const data = await resp.json();
+    if(data.result === 'success' && data.balances){
+      updateBalanceTable(data.balances);
+    } else if(data.message){
+      showAlert(data.message, '에러');
+    }
+  } catch(err){
+    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+  }
+}
+
+function updateBalanceTable(list){
+  const body = document.getElementById('positionBody');
+  if(!body) return;
+  body.innerHTML = list.map((p, i) => `
+    <tr>
+      <td>${i+1}</td><td>${p.coin}</td>
+      <td>
+        <div class="bar-graph">
+          <span class="dot stop"></span>
+          <span class="dot entry" data-pos="${p.entry}"></span>
+          <span class="dot take"></span>
+        </div>
+      </td>
+      <td>
+        <div class="trend-bar">
+          <span class="tick tick1"></span>
+          <span class="tick tick2"></span>
+          <span class="dot trend ${p.trend_color}" data-pos="${p.trend}"></span>
+        </div>
+      </td>
+      <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
+      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="${p.coin}">수동 매도</button></td>
+    </tr>
+  `).join('');
+  initDotPositions();
+}
