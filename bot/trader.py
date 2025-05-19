@@ -48,17 +48,40 @@ class UpbitTrader:
             try:
                 if self.logger:
                     self.logger.debug("run_loop iteration")
-                tickers = self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])  # 매매 대상 코인
-                strat_name = self.config.get("strategy", "M-BREAK")       # 사용할 전략
-                params = self.config.get("params", {})                     # 전략별 파라미터
+                tickers = self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])
+                strat_name = self.config.get("strategy", "M-BREAK")
+                params = self.config.get("params", {})
+                if self.logger:
+                    self.logger.debug(
+                        "Tickers=%s strategy=%s params=%s",
+                        tickers,
+                        strat_name,
+                        params,
+                    )
                 for ticker in tickers:
                     df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
                     if df is None or len(df) < 60:
+                        if self.logger:
+                            self.logger.debug("Insufficient data for %s", ticker)
                         continue
+                    if self.logger:
+                        self.logger.debug(
+                            "Fetched OHLCV for %s close=%s", ticker, df['close'].iloc[-1]
+                        )
                     df = calc_indicators(df)
+                    if self.logger:
+                        last = df.iloc[-1].to_dict()
+                        self.logger.debug("Indicators %s", last)
                     # 실시간 체결강도, 예시용 (0~200)
                     tis = 120  # 예시 체결강도 (0~200)
                     ok, strat_params = select_strategy(strat_name, df, tis, params)
+                    if self.logger:
+                        self.logger.debug(
+                            "Strategy %s result=%s params=%s",
+                            strat_name,
+                            ok,
+                            strat_params,
+                        )
                     if ok:
                         # 실제 매수/매도 로직 (실매수시 주의)
                         last_price = df['close'].iloc[-1]  # 현재가
@@ -75,16 +98,18 @@ class UpbitTrader:
                 time.sleep(300)  # 5분 대기 후 다음 루프
             except Exception as e:
                 if self.logger:
-                    self.logger.error(f"[TRADER ERROR] {e}")  # 예외 로깅
+                    self.logger.exception("[TRADER ERROR] %s", e)
                 time.sleep(10)  # 잠시 대기 후 재시도
 
     def get_balances(self):
         """Return raw balances from Upbit API."""
         try:
+            if self.logger:
+                self.logger.debug("Fetching balances from Upbit")
             return self.upbit.get_balances()
         except Exception as e:
             if self.logger:
-                self.logger.error(f"Failed to get balances: {e}")
+                self.logger.exception("Failed to get balances: %s", e)
             return None
 
     def account_summary(self):
@@ -108,15 +133,25 @@ class UpbitTrader:
                             self.logger.warning("Price lookup failed for %s", b['currency'])
                         price = 0
                     total += bal * price
+                if self.logger:
+                    self.logger.debug(
+                        "Balance %s=%.6f price=%s",
+                        b.get("currency"),
+                        bal,
+                        locals().get("price", "N/A"),
+                    )
             pnl = ((total - cash) / cash * 100) if cash else 0.0
-            return {
+            summary = {
                 "cash": int(cash),
                 "total": int(total),
                 "pnl": round(pnl, 2),
             }
+            if self.logger:
+                self.logger.debug("Account summary %s", summary)
+            return summary
         except Exception as e:
             if self.logger:
-                self.logger.error(f"Failed to calculate summary: {e}")
+                self.logger.exception("Failed to calculate summary: %s", e)
             return None
 
     def build_positions(self, balances):
@@ -135,4 +170,6 @@ class UpbitTrader:
                 "signal": "sell-wait",
                 "signal_label": "관망",
             })
+            if self.logger:
+                self.logger.debug("Position added %s %.6f", currency, bal)
         return positions
