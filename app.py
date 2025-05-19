@@ -89,6 +89,12 @@ def get_balances():
     logger.debug("Fetching balances")
     return positions
 
+
+def get_status() -> dict:
+    """Return current running status and last update time."""
+    logger.debug("Fetching status")
+    return {"running": settings["running"], "updated": settings["updated"]}
+
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
 ]
@@ -556,6 +562,36 @@ def api_signals():
     except Exception as e:
         notify_error(f"시그널 조회 실패: {e}")
         return jsonify(result="error", message="시그널 조회 실패"), 500
+
+
+@app.route("/api/status", methods=["GET"])
+def api_status():
+    """Return bot running status and last update."""
+    logger.debug("api_status called")
+    try:
+        return jsonify(result="success", status=get_status())
+    except Exception as e:
+        notify_error(f"상태 조회 실패: {e}")
+        return jsonify(result="error", message="상태 조회 실패"), 500
+
+
+@app.route("/save", methods=["POST"])
+def save():
+    """Save posted JSON data to file."""
+    data = request.get_json(silent=True)
+    logger.debug("save called with %s", data)
+    if data is None:
+        return jsonify(result="error", message="Invalid JSON"), 400
+    try:
+        os.makedirs("config", exist_ok=True)
+        with open("config/user_data.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        status = get_status()
+        return jsonify(result="success", status=status)
+    except Exception as e:
+        notify_error(f"저장 실패: {e}")
+        return jsonify(result="error", message="저장 실패"), 500
 
 @socketio.on('refresh')
 def handle_refresh(data):

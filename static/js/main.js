@@ -85,7 +85,10 @@ document.addEventListener('click', async e => {
   }
   // merge dataset values except 'api'
   Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
-  await callApi(btn.dataset.api, data);
+  const result = await callApi(btn.dataset.api, data);
+  if(btn.dataset.api === '/save' && result && result.result === 'success'){
+    await loadStatus();
+  }
 });
 
 // 8. data-alert 속성 클릭 시 알림 표시
@@ -253,4 +256,22 @@ function updateSignalTable(list){
       <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="${s.coin}">수동 매수</button></td>
     </tr>
   `).join('');
+}
+
+// 서버 상태 조회 후 화면 갱신
+async function loadStatus(){
+  try {
+    const resp = await fetch('/api/status');
+    const data = await resp.json();
+    if(data.result === 'success' && data.status){
+      const el = document.getElementById('bot-status');
+      if(el){
+        el.textContent = data.status.running ? '실행중' : '정지';
+      }
+    } else if(data.message){
+      showAlert(data.message, '에러');
+    }
+  } catch(err){
+    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+  }
 }
