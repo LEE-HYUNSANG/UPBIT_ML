@@ -20,27 +20,34 @@ class UpbitTrader:
         if self.logger:
             self.logger.debug("Trader initialized with config %s", config)
 
-    def start(self):
+    def start(self) -> bool:
         """자동매매 시작 (스레드)"""
         if self.thread and self.thread.is_alive():
             if self.logger:
                 self.logger.warning("Trader already running")
-            return
+            return False
         self.running = True  # 루프 실행 플래그 활성화
         self.thread = threading.Thread(target=self.run_loop, daemon=True)
         self.thread.start()  # 별도 스레드에서 run_loop 실행
         if self.logger:
             self.logger.debug("Trader start called")
             self.logger.info("[TRADER] 자동매매 봇 시작됨")
+        return True
 
-    def stop(self):
+    def stop(self) -> bool:
         """자동매매 종료"""
+        if not self.thread or not self.thread.is_alive():
+            if self.logger:
+                self.logger.warning("Trader not running")
+            self.running = False
+            return False
         self.running = False  # 루프 종료 플래그
         if self.thread:
             self.thread.join(timeout=1)  # 스레드 종료 대기
         if self.logger:
             self.logger.debug("Trader stop called")
             self.logger.info("[TRADER] 자동매매 봇 중지됨")
+        return True
 
     def run_loop(self):
         """메인 5분봉 매매 루프"""
