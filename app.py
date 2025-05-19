@@ -408,6 +408,10 @@ def start_bot():
         settings["running"] = True
         trader.start()
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
+        token = secrets_data.get("TELEGRAM_TOKEN")
+        chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
+        if config_data.get("alerts", {}).get("telegram") and token and chat_id:
+            send_telegram(token, chat_id, "봇이 시작되었습니다.")
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.")
     except Exception as e:
@@ -422,6 +426,10 @@ def stop_bot():
         settings["running"] = False
         trader.stop()
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
+        token = secrets_data.get("TELEGRAM_TOKEN")
+        chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
+        if config_data.get("alerts", {}).get("telegram") and token and chat_id:
+            send_telegram(token, chat_id, "봇이 정지되었습니다.")
         logger.info("Bot stopped")
         return jsonify(result="success", message="봇이 정지되었습니다.")
     except Exception as e:
