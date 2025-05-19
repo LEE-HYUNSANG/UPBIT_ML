@@ -114,6 +114,40 @@ if os.path.exists(EXCLUDE_FILE):
     except Exception:
         excluded_coins = []
 
+# 실시간 시장 데이터 캐시 및 동기화 락
+market_cache: list[dict] = []
+market_lock = threading.Lock()
+
+def refresh_market_data() -> None:
+    """Fetch full market data from Upbit and update ``market_cache``."""
+    global market_cache
+    try:
+        tickers = pyupbit.get_tickers(fiat="KRW")
+        info = pyupbit.get_market_ticker(tickers) if tickers else []
+    except Exception as e:
+        logger.exception("Market data fetch failed: %s", e)
+        return
+    data = []
+    for i in info:
+        market = i.get("market")
+        if not market:
+            continue
+        coin = market.split("-")[-1]
+        price = i.get("trade_price", 0)
+        volume = i.get("acc_trade_price_24h", 0)
+        data.append({"coin": coin, "price": price, "volume": volume})
+    data.sort(key=lambda x: x["volume"], reverse=True)
+    for idx, d in enumerate(data, start=1):
+        d["rank"] = idx
+    with market_lock:
+        market_cache = data
+    logger.info("[MONITOR] Market data refreshed: %d coins", len(data))
+
+def market_data_loop() -> None:
+    while True:
+        refresh_market_data()
+        time.sleep(60)
+
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
 
@@ -124,6 +158,7 @@ trader = UpbitTrader(
     config,
     logger=logger,
 )
+threading.Thread(target=market_data_loop, daemon=True).start()
 
 def notify_error(message: str) -> None:
     """Log, socket emit and send Telegram alert for an error."""
@@ -177,49 +212,9 @@ def save_excluded():
         json.dump(excluded_coins, f, ensure_ascii=False, indent=2)
 
 positions = []
-# 실시간 시장 데이터 캐시
-market_data = []
-_market_lock = threading.Lock()
-_last_market_update = 0.0
-
-
-def refresh_market_data():
-    """Fetch latest ticker price and volume data from Upbit."""
-    global market_data, _last_market_update
-    with _market_lock:
-        now = time.time()
-        if now - _last_market_update < 60 and market_data:
-            return
-        try:
-            tickers = pyupbit.get_tickers(fiat="KRW")
-            info = pyupbit.get_ticker(tickers) if tickers else []
-            data = []
-            for item in info:
-                market = item.get("market", "")
-                if not market.startswith("KRW-"):
-                    continue
-                coin = market.split("-")[1]
-                price = item.get("trade_price", 0)
-                vol = item.get("acc_trade_price_24h", 0)
-                data.append({"coin": coin, "price": price, "volume": vol})
-            data.sort(key=lambda x: x["volume"], reverse=True)
-            for i, d in enumerate(data, 1):
-                d["rank"] = i
-                d.setdefault("trend", "")
-                d.setdefault("volatility", "")
-                d.setdefault("strength", "")
-                d.setdefault("gc", "")
-                d.setdefault("rsi", "")
-                d.setdefault("signal", "")
-                d.setdefault("signal_class", "")
-            market_data = data
-            _last_market_update = now
-            logger.info("[MONITOR] Market data refreshed %d coins", len(data))
-        except Exception as e:
-            logger.exception("Market data fetch failed: %s", e)
 
 def get_filtered_signals():
-    """Return market signals filtered by dashboard settings."""
+    """Return live signals filtered by price range and volume rank."""
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     refresh_market_data()
@@ -228,48 +223,43 @@ def get_filtered_signals():
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
-    signals = load_market_signals()
+    with market_lock:
+        data = list(market_cache)
     result = []
     for s in data:
+        logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s["price"] < min_p:
             continue
         if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
         if rank and s.get("rank", 0) > rank:
             continue
-        entry = {k: s.get(k, "") for k in (
-            "coin",
-            "trend",
-            "volatility",
-            "volume",
-            "strength",
-            "gc",
-            "rsi",
-            "signal",
-            "signal_class",
-        )}
-        result.append(entry)
+        logger.debug("[MONITOR] 필터 통과 %s", s)
+        result.append(s)
+
     logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
     for s in result:
         logger.debug("[MONITOR] 응답 데이터 %s", s)
     return result
 
 def get_filtered_tickers() -> list[str]:
-    """Return KRW tickers filtered by dashboard conditions."""
+    """Return market tickers filtered by dashboard conditions."""
     logger.debug("Filtering tickers with %s", filter_config)
-    refresh_market_data()
-    with _market_lock:
-        data = list(market_data)
+    with market_lock:
+        data = list(market_cache)
+
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
     result = []
     for s in data:
-        if min_p and s["price"] < min_p:
+        price = s.get("price", 0)
+        r = s.get("rank", 0)
+        if min_p and price < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and price > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and r > rank:
             continue
         result.append(f"KRW-{s['coin']}")
     logger.debug("Filtered tickers: %s", result)

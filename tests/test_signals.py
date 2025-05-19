@@ -1,60 +1,53 @@
-import importlib
 import sys
 import types
+import importlib
+
+class StubPyUpbit(types.ModuleType):
+    def __init__(self):
+        super().__init__("pyupbit")
+    def get_tickers(self, fiat="KRW"):
+        return ["KRW-BTC", "KRW-ETH", "KRW-XRP", "KRW-DOGE"]
+    def get_market_ticker(self, tickers):
+        data = {
+            "KRW-BTC": {"market": "KRW-BTC", "trade_price": 20000, "acc_trade_price_24h": 50000},
+            "KRW-ETH": {"market": "KRW-ETH", "trade_price": 2000, "acc_trade_price_24h": 40000},
+            "KRW-XRP": {"market": "KRW-XRP", "trade_price": 600, "acc_trade_price_24h": 30000},
+            "KRW-DOGE": {"market": "KRW-DOGE", "trade_price": 150, "acc_trade_price_24h": 1000},
+        }
+        return [data[t] for t in tickers]
+    class Upbit:
+        def __init__(self, key, secret):
+            pass
+        def get_balances(self):
+            return []
+
+sys.modules['pyupbit'] = StubPyUpbit()
+
+import app
+importlib.reload(app)
 
 
-def load_app():
-    fake = types.SimpleNamespace(
-        get_tickers=lambda fiat="KRW": [
-            "KRW-BTC",
-            "KRW-ETH",
-            "KRW-XRP",
-            "KRW-DOGE",
-        ],
-        get_ticker=lambda tickers: [
-            {"market": "KRW-BTC", "trade_price": 40000000, "acc_trade_price_24h": 5000},
-            {"market": "KRW-ETH", "trade_price": 2500000, "acc_trade_price_24h": 4000},
-            {"market": "KRW-XRP", "trade_price": 600, "acc_trade_price_24h": 3000},
-            {"market": "KRW-DOGE", "trade_price": 150, "acc_trade_price_24h": 1000},
-        ],
-    )
-    sys.modules['pyupbit'] = fake
-    if 'app' in sys.modules:
-        importlib.reload(sys.modules['app'])
-    else:
-        import app
-    return sys.modules['app']
-
-def load_signals():
-    with open(app.MARKET_FILE, encoding="utf-8") as f:
-        return json.load(f)
+def test_filters_work():
+    app.market_cache = [
+        {"coin": "BTC", "price": 20000, "volume": 50000, "rank": 1},
+        {"coin": "ETH", "price": 2000, "volume": 40000, "rank": 2},
+        {"coin": "XRP", "price": 600, "volume": 30000, "rank": 3},
+        {"coin": "DOGE", "price": 150, "volume": 1000, "rank": 20},
+    ]
+    app.filter_config = {"min_price": 700, "max_price": 23000, "rank": 20}
+    signals = app.get_filtered_signals()
+    coins = [s["coin"] for s in signals]
+    assert coins == ["ETH", "XRP"]
 
 
-def test_no_filters_returns_all():
-    app = load_app()
-    app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
-    result = app.get_filtered_signals()
-    coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH", "XRP", "DOGE"]
-
-def test_min_price_filter():
-    app = load_app()
-    app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
-    result = app.get_filtered_signals()
-    coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH", "ADA", "SOL"]
-
-
-def test_rank_filter():
-    app = load_app()
-    app.filter_config = {"min_price": 0, "max_price": 0, "rank": 2}
-    result = app.get_filtered_signals()
-    coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH"]
-
-
-def test_filtered_tickers_min_price():
-    app = load_app()
-    app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
+def test_filtered_tickers():
+    app.market_cache = [
+        {"coin": "BTC", "price": 20000, "volume": 50000, "rank": 1},
+        {"coin": "ETH", "price": 2000, "volume": 40000, "rank": 2},
+        {"coin": "XRP", "price": 600, "volume": 30000, "rank": 3},
+        {"coin": "DOGE", "price": 150, "volume": 1000, "rank": 20},
+    ]
+    app.filter_config = {"min_price": 700, "max_price": 0, "rank": 0}
     tickers = app.get_filtered_tickers()
     assert tickers == ["KRW-BTC", "KRW-ETH"]
+
