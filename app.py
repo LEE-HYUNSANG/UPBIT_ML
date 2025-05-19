@@ -147,6 +147,40 @@ if os.path.exists(EXCLUDE_FILE):
     except Exception:
         excluded_coins = []
 
+# 실시간 시장 데이터 캐시 및 동기화 락
+market_cache: list[dict] = []
+market_lock = threading.Lock()
+
+def refresh_market_data() -> None:
+    """Fetch full market data from Upbit and update ``market_cache``."""
+    global market_cache
+    try:
+        tickers = pyupbit.get_tickers(fiat="KRW")
+        info = pyupbit.get_market_ticker(tickers) if tickers else []
+    except Exception as e:
+        logger.exception("Market data fetch failed: %s", e)
+        return
+    data = []
+    for i in info:
+        market = i.get("market")
+        if not market:
+            continue
+        coin = market.split("-")[-1]
+        price = i.get("trade_price", 0)
+        volume = i.get("acc_trade_price_24h", 0)
+        data.append({"coin": coin, "price": price, "volume": volume})
+    data.sort(key=lambda x: x["volume"], reverse=True)
+    for idx, d in enumerate(data, start=1):
+        d["rank"] = idx
+    with market_lock:
+        market_cache = data
+    logger.info("[MONITOR] Market data refreshed: %d coins", len(data))
+
+def market_data_loop() -> None:
+    while True:
+        refresh_market_data()
+        time.sleep(60)
+
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
 
@@ -214,6 +248,12 @@ def save_excluded():
 
 positions = []
 
+sample_signals = [
+    {"coin": "BTC", "price": 40000000, "rank": 1, "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
+    {"coin": "ETH", "price": 2500000, "rank": 2, "trend": "🔼", "volatility": "🔵 4.2", "volume": "⏫ 180", "strength": "🔼 80", "gc": "🔼", "rsi": "🔸 55", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
+    {"coin": "XRP", "price": 600, "rank": 5, "trend": "🔸", "volatility": "🟡 3.1", "volume": "🔼 90", "strength": "🔻 40", "gc": "🔻", "rsi": "🔸 50", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
+    {"coin": "DOGE", "price": 150, "rank": 20, "trend": "🔻", "volatility": "🔻 1.5", "volume": "🔻 30", "strength": "🔻 20", "gc": "🔻", "rsi": "🔻 70", "signal": "회피", "signal_class": "avoid", "key": "MBREAK"},
+]
 
 def get_filtered_signals():
     """Return live signals filtered by price range and volume rank."""
