@@ -18,9 +18,9 @@
 - **app.py/load_market_signals**: 1분마다 업비트 시세와 거래량을 불러와 필터링에 사용.
 
 ## config 디렉터리
-- **config/config.json**: 예제 설정 값.
-- **config/secrets.json**: API 키 등 비밀 정보 예시.
-- **config/market.json**: 시세 및 거래량 순위 데이터(업비트 연동 실패 시 사용).
+ - **config/config.json**: 예제 설정 값.
+ - **config/secrets.json**: API 키 등 비밀 정보 예시.
+ - **config/market.json**: 업비트 연결 실패 시 사용할 시세 예시 데이터.
 
 ## templates 디렉터리 (Jinja2 HTML)
 - **base.html**: 기본 레이아웃.

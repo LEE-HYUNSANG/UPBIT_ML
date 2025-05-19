@@ -74,11 +74,8 @@ Example error:
 [ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
 ```
 
-## Market data configuration
-
-Coin prices and volume ranks are loaded from `config/market.json` whenever
-Upbit API access is unavailable. Update this file periodically so dashboard
-filters reflect recent market conditions.
+`config/market.json` stores fallback market data when live fetching from Upbit
+fails. Tests load this file to avoid network access.
 
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.

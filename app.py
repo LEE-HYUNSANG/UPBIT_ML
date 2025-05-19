@@ -182,48 +182,46 @@ def save_excluded():
 
 positions = []
 
+MARKET_FILE = "config/market.json"
 market_signals: list[dict] = []
-market_updated: float = 0.0
 
-def load_market_signals() -> None:
-    """Fetch latest coin data from Upbit and update ``market_signals``."""
-    global market_signals, market_updated
-    try:
+
+def load_market_signals(path: str | None = None) -> list[dict]:
+    """Fetch current market data from Upbit or ``MARKET_FILE``."""
+    if path is None:
+        path = MARKET_FILE
+    try:  # try live fetch
+        import pyupbit
+
         tickers = pyupbit.get_tickers(fiat="KRW")
-        info = pyupbit.get_ticker(tickers)
+        info = pyupbit.get_market_ticker(tickers)
         info.sort(key=lambda x: x.get("acc_trade_price_24h", 0), reverse=True)
-        signals = []
-        for idx, it in enumerate(info, start=1):
-            coin = it.get("market", "").split("-")[-1]
-            signals.append({
-                "coin": coin,
-                "price": it.get("trade_price", 0),
-                "rank": idx,
-                "trend": "🔸",
-                "volatility": "🟡",
-                "volume": "🔼",
-                "strength": "🔸",
-                "gc": "🔸",
-                "rsi": "🔸",
-                "signal": "데이터대기",
-                "signal_class": "wait",
-                "key": "MBREAK",
-            })
-        market_signals = signals
-        market_updated = time.time()
-        logger.info("[MARKET] Market data updated %d coins", len(signals))
-    except Exception as e:
-        logger.exception("Failed to load market data: %s", e)
+        result = []
+        for i, t in enumerate(info, start=1):
+            result.append(
+                {
+                    "coin": t["market"].split("-")[1],
+                    "price": t.get("trade_price", 0),
+                    "rank": i,
+                }
+            )
+        return result
+    except Exception as e:  # noqa: BLE001
+        logger.error("Failed to load market data: %s", e, exc_info=True)
+        if os.path.exists(path):
+            try:
+                with open(path, encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception as e2:  # noqa: BLE001
+                logger.error("Failed to load market file: %s", e2)
+        return []
 
 
-def get_market_signals() -> list[dict]:
-    """Return cached market signals, refreshing every minute."""
-    if not market_signals or time.time() - market_updated > 60:
-        load_market_signals()
-    return market_signals
+market_signals = load_market_signals()
 
 def get_filtered_signals():
-    """Return market signals filtered by price range and volume rank."""
+    """Return market signals filtered by price and volume rank."""
+
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
@@ -231,7 +229,9 @@ def get_filtered_signals():
     rank = int(filter_config.get("rank", 0) or 0)
     signals = load_market_signals()
     result = []
-    for s in get_market_signals():
+    global market_signals
+    market_signals = load_market_signals()
+    for s in market_signals:
         logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s.get("price", 0) < min_p:
             continue
@@ -256,11 +256,10 @@ def get_filtered_tickers() -> list[str]:
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
-    signals = {s["coin"]: s for s in get_market_signals()}
     result = []
     for t in tickers:
         coin = t.split("-")[-1]
-        sig = signals.get(coin)
+        sig = next((s for s in market_signals if s.get("coin") == coin), None)
         if sig:
             price = sig.get("price", 0)
             r = sig.get("rank", 0)
