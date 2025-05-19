@@ -118,6 +118,8 @@ document.addEventListener('click', async e => {
   if(['/save','/api/save-settings'].includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
     await reloadBuyMonitor();
+  } else if(btn.dataset.api === '/api/exclude-coin' && result && result.result === 'success'){
+    await reloadBalance();
   }
 });
 
@@ -165,6 +167,7 @@ function updatePositions(list){
   body.innerHTML = list.map((p, i) => `
     <tr>
       <td>${i+1}</td><td>${p.coin}</td>
+      <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button></td>
       <td>
         <div class="bar-graph">
           <span class="dot stop"></span>
@@ -238,6 +241,7 @@ function updateBalanceTable(list){
   body.innerHTML = list.map(p => `
     <tr>
       <td>${p.coin}</td>
+      <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button></td>
       <td>${p.pnl} %</td>
       <td>
         <div class="bar-graph">
@@ -343,4 +347,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(reloadBalance, 5000);
   reloadAccount();
   reloadBalance();
+  const btn = document.getElementById('btnExcludedList');
+  if(btn){
+    btn.addEventListener('click', async ()=>{
+      try{
+        const resp = await fetch('/api/excluded-coins');
+        const data = await resp.json();
+        if(data.result === 'success'){
+          const body = document.getElementById('excludeListBody');
+          if(body){
+            body.innerHTML = data.coins.length ?
+              data.coins.map(c=>`<tr><td>${c.coin}</td><td>${c.deleted}</td></tr>`).join('') :
+              '<tr><td colspan="2" class="text-muted py-3">없음</td></tr>';
+            new bootstrap.Modal(document.getElementById('excludeListModal')).show();
+          }
+        } else if(data.message){
+          showAlert(data.message, '에러');
+        }
+      }catch(err){
+        showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+      }
+    });
+  }
 });
