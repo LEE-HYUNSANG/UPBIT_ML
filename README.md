@@ -1,10 +1,11 @@
 # UPBIT AutoTrading Example
 
-This repository contains a minimal Flask + SocketIO demo for an automated trading dashboard. The application renders Bootstrap templates with Jinja variables so pages display data from the server.
+This repository contains a minimal Flask + SocketIO demo for an automated trading dashboard.  All HTML templates use Jinja2 variables so tables and forms are filled with server side data.
 
 ## Structure
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
-- **templates/** – Jinja2 templates extending `base.html`. Each page receives values such as `positions`, `strategies` and `alerts` from Flask.
+- **templates/** – Jinja2 templates extending `base.html`. Pages include `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`, `settings.html` and `ai_analysis.html`.
+  Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
 - **static/js/main.js** – Common JavaScript handling API calls, SocketIO events and draggable layout.
 - **static/css/custom.css** – Consolidated styles for all pages.
 
@@ -33,6 +34,7 @@ pip install -r requirements.txt
 python app.py
 ```
 The app runs with `socketio.run` so WebSocket notifications work by default.
+Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
 
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.
@@ -46,7 +48,14 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-`talib-binary` 패키지를 사용하므로 별도 빌드 오류 없이 설치됩니다.
+`talib-binary` 패키지를 포함하고 있어 일반적으로 빌드 오류 없이 설치됩니다.
+만약 설치 도중 `numpy` 혹은 `talib` 관련 컴파일 오류가 발생한다면
+Visual Studio C++ 빌드 툴이 제대로 설치됐는지 확인하고 다음 명령으로
+설치 도구를 최신화합니다.
+
+```cmd
+python -m pip install --upgrade setuptools wheel
+```
 
 서버는 아래와 같이 실행합니다.
 

@@ -70,6 +70,232 @@ strategies = [
     {"name": "P-PULL", "key": "PPULL", "enabled": False, "tp": 0.025, "sl": 0.012, "trail": 0.015, "option": "조정 매수", "recommend": "TP2.5%", "desc": "풀백 매수"},
 ]
 
+# AI 분석 페이지에서 사용될 상세 전략 정보
+analysis_strategies = [
+    {
+        "key": "MBREAK",
+        "name": "M-BREAK",
+        "buy": {
+            "cond": [
+                "5EMA > 20EMA > 60EMA",
+                "ATR ≥ 0.035",
+                "20봉 평균 거래량의 1.8배 이상",
+                "전고점 0.15% 돌파 시 진입"
+            ],
+            "ai": [
+                "RSI < 26",
+                "TP(익절) 1.8%",
+                "SL(손절) 1.0%",
+                "분할 진입: 단일"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.1%",
+                "트레일링 익절: 1.4%"
+            ],
+            "ai": [
+                "SL(손절) 1.1%",
+                "트레일링 1.4%"
+            ]
+        }
+    },
+    {
+        "key": "PPULL",
+        "name": "P-PULL",
+        "buy": {
+            "cond": [
+                "5EMA > 20EMA > 60EMA",
+                "RSI ≤ 24",
+                "50EMA 근접",
+                "직전 봉 대비 거래량 1.2배↑"
+            ],
+            "ai": [
+                "TP(익절) 2.2%",
+                "SL(손절) 1.1%",
+                "분할 매수: 3회"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.2%",
+                "트레일링 익절: 1.5%"
+            ],
+            "ai": [
+                "SL(손절) 1.2%",
+                "트레일링 1.5%"
+            ]
+        }
+    },
+    {
+        "key": "TFLOW",
+        "name": "T-FLOW",
+        "buy": {
+            "cond": [
+                "EMA20 5봉 기울기 > 0.15%",
+                "OBV 3봉 연속 상승",
+                "RSI 48~60"
+            ],
+            "ai": [
+                "TP(익절) 3.0%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.3%",
+                "트레일링 익절: 1.7%"
+            ],
+            "ai": [
+                "SL(손절) 1.3%",
+                "트레일링 1.7%"
+            ]
+        }
+    },
+    {
+        "key": "BLOW",
+        "name": "B-LOW",
+        "buy": {
+            "cond": [
+                "박스권 하단, 박스폭 6% 이내",
+                "저점 터치, RSI 25 미만 반등"
+            ],
+            "ai": [
+                "TP(익절) 2.5%",
+                "SL(손절) 1.3%",
+                "RSI < 22"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.3%",
+                "트레일링 익절: 1.1%"
+            ],
+            "ai": [
+                "SL(손절) 1.3%",
+                "트레일링 1.1%"
+            ]
+        }
+    },
+    {
+        "key": "VREV",
+        "name": "V-REV",
+        "buy": {
+            "cond": [
+                "전봉 종가 -4%↓",
+                "거래량 2.5배↑",
+                "RSI 18→상승"
+            ],
+            "ai": [
+                "TP(익절) 1.7%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.2%",
+                "트레일링 익절: 1.5%"
+            ],
+            "ai": [
+                "SL(손절) 1.2%",
+                "트레일링 1.5%"
+            ]
+        }
+    },
+    {
+        "key": "GREV",
+        "name": "G-REV",
+        "buy": {
+            "cond": [
+                "EMA50 > 200 골든크로스",
+                "단기 눌림, RSI 48 이상"
+            ],
+            "ai": [
+                "TP(익절) 1.5%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.2%",
+                "트레일링 익절: 1.4%"
+            ],
+            "ai": [
+                "SL(손절) 1.2%",
+                "트레일링 1.4%"
+            ]
+        }
+    },
+    {
+        "key": "VOLBRK",
+        "name": "VOL-BRK",
+        "buy": {
+            "cond": [
+                "ATR폭발(10봉대비 1.5배↑)",
+                "20봉 거래량 2배↑",
+                "RSI≥60"
+            ],
+            "ai": [
+                "TP(익절) 1.9%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.1%",
+                "트레일링 익절: 1.5%"
+            ],
+            "ai": [
+                "SL(손절) 1.1%",
+                "트레일링 1.5%"
+            ]
+        }
+    },
+    {
+        "key": "EMASTACK",
+        "name": "EMA-STACK",
+        "buy": {
+            "cond": [
+                "EMA25>100>200",
+                "ADX > 30"
+            ],
+            "ai": [
+                "TP(익절) 1.5%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.3%",
+                "트레일링 익절: 1.2%"
+            ],
+            "ai": [
+                "SL(손절) 1.3%",
+                "트레일링 1.2%"
+            ]
+        }
+    },
+    {
+        "key": "VWAPBNC",
+        "name": "VWAP-BNC",
+        "buy": {
+            "cond": [
+                "EMA5>20>60, 종가 VWAP 근접",
+                "RSI 45~60",
+                "거래량 증가"
+            ],
+            "ai": [
+                "TP(익절) 1.7%"
+            ]
+        },
+        "sell": {
+            "cond": [
+                "손절: -1.1%",
+                "트레일링 익절: 1.3%"
+            ],
+            "ai": [
+                "SL(손절) 1.1%",
+                "트레일링 1.3%"
+            ]
+        }
+    }
+]
+
 @app.route("/")
 def dashboard():
     return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"])
@@ -77,6 +303,17 @@ def dashboard():
 @app.route("/strategy")
 def strategy_page():
     return render_template("strategy.html", strategies=strategies, settings=settings)
+
+# AI 전략 분석 페이지
+@app.route("/ai-analysis")
+def ai_analysis_page():
+    return render_template(
+        "ai_analysis.html",
+        buy_results=buy_results,
+        sell_results=sell_results,
+        history=history,
+        strategies=analysis_strategies,
+    )
 
 @app.route("/risk")
 def risk_page():
