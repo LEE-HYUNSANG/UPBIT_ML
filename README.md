@@ -44,14 +44,11 @@ python app.py
 ```
 The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
-Market data for the monitoring table is refreshed every minute using the official Upbit API and filtered by the dashboard settings.
 
-Every minute the server downloads the full list of KRW markets from Upbit using
-`pyupbit`. Each coin's current price and 24h volume are retrieved to calculate
-its volume rank. The dashboard filter (`min_price`, `max_price`, `rank`) is
-applied to this list, and the resulting tickers are used for both monitoring and
-trading.
-
+Every minute the server fetches live KRW market data from Upbit using `pyupbit`.
+Coins are ranked by 24h volume and filtered according to the dashboard settings
+(`min_price`, `max_price`, `rank`). The resulting ticker list is used for both
+monitoring and trading.
 
 ## Running tests
 Install `pytest` and execute the suite:
