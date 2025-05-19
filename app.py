@@ -218,7 +218,6 @@ def refresh_market_data():
         except Exception as e:
             logger.exception("Market data fetch failed: %s", e)
 
-
 def get_filtered_signals():
     """Return market signals filtered by dashboard settings."""
     logger.info("[MONITOR] 매수 모니터링 요청")
@@ -229,13 +228,14 @@ def get_filtered_signals():
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
+    signals = load_market_signals()
     result = []
     for s in data:
         if min_p and s["price"] < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and s.get("rank", 0) > rank:
             continue
         entry = {k: s.get(k, "") for k in (
             "coin",
@@ -253,7 +253,6 @@ def get_filtered_signals():
     for s in result:
         logger.debug("[MONITOR] 응답 데이터 %s", s)
     return result
-
 
 def get_filtered_tickers() -> list[str]:
     """Return KRW tickers filtered by dashboard conditions."""

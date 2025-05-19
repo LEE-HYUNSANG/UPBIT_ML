@@ -1,0 +1,6 @@
+[
+  {"coin": "BTC", "price": 40000000, "rank": 1},
+  {"coin": "ETH", "price": 2500000, "rank": 2},
+  {"coin": "XRP", "price": 600, "rank": 5},
+  {"coin": "DOGE", "price": 150, "rank": 20}
+]

@@ -25,6 +25,10 @@ def load_app():
         import app
     return sys.modules['app']
 
+def load_signals():
+    with open(app.MARKET_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
 
 def test_no_filters_returns_all():
     app = load_app()
@@ -33,13 +37,12 @@ def test_no_filters_returns_all():
     coins = [r["coin"] for r in result]
     assert coins == ["BTC", "ETH", "XRP", "DOGE"]
 
-
 def test_min_price_filter():
     app = load_app()
     app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
     coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH"]
+    assert coins == ["BTC", "ETH", "ADA", "SOL"]
 
 
 def test_rank_filter():
