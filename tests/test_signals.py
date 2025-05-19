@@ -50,3 +50,4 @@ def test_filtered_tickers():
     app.filter_config = {"min_price": 700, "max_price": 0, "rank": 0}
     tickers = app.get_filtered_tickers()
     assert tickers == ["KRW-BTC", "KRW-ETH"]
+

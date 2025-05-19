@@ -217,6 +217,9 @@ def get_filtered_signals():
     """Return live signals filtered by price range and volume rank."""
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
+    refresh_market_data()
+    with _market_lock:
+        data = list(market_data)
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
@@ -227,12 +230,13 @@ def get_filtered_signals():
         logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s["price"] < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and s.get("rank", 0) > rank:
             continue
         logger.debug("[MONITOR] 필터 통과 %s", s)
         result.append(s)
+
     logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
     for s in result:
         logger.debug("[MONITOR] 응답 데이터 %s", s)
@@ -243,6 +247,7 @@ def get_filtered_tickers() -> list[str]:
     logger.debug("Filtering tickers with %s", filter_config)
     with market_lock:
         data = list(market_cache)
+
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)

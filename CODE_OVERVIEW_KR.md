@@ -17,10 +17,12 @@
 - **bot/indicators.py**: EMA, RSI 등 기술적 지표 계산 함수.
 - **bot/strategy.py**: 9가지 매매 전략 함수와 선택 로직.
 - **bot/trader.py**: 업비트 API를 활용한 메인 트레이더 클래스.
+- **app.py/load_market_signals**: 1분마다 업비트 시세와 거래량을 불러와 필터링에 사용.
 
 ## config 디렉터리
-- **config/config.json**: 예제 설정 값.
-- **config/secrets.json**: API 키 등 비밀 정보 예시.
+ - **config/config.json**: 예제 설정 값.
+ - **config/secrets.json**: API 키 등 비밀 정보 예시.
+ - **config/market.json**: 업비트 연결 실패 시 사용할 시세 예시 데이터.
 
 ## templates 디렉터리 (Jinja2 HTML)
 - **base.html**: 기본 레이아웃.
@@ -35,5 +37,7 @@
 ## static 디렉터리
 - **static/js/main.js**: 공통 자바스크립트 (API 호출, 드래그 레이아웃 등).
 - **static/css/custom.css**: 전체 스타일 시트.
+
+앱은 1분마다 업비트에서 모든 원화마켓 코인의 가격과 거래금액을 불러와 거래대금 순으로 정렬합니다. 대시보드에서 설정한 가격대와 순위 조건은 이 실시간 데이터에 적용되어 모니터링과 자동매매 대상이 결정됩니다.
 
 이 문서는 비개발자도 빠르게 전체 구조를 파악할 수 있도록 작성되었습니다.
