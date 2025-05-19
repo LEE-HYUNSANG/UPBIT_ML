@@ -77,3 +77,39 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.error(f"[TRADER ERROR] {e}")  # 예외 로깅
                 time.sleep(10)  # 잠시 대기 후 재시도
+
+    def get_balances(self):
+        """Return raw balances from Upbit API."""
+        try:
+            return self.upbit.get_balances()
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"Failed to get balances: {e}")
+            return None
+
+    def account_summary(self):
+        """Return cash/total/pnl summary calculated from balances."""
+        balances = self.get_balances()
+        if not balances:
+            return None
+        try:
+            cash = 0.0
+            total = 0.0
+            for b in balances:
+                bal = float(b.get("balance", 0))
+                if b.get("currency") == "KRW":
+                    cash += bal
+                    total += bal
+                else:
+                    price = pyupbit.get_current_price(f"KRW-{b['currency']}") or 0
+                    total += bal * price
+            pnl = ((total - cash) / cash * 100) if cash else 0.0
+            return {
+                "cash": int(cash),
+                "total": int(total),
+                "pnl": round(pnl, 2),
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"Failed to calculate summary: {e}")
+            return None
