@@ -15,6 +15,13 @@ document.querySelectorAll('button, .btn').forEach(btn => {
     document.body.style.cursor = 'wait';
     setTimeout(() => { document.body.style.cursor = ''; }, 800);
   });
+  if(btn.dataset.api){
+    btn.addEventListener('click', async function(){
+      const form = btn.closest('form');
+      const data = form ? Object.fromEntries(new FormData(form)) : null;
+      await callApi(btn.dataset.api, data);
+    });
+  }
 });
 
 // 3. Flask API 호출 (예시: 봇 시작/정지/설정 저장 등)

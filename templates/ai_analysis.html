@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="col-md-4">
-              <button type="button" class="btn btn-ai w-100" data-api="/api/run-analysis">AI 분석 실행</button>
+              <button type="button" class="btn btn-ai w-100" style="height:48px;" data-api="/api/run-analysis">AI 분석 실행</button>
             </div>
           </form>
         </div>
@@ -40,7 +40,7 @@
         <div class="card-body">
           <ul class="list-group">
             {% for h in history %}
-            <li class="list-group-item small">{{ h.time }} <span class="text-{{ h.cls }}">{{ h.label }}</span></li>
+            <li class="list-group-item small">{{ h.time }} <span class="text-{{ 'success' if h.type=='apply' else 'primary' }}">{{ h.label }}</span></li>
             {% endfor %}
           </ul>
         </div>

@@ -55,13 +55,13 @@
 ‘불가’: 가장 먼저 발생한 전략 신호 1개만 진입하며, 복수 진입 차단(신호 우선순위 적용)."></i>
         </label>
         <div class="form-check form-check-inline ms-2">
-          <input class="form-check-input" type="radio" name="multi" id="multi1" checked>
+          <input class="form-check-input" type="radio" name="multi" id="multi1" value="allow" {% if config.get('multi', True) %}checked{% endif %}>
           <label class="form-check-label" for="multi1">허용
             <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="동시 발생 시 멀티포지션(복수매수)이 가능"></i>
           </label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="multi" id="multi2">
+          <input class="form-check-input" type="radio" name="multi" id="multi2" value="deny" {% if not config.get('multi', True) %}checked{% endif %}>
           <label class="form-check-label" for="multi2">불가
             <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="여러 전략 중 가장 먼저 감지된 신호만 진입"></i>
           </label>

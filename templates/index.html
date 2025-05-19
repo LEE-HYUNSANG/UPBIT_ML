@@ -31,9 +31,9 @@
       </div>
       <div class="card-body">
         <div class="row gy-2">
-          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">8,500,000 원</div>
-          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">10,200,000 원</div>
-          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">+20 %</div>
+          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">{{ config.get('cash', '0') }} 원</div>
+          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">{{ config.get('total', '0') }} 원</div>
+          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">{{ config.get('pnl', 0) }} %</div>
         </div>
       </div>
     </div>
@@ -45,12 +45,12 @@
       </div>
       <div class="card-body">
         <label class="form-label">최소 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" value="700">
+        <input type="number" class="form-control form-control-sm mb-2" name="min_price" value="{{ config.get('min_price', 0) }}">
         <label class="form-label">최대 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" value="23000">
+        <input type="number" class="form-control form-control-sm mb-2" name="max_price" value="{{ config.get('max_price', 0) }}">
         <label class="form-label">시가총액 순위</label>
-        <input type="number" class="form-control form-control-sm mb-3" value="20">
-        <button class="btn btn-primary btn-sm w-100">저장</button>
+        <input type="number" class="form-control form-control-sm mb-3" name="rank" value="{{ config.get('rank', 0) }}">
+        <button class="btn btn-primary btn-sm w-100" data-api="/api/save-settings">저장</button>
       </div>
     </div>
     <div class="card shadow-sm">

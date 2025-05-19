@@ -15,6 +15,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger("bot")
 
+# 샘플 설정 로드
+with open("config/config.json", encoding="utf-8") as f:
+    config = json.load(f)
+with open("config/secrets.json", encoding="utf-8") as f:
+    secrets = json.load(f)
+
 # 전역 변수 (설정 예시)
 settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
             "funds": 1000000,
