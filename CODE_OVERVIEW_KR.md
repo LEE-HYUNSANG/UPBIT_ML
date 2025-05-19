@@ -3,7 +3,7 @@
 본 프로젝트는 Flask 웹 대시보드와 업비트 자동매매 예제 코드로 구성되어 있습니다. 각 파일의 용도는 다음과 같습니다.
 
 ## 최상위 파일
-- **app.py**: Flask 애플리케이션과 API 라우트 정의. SocketIO 실시간 알림 사용.
+- **app.py**: Flask 애플리케이션과 API 라우트 정의. SocketIO 실시간 알림 사용. 실시간 시세는 1분마다 Upbit API에서 갱신해 필터 조건에 따라 대시보드에 표시합니다.
 - **Dockerfile**: 컨테이너 환경 설정 예시.
 - **requirements.txt**: 필요한 파이썬 패키지 목록.
 - **scripts/run_gunicorn.sh**: gunicorn으로 앱 실행 스크립트.

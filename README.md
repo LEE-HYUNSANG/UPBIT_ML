@@ -37,6 +37,7 @@ python app.py
 ```
 The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
+Market data for the monitoring table is refreshed every minute using the official Upbit API and filtered by the dashboard settings.
 
 ## Running tests
 Install `pytest` and execute the suite:

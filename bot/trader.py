@@ -17,8 +17,15 @@ class UpbitTrader:
         self.running = False    # 봇 실행 여부
         self.logger = logger    # 로거
         self.thread = None      # 실행 스레드
+        self.tickers = config.get("tickers", ["KRW-BTC", "KRW-ETH"])
         if self.logger:
             self.logger.debug("Trader initialized with config %s", config)
+
+    def set_tickers(self, tickers: list[str]) -> None:
+        """Update trading tickers list."""
+        self.tickers = tickers
+        if self.logger:
+            self.logger.info("[TRADER] Tickers updated: %s", tickers)
 
     def start(self) -> bool:
         """자동매매 시작 (스레드)"""
@@ -55,7 +62,7 @@ class UpbitTrader:
             try:
                 if self.logger:
                     self.logger.debug("run_loop iteration")
-                tickers = self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])
+                tickers = self.tickers or self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])
                 strat_name = self.config.get("strategy", "M-BREAK")
                 params = self.config.get("params", {})
                 if self.logger:
