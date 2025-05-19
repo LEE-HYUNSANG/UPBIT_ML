@@ -90,22 +90,22 @@
                 <th>액션</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="positionBody">
               {% for p in positions %}
               <tr>
                 <td>{{ loop.index }}</td><td>{{ p.coin }}</td>
                 <td>
                   <div class="bar-graph">
-                    <span class="dot stop"  style="left:0%"></span>
-                    <span class="dot entry" style="left:{{ p.entry }}%"></span>
-                    <span class="dot take"  style="right:0%"></span>
+                    <span class="dot stop"></span>
+                    <span class="dot entry" data-pos="{{ p.entry }}"></span>
+                    <span class="dot take"></span>
                   </div>
                 </td>
                 <td>
                   <div class="trend-bar">
                     <span class="tick tick1"></span>
                     <span class="tick tick2"></span>
-                    <span class="dot trend {{ p.trend_color }}" style="left:{{ p.trend }}%"></span>
+                    <span class="dot trend {{ p.trend_color }}" data-pos="{{ p.trend }}"></span>
                   </div>
                 </td>
                 <td><span class="badge badge-{{ p.signal }}">{{ p.signal_label }}</span></td>
@@ -123,8 +123,7 @@
         <i class="bi bi-bullseye"></i> 매수 모니터링
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
            title="추세·변동성·거래량·체결강도·골든크로스·RSI를 조합해 매수 우선순위를 한눈에 보여줍니다."></i>
-        <i class="ms-2 bi bi-arrow-clockwise" role="button"
-           onclick="alert('레이더 새로고침');"
+        <i class="ms-2 bi bi-arrow-clockwise" role="button" data-refresh="signals"
            data-bs-toggle="tooltip" title="데이터 새로 고침"></i>
       </div>
       <div class="table-responsive">
@@ -141,7 +140,7 @@
                 title="강제 매수·관망·회피·데이터대기"></i></th>
             <th>액션</th>
           </tr></thead>
-          <tbody>
+          <tbody id="signalBody">
             {% for s in signals %}
             <tr>
               <td>{{ loop.index }}</td><td>{{ s.coin }}</td>

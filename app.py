@@ -4,6 +4,7 @@ UPBIT 5분봉 자동매매 Flask 메인 앱 (초보자 상세 주석)
 from flask import Flask, render_template, jsonify, request, send_file
 from flask_socketio import SocketIO
 import os, shutil, logging, json  # 기본 모듈들
+from datetime import datetime
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
@@ -397,13 +398,29 @@ def run_analysis():
 def manual_sell():
     coin = request.json.get('coin')
     socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
+    global positions, alerts
+    positions = [p for p in positions if p['coin'] != coin]
+    alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
+    socketio.emit('positions', positions)
+    socketio.emit('alerts', alerts)
     return jsonify(result="success", message=f"{coin} 매도 요청" )
 
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
     coin = request.json.get('coin')
     socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
+    global positions, alerts
+    positions.append({"coin": coin, "entry": 50, "trend": 50, "trend_color": "green",
+                      "signal": "sell-wait", "signal_label": "관망"})
+    alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매수"})
+    socketio.emit('positions', positions)
+    socketio.emit('alerts', alerts)
     return jsonify(result="success", message=f"{coin} 매수 요청")
+
+@socketio.on('refresh')
+def handle_refresh(data):
+    socketio.emit('positions', positions)
+    socketio.emit('alerts', alerts)
 
 @app.route("/download-code")
 def download_code():

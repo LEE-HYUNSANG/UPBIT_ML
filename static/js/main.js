@@ -42,8 +42,9 @@ async function callApi(url, data, method="POST") {
 }
 
 // 4. SocketIO 실시간 알림 (옵션)
+let socket;
 if(window.io){
-  const socket = io();
+  socket = io();
   socket.on('notification', function(data){
     if(data.message) showAlert(data.message, "실시간 알림");
     const box = document.getElementById('liveAlerts');
@@ -52,7 +53,16 @@ if(window.io){
       div.textContent = data.message;
       box.prepend(div);
     }
+    const list = document.getElementById('alertList');
+    if(list){
+      const div = document.createElement('div');
+      div.textContent = data.message;
+      list.prepend(div);
+    }
   });
+
+  socket.on('positions', data => updatePositions(data));
+  socket.on('alerts', data => updateAlerts(data));
 }
 
 // 5. Tooltip 자동 활성화 (Bootstrap 5)
@@ -108,3 +118,58 @@ function initDragLayout(){
   }
 }
 document.addEventListener('DOMContentLoaded', initDragLayout);
+
+// 10. 포지션/알림 실시간 갱신
+function initDotPositions(){
+  document.querySelectorAll('.dot[data-pos]').forEach(el=>{
+    el.style.left = el.dataset.pos + '%';
+  });
+}
+
+function updatePositions(list){
+  const body = document.getElementById('positionBody');
+  if(!body) return;
+  body.innerHTML = list.map((p, i) => `
+    <tr>
+      <td>${i+1}</td><td>${p.coin}</td>
+      <td>
+        <div class="bar-graph">
+          <span class="dot stop"></span>
+          <span class="dot entry" data-pos="${p.entry}"></span>
+          <span class="dot take"></span>
+        </div>
+      </td>
+      <td>
+        <div class="trend-bar">
+          <span class="tick tick1"></span>
+          <span class="tick tick2"></span>
+          <span class="dot trend ${p.trend_color}" data-pos="${p.trend}"></span>
+        </div>
+      </td>
+      <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
+      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="${p.coin}">수동 매도</button></td>
+    </tr>
+  `).join('');
+  initDotPositions();
+}
+
+function updateAlerts(list){
+  const box = document.getElementById('liveAlerts');
+  const listBox = document.getElementById('alertList');
+  if(box){
+    box.innerHTML = list.map(a => `<div>[${a.time}] ${a.message}</div>`).join('');
+  }
+  if(listBox){
+    listBox.innerHTML = box.innerHTML;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initDotPositions);
+
+// refresh buttons
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-refresh]');
+  if(!btn) return;
+  const type = btn.dataset.refresh;
+  socket.emit('refresh', {type});
+});
