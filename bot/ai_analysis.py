@@ -4,6 +4,9 @@ AI 전략 파라미터 최적화/추천 모듈
 여기서는 샘플 로직으로, 실전에서는 과거 데이터, 성능 테스트, ML 알고리즘 추가 가능.
 """
 import random  # 난수 생성을 위해 사용
+import logging
+
+logger = logging.getLogger(__name__)
 
 def run_ai_analysis(df, params):
     """
@@ -11,6 +14,7 @@ def run_ai_analysis(df, params):
     params: 기존 전략별 파라미터(dict)
     반환: 추천 파라미터 dict 예시
     """
+    logger.debug("run_ai_analysis called")
     # 여기서 실제 백테스트/최적화 로직을 수행할 수 있습니다.
     # 아래는 예시용으로 TP/SL 값을 무작위로 추천합니다.
     best = {
@@ -19,4 +23,5 @@ def run_ai_analysis(df, params):
         "trail": round(random.uniform(0.01, 0.018), 4),
         "rsi": random.randint(20, 32)
     }
+    logger.info("AI analysis result: %s", best)
     return best

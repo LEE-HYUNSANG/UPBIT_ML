@@ -4,6 +4,9 @@ UPBIT 5분봉 자동매매 9대 전략 모듈 (최종)
 초보자도 이해할 수 있는 상세 주석 포함
 """
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 def m_break(df, tis, params):
     """
@@ -11,6 +14,7 @@ def m_break(df, tis, params):
     EMA5 > EMA20 > EMA60, ATR14 ≥ 0.035,
     20봉 평균 거래량의 1.8배 폭증, 체결강도 120+, 전고점 0.15% 돌파
     """
+    logger.debug("m_break evaluation")
     # 최근 1봉 데이터
     last = df.iloc[-1]  # 현재 봉
     # 이전 20봉 동안의 최고가(돌파 기준선)
@@ -29,6 +33,7 @@ def p_pull(df, tis, params):
     P-PULL (눌림목 반등)
     EMA5 > EMA20 > EMA60, EMA50 근접(2% 이내), RSI14 ≤ 28, 직전봉 대비 거래량 1.2배 이상
     """
+    logger.debug("p_pull evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
     ema50 = df['EMA50'].iloc[-1]  # 지지선으로 사용할 EMA50
     ok = (
@@ -44,6 +49,7 @@ def t_flow(df, tis, params):
     T-FLOW (중기 추세+OBV)
     EMA20 5봉 기울기 > 0.15%, OBV 3봉 연속 상승, RSI14 48~60
     """
+    logger.debug("t_flow evaluation")
     # EMA20 최근 5봉 기울기 계산
     ema20_slope = (df['EMA20'].iloc[-1] - df['EMA20'].iloc[-5]) / (abs(df['EMA20'].iloc[-5])+1e-9)
     # OBV가 3봉 연속 상승하는지 체크
@@ -61,6 +67,7 @@ def b_low(df, tis, params):
     B-LOW (박스권 하단 반등)
     80봉 내 박스폭 6% 이내, 저점 터치, RSI14 < 25
     """
+    logger.debug("b_low evaluation")
     # 최근 80봉의 최저·최고가
     low80 = df['low'][-80:].min()
     high80 = df['high'][-80:].max()
@@ -79,6 +86,7 @@ def v_rev(df, tis, params):
     V-REV (대폭락 후 강한 반등)
     직전봉 -4% 이상 하락, 거래량 2.5배↑, RSI14 18→20 상승, 반등폭 4%↑
     """
+    logger.debug("v_rev evaluation")
     last = df.iloc[-1]   # 현재 봉
     prev = df.iloc[-2]   # 직전 봉
     price_drop = (prev['close'] - last['close']) / (prev['close']+1e-9)  # 낙폭
@@ -98,6 +106,7 @@ def g_rev(df, tis, params):
     G-REV (골든크로스+지지)
     EMA50 > EMA200 골든, RSI14 ≥ 48, 거래량 이전봉 0.6배↑
     """
+    logger.debug("g_rev evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
     golden = (last['EMA50'] > last['EMA200'])  # 골든크로스 여부
     ok = (
@@ -112,6 +121,7 @@ def vol_brk(df, tis, params):
     VOL-BRK (ATR 폭발·신고가)
     ATR14 10봉 평균의 1.5배↑, 20봉 거래량 2배↑, 신고가, RSI14 ≥ 60
     """
+    logger.debug("vol_brk evaluation")
     last = df.iloc[-1]  # 현재 봉
     atr10 = df['ATR14'][-10:].mean()      # ATR 평균
     vol20 = df['volume'][-20:].mean()     # 20봉 평균 거래량
@@ -129,6 +139,7 @@ def ema_stack(df, tis, params):
     EMA-STACK (EMA 다중정렬, ADX↑)
     EMA25 > EMA100 > EMA200, ADX ≥ 30
     """
+    logger.debug("ema_stack evaluation")
     last = df.iloc[-1]
     ok = (
         last['EMA25'] > last['EMA100'] > last['EMA200'] and
@@ -141,6 +152,7 @@ def vwap_bnc(df, tis, params):
     VWAP-BNC (VWAP/RSI 조합)
     EMA5 > EMA20 > EMA60, VWAP 근접, RSI 45~60, 거래량 증가
     """
+    logger.debug("vwap_bnc evaluation")
     last = df.iloc[-1]       # 현재 봉
     vwap = last['VWAP']       # VWAP 값
     vwap_close_ratio = abs(last['close'] - vwap) / (vwap+1e-9)  # 종가와 VWAP 차이
@@ -170,6 +182,7 @@ def select_strategy(strategy_name, df, tis, params):
     전략명/지표/체결강도/파라미터로 전략 함수 실행
     사용 예: ok, param = select_strategy('M-BREAK', df, tis, {...})
     """
+    logger.debug("select_strategy %s", strategy_name)
     func = STRATS.get(strategy_name)   # 전략 이름으로 함수 찾기
     if not func:
         return False, {}

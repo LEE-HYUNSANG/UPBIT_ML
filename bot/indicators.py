@@ -5,12 +5,16 @@ EMA, RSI, ATR, ADX, OBV, VWAP 등 9전략에서 필요한 지표 전체 포함
 import pandas as pd  # 데이터프레임 처리를 위해 사용
 import numpy as np   # 수치 계산용
 import talib as ta   # TA-Lib: 기술적 지표 계산 라이브러리
+import logging
+
+logger = logging.getLogger(__name__)
 
 def calc_indicators(df):
     """
     입력: df - OHLCV 데이터프레임 (컬럼명: open/high/low/close/volume)
     출력: df - 지표 컬럼 추가 후 반환
     """
+    logger.debug("calc_indicators called")
     # 이동평균선(EMA) 계산
     df['EMA5'] = ta.EMA(df['close'], 5)    # 5봉 EMA
     df['EMA20'] = ta.EMA(df['close'], 20)   # 20봉 EMA

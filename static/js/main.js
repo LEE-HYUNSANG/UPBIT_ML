@@ -171,7 +171,13 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('[data-refresh]');
   if(!btn) return;
   const type = btn.dataset.refresh;
-  socket.emit('refresh', {type});
+  if(type === 'balances'){
+    reloadBalance();
+  } else if(type === 'signals'){
+    reloadBuyMonitor();
+  } else if(socket){
+    socket.emit('refresh', {type});
+  }
 });
 
 // 잔고 테이블 실시간 갱신
@@ -214,4 +220,37 @@ function updateBalanceTable(list){
     </tr>
   `).join('');
   initDotPositions();
+}
+
+// 매수 모니터링 테이블 갱신
+async function reloadBuyMonitor(){
+  try {
+    const resp = await fetch('/api/signals');
+    const data = await resp.json();
+    if(data.result === 'success' && data.signals){
+      updateSignalTable(data.signals);
+    } else if(data.message){
+      showAlert(data.message, '에러');
+    }
+  } catch(err){
+    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+  }
+}
+
+function updateSignalTable(list){
+  const body = document.getElementById('signalBody');
+  if(!body) return;
+  body.innerHTML = list.map((s, i) => `
+    <tr>
+      <td>${i+1}</td><td>${s.coin}</td>
+      <td class="icon-cell">${s.trend}</td>
+      <td class="icon-cell">${s.volatility}</td>
+      <td class="icon-cell">${s.volume}</td>
+      <td class="icon-cell">${s.strength}</td>
+      <td class="icon-cell">${s.gc}</td>
+      <td class="icon-cell">${s.rsi}</td>
+      <td><span class="badge badge-${s.signal_class}">${s.signal}</span></td>
+      <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="${s.coin}">수동 매수</button></td>
+    </tr>
+  `).join('');
 }

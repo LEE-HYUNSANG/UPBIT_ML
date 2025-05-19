@@ -17,6 +17,8 @@ class UpbitTrader:
         self.running = False    # 봇 실행 여부
         self.logger = logger    # 로거
         self.thread = None      # 실행 스레드
+        if self.logger:
+            self.logger.debug("Trader initialized with config %s", config)
 
     def start(self):
         """자동매매 시작 (스레드)"""
@@ -24,6 +26,7 @@ class UpbitTrader:
         self.thread = threading.Thread(target=self.run_loop, daemon=True)
         self.thread.start()  # 별도 스레드에서 run_loop 실행
         if self.logger:
+            self.logger.debug("Trader start called")
             self.logger.info("[TRADER] 자동매매 봇 시작됨")
 
     def stop(self):
@@ -32,12 +35,15 @@ class UpbitTrader:
         if self.thread:
             self.thread.join(timeout=1)  # 스레드 종료 대기
         if self.logger:
+            self.logger.debug("Trader stop called")
             self.logger.info("[TRADER] 자동매매 봇 중지됨")
 
     def run_loop(self):
         """메인 5분봉 매매 루프"""
         while self.running:
             try:
+                if self.logger:
+                    self.logger.debug("run_loop iteration")
                 tickers = self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])  # 매매 대상 코인
                 strat_name = self.config.get("strategy", "M-BREAK")       # 사용할 전략
                 params = self.config.get("params", {})                     # 전략별 파라미터
@@ -55,7 +61,13 @@ class UpbitTrader:
                         qty = self.config.get("amount", 10000) / last_price  # 매수 수량
                         # self.upbit.buy_market_order(ticker, qty)  # 실전 매수(주의)
                         if self.logger:
-                            self.logger.info(f"[BUY] {ticker} {last_price:.1f} ({qty:.4f}개) {strat_name} 진입")
+                            self.logger.info(
+                                "[BUY] %s %.1f (%0.4f개) %s 진입",
+                                ticker,
+                                last_price,
+                                qty,
+                                strat_name,
+                            )
                 time.sleep(300)  # 5분 대기 후 다음 루프
             except Exception as e:
                 if self.logger:

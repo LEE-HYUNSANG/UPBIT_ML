@@ -3,20 +3,41 @@ UPBIT 5분봉 자동매매 Flask 메인 앱 (초보자 상세 주석)
 """
 from flask import Flask, render_template, jsonify, request, send_file
 from flask_socketio import SocketIO
-import os, shutil, logging, json  # 기본 모듈들
+import os
+import shutil
+import logging
+import json  # 기본 모듈들
 from datetime import datetime
 
-from utils import load_secrets, send_telegram
+from utils import load_secrets, send_telegram, setup_logging
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
 
-# 로그 설정
-logging.basicConfig(
-    filename='logs/bot_debug.log', level=logging.DEBUG,
-    format='[%(levelname)s][%(asctime)s] %(message)s'
-)
-logger = logging.getLogger("bot")
+# 로그 설정 (파일 + 콘솔)
+logger = setup_logging()
+
+
+@app.before_request
+def log_request():
+    logger.debug(
+        "HTTP REQUEST %s %s args=%s json=%s",
+        request.method,
+        request.path,
+        dict(request.args),
+        request.get_json(silent=True),
+    )
+
+
+@app.after_request
+def log_response(response):
+    logger.debug(
+        "HTTP RESPONSE %s %s status=%s",
+        request.method,
+        request.path,
+        response.status,
+    )
+    return response
 
 # 샘플 설정 로드
 with open("config/config.json", encoding="utf-8") as f:
@@ -65,6 +86,7 @@ def notify_error(message: str) -> None:
 
 def get_balances():
     """Fetch current coin balances (placeholder)."""
+    logger.debug("Fetching balances")
     return positions
 
 positions = [
@@ -316,15 +338,18 @@ analysis_strategies = [
 
 @app.route("/")
 def dashboard():
+    logger.debug("Render dashboard")
     return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"])
 
 @app.route("/strategy")
 def strategy_page():
+    logger.debug("Render strategy page")
     return render_template("strategy.html", strategies=strategies, settings=settings)
 
 # AI 전략 분석 페이지
 @app.route("/ai-analysis")
 def ai_analysis_page():
+    logger.debug("Render AI analysis page")
     return render_template(
         "ai_analysis.html",
         buy_results=buy_results,
@@ -335,6 +360,7 @@ def ai_analysis_page():
 
 @app.route("/risk")
 def risk_page():
+    logger.debug("Render risk page")
     risk = {
         "daily": 2, "weekly": 5, "monthly": 10,
         "push": True, "telegram": True,
@@ -346,22 +372,27 @@ def risk_page():
 
 @app.route("/notifications")
 def notifications_page():
+    logger.debug("Render notifications page")
     return render_template("notifications.html", alerts=alerts, alert_config=config_data.get("alerts", {}))
 
 @app.route("/funds")
 def funds_page():
+    logger.debug("Render funds page")
     return render_template("funds.html", settings=settings)
 
 @app.route("/settings")
 def settings_page():
+    logger.debug("Render settings page")
     return render_template("settings.html", settings=settings, secrets=secrets_data)
 
 @app.route("/api/start-bot", methods=["POST"])
 def start_bot():
+    logger.debug("start_bot called")
     logger.info("[API] 봇 시작 요청")
     try:
         settings["running"] = True
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
+        logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.")
     except Exception as e:
         notify_error(f"봇 시작 실패: {e}")
@@ -369,10 +400,12 @@ def start_bot():
 
 @app.route("/api/stop-bot", methods=["POST"])
 def stop_bot():
+    logger.debug("stop_bot called")
     logger.info("[API] 봇 중지 요청")
     try:
         settings["running"] = False
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
+        logger.info("Bot stopped")
         return jsonify(result="success", message="봇이 정지되었습니다.")
     except Exception as e:
         notify_error(f"봇 중지 실패: {e}")
@@ -381,10 +414,12 @@ def stop_bot():
 @app.route("/api/apply-strategy", methods=["POST"])
 def apply_strategy():
     data = request.json
+    logger.debug("apply_strategy called with %s", data)
     logger.info(f"[API] 전략 적용: {data}")
     try:
         settings["strategy"] = data.get("strategy", "M-BREAK")
         socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
+        logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
     except Exception as e:
         notify_error(f"전략 적용 실패: {e}")
@@ -392,9 +427,12 @@ def apply_strategy():
 
 @app.route("/api/save-settings", methods=["POST"])
 def save_settings():
+    data = request.json
+    logger.debug("save_settings called with %s", data)
     try:
-        settings.update(request.json)
+        settings.update(data)
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        logger.info("Settings saved")
         return jsonify(result="success", message="저장 완료")
     except Exception as e:
         notify_error(f"설정 저장 실패: {e}")
@@ -402,8 +440,11 @@ def save_settings():
 
 @app.route("/api/save-risk", methods=["POST"])
 def save_risk():
+    data = request.json
+    logger.debug("save_risk called with %s", data)
     try:
         socketio.emit('notification', {'message': '리스크 설정 저장'})
+        logger.info("Risk settings saved")
         return jsonify(result="success", message="리스크 저장 완료")
     except Exception as e:
         notify_error(f"리스크 저장 실패: {e}")
@@ -411,8 +452,11 @@ def save_risk():
 
 @app.route("/api/save-alerts", methods=["POST"])
 def save_alerts():
+    data = request.json
+    logger.debug("save_alerts called with %s", data)
     try:
         socketio.emit('notification', {'message': '알림 설정 저장'})
+        logger.info("Alert settings saved")
         return jsonify(result="success", message="알림 설정 저장 완료")
     except Exception as e:
         notify_error(f"알림 설정 저장 실패: {e}")
@@ -420,9 +464,12 @@ def save_alerts():
 
 @app.route("/api/save-funds", methods=["POST"])
 def save_funds():
+    data = request.json
+    logger.debug("save_funds called with %s", data)
     try:
-        settings.update(request.json)
+        settings.update(data)
         socketio.emit('notification', {'message': '자금 설정 저장'})
+        logger.info("Funds settings saved")
         return jsonify(result="success", message="자금 설정 저장 완료")
     except Exception as e:
         notify_error(f"자금 설정 저장 실패: {e}")
@@ -430,8 +477,11 @@ def save_funds():
 
 @app.route("/api/save-strategy", methods=["POST"])
 def save_strategy():
+    data = request.json
+    logger.debug("save_strategy called with %s", data)
     try:
         socketio.emit('notification', {'message': '전략 설정 저장'})
+        logger.info("Strategy settings saved")
         return jsonify(result="success", message="전략 설정 저장 완료")
     except Exception as e:
         notify_error(f"전략 설정 저장 실패: {e}")
@@ -439,8 +489,11 @@ def save_strategy():
 
 @app.route("/api/run-analysis", methods=["POST"])
 def run_analysis():
+    data = request.json
+    logger.debug("run_analysis called with %s", data)
     try:
         socketio.emit('notification', {'message': 'AI 분석을 실행했습니다.'})
+        logger.info("AI analysis started")
         return jsonify(result="success", message="AI 분석 시작")
     except Exception as e:
         notify_error(f"AI 분석 실행 실패: {e}")
@@ -449,6 +502,7 @@ def run_analysis():
 @app.route("/api/manual-sell", methods=["POST"])
 def manual_sell():
     coin = request.json.get('coin')
+    logger.debug("manual_sell called for %s", coin)
     try:
         socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
         global positions, alerts
@@ -456,6 +510,7 @@ def manual_sell():
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
+        logger.info("Manual sell executed for %s", coin)
         return jsonify(result="success", message=f"{coin} 매도 요청" )
     except Exception as e:
         notify_error(f"수동 매도 실패: {e}")
@@ -464,6 +519,7 @@ def manual_sell():
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
     coin = request.json.get('coin')
+    logger.debug("manual_buy called for %s", coin)
     try:
         socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
         global positions, alerts
@@ -472,6 +528,7 @@ def manual_buy():
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매수"})
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
+        logger.info("Manual buy executed for %s", coin)
         return jsonify(result="success", message=f"{coin} 매수 요청")
     except Exception as e:
         notify_error(f"수동 매수 실패: {e}")
@@ -480,15 +537,29 @@ def manual_buy():
 @app.route("/api/balances", methods=["GET"])
 def api_balances():
     """Return current balances for the dashboard."""
+    logger.debug("api_balances called")
     try:
         data = get_balances()
+        logger.info("Balance check success")
         return jsonify(result="success", balances=data)
     except Exception as e:
         notify_error(f"잔고 조회 실패: {e}")
         return jsonify(result="error", message="잔고 조회 실패"), 500
 
+@app.route("/api/signals", methods=["GET"])
+def api_signals():
+    """Return current buy signals for the dashboard."""
+    logger.debug("api_signals called")
+    try:
+        logger.info("Signal check success")
+        return jsonify(result="success", signals=signals)
+    except Exception as e:
+        notify_error(f"시그널 조회 실패: {e}")
+        return jsonify(result="error", message="시그널 조회 실패"), 500
+
 @socketio.on('refresh')
 def handle_refresh(data):
+    logger.debug("handle_refresh called")
     try:
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
@@ -497,12 +568,14 @@ def handle_refresh(data):
 
 @app.route("/download-code")
 def download_code():
+    logger.debug("download_code called")
     try:
         base = os.path.abspath(os.path.dirname(__file__))
         zip_path = os.path.join(base, "upbit_bot_project.zip")
         if os.path.exists(zip_path):
             os.remove(zip_path)
         shutil.make_archive("upbit_bot_project", 'zip', base)
+        logger.info("Project code zipped")
         return send_file(zip_path, as_attachment=True)
     except Exception as e:
         notify_error(f"코드 다운로드 실패: {e}")
