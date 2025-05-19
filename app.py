@@ -530,8 +530,11 @@ def start_bot():
     logger.debug("start_bot called")
     logger.info("[API] 봇 시작 요청")
     try:
+        started = trader.start()
+        if not started:
+            logger.info("Start request ignored: already running")
+            return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
         settings["running"] = True
-        trader.start()
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
         token = secrets_data.get("TELEGRAM_TOKEN")
         chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
@@ -549,8 +552,11 @@ def stop_bot():
     logger.debug("stop_bot called")
     logger.info("[API] 봇 중지 요청")
     try:
+        stopped = trader.stop()
+        if not stopped:
+            logger.info("Stop request ignored: not running")
+            return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
         settings["running"] = False
-        trader.stop()
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
         token = secrets_data.get("TELEGRAM_TOKEN")
         chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
