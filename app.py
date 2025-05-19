@@ -10,6 +10,7 @@ import json  # 기본 모듈들
 from datetime import datetime
 
 from utils import load_secrets, send_telegram, setup_logging
+from bot.trader import UpbitTrader
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
@@ -74,6 +75,14 @@ with open('config/config.json', encoding='utf-8') as f:
 
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
+
+# 트레이더 인스턴스 (실제 매매 로직)
+trader = UpbitTrader(
+    secrets.get("UPBIT_KEY", ""),
+    secrets.get("UPBIT_SECRET", ""),
+    config,
+    logger=logger,
+)
 
 def notify_error(message: str) -> None:
     """Log, socket emit and send Telegram alert for an error."""
@@ -397,6 +406,7 @@ def start_bot():
     logger.info("[API] 봇 시작 요청")
     try:
         settings["running"] = True
+        trader.start()
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.")
@@ -410,6 +420,7 @@ def stop_bot():
     logger.info("[API] 봇 중지 요청")
     try:
         settings["running"] = False
+        trader.stop()
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
         logger.info("Bot stopped")
         return jsonify(result="success", message="봇이 정지되었습니다.")
@@ -433,9 +444,11 @@ def apply_strategy():
 
 @app.route("/api/save-settings", methods=["POST"])
 def save_settings():
-    data = request.json
+    data = request.get_json(silent=True)
     logger.debug("save_settings called with %s", data)
     try:
+        if not isinstance(data, dict):
+            raise ValueError("Invalid JSON")
         settings.update(data)
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
         logger.info("Settings saved")
@@ -507,9 +520,12 @@ def run_analysis():
 
 @app.route("/api/manual-sell", methods=["POST"])
 def manual_sell():
-    coin = request.json.get('coin')
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
     logger.debug("manual_sell called for %s", coin)
     try:
+        if not coin:
+            raise ValueError("Invalid coin")
         socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
         global positions, alerts
         positions = [p for p in positions if p['coin'] != coin]
@@ -524,9 +540,12 @@ def manual_sell():
 
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
-    coin = request.json.get('coin')
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
     logger.debug("manual_buy called for %s", coin)
     try:
+        if not coin:
+            raise ValueError("Invalid coin")
         socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
         global positions, alerts
         positions.append({"coin": coin, "entry": 50, "trend": 50, "trend_color": "green",

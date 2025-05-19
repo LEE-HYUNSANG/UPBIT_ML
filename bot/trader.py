@@ -22,6 +22,10 @@ class UpbitTrader:
 
     def start(self):
         """자동매매 시작 (스레드)"""
+        if self.thread and self.thread.is_alive():
+            if self.logger:
+                self.logger.warning("Trader already running")
+            return
         self.running = True  # 루프 실행 플래그 활성화
         self.thread = threading.Thread(target=self.run_loop, daemon=True)
         self.thread.start()  # 별도 스레드에서 run_loop 실행
