@@ -17,8 +17,9 @@
 - **bot/trader.py**: 업비트 API를 활용한 메인 트레이더 클래스.
 
 ## config 디렉터리
-- **config/config.json**: 예제 설정 값.
-- **config/secrets.json**: API 키 등 비밀 정보 예시.
+ - **config/config.json**: 예제 설정 값.
+ - **config/secrets.json**: API 키 등 비밀 정보 예시.
+ - **config/market.json**: 업비트 연결 실패 시 사용할 시세 예시 데이터.
 
 ## templates 디렉터리 (Jinja2 HTML)
 - **base.html**: 기본 레이아웃.

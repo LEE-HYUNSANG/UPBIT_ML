@@ -67,6 +67,9 @@ Example error:
 [ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
 ```
 
+`config/market.json` stores fallback market data when live fetching from Upbit
+fails. Tests load this file to avoid network access.
+
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.
 
