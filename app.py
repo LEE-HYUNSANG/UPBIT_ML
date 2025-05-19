@@ -63,6 +63,10 @@ def notify_error(message: str) -> None:
     if token and chat_id:
         send_telegram(token, chat_id, message)
 
+def get_balances():
+    """Fetch current coin balances (placeholder)."""
+    return positions
+
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
 ]
@@ -472,6 +476,16 @@ def manual_buy():
     except Exception as e:
         notify_error(f"수동 매수 실패: {e}")
         return jsonify(result="error", message="수동 매수 실패"), 500
+
+@app.route("/api/balances", methods=["GET"])
+def api_balances():
+    """Return current balances for the dashboard."""
+    try:
+        data = get_balances()
+        return jsonify(result="success", balances=data)
+    except Exception as e:
+        notify_error(f"잔고 조회 실패: {e}")
+        return jsonify(result="error", message="잔고 조회 실패"), 500
 
 @socketio.on('refresh')
 def handle_refresh(data):
