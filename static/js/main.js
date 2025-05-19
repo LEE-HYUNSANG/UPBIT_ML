@@ -6,6 +6,28 @@
 const alertModalEl = document.getElementById('alertModal');
 const alertModal = new bootstrap.Modal(alertModalEl);
 
+// Confirm modal
+const confirmModalEl = document.getElementById('confirmModal');
+const confirmModal = confirmModalEl ? new bootstrap.Modal(confirmModalEl) : null;
+
+function showConfirm(message){
+  return new Promise(resolve=>{
+    if(!confirmModal) return resolve(window.confirm(message));
+    confirmModalEl.querySelector('.modal-body').innerText = message;
+    const okBtn = confirmModalEl.querySelector('[data-action="ok"]');
+    const cancelBtn = confirmModalEl.querySelector('[data-action="cancel"]');
+    function cleanup(){
+      okBtn.removeEventListener('click', ok);
+      cancelBtn.removeEventListener('click', cancel);
+    }
+    function ok(){ cleanup(); confirmModal.hide(); resolve(true); }
+    function cancel(){ cleanup(); confirmModal.hide(); resolve(false); }
+    okBtn.addEventListener('click', ok);
+    cancelBtn.addEventListener('click', cancel);
+    confirmModal.show();
+  });
+}
+
 function showAlert(message, title = "알림") {
   document.querySelector('#alertModal .modal-title').innerText = title;
   document.querySelector('#alertModal .modal-body').innerText = message;
@@ -81,6 +103,10 @@ document.addEventListener('click', async e => {
   const btn = e.target.closest('[data-api]');
   if(!btn) return;
   e.preventDefault();
+  if(btn.dataset.confirm){
+    const ok = await showConfirm(btn.dataset.confirm);
+    if(!ok) return;
+  }
   const form = btn.closest('form');
   let data = {};
   if(form){
@@ -153,7 +179,7 @@ function updatePositions(list){
         </div>
       </td>
       <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
-      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="${p.coin}">수동 매도</button></td>
+      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="${p.coin}">수동 매도</button></td>
     </tr>
   `).join('');
   initDotPositions();
@@ -226,7 +252,7 @@ function updateBalanceTable(list){
         </div>
       </td>
       <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
-      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="${p.coin}">수동 매도</button></td>
+      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="${p.coin}">수동 매도</button></td>
     </tr>
   `).join('');
   initDotPositions();
@@ -286,3 +312,31 @@ async function loadStatus(){
     showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
   }
 }
+
+function formatNumber(val){
+  const num = parseFloat(val);
+  if(isNaN(num)) return val;
+  return num.toLocaleString();
+}
+
+async function reloadAccount(){
+  try {
+    const resp = await fetch('/api/account');
+    const data = await resp.json();
+    if(data.result === 'success' && data.account){
+      const c = document.getElementById('accountCash');
+      const t = document.getElementById('accountTotal');
+      const p = document.getElementById('accountPnl');
+      if(c) c.textContent = formatNumber(data.account.cash) + ' 원';
+      if(t) t.textContent = formatNumber(data.account.total) + ' 원';
+      if(p) p.textContent = data.account.pnl + ' %';
+    }
+  } catch(err){
+    console.error(err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  setInterval(reloadAccount, 10000);
+  reloadAccount();
+});

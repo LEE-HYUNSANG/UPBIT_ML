@@ -18,6 +18,14 @@ socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 Socket
 # 로그 설정 (파일 + 콘솔)
 logger = setup_logging()
 
+# 숫자 천 단위 콤마 필터
+@app.template_filter('comma')
+def comma_format(value):
+    try:
+        return f"{int(value):,}"
+    except (ValueError, TypeError):
+        return value
+
 
 @app.before_request
 def log_request():
@@ -83,6 +91,16 @@ settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
 with open('config/config.json', encoding='utf-8') as f:
     config_data = json.load(f)
 
+# 대시보드 코인 필터 설정 로드/저장용
+FILTER_FILE = 'config/filter.json'
+filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
+if os.path.exists(FILTER_FILE):
+    try:
+        with open(FILTER_FILE, encoding='utf-8') as f:
+            filter_config.update(json.load(f))
+    except Exception:
+        pass
+
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
 
@@ -136,19 +154,38 @@ def update_timestamp() -> None:
     """Update last change timestamp in settings."""
     settings["updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-positions = [
-    {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
+positions = []
+
+sample_signals = [
+    {"coin": "BTC", "price": 40000000, "rank": 1, "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
+    {"coin": "ETH", "price": 2500000, "rank": 2, "trend": "🔼", "volatility": "🔵 4.2", "volume": "⏫ 180", "strength": "🔼 80", "gc": "🔼", "rsi": "🔸 55", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
+    {"coin": "XRP", "price": 600, "rank": 5, "trend": "🔸", "volatility": "🟡 3.1", "volume": "🔼 90", "strength": "🔻 40", "gc": "🔻", "rsi": "🔸 50", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
+    {"coin": "DOGE", "price": 150, "rank": 20, "trend": "🔻", "volatility": "🔻 1.5", "volume": "🔻 30", "strength": "🔻 20", "gc": "🔻", "rsi": "🔻 70", "signal": "회피", "signal_class": "avoid", "key": "MBREAK"},
 ]
-signals = [
-    {"coin": "BTC", "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
-]
+
+def get_filtered_signals():
+    """Return sample signals filtered by price range and volume rank."""
+    min_p = float(filter_config.get("min_price", 0) or 0)
+    max_p = float(filter_config.get("max_price", 0) or 0)
+    rank = int(filter_config.get("rank", 0) or 0)
+    result = []
+    for s in sample_signals:
+        if min_p and s["price"] < min_p:
+            continue
+        if max_p and max_p > 0 and s["price"] > max_p:
+            continue
+        if rank and s["rank"] > rank:
+            continue
+        result.append({k: v for k, v in s.items() if k not in ("price", "rank")})
+    return result
+
 alerts = []
 history = [
     {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
     {"time": "2025-05-17 10:13", "label": "분석", "cls": "primary"},
 ]
-buy_results = signals
-sell_results = signals
+buy_results = sample_signals
+sell_results = sample_signals
 
 # 기본 전략 정보 (9전략 모두 표시)
 strategies = [
@@ -411,7 +448,18 @@ analysis_strategies = [
 @app.route("/")
 def dashboard():
     logger.debug("Render dashboard")
-    return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"], account=get_account_summary())
+    data = get_balances()
+    current_positions = trader.build_positions(data) if data else []
+    return render_template(
+        "index.html",
+        running=settings["running"],
+        positions=current_positions,
+        alerts=alerts,
+        signals=get_filtered_signals(),
+        updated=settings["updated"],
+        account=get_account_summary(),
+        config=filter_config,
+    )
 
 @app.route("/strategy")
 def strategy_page():
@@ -510,12 +558,19 @@ def apply_strategy():
 
 @app.route("/api/save-settings", methods=["POST"])
 def save_settings():
-    data = request.get_json(silent=True)
+    data = request.get_json(silent=True) or {}
     logger.debug("save_settings called with %s", data)
     try:
         if not isinstance(data, dict):
             raise ValueError("Invalid JSON")
-        settings.update(data)
+        # 대시보드 필터 값 저장
+        for k in ("min_price", "max_price", "rank"):
+            if k in data:
+                filter_config[k] = data[k]
+        settings.update({k: v for k, v in data.items() if k not in ("min_price", "max_price", "rank")})
+        os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
+        with open(FILTER_FILE, "w", encoding="utf-8") as f:
+            json.dump(filter_config, f, ensure_ascii=False, indent=2)
         update_timestamp()
         socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
@@ -600,10 +655,10 @@ def manual_sell():
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
         logger.info("Manual sell executed for %s", coin)
-        return jsonify(result="success", message=f"{coin} 매도 요청" )
+        return jsonify(result="success", message="시장가로 매도가 주문 되었습니다.")
     except Exception as e:
         notify_error(f"수동 매도 실패: {e}")
-        return jsonify(result="error", message="수동 매도 실패"), 500
+        return jsonify(result="error", message=f"매도 취소: {e}"), 500
 
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
@@ -645,7 +700,7 @@ def api_signals():
     logger.debug("api_signals called")
     try:
         logger.info("Signal check success")
-        return jsonify(result="success", signals=signals)
+        return jsonify(result="success", signals=get_filtered_signals())
     except Exception as e:
         notify_error(f"시그널 조회 실패: {e}")
         return jsonify(result="error", message="시그널 조회 실패"), 500
@@ -660,6 +715,18 @@ def api_status():
     except Exception as e:
         notify_error(f"상태 조회 실패: {e}")
         return jsonify(result="error", message="상태 조회 실패"), 500
+
+
+@app.route("/api/account", methods=["GET"])
+def api_account():
+    """Return latest account summary."""
+    logger.debug("api_account called")
+    try:
+        summary = get_account_summary()
+        return jsonify(result="success", account=summary)
+    except Exception as e:
+        notify_error(f"계좌 조회 실패: {e}")
+        return jsonify(result="error", message="계좌 조회 실패"), 500
 
 
 @app.route("/save", methods=["POST"])

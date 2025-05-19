@@ -13,10 +13,10 @@
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="badge bg-success px-3" id="bot-status">
+          <span class="badge {% if running %}bg-success{% else %}bg-secondary{% endif %} px-3" id="bot-status">
             {% if running %}실행중{% else %}정지{% endif %}
           </span>
-          <button class="btn btn-primary btn-sm w-50" data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
+          <button class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm w-50" data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
             {% if running %}중지하기{% else %}시작하기{% endif %}
           </button>
         </div>
@@ -31,9 +31,9 @@
       </div>
       <div class="card-body">
         <div class="row gy-2">
-          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">{{ account.cash }} 원</div>
-          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">{{ account.total }} 원</div>
-          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">{{ account.pnl }} %</div>
+          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold" id="accountCash">{{ account.cash|comma }} 원</div>
+          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold" id="accountTotal">{{ account.total|comma }} 원</div>
+          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold" id="accountPnl">{{ account.pnl }} %</div>
         </div>
       </div>
     </div>
@@ -45,14 +45,19 @@
       </div>
       <div class="card-body">
         <form id="coinFilterForm">
-          <label class="form-label">최소 가격(원)</label>
-          <input type="number" class="form-control form-control-sm mb-2" name="min_price" value="{{ config.get('min_price', 0) }}">
-          <label class="form-label">최대 가격(원)</label>
-          <input type="number" class="form-control form-control-sm mb-2" name="max_price" value="{{ config.get('max_price', 0) }}">
-          <label class="form-label">시가총액 순위</label>
-          <input type="number" class="form-control form-control-sm mb-3" name="rank" value="{{ config.get('rank', 0) }}">
-          <button type="button" class="btn btn-primary btn-sm w-100 mb-2" data-api="/api/save-settings">저장</button>
-          <button type="button" class="btn btn-secondary btn-sm w-100" data-api="/save">파일 저장</button>
+          <div class="mb-2">
+            <label class="form-label">최소 가격(원)</label>
+            <input type="number" class="form-control form-control-sm" name="min_price" value="{{ config.get('min_price', 0) }}">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">최대 가격(원)</label>
+            <input type="number" class="form-control form-control-sm" name="max_price" value="{{ config.get('max_price', 0) }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">거래량 순위</label>
+            <input type="number" class="form-control form-control-sm" name="rank" value="{{ config.get('rank', 0) }}">
+          </div>
+          <button type="button" class="btn btn-primary btn-sm w-100" data-api="/api/save-settings">저장</button>
         </form>
       </div>
     </div>
@@ -118,7 +123,7 @@
                   </div>
                 </td>
                 <td><span class="badge badge-{{ p.signal }}">{{ p.signal_label }}</span></td>
-                <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="{{ p.coin }}">수동 매도</button></td>
+                <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="{{ p.coin }}">수동 매도</button></td>
               </tr>
               {% endfor %}
             </tbody>
