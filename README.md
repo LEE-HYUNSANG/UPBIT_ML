@@ -38,6 +38,13 @@ python app.py
 The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
 
+## Running tests
+Install `pytest` and execute the suite:
+```bash
+pip install pytest
+pytest
+```
+
 ## Secrets configuration
 All API keys and tokens are read from `config/secrets.json`. Create the file before starting the server:
 
