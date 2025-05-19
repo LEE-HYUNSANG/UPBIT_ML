@@ -32,14 +32,15 @@ def send_telegram(token: str, chat_id: str, text: str) -> None:
     """Send a message via Telegram bot API."""
     try:
         logging.debug("Sending telegram message", extra={"chat_id": chat_id})
-        requests.post(
+        resp = requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             data={"chat_id": chat_id, "text": text},
             timeout=5,
         )
+        logging.debug("Telegram response %s", resp.status_code)
         logging.info("Telegram message sent")
     except Exception as e:
-        logging.error(f"Telegram send failed: {e}")
+        logging.exception("Telegram send failed: %s", e)
 
 
 def load_secrets(

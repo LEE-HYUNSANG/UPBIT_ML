@@ -37,4 +37,6 @@ def calc_indicators(df):
     # 계산 후 결측값(backfill) 보정 및 0 채우기
     df.fillna(method="bfill", inplace=True)
     df.fillna(0, inplace=True)
+    if not df.empty:
+        logger.debug("Indicators calculated: %s", df.iloc[-1].to_dict())
     return df  # 지표가 추가된 데이터프레임 반환

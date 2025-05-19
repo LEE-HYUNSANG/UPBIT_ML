@@ -26,6 +26,15 @@ def m_break(df, tis, params):
         tis >= 120 and                                # 체결강도 120 이상
         last['close'] > prev_high * 1.0015             # 전고 돌파
     )
+    logger.debug(
+        "m_break close=%s prev_high=%s volume=%s atr=%s tis=%s -> %s",
+        last['close'],
+        prev_high,
+        last['volume'],
+        last['ATR14'],
+        tis,
+        ok,
+    )
     return ok, params
 
 def p_pull(df, tis, params):
@@ -41,6 +50,14 @@ def p_pull(df, tis, params):
         abs(last['close'] - ema50) / (ema50+1e-9) < 0.02 and
         last['RSI14'] <= params.get('rsi', 28) and
         last['volume'] >= df['volume'].iloc[-2] * 1.2
+    )
+    logger.debug(
+        "p_pull close=%s ema50=%s rsi=%s volume=%s -> %s",
+        last['close'],
+        ema50,
+        last['RSI14'],
+        last['volume'],
+        ok,
     )
     return ok, params
 
@@ -60,6 +77,13 @@ def t_flow(df, tis, params):
         obv_inc and
         48 <= rsi <= 60
     )
+    logger.debug(
+        "t_flow slope=%s obv_inc=%s rsi=%s -> %s",
+        ema20_slope,
+        obv_inc,
+        rsi,
+        ok,
+    )
     return ok, params
 
 def b_low(df, tis, params):
@@ -78,6 +102,13 @@ def b_low(df, tis, params):
         box_ratio < 0.06 and
         last['low'] <= low80 * 1.01 and
         last['RSI14'] < params.get('rsi', 25)
+    )
+    logger.debug(
+        "b_low box_ratio=%s low80=%s rsi=%s -> %s",
+        box_ratio,
+        low80,
+        last['RSI14'],
+        ok,
     )
     return ok, params
 
@@ -99,6 +130,14 @@ def v_rev(df, tis, params):
         rsi_rise and
         price_rebound
     )
+    logger.debug(
+        "v_rev drop=%s vol_burst=%s rsi_rise=%s rebound=%s -> %s",
+        price_drop,
+        volume_burst,
+        rsi_rise,
+        price_rebound,
+        ok,
+    )
     return ok, params
 
 def g_rev(df, tis, params):
@@ -113,6 +152,13 @@ def g_rev(df, tis, params):
         golden and
         last['RSI14'] >= 48 and
         last['volume'] >= df['volume'].iloc[-2] * 0.6
+    )
+    logger.debug(
+        "g_rev golden=%s rsi=%s volume=%s -> %s",
+        golden,
+        last['RSI14'],
+        last['volume'],
+        ok,
     )
     return ok, params
 
@@ -132,6 +178,14 @@ def vol_brk(df, tis, params):
         last['high'] > high20 * 0.999 and
         last['RSI14'] >= 60
     )
+    logger.debug(
+        "vol_brk atr_ratio=%s vol_ratio=%s high=%s rsi=%s -> %s",
+        last['ATR14'] / (atr10+1e-9),
+        last['volume'] / (vol20+1e-9),
+        last['high'],
+        last['RSI14'],
+        ok,
+    )
     return ok, params
 
 def ema_stack(df, tis, params):
@@ -144,6 +198,11 @@ def ema_stack(df, tis, params):
     ok = (
         last['EMA25'] > last['EMA100'] > last['EMA200'] and
         last['ADX'] >= 30
+    )
+    logger.debug(
+        "ema_stack adx=%s -> %s",
+        last['ADX'],
+        ok,
     )
     return ok, params
 
@@ -161,6 +220,13 @@ def vwap_bnc(df, tis, params):
         vwap_close_ratio < 0.012 and
         45 <= last['RSI14'] <= 60 and
         last['volume'] >= df['volume'].iloc[-2]
+    )
+    logger.debug(
+        "vwap_bnc vwap_ratio=%s rsi=%s volume=%s -> %s",
+        vwap_close_ratio,
+        last['RSI14'],
+        last['volume'],
+        ok,
     )
     return ok, params
 
@@ -186,5 +252,6 @@ def select_strategy(strategy_name, df, tis, params):
     func = STRATS.get(strategy_name)   # 전략 이름으로 함수 찾기
     if not func:
         return False, {}
-    # 해당 전략 함수 실행 결과 반환
-    return func(df, tis, params)
+    ok, res = func(df, tis, params)
+    logger.debug("%s -> %s", strategy_name, ok)
+    return ok, res
