@@ -19,6 +19,7 @@
 ## config 디렉터리
 - **config/config.json**: 예제 설정 값.
 - **config/secrets.json**: API 키 등 비밀 정보 예시.
+- **config/market.json**: 대시보드에서 사용하는 샘플 시그널 데이터.
 
 ## templates 디렉터리 (Jinja2 HTML)
 - **base.html**: 기본 레이아웃.

@@ -175,28 +175,36 @@ def save_excluded():
 
 positions = []
 
-sample_signals = [
-    {"coin": "BTC", "price": 40000000, "rank": 1, "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
-    {"coin": "ETH", "price": 2500000, "rank": 2, "trend": "🔼", "volatility": "🔵 4.2", "volume": "⏫ 180", "strength": "🔼 80", "gc": "🔼", "rsi": "🔸 55", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
-    {"coin": "XRP", "price": 600, "rank": 5, "trend": "🔸", "volatility": "🟡 3.1", "volume": "🔼 90", "strength": "🔻 40", "gc": "🔻", "rsi": "🔸 50", "signal": "관망", "signal_class": "wait", "key": "MBREAK"},
-    {"coin": "DOGE", "price": 150, "rank": 20, "trend": "🔻", "volatility": "🔻 1.5", "volume": "🔻 30", "strength": "🔻 20", "gc": "🔻", "rsi": "🔻 70", "signal": "회피", "signal_class": "avoid", "key": "MBREAK"},
-]
+# 외부 파일에서 시그널 데이터를 로드하도록 변경
+MARKET_FILE = "config/market.json"
+
+def load_market_signals() -> list[dict]:
+    """Load market signal data from ``MARKET_FILE``."""
+    try:
+        with open(MARKET_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+            logger.debug("[MONITOR] Loaded %d market signals", len(data))
+            return data
+    except Exception as e:
+        logger.error("[MONITOR] Failed to load market file: %s", e)
+        return []
 
 def get_filtered_signals():
-    """Return sample signals filtered by price range and volume rank."""
+    """Return market signals filtered by price range and volume rank."""
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
+    signals = load_market_signals()
     result = []
-    for s in sample_signals:
+    for s in signals:
         logger.debug("[MONITOR] 원본 시그널 %s", s)
-        if min_p and s["price"] < min_p:
+        if min_p and s.get("price", 0) < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and s.get("rank", 0) > rank:
             continue
         entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
         logger.debug("[MONITOR] 필터 통과 %s", entry)
@@ -206,13 +214,40 @@ def get_filtered_signals():
         logger.debug("[MONITOR] 응답 데이터 %s", s)
     return result
 
+def get_filtered_tickers() -> list[str]:
+    """Return config tickers filtered by dashboard conditions."""
+    logger.debug("Filtering tickers with %s", filter_config)
+    tickers = config_data.get("tickers", [])
+    if not tickers:
+        return []
+    min_p = float(filter_config.get("min_price", 0) or 0)
+    max_p = float(filter_config.get("max_price", 0) or 0)
+    rank = int(filter_config.get("rank", 0) or 0)
+    result = []
+    signals = load_market_signals()
+    for t in tickers:
+        coin = t.split("-")[-1]
+        sig = next((s for s in signals if s.get("coin") == coin), None)
+        if sig:
+            price = sig.get("price", 0)
+            r = sig.get("rank", 0)
+            if min_p and price < min_p:
+                continue
+            if max_p and max_p > 0 and price > max_p:
+                continue
+            if rank and r > rank:
+                continue
+        result.append(t)
+    logger.debug("Filtered tickers: %s", result)
+    return result
+
 alerts = []
 history = [
     {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
     {"time": "2025-05-17 10:13", "label": "분석", "cls": "primary"},
 ]
-buy_results = sample_signals
-sell_results = sample_signals
+buy_results = load_market_signals()
+sell_results = load_market_signals()
 
 # 기본 전략 정보 (9전략 모두 표시)
 strategies = [
@@ -538,6 +573,7 @@ def start_bot():
     logger.debug("start_bot called")
     logger.info("[API] 봇 시작 요청")
     try:
+        trader.set_tickers(get_filtered_tickers())
         started = trader.start()
         if not started:
             logger.info("Start request ignored: already running")
