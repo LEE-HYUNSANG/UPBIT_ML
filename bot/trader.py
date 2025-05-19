@@ -162,8 +162,17 @@ class UpbitTrader:
             bal = float(b.get("balance", 0))
             if currency == "KRW" or bal == 0:
                 continue
+            try:
+                price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+            except Exception:
+                if self.logger:
+                    self.logger.warning("Price lookup failed for %s", currency)
+                price = 0
+            avg_buy = float(b.get("avg_buy_price", 0))
+            pnl = round((price - avg_buy) / avg_buy * 100, 2) if avg_buy else 0.0
             positions.append({
                 "coin": currency,
+                "pnl": pnl,
                 "entry": 50,
                 "trend": 50,
                 "trend_color": "green",
