@@ -1,21 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}UPBIT AutoTrading · 개인 설정{% endblock %}
 {% block content %}
-<style>
-body{background:#f6f8fb;font-size:18px;}
-.navbar{background:#1e2b45;}
-.card-head{background:#22315a;color:#fff;font-size:1.25rem;padding:1.2rem 2rem;display:flex;align-items:center;gap:.7rem;border-radius:1.25rem 1.25rem 0 0;}
-.card{border-radius:1.25rem;margin-bottom:2.5rem;box-shadow:0 4px 24px #0001;}
-.card-body{padding:2.5rem;}
-label.form-label{font-size:1.08rem;font-weight:600;color:#233;}
-input.form-control,select.form-select{font-size:1.1rem;padding:0.9rem 1.1rem;}
-input[type="password"]{letter-spacing:0.2em;}
-.btn-primary{padding:.8rem 2.5rem;font-size:1.15rem;}
-.container{max-width:740px;margin-top:56px;}
-.section-label{font-size:1.12rem;font-weight:700;color:#3753a9;margin-bottom:1.2rem;}
-.bi-key,.bi-lock,.bi-person-circle,.bi-telegram{font-size:1.6rem;}
-@media (max-width:1200px){.container{max-width:98vw;}}
-</style>
 <div class="container">
   <div class="card shadow-sm mb-5">
     <div class="card-head">
@@ -28,34 +13,34 @@ input[type="password"]{letter-spacing:0.2em;}
         <div class="section-label"><i class="bi bi-bar-chart-steps me-2"></i>거래소 설정</div>
         <div class="mb-4">
           <label class="form-label">거래소 선택</label>
-          <select class="form-select form-select-lg" id="exchange">
-            <option value="UPBIT">업비트</option>
-            <option value="BINANCE">바이낸스</option>
+          <select class="form-select form-select-lg" id="exchange" name="exchange">
+            <option value="UPBIT" {% if config.exchange=='UPBIT' %}selected{% endif %}>업비트</option>
+            <option value="BINANCE" {% if config.exchange=='BINANCE' %}selected{% endif %}>바이낸스</option>
           </select>
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-key me-2"></i>API Key</label>
-          <input type="password" class="form-control form-control-lg" id="api-key" placeholder="API Key 입력">
+          <input type="password" class="form-control form-control-lg" id="api-key" name="api_key" value="{{ secrets.UPBIT_KEY }}" placeholder="API Key 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-lock me-2"></i>API Secret</label>
-          <input type="password" class="form-control form-control-lg" id="api-secret" placeholder="Secret 입력">
+          <input type="password" class="form-control form-control-lg" id="api-secret" name="api_secret" value="{{ secrets.UPBIT_SECRET }}" placeholder="Secret 입력">
         </div>
         
         <hr class="my-5">
         <div class="section-label"><i class="bi bi-telegram me-2"></i>텔레그램 연동 설정</div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-telegram me-2"></i>Bot Token</label>
-          <input type="password" class="form-control form-control-lg" id="tg-bot" placeholder="텔레그램 Bot Token 입력">
+          <input type="password" class="form-control form-control-lg" id="tg-bot" name="tg_bot" value="{{ secrets.TELEGRAM_TOKEN }}" placeholder="텔레그램 Bot Token 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-person-fill me-2"></i>Chat ID</label>
-          <input type="text" class="form-control form-control-lg" id="tg-chat" placeholder="텔레그램 Chat ID 입력">
+          <input type="text" class="form-control form-control-lg" id="tg-chat" name="tg_chat" value="{{ secrets.TELEGRAM_CHAT_ID }}" placeholder="텔레그램 Chat ID 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-bell me-2"></i>텔레그램 알림 ON/OFF</label>
           <div class="form-check form-switch ps-5">
-            <input class="form-check-input" type="checkbox" id="tgOnOff" checked>
+            <input class="form-check-input" type="checkbox" id="tgOnOff" name="tg_on" {% if config.alerts.telegram %}checked{% endif %}>
             <label class="form-check-label" for="tgOnOff" style="font-size:1.02rem;">알림 받기</label>
           </div>
         </div>
@@ -64,37 +49,37 @@ input[type="password"]{letter-spacing:0.2em;}
           <div class="row mb-2">
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm1" checked>
+                <input class="form-check-input" type="checkbox" id="alarm1" name="alarm1" {% if 'BUY' in config.alerts.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm1">매수 체결</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm2" checked>
+                <input class="form-check-input" type="checkbox" id="alarm2" name="alarm2" {% if 'SELL' in config.alerts.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm2">매도 체결</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm3" checked>
+                <input class="form-check-input" type="checkbox" id="alarm3" name="alarm3" {% if 'STOP' in config.alerts.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm3">손절 발생</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm4">
+                <input class="form-check-input" type="checkbox" id="alarm4" name="alarm4" {% if 'TP' in config.alerts.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm4">익절 발생</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm5">
+                <input class="form-check-input" type="checkbox" id="alarm5" name="alarm5" {% if 'ERROR' in config.alerts.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm5">시스템 오류/경고</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="alarm6">
+                <input class="form-check-input" type="checkbox" id="alarm6" name="alarm6">
                 <label class="form-check-label" for="alarm6">전략 변경/중지</label>
               </div>
             </div>
@@ -104,16 +89,16 @@ input[type="password"]{letter-spacing:0.2em;}
           <label class="form-label"><i class="bi bi-clock me-2"></i>알림 수신 시간대</label>
           <div class="row g-3 align-items-center">
             <div class="col-4 col-lg-3">
-              <input type="time" class="form-control form-control-lg" id="notify-from" value="08:00">
+              <input type="time" class="form-control form-control-lg" id="notify-from" name="notify_from" value="{{ config.notify_hours[0] }}">
             </div>
             <div class="col-1 text-center">~</div>
             <div class="col-4 col-lg-3">
-              <input type="time" class="form-control form-control-lg" id="notify-to" value="22:00">
+              <input type="time" class="form-control form-control-lg" id="notify-to" name="notify_to" value="{{ config.notify_hours[1] }}">
             </div>
             <div class="col text-muted" style="font-size:1rem;">* 지정 시간 외에는 알림이 발송되지 않습니다.</div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100 mt-2">저장 / 갱신</button>
+        <button type="button" class="btn btn-primary w-100 mt-2" data-api="/api/save-settings">저장 / 갱신</button>
       </form>
       <div class="mt-5">
         <span class="text-muted">마지막 저장: 2025-05-18 15:22</span>
@@ -121,7 +106,5 @@ input[type="password"]{letter-spacing:0.2em;}
     </div>
   </div>
 </div>
-<script>
-document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
-</script>
+
 {% endblock %}

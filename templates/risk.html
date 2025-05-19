@@ -1,23 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Upbit AutoTrading · 리스크 매니지먼트{% endblock %}
 {% block content %}
-<style>
-body{background:#f6f8fb;font-size:18px;}
-.navbar{background:#1e2b45;}
-.card-head{background:#22315a;color:#fff;font-size:1.25rem;padding:1.2rem 2rem;display:flex;align-items:center;gap:.7rem;border-radius:1.25rem 1.25rem 0 0;}
-.card{border-radius:1.25rem;margin-bottom:2.5rem;box-shadow:0 4px 24px #0001;}
-.card-body{padding:2.5rem;}
-label.form-label{font-size:1.08rem;font-weight:600;color:#233;}
-input.form-control,select.form-select{font-size:1.1rem;padding:0.9rem 1.1rem;}
-input[type="number"],input[type="text"]{max-width:220px;}
-.btn-primary{padding:.8rem 2.5rem;font-size:1.15rem;}
-.btn-lg{font-size:1.18rem;}
-.container{max-width:980px;margin-top:56px;}
-.section-label{font-size:1.18rem;font-weight:700;color:#3753a9;margin-bottom:1.2rem;}
-.bi-shield-check,.bi-bell{font-size:2rem;color:#40b4a8;}
-.card-toolbar {display:flex;gap:1.5rem;flex-wrap:wrap;}
-@media (max-width:1100px) {.container{max-width:98vw;}}
-</style>
 
 <div class="container">
 
@@ -34,23 +17,23 @@ input[type="number"],input[type="text"]{max-width:220px;}
             <label class="form-label"><i class="bi bi-graph-down-arrow me-2"></i>손실 한도</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="일간(%)">  
+            <input type="number" class="form-control" name="day" placeholder="일간(%)" value="{{ risk.day }}">
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="주간(%)">  
+            <input type="number" class="form-control" name="week" placeholder="주간(%)" value="{{ risk.week }}">
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="월간(%)">  
+            <input type="number" class="form-control" name="month" placeholder="월간(%)" value="{{ risk.month }}">
           </div>
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-bell me-2"></i>알림 설정</label>
           <div class="form-check form-switch mb-2">
-            <input class="form-check-input" type="checkbox" id="push1">
+            <input class="form-check-input" type="checkbox" id="push1" name="push1" {% if config.alerts.telegram %}checked{% endif %}>
             <label class="form-check-label" for="push1">익절/손절시 푸시 알림</label>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="push2">
+            <input class="form-check-input" type="checkbox" id="push2" name="push2" {% if config.alerts.push %}checked{% endif %}>
             <label class="form-check-label" for="push2">텔레그램 알림 연동</label>
           </div>
         </div>
@@ -59,10 +42,10 @@ input[type="number"],input[type="text"]{max-width:220px;}
             <label class="form-label"><i class="bi bi-x-octagon me-2"></i>강제 매도/손절 기준</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="손실 퍼센트(%) 기준">
+            <input type="number" class="form-control" name="force_pct" placeholder="손실 퍼센트(%) 기준" value="{{ risk.force_pct }}">
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="연속 손실 허용(횟수)">
+            <input type="number" class="form-control" name="force_cnt" placeholder="연속 손실 허용(횟수)" value="{{ risk.force_cnt }}">
           </div>
         </div>
         <div class="row mb-4 align-items-center">
@@ -70,10 +53,10 @@ input[type="number"],input[type="text"]{max-width:220px;}
             <label class="form-label"><i class="bi bi-exclamation-diamond me-2"></i>연속 손실/수익 자동 중지</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="연속 손실(횟수)">
+            <input type="number" class="form-control" name="loss_stop" placeholder="연속 손실(횟수)" value="{{ risk.loss_stop }}">
           </div>
           <div class="col">
-            <input type="number" class="form-control" placeholder="연속 수익(횟수)">
+            <input type="number" class="form-control" name="profit_stop" placeholder="연속 수익(횟수)" value="{{ risk.profit_stop }}">
           </div>
         </div>
         <div class="mb-4">
@@ -83,7 +66,7 @@ input[type="number"],input[type="text"]{max-width:220px;}
             <button class="btn btn-outline-secondary" type="button"><i class="bi bi-download"></i> 내보내기</button>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100 mt-2">저장</button>
+        <button type="button" class="btn btn-primary w-100 mt-2" data-api="/api/save-risk">저장</button>
       </form>
       <div class="mt-4 text-muted">마지막 저장: 2025-05-18 15:15</div>
     </div>
@@ -123,7 +106,6 @@ input[type="number"],input[type="text"]{max-width:220px;}
   </div>
 </div>
 <script>
-document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
 function openLogManager(){ alert('로그 파일 관리/로테이션(서버 API 필요)'); }
 function openAuditHistory(){ alert('감사로그 실시간 조회/다운로드(서버 API 필요)'); }
 function openBackupRestore(){ alert('설정/포지션/로그 백업 및 복구(서버 API 필요)'); }

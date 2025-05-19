@@ -1,52 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}UPBIT AutoTrading · 메인 대시보드{% endblock %}
 {% block content %}
-<style>
-body { background:#f6f8fb; font-size:17px; overflow:hidden; }
-.navbar { background:#1e2b45; }
-.card-head {
-  background:#22315a; color:#fff; font-size:1.13rem; font-weight:600;
-  padding:1.05rem 1.5rem; display:flex; align-items:center; gap:.7rem; border-radius:1.1rem 1.1rem 0 0;
-}
-.card { border-radius:1.15rem; box-shadow:0 4px 24px #0001; }
-.card-body { padding:2rem 1.6rem 1.4rem 1.6rem; }
-.table th, .table td { vertical-align:middle; }
-.table thead { position:sticky; top:0; z-index:2; }
-.table-responsive { max-height:46vh; overflow:auto; }
-#layout { display:flex; height:calc(100vh - 66px); }
-#left { width:22%; min-width:300px; max-width:410px; overflow:auto; padding:1.6rem 1rem 1rem 1.4rem; }
-#right { flex:1; overflow:auto; padding:1.7rem 1.8rem 1.7rem 0.5rem; }
-#drag { width:7px; background:#dee2e6; cursor:col-resize; min-height:90vh; }
-.badge-go   { background:#198754; font-size:.8rem; padding:.36rem .85rem; }
-.badge-wait { background:#ffc107; color:#000; font-size:.8rem; padding:.36rem .85rem; }
-.badge-stop { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
-.badge-sell-force { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
-.badge-sell-sl    { background:#fd7e14; color:#000; font-size:.8rem; padding:.36rem .85rem; }
-.badge-sell-tp    { background:#0d6efd; font-size:.8rem; padding:.36rem .85rem; }
-.badge-sell-max   { background:#20c997; font-size:.8rem; padding:.36rem .85rem; }
-.badge-sell-wait  { background:#6c757d; font-size:.8rem; padding:.36rem .85rem; }
-::-webkit-scrollbar { width:8px; background:#eaeaea; }
-::-webkit-scrollbar-thumb { background:#d1d7e1; border-radius:5px; }
-.bar-graph, .trend-bar { position:relative; height:16px; background:#e9ecef; border-radius:7px; }
-.bar-graph { width:190px; margin:0 auto; }
-.trend-bar { width:170px; margin:0 auto; }
-.dot { position:absolute; top:50%; transform:translateY(-50%); width:15px; height:15px; border-radius:50%; }
-.dot.stop { background:#dc3545; left:0; }
-.dot.entry { background:#6c757d; }
-.dot.take { background:#0d6efd; right:0; }
-.dot.trend { z-index:2; }
-.dot.green { background:#198754; }
-.dot.red   { background:#dc3545; }
-.dot.yellow{ background:#ffc107; }
-.dot.blue  { background:#0d6efd; }
-.trend-bar .tick { position:absolute; width:2px; height:70%; background:#adb5bd; top:15%; }
-.trend-bar .tick1 { left:33%; }
-.trend-bar .tick2 { right:33%; }
-@media (max-width:1400px) {
-  #left { min-width:200px; }
-  #right { padding:1rem; }
-}
-</style>
 
 <div id="layout">
   <!-- 좌측 -->
@@ -59,10 +13,10 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="badge bg-success px-3">실행중</span>
-          <button class="btn btn-primary btn-sm w-50">중지하기</button>
+          <span class="badge bg-success px-3">{{ '실행중' if settings.running else '중지' }}</span>
+          <button class="btn btn-primary btn-sm w-50" data-api="{{ '/api/stop-bot' if settings.running else '/api/start-bot' }}">{{ '중지하기' if settings.running else '시작하기' }}</button>
         </div>
-        <small class="text-muted">업데이트: 2025-05-18 14:22</small>
+        <small class="text-muted">업데이트: {{ config.get('updated', 'N/A') }}</small>
       </div>
     </div>
     <div class="card shadow-sm mb-4">
@@ -73,9 +27,9 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
       </div>
       <div class="card-body">
         <div class="row gy-2">
-          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">8,500,000 원</div>
-          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">10,200,000 원</div>
-          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">+20 %</div>
+          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">{{ config.get('cash', '0') }} 원</div>
+          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">{{ config.get('total', '0') }} 원</div>
+          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">{{ config.get('pnl', 0) }} %</div>
         </div>
       </div>
     </div>
@@ -87,12 +41,12 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
       </div>
       <div class="card-body">
         <label class="form-label">최소 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" value="700">
+        <input type="number" class="form-control form-control-sm mb-2" name="min_price" value="{{ config.get('min_price', 0) }}">
         <label class="form-label">최대 가격(원)</label>
-        <input type="number" class="form-control form-control-sm mb-2" value="23000">
+        <input type="number" class="form-control form-control-sm mb-2" name="max_price" value="{{ config.get('max_price', 0) }}">
         <label class="form-label">시가총액 순위</label>
-        <input type="number" class="form-control form-control-sm mb-3" value="20">
-        <button class="btn btn-primary btn-sm w-100">저장</button>
+        <input type="number" class="form-control form-control-sm mb-3" name="rank" value="{{ config.get('rank', 0) }}">
+        <button class="btn btn-primary btn-sm w-100" data-api="/api/save-settings">저장</button>
       </div>
     </div>
     <div class="card shadow-sm">
@@ -102,8 +56,9 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
            title="체결·손절·익절 등 실시간 이벤트 로그를 보여줍니다."></i>
       </div>
       <div class="card-body small" style="max-height:140px;overflow:auto;">
-        <div>[14:20] BTC 매수 체결 (+2.1 %)</div>
-        <div>[14:05] ETH 손절 (-2.9 %)</div>
+        {% for a in alerts %}
+        <div>[{{ a.time }}] {{ a.msg }}</div>
+        {% endfor %}
       </div>
     </div>
   </div><!-- /left -->
@@ -132,27 +87,27 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
               </tr>
             </thead>
             <tbody>
-              <!-- 아래 샘플 데이터는 실제 Flask/Jinja2에서 for loop로 바꿔 출력 가능 -->
+              {% for p in positions %}
               <tr>
-                <td>1</td><td>BTC</td>
+                <td>{{ loop.index }}</td><td>{{ p.coin }}</td>
                 <td>
                   <div class="bar-graph">
-                    <span class="dot stop"  style="left:0%"></span>
-                    <span class="dot entry" style="left:48%"></span>
-                    <span class="dot take"  style="right:0%"></span>
+                    <span class="dot stop" style="left:{{ p.stop }}%"></span>
+                    <span class="dot entry" style="left:{{ p.entry }}%"></span>
+                    <span class="dot take" style="right:{{ p.take }}%"></span>
                   </div>
                 </td>
                 <td>
                   <div class="trend-bar">
                     <span class="tick tick1"></span>
                     <span class="tick tick2"></span>
-                    <span class="dot trend green" style="left:66%"></span>
+                    <span class="dot trend {{ p.trend_color }}" style="left:{{ p.trend_pct }}%"></span>
                   </div>
                 </td>
-                <td><span class="badge badge-sell-max">수익 극대화</span></td>
-                <td><button class="btn btn-sm btn-outline-danger">수동 매도</button></td>
+                <td><span class="badge badge-sell-max">{{ p.sell_signal }}</span></td>
+                <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="{{ p.coin }}">수동 매도</button></td>
               </tr>
-              <!-- 이하 표 데이터 반복 -->
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -183,14 +138,14 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
             <th>액션</th>
           </tr></thead>
           <tbody>
-            <!-- 아래도 실제 Flask 데이터와 for loop로 바꿔 쓸 수 있습니다 -->
-            <tr><td>1</td><td>BTC</td>
-              <td class="icon-cell">🔼</td><td class="icon-cell">🔵 5.8</td>
-              <td class="icon-cell">⏫ 250</td><td class="icon-cell">⏫ 122</td>
-              <td class="icon-cell">🔼</td><td class="icon-cell">⏫ E</td>
-              <td><span class="badge badge-go">강제 매수</span></td>
-              <td><button class="btn btn-sm btn-outline-success">수동 매수</button></td></tr>
-            <!-- 이하 표 데이터 반복 -->
+            {% for b in buys %}
+            <tr><td>{{ loop.index }}</td><td>{{ b.coin }}</td>
+              <td class="icon-cell">{{ b.trend }}</td><td class="icon-cell">{{ b.volatility }}</td>
+              <td class="icon-cell">{{ b.volume }}</td><td class="icon-cell">{{ b.strength }}</td>
+              <td class="icon-cell">{{ b.gc }}</td><td class="icon-cell">{{ b.ris }}</td>
+              <td><span class="badge badge-go">{{ b.signal }}</span></td>
+              <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="{{ b.coin }}">수동 매수</button></td></tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
@@ -199,7 +154,6 @@ body { background:#f6f8fb; font-size:17px; overflow:hidden; }
 </div><!-- /layout -->
 
 <script>
-document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
 const drag = document.getElementById('drag'), left = document.getElementById('left'); let sx, sw;
 drag.addEventListener('mousedown', e => { sx = e.clientX; sw = left.offsetWidth;
   document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up); });
