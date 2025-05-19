@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 import os, shutil, logging, json  # 기본 모듈들
 from datetime import datetime
 
+from utils import load_secrets
+
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
 
@@ -19,8 +21,9 @@ logger = logging.getLogger("bot")
 # 샘플 설정 로드
 with open("config/config.json", encoding="utf-8") as f:
     config = json.load(f)
-with open("config/secrets.json", encoding="utf-8") as f:
-    secrets = json.load(f)
+
+# secrets.json 을 공통 로더로 읽기
+secrets = load_secrets()
 
 # 전역 변수 (설정 예시)
 settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
@@ -47,8 +50,9 @@ settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
 
 with open('config/config.json', encoding='utf-8') as f:
     config_data = json.load(f)
-with open('config/secrets.json', encoding='utf-8') as f:
-    secrets_data = json.load(f)
+
+# 템플릿 렌더링을 위해 secrets 재사용
+secrets_data = secrets
 
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
