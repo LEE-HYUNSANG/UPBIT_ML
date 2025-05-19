@@ -2,9 +2,11 @@
 UPBIT 5분봉 자동매매 Flask 메인 앱 (초보자 상세 주석)
 """
 from flask import Flask, render_template, jsonify, request, send_file
+from flask_socketio import SocketIO
 import os, shutil, logging, json
 
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # 로그 설정
 logging.basicConfig(
@@ -20,98 +22,97 @@ with open("config/secrets.json", encoding="utf-8") as f:
     secrets = json.load(f)
 
 # 전역 변수 (설정 예시)
-settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01, "funds": 1000000}
+settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
+            "funds": 1000000,
+            "max_amount": 500000,
+            "buy_amount": 100000,
+            "max_positions": 5,
+            "slippage": 0.1,
+            "balance_action": "alert",
+            "run_time": "09:00-22:00",
+            "rebalance": "1d",
+            "event_stop": "",
+            "backtest": "OFF",
+            "candle": "5m",
+            "fee": 0.05,
+            "tune": "",
+            "ai_opt": "OFF",
+            "exchange": "UPBIT",
+            "tg_on": True,
+            "events": ["BUY", "SELL", "STOP"],
+            "notify_from": "08:00",
+            "notify_to": "22:00",
+            "updated": "2025-05-18"}
+
+with open('config/config.json', encoding='utf-8') as f:
+    config_data = json.load(f)
+with open('config/secrets.json', encoding='utf-8') as f:
+    secrets_data = json.load(f)
+
+positions = [
+    {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
+]
+signals = [
+    {"coin": "BTC", "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "rsi": "⏫ E", "signal": "강제 매수", "signal_class": "go", "key": "MBREAK"},
+]
+alerts = [
+    {"time": "14:20", "message": "BTC 매수 체결 (+2.1%)"},
+    {"time": "14:05", "message": "ETH 손절 (-2.9%)"},
+]
+history = [
+    {"time": "2025-05-18 13:00", "label": "적용", "cls": "success"},
+    {"time": "2025-05-17 10:13", "label": "분석", "cls": "primary"},
+]
+buy_results = signals
+sell_results = signals
+strategies = [
+    {"name": "M-BREAK", "key": "MBREAK", "enabled": True, "tp": 0.02, "sl": 0.01, "trail": 0.012, "option": "ATR≥0.035", "recommend": "TP2% SL1%", "desc": "강한 추세 돌파"},
+    {"name": "P-PULL", "key": "PPULL", "enabled": False, "tp": 0.025, "sl": 0.012, "trail": 0.015, "option": "조정 매수", "recommend": "TP2.5%", "desc": "풀백 매수"},
+]
 
 @app.route("/")
 def dashboard():
-    # 샘플 데이터 전달 (실제 구현 시 DB/로직으로 대체)
-    positions = [
-        {"coin": "BTC", "stop": 0, "entry": 48, "take": 0, "trend_pct": 66, "trend_color": "green", "sell_signal": "수익 극대화"},
-        {"coin": "ETH", "stop": 0, "entry": 37, "take": 0, "trend_pct": 52, "trend_color": "red", "sell_signal": "수익 극대화"},
-    ]
-    buys = [
-        {"coin": "BTC", "trend": "🔼", "volatility": "🔵 5.8", "volume": "⏫ 250", "strength": "⏫ 122", "gc": "🔼", "ris": "⏫ E", "signal": "강제 매수"},
-    ]
-    alerts = [
-        {"time": "14:20", "msg": "BTC 매수 체결 (+2.1 %)"},
-        {"time": "14:05", "msg": "ETH 손절 (-2.9 %)"},
-    ]
-    return render_template(
-        "index.html",
-        settings=settings,
-        config=config,
-        positions=positions,
-        buys=buys,
-        alerts=alerts,
-    )
+    return render_template("index.html", running=settings["running"], positions=positions, alerts=alerts, signals=signals, updated=settings["updated"])
 
 @app.route("/strategy")
-def strategy():
-    strategies = [
-        {"name": "M-BREAK", "enabled": True, "tp": 0.02, "sl": 0.01, "trail": 0.012, "option": "ATR≥0.035, 20봉거래량 1.8x, 전고점돌파", "rec": "TP 2%<br>SL 1%"},
-        {"name": "P-PULL", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "RSI≤24, 50EMA 근접", "rec": "-"},
-        {"name": "T-FLOW", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "OBV 3봉 상승", "rec": "-"},
-        {"name": "B-LOW", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "저점 RSI 반등", "rec": "-"},
-        {"name": "V-REV", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "급락 후 반등", "rec": "-"},
-        {"name": "G-REV", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "EMA50>200", "rec": "-"},
-        {"name": "VOL-BRK", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "ATR 폭발", "rec": "-"},
-        {"name": "EMA-STACK", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "EMA25>100>200", "rec": "-"},
-        {"name": "VWAP-BNC", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "VWAP 근접", "rec": "-"},
-        {"name": "OB-IMB", "enabled": False, "tp": "", "sl": "", "trail": "", "option": "실시간 호가 imbalance", "rec": "실전 추천 안함"},
-    ]
-    return render_template("strategy.html", config=config, strategies=strategies)
+def strategy_page():
+    return render_template("strategy.html", strategies=strategies, settings=settings)
 
 @app.route("/risk")
-def risk():
-    risk_cfg = {
-        "day": 3,
-        "week": 10,
-        "month": 25,
-        "force_pct": 5,
-        "force_cnt": 3,
-        "loss_stop": 5,
-        "profit_stop": 8,
+def risk_page():
+    risk = {
+        "daily": 2, "weekly": 5, "monthly": 10,
+        "push": True, "telegram": True,
+        "force_pct": 5, "force_count": 3,
+        "cont_loss": 4, "cont_profit": 5,
+        "log_path": "logs/trades.csv", "updated": settings["updated"]
     }
-    return render_template("risk.html", config=config, risk=risk_cfg)
+    return render_template("risk.html", risk=risk)
 
 @app.route("/notifications")
-def notifications():
-    return render_template("notifications.html")
+def notifications_page():
+    return render_template("notifications.html", alerts=alerts)
 
 @app.route("/funds")
-def funds():
+def funds_page():
     return render_template("funds.html")
 
-@app.route("/ai-analysis")
-def ai_analysis():
-    history = [
-        {"time": "2025-05-18 13:00", "type": "apply", "label": "적용"},
-        {"time": "2025-05-17 10:13", "type": "run", "label": "분석"},
-    ]
-    sample = {"count": 84, "win": 55, "profit": 1.2, "ai_result": "TP=1.8%", "ai_win": 61, "ai_profit": 1.6}
-    buy_results = [dict(sample, **{"name": "M-BREAK", "key": "MBREAK"})]
-    sell_results = [dict(sample, **{"name": "M-BREAK", "key": "MBREAK"})]
-    return render_template(
-        "ai_analysis.html",
-        history=history,
-        buy_results=buy_results,
-        sell_results=sell_results,
-    )
-
 @app.route("/settings")
-def user_settings():
-    return render_template("settings.html", config=config, secrets=secrets)
+def settings_page():
+    return render_template("settings.html", settings=settings, secrets=secrets_data)
 
 @app.route("/api/start-bot", methods=["POST"])
 def start_bot():
     logger.info("[API] 봇 시작 요청")
     settings["running"] = True
+    socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
     return jsonify(result="success", message="봇이 시작되었습니다.")
 
 @app.route("/api/stop-bot", methods=["POST"])
 def stop_bot():
     logger.info("[API] 봇 중지 요청")
     settings["running"] = False
+    socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
     return jsonify(result="success", message="봇이 정지되었습니다.")
 
 @app.route("/api/apply-strategy", methods=["POST"])
@@ -120,30 +121,41 @@ def apply_strategy():
     data = request.json
     logger.info(f"[API] 전략 적용: {data}")
     settings["strategy"] = data.get("strategy", "M-BREAK")
+    socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
     return jsonify(result="success", message="전략이 적용되었습니다.")
-
-@app.route("/api/save-strategy", methods=["POST"])
-def save_strategy():
-    data = request.json
-    logger.info(f"[API] 전략 저장: {data}")
-    return jsonify(result="success", message="전략 설정이 저장되었습니다.")
-
-@app.route("/api/save-risk", methods=["POST"])
-def save_risk():
-    data = request.json
-    logger.info(f"[API] 리스크 설정 저장: {data}")
-    return jsonify(result="success", message="리스크 설정이 저장되었습니다.")
 
 @app.route("/api/save-settings", methods=["POST"])
 def save_settings():
-    data = request.json
-    logger.info(f"[API] 사용자 설정 저장: {data}")
-    return jsonify(result="success", message="설정이 저장되었습니다.")
+    settings.update(request.json)
+    socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+    return jsonify(result="success", message="저장 완료")
+
+@app.route("/api/save-risk", methods=["POST"])
+def save_risk():
+    socketio.emit('notification', {'message': '리스크 설정 저장'})
+    return jsonify(result="success", message="리스크 저장 완료")
+
+@app.route("/api/save-strategy", methods=["POST"])
+def save_strategy():
+    socketio.emit('notification', {'message': '전략 설정 저장'})
+    return jsonify(result="success", message="전략 설정 저장 완료")
 
 @app.route("/api/run-analysis", methods=["POST"])
 def run_analysis():
-    logger.info("[API] AI 분석 실행")
-    return jsonify(result="success", message="AI 분석을 실행했습니다.")
+    socketio.emit('notification', {'message': 'AI 분석을 실행했습니다.'})
+    return jsonify(result="success", message="AI 분석 시작")
+
+@app.route("/api/manual-sell", methods=["POST"])
+def manual_sell():
+    coin = request.json.get('coin')
+    socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
+    return jsonify(result="success", message=f"{coin} 매도 요청" )
+
+@app.route("/api/manual-buy", methods=["POST"])
+def manual_buy():
+    coin = request.json.get('coin')
+    socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
+    return jsonify(result="success", message=f"{coin} 매수 요청")
 
 @app.route("/download-code")
 def download_code():
@@ -156,4 +168,4 @@ def download_code():
     return send_file(zip_path, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)

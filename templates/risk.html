@@ -17,23 +17,23 @@
             <label class="form-label"><i class="bi bi-graph-down-arrow me-2"></i>손실 한도</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="day" placeholder="일간(%)" value="{{ risk.day }}">
+            <input type="number" class="form-control" name="daily" value="{{ risk.daily }}" placeholder="일간(%)">
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="week" placeholder="주간(%)" value="{{ risk.week }}">
+            <input type="number" class="form-control" name="weekly" value="{{ risk.weekly }}" placeholder="주간(%)">
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="month" placeholder="월간(%)" value="{{ risk.month }}">
+            <input type="number" class="form-control" name="monthly" value="{{ risk.monthly }}" placeholder="월간(%)">
           </div>
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-bell me-2"></i>알림 설정</label>
           <div class="form-check form-switch mb-2">
-            <input class="form-check-input" type="checkbox" id="push1" name="push1" {% if config.alerts.telegram %}checked{% endif %}>
+            <input class="form-check-input" type="checkbox" id="push1" name="push" {% if risk.push %}checked{% endif %}>
             <label class="form-check-label" for="push1">익절/손절시 푸시 알림</label>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="push2" name="push2" {% if config.alerts.push %}checked{% endif %}>
+            <input class="form-check-input" type="checkbox" id="push2" name="telegram" {% if risk.telegram %}checked{% endif %}>
             <label class="form-check-label" for="push2">텔레그램 알림 연동</label>
           </div>
         </div>
@@ -42,10 +42,10 @@
             <label class="form-label"><i class="bi bi-x-octagon me-2"></i>강제 매도/손절 기준</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="force_pct" placeholder="손실 퍼센트(%) 기준" value="{{ risk.force_pct }}">
+            <input type="number" class="form-control" name="force_pct" value="{{ risk.force_pct }}" placeholder="손실 퍼센트(%) 기준">
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="force_cnt" placeholder="연속 손실 허용(횟수)" value="{{ risk.force_cnt }}">
+            <input type="number" class="form-control" name="force_count" value="{{ risk.force_count }}" placeholder="연속 손실 허용(횟수)">
           </div>
         </div>
         <div class="row mb-4 align-items-center">
@@ -53,22 +53,22 @@
             <label class="form-label"><i class="bi bi-exclamation-diamond me-2"></i>연속 손실/수익 자동 중지</label>
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="loss_stop" placeholder="연속 손실(횟수)" value="{{ risk.loss_stop }}">
+            <input type="number" class="form-control" name="cont_loss" value="{{ risk.cont_loss }}" placeholder="연속 손실(횟수)">
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="profit_stop" placeholder="연속 수익(횟수)" value="{{ risk.profit_stop }}">
+            <input type="number" class="form-control" name="cont_profit" value="{{ risk.cont_profit }}" placeholder="연속 수익(횟수)">
           </div>
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-file-earmark-arrow-down me-2"></i>로그 기록/내보내기</label>
           <div class="input-group mb-2">
-            <input type="text" class="form-control" placeholder="CSV 로그 파일 경로">
+            <input type="text" class="form-control" name="log_path" value="{{ risk.log_path }}" placeholder="CSV 로그 파일 경로">
             <button class="btn btn-outline-secondary" type="button"><i class="bi bi-download"></i> 내보내기</button>
           </div>
         </div>
-        <button type="button" class="btn btn-primary w-100 mt-2" data-api="/api/save-risk">저장</button>
+        <button type="submit" class="btn btn-primary w-100 mt-2" data-api="/api/save-risk">저장</button>
       </form>
-      <div class="mt-4 text-muted">마지막 저장: 2025-05-18 15:15</div>
+      <div class="mt-4 text-muted">마지막 저장: {{ risk.updated }}</div>
     </div>
   </div>
 
@@ -80,13 +80,13 @@
     </div>
     <div class="card-body">
       <div class="card-toolbar mb-4">
-        <button class="btn btn-outline-primary btn-lg" onclick="openLogManager()">
+        <button class="btn btn-outline-primary btn-lg" data-alert="로그 파일 관리/로테이션(서버 API 필요)">
           <i class="bi bi-folder2-open"></i> 로그 파일 관리/로테이션
         </button>
-        <button class="btn btn-outline-success btn-lg" onclick="openAuditHistory()">
+        <button class="btn btn-outline-success btn-lg" data-alert="감사로그 실시간 조회/다운로드(서버 API 필요)">
           <i class="bi bi-clock-history"></i> 감사로그 조회/다운로드
         </button>
-        <button class="btn btn-outline-warning btn-lg" onclick="openBackupRestore()">
+        <button class="btn btn-outline-warning btn-lg" data-alert="설정/포지션/로그 백업 및 복구(서버 API 필요)">
           <i class="bi bi-cloud-arrow-down"></i> 백업/복구/다운로드
         </button>
       </div>
@@ -105,9 +105,5 @@
     </div>
   </div>
 </div>
-<script>
-function openLogManager(){ alert('로그 파일 관리/로테이션(서버 API 필요)'); }
-function openAuditHistory(){ alert('감사로그 실시간 조회/다운로드(서버 API 필요)'); }
-function openBackupRestore(){ alert('설정/포지션/로그 백업 및 복구(서버 API 필요)'); }
-</script>
+
 {% endblock %}

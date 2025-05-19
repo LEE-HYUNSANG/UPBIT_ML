@@ -13,10 +13,14 @@
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="badge bg-success px-3">{{ '실행중' if settings.running else '중지' }}</span>
-          <button class="btn btn-primary btn-sm w-50" data-api="{{ '/api/stop-bot' if settings.running else '/api/start-bot' }}">{{ '중지하기' if settings.running else '시작하기' }}</button>
+          <span class="badge bg-success px-3" id="bot-status">
+            {% if running %}실행중{% else %}정지{% endif %}
+          </span>
+          <button class="btn btn-primary btn-sm w-50" data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
+            {% if running %}중지하기{% else %}시작하기{% endif %}
+          </button>
         </div>
-        <small class="text-muted">업데이트: {{ config.get('updated', 'N/A') }}</small>
+        <small class="text-muted">업데이트: {{ updated }}</small>
       </div>
     </div>
     <div class="card shadow-sm mb-4">
@@ -55,9 +59,9 @@
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
            title="체결·손절·익절 등 실시간 이벤트 로그를 보여줍니다."></i>
       </div>
-      <div class="card-body small" style="max-height:140px;overflow:auto;">
+      <div id="liveAlerts" class="card-body small" style="max-height:140px;overflow:auto;">
         {% for a in alerts %}
-        <div>[{{ a.time }}] {{ a.msg }}</div>
+        <div>[{{ a.time }}] {{ a.message }}</div>
         {% endfor %}
       </div>
     </div>
@@ -92,19 +96,19 @@
                 <td>{{ loop.index }}</td><td>{{ p.coin }}</td>
                 <td>
                   <div class="bar-graph">
-                    <span class="dot stop" style="left:{{ p.stop }}%"></span>
+                    <span class="dot stop"  style="left:0%"></span>
                     <span class="dot entry" style="left:{{ p.entry }}%"></span>
-                    <span class="dot take" style="right:{{ p.take }}%"></span>
+                    <span class="dot take"  style="right:0%"></span>
                   </div>
                 </td>
                 <td>
                   <div class="trend-bar">
                     <span class="tick tick1"></span>
                     <span class="tick tick2"></span>
-                    <span class="dot trend {{ p.trend_color }}" style="left:{{ p.trend_pct }}%"></span>
+                    <span class="dot trend {{ p.trend_color }}" style="left:{{ p.trend }}%"></span>
                   </div>
                 </td>
-                <td><span class="badge badge-sell-max">{{ p.sell_signal }}</span></td>
+                <td><span class="badge badge-{{ p.signal }}">{{ p.signal_label }}</span></td>
                 <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-coin="{{ p.coin }}">수동 매도</button></td>
               </tr>
               {% endfor %}
@@ -138,13 +142,18 @@
             <th>액션</th>
           </tr></thead>
           <tbody>
-            {% for b in buys %}
-            <tr><td>{{ loop.index }}</td><td>{{ b.coin }}</td>
-              <td class="icon-cell">{{ b.trend }}</td><td class="icon-cell">{{ b.volatility }}</td>
-              <td class="icon-cell">{{ b.volume }}</td><td class="icon-cell">{{ b.strength }}</td>
-              <td class="icon-cell">{{ b.gc }}</td><td class="icon-cell">{{ b.ris }}</td>
-              <td><span class="badge badge-go">{{ b.signal }}</span></td>
-              <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="{{ b.coin }}">수동 매수</button></td></tr>
+            {% for s in signals %}
+            <tr>
+              <td>{{ loop.index }}</td><td>{{ s.coin }}</td>
+              <td class="icon-cell">{{ s.trend }}</td>
+              <td class="icon-cell">{{ s.volatility }}</td>
+              <td class="icon-cell">{{ s.volume }}</td>
+              <td class="icon-cell">{{ s.strength }}</td>
+              <td class="icon-cell">{{ s.gc }}</td>
+              <td class="icon-cell">{{ s.rsi }}</td>
+              <td><span class="badge badge-{{ s.signal_class }}">{{ s.signal }}</span></td>
+              <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="{{ s.coin }}">수동 매수</button></td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>
@@ -153,11 +162,4 @@
   </div><!-- /right -->
 </div><!-- /layout -->
 
-<script>
-const drag = document.getElementById('drag'), left = document.getElementById('left'); let sx, sw;
-drag.addEventListener('mousedown', e => { sx = e.clientX; sw = left.offsetWidth;
-  document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up); });
-function mv(e) { const w = sw + (e.clientX - sx), min = 260, max = window.innerWidth * 0.45; if (w > min && w < max) left.style.width = w + 'px'; }
-function up() { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); }
-</script>
 {% endblock %}

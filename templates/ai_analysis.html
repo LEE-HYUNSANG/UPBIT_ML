@@ -71,10 +71,10 @@
         <tbody>
           {% for r in buy_results %}
           <tr>
-            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}%</td><td>{{ r.profit }}%</td>
-            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}%</td><td>{{ r.ai_profit }}%</td>
+            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}</td><td>{{ r.pnl }}</td>
+            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}</td><td>{{ r.ai_pnl }}</td>
             <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-{{ r.key }}">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm" data-api="/api/apply-strategy" data-strategy="{{ r.key }}">적용</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -105,10 +105,10 @@
         <tbody>
           {% for r in sell_results %}
           <tr>
-            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}%</td><td>{{ r.profit }}%</td>
-            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}%</td><td>{{ r.ai_profit }}%</td>
+            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}</td><td>{{ r.pnl }}</td>
+            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}</td><td>{{ r.ai_pnl }}</td>
             <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-{{ r.key }}-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm" data-api="/api/apply-strategy" data-strategy="{{ r.key }}">적용</button></td>
+            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
           </tr>
           {% endfor %}
         </tbody>

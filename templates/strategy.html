@@ -29,18 +29,18 @@
             </tr>
           </thead>
           <tbody>
-            {% for s in strategies %}
+            {% for st in strategies %}
             <tr>
-              <td><input class="form-check-input" type="checkbox" name="enable_{{ s.name }}" {% if s.enabled %}checked{% endif %}></td>
+              <td><input class="form-check-input" type="checkbox" name="use_{{ st.name }}" {% if st.enabled %}checked{% endif %}></td>
               <td>
-                <span class="fw-semibold" data-bs-toggle="tooltip" title="{{ s.option }}">{{ s.name }}
+                <span class="fw-semibold" data-bs-toggle="tooltip" title="{{ st.desc }}">{{ st.name }}
                   <i class="bi bi-info-circle"></i></span>
               </td>
-              <td><input type="number" class="form-control" name="tp_{{ s.name }}" value="{{ s.tp }}" placeholder="0.02"></td>
-              <td><input type="number" class="form-control" name="sl_{{ s.name }}" value="{{ s.sl }}" placeholder="0.01"></td>
-              <td><input type="number" class="form-control" name="tr_{{ s.name }}" value="{{ s.trail }}" placeholder="0.012"></td>
-              <td><input type="text" class="form-control" value="{{ s.option }}"></td>
-              <td><span class="badge badge-info">{{ s.rec }}</span></td>
+              <td><input type="number" class="form-control" name="tp_{{ st.name }}" value="{{ st.tp }}"></td>
+              <td><input type="number" class="form-control" name="sl_{{ st.name }}" value="{{ st.sl }}"></td>
+              <td><input type="number" class="form-control" name="trail_{{ st.name }}" value="{{ st.trail }}"></td>
+              <td><input type="text" class="form-control" name="opt_{{ st.name }}" value="{{ st.option }}"></td>
+              <td><span class="badge badge-info">{{ st.recommend }}</span></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -82,31 +82,31 @@
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">코인별 최대 투자금</label>
-            <input type="number" class="form-control" placeholder="예: 500000">
+            <input type="number" class="form-control" name="max_amount" value="{{ settings.max_amount }}" placeholder="예: 500000">
             <div class="form-text">예) 한 코인당 최대 50만원까지</div>
           </div>
           <div class="col">
             <label class="form-label">회당 매수금</label>
-            <input type="number" class="form-control" placeholder="예: 100000">
+            <input type="number" class="form-control" name="buy_amount" value="{{ settings.buy_amount }}" placeholder="예: 100000">
             <div class="form-text">예) 한 번에 10만원 단위 분할매수</div>
           </div>
           <div class="col">
             <label class="form-label">동시매매 코인수</label>
-            <input type="number" class="form-control" placeholder="예: 5">
+            <input type="number" class="form-control" name="max_positions" value="{{ settings.max_positions }}" placeholder="예: 5">
             <div class="form-text">예) 최대 5종목까지 동시매수 허용</div>
           </div>
         </div>
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">슬리피지(%)</label>
-            <input type="number" class="form-control" placeholder="예: 0.1">
+            <input type="number" class="form-control" name="slippage" value="{{ settings.slippage }}" placeholder="예: 0.1">
             <div class="form-text">예) 체결 허용 오차 0.1%</div>
           </div>
           <div class="col">
             <label class="form-label">잔고 소진시</label>
-            <select class="form-select">
-              <option>알림</option>
-              <option>자동중지</option>
+            <select class="form-select" name="balance_action">
+              <option value="alert" {% if settings.balance_action == 'alert' %}selected{% endif %}>알림</option>
+              <option value="stop" {% if settings.balance_action == 'stop' %}selected{% endif %}>자동중지</option>
             </select>
             <div class="form-text">예) 잔고 소진 시 자동 중지/알림</div>
           </div>
@@ -127,21 +127,21 @@
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">운영 시간대</label>
-            <input type="text" class="form-control" placeholder="예: 09:00-22:00 / 24시간">
+            <input type="text" class="form-control" name="run_time" value="{{ settings.run_time }}" placeholder="예: 09:00-22:00 / 24시간">
             <div class="form-text">예) 야간 미운영, 주간만 09~22시</div>
           </div>
           <div class="col">
             <label class="form-label">정기 리밸런싱</label>
-            <select class="form-select">
-              <option>안함</option>
-              <option>1일 1회</option>
-              <option>1주 1회</option>
+            <select class="form-select" name="rebalance">
+              <option value="none" {% if settings.rebalance == 'none' %}selected{% endif %}>안함</option>
+              <option value="1d" {% if settings.rebalance == '1d' %}selected{% endif %}>1일 1회</option>
+              <option value="1w" {% if settings.rebalance == '1w' %}selected{% endif %}>1주 1회</option>
             </select>
             <div class="form-text">예) 매일 새벽 1시 자동 리밸런싱</div>
           </div>
           <div class="col">
             <label class="form-label">특정 이벤트 시 자동중지</label>
-            <input type="text" class="form-control" placeholder="예: 뉴스/점검/긴급이슈">
+            <input type="text" class="form-control" name="event_stop" value="{{ settings.event_stop }}" placeholder="예: 뉴스/점검/긴급이슈">
             <div class="form-text">예) 거래소 점검/중대 뉴스 발생시</div>
           </div>
         </div>
@@ -161,38 +161,38 @@
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">백테스트 모드</label>
-            <select class="form-select">
-              <option>OFF</option>
-              <option>ON</option>
+            <select class="form-select" name="backtest">
+              <option value="OFF" {% if settings.backtest == 'OFF' %}selected{% endif %}>OFF</option>
+              <option value="ON" {% if settings.backtest == 'ON' %}selected{% endif %}>ON</option>
             </select>
             <div class="form-text">과거 데이터로 전략 테스트</div>
           </div>
           <div class="col">
             <label class="form-label">캔들 단위</label>
-            <select class="form-select">
-              <option>1분</option>
-              <option>5분</option>
-              <option>15분</option>
+            <select class="form-select" name="candle">
+              <option value="1m" {% if settings.candle=='1m' %}selected{% endif %}>1분</option>
+              <option value="5m" {% if settings.candle=='5m' %}selected{% endif %}>5분</option>
+              <option value="15m" {% if settings.candle=='15m' %}selected{% endif %}>15분</option>
             </select>
             <div class="form-text">매매 신호 생성용 봉 크기</div>
           </div>
           <div class="col">
             <label class="form-label">거래 수수료(%)</label>
-            <input type="number" class="form-control" placeholder="예: 0.05">
+            <input type="number" class="form-control" name="fee" value="{{ settings.fee }}" placeholder="예: 0.05">
             <div class="form-text">거래소 수수료율 직접 설정</div>
           </div>
         </div>
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">지표 세부값 튜닝</label>
-            <input type="text" class="form-control" placeholder="예: ATR=14, EMA=20 등">
+            <input type="text" class="form-control" name="tune" value="{{ settings.tune }}" placeholder="예: ATR=14, EMA=20 등">
             <div class="form-text">지표별 파라미터 직접 조정</div>
           </div>
           <div class="col">
             <label class="form-label">AI 최적화(베타)</label>
-            <select class="form-select">
-              <option>OFF</option>
-              <option>ON</option>
+            <select class="form-select" name="ai_opt">
+              <option value="OFF" {% if settings.ai_opt=='OFF' %}selected{% endif %}>OFF</option>
+              <option value="ON" {% if settings.ai_opt=='ON' %}selected{% endif %}>ON</option>
             </select>
             <div class="form-text">AI 기반 자동 파라미터 최적화</div>
           </div>
@@ -215,9 +215,9 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-primary w-100 mt-3" data-api="/api/save-strategy">전체 저장</button>
+        <button type="submit" class="btn btn-primary w-100 mt-3" data-api="/api/save-strategy">전체 저장</button>
       </form>
-      <div class="mt-4 text-muted">마지막 저장: 2025-05-18 15:41</div>
+      <div class="mt-4 text-muted">마지막 저장: {{ settings.updated }}</div>
     </div>
   </div>
 </div>
