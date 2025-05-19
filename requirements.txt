@@ -9,6 +9,6 @@ numpy==1.24.4
 # use environment markers to install the correct wheel automatically.
 TA-Lib==0.4.28 ; sys_platform == 'win32'
 talib-binary==0.4.0 ; sys_platform != 'win32'
-pyupbit==0.2.38
+pyupbit==0.2.34
 requests==2.31.0
 wheel
