@@ -600,7 +600,16 @@ def save_settings():
         # 대시보드 필터 값 저장
         for k in ("min_price", "max_price", "rank"):
             if k in data:
-                filter_config[k] = data[k]
+                value = data[k]
+                if value in (None, ""):
+                    continue
+                try:
+                    if k == "rank":
+                        filter_config[k] = int(value)
+                    else:
+                        filter_config[k] = float(value)
+                except (ValueError, TypeError):
+                    raise ValueError(f"Invalid value for {k}")
         settings.update({k: v for k, v in data.items() if k not in ("min_price", "max_price", "rank")})
         os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
@@ -611,6 +620,8 @@ def save_settings():
         return jsonify(result="success", message="저장 완료", status=get_status())
     except Exception as e:
         notify_error(f"설정 저장 실패: {e}")
+        if isinstance(e, ValueError):
+            return jsonify(result="error", message=str(e)), 400
         return jsonify(result="error", message="설정 저장 실패"), 500
 
 @app.route("/api/save-risk", methods=["POST"])
@@ -769,8 +780,9 @@ def api_signals():
     """Return current buy signals for the dashboard."""
     logger.debug("api_signals called")
     try:
-        logger.info("[MONITOR] 모니터링 대상 %s", config_data.get("tickers"))
         signals = get_filtered_signals()
+        coins = [s.get("coin") for s in signals]
+        logger.info("[MONITOR] 모니터링 대상 %s", coins if coins else "없음")
         logger.info("Signal check success")
         return jsonify(result="success", signals=signals)
     except Exception as e:
