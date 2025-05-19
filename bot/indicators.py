@@ -35,7 +35,7 @@ def calc_indicators(df):
     vwap = (df['close'] * df['volume']).cumsum() / (df['volume'].cumsum() + 1e-9)
     df['VWAP'] = vwap
     # 계산 후 결측값(backfill) 보정 및 0 채우기
-    df.fillna(method="bfill", inplace=True)
+    df.bfill(inplace=True)
     df.fillna(0, inplace=True)
     if not df.empty:
         logger.debug("Indicators calculated: %s", df.iloc[-1].to_dict())
