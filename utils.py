@@ -6,14 +6,38 @@ from typing import Iterable
 import requests
 
 
+def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") -> logging.Logger:
+    """Configure root logging to file and console."""
+    if level is None:
+        level = os.getenv("LOG_LEVEL", "INFO")
+    numeric_level = getattr(logging, level.upper(), logging.INFO)
+    logger = logging.getLogger()
+    logger.setLevel(numeric_level)
+    if not logger.handlers:
+        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        fmt = logging.Formatter(
+            "[%(levelname)s][%(asctime)s][%(name)s] %(message)s",
+            "%Y-%m-%d %H:%M:%S",
+        )
+        fh = logging.FileHandler(log_file)
+        fh.setFormatter(fmt)
+        sh = logging.StreamHandler()
+        sh.setFormatter(fmt)
+        logger.addHandler(fh)
+        logger.addHandler(sh)
+    return logger
+
+
 def send_telegram(token: str, chat_id: str, text: str) -> None:
     """Send a message via Telegram bot API."""
     try:
+        logging.debug("Sending telegram message", extra={"chat_id": chat_id})
         requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             data={"chat_id": chat_id, "text": text},
             timeout=5,
         )
+        logging.info("Telegram message sent")
     except Exception as e:
         logging.error(f"Telegram send failed: {e}")
 
@@ -63,4 +87,5 @@ def load_secrets(
         alert(f"[ERROR] Missing required secrets: {', '.join(missing)}", secrets)
         sys.exit(1)
 
+    logging.info("Secrets loaded from %s", path)
     return secrets
