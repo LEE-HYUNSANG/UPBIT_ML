@@ -1,21 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}UPBIT AutoTrading · 개인 설정{% endblock %}
 {% block content %}
-<style>
-body{background:#f6f8fb;font-size:18px;}
-.navbar{background:#1e2b45;}
-.card-head{background:#22315a;color:#fff;font-size:1.25rem;padding:1.2rem 2rem;display:flex;align-items:center;gap:.7rem;border-radius:1.25rem 1.25rem 0 0;}
-.card{border-radius:1.25rem;margin-bottom:2.5rem;box-shadow:0 4px 24px #0001;}
-.card-body{padding:2.5rem;}
-label.form-label{font-size:1.08rem;font-weight:600;color:#233;}
-input.form-control,select.form-select{font-size:1.1rem;padding:0.9rem 1.1rem;}
-input[type="password"]{letter-spacing:0.2em;}
-.btn-primary{padding:.8rem 2.5rem;font-size:1.15rem;}
-.container{max-width:740px;margin-top:56px;}
-.section-label{font-size:1.12rem;font-weight:700;color:#3753a9;margin-bottom:1.2rem;}
-.bi-key,.bi-lock,.bi-person-circle,.bi-telegram{font-size:1.6rem;}
-@media (max-width:1200px){.container{max-width:98vw;}}
-</style>
 <div class="container">
   <div class="card shadow-sm mb-5">
     <div class="card-head">
@@ -121,7 +106,5 @@ input[type="password"]{letter-spacing:0.2em;}
     </div>
   </div>
 </div>
-<script>
-document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
-</script>
+
 {% endblock %}
