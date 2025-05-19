@@ -1,7 +1,13 @@
---- UPBIT BOT LOG ---
-[INFO][2025-05-19 12:50:42,285] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-[INFO][2025-05-19 12:50:42,285] [33mPress CTRL+C to quit[0m
-[INFO][2025-05-19 12:50:42,285]  * Restarting with stat
-[WARNING][2025-05-19 12:50:43,163]  * Debugger is active!
-[INFO][2025-05-19 12:50:43,163]  * Debugger PIN: 893-893-131
+# UPBIT 5분봉 자동매매 시스템 DEBUG LOG
+# 본 파일은 프로그램 실행 시 자동으로 업데이트됩니다.
+# 로그 포맷 예시:
+# [LEVEL][YYYY-MM-DD HH:MM:SS] 메시지
+#
+# 예시:
+[INFO][2025-05-19 09:00:00] 봇 자동매매 시스템 시작
+[INFO][2025-05-19 09:01:07] [BUY] KRW-BTC 96300000.0 (0.0005개) M-BREAK 진입
+[DEBUG][2025-05-19 09:05:00] 전략평가: {'ticker':'KRW-ETH', 'ok': True, 'pnl': 0.017}
+[ERROR][2025-05-19 09:15:33] API 예외: upbit server connection error
+#
+# (실행 로그가 이 아래에 계속 누적됩니다.)
+
