@@ -1,8 +1,10 @@
 Flask
 Flask-SocketIO
+eventlet
+jinja2
 python-dotenv
 pandas
 numpy
-talib
+talib-binary
 pyupbit
 requests

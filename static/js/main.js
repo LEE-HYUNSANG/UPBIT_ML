@@ -73,6 +73,8 @@ document.addEventListener('click', async e => {
   if(form){
     data = Object.fromEntries(new FormData(form).entries());
   }
+  // merge dataset values except 'api'
+  Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
   await callApi(btn.dataset.api, data);
 });
 

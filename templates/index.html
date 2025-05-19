@@ -59,7 +59,7 @@
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
            title="체결·손절·익절 등 실시간 이벤트 로그를 보여줍니다."></i>
       </div>
-      <div id="liveAlerts" class="card-body small" style="max-height:140px;overflow:auto;">
+      <div id="liveAlerts" class="card-body small live-alerts">
         {% for a in alerts %}
         <div>[{{ a.time }}] {{ a.message }}</div>
         {% endfor %}

@@ -41,7 +41,7 @@
           <label class="form-label"><i class="bi bi-bell me-2"></i>텔레그램 알림 ON/OFF</label>
           <div class="form-check form-switch ps-5">
             <input class="form-check-input" type="checkbox" id="tgOnOff" name="tg_on" {% if settings.tg_on %}checked{% endif %}>
-            <label class="form-check-label" for="tgOnOff" style="font-size:1.02rem;">알림 받기</label>
+            <label class="form-check-label small-label" for="tgOnOff">알림 받기</label>
           </div>
         </div>
         <div class="mb-4">
@@ -95,7 +95,7 @@
             <div class="col-4 col-lg-3">
               <input type="time" class="form-control form-control-lg" id="notify-to" name="notify_to" value="{{ settings.notify_to }}">
             </div>
-            <div class="col text-muted" style="font-size:1rem;">* 지정 시간 외에는 알림이 발송되지 않습니다.</div>
+            <div class="col text-muted fs-small">* 지정 시간 외에는 알림이 발송되지 않습니다.</div>
           </div>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-2" data-api="/api/save-settings">저장 / 갱신</button>
