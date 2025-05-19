@@ -67,3 +67,16 @@ input[type="number"], input[type="text"] { max-width:220px; }
 input[type="password"] { letter-spacing:0.2em; }
 .bi-key, .bi-lock, .bi-person-circle, .bi-telegram { font-size:1.6rem; }
 @media (max-width:1200px){ .container{ max-width:98vw; } }
+
+/* Custom utility classes */
+.live-alerts { max-height:140px; overflow:auto; }
+.btn-analysis { height:48px; }
+.modal-detail { font-size:1.13rem; line-height:2; }
+.fs-106 { font-size:1.06rem; }
+.small-label { font-size:1.02rem; }
+.fs-small { font-size:1rem; }
+.min-w-90 { min-width:90px; }
+.min-w-100 { min-width:100px; }
+.min-w-140 { min-width:140px; }
+.min-w-160 { min-width:160px; }
+.min-w-260 { min-width:260px; }

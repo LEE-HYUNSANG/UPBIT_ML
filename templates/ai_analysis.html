@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="col-md-4">
-              <button type="button" class="btn btn-ai w-100" style="height:48px;" data-api="/api/run-analysis">AI 분석 실행</button>
+              <button type="button" class="btn btn-ai w-100 btn-analysis" data-api="/api/run-analysis">AI 분석 실행</button>
             </div>
           </form>
         </div>
@@ -278,7 +278,7 @@
       <h5 class="modal-title" id="modalLabel-{{s.key}}">{{s.name}} 매수 지표 상세</h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
     </div>
-    <div class="modal-body" style="font-size:1.13rem;line-height:2;">
+    <div class="modal-body modal-detail">
       <b>진입조건:</b>
       <ul>
         {% for c in s.buy.cond %}<li>{{c}}</li>{% endfor %}
@@ -296,7 +296,7 @@
       <h5 class="modal-title" id="modalLabel-{{s.key}}-SELL">{{s.name}} 매도 지표 상세</h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
     </div>
-    <div class="modal-body" style="font-size:1.13rem;line-height:2;">
+    <div class="modal-body modal-detail">
       <b>청산조건:</b>
       <ul>
         {% for c in s.sell.cond %}<li>{{c}}</li>{% endfor %}

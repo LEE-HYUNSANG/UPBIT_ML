@@ -9,13 +9,13 @@
       <form>
         <div class="row mb-3">
           <div class="col-md-4"><label class="form-label">회당 투자금(원)</label>
-            <input type="number" class="form-control" id="amount" value="10000"></div>
+            <input type="number" class="form-control" name="buy_amount" value="{{ settings.buy_amount }}"></div>
           <div class="col-md-4"><label class="form-label">동시매매 코인수</label>
-            <input type="number" class="form-control" id="max_positions" value="5"></div>
+            <input type="number" class="form-control" name="max_positions" value="{{ settings.max_positions }}"></div>
           <div class="col-md-4"><label class="form-label">봇 운영시간</label>
-            <input type="text" class="form-control" id="run_time" value="09:00-23:50"></div>
+            <input type="text" class="form-control" name="run_time" value="{{ settings.run_time }}"></div>
         </div>
-        <button type="button" class="btn btn-primary w-100">저장</button>
+        <button type="button" class="btn btn-primary w-100" data-api="/api/save-funds">저장</button>
       </form>
     </div>
   </div>

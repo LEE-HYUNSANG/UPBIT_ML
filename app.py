@@ -91,11 +91,11 @@ def risk_page():
 
 @app.route("/notifications")
 def notifications_page():
-    return render_template("notifications.html", alerts=alerts)
+    return render_template("notifications.html", alerts=alerts, alert_config=config_data.get("alerts", {}))
 
 @app.route("/funds")
 def funds_page():
-    return render_template("funds.html")
+    return render_template("funds.html", settings=settings)
 
 @app.route("/settings")
 def settings_page():
@@ -134,6 +134,17 @@ def save_settings():
 def save_risk():
     socketio.emit('notification', {'message': '리스크 설정 저장'})
     return jsonify(result="success", message="리스크 저장 완료")
+
+@app.route("/api/save-alerts", methods=["POST"])
+def save_alerts():
+    socketio.emit('notification', {'message': '알림 설정 저장'})
+    return jsonify(result="success", message="알림 설정 저장 완료")
+
+@app.route("/api/save-funds", methods=["POST"])
+def save_funds():
+    settings.update(request.json)
+    socketio.emit('notification', {'message': '자금 설정 저장'})
+    return jsonify(result="success", message="자금 설정 저장 완료")
 
 @app.route("/api/save-strategy", methods=["POST"])
 def save_strategy():
