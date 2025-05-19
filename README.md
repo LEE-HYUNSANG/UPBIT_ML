@@ -8,6 +8,7 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
   Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
 - **static/js/main.js** – Common JavaScript handling API calls, SocketIO events, draggable layout and real time table updates.
 - **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
+- **config/market.json** – Sample market data loaded for monitoring filters.
 
 ## Example variables passed to templates
 ```python

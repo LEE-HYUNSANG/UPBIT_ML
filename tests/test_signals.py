@@ -1,4 +1,5 @@
 import importlib
+import json
 import app
 
 
@@ -7,11 +8,16 @@ def reload_app():
     return app
 
 
+def load_signals():
+    with open(app.MARKET_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def test_no_filters_returns_all():
     reload_app()
     app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
-    assert len(result) == len(app.market_signals)
+    assert coins == ["BTC", "ETH", "ADA", "SOL"]
 
 
 def test_min_price_filter():
