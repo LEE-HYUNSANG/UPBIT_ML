@@ -1,53 +1,209 @@
 {% extends 'base.html' %}
-{% block title %}대시보드{% endblock %}
+{% block title %}UPBIT AutoTrading · 메인 대시보드{% endblock %}
 {% block content %}
-<div class="container mt-4">
-  <h2 class="mb-3">UPBIT 5분봉 자동매매 대시보드</h2>
-  <div class="row gy-4">
-    <div class="col-md-4">
-      <div class="card shadow-sm">
-        <div class="card-head">봇 상태</div>
-        <div class="card-body">
-          <span class="badge bg-success">실행중</span>
-          <button class="btn btn-danger btn-sm float-end" onclick="callApi('/api/stop-bot')">중지</button>
-          <div class="mt-3 small text-muted">마지막 실행: {{ last_run or '-' }}</div>
-        </div>
+<style>
+body { background:#f6f8fb; font-size:17px; overflow:hidden; }
+.navbar { background:#1e2b45; }
+.card-head {
+  background:#22315a; color:#fff; font-size:1.13rem; font-weight:600;
+  padding:1.05rem 1.5rem; display:flex; align-items:center; gap:.7rem; border-radius:1.1rem 1.1rem 0 0;
+}
+.card { border-radius:1.15rem; box-shadow:0 4px 24px #0001; }
+.card-body { padding:2rem 1.6rem 1.4rem 1.6rem; }
+.table th, .table td { vertical-align:middle; }
+.table thead { position:sticky; top:0; z-index:2; }
+.table-responsive { max-height:46vh; overflow:auto; }
+#layout { display:flex; height:calc(100vh - 66px); }
+#left { width:22%; min-width:300px; max-width:410px; overflow:auto; padding:1.6rem 1rem 1rem 1.4rem; }
+#right { flex:1; overflow:auto; padding:1.7rem 1.8rem 1.7rem 0.5rem; }
+#drag { width:7px; background:#dee2e6; cursor:col-resize; min-height:90vh; }
+.badge-go   { background:#198754; font-size:.8rem; padding:.36rem .85rem; }
+.badge-wait { background:#ffc107; color:#000; font-size:.8rem; padding:.36rem .85rem; }
+.badge-stop { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
+.badge-sell-force { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
+.badge-sell-sl    { background:#fd7e14; color:#000; font-size:.8rem; padding:.36rem .85rem; }
+.badge-sell-tp    { background:#0d6efd; font-size:.8rem; padding:.36rem .85rem; }
+.badge-sell-max   { background:#20c997; font-size:.8rem; padding:.36rem .85rem; }
+.badge-sell-wait  { background:#6c757d; font-size:.8rem; padding:.36rem .85rem; }
+::-webkit-scrollbar { width:8px; background:#eaeaea; }
+::-webkit-scrollbar-thumb { background:#d1d7e1; border-radius:5px; }
+.bar-graph, .trend-bar { position:relative; height:16px; background:#e9ecef; border-radius:7px; }
+.bar-graph { width:190px; margin:0 auto; }
+.trend-bar { width:170px; margin:0 auto; }
+.dot { position:absolute; top:50%; transform:translateY(-50%); width:15px; height:15px; border-radius:50%; }
+.dot.stop { background:#dc3545; left:0; }
+.dot.entry { background:#6c757d; }
+.dot.take { background:#0d6efd; right:0; }
+.dot.trend { z-index:2; }
+.dot.green { background:#198754; }
+.dot.red   { background:#dc3545; }
+.dot.yellow{ background:#ffc107; }
+.dot.blue  { background:#0d6efd; }
+.trend-bar .tick { position:absolute; width:2px; height:70%; background:#adb5bd; top:15%; }
+.trend-bar .tick1 { left:33%; }
+.trend-bar .tick2 { right:33%; }
+@media (max-width:1400px) {
+  #left { min-width:200px; }
+  #right { padding:1rem; }
+}
+</style>
+
+<div id="layout">
+  <!-- 좌측 -->
+  <div id="left">
+    <div class="card shadow-sm mb-4">
+      <div class="card-head">
+        <i class="bi bi-robot"></i> 봇 상태
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="현재 봇의 자동매매 구동 상태를 표시합니다. 실행중이면 모든 전략이 실시간 동작합니다."></i>
       </div>
-      <div class="card shadow-sm mt-3">
-        <div class="card-head">실시간 알림</div>
-        <div class="card-body small" style="max-height:140px;overflow:auto;">
-          {% for msg in alerts or [] %}
-            <div>[{{ msg.time }}] {{ msg.text }}</div>
-          {% endfor %}
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="badge bg-success px-3">실행중</span>
+          <button class="btn btn-primary btn-sm w-50">중지하기</button>
+        </div>
+        <small class="text-muted">업데이트: 2025-05-18 14:22</small>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-head">
+        <i class="bi bi-wallet2"></i> 계좌 요약
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="거래소 잔고와 누적 수익률을 한눈에 확인할 수 있습니다."></i>
+      </div>
+      <div class="card-body">
+        <div class="row gy-2">
+          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">8,500,000 원</div>
+          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">10,200,000 원</div>
+          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">+20 %</div>
         </div>
       </div>
     </div>
-    <div class="col-md-8">
-      <div class="card shadow-sm">
-        <div class="card-head">보유코인 매매/상태</div>
-        <div class="card-body table-responsive">
-          <table class="table table-bordered text-center mb-0">
-            <thead><tr>
-              <th>코인</th><th>진입가</th><th>현재가</th><th>수익률</th><th>전략</th><th>상태</th>
-            </tr></thead>
+    <div class="card shadow-sm mb-4">
+      <div class="card-head">
+        <i class="bi bi-filter-square"></i> 모니터링 코인 조건
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="대시보드에 표시할 코인을 가격·시총 기준으로 필터링합니다."></i>
+      </div>
+      <div class="card-body">
+        <label class="form-label">최소 가격(원)</label>
+        <input type="number" class="form-control form-control-sm mb-2" value="700">
+        <label class="form-label">최대 가격(원)</label>
+        <input type="number" class="form-control form-control-sm mb-2" value="23000">
+        <label class="form-label">시가총액 순위</label>
+        <input type="number" class="form-control form-control-sm mb-3" value="20">
+        <button class="btn btn-primary btn-sm w-100">저장</button>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-head">
+        <i class="bi bi-bell"></i> 실시간 알림
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="체결·손절·익절 등 실시간 이벤트 로그를 보여줍니다."></i>
+      </div>
+      <div class="card-body small" style="max-height:140px;overflow:auto;">
+        <div>[14:20] BTC 매수 체결 (+2.1 %)</div>
+        <div>[14:05] ETH 손절 (-2.9 %)</div>
+      </div>
+    </div>
+  </div><!-- /left -->
+
+  <div id="drag"></div>
+
+  <!-- 우측 -->
+  <div id="right">
+    <!-- 보유코인 관리(매도 모니터링) + 손절·익절/추세 그래프 -->
+    <div class="card shadow-sm mb-5">
+      <div class="card-head">
+        <i class="bi bi-cash-coin"></i> 보유코인 관리 (매도 모니터링)
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="현재 보유 중인 코인의 손익 상태와 매도(Exit) 우선순위를 모니터링합니다."></i>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered text-center align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>#</th><th>코인</th>
+                <th>손절·익절 그래프 <i class="bi bi-info-circle"></i></th>
+                <th>추세 손절·익절 <i class="bi bi-info-circle"></i></th>
+                <th>Sell 시그널</th>
+                <th>액션</th>
+              </tr>
+            </thead>
             <tbody>
-              {% for pos in positions or [] %}
-                <tr>
-                  <td>{{ pos.ticker }}</td>
-                  <td>{{ pos.entry|default('-') }}</td>
-                  <td>{{ pos.now|default('-') }}</td>
-                  <td>{{ pos.pnl|default('-') }}</td>
-                  <td>{{ pos.strat|default('-') }}</td>
-                  <td>{{ pos.status|default('-') }}</td>
-                </tr>
-              {% else %}
-                <tr><td colspan="6" class="text-muted">보유 포지션 없음</td></tr>
-              {% endfor %}
+              <!-- 아래 샘플 데이터는 실제 Flask/Jinja2에서 for loop로 바꿔 출력 가능 -->
+              <tr>
+                <td>1</td><td>BTC</td>
+                <td>
+                  <div class="bar-graph">
+                    <span class="dot stop"  style="left:0%"></span>
+                    <span class="dot entry" style="left:48%"></span>
+                    <span class="dot take"  style="right:0%"></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="trend-bar">
+                    <span class="tick tick1"></span>
+                    <span class="tick tick2"></span>
+                    <span class="dot trend green" style="left:66%"></span>
+                  </div>
+                </td>
+                <td><span class="badge badge-sell-max">수익 극대화</span></td>
+                <td><button class="btn btn-sm btn-outline-danger">수동 매도</button></td>
+              </tr>
+              <!-- 이하 표 데이터 반복 -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <!-- 매수 모니터링 -->
+    <div class="card shadow-sm">
+      <div class="card-head">
+        <i class="bi bi-bullseye"></i> 매수 모니터링
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+           title="추세·변동성·거래량·체결강도·골든크로스·RSI를 조합해 매수 우선순위를 한눈에 보여줍니다."></i>
+        <i class="ms-2 bi bi-arrow-clockwise" role="button"
+           onclick="alert('레이더 새로고침');"
+           data-bs-toggle="tooltip" title="데이터 새로 고침"></i>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered text-center mb-0">
+          <thead class="table-light"><tr>
+            <th>#</th><th>코인</th>
+            <th>추세 <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="🔼 상승 · 🔻 하락 · 🔸 중립"></i></th>
+            <th>변동성<br>(ATR%) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="🔵 High · 🟡 Mid · 🔻 Low"></i></th>
+            <th>거래량(%) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="⏫ 폭증 · 🔼 증가 · 🔻 감소"></i></th>
+            <th>체결강도 <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="⏫ 강매수 · 🔼 매수우위 · 🔻 매도우위"></i></th>
+            <th>GC <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="🔼 골든 · 🔻 데드 · 🔸 없음"></i></th>
+            <th>RIS <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="⏫ 극과매도 · 🔼 과매도 · 🔸 중립 · 🔻 과매수"></i></th>
+            <th>Buy 시그널 <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+                title="강제 매수·관망·회피·데이터대기"></i></th>
+            <th>액션</th>
+          </tr></thead>
+          <tbody>
+            <!-- 아래도 실제 Flask 데이터와 for loop로 바꿔 쓸 수 있습니다 -->
+            <tr><td>1</td><td>BTC</td>
+              <td class="icon-cell">🔼</td><td class="icon-cell">🔵 5.8</td>
+              <td class="icon-cell">⏫ 250</td><td class="icon-cell">⏫ 122</td>
+              <td class="icon-cell">🔼</td><td class="icon-cell">⏫ E</td>
+              <td><span class="badge badge-go">강제 매수</span></td>
+              <td><button class="btn btn-sm btn-outline-success">수동 매수</button></td></tr>
+            <!-- 이하 표 데이터 반복 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div><!-- /right -->
+</div><!-- /layout -->
+
+<script>
+document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
+const drag = document.getElementById('drag'), left = document.getElementById('left'); let sx, sw;
+drag.addEventListener('mousedown', e => { sx = e.clientX; sw = left.offsetWidth;
+  document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up); });
+function mv(e) { const w = sw + (e.clientX - sx), min = 260, max = window.innerWidth * 0.45; if (w > min && w < max) left.style.width = w + 'px'; }
+function up() { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); }
+</script>
 {% endblock %}
