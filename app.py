@@ -8,6 +8,8 @@ import shutil
 import logging
 import json  # 기본 모듈들
 from datetime import datetime
+import time
+import pyupbit
 
 from utils import (
     load_secrets,
@@ -180,22 +182,45 @@ def save_excluded():
 
 positions = []
 
-# 외부 파일에서 시그널 데이터를 로드하도록 변경
-MARKET_FILE = "config/market.json"
+market_signals: list[dict] = []
+market_updated: float = 0.0
 
-def load_market_signals() -> list[dict]:
-    """Load market signal data from ``MARKET_FILE``."""
+def load_market_signals() -> None:
+    """Fetch latest coin data from Upbit and update ``market_signals``."""
+    global market_signals, market_updated
     try:
-        with open(MARKET_FILE, encoding="utf-8") as f:
-            data = json.load(f)
-            logger.debug("[MONITOR] Loaded %d market signals", len(data))
-            return data
+        tickers = pyupbit.get_tickers(fiat="KRW")
+        info = pyupbit.get_ticker(tickers)
+        info.sort(key=lambda x: x.get("acc_trade_price_24h", 0), reverse=True)
+        signals = []
+        for idx, it in enumerate(info, start=1):
+            coin = it.get("market", "").split("-")[-1]
+            signals.append({
+                "coin": coin,
+                "price": it.get("trade_price", 0),
+                "rank": idx,
+                "trend": "🔸",
+                "volatility": "🟡",
+                "volume": "🔼",
+                "strength": "🔸",
+                "gc": "🔸",
+                "rsi": "🔸",
+                "signal": "데이터대기",
+                "signal_class": "wait",
+                "key": "MBREAK",
+            })
+        market_signals = signals
+        market_updated = time.time()
+        logger.info("[MARKET] Market data updated %d coins", len(signals))
     except Exception as e:
-        logger.error("[MONITOR] Failed to load market file: %s", e)
-        return []
+        logger.exception("Failed to load market data: %s", e)
 
-# Load market signals from file if available
-market_signals = load_market_signals() or sample_signals
+
+def get_market_signals() -> list[dict]:
+    """Return cached market signals, refreshing every minute."""
+    if not market_signals or time.time() - market_updated > 60:
+        load_market_signals()
+    return market_signals
 
 def get_filtered_signals():
     """Return market signals filtered by price range and volume rank."""
@@ -206,7 +231,7 @@ def get_filtered_signals():
     rank = int(filter_config.get("rank", 0) or 0)
     signals = load_market_signals()
     result = []
-    for s in market_signals:
+    for s in get_market_signals():
         logger.debug("[MONITOR] 원본 시그널 %s", s)
         if min_p and s.get("price", 0) < min_p:
             continue
@@ -231,10 +256,11 @@ def get_filtered_tickers() -> list[str]:
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
+    signals = {s["coin"]: s for s in get_market_signals()}
     result = []
     for t in tickers:
         coin = t.split("-")[-1]
-        sig = next((s for s in market_signals if s.get("coin") == coin), None)
+        sig = signals.get(coin)
         if sig:
             price = sig.get("price", 0)
             r = sig.get("rank", 0)

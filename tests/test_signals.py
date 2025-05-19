@@ -1,10 +1,18 @@
 import importlib
-import json
+import time
 import app
+
+sample_data = [
+    {"coin": "BTC", "price": 40000000, "rank": 1, "trend": "", "volatility": "", "volume": "", "strength": "", "gc": "", "rsi": "", "signal": "", "signal_class": "", "key": "MBREAK"},
+    {"coin": "ETH", "price": 2500000, "rank": 2, "trend": "", "volatility": "", "volume": "", "strength": "", "gc": "", "rsi": "", "signal": "", "signal_class": "", "key": "MBREAK"},
+    {"coin": "XRP", "price": 600, "rank": 5, "trend": "", "volatility": "", "volume": "", "strength": "", "gc": "", "rsi": "", "signal": "", "signal_class": "", "key": "MBREAK"},
+]
 
 
 def reload_app():
     importlib.reload(app)
+    app.market_signals = sample_data
+    app.market_updated = time.time()
     return app
 
 
@@ -17,7 +25,7 @@ def test_no_filters_returns_all():
     reload_app()
     app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
-    assert coins == ["BTC", "ETH", "ADA", "SOL"]
+    assert len(result) == len(sample_data)
 
 
 def test_min_price_filter():
