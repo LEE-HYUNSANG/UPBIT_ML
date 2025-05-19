@@ -38,6 +38,24 @@ python app.py
 The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
 
+## Secrets configuration
+All API keys and tokens are read from `config/secrets.json`. Create the file before starting the server:
+
+```json
+{
+  "UPBIT_KEY": "YOUR-UPBIT-KEY",
+  "UPBIT_SECRET": "YOUR-UPBIT-SECRET",
+  "TELEGRAM_TOKEN": "BOT-TOKEN",
+  "TELEGRAM_CHAT_ID": "123456789"
+}
+```
+
+If the file is missing or any required value is empty the application stops with an error. When Telegram details are available the same message is sent to that chat as well.
+Example error:
+```
+[ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
+```
+
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.
 
