@@ -18968,3 +18968,103 @@ AttributeError: module 'pyupbit' has no attribute 'get_market_ticker'
 [INFO][2025-05-20 04:46:58][root] [MONITOR] 모니터링 대상 ['XRP', 'PUNDIX']
 [INFO][2025-05-20 04:46:58][root] Signal check success
 [INFO][2025-05-20 04:46:59][root] Balance check success
+[INFO][2025-05-20 04:47:03][root] Balance check success
+[INFO][2025-05-20 04:47:03][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:03][root] [MONITOR] UPBIT 응답 2개
+[INFO][2025-05-20 04:47:03][root] [MONITOR] 모니터링 대상 ['XRP', 'PUNDIX']
+[INFO][2025-05-20 04:47:03][root] Signal check success
+[INFO][2025-05-20 04:47:08][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:08][root] [MONITOR] UPBIT 응답 2개
+[INFO][2025-05-20 04:47:08][root] [MONITOR] 모니터링 대상 ['XRP', 'PUNDIX']
+[INFO][2025-05-20 04:47:08][root] Signal check success
+[INFO][2025-05-20 04:47:09][root] Balance check success
+[INFO][2025-05-20 04:47:13][root] Balance check success
+[INFO][2025-05-20 04:47:13][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:13][root] [MONITOR] UPBIT 응답 2개
+[INFO][2025-05-20 04:47:13][root] [MONITOR] 모니터링 대상 ['XRP', 'PUNDIX']
+[INFO][2025-05-20 04:47:13][root] Signal check success
+[INFO][2025-05-20 04:47:18][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:18][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:18][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:18][root] Signal check success
+[INFO][2025-05-20 04:47:19][root] Balance check success
+[INFO][2025-05-20 04:47:23][root] Balance check success
+[INFO][2025-05-20 04:47:23][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:23][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:23][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:23][root] Signal check success
+[INFO][2025-05-20 04:47:28][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:28][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:28][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:28][root] Signal check success
+[INFO][2025-05-20 04:47:29][root] Balance check success
+[INFO][2025-05-20 04:47:33][root] Balance check success
+[INFO][2025-05-20 04:47:33][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:33][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:33][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:33][root] Signal check success
+[INFO][2025-05-20 04:47:38][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:38][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:38][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:38][root] Signal check success
+[INFO][2025-05-20 04:47:39][root] Balance check success
+[INFO][2025-05-20 04:47:43][root] Balance check success
+[INFO][2025-05-20 04:47:43][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:43][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:43][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:43][root] Signal check success
+[INFO][2025-05-20 04:47:48][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:48][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:48][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:48][root] Signal check success
+[INFO][2025-05-20 04:47:49][root] Balance check success
+[INFO][2025-05-20 04:47:53][root] Balance check success
+[INFO][2025-05-20 04:47:53][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:53][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:53][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:53][root] Signal check success
+[INFO][2025-05-20 04:47:58][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:47:58][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:47:58][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:47:58][root] Signal check success
+[INFO][2025-05-20 04:47:59][root] Balance check success
+[INFO][2025-05-20 04:48:03][root] Balance check success
+[INFO][2025-05-20 04:48:03][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:03][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:48:03][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:03][root] Signal check success
+[INFO][2025-05-20 04:48:08][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:08][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:48:08][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:08][root] Signal check success
+[INFO][2025-05-20 04:48:09][root] Balance check success
+[INFO][2025-05-20 04:48:13][root] Balance check success
+[INFO][2025-05-20 04:48:13][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:13][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:48:13][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:13][root] Signal check success
+[INFO][2025-05-20 04:48:18][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:18][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:48:18][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:18][root] Signal check success
+[INFO][2025-05-20 04:48:19][root] Balance check success
+[INFO][2025-05-20 04:48:23][root] Balance check success
+[INFO][2025-05-20 04:48:23][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:23][root] [MONITOR] UPBIT 응답 5개
+[INFO][2025-05-20 04:48:23][root] [MONITOR] 모니터링 대상 ['USDT', 'PUNDIX', 'NXPC', 'KAITO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:23][root] Signal check success
+[INFO][2025-05-20 04:48:28][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:28][root] [MONITOR] UPBIT 응답 4개
+[INFO][2025-05-20 04:48:28][root] [MONITOR] 모니터링 대상 ['PUNDIX', 'WCT', 'ONDO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:28][root] Signal check success
+[INFO][2025-05-20 04:48:29][root] Balance check success
+[INFO][2025-05-20 04:48:33][root] Balance check success
+[INFO][2025-05-20 04:48:33][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:33][root] [MONITOR] UPBIT 응답 4개
+[INFO][2025-05-20 04:48:33][root] [MONITOR] 모니터링 대상 ['PUNDIX', 'WCT', 'ONDO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:33][root] Signal check success
+[INFO][2025-05-20 04:48:38][root] [MONITOR] 매수 모니터링 요청
+[INFO][2025-05-20 04:48:38][root] [MONITOR] UPBIT 응답 4개
+[INFO][2025-05-20 04:48:38][root] [MONITOR] 모니터링 대상 ['PUNDIX', 'WCT', 'ONDO', 'VIRTUAL']
+[INFO][2025-05-20 04:48:38][root] Signal check success
+[INFO][2025-05-20 04:48:39][root] Balance check success
