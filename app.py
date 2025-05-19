@@ -114,39 +114,6 @@ if os.path.exists(EXCLUDE_FILE):
     except Exception:
         excluded_coins = []
 
-# 실시간 시장 데이터 캐시 및 동기화 락
-market_cache: list[dict] = []
-market_lock = threading.Lock()
-
-def refresh_market_data() -> None:
-    """Fetch full market data from Upbit and update ``market_cache``."""
-    global market_cache
-    try:
-        tickers = pyupbit.get_tickers(fiat="KRW")
-        info = pyupbit.get_market_ticker(tickers) if tickers else []
-    except Exception as e:
-        logger.exception("Market data fetch failed: %s", e)
-        return
-    data = []
-    for i in info:
-        market = i.get("market")
-        if not market:
-            continue
-        coin = market.split("-")[-1]
-        price = i.get("trade_price", 0)
-        volume = i.get("acc_trade_price_24h", 0)
-        data.append({"coin": coin, "price": price, "volume": volume})
-    data.sort(key=lambda x: x["volume"], reverse=True)
-    for idx, d in enumerate(data, start=1):
-        d["rank"] = idx
-    with market_lock:
-        market_cache = data
-    logger.info("[MONITOR] Market data refreshed: %d coins", len(data))
-
-def market_data_loop() -> None:
-    while True:
-        refresh_market_data()
-        time.sleep(60)
 
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
@@ -158,7 +125,6 @@ trader = UpbitTrader(
     config,
     logger=logger,
 )
-threading.Thread(target=market_data_loop, daemon=True).start()
 
 def notify_error(message: str) -> None:
     """Log, socket emit and send Telegram alert for an error."""
