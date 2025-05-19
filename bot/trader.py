@@ -62,7 +62,12 @@ class UpbitTrader:
             try:
                 if self.logger:
                     self.logger.debug("run_loop iteration")
-                tickers = self.tickers or self.config.get("tickers", ["KRW-BTC", "KRW-ETH"])
+                tickers = self.tickers
+                if not tickers:
+                    if self.logger:
+                        self.logger.warning("[TRADER] No tickers to trade")
+                    time.sleep(60)
+                    continue
                 strat_name = self.config.get("strategy", "M-BREAK")
                 params = self.config.get("params", {})
                 if self.logger:

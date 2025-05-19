@@ -1,11 +1,29 @@
 import importlib
-import time
-import app
+import sys
+import types
 
-def reload_app():
-    importlib.reload(app)
-    app.market_signals = app.load_market_signals()
-    return app
+
+def load_app():
+    fake = types.SimpleNamespace(
+        get_tickers=lambda fiat="KRW": [
+            "KRW-BTC",
+            "KRW-ETH",
+            "KRW-XRP",
+            "KRW-DOGE",
+        ],
+        get_ticker=lambda tickers: [
+            {"market": "KRW-BTC", "trade_price": 40000000, "acc_trade_price_24h": 5000},
+            {"market": "KRW-ETH", "trade_price": 2500000, "acc_trade_price_24h": 4000},
+            {"market": "KRW-XRP", "trade_price": 600, "acc_trade_price_24h": 3000},
+            {"market": "KRW-DOGE", "trade_price": 150, "acc_trade_price_24h": 1000},
+        ],
+    )
+    sys.modules['pyupbit'] = fake
+    if 'app' in sys.modules:
+        importlib.reload(sys.modules['app'])
+    else:
+        import app
+    return sys.modules['app']
 
 def load_signals():
     with open(app.MARKET_FILE, encoding="utf-8") as f:
@@ -13,13 +31,14 @@ def load_signals():
 
 
 def test_no_filters_returns_all():
-    reload_app()
+    app = load_app()
     app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
-    assert len(result) == len(app.market_signals)
+    coins = [r["coin"] for r in result]
+    assert coins == ["BTC", "ETH", "XRP", "DOGE"]
 
 def test_min_price_filter():
-    reload_app()
+    app = load_app()
     app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
     coins = [r["coin"] for r in result]
@@ -27,22 +46,15 @@ def test_min_price_filter():
 
 
 def test_rank_filter():
-    reload_app()
-    app.filter_config = {"min_price": 0, "max_price": 0, "rank": 3}
+    app = load_app()
+    app.filter_config = {"min_price": 0, "max_price": 0, "rank": 2}
     result = app.get_filtered_signals()
     coins = [r["coin"] for r in result]
     assert coins == ["BTC", "ETH"]
 
 
-def test_filtered_tickers_no_filters():
-    reload_app()
-    app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
-    tickers = app.get_filtered_tickers()
-    assert tickers == app.config_data.get("tickers")
-
-
 def test_filtered_tickers_min_price():
-    reload_app()
+    app = load_app()
     app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
     tickers = app.get_filtered_tickers()
-    assert tickers == ["KRW-BTC", "KRW-ETH", "KRW-ADA"]
+    assert tickers == ["KRW-BTC", "KRW-ETH"]
