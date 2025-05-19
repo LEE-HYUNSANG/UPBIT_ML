@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 import os, shutil, logging, json  # 기본 모듈들
 from datetime import datetime
 
-from utils import load_secrets
+from utils import load_secrets, send_telegram
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
@@ -53,6 +53,15 @@ with open('config/config.json', encoding='utf-8') as f:
 
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
+
+def notify_error(message: str) -> None:
+    """Log, socket emit and send Telegram alert for an error."""
+    logger.error(message)
+    socketio.emit('notification', {'message': message})
+    token = secrets_data.get('TELEGRAM_TOKEN')
+    chat_id = secrets_data.get('TELEGRAM_CHAT_ID')
+    if token and chat_id:
+        send_telegram(token, chat_id, message)
 
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
@@ -346,95 +355,144 @@ def settings_page():
 @app.route("/api/start-bot", methods=["POST"])
 def start_bot():
     logger.info("[API] 봇 시작 요청")
-    settings["running"] = True
-    socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
-    return jsonify(result="success", message="봇이 시작되었습니다.")
+    try:
+        settings["running"] = True
+        socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
+        return jsonify(result="success", message="봇이 시작되었습니다.")
+    except Exception as e:
+        notify_error(f"봇 시작 실패: {e}")
+        return jsonify(result="error", message="봇 시작 실패"), 500
 
 @app.route("/api/stop-bot", methods=["POST"])
 def stop_bot():
     logger.info("[API] 봇 중지 요청")
-    settings["running"] = False
-    socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
-    return jsonify(result="success", message="봇이 정지되었습니다.")
+    try:
+        settings["running"] = False
+        socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
+        return jsonify(result="success", message="봇이 정지되었습니다.")
+    except Exception as e:
+        notify_error(f"봇 중지 실패: {e}")
+        return jsonify(result="error", message="봇 중지 실패"), 500
 
 @app.route("/api/apply-strategy", methods=["POST"])
 def apply_strategy():
-    # 실제 전략 설정 코드 (생략)
     data = request.json
     logger.info(f"[API] 전략 적용: {data}")
-    settings["strategy"] = data.get("strategy", "M-BREAK")
-    socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
-    return jsonify(result="success", message="전략이 적용되었습니다.")
+    try:
+        settings["strategy"] = data.get("strategy", "M-BREAK")
+        socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
+        return jsonify(result="success", message="전략이 적용되었습니다.")
+    except Exception as e:
+        notify_error(f"전략 적용 실패: {e}")
+        return jsonify(result="error", message="전략 적용 실패"), 500
 
 @app.route("/api/save-settings", methods=["POST"])
 def save_settings():
-    settings.update(request.json)
-    socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
-    return jsonify(result="success", message="저장 완료")
+    try:
+        settings.update(request.json)
+        socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        return jsonify(result="success", message="저장 완료")
+    except Exception as e:
+        notify_error(f"설정 저장 실패: {e}")
+        return jsonify(result="error", message="설정 저장 실패"), 500
 
 @app.route("/api/save-risk", methods=["POST"])
 def save_risk():
-    socketio.emit('notification', {'message': '리스크 설정 저장'})
-    return jsonify(result="success", message="리스크 저장 완료")
+    try:
+        socketio.emit('notification', {'message': '리스크 설정 저장'})
+        return jsonify(result="success", message="리스크 저장 완료")
+    except Exception as e:
+        notify_error(f"리스크 저장 실패: {e}")
+        return jsonify(result="error", message="리스크 저장 실패"), 500
 
 @app.route("/api/save-alerts", methods=["POST"])
 def save_alerts():
-    socketio.emit('notification', {'message': '알림 설정 저장'})
-    return jsonify(result="success", message="알림 설정 저장 완료")
+    try:
+        socketio.emit('notification', {'message': '알림 설정 저장'})
+        return jsonify(result="success", message="알림 설정 저장 완료")
+    except Exception as e:
+        notify_error(f"알림 설정 저장 실패: {e}")
+        return jsonify(result="error", message="알림 저장 실패"), 500
 
 @app.route("/api/save-funds", methods=["POST"])
 def save_funds():
-    settings.update(request.json)
-    socketio.emit('notification', {'message': '자금 설정 저장'})
-    return jsonify(result="success", message="자금 설정 저장 완료")
+    try:
+        settings.update(request.json)
+        socketio.emit('notification', {'message': '자금 설정 저장'})
+        return jsonify(result="success", message="자금 설정 저장 완료")
+    except Exception as e:
+        notify_error(f"자금 설정 저장 실패: {e}")
+        return jsonify(result="error", message="자금 저장 실패"), 500
 
 @app.route("/api/save-strategy", methods=["POST"])
 def save_strategy():
-    socketio.emit('notification', {'message': '전략 설정 저장'})
-    return jsonify(result="success", message="전략 설정 저장 완료")
+    try:
+        socketio.emit('notification', {'message': '전략 설정 저장'})
+        return jsonify(result="success", message="전략 설정 저장 완료")
+    except Exception as e:
+        notify_error(f"전략 설정 저장 실패: {e}")
+        return jsonify(result="error", message="전략 저장 실패"), 500
 
 @app.route("/api/run-analysis", methods=["POST"])
 def run_analysis():
-    socketio.emit('notification', {'message': 'AI 분석을 실행했습니다.'})
-    return jsonify(result="success", message="AI 분석 시작")
+    try:
+        socketio.emit('notification', {'message': 'AI 분석을 실행했습니다.'})
+        return jsonify(result="success", message="AI 분석 시작")
+    except Exception as e:
+        notify_error(f"AI 분석 실행 실패: {e}")
+        return jsonify(result="error", message="분석 실행 실패"), 500
 
 @app.route("/api/manual-sell", methods=["POST"])
 def manual_sell():
     coin = request.json.get('coin')
-    socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
-    global positions, alerts
-    positions = [p for p in positions if p['coin'] != coin]
-    alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
-    socketio.emit('positions', positions)
-    socketio.emit('alerts', alerts)
-    return jsonify(result="success", message=f"{coin} 매도 요청" )
+    try:
+        socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
+        global positions, alerts
+        positions = [p for p in positions if p['coin'] != coin]
+        alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
+        socketio.emit('positions', positions)
+        socketio.emit('alerts', alerts)
+        return jsonify(result="success", message=f"{coin} 매도 요청" )
+    except Exception as e:
+        notify_error(f"수동 매도 실패: {e}")
+        return jsonify(result="error", message="수동 매도 실패"), 500
 
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
     coin = request.json.get('coin')
-    socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
-    global positions, alerts
-    positions.append({"coin": coin, "entry": 50, "trend": 50, "trend_color": "green",
-                      "signal": "sell-wait", "signal_label": "관망"})
-    alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매수"})
-    socketio.emit('positions', positions)
-    socketio.emit('alerts', alerts)
-    return jsonify(result="success", message=f"{coin} 매수 요청")
+    try:
+        socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
+        global positions, alerts
+        positions.append({"coin": coin, "entry": 50, "trend": 50, "trend_color": "green",
+                          "signal": "sell-wait", "signal_label": "관망"})
+        alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매수"})
+        socketio.emit('positions', positions)
+        socketio.emit('alerts', alerts)
+        return jsonify(result="success", message=f"{coin} 매수 요청")
+    except Exception as e:
+        notify_error(f"수동 매수 실패: {e}")
+        return jsonify(result="error", message="수동 매수 실패"), 500
 
 @socketio.on('refresh')
 def handle_refresh(data):
-    socketio.emit('positions', positions)
-    socketio.emit('alerts', alerts)
+    try:
+        socketio.emit('positions', positions)
+        socketio.emit('alerts', alerts)
+    except Exception as e:
+        notify_error(f"리프레시 실패: {e}")
 
 @app.route("/download-code")
 def download_code():
-    # 전체 프로젝트 디렉토리 압축 후 파일 제공
-    base = os.path.abspath(os.path.dirname(__file__))
-    zip_path = os.path.join(base, "upbit_bot_project.zip")
-    if os.path.exists(zip_path):
-        os.remove(zip_path)
-    shutil.make_archive("upbit_bot_project", 'zip', base)
-    return send_file(zip_path, as_attachment=True)
+    try:
+        base = os.path.abspath(os.path.dirname(__file__))
+        zip_path = os.path.join(base, "upbit_bot_project.zip")
+        if os.path.exists(zip_path):
+            os.remove(zip_path)
+        shutil.make_archive("upbit_bot_project", 'zip', base)
+        return send_file(zip_path, as_attachment=True)
+    except Exception as e:
+        notify_error(f"코드 다운로드 실패: {e}")
+        return jsonify(result="error", message="다운로드 실패"), 500
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)

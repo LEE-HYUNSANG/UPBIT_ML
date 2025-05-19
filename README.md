@@ -50,7 +50,11 @@ All API keys and tokens are read from `config/secrets.json`. Create the file bef
 }
 ```
 
-If the file is missing or any required value is empty the application stops with an error. When Telegram details are available the same message is sent to that chat as well.
+`utils.load_secrets()` reads this file when the app starts. If the file is missing,
+unreadable or any required value is empty the application prints an error,
+logs it and exits immediately. When Telegram credentials are available (in the
+file or via `TELEGRAM_TOKEN` and `TELEGRAM_CHAT_ID` environment variables) the
+same message is also sent there.
 Example error:
 ```
 [ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
