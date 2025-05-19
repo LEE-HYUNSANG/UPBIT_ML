@@ -20,6 +20,7 @@
 ## config 디렉터리
 - **config/config.json**: 예제 설정 값.
 - **config/secrets.json**: API 키 등 비밀 정보 예시.
+- **config/market.json**: 시세 및 거래량 순위 데이터(업비트 연동 실패 시 사용).
 
 ## templates 디렉터리 (Jinja2 HTML)
 - **base.html**: 기본 레이아웃.

@@ -16,6 +16,11 @@ def reload_app():
     return app
 
 
+def load_signals():
+    with open(app.MARKET_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def test_no_filters_returns_all():
     reload_app()
     app.filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
@@ -28,7 +33,7 @@ def test_min_price_filter():
     app.filter_config = {"min_price": 1000, "max_price": 0, "rank": 0}
     result = app.get_filtered_signals()
     coins = [r["coin"] for r in result]
-    assert coins == ["BTC", "ETH"]
+    assert coins == ["BTC", "ETH", "ADA", "SOL"]
 
 
 def test_rank_filter():

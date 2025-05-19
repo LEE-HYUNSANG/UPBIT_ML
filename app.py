@@ -11,7 +11,12 @@ from datetime import datetime
 import time
 import pyupbit
 
-from utils import load_secrets, send_telegram, setup_logging
+from utils import (
+    load_secrets,
+    send_telegram,
+    setup_logging,
+    load_market_signals,
+)
 from bot.trader import UpbitTrader
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
@@ -224,14 +229,15 @@ def get_filtered_signals():
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
+    signals = load_market_signals()
     result = []
     for s in get_market_signals():
         logger.debug("[MONITOR] 원본 시그널 %s", s)
-        if min_p and s["price"] < min_p:
+        if min_p and s.get("price", 0) < min_p:
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and s.get("price", 0) > max_p:
             continue
-        if rank and s["rank"] > rank:
+        if rank and s.get("rank", 0) > rank:
             continue
         entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
         logger.debug("[MONITOR] 필터 통과 %s", entry)

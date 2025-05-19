@@ -8,6 +8,7 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
   Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
 - **static/js/main.js** – Common JavaScript handling API calls, SocketIO events, draggable layout and real time table updates.
 - **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
+- **config/market.json** – Sample market data loaded for monitoring filters.
 
 ## Example variables passed to templates
 ```python
@@ -72,6 +73,12 @@ Example error:
 ```
 [ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
 ```
+
+## Market data configuration
+
+Coin prices and volume ranks are loaded from `config/market.json` whenever
+Upbit API access is unavailable. Update this file periodically so dashboard
+filters reflect recent market conditions.
 
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.
