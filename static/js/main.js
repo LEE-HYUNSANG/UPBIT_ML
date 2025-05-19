@@ -13,7 +13,7 @@ function showAlert(message, title="알림") {
 document.querySelectorAll('button, .btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.body.style.cursor = 'wait';
-    setTimeout(() => { document.body.style.cursor = ''; }, 1500); // 1.5초 후 원복
+    setTimeout(() => { document.body.style.cursor = ''; }, 800);
   });
 });
 
@@ -38,8 +38,13 @@ async function callApi(url, data, method="POST") {
 if(window.io){
   const socket = io();
   socket.on('notification', function(data){
-    // data: {type: "BUY", message: "..."}
-    showAlert(data.message, "실시간 알림");
+    if(data.message) showAlert(data.message, "실시간 알림");
+    const box = document.getElementById('liveAlerts');
+    if(box){
+      const div = document.createElement('div');
+      div.textContent = data.message;
+      box.prepend(div);
+    }
   });
 }
 
@@ -50,3 +55,47 @@ document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>{
 
 // 6. 기본 콘솔 안내
 console.log("main.js loaded - UPBIT AutoTrading 공통 JS");
+
+// 7. data-api 버튼 클릭 시 폼 데이터 전송
+document.addEventListener('click', async e => {
+  const btn = e.target.closest('[data-api]');
+  if(!btn) return;
+  e.preventDefault();
+  const form = btn.closest('form');
+  let data = {};
+  if(form){
+    data = Object.fromEntries(new FormData(form).entries());
+  }
+  await callApi(btn.dataset.api, data);
+});
+
+// 8. data-alert 속성 클릭 시 알림 표시
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-alert]');
+  if(el){
+    showAlert(el.dataset.alert);
+  }
+});
+
+// 9. 레이아웃 드래그 분할 초기화
+function initDragLayout(){
+  const drag = document.getElementById('drag');
+  const left = document.getElementById('left');
+  if(!drag || !left) return;
+  let sx=0, sw=0;
+  drag.addEventListener('mousedown', e=>{
+    sx = e.clientX; sw = left.offsetWidth;
+    document.addEventListener('mousemove', mv);
+    document.addEventListener('mouseup', up);
+  });
+  function mv(e){
+    const w = sw + (e.clientX - sx);
+    const min=260, max=window.innerWidth*0.45;
+    if(w>min && w<max) left.style.width = w+'px';
+  }
+  function up(){
+    document.removeEventListener('mousemove', mv);
+    document.removeEventListener('mouseup', up);
+  }
+}
+document.addEventListener('DOMContentLoaded', initDragLayout);
