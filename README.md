@@ -6,8 +6,8 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
 - **templates/** – Jinja2 templates extending `base.html`. Pages include `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`, `settings.html` and `ai_analysis.html`.
   Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
-- **static/js/main.js** – Common JavaScript handling API calls, SocketIO events and draggable layout.
-- **static/css/custom.css** – Consolidated styles for all pages.
+- **static/js/main.js** – Common JavaScript handling API calls, SocketIO events, draggable layout and real time table updates.
+- **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
 
 ## Example variables passed to templates
 ```python
@@ -26,10 +26,12 @@ Buttons with a `data-api` attribute automatically send the nearest form data via
 <button data-api="/api/start-bot">봇 시작</button>
 ```
 The JavaScript in `main.js` will call `/api/start-bot` and show any returned message via a modal.
+SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
 ## Running
 Install requirements and start the server:
 ```bash
+pip install wheel
 pip install -r requirements.txt
 python app.py
 ```
@@ -45,6 +47,7 @@ Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비
 
 ```cmd
 pip install --upgrade pip
+pip install wheel
 pip install -r requirements.txt
 ```
 
@@ -55,6 +58,7 @@ Visual Studio C++ 빌드 툴이 제대로 설치됐는지 확인하고 다음 �
 
 ```cmd
 python -m pip install --upgrade setuptools wheel
+pip install --no-binary :all: ta-lib
 ```
 
 서버는 아래와 같이 실행합니다.

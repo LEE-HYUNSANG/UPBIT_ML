@@ -8,3 +8,4 @@ numpy==1.24.4
 talib-binary==0.4.0
 pyupbit==0.2.38
 requests==2.31.0
+wheel
