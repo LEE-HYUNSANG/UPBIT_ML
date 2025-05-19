@@ -20,7 +20,7 @@
             {% if running %}중지하기{% else %}시작하기{% endif %}
           </button>
         </div>
-        <small class="text-muted">업데이트: {{ updated }}</small>
+        <small class="text-muted" id="updateTime">업데이트: {{ updated }}</small>
       </div>
     </div>
     <div class="card shadow-sm mb-4">
@@ -31,9 +31,9 @@
       </div>
       <div class="card-body">
         <div class="row gy-2">
-          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">{{ config.get('cash', '0') }} 원</div>
-          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">{{ config.get('total', '0') }} 원</div>
-          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">{{ config.get('pnl', 0) }} %</div>
+          <div class="col-6">현금:</div><div class="col-6 text-end fw-semibold">{{ account.cash }} 원</div>
+          <div class="col-6">총 자산:</div><div class="col-6 text-end fw-semibold">{{ account.total }} 원</div>
+          <div class="col-6">누적 수익률:</div><div class="col-6 text-end text-success fw-semibold">{{ account.pnl }} %</div>
         </div>
       </div>
     </div>
@@ -63,9 +63,13 @@
            title="체결·손절·익절 등 실시간 이벤트 로그를 보여줍니다."></i>
       </div>
       <div id="liveAlerts" class="card-body small live-alerts">
+        {% if alerts %}
         {% for a in alerts %}
         <div>[{{ a.time }}] {{ a.message }}</div>
         {% endfor %}
+        {% else %}
+        <div class="text-muted">실시간 알림 대기중......</div>
+        {% endif %}
       </div>
     </div>
   </div><!-- /left -->
