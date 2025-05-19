@@ -1,20 +1,15 @@
 """
-UPBIT 5분봉 자동매매 9대 전략 모듈
-각 전략은 초보자도 바로 이해할 수 있도록
-조건/지표/의사결정 흐름을 주석으로 설명함.
-전략별 파라미터는 params로 동적 튜닝 가능.
+UPBIT 5분봉 자동매매 9대 전략 모듈 (최종)
+각 전략별 파라미터/조건/함수, STRATS 등록, select_strategy 지원
+초보자도 이해할 수 있는 상세 주석 포함
 """
-
 import numpy as np
 
 def m_break(df, tis, params):
     """
     M-BREAK (강한 돌파+추세+거래량)
-    - EMA5 > EMA20 > EMA60
-    - ATR(14) >= 0.035
-    - 거래량 20봉 평균의 1.8배 이상 폭증
-    - 실시간 체결강도(tis) >= 120
-    - 전고점 돌파(0.15% 이상)
+    EMA5 > EMA20 > EMA60, ATR14 ≥ 0.035,
+    20봉 평균 거래량의 1.8배 폭증, 체결강도 120+, 전고점 0.15% 돌파
     """
     last = df.iloc[-1]
     prev_high = df['high'][-21:-1].max()
@@ -30,13 +25,10 @@ def m_break(df, tis, params):
 def p_pull(df, tis, params):
     """
     P-PULL (눌림목 반등)
-    - EMA5 > EMA20 > EMA60
-    - EMA50 근접(2% 이내)
-    - RSI14 <= 28 반등
-    - 직전봉 대비 거래량 1.2배 이상
+    EMA5 > EMA20 > EMA60, EMA50 근접(2% 이내), RSI14 ≤ 28, 직전봉 대비 거래량 1.2배 이상
     """
     last = df.iloc[-1]
-    ema50 = df['EMA50'].iloc[-1] if 'EMA50' in df.columns else np.nan
+    ema50 = df['EMA50'].iloc[-1]
     ok = (
         last['EMA5'] > last['EMA20'] > last['EMA60'] and
         abs(last['close'] - ema50) / (ema50+1e-9) < 0.02 and
@@ -48,16 +40,14 @@ def p_pull(df, tis, params):
 def t_flow(df, tis, params):
     """
     T-FLOW (중기 추세+OBV)
-    - EMA20의 5봉 기울기 > 0.15%
-    - OBV 3봉 연속 상승
-    - RSI14 48~60
+    EMA20 5봉 기울기 > 0.15%, OBV 3봉 연속 상승, RSI14 48~60
     """
-    ema20_slope = (df['EMA20'].iloc[-1] - df['EMA20'].iloc[-5]) / abs(df['EMA20'].iloc[-5]+1e-9)
-    obv_increase = all(df['OBV'].iloc[-i] > df['OBV'].iloc[-i-1] for i in range(1, 4)) if 'OBV' in df.columns else False
+    ema20_slope = (df['EMA20'].iloc[-1] - df['EMA20'].iloc[-5]) / (abs(df['EMA20'].iloc[-5])+1e-9)
+    obv_inc = all(df['OBV'].iloc[-i] > df['OBV'].iloc[-i-1] for i in range(1, 4))
     rsi = df['RSI14'].iloc[-1]
     ok = (
         ema20_slope > 0.0015 and
-        obv_increase and
+        obv_inc and
         48 <= rsi <= 60
     )
     return ok, params
@@ -65,9 +55,7 @@ def t_flow(df, tis, params):
 def b_low(df, tis, params):
     """
     B-LOW (박스권 하단 반등)
-    - 80봉 내 박스폭 6% 이내
-    - 저점 터치
-    - RSI14 < 25 반등
+    80봉 내 박스폭 6% 이내, 저점 터치, RSI14 < 25
     """
     low80 = df['low'][-80:].min()
     high80 = df['high'][-80:].max()
@@ -83,9 +71,7 @@ def b_low(df, tis, params):
 def v_rev(df, tis, params):
     """
     V-REV (대폭락 후 강한 반등)
-    - 직전봉 -4% 이상 하락
-    - 거래량 2.5배 이상 급증
-    - RSI14 18→20 반등, 반등폭 4% 이상
+    직전봉 -4% 이상 하락, 거래량 2.5배↑, RSI14 18→20 상승, 반등폭 4%↑
     """
     last = df.iloc[-1]
     prev = df.iloc[-2]
@@ -104,13 +90,10 @@ def v_rev(df, tis, params):
 def g_rev(df, tis, params):
     """
     G-REV (골든크로스+지지)
-    - EMA50 > EMA200 골든크로스
-    - 단기 눌림
-    - RSI14 >= 48
-    - 거래량 이전봉 0.6배 이상
+    EMA50 > EMA200 골든, RSI14 ≥ 48, 거래량 이전봉 0.6배↑
     """
     last = df.iloc[-1]
-    golden = (last['EMA50'] > last['EMA200']) if 'EMA200' in df.columns else False
+    golden = (last['EMA50'] > last['EMA200'])
     ok = (
         golden and
         last['RSI14'] >= 48 and
@@ -121,10 +104,7 @@ def g_rev(df, tis, params):
 def vol_brk(df, tis, params):
     """
     VOL-BRK (ATR 폭발·신고가)
-    - ATR 10봉 평균대비 1.5배↑
-    - 20봉 거래량 2배↑
-    - 신고가 돌파
-    - RSI14 >= 60
+    ATR14 10봉 평균의 1.5배↑, 20봉 거래량 2배↑, 신고가, RSI14 ≥ 60
     """
     last = df.iloc[-1]
     atr10 = df['ATR14'][-10:].mean()
@@ -140,28 +120,24 @@ def vol_brk(df, tis, params):
 
 def ema_stack(df, tis, params):
     """
-    EMA-STACK (EMA 다중 정렬, ADX↑)
-    - EMA25 > EMA100 > EMA200
-    - ADX >= 30
-    - 저점 돌파→반등
+    EMA-STACK (EMA 다중정렬, ADX↑)
+    EMA25 > EMA100 > EMA200, ADX ≥ 30
     """
     last = df.iloc[-1]
     ok = (
         last['EMA25'] > last['EMA100'] > last['EMA200'] and
-        ('ADX' in df.columns and last['ADX'] >= 30)
+        last['ADX'] >= 30
     )
     return ok, params
 
 def vwap_bnc(df, tis, params):
     """
     VWAP-BNC (VWAP/RSI 조합)
-    - EMA5 > EMA20 > EMA60
-    - 종가 VWAP 근접
-    - RSI 45~60
-    - 거래량 증가
+    EMA5 > EMA20 > EMA60, VWAP 근접, RSI 45~60, 거래량 증가
     """
     last = df.iloc[-1]
-    vwap_close_ratio = abs(last['close'] - last.get('VWAP', last['close'])) / (last.get('VWAP', last['close'])+1e-9)
+    vwap = last['VWAP']
+    vwap_close_ratio = abs(last['close'] - vwap) / (vwap+1e-9)
     ok = (
         last['EMA5'] > last['EMA20'] > last['EMA60'] and
         vwap_close_ratio < 0.012 and
@@ -170,7 +146,7 @@ def vwap_bnc(df, tis, params):
     )
     return ok, params
 
-# 전략 이름-함수 매핑
+# 전략명-함수 연결
 STRATS = {
     "M-BREAK": m_break,
     "P-PULL": p_pull,
@@ -185,10 +161,7 @@ STRATS = {
 
 def select_strategy(strategy_name, df, tis, params):
     """
-    strategy_name: 전략명(str)
-    df: OHLCV+지표 DataFrame
-    tis: 실시간 체결강도(옵션)
-    params: 전략별 파라미터(dict)
+    전략명/지표/체결강도/파라미터로 전략 함수 실행
     사용 예: ok, param = select_strategy('M-BREAK', df, tis, {...})
     """
     func = STRATS.get(strategy_name)
