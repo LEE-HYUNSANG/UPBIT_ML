@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}Risk 설정{% endblock %}
+{% block title %}위험관리 설정{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Risk 설정</h2>
-  <div class="alert alert-secondary">risk 페이지 예시입니다.</div>
+  <h2 class="mb-4">위험관리/리스크 설정</h2>
+  <div class="card shadow-sm">
+    <div class="card-head">손실 한도/자동 손절 설정</div>
+    <div class="card-body">
+      <form>
+        <div class="row mb-3">
+          <div class="col-md-4"><label class="form-label">일 손실 한도(%)</label>
+            <input type="number" class="form-control" id="loss_day" value="10"></div>
+          <div class="col-md-4"><label class="form-label">연속 손실(회)</label>
+            <input type="number" class="form-control" id="loss_streak" value="5"></div>
+          <div class="col-md-4"><label class="form-label">슬리피지(%)</label>
+            <input type="number" class="form-control" id="slip" value="0.1"></div>
+        </div>
+        <button type="button" class="btn btn-primary w-100">저장</button>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}
