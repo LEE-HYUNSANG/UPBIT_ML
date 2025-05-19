@@ -29,33 +29,20 @@
             </tr>
           </thead>
           <tbody>
-            <!-- 아래 10개 전략 모두 생략 없이 그대로 포함 -->
+            {% for s in strategies %}
             <tr>
-              <td><input class="form-check-input" type="checkbox" checked></td>
+              <td><input class="form-check-input" type="checkbox" name="enable_{{ s.name }}" {% if s.enabled %}checked{% endif %}></td>
               <td>
-                <span class="fw-semibold" data-bs-toggle="tooltip" title="M-BREAK: 강한 추세·거래량 돌파. 예시) 5EMA>20EMA>60EMA, ATR≥0.035, 20봉 평균 거래량 1.8배 폭증, 전고점 0.15% 돌파시 진입">M-BREAK
+                <span class="fw-semibold" data-bs-toggle="tooltip" title="{{ s.option }}">{{ s.name }}
                   <i class="bi bi-info-circle"></i></span>
               </td>
-              <td><input type="number" class="form-control" placeholder="0.02"></td>
-              <td><input type="number" class="form-control" placeholder="0.01"></td>
-              <td><input type="number" class="form-control" placeholder="0.012"></td>
-              <td><input type="text" class="form-control" placeholder="ATR≥0.035, 20봉거래량 1.8x, 전고점돌파"></td>
-              <td><span class="badge badge-info">TP 2%<br>SL 1%</span></td>
+              <td><input type="number" class="form-control" name="tp_{{ s.name }}" value="{{ s.tp }}" placeholder="0.02"></td>
+              <td><input type="number" class="form-control" name="sl_{{ s.name }}" value="{{ s.sl }}" placeholder="0.01"></td>
+              <td><input type="number" class="form-control" name="tr_{{ s.name }}" value="{{ s.trail }}" placeholder="0.012"></td>
+              <td><input type="text" class="form-control" value="{{ s.option }}"></td>
+              <td><span class="badge badge-info">{{ s.rec }}</span></td>
             </tr>
-            <!-- 이하 나머지 9개 전략은 생략 없이 위와 같이 모두 추가 -->
-            <!-- ... (P-PULL, T-FLOW, B-LOW, V-REV, G-REV, VOL-BRK, EMA-STACK, VWAP-BNC, OB-IMB) ... -->
-            <tr>
-              <td><input class="form-check-input" type="checkbox"></td>
-              <td>
-                <span class="fw-semibold" data-bs-toggle="tooltip" title="OB-IMB: 실시간 호가창 불균형. 실전은 WebSocket 활용 필요.">OB-IMB
-                  <i class="bi bi-info-circle"></i></span>
-              </td>
-              <td><input type="number" class="form-control" placeholder="-"></td>
-              <td><input type="number" class="form-control" placeholder="-"></td>
-              <td><input type="number" class="form-control" placeholder="-"></td>
-              <td><input type="text" class="form-control" placeholder="실시간 호가 imbalance"></td>
-              <td><span class="badge badge-info">실전 추천 안함</span></td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
@@ -68,13 +55,13 @@
 ‘불가’: 가장 먼저 발생한 전략 신호 1개만 진입하며, 복수 진입 차단(신호 우선순위 적용)."></i>
         </label>
         <div class="form-check form-check-inline ms-2">
-          <input class="form-check-input" type="radio" name="multi" id="multi1" checked>
+          <input class="form-check-input" type="radio" name="multi" id="multi1" value="allow" {% if config.get('multi', True) %}checked{% endif %}>
           <label class="form-check-label" for="multi1">허용
             <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="동시 발생 시 멀티포지션(복수매수)이 가능"></i>
           </label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="multi" id="multi2">
+          <input class="form-check-input" type="radio" name="multi" id="multi2" value="deny" {% if not config.get('multi', True) %}checked{% endif %}>
           <label class="form-check-label" for="multi2">불가
             <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="여러 전략 중 가장 먼저 감지된 신호만 진입"></i>
           </label>
@@ -228,7 +215,7 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100 mt-3">전체 저장</button>
+        <button type="button" class="btn btn-primary w-100 mt-3" data-api="/api/save-strategy">전체 저장</button>
       </form>
       <div class="mt-4 text-muted">마지막 저장: 2025-05-18 15:41</div>
     </div>

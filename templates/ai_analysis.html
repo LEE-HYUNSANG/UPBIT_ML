@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="col-md-4">
-              <button type="button" class="btn btn-ai w-100" style="height:48px;">AI 분석 실행</button>
+              <button type="button" class="btn btn-ai w-100" style="height:48px;" data-api="/api/run-analysis">AI 분석 실행</button>
             </div>
           </form>
         </div>
@@ -39,8 +39,9 @@
         <div class="card-head"><i class="bi bi-clock-history"></i> 최근 분석/반영 이력</div>
         <div class="card-body">
           <ul class="list-group">
-            <li class="list-group-item small">2025-05-18 13:00 <span class="text-success">적용</span></li>
-            <li class="list-group-item small">2025-05-17 10:13 <span class="text-primary">분석</span></li>
+            {% for h in history %}
+            <li class="list-group-item small">{{ h.time }} <span class="text-{{ 'success' if h.type=='apply' else 'primary' }}">{{ h.label }}</span></li>
+            {% endfor %}
           </ul>
         </div>
       </div>
@@ -68,61 +69,14 @@
           </tr>
         </thead>
         <tbody>
-          <!-- 9개 전략 전부 생략 없이! -->
+          {% for r in buy_results %}
           <tr>
-            <td>M-BREAK</td><td>84</td><td>55%</td><td>1.2%</td>
-            <td>RSI&lt;26, TP=1.8%, SL=1.0%</td><td>61%</td><td>1.6%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-MBREAK">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}%</td><td>{{ r.profit }}%</td>
+            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}%</td><td>{{ r.ai_profit }}%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-{{ r.key }}">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm" data-api="/api/apply-strategy" data-strategy="{{ r.key }}">적용</button></td>
           </tr>
-          <tr>
-            <td>P-PULL</td><td>120</td><td>63%</td><td>1.4%</td>
-            <td>RSI&lt;24, TP=2.2%, SL=1.1%</td><td>68%</td><td>1.8%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-PPULL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>T-FLOW</td><td>97</td><td>51%</td><td>1.0%</td>
-            <td>RSI 48~60, OBV 3봉↑, TP=3.0%</td><td>54%</td><td>1.3%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-TFLOW">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>B-LOW</td><td>67</td><td>45%</td><td>0.9%</td>
-            <td>TP=2.5%, SL=1.3%, RSI&lt;22</td><td>52%</td><td>1.3%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-BLOW">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>V-REV</td><td>44</td><td>50%</td><td>1.2%</td>
-            <td>전봉-4% 급락, RSI 18→상승</td><td>53%</td><td>1.7%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VREV">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>G-REV</td><td>52</td><td>57%</td><td>1.3%</td>
-            <td>EMA50&gt;200 골든, RSI≥48</td><td>60%</td><td>1.5%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-GREV">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>VOL-BRK</td><td>42</td><td>60%</td><td>1.5%</td>
-            <td>ATR폭발, 거래량 2x, RSI≥60</td><td>65%</td><td>1.9%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VOLBRK">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>EMA-STACK</td><td>39</td><td>58%</td><td>1.1%</td>
-            <td>EMA25&gt;100&gt;200, ADX&gt;30</td><td>62%</td><td>1.5%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-EMASTACK">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>VWAP-BNC</td><td>61</td><td>56%</td><td>1.4%</td>
-            <td>VWAP근접, RSI 45~60</td><td>60%</td><td>1.7%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VWAPBNC">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -149,60 +103,14 @@
           </tr>
         </thead>
         <tbody>
+          {% for r in sell_results %}
           <tr>
-            <td>M-BREAK</td><td>84</td><td>55%</td><td>1.2%</td>
-            <td>SL=1.1%, 트레일링=1.4%</td><td>63%</td><td>1.7%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-MBREAK-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
+            <td>{{ r.name }}</td><td>{{ r.count }}</td><td>{{ r.win }}%</td><td>{{ r.profit }}%</td>
+            <td>{{ r.ai_result }}</td><td>{{ r.ai_win }}%</td><td>{{ r.ai_profit }}%</td>
+            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-{{ r.key }}-SELL">보기</button></td>
+            <td><button class="btn btn-outline-success btn-sm" data-api="/api/apply-strategy" data-strategy="{{ r.key }}">적용</button></td>
           </tr>
-          <tr>
-            <td>P-PULL</td><td>120</td><td>63%</td><td>1.4%</td>
-            <td>SL=1.2%, 트레일링=1.5%</td><td>67%</td><td>1.8%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-PPULL-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>T-FLOW</td><td>97</td><td>51%</td><td>1.0%</td>
-            <td>SL=1.3%, 트레일링=1.7%</td><td>58%</td><td>1.3%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-TFLOW-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>B-LOW</td><td>67</td><td>45%</td><td>0.9%</td>
-            <td>SL=1.3%, 트레일링=1.1%</td><td>54%</td><td>1.0%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-BLOW-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>V-REV</td><td>44</td><td>50%</td><td>1.2%</td>
-            <td>SL=1.2%, 트레일링=1.5%</td><td>56%</td><td>1.5%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VREV-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>G-REV</td><td>52</td><td>57%</td><td>1.3%</td>
-            <td>SL=1.2%, 트레일링=1.4%</td><td>62%</td><td>1.4%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-GREV-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>VOL-BRK</td><td>42</td><td>60%</td><td>1.5%</td>
-            <td>SL=1.1%, 트레일링=1.5%</td><td>67%</td><td>1.9%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VOLBRK-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>EMA-STACK</td><td>39</td><td>58%</td><td>1.1%</td>
-            <td>SL=1.3%, 트레일링=1.2%</td><td>63%</td><td>1.5%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-EMASTACK-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
-          <tr>
-            <td>VWAP-BNC</td><td>61</td><td>56%</td><td>1.4%</td>
-            <td>SL=1.1%, 트레일링=1.3%</td><td>61%</td><td>1.6%</td>
-            <td><button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-VWAPBNC-SELL">보기</button></td>
-            <td><button class="btn btn-outline-success btn-sm">적용</button></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
