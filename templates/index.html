@@ -2,8 +2,52 @@
 {% block title %}대시보드{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <h2>UPBIT 5분봉 자동매매 대시보드</h2>
-  <div class="alert alert-info">실시간 봇 상태, 거래, 수익률 등을 표시합니다.</div>
-  <!-- 실제 데이터는 Flask에서 전달 -->
+  <h2 class="mb-3">UPBIT 5분봉 자동매매 대시보드</h2>
+  <div class="row gy-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-head">봇 상태</div>
+        <div class="card-body">
+          <span class="badge bg-success">실행중</span>
+          <button class="btn btn-danger btn-sm float-end" onclick="callApi('/api/stop-bot')">중지</button>
+          <div class="mt-3 small text-muted">마지막 실행: {{ last_run or '-' }}</div>
+        </div>
+      </div>
+      <div class="card shadow-sm mt-3">
+        <div class="card-head">실시간 알림</div>
+        <div class="card-body small" style="max-height:140px;overflow:auto;">
+          {% for msg in alerts or [] %}
+            <div>[{{ msg.time }}] {{ msg.text }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-head">보유코인 매매/상태</div>
+        <div class="card-body table-responsive">
+          <table class="table table-bordered text-center mb-0">
+            <thead><tr>
+              <th>코인</th><th>진입가</th><th>현재가</th><th>수익률</th><th>전략</th><th>상태</th>
+            </tr></thead>
+            <tbody>
+              {% for pos in positions or [] %}
+                <tr>
+                  <td>{{ pos.ticker }}</td>
+                  <td>{{ pos.entry|default('-') }}</td>
+                  <td>{{ pos.now|default('-') }}</td>
+                  <td>{{ pos.pnl|default('-') }}</td>
+                  <td>{{ pos.strat|default('-') }}</td>
+                  <td>{{ pos.status|default('-') }}</td>
+                </tr>
+              {% else %}
+                <tr><td colspan="6" class="text-muted">보유 포지션 없음</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
