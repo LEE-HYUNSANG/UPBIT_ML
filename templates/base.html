@@ -55,6 +55,23 @@
     </div>
   </div>
 </div>
+<!-- 제외 목록 모달 -->
+<div class="modal fade" id="excludeListModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">제외 목록</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <table class="table table-bordered text-center mb-0">
+          <thead class="table-light"><tr><th>코인 ID</th><th>삭제 일</th></tr></thead>
+          <tbody id="excludeListBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 {% block content %}{% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/main.js"></script>

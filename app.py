@@ -101,6 +101,16 @@ if os.path.exists(FILTER_FILE):
     except Exception:
         pass
 
+# 매도 모니터링 제외 목록 로드
+EXCLUDE_FILE = 'config/exclude.json'
+excluded_coins = []
+if os.path.exists(EXCLUDE_FILE):
+    try:
+        with open(EXCLUDE_FILE, encoding='utf-8') as f:
+            excluded_coins = json.load(f)
+    except Exception:
+        excluded_coins = []
+
 # 템플릿 렌더링을 위해 secrets 재사용
 secrets_data = secrets
 
@@ -153,6 +163,11 @@ def get_account_summary():
 def update_timestamp() -> None:
     """Update last change timestamp in settings."""
     settings["updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+def save_excluded():
+    os.makedirs(os.path.dirname(EXCLUDE_FILE), exist_ok=True)
+    with open(EXCLUDE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(excluded_coins, f, ensure_ascii=False, indent=2)
 
 positions = []
 
@@ -450,6 +465,9 @@ def dashboard():
     logger.debug("Render dashboard")
     data = get_balances()
     current_positions = trader.build_positions(data) if data else []
+    if excluded_coins:
+        excluded_ids = {c['coin'] for c in excluded_coins}
+        current_positions = [p for p in current_positions if p['coin'] not in excluded_ids]
     return render_template(
         "index.html",
         running=settings["running"],
@@ -688,6 +706,34 @@ def manual_buy():
         notify_error(f"수동 매수 실패: {e}")
         return jsonify(result="error", message="수동 매수 실패"), 500
 
+@app.route("/api/exclude-coin", methods=["POST"])
+def exclude_coin():
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
+    logger.debug("exclude_coin called for %s", coin)
+    try:
+        if not coin:
+            raise ValueError("Invalid coin")
+        if not any(c['coin'] == coin for c in excluded_coins):
+            excluded_coins.append({
+                "coin": coin,
+                "deleted": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            save_excluded()
+        return jsonify(result="success", message=f"{coin} 제외됨")
+    except Exception as e:
+        notify_error(f"제외 실패: {e}")
+        return jsonify(result="error", message="제외 실패"), 500
+
+@app.route("/api/excluded-coins", methods=["GET"])
+def get_excluded_coins():
+    logger.debug("get_excluded_coins called")
+    try:
+        return jsonify(result="success", coins=excluded_coins)
+    except Exception as e:
+        notify_error(f"조회 실패: {e}")
+        return jsonify(result="error", message="조회 실패"), 500
+
 @app.route("/api/balances", methods=["GET"])
 def api_balances():
     """Return current balances for the dashboard."""
@@ -695,6 +741,9 @@ def api_balances():
     try:
         data = get_balances()
         positions = trader.build_positions(data) if data else []
+        if excluded_coins:
+            ex_ids = {c['coin'] for c in excluded_coins}
+            positions = [p for p in positions if p['coin'] not in ex_ids]
         logger.info("Balance check success")
         return jsonify(result="success", balances=positions)
     except Exception as e:

@@ -90,7 +90,8 @@
     <div class="card shadow-sm mb-5">
       <div class="card-head">
         <i class="bi bi-cash-coin"></i> 보유코인 관리 (매도 모니터링)
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i id="btnExcludedList" class="bi bi-list-ul ms-auto" role="button" data-bs-toggle="tooltip" title="제외 코인 목록"></i>
+        <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip"
            title="현재 보유 중인 코인의 손익 상태와 매도(Exit) 우선순위를 모니터링합니다."></i>
         <i class="ms-2 bi bi-arrow-clockwise reload-btn" role="button" data-refresh="balances"
            data-bs-toggle="tooltip" title="데이터 새로 고침"></i>
@@ -101,6 +102,7 @@
             <thead class="table-light">
               <tr>
                 <th>코인</th>
+                <th>제외</th>
                 <th>수익률 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="현재 평가 손익률"></i></th>
                 <th>손절·익절 그래프 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="손절가와 익절가를 시각화"></i></th>
                 <th>추세 손절·익절 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="추세 기반 손절·익절 지점"></i></th>
@@ -112,6 +114,7 @@
               {% for p in positions %}
               <tr>
                 <td>{{ p.coin }}</td>
+                <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="{{ p.coin }}">제외</button></td>
                 <td>{{ p.pnl }} %</td>
                 <td>
                   <div class="bar-graph">
