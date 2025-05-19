@@ -137,6 +137,9 @@ def get_balances():
     data = trader.get_balances()
     if data is None:
         return []
+    if excluded_coins:
+        ex_ids = {c['coin'] for c in excluded_coins}
+        data = [b for b in data if b.get('currency') not in ex_ids]
     return data
 
 
@@ -149,7 +152,8 @@ def get_status() -> dict:
 def get_account_summary():
     logger.debug("Fetching account summary")
     global account_cache
-    summary = trader.account_summary()
+    excluded = {c['coin'] for c in excluded_coins} if excluded_coins else None
+    summary = trader.account_summary(excluded)
     if summary is None:
         account_cache = {
             "cash": "네트워크 연결 안됨",
@@ -464,10 +468,8 @@ analysis_strategies = [
 def dashboard():
     logger.debug("Render dashboard")
     data = get_balances()
-    current_positions = trader.build_positions(data) if data else []
-    if excluded_coins:
-        excluded_ids = {c['coin'] for c in excluded_coins}
-        current_positions = [p for p in current_positions if p['coin'] not in excluded_ids]
+    ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
+    current_positions = trader.build_positions(data, ex_ids) if data else []
     return render_template(
         "index.html",
         running=settings["running"],
@@ -740,10 +742,8 @@ def api_balances():
     logger.debug("api_balances called")
     try:
         data = get_balances()
-        positions = trader.build_positions(data) if data else []
-        if excluded_coins:
-            ex_ids = {c['coin'] for c in excluded_coins}
-            positions = [p for p in positions if p['coin'] not in ex_ids]
+        ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
+        positions = trader.build_positions(data, ex_ids) if data else []
         logger.info("Balance check success")
         return jsonify(result="success", balances=positions)
     except Exception as e:

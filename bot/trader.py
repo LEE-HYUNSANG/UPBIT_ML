@@ -112,9 +112,17 @@ class UpbitTrader:
                 self.logger.exception("Failed to get balances: %s", e)
             return None
 
-    def account_summary(self):
-        """Return cash/total/pnl summary calculated from balances."""
+    def account_summary(self, excluded=None):
+        """Return cash/total/pnl summary calculated from balances.
+
+        Parameters
+        ----------
+        excluded : set[str] | None
+            Coins to ignore when calculating the summary.
+        """
         balances = self.get_balances()
+        if excluded:
+            balances = [b for b in balances if b.get("currency") not in excluded]
         if not balances:
             return None
         try:
@@ -154,13 +162,25 @@ class UpbitTrader:
                 self.logger.exception("Failed to calculate summary: %s", e)
             return None
 
-    def build_positions(self, balances):
-        """Convert balance list to dashboard position entries."""
+    def build_positions(self, balances, excluded=None):
+        """Convert balance list to dashboard position entries.
+
+        Parameters
+        ----------
+        balances : list[dict]
+            Raw balance entries from Upbit.
+        excluded : set[str] | None
+            Coins to ignore entirely.
+        """
         positions = []
         for b in balances:
             currency = b.get("currency")
             bal = float(b.get("balance", 0))
             if currency == "KRW" or bal == 0:
+                continue
+            if excluded and currency in excluded:
+                if self.logger:
+                    self.logger.debug("Skip position for excluded coin %s", currency)
                 continue
             try:
                 price = pyupbit.get_current_price(f"KRW-{currency}") or 0
