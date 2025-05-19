@@ -47,6 +47,16 @@ with open("config/config.json", encoding="utf-8") as f:
 # secrets.json 을 공통 로더로 읽기
 secrets = load_secrets()
 
+# 기본 계좌 요약 자리표시자
+ACCOUNT_PLACEHOLDER = {
+    "cash": "현재 로딩중...",
+    "total": "현재 로딩중...",
+    "pnl": "현재 로딩중...",
+}
+
+# 캐시 형태로 계좌 요약을 저장 (초기값은 로딩중)
+account_cache = ACCOUNT_PLACEHOLDER.copy()
+
 # 전역 변수 (설정 예시)
 settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
             "funds": 1000000,
@@ -94,9 +104,12 @@ def notify_error(message: str) -> None:
         send_telegram(token, chat_id, message)
 
 def get_balances():
-    """Fetch current coin balances (placeholder)."""
+    """Fetch current coin balances from trader."""
     logger.debug("Fetching balances")
-    return positions
+    data = trader.get_balances()
+    if data is None:
+        return []
+    return data
 
 
 def get_status() -> dict:
@@ -107,7 +120,21 @@ def get_status() -> dict:
 
 def get_account_summary():
     logger.debug("Fetching account summary")
-    return {"cash": 1000000, "total": 1500000, "pnl": 5.2}
+    global account_cache
+    summary = trader.account_summary()
+    if summary is None:
+        account_cache = {
+            "cash": "네트워크 연결 안됨",
+            "total": "네트워크 연결 안됨",
+            "pnl": "네트워크 연결 안됨",
+        }
+    else:
+        account_cache = summary
+    return account_cache
+
+def update_timestamp() -> None:
+    """Update last change timestamp in settings."""
+    settings["updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 positions = [
     {"coin": "BTC", "entry": 48, "trend": 66, "trend_color": "green", "signal": "sell-max", "signal_label": "수익 극대화"},
