@@ -3,10 +3,10 @@ UPBIT 5분봉 자동매매 Flask 메인 앱 (초보자 상세 주석)
 """
 from flask import Flask, render_template, jsonify, request, send_file
 from flask_socketio import SocketIO
-import os, shutil, logging, json
+import os, shutil, logging, json  # 기본 모듈들
 
-app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+app = Flask(__name__)  # Flask 애플리케이션 생성
+socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
 
 # 로그 설정
 logging.basicConfig(

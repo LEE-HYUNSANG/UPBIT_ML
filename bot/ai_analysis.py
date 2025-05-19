@@ -3,7 +3,7 @@ AI 전략 파라미터 최적화/추천 모듈
 실제 AI 분석(백테스트, 최적화 등) 연동 가능. 
 여기서는 샘플 로직으로, 실전에서는 과거 데이터, 성능 테스트, ML 알고리즘 추가 가능.
 """
-import random
+import random  # 난수 생성을 위해 사용
 
 def run_ai_analysis(df, params):
     """
@@ -11,8 +11,8 @@ def run_ai_analysis(df, params):
     params: 기존 전략별 파라미터(dict)
     반환: 추천 파라미터 dict 예시
     """
-    # 실제 분석/최적화 코드를 여기에 구현
-    # 예시: TP/SL 랜덤 추천(실전은 백테스트 후 수익률 최대값 사용)
+    # 여기서 실제 백테스트/최적화 로직을 수행할 수 있습니다.
+    # 아래는 예시용으로 TP/SL 값을 무작위로 추천합니다.
     best = {
         "TP": round(random.uniform(0.014, 0.025), 4),
         "SL": round(random.uniform(0.009, 0.015), 4),
