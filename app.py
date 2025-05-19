@@ -769,8 +769,9 @@ def api_signals():
     """Return current buy signals for the dashboard."""
     logger.debug("api_signals called")
     try:
-        logger.info("[MONITOR] 모니터링 대상 %s", config_data.get("tickers"))
         signals = get_filtered_signals()
+        coins = [s.get("coin") for s in signals]
+        logger.info("[MONITOR] 모니터링 대상 %s", coins if coins else "없음")
         logger.info("Signal check success")
         return jsonify(result="success", signals=signals)
     except Exception as e:
