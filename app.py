@@ -11,6 +11,7 @@ from datetime import datetime
 
 from utils import load_secrets, send_telegram, setup_logging
 from bot.trader import UpbitTrader
+from bot.runtime_settings import settings, load_from_file
 import pyupbit
 import threading
 import time
@@ -55,6 +56,9 @@ def log_response(response):
 with open("config/config.json", encoding="utf-8") as f:
     config = json.load(f)
 
+# config 파일 값을 전역 settings 에 반영
+load_from_file()
+
 # secrets.json 을 공통 로더로 읽기
 secrets = load_secrets()
 
@@ -68,28 +72,7 @@ ACCOUNT_PLACEHOLDER = {
 # 캐시 형태로 계좌 요약을 저장 (초기값은 로딩중)
 account_cache = ACCOUNT_PLACEHOLDER.copy()
 
-# 전역 변수 (설정 예시)
-settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
-            "funds": 1000000,
-            "max_amount": 500000,
-            "buy_amount": 100000,
-            "max_positions": 5,
-            "slippage": 0.1,
-            "balance_action": "alert",
-            "run_time": "09:00-22:00",
-            "rebalance": "1d",
-            "event_stop": "",
-            "backtest": "OFF",
-            "candle": "5m",
-            "fee": 0.05,
-            "tune": "",
-            "ai_opt": "OFF",
-            "exchange": "UPBIT",
-            "tg_on": True,
-            "events": ["BUY", "SELL", "STOP"],
-            "notify_from": "08:00",
-            "notify_to": "22:00",
-            "updated": "2025-05-18"}
+# RuntimeSettings dataclass 로 설정 관리
 
 
 # 대시보드 코인 필터 설정 로드/저장용
@@ -146,7 +129,7 @@ def get_balances():
 def get_status() -> dict:
     """Return current running status and last update time."""
     logger.debug("Fetching status")
-    return {"running": settings["running"], "updated": settings["updated"]}
+    return {"running": settings.running, "updated": settings.updated}
 
 
 def get_account_summary():
@@ -166,7 +149,7 @@ def get_account_summary():
 
 def update_timestamp() -> None:
     """Update last change timestamp in settings."""
-    settings["updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    settings.update_timestamp()
 
 def save_excluded():
     os.makedirs(os.path.dirname(EXCLUDE_FILE), exist_ok=True)
@@ -606,11 +589,11 @@ def dashboard():
     current_positions = trader.build_positions(data, ex_ids) if data else []
     return render_template(
         "index.html",
-        running=settings["running"],
+        running=settings.running,
         positions=current_positions,
         alerts=alerts,
         signals=get_filtered_signals(),
-        updated=settings["updated"],
+        updated=settings.updated,
         account=get_account_summary(),
         config=filter_config,
     )
@@ -640,7 +623,7 @@ def risk_page():
         "push": True, "telegram": True,
         "force_pct": 5, "force_count": 3,
         "cont_loss": 4, "cont_profit": 5,
-        "log_path": "logs/trades.csv", "updated": settings["updated"]
+        "log_path": "logs/trades.csv", "updated": settings.updated
     }
     return render_template("risk.html", risk=risk)
 
@@ -673,7 +656,7 @@ def start_bot():
         if not started:
             logger.info("Start request ignored: already running")
             return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
-        settings["running"] = True
+        settings.running = True
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
         token = secrets.get("TELEGRAM_TOKEN")
         chat_id = secrets.get("TELEGRAM_CHAT_ID")
@@ -695,7 +678,7 @@ def stop_bot():
         if not stopped:
             logger.info("Stop request ignored: not running")
             return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
-        settings["running"] = False
+        settings.running = False
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
         token = secrets.get("TELEGRAM_TOKEN")
         chat_id = secrets.get("TELEGRAM_CHAT_ID")
@@ -713,7 +696,7 @@ def apply_strategy():
     logger.debug("apply_strategy called with %s", data)
     logger.info(f"[API] 전략 적용: {data}")
     try:
-        settings["strategy"] = data.get("strategy", "M-BREAK")
+        settings.strategy = data.get("strategy", settings.strategy)
         socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
         logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
@@ -741,7 +724,11 @@ def save_settings():
                         filter_config[k] = float(value)
                 except (ValueError, TypeError):
                     raise ValueError(f"Invalid value for {k}")
-        settings.update({k: v for k, v in data.items() if k not in ("min_price", "max_price", "rank")})
+        for k, v in data.items():
+            if k in ("min_price", "max_price", "rank"):
+                continue
+            if hasattr(settings, k):
+                setattr(settings, k, v)
         os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
             json.dump(filter_config, f, ensure_ascii=False, indent=2)
@@ -784,7 +771,9 @@ def save_funds():
     data = request.json
     logger.debug("save_funds called with %s", data)
     try:
-        settings.update(data)
+        for k, v in data.items():
+            if hasattr(settings, k):
+                setattr(settings, k, v)
         socketio.emit('notification', {'message': '자금 설정 저장'})
         logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="자금 설정 저장 완료")

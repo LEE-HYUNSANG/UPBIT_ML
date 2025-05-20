@@ -2,6 +2,19 @@
 
 This repository contains a minimal Flask + SocketIO demo for an automated trading dashboard.  All HTML templates use Jinja2 variables so tables and forms are filled with server side data.
 
+## Quick Start
+1. 파이썬 3.11 이상 설치 후 저장소를 클론합니다.
+2. 의존 패키지 설치:
+   ```bash
+   pip install wheel
+   pip install -r requirements.txt
+   ```
+3. 봇 실행:
+   ```bash
+   python app.py
+   ```
+4. 웹 브라우저에서 `http://localhost:5000` 에 접속하면 대시보드를 확인할 수 있습니다.
+
 ## Structure
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
 - **templates/** – Jinja2 templates extending `base.html`. Pages include `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`, `settings.html` and `ai_analysis.html`.
