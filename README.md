@@ -22,6 +22,7 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
 - **static/js/main.js** – Common JavaScript handling API calls, SocketIO events, draggable layout and real time table updates.
 - **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
 - **config/market.json** – Sample market data loaded for monitoring filters.
+- **notify()** – Helper in `app.py` that sends messages to SocketIO and Telegram.
 
 ## Example variables passed to templates
 ```python
