@@ -192,7 +192,8 @@ def refresh_market_data() -> None:
         prices = pyupbit.get_current_price(tickers) or {}
         data = []
         for t in tickers:
-            df = pyupbit.get_ohlcv(t, interval="day", count=1)
+            # use 1-hour volume for ranking
+            df = pyupbit.get_ohlcv(t, interval="minute60", count=1)
             vol = 0
             if df is not None and not df.empty:
                 vol = float(df["volume"].iloc[-1])
