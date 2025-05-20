@@ -192,7 +192,8 @@ def refresh_market_data() -> None:
         prices = pyupbit.get_current_price(tickers) or {}
         data = []
         for t in tickers:
-            df = pyupbit.get_ohlcv(t, interval="day", count=1)
+            # use 1-hour volume for ranking
+            df = pyupbit.get_ohlcv(t, interval="minute60", count=1)
             vol = 0
             if df is not None and not df.empty:
                 vol = float(df["volume"].iloc[-1])
@@ -812,6 +813,24 @@ def exclude_coin():
     except Exception as e:
         notify_error(f"제외 실패: {e}")
         return jsonify(result="error", message="제외 실패"), 500
+
+@app.route("/api/restore-coin", methods=["POST"])
+def restore_coin():
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
+    logger.debug("restore_coin called for %s", coin)
+    try:
+        if not coin:
+            raise ValueError("Invalid coin")
+        global excluded_coins
+        new_list = [c for c in excluded_coins if c.get('coin') != coin]
+        if len(new_list) != len(excluded_coins):
+            excluded_coins = new_list
+            save_excluded()
+        return jsonify(result="success", message=f"{coin} 복구됨")
+    except Exception as e:
+        notify_error(f"복구 실패: {e}")
+        return jsonify(result="error", message="복구 실패"), 500
 
 @app.route("/api/excluded-coins", methods=["GET"])
 def get_excluded_coins():
