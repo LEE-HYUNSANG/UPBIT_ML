@@ -4,6 +4,7 @@ import os
 import sys
 from typing import Iterable
 import time
+import logging
 
 import pandas as pd
 import requests
@@ -110,7 +111,11 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
         recent = df[df["timestamp"] >= cutoff]
         buy_qty = recent[recent["ask_bid"] == "BID"]["trade_volume"].sum()
         sell_qty = recent[recent["ask_bid"] == "ASK"]["trade_volume"].sum()
-        return (buy_qty / sell_qty) * 100 if sell_qty > 0 else 0.0
+        tis = (buy_qty / sell_qty) * 100 if sell_qty > 0 else 0.0
+        logging.debug("[TIS] %s buy=%.2f sell=%.2f tis=%.2f", ticker, buy_qty, sell_qty, tis)
+        if ticker.endswith("-XPR"):
+            logging.info("[TIS] XPR buy=%.2f sell=%.2f tis=%.2f", buy_qty, sell_qty, tis)
+        return tis
     except Exception as e:  # API or parsing error
         logging.debug("calc_tis failed for %s: %s", ticker, e)
         return None

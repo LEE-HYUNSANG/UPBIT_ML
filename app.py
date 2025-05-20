@@ -297,6 +297,10 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
             entry["volume"] = f"🔻 {vol_ratio:.2f}"
 
         tis = calc_tis(ticker)
+
+        if ticker.endswith("-XPR"):
+            logger.info("[TIS] %s %.2f", ticker, tis if tis is not None else -1)
+            
         if tis is not None:
             if tis >= 120:
                 entry["strength"] = f"⏫ {tis:.0f}"
