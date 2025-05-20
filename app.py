@@ -813,6 +813,24 @@ def exclude_coin():
         notify_error(f"제외 실패: {e}")
         return jsonify(result="error", message="제외 실패"), 500
 
+@app.route("/api/restore-coin", methods=["POST"])
+def restore_coin():
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
+    logger.debug("restore_coin called for %s", coin)
+    try:
+        if not coin:
+            raise ValueError("Invalid coin")
+        global excluded_coins
+        new_list = [c for c in excluded_coins if c.get('coin') != coin]
+        if len(new_list) != len(excluded_coins):
+            excluded_coins = new_list
+            save_excluded()
+        return jsonify(result="success", message=f"{coin} 복구됨")
+    except Exception as e:
+        notify_error(f"복구 실패: {e}")
+        return jsonify(result="error", message="복구 실패"), 500
+
 @app.route("/api/excluded-coins", methods=["GET"])
 def get_excluded_coins():
     logger.debug("get_excluded_coins called")
