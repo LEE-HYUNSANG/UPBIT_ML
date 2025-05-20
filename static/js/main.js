@@ -10,12 +10,12 @@ const alertModal = new bootstrap.Modal(alertModalEl);
 let disconnected = false;
 
 function handleDisconnect(code) {
-  if (!disconnected) {
-    const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
-    console.error(`[NET-${code}] disconnect`);
-    showAlert(msg, '에러');
-    disconnected = true;
-  }
+  if (disconnected) return;
+
+  const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
+  console.error(`[NET-${code}] disconnect`);
+  showAlert(msg, '에러');
+  disconnected = true;
 }
 
 // Confirm modal
@@ -282,8 +282,11 @@ async function reloadBalance(){
     const data = await fetchJsonRetry('/api/balances');
     console.log('[API-A002] GET /api/balances', data);
     if (data.result === 'success' && data.balances) {
-      updateBalanceTable(data.balances);
+      if (disconnected) {
+        showAlert('서버 연결이 복구되었습니다.', '안내');
+      }
       disconnected = false;
+      updateBalanceTable(data.balances);
     } else if (data.message) {
       showAlert(data.message, '에러');
     }
