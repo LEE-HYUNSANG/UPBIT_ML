@@ -4,7 +4,6 @@ import os
 import sys
 from typing import Iterable
 import time
-import logging
 
 import pandas as pd
 import requests

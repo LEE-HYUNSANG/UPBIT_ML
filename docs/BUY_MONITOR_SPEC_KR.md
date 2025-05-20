@@ -62,6 +62,11 @@
   tis = df['buy_qty'] / df['sell_qty'] * 100
   ```
   - `buy_qty`, `sell_qty` 값은 `/v1/trades/ticks` 체결 데이터를 최근 5분 동안 집계해 계산합니다.
+  - 계산 절차:
+    1. `/v1/trades/ticks` API로 최근 체결 목록을 조회합니다.
+    2. `ask_bid` 가 `"BID"` 인 체결들의 `trade_volume` 합이 매수 체결량(`buy_qty`)입니다.
+    3. `ask_bid` 가 `"ASK"` 인 체결들의 `trade_volume` 합이 매도 체결량(`sell_qty`)입니다.
+    4. 집계된 값으로 위 수식을 적용해 체결강도를 구합니다.
 - **아이콘**: ⏫ ≥120, 🔼 105–119, 🔸 95–104, 🔻<95
 - **UI 예시**: `<span class="tis-high">⏫ 135</span>`
 
