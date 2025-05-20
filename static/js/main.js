@@ -283,9 +283,10 @@ async function reloadBuyMonitor(){
 function updateSignalTable(list){
   const body = document.getElementById('signalBody');
   if(!body) return;
-  body.innerHTML = list.map((s, i) => `
+  body.innerHTML = list.map(s => `
     <tr>
-      <td>${i+1}</td><td>${s.coin}</td>
+      <td>${s.coin}</td>
+      <td>${formatNumber(s.price)}</td>
       <td class="icon-cell">${s.trend}</td>
       <td class="icon-cell">${s.volatility}</td>
       <td class="icon-cell">${s.volume}</td>
