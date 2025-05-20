@@ -11,7 +11,7 @@ import pyupbit
 
 
 def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") -> logging.Logger:
-"""로그 파일과 콘솔 출력을 설정한다."""
+    """로그 파일과 콘솔 출력을 설정한다."""
     if level is None:
         level = os.getenv("LOG_LEVEL", "INFO")
     numeric_level = getattr(logging, level.upper(), logging.INFO)
@@ -55,12 +55,12 @@ def load_secrets(
         "TELEGRAM_TOKEN",
     ),
 ) -> dict:
-"""지정된 경로에서 시크릿 정보를 읽어 필수 키가 있는지 확인한다.
+    """지정된 경로에서 시크릿 정보를 읽어 필수 키가 있는지 확인한다.
 
-파일이 없거나 형식이 잘못되었거나 필수 키가 비어 있으면 오류를 출력하고
-로그를 남긴 뒤 프로그램을 종료한다. 텔레그램 설정이 존재하면 동일한 메시지를
-텔레그램으로도 전송한다.
-"""
+    파일이 없거나 형식이 잘못되었거나 필수 키가 비어 있으면 오류를 출력하고
+    로그를 남긴 뒤 프로그램을 종료한다. 텔레그램 설정이 존재하면 동일한 메시지를
+    텔레그램으로도 전송한다.
+    """
 
     def alert(msg: str, secrets: dict | None = None) -> None:
         print(msg)
@@ -96,12 +96,12 @@ def load_secrets(
 
 
 def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
-"""체결강도(TIS)를 계산해 반환한다.
+    """체결강도(TIS)를 계산해 반환한다.
 
-``minutes`` 값은 매수/매도 체결량을 합산할 기간(분)을 의미하며,
-``count`` 는 업비트에서 가져올 틱 데이터 개수(최대 200)를 지정한다.
-API 요청에 실패하면 ``None`` 을 반환한다.
-"""
+    ``minutes`` 값은 매수/매도 체결량을 합산할 기간(분)을 의미하며,
+    ``count`` 는 업비트에서 가져올 틱 데이터 개수(최대 200)를 지정한다.
+    API 요청에 실패하면 ``None`` 을 반환한다.
+    """
     try:
         ticks = pyupbit.get_ticks(ticker, count=count)
         df = pd.DataFrame(ticks)
@@ -120,11 +120,11 @@ API 요청에 실패하면 ``None`` 을 반환한다.
 
 
 def load_market_signals(path: str = "config/market.json") -> list[dict]:
-"""지정된 파일에서 시장 신호 데이터를 읽어 목록으로 반환한다.
+    """지정된 파일에서 시장 신호 데이터를 읽어 목록으로 반환한다.
 
-파일에는 최소한 ``coin``, ``price``, ``rank`` 키가 포함된 객체 리스트가 들어 있어야 하며,
-파일이 없거나 형식이 잘못되었을 경우 빈 리스트를 반환한다.
-"""
+    파일에는 최소한 ``coin``, ``price``, ``rank`` 키가 포함된 객체 리스트가 들어 있어야 하며,
+    파일이 없거나 형식이 잘못되었을 경우 빈 리스트를 반환한다.
+    """
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
