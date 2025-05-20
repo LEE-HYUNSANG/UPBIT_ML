@@ -15,6 +15,8 @@ from bot.runtime_settings import settings, load_from_file
 import pyupbit
 import threading
 import time
+import pandas as pd
+import talib as ta
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
@@ -167,6 +169,10 @@ MONITOR_FILE = "config/monitor_list.json"
 _market_lock = threading.Lock()
 market_cache: list[dict] = []
 
+# Buy monitor signal cache
+_signal_lock = threading.Lock()
+signal_cache: list[dict] = []
+
 
 def save_market_file(data: list[dict]) -> None:
     """Save fetched market data to ``MARKET_FILE``."""
@@ -231,6 +237,132 @@ def refresh_market_data() -> None:
         logger.exception("Market data fetch failed: %s", e)
 
 
+def calc_buy_signal(ticker: str, coin: str) -> dict:
+    """Return buy monitoring metrics for ``ticker``."""
+    entry = {
+        "coin": coin,
+        "price": "⛔",
+        "trend": "⛔",
+        "volatility": "⛔",
+        "volume": "⛔",
+        "strength": "⛔",
+        "gc": "⛔",
+        "rsi": "⛔",
+        "signal": "데이터 대기",
+        "signal_class": "stop",
+    }
+    try:
+        df = pyupbit.get_ohlcv(ticker, interval="minute5", count=60)
+        if df is None or df.empty:
+            return entry
+        price = pyupbit.get_current_price(ticker) or float(df["close"].iloc[-1])
+        entry["price"] = round(float(price), 2)
+        df = df.iloc[:-1]
+        if df.empty:
+            return entry
+
+        ema5 = df["close"].ewm(span=5).mean()
+        ema20 = df["close"].ewm(span=20).mean()
+        ema60 = df["close"].ewm(span=60).mean()
+        slope20 = ema20.pct_change()
+        up = (ema5 > ema20) & (ema20 > ema60) & (slope20 > 0)
+        down = (ema5 < ema20) & (ema20 < ema60) & (slope20 < 0)
+        side = slope20.abs() < 0.0005
+        if up.iloc[-1]:
+            trend = "U"; entry["trend"] = "<span class='trend-up'>🔼</span>"
+        elif down.iloc[-1]:
+            trend = "D"; entry["trend"] = "<span class='trend-down'>🔻</span>"
+        elif side.iloc[-1]:
+            trend = "S"; entry["trend"] = "<span class='trend-side'>🔸</span>"
+        else:
+            trend = "F"; entry["trend"] = "<span class='trend-side'>🔸</span>"
+
+        atr = ta.ATR(df["high"], df["low"], df["close"], 14)
+        atr_pct = atr.iloc[-1] / df["close"].iloc[-1] * 100
+        if atr_pct >= 5:
+            entry["volatility"] = f"🔵 {atr_pct:.1f}%"
+        elif atr_pct >= 1:
+            entry["volatility"] = f"🟡 {atr_pct:.1f}%"
+        else:
+            entry["volatility"] = f"🔻 {atr_pct:.1f}%"
+
+        vol_ratio = df["volume"].iloc[-1] / (df["volume"].rolling(20).mean().iloc[-1] or 1)
+        if vol_ratio >= 2:
+            entry["volume"] = f"⏫ {vol_ratio:.2f}"
+        elif vol_ratio >= 1.1:
+            entry["volume"] = f"🔼 {vol_ratio:.2f}"
+        elif vol_ratio >= 0.7:
+            entry["volume"] = f"🔸 {vol_ratio:.2f}"
+        else:
+            entry["volume"] = f"🔻 {vol_ratio:.2f}"
+
+        try:
+            ticks = pyupbit.get_ticks(ticker, count=30)
+            df_tick = pd.DataFrame(ticks)
+            buy_qty = df_tick[df_tick["ask_bid"] == "BID"]["trade_volume"].sum()
+            sell_qty = df_tick[df_tick["ask_bid"] == "ASK"]["trade_volume"].sum()
+            tis = (buy_qty / (sell_qty + 1e-9)) * 100
+        except Exception:
+            tis = None
+        if tis is not None:
+            if tis >= 120:
+                entry["strength"] = f"⏫ {tis:.0f}"
+            elif tis >= 105:
+                entry["strength"] = f"🔼 {tis:.0f}"
+            elif tis >= 95:
+                entry["strength"] = f"🔸 {tis:.0f}"
+            else:
+                entry["strength"] = f"🔻 {tis:.0f}"
+
+        gc = (ema5.shift(1) < ema20.shift(1)) & (ema5 > ema20)
+        dc = (ema5.shift(1) > ema20.shift(1)) & (ema5 < ema20)
+        if gc.iloc[-1]:
+            entry["gc"] = "<span class='gc'>🔼</span>"
+        elif dc.iloc[-1]:
+            entry["gc"] = "<span class='dc'>🔻</span>"
+        else:
+            entry["gc"] = "<span class='gc-neutral'>🔸</span>"
+
+        rsi_val = ta.RSI(df["close"], 14).iloc[-1]
+        if rsi_val < 30:
+            ris_code = "E"; entry["rsi"] = "<span class='rsi-e'>⏫</span>"
+        elif rsi_val < 40:
+            ris_code = "S"; entry["rsi"] = "<span class='rsi-s'>🔼</span>"
+        elif rsi_val < 70:
+            ris_code = "N"; entry["rsi"] = "<span class='rsi-n'>🔸</span>"
+        elif rsi_val < 80:
+            ris_code = "B"; entry["rsi"] = "<span class='rsi-b'>🔻</span>"
+        else:
+            ris_code = "X"; entry["rsi"] = "<span class='rsi-x'>🔻</span>"
+
+        score = (
+            (trend == "U") * 25
+            + (atr_pct >= 5) * 15
+            + ((atr_pct >= 1) and (atr_pct < 5)) * 10
+            + (vol_ratio >= 2) * 15
+            + (vol_ratio >= 1.1) * 10
+            + (tis is not None and tis >= 120) * 15
+            + (tis is not None and tis >= 105) * 10
+            + gc.iloc[-1] * 5
+            + (ris_code == "E") * 5
+            + (ris_code == "S") * 3
+        )
+
+        if trend == "U" and (tis or 0) >= 120 and ris_code in ("E", "S") and vol_ratio >= 2:
+            entry["signal"] = "강제 매수"
+            entry["signal_class"] = "go"
+        elif ris_code in ("B", "X") or trend == "D":
+            entry["signal"] = "회피"
+            entry["signal_class"] = "stop"
+        else:
+            entry["signal"] = "관망"
+            entry["signal_class"] = "wait"
+
+    except Exception as e:
+        logger.warning("[BUY MON] indicator error %s: %s", ticker, e)
+    return entry
+
+
 def market_refresh_loop() -> None:
     """Background updater for market_cache."""
     while True:
@@ -239,16 +371,22 @@ def market_refresh_loop() -> None:
 
 
 def buy_signal_monitor_loop() -> None:
-    """Monitor filtered coins every 10 seconds for buy signals."""
+    """Background updater for buy monitoring signals."""
+    global signal_cache
     while True:
         try:
             with open(MONITOR_FILE, "r", encoding="utf-8") as f:
                 coins = json.load(f)
         except Exception:
             coins = []
-        logger.debug("[BUY MONITOR] checking %d coins", len(coins))
-        # Placeholder for real signal generation
-        time.sleep(10)
+        results = []
+        for c in coins:
+            ticker = f"KRW-{c['coin']}"
+            results.append(calc_buy_signal(ticker, c["coin"]))
+        with _signal_lock:
+            signal_cache = results
+        logger.debug("[BUY MONITOR] updated %d signals", len(results))
+        time.sleep(5)
 
 def get_filtered_signals():
     """Return market data filtered by price range and volume rank."""
@@ -919,7 +1057,8 @@ def api_signals():
     """Return current buy signals for the dashboard."""
     logger.debug("api_signals called")
     try:
-        signals = get_filtered_signals()
+        with _signal_lock:
+            signals = list(signal_cache)
         coins = [s.get("coin") for s in signals]
         logger.info("[MONITOR] 모니터링 대상 %s", coins if coins else "없음")
         logger.info("Signal check success")
