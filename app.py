@@ -303,7 +303,7 @@ def get_filtered_signals():
 
     result = []
     for s in filtered:
-        entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
+        entry = {k: v for k, v in s.items() if k != "rank"}
         logger.debug(
             "[MONITOR] 선정 %s price %.8f rank %d",
             entry["coin"],
