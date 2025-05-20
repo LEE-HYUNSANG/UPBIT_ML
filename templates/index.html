@@ -103,9 +103,9 @@
               <tr>
                 <th>코인</th>
                 <th>제외</th>
-                <th>수익률 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="현재 평가 손익률"></i></th>
-                <th>손절·익절 그래프 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="손절가와 익절가를 시각화"></i></th>
-                <th>추세 손절·익절 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="추세 기반 손절·익절 지점"></i></th>
+                <th>수익률 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="현재 실현/미실현 수익률"></i></th>
+                <th>손절·익절 그래프 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="손절/익절 기준과 현재가 위치"></i></th>
+                <th>추세 손절·익절 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="추세 기준 손절/익절"></i></th>
                 <th>Sell 시그널 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="매도 우선순위"></i></th>
                 <th>액션 <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="수동 매도"></i></th>
               </tr>
@@ -115,12 +115,23 @@
               <tr>
                 <td>{{ p.coin }}</td>
                 <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="{{ p.coin }}">제외</button></td>
-                <td>{{ p.pnl }} %</td>
                 <td>
-                  <div class="bar-graph">
-                    <span class="dot stop"></span>
-                    <span class="dot entry" data-pos="{{ p.entry }}"></span>
+                  {% if p.pnl is not none %}
+                    <span class="badge {{ 'badge-profit' if p.pnl >= 0 else 'badge-loss' }}">
+                      {{ '%+.1f'|format(p.pnl) }}%
+                    </span>
+                  {% else %}
+                    <span class="text-muted">데이터 없음</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="se-bar">
+                  <span class="dot stop"></span>
+                    <span class="dot entry" data-pos="{{ p.entry_pct }}"></span>
                     <span class="dot take"></span>
+                    {% if p.pin_pct is not none %}
+                      <span class="pin" style="left:{{ p.pin_pct }}%"></span>
+                    {% endif %}
                   </div>
                 </td>
                 <td>
