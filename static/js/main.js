@@ -13,7 +13,7 @@ function handleDisconnect(code) {
   if (disconnected) return;
 
   const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
-  if (code === 'A002') {
+  if (code === 'A002' || code === 'A003') {
     console.debug(`[NET-${code}] ${msg}`);
   } else {
     console.error(`[NET-${code}] disconnect`);
@@ -287,7 +287,7 @@ async function reloadBalance(){
     console.log('[API-A002] GET /api/balances', data);
     if (data.result === 'success' && data.balances) {
       if (disconnected) {
-        showAlert('서버 연결이 복구되었습니다.', '안내');
+        console.log('서버 연결이 복구되었습니다.');
       }
       disconnected = false;
       updateBalanceTable(data.balances);
