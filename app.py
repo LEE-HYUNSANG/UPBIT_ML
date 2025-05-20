@@ -105,14 +105,15 @@ trader = UpbitTrader(
     logger=logger,
 )
 
-def notify_error(message: str) -> None:
-    """Log, socket emit and send Telegram alert for an error."""
-    logger.error(message)
-    socketio.emit('notification', {'message': message})
+def notify_error(message: str, code: str) -> None:
+    """Log, socket emit and send Telegram alert for an error with a code."""
+    full = f"[{code}] {message}"
+    logger.error(full)
+    socketio.emit('notification', {'message': full})
     token = secrets.get('TELEGRAM_TOKEN')
     chat_id = secrets.get('TELEGRAM_CHAT_ID')
     if token and chat_id:
-        send_telegram(token, chat_id, message)
+        send_telegram(token, chat_id, full)
 
 def get_balances():
     """Fetch current coin balances from trader."""
@@ -666,7 +667,7 @@ def start_bot():
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
     except Exception as e:
-        notify_error(f"봇 시작 실패: {e}")
+        notify_error(f"봇 시작 실패: {e}", "E001")
         return jsonify(result="error", message="봇 시작 실패"), 500
 
 @app.route("/api/stop-bot", methods=["POST"])
@@ -687,7 +688,7 @@ def stop_bot():
         update_timestamp()
         return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
     except Exception as e:
-        notify_error(f"봇 중지 실패: {e}")
+        notify_error(f"봇 중지 실패: {e}", "E002")
         return jsonify(result="error", message="봇 중지 실패"), 500
 
 @app.route("/api/apply-strategy", methods=["POST"])
@@ -701,7 +702,7 @@ def apply_strategy():
         logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
     except Exception as e:
-        notify_error(f"전략 적용 실패: {e}")
+        notify_error(f"전략 적용 실패: {e}", "E003")
         return jsonify(result="error", message="전략 적용 실패"), 500
 
 @app.route("/api/save-settings", methods=["POST"])
@@ -737,7 +738,7 @@ def save_settings():
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="저장 완료", status=get_status())
     except Exception as e:
-        notify_error(f"설정 저장 실패: {e}")
+        notify_error(f"설정 저장 실패: {e}", "E004")
         if isinstance(e, ValueError):
             return jsonify(result="error", message=str(e)), 400
         return jsonify(result="error", message="설정 저장 실패"), 500
@@ -751,7 +752,7 @@ def save_risk():
         logger.info("Risk settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="리스크 저장 완료")
     except Exception as e:
-        notify_error(f"리스크 저장 실패: {e}")
+        notify_error(f"리스크 저장 실패: {e}", "E005")
         return jsonify(result="error", message="리스크 저장 실패"), 500
 
 @app.route("/api/save-alerts", methods=["POST"])
@@ -763,7 +764,7 @@ def save_alerts():
         logger.info("Alert settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="알림 설정 저장 완료")
     except Exception as e:
-        notify_error(f"알림 설정 저장 실패: {e}")
+        notify_error(f"알림 설정 저장 실패: {e}", "E006")
         return jsonify(result="error", message="알림 저장 실패"), 500
 
 @app.route("/api/save-funds", methods=["POST"])
@@ -778,7 +779,7 @@ def save_funds():
         logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="자금 설정 저장 완료")
     except Exception as e:
-        notify_error(f"자금 설정 저장 실패: {e}")
+        notify_error(f"자금 설정 저장 실패: {e}", "E007")
         return jsonify(result="error", message="자금 저장 실패"), 500
 
 @app.route("/api/save-strategy", methods=["POST"])
@@ -790,7 +791,7 @@ def save_strategy():
         logger.info("Strategy settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="전략 설정 저장 완료")
     except Exception as e:
-        notify_error(f"전략 설정 저장 실패: {e}")
+        notify_error(f"전략 설정 저장 실패: {e}", "E008")
         return jsonify(result="error", message="전략 저장 실패"), 500
 
 @app.route("/api/run-analysis", methods=["POST"])
@@ -802,7 +803,7 @@ def run_analysis():
         logger.info("AI analysis started")
         return jsonify(result="success", message="AI 분석 시작")
     except Exception as e:
-        notify_error(f"AI 분석 실행 실패: {e}")
+        notify_error(f"AI 분석 실행 실패: {e}", "E009")
         return jsonify(result="error", message="분석 실행 실패"), 500
 
 @app.route("/api/manual-sell", methods=["POST"])
@@ -822,7 +823,7 @@ def manual_sell():
         logger.info("Manual sell executed for %s", coin)
         return jsonify(result="success", message="시장가로 매도가 주문 되었습니다.")
     except Exception as e:
-        notify_error(f"수동 매도 실패: {e}")
+        notify_error(f"수동 매도 실패: {e}", "E010")
         return jsonify(result="error", message=f"매도 취소: {e}"), 500
 
 @app.route("/api/manual-buy", methods=["POST"])
@@ -850,7 +851,7 @@ def manual_buy():
         logger.info("Manual buy executed for %s", coin)
         return jsonify(result="success", message=f"{coin} 매수 요청")
     except Exception as e:
-        notify_error(f"수동 매수 실패: {e}")
+        notify_error(f"수동 매수 실패: {e}", "E011")
         return jsonify(result="error", message="수동 매수 실패"), 500
 
 @app.route("/api/exclude-coin", methods=["POST"])
@@ -869,7 +870,7 @@ def exclude_coin():
             save_excluded()
         return jsonify(result="success", message=f"{coin} 제외됨")
     except Exception as e:
-        notify_error(f"제외 실패: {e}")
+        notify_error(f"제외 실패: {e}", "E012")
         return jsonify(result="error", message="제외 실패"), 500
 
 @app.route("/api/restore-coin", methods=["POST"])
@@ -887,7 +888,7 @@ def restore_coin():
             save_excluded()
         return jsonify(result="success", message=f"{coin} 복구됨")
     except Exception as e:
-        notify_error(f"복구 실패: {e}")
+        notify_error(f"복구 실패: {e}", "E013")
         return jsonify(result="error", message="복구 실패"), 500
 
 @app.route("/api/excluded-coins", methods=["GET"])
@@ -896,7 +897,7 @@ def get_excluded_coins():
     try:
         return jsonify(result="success", coins=excluded_coins)
     except Exception as e:
-        notify_error(f"조회 실패: {e}")
+        notify_error(f"조회 실패: {e}", "E014")
         return jsonify(result="error", message="조회 실패"), 500
 
 @app.route("/api/balances", methods=["GET"])
@@ -910,7 +911,7 @@ def api_balances():
         logger.info("Balance check success")
         return jsonify(result="success", balances=positions)
     except Exception as e:
-        notify_error(f"잔고 조회 실패: {e}")
+        notify_error(f"잔고 조회 실패: {e}", "E015")
         return jsonify(result="error", message="잔고 조회 실패"), 500
 
 @app.route("/api/signals", methods=["GET"])
@@ -924,7 +925,7 @@ def api_signals():
         logger.info("Signal check success")
         return jsonify(result="success", signals=signals)
     except Exception as e:
-        notify_error(f"시그널 조회 실패: {e}")
+        notify_error(f"시그널 조회 실패: {e}", "E016")
         return jsonify(result="error", message="시그널 조회 실패"), 500
 
 
@@ -935,7 +936,7 @@ def api_status():
     try:
         return jsonify(result="success", status=get_status())
     except Exception as e:
-        notify_error(f"상태 조회 실패: {e}")
+        notify_error(f"상태 조회 실패: {e}", "E017")
         return jsonify(result="error", message="상태 조회 실패"), 500
 
 
@@ -947,7 +948,7 @@ def api_account():
         summary = get_account_summary()
         return jsonify(result="success", account=summary)
     except Exception as e:
-        notify_error(f"계좌 조회 실패: {e}")
+        notify_error(f"계좌 조회 실패: {e}", "E018")
         return jsonify(result="error", message="계좌 조회 실패"), 500
 
 
@@ -968,7 +969,7 @@ def save():
         status = get_status()
         return jsonify(result="success", status=status)
     except Exception as e:
-        notify_error(f"저장 실패: {e}")
+        notify_error(f"저장 실패: {e}", "E019")
         return jsonify(result="error", message="저장 실패"), 500
 
 @socketio.on('refresh')
@@ -978,7 +979,7 @@ def handle_refresh(data):
         socketio.emit('positions', positions)
         socketio.emit('alerts', alerts)
     except Exception as e:
-        notify_error(f"리프레시 실패: {e}")
+        notify_error(f"리프레시 실패: {e}", "E020")
 
 @app.route("/download-code")
 def download_code():
@@ -992,7 +993,7 @@ def download_code():
         logger.info("Project code zipped")
         return send_file(zip_path, as_attachment=True)
     except Exception as e:
-        notify_error(f"코드 다운로드 실패: {e}")
+        notify_error(f"코드 다운로드 실패: {e}", "E021")
         return jsonify(result="error", message="다운로드 실패"), 500
 
 if __name__ == "__main__":
