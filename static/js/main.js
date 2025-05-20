@@ -6,6 +6,16 @@
 const alertModalEl = document.getElementById('alertModal');
 const alertModal = new bootstrap.Modal(alertModalEl);
 
+// 서버 연결 상태 플래그
+let disconnected = false;
+
+function handleDisconnect() {
+  if (!disconnected) {
+    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    disconnected = true;
+  }
+}
+
 // Confirm modal
 const confirmModalEl = document.getElementById('confirmModal');
 const confirmModal = confirmModalEl ? new bootstrap.Modal(confirmModalEl) : null;
@@ -65,10 +75,11 @@ async function callApi(url, data, method="POST") {
       headers: { 'Content-Type': 'application/json' },
       body: data ? JSON.stringify(data) : undefined
     });
+    disconnected = false;
     if (result && result.message) showAlert(result.message);
     return result;
   } catch (err) {
-    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    handleDisconnect();
     return null;
   }
 }
@@ -265,11 +276,12 @@ async function reloadBalance(){
     const data = await fetchJsonRetry('/api/balances');
     if (data.result === 'success' && data.balances) {
       updateBalanceTable(data.balances);
+      disconnected = false;
     } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
-    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    handleDisconnect();
   }
 }
 
@@ -321,11 +333,12 @@ async function reloadBuyMonitor(){
     const data = await fetchJsonRetry('/api/signals');
     if (data.result === 'success' && data.signals) {
       updateSignalTable(data.signals);
+      disconnected = false;
     } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
-    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    handleDisconnect();
   }
 }
 
@@ -361,11 +374,12 @@ async function loadStatus(){
       if (timeEl) {
         timeEl.textContent = '업데이트: ' + data.status.updated;
       }
+      disconnected = false;
     } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
-    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    handleDisconnect();
   }
 }
 
@@ -385,9 +399,10 @@ async function reloadAccount(){
       if (c) c.textContent = formatNumber(data.account.cash) + ' 원';
       if (t) t.textContent = formatNumber(data.account.total) + ' 원';
       if (p) p.textContent = data.account.pnl + ' %';
+      disconnected = false;
     }
   } catch(err){
-    console.error(err);
+    handleDisconnect();
   }
 }
 
@@ -424,7 +439,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           showAlert(data.message, '에러');
         }
       }catch(err){
-        showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+        handleDisconnect();
       }
     });
   }
