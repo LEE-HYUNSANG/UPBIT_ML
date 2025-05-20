@@ -4,7 +4,6 @@ import os
 import sys
 from typing import Iterable
 import time
-import logging
 
 import pandas as pd
 import requests
@@ -12,7 +11,7 @@ import pyupbit
 
 
 def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") -> logging.Logger:
-    """Configure root logging to file and console."""
+"""로그 파일과 콘솔 출력을 설정한다."""
     if level is None:
         level = os.getenv("LOG_LEVEL", "INFO")
     numeric_level = getattr(logging, level.upper(), logging.INFO)
@@ -34,7 +33,7 @@ def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") ->
 
 
 def send_telegram(token: str, chat_id: str, text: str) -> None:
-    """Send a message via Telegram bot API."""
+    """텔레그램 봇 API로 메시지를 보낸다."""
     try:
         logging.debug("Sending telegram message", extra={"chat_id": chat_id})
         resp = requests.post(
@@ -56,13 +55,12 @@ def load_secrets(
         "TELEGRAM_TOKEN",
     ),
 ) -> dict:
-    """Load secrets from ``path`` and ensure required fields exist.
+"""지정된 경로에서 시크릿 정보를 읽어 필수 키가 있는지 확인한다.
 
-    If the file is missing or malformed, or if required keys are
-    missing/empty, an error is printed and logged and the process exits.
-    When Telegram details are available via the file or environment
-    variables the same message is sent there as well.
-    """
+파일이 없거나 형식이 잘못되었거나 필수 키가 비어 있으면 오류를 출력하고
+로그를 남긴 뒤 프로그램을 종료한다. 텔레그램 설정이 존재하면 동일한 메시지를
+텔레그램으로도 전송한다.
+"""
 
     def alert(msg: str, secrets: dict | None = None) -> None:
         print(msg)
@@ -98,12 +96,12 @@ def load_secrets(
 
 
 def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
-    """Return trade intensity strength for ``ticker``.
+"""체결강도(TIS)를 계산해 반환한다.
 
-    ``minutes`` specifies the lookback window to sum buy/sell volume.
-    ``count`` determines how many ticks to fetch from Upbit (max 200).
-    Returns ``None`` if API request fails.
-    """
+``minutes`` 값은 매수/매도 체결량을 합산할 기간(분)을 의미하며,
+``count`` 는 업비트에서 가져올 틱 데이터 개수(최대 200)를 지정한다.
+API 요청에 실패하면 ``None`` 을 반환한다.
+"""
     try:
         ticks = pyupbit.get_ticks(ticker, count=count)
         df = pd.DataFrame(ticks)
@@ -122,12 +120,11 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
 
 
 def load_market_signals(path: str = "config/market.json") -> list[dict]:
-    """Load market signal data from ``path``.
+"""지정된 파일에서 시장 신호 데이터를 읽어 목록으로 반환한다.
 
-    The file should contain a list of objects with at least ``coin``,
-    ``price`` and ``rank`` keys. If the file is missing or invalid an empty
-    list is returned so the caller can fall back to defaults.
-    """
+파일에는 최소한 ``coin``, ``price``, ``rank`` 키가 포함된 객체 리스트가 들어 있어야 하며,
+파일이 없거나 형식이 잘못되었을 경우 빈 리스트를 반환한다.
+"""
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)

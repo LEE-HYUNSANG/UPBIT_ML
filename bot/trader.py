@@ -14,7 +14,7 @@ from .indicators import calc_indicators
 
 def calc_sell_signal(dc: bool, tis: float, pnl: float, sl_th: float, tp_th: float,
                      ema5: float, ema20: float) -> str:
-    """Return sell signal label based on given indicators."""
+    """지표 값에 따라 매도 신호 라벨을 반환한다."""
     if dc or tis < 95:
         return "강제 매도"
     if pnl is not None and sl_th and pnl < -sl_th:
@@ -37,7 +37,7 @@ class UpbitTrader:
             self.logger.debug("Trader initialized with config %s", config)
 
     def set_tickers(self, tickers: list[str]) -> None:
-        """Update trading tickers list."""
+        """거래 대상 티커 목록을 갱신한다."""
         self.tickers = tickers
         if self.logger:
             self.logger.info("[TRADER] Tickers updated: %s", tickers)
@@ -135,7 +135,7 @@ class UpbitTrader:
                 time.sleep(10)  # 잠시 대기 후 재시도
 
     def get_balances(self):
-        """Return raw balances from Upbit API."""
+        """업비트 API로부터 원시 잔고 데이터를 가져온다."""
         try:
             if self.logger:
                 self.logger.debug("Fetching balances from Upbit")
@@ -146,12 +146,12 @@ class UpbitTrader:
             return None
 
     def account_summary(self, excluded=None):
-        """Return cash/total/pnl summary calculated from balances.
+        """잔고 목록을 이용해 현금/총액/손익을 계산한다.
 
         Parameters
         ----------
         excluded : set[str] | None
-            Coins to ignore when calculating the summary.
+            계산에서 제외할 코인 심볼 집합.
         """
         balances = self.get_balances()
         if excluded:
