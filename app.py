@@ -91,8 +91,6 @@ settings = {"running": False, "strategy": "M-BREAK", "TP": 0.02, "SL": 0.01,
             "notify_to": "22:00",
             "updated": "2025-05-18"}
 
-with open('config/config.json', encoding='utf-8') as f:
-    config_data = json.load(f)
 
 # 대시보드 코인 필터 설정 로드/저장용
 FILTER_FILE = 'config/filter.json'
@@ -115,8 +113,6 @@ if os.path.exists(EXCLUDE_FILE):
         excluded_coins = []
 
 
-# 템플릿 렌더링을 위해 secrets 재사용
-secrets_data = secrets
 
 # 트레이더 인스턴스 (실제 매매 로직)
 trader = UpbitTrader(
@@ -130,8 +126,8 @@ def notify_error(message: str) -> None:
     """Log, socket emit and send Telegram alert for an error."""
     logger.error(message)
     socketio.emit('notification', {'message': message})
-    token = secrets_data.get('TELEGRAM_TOKEN')
-    chat_id = secrets_data.get('TELEGRAM_CHAT_ID')
+    token = secrets.get('TELEGRAM_TOKEN')
+    chat_id = secrets.get('TELEGRAM_CHAT_ID')
     if token and chat_id:
         send_telegram(token, chat_id, message)
 
@@ -200,6 +196,7 @@ def refresh_market_data() -> None:
             price = prices.get(t) if isinstance(prices, dict) else prices
             if price is None:
                 price = 0
+            logger.debug("[MARKET] fetched %s price=%.8f vol=%.2f", t, price, vol)
             data.append({"coin": t.split("-")[-1], "price": float(price), "volume": vol})
         data.sort(key=lambda x: x["volume"], reverse=True)
         for i, d in enumerate(data, start=1):
@@ -214,6 +211,13 @@ def refresh_market_data() -> None:
                 "signal_class": "wait",
                 "key": "MBREAK",
             })
+            logger.debug(
+                "[MARKET] ranked %s price=%.8f vol=%.2f rank=%d",
+                d["coin"],
+                d["price"],
+                d["volume"],
+                i,
+            )            
         with _market_lock:
             market_cache = data
         logger.debug("[MARKET] Updated %d coins", len(data))
@@ -246,11 +250,36 @@ def get_filtered_signals():
         if min_p and s["price"] < min_p:
             continue
         if max_p and max_p > 0 and s["price"] > max_p:
+            logger.debug(
+                "[MONITOR] 제외 %s price %.8f < min_price %.8f",
+                s["coin"],
+                s["price"],
+                min_p,
+            )
+            continue
+        if max_p and max_p > 0 and s["price"] > max_p:
+            logger.debug(
+                "[MONITOR] 제외 %s price %.8f > max_price %.8f",
+                s["coin"],
+                s["price"],
+                max_p,
+            )
             continue
         if rank and s["rank"] > rank:
+            logger.debug(
+                "[MONITOR] 제외 %s rank %d > limit %d",
+                s["coin"],
+                s["rank"],
+                rank,
+            )
             continue
         entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
-        logger.debug("[MONITOR] 필터 통과 %s", entry)
+        logger.debug(
+            "[MONITOR] 선정 %s price %.8f rank %d",
+            entry["coin"],
+            s["price"],
+            s["rank"],
+        )
         result.append(entry)
     logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
     for s in result:
@@ -591,7 +620,7 @@ def funds_page():
 @app.route("/settings")
 def settings_page():
     logger.debug("Render settings page")
-    return render_template("settings.html", settings=settings, secrets=secrets_data)
+    return render_template("settings.html", settings=settings, secrets=secrets)
 
 @app.route("/api/start-bot", methods=["POST"])
 def start_bot():
@@ -599,15 +628,14 @@ def start_bot():
     logger.info("[API] 봇 시작 요청")
     try:
         trader.set_tickers(get_filtered_tickers())
-        trader.set_tickers(get_filtered_tickers())
         started = trader.start()
         if not started:
             logger.info("Start request ignored: already running")
             return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
         settings["running"] = True
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
-        token = secrets_data.get("TELEGRAM_TOKEN")
-        chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
+        token = secrets.get("TELEGRAM_TOKEN")
+        chat_id = secrets.get("TELEGRAM_CHAT_ID")
         if config_data.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 시작되었습니다.")
         update_timestamp()
@@ -628,8 +656,8 @@ def stop_bot():
             return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
         settings["running"] = False
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
-        token = secrets_data.get("TELEGRAM_TOKEN")
-        chat_id = secrets_data.get("TELEGRAM_CHAT_ID")
+        token = secrets.get("TELEGRAM_TOKEN")
+        chat_id = secrets.get("TELEGRAM_CHAT_ID")
         if config_data.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 정지되었습니다.")
         update_timestamp()
