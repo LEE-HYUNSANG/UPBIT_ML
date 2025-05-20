@@ -175,9 +175,29 @@ def save_excluded():
 
 positions = []
 
+# Market data and monitoring file paths
+MARKET_FILE = "config/market.json"
+MONITOR_FILE = "config/monitor_list.json"
+
 # 실시간 시세/거래량 캐시
 _market_lock = threading.Lock()
 market_cache: list[dict] = []
+
+
+def save_market_file(data: list[dict]) -> None:
+    """Save fetched market data to ``MARKET_FILE``."""
+    os.makedirs(os.path.dirname(MARKET_FILE), exist_ok=True)
+    with open(MARKET_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def update_monitor_list() -> None:
+    """Apply dashboard filter to market data and save results."""
+    signals = get_filtered_signals()
+    os.makedirs(os.path.dirname(MONITOR_FILE), exist_ok=True)
+    with open(MONITOR_FILE, "w", encoding="utf-8") as f:
+        json.dump(signals, f, ensure_ascii=False, indent=2)
+    logger.debug("[MARKET] Monitor list saved %d coins", len(signals))
 
 
 def refresh_market_data() -> None:
@@ -221,6 +241,8 @@ def refresh_market_data() -> None:
         with _market_lock:
             market_cache = data
         logger.debug("[MARKET] Updated %d coins", len(data))
+        save_market_file(data)
+        update_monitor_list()
     except Exception as e:
         logger.exception("Market data fetch failed: %s", e)
 
@@ -232,8 +254,17 @@ def market_refresh_loop() -> None:
         time.sleep(60)
 
 
-refresh_market_data()
-threading.Thread(target=market_refresh_loop, daemon=True).start()
+def buy_signal_monitor_loop() -> None:
+    """Monitor filtered coins every 10 seconds for buy signals."""
+    while True:
+        try:
+            with open(MONITOR_FILE, "r", encoding="utf-8") as f:
+                coins = json.load(f)
+        except Exception:
+            coins = []
+        logger.debug("[BUY MONITOR] checking %d coins", len(coins))
+        # Placeholder for real signal generation
+        time.sleep(10)
 
 def get_filtered_signals():
     """Return market data filtered by price range and volume rank."""
@@ -242,37 +273,36 @@ def get_filtered_signals():
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
-    result = []
     with _market_lock:
         data = list(market_cache)
+
+    filtered = []
     for s in data:
         logger.debug("[MONITOR] 원본 시그널 %s", s)
-        if min_p and s["price"] < min_p:
-            continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        price = s["price"]
+        if min_p and price < min_p:
             logger.debug(
                 "[MONITOR] 제외 %s price %.8f < min_price %.8f",
                 s["coin"],
-                s["price"],
+                price,
                 min_p,
             )
             continue
-        if max_p and max_p > 0 and s["price"] > max_p:
+        if max_p and max_p > 0 and price > max_p:
             logger.debug(
                 "[MONITOR] 제외 %s price %.8f > max_price %.8f",
                 s["coin"],
-                s["price"],
+                price,
                 max_p,
             )
             continue
-        if rank and s["rank"] > rank:
-            logger.debug(
-                "[MONITOR] 제외 %s rank %d > limit %d",
-                s["coin"],
-                s["rank"],
-                rank,
-            )
-            continue
+        filtered.append(s)
+
+    if rank:
+        filtered = filtered[:rank]
+
+    result = []
+    for s in filtered:
         entry = {k: v for k, v in s.items() if k not in ("price", "rank")}
         logger.debug(
             "[MONITOR] 선정 %s price %.8f rank %d",
@@ -281,6 +311,7 @@ def get_filtered_signals():
             s["rank"],
         )
         result.append(entry)
+
     logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
     for s in result:
         logger.debug("[MONITOR] 응답 데이터 %s", s)
@@ -293,6 +324,12 @@ def get_filtered_tickers() -> list[str]:
     tickers = [f"KRW-{s['coin']}" for s in signals]
     logger.debug("Filtered tickers: %s", tickers)
     return tickers
+
+
+# Initial data load and background threads
+refresh_market_data()
+threading.Thread(target=market_refresh_loop, daemon=True).start()
+threading.Thread(target=buy_signal_monitor_loop, daemon=True).start()
 
 alerts = []
 history = [
