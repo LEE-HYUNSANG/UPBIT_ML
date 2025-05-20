@@ -647,7 +647,11 @@ def risk_page():
 @app.route("/notifications")
 def notifications_page():
     logger.debug("Render notifications page")
-    return render_template("notifications.html", alerts=alerts, alert_config=config_data.get("alerts", {}))
+    return render_template(
+        "notifications.html",
+        alerts=alerts,
+        alert_config=config.get("alerts", {})
+    )
 
 @app.route("/funds")
 def funds_page():
@@ -673,7 +677,7 @@ def start_bot():
         socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
         token = secrets.get("TELEGRAM_TOKEN")
         chat_id = secrets.get("TELEGRAM_CHAT_ID")
-        if config_data.get("alerts", {}).get("telegram") and token and chat_id:
+        if config.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 시작되었습니다.")
         update_timestamp()
         logger.info("Bot started")
@@ -695,7 +699,7 @@ def stop_bot():
         socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
         token = secrets.get("TELEGRAM_TOKEN")
         chat_id = secrets.get("TELEGRAM_CHAT_ID")
-        if config_data.get("alerts", {}).get("telegram") and token and chat_id:
+        if config.get("alerts", {}).get("telegram") and token and chat_id:
             send_telegram(token, chat_id, "봇이 정지되었습니다.")
         update_timestamp()
         return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
