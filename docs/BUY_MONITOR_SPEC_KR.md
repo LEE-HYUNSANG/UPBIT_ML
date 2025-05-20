@@ -61,6 +61,7 @@
   ```python
   tis = df['buy_qty'] / df['sell_qty'] * 100
   ```
+  - `buy_qty`, `sell_qty` 값은 `/v1/trades/ticks` 체결 데이터를 최근 5분 동안 집계해 계산합니다.
 - **아이콘**: ⏫ ≥120, 🔼 105–119, 🔸 95–104, 🔻<95
 - **UI 예시**: `<span class="tis-high">⏫ 135</span>`
 

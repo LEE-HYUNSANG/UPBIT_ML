@@ -7,6 +7,7 @@ import time           # 주기적 실행을 위한 시간 모듈
 import threading      # 스레드 사용을 위해
 import pandas as pd   # 데이터프레임 처리
 import pyupbit        # 업비트 API 연동
+from utils import calc_tis
 from .strategy import select_strategy
 from .indicators import calc_indicators
 
@@ -105,8 +106,7 @@ class UpbitTrader:
                     if self.logger:
                         last = df.iloc[-1].to_dict()
                         self.logger.debug("Indicators %s", last)
-                    # 실시간 체결강도, 예시용 (0~200)
-                    tis = 120  # 예시 체결강도 (0~200)
+                    tis = calc_tis(ticker) or 0
                     ok, strat_params = select_strategy(strat_name, df, tis, params)
                     if self.logger:
                         self.logger.debug(
