@@ -14,7 +14,9 @@ function handleDisconnect(code) {
 
   const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
   console.error(`[NET-${code}] disconnect`);
-  showAlert(msg, '에러');
+  if (code !== 'A002') {
+    showAlert(msg, '에러');
+  }
   disconnected = true;
 }
 
