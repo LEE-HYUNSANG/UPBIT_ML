@@ -3,7 +3,12 @@ import logging
 import os
 import sys
 from typing import Iterable
+import time
+import logging
+
+import pandas as pd
 import requests
+import pyupbit
 
 
 def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") -> logging.Logger:
@@ -90,6 +95,26 @@ def load_secrets(
 
     logging.info("Secrets loaded from %s", path)
     return secrets
+
+
+def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
+    """Return trade intensity strength for ``ticker``.
+
+    ``minutes`` specifies the lookback window to sum buy/sell volume.
+    ``count`` determines how many ticks to fetch from Upbit (max 200).
+    Returns ``None`` if API request fails.
+    """
+    try:
+        ticks = pyupbit.get_ticks(ticker, count=count)
+        df = pd.DataFrame(ticks)
+        cutoff = int((time.time() - minutes * 60) * 1000)
+        recent = df[df["timestamp"] >= cutoff]
+        buy_qty = recent[recent["ask_bid"] == "BID"]["trade_volume"].sum()
+        sell_qty = recent[recent["ask_bid"] == "ASK"]["trade_volume"].sum()
+        return (buy_qty / sell_qty) * 100 if sell_qty > 0 else 0.0
+    except Exception as e:  # API or parsing error
+        logging.debug("calc_tis failed for %s: %s", ticker, e)
+        return None
 
 
 def load_market_signals(path: str = "config/market.json") -> list[dict]:
