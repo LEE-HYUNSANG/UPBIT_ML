@@ -108,7 +108,7 @@ trader = UpbitTrader(
 )
 
 def notify(message: str) -> None:
-    """Send a message to the browser and Telegram if enabled."""
+    """브라우저와 텔레그램으로 메시지를 전송한다."""
     socketio.emit('notification', {'message': message})
     token = secrets.get("TELEGRAM_TOKEN")
     chat_id = secrets.get("TELEGRAM_CHAT_ID")
@@ -116,13 +116,13 @@ def notify(message: str) -> None:
         send_telegram(token, chat_id, message)
 
 def notify_error(message: str, code: str) -> None:
-    """Log, socket emit and send Telegram alert for an error with a code."""
+    """에러 코드를 포함해 로그와 알림을 전송한다."""
     full = f"[{code}] {message}"
     logger.error(full)
     notify(full)
 
 def get_balances():
-    """Fetch current coin balances from trader."""
+    """트레이더에서 현재 코인 잔고를 가져온다."""
     logger.debug("Fetching balances")
     data = trader.get_balances()
     if data is None:
@@ -134,7 +134,7 @@ def get_balances():
 
 
 def get_status() -> dict:
-    """Return current running status and last update time."""
+    """봇 실행 상태와 마지막 갱신 시각을 반환한다."""
     logger.debug("Fetching status")
     return {"running": settings.running, "updated": settings.updated}
 
@@ -155,7 +155,7 @@ def get_account_summary():
     return account_cache
 
 def update_timestamp() -> None:
-    """Update last change timestamp in settings."""
+    """설정 변경 시각을 갱신한다."""
     settings.update_timestamp()
 
 def save_excluded():
@@ -179,14 +179,14 @@ signal_cache: list[dict] = []
 
 
 def save_market_file(data: list[dict]) -> None:
-    """Save fetched market data to ``MARKET_FILE``."""
+    """가져온 시세 데이터를 ``MARKET_FILE`` 에 저장한다."""
     os.makedirs(os.path.dirname(MARKET_FILE), exist_ok=True)
     with open(MARKET_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def update_monitor_list() -> None:
-    """Apply dashboard filter to market data and save results."""
+    """대시보드 필터를 적용해 모니터링 목록을 저장한다."""
     signals = get_filtered_signals()
     os.makedirs(os.path.dirname(MONITOR_FILE), exist_ok=True)
     with open(MONITOR_FILE, "w", encoding="utf-8") as f:
@@ -195,7 +195,7 @@ def update_monitor_list() -> None:
 
 
 def refresh_market_data() -> None:
-    """Fetch KRW coin prices and volumes from Upbit."""
+    """업비트에서 원화 마켓 시세와 거래량을 가져온다."""
     global market_cache
     try:
         tickers = pyupbit.get_tickers(fiat="KRW")
@@ -242,7 +242,7 @@ def refresh_market_data() -> None:
 
 
 def calc_buy_signal(ticker: str, coin: str) -> dict:
-    """Return buy monitoring metrics for ``ticker``."""
+    """매수 모니터링 지표를 계산해 반환한다."""
     entry = {
         "coin": coin,
         "price": "⛔",
@@ -365,14 +365,14 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
 
 
 def market_refresh_loop() -> None:
-    """Background updater for market_cache."""
+    """시세 데이터를 주기적으로 갱신한다."""
     while True:
         refresh_market_data()
         time.sleep(60)
 
 
 def buy_signal_monitor_loop() -> None:
-    """Background updater for buy monitoring signals."""
+    """매수 모니터링 신호를 주기적으로 계산한다."""
     global signal_cache
     while True:
         try:
@@ -392,7 +392,7 @@ def buy_signal_monitor_loop() -> None:
         time.sleep(5)
 
 def get_filtered_signals():
-    """Return market data filtered by price range and volume rank."""
+    """가격 범위와 거래대금 순위로 필터링한 시세 데이터를 반환한다."""
     logger.info("[MONITOR] 매수 모니터링 요청")
     logger.debug("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
@@ -443,7 +443,7 @@ def get_filtered_signals():
     return result
 
 def get_filtered_tickers() -> list[str]:
-    """Return KRW tickers filtered by dashboard conditions."""
+    """대시보드 조건에 맞는 KRW 티커 목록을 반환한다."""
     logger.debug("Filtering tickers with %s", filter_config)
     signals = get_filtered_signals()
     tickers = [f"KRW-{s['coin']}" for s in signals]
@@ -1058,7 +1058,7 @@ def get_excluded_coins():
 
 @app.route("/api/balances", methods=["GET"])
 def api_balances():
-    """Return current balances for the dashboard."""
+    """대시보드에 표시할 현재 잔고 정보를 반환한다."""
     logger.debug("api_balances called")
     try:
         data = get_balances()
@@ -1072,7 +1072,7 @@ def api_balances():
 
 @app.route("/api/signals", methods=["GET"])
 def api_signals():
-    """Return current buy signals for the dashboard."""
+    """대시보드용 실시간 매수 신호를 반환한다."""
     logger.debug("api_signals called")
     try:
         with _signal_lock:
@@ -1088,7 +1088,7 @@ def api_signals():
 
 @app.route("/api/status", methods=["GET"])
 def api_status():
-    """Return bot running status and last update."""
+    """봇 실행 상태와 최근 갱신 시각을 반환한다."""
     logger.debug("api_status called")
     try:
         return jsonify(result="success", status=get_status())
@@ -1099,7 +1099,7 @@ def api_status():
 
 @app.route("/api/account", methods=["GET"])
 def api_account():
-    """Return latest account summary."""
+    """가장 최근 계좌 요약 정보를 반환한다."""
     logger.debug("api_account called")
     try:
         summary = get_account_summary()

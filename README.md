@@ -14,6 +14,13 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
    python app.py
    ```
 4. 웹 브라우저에서 `http://localhost:5000` 에 접속하면 대시보드를 확인할 수 있습니다.
+## 사용법
+1. 서버 실행 후 웹 브라우저로 접속하면 메인 대시보드가 표시됩니다.
+2. "전략" 메뉴에서 원하는 전략과 파라미터를 설정합니다.
+3. "봇 시작" 버튼을 누르면 자동매매가 진행됩니다.
+4. 각 메뉴에서 자금 한도와 위험 관리 값을 조정할 수 있습니다.
+5. `config/secrets.json` 에 API 키와 텔레그램 토큰을 입력하면 알림 기능을 활용할 수 있습니다.
+
 
 ## Structure
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
