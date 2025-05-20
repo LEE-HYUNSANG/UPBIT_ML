@@ -107,15 +107,19 @@ trader = UpbitTrader(
     logger=logger,
 )
 
+def notify(message: str) -> None:
+    """Send a message to the browser and Telegram if enabled."""
+    socketio.emit('notification', {'message': message})
+    token = secrets.get("TELEGRAM_TOKEN")
+    chat_id = secrets.get("TELEGRAM_CHAT_ID")
+    if config.get("alerts", {}).get("telegram") and token and chat_id:
+        send_telegram(token, chat_id, message)
+
 def notify_error(message: str, code: str) -> None:
     """Log, socket emit and send Telegram alert for an error with a code."""
     full = f"[{code}] {message}"
     logger.error(full)
-    socketio.emit('notification', {'message': full})
-    token = secrets.get('TELEGRAM_TOKEN')
-    chat_id = secrets.get('TELEGRAM_CHAT_ID')
-    if token and chat_id:
-        send_telegram(token, chat_id, full)
+    notify(full)
 
 def get_balances():
     """Fetch current coin balances from trader."""
@@ -795,11 +799,7 @@ def start_bot():
             logger.info("Start request ignored: already running")
             return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
         settings.running = True
-        socketio.emit('notification', {'message': '봇이 시작되었습니다.'})
-        token = secrets.get("TELEGRAM_TOKEN")
-        chat_id = secrets.get("TELEGRAM_CHAT_ID")
-        if config.get("alerts", {}).get("telegram") and token and chat_id:
-            send_telegram(token, chat_id, "봇이 시작되었습니다.")
+        notify('봇이 시작되었습니다.')
         update_timestamp()
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
@@ -817,11 +817,7 @@ def stop_bot():
             logger.info("Stop request ignored: not running")
             return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
         settings.running = False
-        socketio.emit('notification', {'message': '봇이 정지되었습니다.'})
-        token = secrets.get("TELEGRAM_TOKEN")
-        chat_id = secrets.get("TELEGRAM_CHAT_ID")
-        if config.get("alerts", {}).get("telegram") and token and chat_id:
-            send_telegram(token, chat_id, "봇이 정지되었습니다.")
+        notify('봇이 정지되었습니다.')
         update_timestamp()
         return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
     except Exception as e:
@@ -835,7 +831,7 @@ def apply_strategy():
     logger.info(f"[API] 전략 적용: {data}")
     try:
         settings.strategy = data.get("strategy", settings.strategy)
-        socketio.emit('notification', {'message': '전략이 적용되었습니다.'})
+        notify('전략이 적용되었습니다.')
         logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
     except Exception as e:
@@ -871,7 +867,7 @@ def save_settings():
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
             json.dump(filter_config, f, ensure_ascii=False, indent=2)
         update_timestamp()
-        socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        notify('설정이 저장되었습니다.')
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="저장 완료", status=get_status())
     except Exception as e:
@@ -885,7 +881,7 @@ def save_risk():
     data = request.json
     logger.debug("save_risk called with %s", data)
     try:
-        socketio.emit('notification', {'message': '리스크 설정 저장'})
+        notify('리스크 설정 저장')
         logger.info("Risk settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="리스크 저장 완료")
     except Exception as e:
@@ -897,7 +893,7 @@ def save_alerts():
     data = request.json
     logger.debug("save_alerts called with %s", data)
     try:
-        socketio.emit('notification', {'message': '알림 설정 저장'})
+        notify('알림 설정 저장')
         logger.info("Alert settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="알림 설정 저장 완료")
     except Exception as e:
@@ -912,7 +908,7 @@ def save_funds():
         for k, v in data.items():
             if hasattr(settings, k):
                 setattr(settings, k, v)
-        socketio.emit('notification', {'message': '자금 설정 저장'})
+        notify('자금 설정 저장')
         logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="자금 설정 저장 완료")
     except Exception as e:
@@ -924,7 +920,7 @@ def save_strategy():
     data = request.json
     logger.debug("save_strategy called with %s", data)
     try:
-        socketio.emit('notification', {'message': '전략 설정 저장'})
+        notify('전략 설정 저장')
         logger.info("Strategy settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="전략 설정 저장 완료")
     except Exception as e:
@@ -936,7 +932,7 @@ def run_analysis():
     data = request.json
     logger.debug("run_analysis called with %s", data)
     try:
-        socketio.emit('notification', {'message': 'AI 분석을 실행했습니다.'})
+        notify('AI 분석을 실행했습니다.')
         logger.info("AI analysis started")
         return jsonify(result="success", message="AI 분석 시작")
     except Exception as e:
@@ -951,7 +947,7 @@ def manual_sell():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        socketio.emit('notification', {'message': f'{coin} 수동 매도 요청'})
+        notify(f'{coin} 수동 매도 요청')
         global positions, alerts
         positions = [p for p in positions if p['coin'] != coin]
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
@@ -971,7 +967,7 @@ def manual_buy():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        socketio.emit('notification', {'message': f'{coin} 수동 매수 요청'})
+        notify(f'{coin} 수동 매수 요청')
         global positions, alerts
         positions.append({
             "coin": coin,
@@ -1101,7 +1097,7 @@ def save():
         os.makedirs("config", exist_ok=True)
         with open("config/user_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        socketio.emit('notification', {'message': '설정이 저장되었습니다.'})
+        notify('설정이 저장되었습니다.')
         logger.info("User data saved: %s", json.dumps(data, ensure_ascii=False))
         update_timestamp()
         status = get_status()
