@@ -10,6 +10,20 @@ import pyupbit        # 업비트 API 연동
 from .strategy import select_strategy
 from .indicators import calc_indicators
 
+
+def calc_sell_signal(dc: bool, tis: float, pnl: float, sl_th: float, tp_th: float,
+                     ema5: float, ema20: float) -> str:
+    """Return sell signal label based on given indicators."""
+    if dc or tis < 95:
+        return "강제 매도"
+    if pnl is not None and sl_th and pnl < -sl_th:
+        return "손절 준비"
+    if pnl is not None and tp_th and pnl > tp_th:
+        return "익절 준비"
+    if ema5 > ema20:
+        return "수익 극대화"
+    return "관망"
+
 class UpbitTrader:
     def __init__(self, upbit_key, upbit_secret, config, logger=None):
         self.upbit = pyupbit.Upbit(upbit_key, upbit_secret)  # API 객체 생성
@@ -192,6 +206,9 @@ class UpbitTrader:
             Coins to ignore entirely.
         """
         positions = []
+        params = self.config.get("params", {})
+        sl_pct = params.get("sl", 0) * 100
+        tp_pct = params.get("tp", 0) * 100
         for b in balances:
             currency = b.get("currency")
             bal = float(b.get("balance", 0))
@@ -208,15 +225,37 @@ class UpbitTrader:
                     self.logger.warning("Price lookup failed for %s", currency)
                 price = 0
             avg_buy = float(b.get("avg_buy_price", 0))
-            pnl = round((price - avg_buy) / avg_buy * 100, 2) if avg_buy else 0.0
+            pnl = round((price - avg_buy) / avg_buy * 100, 1) if avg_buy else None
+
+            if avg_buy and sl_pct and tp_pct:
+                stop = avg_buy * (1 - sl_pct / 100)
+                take = avg_buy * (1 + tp_pct / 100)
+                entry_pct = round(100 * (avg_buy - stop) / (take - stop), 1)
+                pin_pct = round(100 * (price - stop) / (take - stop), 1)
+                entry_pct = max(0, min(100, entry_pct))
+                pin_pct = max(0, min(100, pin_pct))
+            else:
+                entry_pct = None
+                pin_pct = None
+
+            label = calc_sell_signal(False, 100, pnl, sl_pct, tp_pct, 0, 0)
+            signal_map = {
+                "강제 매도": "sell-force",
+                "손절 준비": "sell-sl",
+                "익절 준비": "sell-tp",
+                "수익 극대화": "sell-max",
+                "관망": "sell-wait",
+            }
+
             positions.append({
                 "coin": currency,
                 "pnl": pnl,
-                "entry": 50,
+                "entry_pct": entry_pct,
+                "pin_pct": pin_pct,
                 "trend": 50,
-                "trend_color": "green",
-                "signal": "sell-wait",
-                "signal_label": "관망",
+                "trend_color": "gray",
+                "signal": signal_map.get(label, "sell-wait"),
+                "signal_label": label,
             })
             if self.logger:
                 self.logger.debug("Position added %s %.6f", currency, bal)
