@@ -379,10 +379,12 @@ def buy_signal_monitor_loop() -> None:
                 coins = json.load(f)
         except Exception:
             coins = []
+        time.sleep(1)
         results = []
         for c in coins:
             ticker = f"KRW-{c['coin']}"
             results.append(calc_buy_signal(ticker, c["coin"]))
+        time.sleep(1)
         with _signal_lock:
             signal_cache = results
         logger.debug("[BUY MONITOR] updated %d signals", len(results))
