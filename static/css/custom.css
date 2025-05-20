@@ -32,7 +32,12 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
 .badge-sell-max { background: #20c997; font-size: .8rem; padding: .36rem .85rem; }
 .badge-sell-wait { background: #6c757d; font-size: .8rem; padding: .36rem .85rem; }
 .bar-graph { width: 190px; margin: 0 auto; }
+.se-bar { width: 190px; margin: 0 auto; position: relative; height: 16px; background: #e9ecef; border-radius: 7px; }
+.se-bar .pin { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #0d6efd; }
+.badge-profit { background:#198754; font-size:.8rem; padding:.36rem .85rem; }
+.badge-loss { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
 .trend-bar { width: 170px; margin: 0 auto; }
+.trend-bar .trend-pin { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #6c757d; }
 .dot { position: absolute; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; border-radius: 50%; }
 .dot.stop { background: #dc3545; left: 0; }
 .dot.entry { background: #6c757d; }
