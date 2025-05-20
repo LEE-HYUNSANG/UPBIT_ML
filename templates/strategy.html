@@ -4,6 +4,39 @@
 
 <div class="container">
 
+  <!-- 전략 요약 매트릭스 -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-head">
+      <i class="bi bi-table"></i> 전략별 핵심 조건
+    </div>
+    <div class="card-body">
+      <div class="table-responsive no-scroll mb-4">
+        <table class="table table-bordered align-middle fs-106">
+          <thead class="table-light">
+            <tr>
+              <th>전략명</th>
+              <th>전략 설명</th>
+              <th>매수 조건</th>
+              <th>매도 조건</th>
+              <th>예상 승률</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in analysis_strategies %}
+            <tr>
+              <td>{{ s.name }}</td>
+              <td>{{ s.desc }}</td>
+              <td>{{ s.buy.cond | join(', ') }}</td>
+              <td>{{ s.sell.cond | join(', ') }}</td>
+              <td>{{ s.win }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- 전략별 설정 -->
   <div class="card shadow-sm mb-5">
     <div class="card-head">

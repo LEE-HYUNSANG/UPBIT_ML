@@ -502,6 +502,8 @@ analysis_strategies = [
     {
         "key": "MBREAK",
         "name": "M-BREAK",
+        "desc": "고변동·거래량 급증 구간에서 전고 돌파 추격",
+        "win": 75,
         "buy": {
             "cond": [
                 "5EMA > 20EMA > 60EMA",
@@ -530,6 +532,8 @@ analysis_strategies = [
     {
         "key": "PPULL",
         "name": "P-PULL",
+        "desc": "상승장 조정 시 EMA50 지지 반등 노림",
+        "win": 63,
         "buy": {
             "cond": [
                 "5EMA > 20EMA > 60EMA",
@@ -557,6 +561,8 @@ analysis_strategies = [
     {
         "key": "TFLOW",
         "name": "T-FLOW",
+        "desc": "강추세 지속 구간에서 EMA20 눌림 재진입",
+        "win": 76,
         "buy": {
             "cond": [
                 "EMA20 5봉 기울기 > 0.15%",
@@ -581,6 +587,8 @@ analysis_strategies = [
     {
         "key": "BLOW",
         "name": "B-LOW",
+        "desc": "장기 박스권 하단 지지와 과매도 반등",
+        "win": 60,
         "buy": {
             "cond": [
                 "박스권 하단, 박스폭 6% 이내",
@@ -606,6 +614,8 @@ analysis_strategies = [
     {
         "key": "VREV",
         "name": "V-REV",
+        "desc": "급락 후 거래량 폭증 시 V자 반등 노림",
+        "win": 65,
         "buy": {
             "cond": [
                 "전봉 종가 -4%↓",
@@ -630,6 +640,8 @@ analysis_strategies = [
     {
         "key": "GREV",
         "name": "G-REV",
+        "desc": "EMA50/200 골든크로스 후 첫 눌림",
+        "win": 74,
         "buy": {
             "cond": [
                 "EMA50 > 200 골든크로스",
@@ -653,6 +665,8 @@ analysis_strategies = [
     {
         "key": "VOLBRK",
         "name": "VOL-BRK",
+        "desc": "ATR·거래량 폭발 후 상단 돌파",
+        "win": 68,
         "buy": {
             "cond": [
                 "ATR폭발(10봉대비 1.5배↑)",
@@ -677,6 +691,8 @@ analysis_strategies = [
     {
         "key": "EMASTACK",
         "name": "EMA-STACK",
+        "desc": "EMA 다중 정렬과 ADX 강세 활용",
+        "win": 78,
         "buy": {
             "cond": [
                 "EMA25>100>200",
@@ -700,6 +716,8 @@ analysis_strategies = [
     {
         "key": "VWAPBNC",
         "name": "VWAP-BNC",
+        "desc": "상승 추세 중 VWAP 지지 반등 공략",
+        "win": 72,
         "buy": {
             "cond": [
                 "EMA5>20>60, 종가 VWAP 근접",
@@ -743,7 +761,12 @@ def dashboard():
 @app.route("/strategy")
 def strategy_page():
     logger.debug("Render strategy page")
-    return render_template("strategy.html", strategies=strategies, settings=settings)
+    return render_template(
+        "strategy.html",
+        strategies=strategies,
+        analysis_strategies=analysis_strategies,
+        settings=settings,
+    )
 
 # AI 전략 분석 페이지
 @app.route("/ai-analysis")

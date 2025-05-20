@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def m_break(df, tis, params):
     """
     M-BREAK (강한 돌파+추세+거래량)
-    EMA5 > EMA20 > EMA60, ATR14 ≥ 0.035,
+    ema5 > ema20 > ema60, ATR ≥ 0.035,
     20봉 평균 거래량의 1.8배 폭증, 체결강도 120+, 전고점 0.15% 돌파
     """
     logger.debug("m_break evaluation")
@@ -20,8 +20,8 @@ def m_break(df, tis, params):
     # 이전 20봉 동안의 최고가(돌파 기준선)
     prev_high = df['high'][-21:-1].max()
     ok = (
-        last['EMA5'] > last['EMA20'] > last['EMA60'] and
-        last['ATR14'] >= params.get('atr', 0.035) and
+        last['ema5'] > last['ema20'] > last['ema60'] and
+        last['atr'] >= params.get('atr', 0.035) and
         last['volume'] >= df['volume'][-20:].mean() * 1.8 and  # 거래량 폭증 여부
         tis >= 120 and                                # 체결강도 120 이상
         last['close'] > prev_high * 1.0015             # 전고 돌파
@@ -31,7 +31,7 @@ def m_break(df, tis, params):
         last['close'],
         prev_high,
         last['volume'],
-        last['ATR14'],
+        last['atr'],
         tis,
         ok,
     )
@@ -40,22 +40,22 @@ def m_break(df, tis, params):
 def p_pull(df, tis, params):
     """
     P-PULL (눌림목 반등)
-    EMA5 > EMA20 > EMA60, EMA50 근접(2% 이내), RSI14 ≤ 28, 직전봉 대비 거래량 1.2배 이상
+    ema5 > ema20 > ema60, ema50 근접(0.3% 이내), rsi ≤ 28, 거래량 증가
     """
     logger.debug("p_pull evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
-    ema50 = df['EMA50'].iloc[-1]  # 지지선으로 사용할 EMA50
+    ema50 = df['ema50'].iloc[-1]
     ok = (
-        last['EMA5'] > last['EMA20'] > last['EMA60'] and
-        abs(last['close'] - ema50) / (ema50+1e-9) < 0.02 and
-        last['RSI14'] <= params.get('rsi', 28) and
+        last['ema5'] > last['ema20'] > last['ema60'] and
+        abs(last['close'] - ema50) / (ema50 + 1e-9) < 0.003 and
+        last['rsi'] <= params.get('rsi', 28) and
         last['volume'] >= df['volume'].iloc[-2] * 1.2
     )
     logger.debug(
         "p_pull close=%s ema50=%s rsi=%s volume=%s -> %s",
         last['close'],
         ema50,
-        last['RSI14'],
+        last['rsi'],
         last['volume'],
         ok,
     )
@@ -64,18 +64,16 @@ def p_pull(df, tis, params):
 def t_flow(df, tis, params):
     """
     T-FLOW (중기 추세+OBV)
-    EMA20 5봉 기울기 > 0.15%, OBV 3봉 연속 상승, RSI14 48~60
+    ema20 기울기 0.15%↑, obv 3봉 연속 상승, rsi 48~60
     """
     logger.debug("t_flow evaluation")
     # EMA20 최근 5봉 기울기 계산
-    ema20_slope = (df['EMA20'].iloc[-1] - df['EMA20'].iloc[-5]) / (abs(df['EMA20'].iloc[-5])+1e-9)
+    ema20_slope = (df['ema20'].iloc[-1] - df['ema20'].iloc[-5]) / (abs(df['ema20'].iloc[-5]) + 1e-9)
     # OBV가 3봉 연속 상승하는지 체크
-    obv_inc = all(df['OBV'].iloc[-i] > df['OBV'].iloc[-i-1] for i in range(1, 4))
-    rsi = df['RSI14'].iloc[-1]
+    obv_inc = all(df['obv'].iloc[-i] > df['obv'].iloc[-i-1] for i in range(1, 4))
+    rsi = df['rsi'].iloc[-1]
     ok = (
-        ema20_slope > 0.0015 and
-        obv_inc and
-        48 <= rsi <= 60
+        ema20_slope > 0.0015 and obv_inc and 48 <= rsi <= 60
     )
     logger.debug(
         "t_flow slope=%s obv_inc=%s rsi=%s -> %s",
@@ -89,7 +87,7 @@ def t_flow(df, tis, params):
 def b_low(df, tis, params):
     """
     B-LOW (박스권 하단 반등)
-    80봉 내 박스폭 6% 이내, 저점 터치, RSI14 < 25
+    80봉 내 박스폭 6% 이내, 저점 터치, rsi < 25
     """
     logger.debug("b_low evaluation")
     # 최근 80봉의 최저·최고가
@@ -101,13 +99,13 @@ def b_low(df, tis, params):
     ok = (
         box_ratio < 0.06 and
         last['low'] <= low80 * 1.01 and
-        last['RSI14'] < params.get('rsi', 25)
+        last['rsi'] < params.get('rsi', 25)
     )
     logger.debug(
         "b_low box_ratio=%s low80=%s rsi=%s -> %s",
         box_ratio,
         low80,
-        last['RSI14'],
+        last['rsi'],
         ok,
     )
     return ok, params
@@ -120,9 +118,9 @@ def v_rev(df, tis, params):
     logger.debug("v_rev evaluation")
     last = df.iloc[-1]   # 현재 봉
     prev = df.iloc[-2]   # 직전 봉
-    price_drop = (prev['close'] - last['close']) / (prev['close']+1e-9)  # 낙폭
-    volume_burst = last['volume'] > prev['volume'] * 2.5  # 거래량 급증
-    rsi_rise = last['RSI14'] > 20 and prev['RSI14'] <= 18  # RSI 반등 여부
+    price_drop = (prev['close'] - last['close']) / (prev['close'] + 1e-9)
+    volume_burst = last['volume'] > prev['volume'] * 2.5
+    rsi_rise = last['rsi'] > 20 and prev['rsi'] <= 18
     price_rebound = (last['close'] - prev['close']) / (prev['close']+1e-9) > 0.04
     ok = (
         price_drop >= 0.04 and
@@ -143,20 +141,20 @@ def v_rev(df, tis, params):
 def g_rev(df, tis, params):
     """
     G-REV (골든크로스+지지)
-    EMA50 > EMA200 골든, RSI14 ≥ 48, 거래량 이전봉 0.6배↑
+    ema50 > ema200 골든, rsi ≥ 48, 거래량 이전봉 대비 0.6배↑
     """
     logger.debug("g_rev evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
-    golden = (last['EMA50'] > last['EMA200'])  # 골든크로스 여부
+    golden = last['ema50'] > last['ema200']
     ok = (
         golden and
-        last['RSI14'] >= 48 and
+        last['rsi'] >= 48 and
         last['volume'] >= df['volume'].iloc[-2] * 0.6
     )
     logger.debug(
         "g_rev golden=%s rsi=%s volume=%s -> %s",
         golden,
-        last['RSI14'],
+        last['rsi'],
         last['volume'],
         ok,
     )
@@ -165,43 +163,40 @@ def g_rev(df, tis, params):
 def vol_brk(df, tis, params):
     """
     VOL-BRK (ATR 폭발·신고가)
-    ATR14 10봉 평균의 1.5배↑, 20봉 거래량 2배↑, 신고가, RSI14 ≥ 60
+    ATR 비율 급등, 거래량 증가, 신고가 돌파, rsi ≥ 60
     """
     logger.debug("vol_brk evaluation")
     last = df.iloc[-1]  # 현재 봉
-    atr10 = df['ATR14'][-10:].mean()      # ATR 평균
+    atr10 = df['atr'][-10:].mean()
     vol20 = df['volume'][-20:].mean()     # 20봉 평균 거래량
     high20 = df['high'][-20:].max()       # 20봉 최고가
     ok = (
-        last['ATR14'] > atr10 * 1.5 and
+        last['atr'] > atr10 * 1.5 and
         last['volume'] > vol20 * 2 and
         last['high'] > high20 * 0.999 and
-        last['RSI14'] >= 60
+        last['rsi'] >= 60
     )
     logger.debug(
         "vol_brk atr_ratio=%s vol_ratio=%s high=%s rsi=%s -> %s",
-        last['ATR14'] / (atr10+1e-9),
+        last['atr'] / (atr10 + 1e-9),
         last['volume'] / (vol20+1e-9),
         last['high'],
-        last['RSI14'],
+        last['rsi'],
         ok,
     )
     return ok, params
 
 def ema_stack(df, tis, params):
     """
-    EMA-STACK (EMA 다중정렬, ADX↑)
-    EMA25 > EMA100 > EMA200, ADX ≥ 30
+    EMA-STACK (다중 EMA + ADX)
+    ema25 > ema100 > ema200, adx ≥ 30
     """
     logger.debug("ema_stack evaluation")
     last = df.iloc[-1]
-    ok = (
-        last['EMA25'] > last['EMA100'] > last['EMA200'] and
-        last['ADX'] >= 30
-    )
+    ok = last['ema25'] > last['ema100'] > last['ema200'] and last['adx'] >= 30
     logger.debug(
         "ema_stack adx=%s -> %s",
-        last['ADX'],
+        last['adx'],
         ok,
     )
     return ok, params
@@ -209,22 +204,22 @@ def ema_stack(df, tis, params):
 def vwap_bnc(df, tis, params):
     """
     VWAP-BNC (VWAP/RSI 조합)
-    EMA5 > EMA20 > EMA60, VWAP 근접, RSI 45~60, 거래량 증가
+    ema5 > ema20 > ema60, vwap 근접, rsi 45~60, 거래량 증가
     """
     logger.debug("vwap_bnc evaluation")
     last = df.iloc[-1]       # 현재 봉
-    vwap = last['VWAP']       # VWAP 값
+    vwap = last['vwap']
     vwap_close_ratio = abs(last['close'] - vwap) / (vwap+1e-9)  # 종가와 VWAP 차이
     ok = (
-        last['EMA5'] > last['EMA20'] > last['EMA60'] and
+        last['ema5'] > last['ema20'] > last['ema60'] and
         vwap_close_ratio < 0.012 and
-        45 <= last['RSI14'] <= 60 and
+        45 <= last['rsi'] <= 60 and
         last['volume'] >= df['volume'].iloc[-2]
     )
     logger.debug(
         "vwap_bnc vwap_ratio=%s rsi=%s volume=%s -> %s",
         vwap_close_ratio,
-        last['RSI14'],
+        last['rsi'],
         last['volume'],
         ok,
     )

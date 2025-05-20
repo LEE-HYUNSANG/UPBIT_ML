@@ -15,25 +15,25 @@ def calc_indicators(df):
     출력: df - 지표 컬럼 추가 후 반환
     """
     logger.debug("calc_indicators called")
-    # 이동평균선(EMA) 계산
-    df['EMA5'] = ta.EMA(df['close'], 5)    # 5봉 EMA
-    df['EMA20'] = ta.EMA(df['close'], 20)   # 20봉 EMA
-    df['EMA25'] = ta.EMA(df['close'], 25)
-    df['EMA50'] = ta.EMA(df['close'], 50)   # 50봉 EMA
-    df['EMA60'] = ta.EMA(df['close'], 60)   # 60봉 EMA
-    df['EMA100'] = ta.EMA(df['close'], 100) # 100봉 EMA
-    df['EMA200'] = ta.EMA(df['close'], 200) # 200봉 EMA
+    # 이동평균선(EMA) 계산 - 모든 컬럼명은 소문자
+    df['ema5'] = ta.EMA(df['close'], 5)
+    df['ema20'] = ta.EMA(df['close'], 20)
+    df['ema25'] = ta.EMA(df['close'], 25)
+    df['ema50'] = ta.EMA(df['close'], 50)
+    df['ema60'] = ta.EMA(df['close'], 60)
+    df['ema100'] = ta.EMA(df['close'], 100)
+    df['ema200'] = ta.EMA(df['close'], 200)
     # RSI (14) 계산
-    df['RSI14'] = ta.RSI(df['close'], 14)
-    # ATR (14) 계산 - 변동성 지표
-    df['ATR14'] = ta.ATR(df['high'], df['low'], df['close'], 14)
+    df['rsi'] = ta.RSI(df['close'], 14)
+    # ATR (14) 계산 - 변동성 지표를 비율로 변환
+    df['atr'] = ta.ATR(df['high'], df['low'], df['close'], 14) / df['close']
     # ADX (14) 계산 - 추세 강도
-    df['ADX'] = ta.ADX(df['high'], df['low'], df['close'], 14)
+    df['adx'] = ta.ADX(df['high'], df['low'], df['close'], 14)
     # OBV 지표 - 거래량 흐름
-    df['OBV'] = ta.OBV(df['close'], df['volume'])
+    df['obv'] = ta.OBV(df['close'], df['volume'])
     # VWAP 계산 (간단 버전, 시가 사용 안 함)
     vwap = (df['close'] * df['volume']).cumsum() / (df['volume'].cumsum() + 1e-9)
-    df['VWAP'] = vwap
+    df['vwap'] = vwap
     # 계산 후 결측값(backfill) 보정 및 0 채우기
     df.bfill(inplace=True)
     df.fillna(0, inplace=True)
