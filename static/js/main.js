@@ -287,7 +287,7 @@ async function reloadBalance(){
     console.log('[API-A002] GET /api/balances', data);
     if (data.result === 'success' && data.balances) {
       if (disconnected) {
-        showAlert('서버 연결이 복구되었습니다.', '안내');
+        console.log('서버 연결이 복구되었습니다.');
       }
       disconnected = false;
       updateBalanceTable(data.balances);
