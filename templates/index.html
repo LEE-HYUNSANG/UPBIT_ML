@@ -151,7 +151,7 @@
       <div class="table-responsive">
         <table class="table table-bordered text-center mb-0">
           <thead class="table-light"><tr>
-            <th>#</th><th>코인</th>
+            <th>코인</th><th>현재가</th>
             <th>추세 <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="🔼 상승 · 🔻 하락 · 🔸 중립"></i></th>
             <th>변동성<br>(ATR%) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="🔵 High · 🟡 Mid · 🔻 Low"></i></th>
             <th>거래량(%) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="⏫ 폭증 · 🔼 증가 · 🔻 감소"></i></th>
@@ -165,7 +165,8 @@
           <tbody id="signalBody">
             {% for s in signals %}
             <tr>
-              <td>{{ loop.index }}</td><td>{{ s.coin }}</td>
+              <td>{{ s.coin }}</td>
+              <td>{{ s.price }}</td>
               <td class="icon-cell">{{ s.trend }}</td>
               <td class="icon-cell">{{ s.volatility }}</td>
               <td class="icon-cell">{{ s.volume }}</td>
