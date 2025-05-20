@@ -7,8 +7,9 @@ pandas==1.5.3
 numpy==1.24.4
 # TA-Lib is required for certain indicators. The package differs by OS so
 # use environment markers to install the correct wheel automatically.
-TA-Lib==0.4.28 ; sys_platform == 'win32'
+# TA-Lib==0.4.28 ; sys_platform == 'win32'
 talib-binary==0.4.0 ; sys_platform != 'win32'
 pyupbit==0.2.34
 requests==2.31.0
 wheel
+ta-lib 
