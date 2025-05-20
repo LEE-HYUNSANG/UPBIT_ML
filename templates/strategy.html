@@ -4,40 +4,7 @@
 
 <div class="container">
 
-  <!-- 전략 요약 매트릭스 -->
-  <div class="card shadow-sm mb-5">
-    <div class="card-head">
-      <i class="bi bi-table"></i> 전략별 핵심 조건
-    </div>
-    <div class="card-body">
-      <div class="table-responsive no-scroll mb-4">
-        <table class="table table-bordered align-middle fs-106">
-          <thead class="table-light">
-            <tr>
-              <th>전략명</th>
-              <th>전략 설명</th>
-              <th>매수 조건</th>
-              <th>매도 조건</th>
-              <th>예상 승률</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for s in analysis_strategies %}
-            <tr>
-              <td>{{ s.name }}</td>
-              <td>{{ s.desc }}</td>
-              <td>{{ s.buy.cond | join(', ') }}</td>
-              <td>{{ s.sell.cond | join(', ') }}</td>
-              <td>{{ s.win }}%</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- 전략별 설정 -->
+    <!-- 전략별 설정 -->
   <div class="card shadow-sm mb-5">
     <div class="card-head">
       <i class="bi bi-gear"></i> 매수/매도 전략 설정
@@ -102,17 +69,17 @@
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">코인별 최대 투자금</label>
-            <input type="number" class="form-control" name="max_amount" value="{{ settings.max_amount }}" placeholder="예: 500000">
+            <input type="number" class="form-control" name="max_amount" value="{{ settings.max_amount }}" placeholder="예: 10000">
             <div class="form-text">예) 한 코인당 최대 50만원까지</div>
           </div>
           <div class="col">
             <label class="form-label">회당 매수금</label>
-            <input type="number" class="form-control" name="buy_amount" value="{{ settings.buy_amount }}" placeholder="예: 100000">
+            <input type="number" class="form-control" name="buy_amount" value="{{ settings.buy_amount }}" placeholder="예: 10000">
             <div class="form-text">예) 한 번에 10만원 단위 분할매수</div>
           </div>
           <div class="col">
             <label class="form-label">동시매매 코인수</label>
-            <input type="number" class="form-control" name="max_positions" value="{{ settings.max_positions }}" placeholder="예: 5">
+            <input type="number" class="form-control" name="max_positions" value="{{ settings.max_positions }}" placeholder="예: 7">
             <div class="form-text">예) 최대 5종목까지 동시매수 허용</div>
           </div>
         </div>
@@ -154,7 +121,7 @@
         <form>
           <div class="row mb-4">
             <div class="col">
-              <label class="form-label">택테스트 모드</label>
+              <label class="form-label">백테스트 모드</label>
               <select class="form-select" name="backtest">
                 <option value="OFF" {% if settings.backtest == 'OFF' %}selected{% endif %}>OFF</option>
                 <option value="ON" {% if settings.backtest == 'ON' %}selected{% endif %}>ON</option>
