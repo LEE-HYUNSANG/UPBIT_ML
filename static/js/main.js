@@ -34,6 +34,21 @@ function showAlert(message, title = "알림") {
   alertModal.show();
 }
 
+async function fetchJsonRetry(url, options = {}, retries = 3, delay = 200) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const resp = await fetch(url, options);
+      return await resp.json();
+    } catch (err) {
+      if (i < retries - 1) {
+        await new Promise(r => setTimeout(r, delay));
+      } else {
+        throw err;
+      }
+    }
+  }
+}
+
 // 2. 모든 버튼에 AJAX로 진행 시 로딩 커서 표시
 document.querySelectorAll('button, .btn').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -45,16 +60,15 @@ document.querySelectorAll('button, .btn').forEach(btn => {
 // 3. Flask API 호출 (예시: 봇 시작/정지/설정 저장 등)
 async function callApi(url, data, method="POST") {
   try {
-    const resp = await fetch(url, {
+    const result = await fetchJsonRetry(url, {
       method,
-      headers: {'Content-Type':'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: data ? JSON.stringify(data) : undefined
     });
-    const result = await resp.json();
-    if(result.message) showAlert(result.message);
+    if (result && result.message) showAlert(result.message);
     return result;
   } catch (err) {
-    showAlert("서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.", "에러");
+    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
     return null;
   }
 }
@@ -224,11 +238,10 @@ document.addEventListener('click', e => {
 // 잔고 테이블 실시간 갱신
 async function reloadBalance(){
   try {
-    const resp = await fetch('/api/balances');
-    const data = await resp.json();
-    if(data.result === 'success' && data.balances){
+    const data = await fetchJsonRetry('/api/balances');
+    if (data.result === 'success' && data.balances) {
       updateBalanceTable(data.balances);
-    } else if(data.message){
+    } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
@@ -268,11 +281,10 @@ function updateBalanceTable(list){
 // 매수 모니터링 테이블 갱신
 async function reloadBuyMonitor(){
   try {
-    const resp = await fetch('/api/signals');
-    const data = await resp.json();
-    if(data.result === 'success' && data.signals){
+    const data = await fetchJsonRetry('/api/signals');
+    if (data.result === 'success' && data.signals) {
       updateSignalTable(data.signals);
-    } else if(data.message){
+    } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
@@ -302,18 +314,17 @@ function updateSignalTable(list){
 // 서버 상태 조회 후 화면 갱신
 async function loadStatus(){
   try {
-    const resp = await fetch('/api/status');
-    const data = await resp.json();
-    if(data.result === 'success' && data.status){
+    const data = await fetchJsonRetry('/api/status');
+    if (data.result === 'success' && data.status) {
       const el = document.getElementById('bot-status');
       const timeEl = document.getElementById('updateTime');
-      if(el){
+      if (el) {
         el.textContent = data.status.running ? '실행중' : '정지';
       }
-      if(timeEl){
+      if (timeEl) {
         timeEl.textContent = '업데이트: ' + data.status.updated;
       }
-    } else if(data.message){
+    } else if (data.message) {
       showAlert(data.message, '에러');
     }
   } catch(err){
@@ -329,15 +340,14 @@ function formatNumber(val){
 
 async function reloadAccount(){
   try {
-    const resp = await fetch('/api/account');
-    const data = await resp.json();
-    if(data.result === 'success' && data.account){
+    const data = await fetchJsonRetry('/api/account');
+    if (data.result === 'success' && data.account) {
       const c = document.getElementById('accountCash');
       const t = document.getElementById('accountTotal');
       const p = document.getElementById('accountPnl');
-      if(c) c.textContent = formatNumber(data.account.cash) + ' 원';
-      if(t) t.textContent = formatNumber(data.account.total) + ' 원';
-      if(p) p.textContent = data.account.pnl + ' %';
+      if (c) c.textContent = formatNumber(data.account.cash) + ' 원';
+      if (t) t.textContent = formatNumber(data.account.total) + ' 원';
+      if (p) p.textContent = data.account.pnl + ' %';
     }
   } catch(err){
     console.error(err);
@@ -355,8 +365,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(btn){
     btn.addEventListener('click', async ()=>{
       try{
-        const resp = await fetch('/api/excluded-coins');
-        const data = await resp.json();
+        const data = await fetchJsonRetry('/api/excluded-coins');
         if(data.result === 'success'){
           const body = document.getElementById('excludeListBody');
           if(body){
