@@ -9,9 +9,11 @@ const alertModal = new bootstrap.Modal(alertModalEl);
 // 서버 연결 상태 플래그
 let disconnected = false;
 
-function handleDisconnect() {
+function handleDisconnect(code) {
   if (!disconnected) {
-    showAlert('서버 연결 오류. 네트워크 또는 서버를 확인해 주세요.', '에러');
+    const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
+    console.error(`[NET-${code}] disconnect`);
+    showAlert(msg, '에러');
     disconnected = true;
   }
 }
@@ -62,13 +64,14 @@ async function fetchJsonRetry(url, options = {}, retries = 3, delay = 200) {
 // 2. 모든 버튼에 AJAX로 진행 시 로딩 커서 표시
 document.querySelectorAll('button, .btn').forEach(btn => {
   btn.addEventListener('click', function() {
+    console.log('[BTN]', this.innerText.trim());
     document.body.style.cursor = 'wait';
     setTimeout(() => { document.body.style.cursor = ''; }, 800);
   });
 });
 
 // 3. Flask API 호출 (예시: 봇 시작/정지/설정 저장 등)
-async function callApi(url, data, method="POST") {
+async function callApi(url, data, method="POST", code="A000") {
   try {
     const result = await fetchJsonRetry(url, {
       method,
@@ -76,10 +79,11 @@ async function callApi(url, data, method="POST") {
       body: data ? JSON.stringify(data) : undefined
     });
     disconnected = false;
+    console.log(`[API-${code}]`, method, url, result);
     if (result && result.message) showAlert(result.message);
     return result;
   } catch (err) {
-    handleDisconnect();
+    handleDisconnect(code);
     return null;
   }
 }
@@ -121,6 +125,7 @@ document.addEventListener('click', async e => {
   const btn = e.target.closest('[data-api]');
   if(!btn) return;
   e.preventDefault();
+  console.log('[BTN-API]', btn.dataset.api);
   if(btn.dataset.confirm){
     const ok = await showConfirm(btn.dataset.confirm);
     if(!ok) return;
@@ -132,7 +137,8 @@ document.addEventListener('click', async e => {
   }
   // merge dataset values except 'api'
   Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
-  const result = await callApi(btn.dataset.api, data);
+  const code = `API${btn.dataset.api.replace(/[^a-z0-9]/gi,'').toUpperCase()}`;
+  const result = await callApi(btn.dataset.api, data, 'POST', code);
   if(['/save','/api/save-settings'].includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
     await reloadBuyMonitor();
@@ -274,6 +280,7 @@ document.addEventListener('click', e => {
 async function reloadBalance(){
   try {
     const data = await fetchJsonRetry('/api/balances');
+    console.log('[API-A002] GET /api/balances', data);
     if (data.result === 'success' && data.balances) {
       updateBalanceTable(data.balances);
       disconnected = false;
@@ -281,7 +288,7 @@ async function reloadBalance(){
       showAlert(data.message, '에러');
     }
   } catch(err){
-    handleDisconnect();
+    handleDisconnect('A002');
   }
 }
 
@@ -331,6 +338,7 @@ function updateBalanceTable(list){
 async function reloadBuyMonitor(){
   try {
     const data = await fetchJsonRetry('/api/signals');
+    console.log('[API-A003] GET /api/signals', data);
     if (data.result === 'success' && data.signals) {
       updateSignalTable(data.signals);
       disconnected = false;
@@ -338,7 +346,7 @@ async function reloadBuyMonitor(){
       showAlert(data.message, '에러');
     }
   } catch(err){
-    handleDisconnect();
+    handleDisconnect('A003');
   }
 }
 
@@ -365,6 +373,7 @@ function updateSignalTable(list){
 async function loadStatus(){
   try {
     const data = await fetchJsonRetry('/api/status');
+    console.log('[API-A004] GET /api/status', data);
     if (data.result === 'success' && data.status) {
       const el = document.getElementById('bot-status');
       const timeEl = document.getElementById('updateTime');
@@ -379,7 +388,7 @@ async function loadStatus(){
       showAlert(data.message, '에러');
     }
   } catch(err){
-    handleDisconnect();
+    handleDisconnect('A004');
   }
 }
 
@@ -392,6 +401,7 @@ function formatNumber(val){
 async function reloadAccount(){
   try {
     const data = await fetchJsonRetry('/api/account');
+    console.log('[API-A005] GET /api/account', data);
     if (data.result === 'success' && data.account) {
       const c = document.getElementById('accountCash');
       const t = document.getElementById('accountTotal');
@@ -402,7 +412,7 @@ async function reloadAccount(){
       disconnected = false;
     }
   } catch(err){
-    handleDisconnect();
+    handleDisconnect('A005');
   }
 }
 
@@ -418,6 +428,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     btn.addEventListener('click', async ()=>{
       try{
         const data = await fetchJsonRetry('/api/excluded-coins');
+        console.log('[API-A006] GET /api/excluded-coins', data);
         if(data.result === 'success'){
           const body = document.getElementById('excludeListBody');
           if(body){
@@ -439,7 +450,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           showAlert(data.message, '에러');
         }
       }catch(err){
-        handleDisconnect();
+        handleDisconnect('A006');
       }
     });
   }
