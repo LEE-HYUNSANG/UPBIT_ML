@@ -13,8 +13,10 @@ function handleDisconnect(code) {
   if (disconnected) return;
 
   const msg = `서버 연결 오류(${code}). 네트워크 또는 서버를 확인해 주세요.`;
-  console.error(`[NET-${code}] disconnect`);
-  if (code !== 'A002') {
+  if (code === 'A002') {
+    console.debug(`[NET-${code}] ${msg}`);
+  } else {
+    console.error(`[NET-${code}] disconnect`);
     showAlert(msg, '에러');
   }
   disconnected = true;
