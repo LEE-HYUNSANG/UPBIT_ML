@@ -174,6 +174,12 @@ function initDotPositions(){
   document.querySelectorAll('.dot[data-pos]').forEach(el=>{
     el.style.left = el.dataset.pos + '%';
   });
+  document.querySelectorAll('.se-bar .pin[data-pos]').forEach(el=>{
+    el.style.left = el.dataset.pos + '%';
+  });
+  document.querySelectorAll('.trend-pin[data-pos]').forEach(el=>{
+    el.style.left = el.dataset.pos + '%';
+  });  
 }
 
 function updatePositions(list){
@@ -181,13 +187,26 @@ function updatePositions(list){
   if(!body) return;
   body.innerHTML = list.map((p, i) => `
     <tr>
-      <td>${i+1}</td><td>${p.coin}</td>
-      <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button></td>
+      <td>${i+1}</td>
+      <td>${p.coin}</td>
       <td>
-        <div class="bar-graph">
+        <button class="btn btn-sm btn-outline-primary text-dark"
+                data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button>
+      </td>
+      <td>
+        ${p.pnl === null
+          ? '<span class="text-muted">데이터 없음</span>'
+          : `<span class="badge ${p.pnl >= 0 ? 'badge-profit' : 'badge-loss'}">`+
+            `${p.pnl > 0 ? '+' : ''}${p.pnl.toFixed(1)}%</span>`}
+      </td>
+      <td>
+        <div class="se-bar">
           <span class="dot stop"></span>
-          <span class="dot entry" data-pos="${p.entry}"></span>
+          <span class="dot entry" data-pos="${p.entry_pct}"></span>
           <span class="dot take"></span>
+          ${p.pin_pct !== null
+            ? `<span class="pin" data-pos="${p.pin_pct}"></span>`
+            : ''}
         </div>
       </td>
       <td>
@@ -198,7 +217,12 @@ function updatePositions(list){
         </div>
       </td>
       <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
-      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="${p.coin}">수동 매도</button></td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell"
+                data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="${p.coin}">
+          수동 매도
+        </button>
+      </td>
     </tr>
   `).join('');
   initDotPositions();
@@ -255,13 +279,24 @@ function updateBalanceTable(list){
   body.innerHTML = list.map(p => `
     <tr>
       <td>${p.coin}</td>
-      <td><button class="btn btn-sm btn-outline-primary text-dark" data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button></td>
-      <td>${p.pnl} %</td>
       <td>
-        <div class="bar-graph">
+        <button class="btn btn-sm btn-outline-primary text-dark"
+                data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button>
+      </td>
+      <td>
+          ${p.pnl === null
+            ? '<span class="text-muted">데이터 없음</span>'
+            : `<span class="badge ${p.pnl >= 0 ? 'badge-profit' : 'badge-loss'}">`+
+              `${p.pnl > 0 ? '+' : ''}${p.pnl.toFixed(1)}%</span>`}
+      </td>
+      <td>
+        <div class="se-bar">
           <span class="dot stop"></span>
-          <span class="dot entry" data-pos="${p.entry}"></span>
+          <span class="dot entry" data-pos="${p.entry_pct}"></span>
           <span class="dot take"></span>
+            ${p.pin_pct !== null
+              ? `<span class="pin" data-pos="${p.pin_pct}"></span>`
+              : ''}
         </div>
       </td>
       <td>
@@ -271,8 +306,10 @@ function updateBalanceTable(list){
           <span class="dot trend ${p.trend_color}" data-pos="${p.trend}"></span>
         </div>
       </td>
-      <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
-      <td><button class="btn btn-sm btn-outline-danger" data-api="/api/manual-sell" data-confirm="시장가로 매도 요청을 하시겠습니까?" data-coin="${p.coin}">수동 매도</button></td>
+        <td><span class="badge badge-${p.signal}">${p.signal_label}</span></td>
+        <td>
+          <button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="${s.coin}">수동 매수</button>
+        </td>
     </tr>
   `).join('');
   initDotPositions();
