@@ -9,7 +9,7 @@ import logging
 import json  # 기본 모듈들
 from datetime import datetime
 
-from utils import load_secrets, send_telegram, setup_logging
+from utils import load_secrets, send_telegram, setup_logging, calc_tis
 from bot.trader import UpbitTrader
 from bot.runtime_settings import settings, load_from_file
 import pyupbit
@@ -296,14 +296,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
         else:
             entry["volume"] = f"🔻 {vol_ratio:.2f}"
 
-        try:
-            ticks = pyupbit.get_ticks(ticker, count=30)
-            df_tick = pd.DataFrame(ticks)
-            buy_qty = df_tick[df_tick["ask_bid"] == "BID"]["trade_volume"].sum()
-            sell_qty = df_tick[df_tick["ask_bid"] == "ASK"]["trade_volume"].sum()
-            tis = (buy_qty / (sell_qty + 1e-9)) * 100
-        except Exception:
-            tis = None
+        tis = calc_tis(ticker)
         if tis is not None:
             if tis >= 120:
                 entry["strength"] = f"⏫ {tis:.0f}"
