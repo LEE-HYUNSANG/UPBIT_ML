@@ -113,6 +113,14 @@ document.addEventListener('click', async e => {
     await reloadBuyMonitor();
   } else if(btn.dataset.api === '/api/exclude-coin' && result && result.result === 'success'){
     await reloadBalance();
+  } else if(btn.dataset.api === '/api/restore-coin' && result && result.result === 'success'){
+    await reloadBalance();
+    const row = btn.closest('tr');
+    if(row) row.remove();
+    const body = document.getElementById('excludeListBody');
+    if(body && !body.querySelector('tr')){
+      body.innerHTML = '<tr><td colspan="3" class="text-muted py-3">없음</td></tr>';
+    }
   }
 });
 
@@ -352,8 +360,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
           const body = document.getElementById('excludeListBody');
           if(body){
             body.innerHTML = data.coins.length ?
-              data.coins.map(c=>`<tr><td>${c.coin}</td><td>${c.deleted}</td></tr>`).join('') :
-              '<tr><td colspan="2" class="text-muted py-3">없음</td></tr>';
+              data.coins.map(c => `
+                <tr>
+                  <td>${c.coin}</td>
+                  <td>${c.deleted}</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary"
+                            data-api="/api/restore-coin"
+                            data-coin="${c.coin}">복구</button>
+                  </td>
+                </tr>`).join('') :
+              '<tr><td colspan="3" class="text-muted py-3">없음</td></tr>';
             new bootstrap.Modal(document.getElementById('excludeListModal')).show();
           }
         } else if(data.message){
