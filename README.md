@@ -138,6 +138,11 @@ All API keys and tokens are read from `config/secrets.json`. Create the file bef
   "UPBIT_SECRET": "YOUR-UPBIT-SECRET",
   "TELEGRAM_TOKEN": "BOT-TOKEN",
   "TELEGRAM_CHAT_ID": "123456789"
+  // "EMAIL_HOST": "smtp.example.com",
+  // "EMAIL_PORT": 587,
+  // "EMAIL_USER": "bot@example.com",
+  // "EMAIL_PASSWORD": "pass",
+  // "EMAIL_TO": "notify@example.com"  // 이메일 알림은 비활성화 상태
 }
 ```
 
