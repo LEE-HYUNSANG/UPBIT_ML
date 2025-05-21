@@ -13,6 +13,7 @@ import pyupbit
 from bot.indicators import calc_indicators
 from utils import calc_tis, load_secrets, send_telegram
 from helpers.utils.risk import load_risk_settings
+from strategy_loader import load_strategies
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +32,9 @@ def _alert(msg: str) -> None:
             send_telegram(_TOKEN, _CHAT, msg)
         except Exception:
             logger.debug("telegram send failed")
+
+# strategies_master.json 로딩
+STRATEGY_SPECS = load_strategies()
 
 
 BUY_PARAMS: Dict[str, Dict[str, Dict[str, float]]] = {
@@ -105,6 +109,9 @@ def _get_df(ticker: str) -> pd.DataFrame | None:
 
 def check_buy_signal(strategy_name: str, ticker: str, level: str = "중도적") -> bool:
     """Return True if buy conditions are met for given strategy and level."""
+    if strategy_name not in STRATEGY_SPECS:
+        logger.warning("Unknown strategy %s", strategy_name)
+        return False
     params = BUY_PARAMS.get(strategy_name, {}).get(level)
     if not params:
         return False
@@ -197,6 +204,9 @@ def check_sell_signal(
 
     ``risk_conf`` 가 제공되면 전역 손절 한도를 함께 적용한다.
     """
+    if strategy_name not in STRATEGY_SPECS:
+        logger.warning("Unknown strategy %s", strategy_name)
+        return False
     params = SELL_PARAMS.get(strategy_name, {}).get(level)
     if not params:
         return False
