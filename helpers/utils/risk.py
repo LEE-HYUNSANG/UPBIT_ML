@@ -2,6 +2,13 @@ import json
 import os
 
 
+def _validate(data: dict) -> None:
+    """숫자 값이 허용 범위인지 확인한다."""
+    max_dd = float(data.get("max_dd_per_coin", 0))
+    if max_dd < 0 or max_dd > 1:
+        raise ValueError("max_dd_per_coin out of range")
+
+
 def load_risk_settings(path: str = "config/risk.json") -> dict:
     """리스크 관리 설정을 읽어 기본값을 제공한다."""
     if not os.path.exists(path):
@@ -12,6 +19,7 @@ def load_risk_settings(path: str = "config/risk.json") -> dict:
 
 def save_risk_settings(data: dict, path: str = "config/risk.json") -> None:
     """리스크 관리 설정을 저장한다."""
+    _validate(data)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 

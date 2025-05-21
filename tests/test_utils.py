@@ -21,6 +21,8 @@ if 'pyupbit' not in sys.modules:
 
 import utils
 from helpers.utils.funds import load_fund_settings, save_fund_settings
+from helpers.utils.risk import save_risk_settings
+import pytest
 
 
 def test_calc_tis_fallback():
@@ -54,4 +56,18 @@ def test_fund_settings_io(tmp_path):
     assert loaded["max_invest_per_coin"] == 1000
     assert loaded["buy_amount"] == 200
     assert "updated" in loaded
+
+
+def test_fund_settings_validation(tmp_path):
+    path = tmp_path / "f.json"
+    data = {"max_invest_per_coin": -1, "buy_amount": 1, "max_concurrent_trades": 1,
+            "slippage_tolerance": 0.1, "balance_exhausted_action": "알림"}
+    with pytest.raises(ValueError):
+        save_fund_settings(data, str(path))
+
+
+def test_risk_settings_validation(tmp_path):
+    path = tmp_path / "r.json"
+    with pytest.raises(ValueError):
+        save_risk_settings({"max_dd_per_coin": -0.1}, str(path))
 
