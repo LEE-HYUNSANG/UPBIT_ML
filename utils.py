@@ -102,11 +102,17 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
     ``count`` 는 업비트에서 가져올 틱 데이터 개수(최대 200)를 지정한다.
     API 요청에 실패하면 ``None`` 을 반환한다.
     """
+    logging.debug("calc_tis start for %s", ticker)
     try:
         ticks = pyupbit.get_ticks(ticker, count=count)
+        if not ticks:
+            logging.debug("calc_tis no tick data for %s", ticker)
+            raise ValueError("no ticks")
         df = pd.DataFrame(ticks)
         cutoff = int((time.time() - minutes * 60) * 1000)
         recent = df[df["timestamp"] >= cutoff]
+        if recent.empty:
+            logging.debug("calc_tis no recent ticks for %s", ticker)
         buy_qty = recent[recent["ask_bid"] == "BID"]["trade_volume"].sum()
         sell_qty = recent[recent["ask_bid"] == "ASK"]["trade_volume"].sum()
         tis = (buy_qty / sell_qty) * 100 if sell_qty > 0 else 0.0
@@ -119,11 +125,13 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
         try:
             ob = pyupbit.get_orderbook(ticker)
             if not ob:
+                logging.debug("calc_tis no orderbook for %s", ticker)
                 return None
             book = ob[0]
             bid = float(book.get("total_bid_size", 0))
             ask = float(book.get("total_ask_size", 0))
             if ask == 0:
+                logging.debug("calc_tis ask size zero for %s", ticker)
                 return None
             tis = (bid / ask) * 100
             logging.debug("[TIS-FB] %s orderbook tis=%.2f", ticker, tis)
