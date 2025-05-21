@@ -17,6 +17,7 @@
   <div class="collapse navbar-collapse ms-4" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">대시보드</a></li>
+      <li class="nav-item"><a class="nav-link {% if '/dashboard' in request.path %}active{% endif %}" href="/dashboard">모니터</a></li>
       <li class="nav-item"><a class="nav-link {% if '/strategy' in request.path %}active{% endif %}" href="/strategy">매매설정</a></li>
       <li class="nav-item"><a class="nav-link {% if '/ai-analysis' in request.path %}active{% endif %}" href="/ai-analysis">AI전략분석</a></li>
       <li class="nav-item"><a class="nav-link {% if '/risk' in request.path %}active{% endif %}" href="/risk">리스크관리</a></li>

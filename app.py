@@ -19,6 +19,7 @@ from utils import (
 )
 from bot.trader import UpbitTrader
 from bot.runtime_settings import settings, load_from_file
+from helpers.logger import log_trade, get_recent_logs
 import pyupbit
 import threading
 import time
@@ -954,6 +955,13 @@ def dashboard():
         config=filter_config,
     )
 
+
+@app.route("/dashboard")
+def realtime_dashboard():
+    """실시간 로그와 포지션을 모니터링하는 페이지를 렌더링한다."""
+    logger.debug("Render real-time dashboard")
+    return render_template("dashboard.html")
+
 @app.route("/strategy")
 def strategy_page():
     logger.debug("Render strategy page")
@@ -1037,6 +1045,7 @@ def start_bot():
             f"1회 매수 {settings.buy_amount:,}원, 최대 {settings.max_positions}종목"
         )
         notify(msg)
+        log_trade("bot", {"action": "start"})
         update_timestamp()
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
@@ -1055,6 +1064,7 @@ def stop_bot():
             return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
         settings.running = False
         notify('봇이 정지되었습니다. 자동 주문이 중단되었습니다.')
+        log_trade("bot", {"action": "stop"})
         update_timestamp()
         return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
     except Exception as e:
@@ -1206,6 +1216,8 @@ def manual_sell():
             '주문 방식: 시장가'
         )
         notify(msg)
+        log_trade("trade", {"action": "sell", "coin": coin, "price": price})
+        socketio.emit('log', {"type": "trade", "action": "sell", "coin": coin, "price": price})
         global positions, alerts
         positions = [p for p in positions if p['coin'] != coin]
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
@@ -1235,6 +1247,8 @@ def manual_buy():
             '주문 방식: 시장가'
         )
         notify(msg)
+        log_trade("trade", {"action": "buy", "coin": coin, "price": price, "amount": amount})
+        socketio.emit('log', {"type": "trade", "action": "buy", "coin": coin, "price": price, "amount": amount})
         global positions, alerts
         positions.append({
             "coin": coin,
@@ -1351,6 +1365,17 @@ def api_account():
     except Exception as e:
         notify_error(f"계좌 조회 실패: {e}", "E018")
         return jsonify(result="error", message="계좌 조회 실패"), 500
+
+
+@app.route("/api/logs", methods=["GET"])
+def api_logs():
+    """최근 트레이드 로그를 반환한다."""
+    logger.debug("api_logs called")
+    try:
+        return jsonify(result="success", logs=get_recent_logs())
+    except Exception as e:
+        notify_error(f"로그 조회 실패: {e}", "E030")
+        return jsonify(result="error", message="로그 조회 실패"), 500
 
 
 @app.route("/save", methods=["POST"])
