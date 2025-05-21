@@ -1,236 +1,187 @@
-# -*- coding: utf-8 -*-
-"""Simple strategy signal helpers."""
+"""Strategy signal helpers using formulas from JSON specifications."""
 
 from __future__ import annotations
 
+import ast
 import logging
-import os
-from typing import Dict
+import re
+from typing import Any, Dict
 
 import pandas as pd
-import pyupbit
 
-from bot.indicators import calc_indicators
-from utils import calc_tis, load_secrets, send_telegram
 from helpers.utils.risk import load_risk_settings
 from strategy_loader import load_strategies
 
 logger = logging.getLogger(__name__)
 
-try:
-    _SEC = load_secrets()
-    _TOKEN = _SEC.get("TELEGRAM_TOKEN")
-    _CHAT = _SEC.get("TELEGRAM_CHAT_ID")
-except Exception:  # pragma: no cover
-    _TOKEN = os.getenv("TELEGRAM_TOKEN")
-    _CHAT = os.getenv("TELEGRAM_CHAT_ID")
-
-
-def _alert(msg: str) -> None:
-    if _TOKEN and _CHAT:
-        try:
-            send_telegram(_TOKEN, _CHAT, msg)
-        except Exception:
-            logger.debug("telegram send failed")
-
-# strategies_master.json 로딩
+# 전략 정의 로드
 STRATEGY_SPECS = load_strategies()
 
-
-BUY_PARAMS: Dict[str, Dict[str, Dict[str, float]]] = {
-    "M-BREAK": {
-        "공격적": {"atr": 0.03, "vol": 1.6, "break": 0.001},
-        "중도적": {"atr": 0.035, "vol": 1.8, "break": 0.0015},
-        "보수적": {"atr": 0.04, "vol": 2.0, "break": 0.002},
-    },
-    "P-PULL": {
-        "공격적": {"rsi": 30, "vol": 1.1, "near": 0.004},
-        "중도적": {"rsi": 28, "vol": 1.2, "near": 0.003},
-        "보수적": {"rsi": 26, "vol": 1.3, "near": 0.002},
-    },
-    "T-FLOW": {
-        "공격적": {"slope": 0.001, "rsi_low": 45, "rsi_high": 60},
-        "중도적": {"slope": 0.0015, "rsi_low": 48, "rsi_high": 60},
-        "보수적": {"slope": 0.002, "rsi_low": 50, "rsi_high": 58},
-    },
-    "B-LOW": {
-        "공격적": {"box": 0.08, "touch": 0.02, "rsi": 30},
-        "중도적": {"box": 0.06, "touch": 0.01, "rsi": 25},
-        "보수적": {"box": 0.05, "touch": 0.0, "rsi": 22},
-    },
-    "V-REV": {
-        "공격적": {"drop": 0.035, "vol": 2.0, "rebound": 0.04},
-        "중도적": {"drop": 0.04, "vol": 2.5, "rebound": 0.04},
-        "보수적": {"drop": 0.05, "vol": 3.0, "rebound": 0.05},
-    },
-    "G-REV": {
-        "공격적": {"rsi": 45, "vol": 0.5},
-        "중도적": {"rsi": 48, "vol": 0.6},
-        "보수적": {"rsi": 50, "vol": 0.7},
-    },
-    "VOL-BRK": {
-        "공격적": {"atr": 1.4, "vol": 1.8, "rsi": 55},
-        "중도적": {"atr": 1.5, "vol": 2.0, "rsi": 60},
-        "보수적": {"atr": 1.6, "vol": 2.2, "rsi": 65},
-    },
-    "EMA-STACK": {
-        "공격적": {"adx": 25},
-        "중도적": {"adx": 30},
-        "보수적": {"adx": 35},
-    },
-    "VWAP-BNC": {
-        "공격적": {"vwap": 0.015, "rsi_low": 40, "rsi_high": 65, "vol": 0.9},
-        "중도적": {"vwap": 0.012, "rsi_low": 45, "rsi_high": 60, "vol": 1.0},
-        "보수적": {"vwap": 0.01, "rsi_low": 48, "rsi_high": 58, "vol": 1.1},
-    },
-}
-
-SELL_PARAMS: Dict[str, Dict[str, Dict[str, float]]] = {
-    name: {
-        "공격적": {"tp": 0.06, "sl": 0.03, "tis": 95},
-        "중도적": {"tp": 0.04, "sl": 0.02, "tis": 95},
-        "보수적": {"tp": 0.03, "sl": 0.015, "tis": 95},
-    }
-    for name in BUY_PARAMS.keys()
+# 레벨 문자열 -> 인덱스 매핑
+LEVEL_INDEX = {
+    "공격적": 0,
+    "aggressive": 0,
+    "중도적": 1,
+    "moderate": 1,
+    "보수적": 2,
+    "conservative": 2,
 }
 
 
-def _get_df(ticker: str) -> pd.DataFrame | None:
-    try:
-        df = pyupbit.get_ohlcv(ticker, interval="minute5", count=80)
-    except Exception as e:
-        logger.error("[API Exception] OHLCV fail %s", e)
-        _alert(f"[API Exception] 캔들 조회 실패: {ticker} {e}")
-        return None
-    if df is None or df.empty:
-        return None
-    return calc_indicators(df)
+def _sanitize(token: str) -> str:
+    """Convert raw indicator token to a safe variable name."""
+    return re.sub(r"[^a-zA-Z0-9_]", "", token).lower()
 
 
-def check_buy_signal(strategy_name: str, ticker: str, level: str = "중도적") -> bool:
-    """Return True if buy conditions are met for given strategy and level."""
-    if strategy_name not in STRATEGY_SPECS:
-        logger.warning("Unknown strategy %s", strategy_name)
-        return False
-    params = BUY_PARAMS.get(strategy_name, {}).get(level)
-    if not params:
-        return False
-    df = _get_df(ticker)
-    if df is None:
-        return False
+def _translate_formula(expr: str) -> str:
+    """Replace indicator tokens with safe variable names."""
+
+    pattern = r"[A-Za-z][A-Za-z0-9_%(),-]*"
+    keywords = {"and", "or", "not", "True", "False"}
+
+    def repl(match: re.Match[str]) -> str:
+        token = match.group(0)
+        if token in keywords:
+            return token
+        return _sanitize(token)
+
+    return re.sub(pattern, repl, expr)
+
+
+def safe_eval(expr: str, variables: Dict[str, Any]) -> Any:
+    """Safely evaluate an expression with the given variables."""
+
+    node = ast.parse(expr, mode="eval")
+    for sub in ast.walk(node):
+        if isinstance(sub, ast.Call):
+            raise ValueError("function calls not allowed")
+        if isinstance(sub, ast.Name) and sub.id not in variables:
+            raise ValueError(f"unknown variable {sub.id}")
+    compiled = compile(node, "<formula>", "eval")
+    return eval(compiled, {"__builtins__": {}}, variables)
+
+
+def df_to_market(df: pd.DataFrame, buy_price: float | None = None) -> Dict[str, float]:
+    """Convert indicator DataFrame to a market data dictionary."""
+
     last = df.iloc[-1]
+    prev1 = df.iloc[-2] if len(df) > 1 else last
+    prev2 = df.iloc[-3] if len(df) > 2 else prev1
 
-    if strategy_name == "M-BREAK":
-        prev_high = df["high"][-21:-1].max()
-        vol_ma20 = df["volume"][-20:].mean()
-        return (
-            last["ema5"] > last["ema20"] > last["ema60"]
-            and last["atr"] >= params["atr"]
-            and last["volume"] >= vol_ma20 * params["vol"]
-            and last["close"] > prev_high * (1 + params["break"])
-        )
-    if strategy_name == "P-PULL":
-        prev_vol = df["volume"].iloc[-2]
-        ema50 = last["ema50"]
-        return (
-            last["ema5"] > last["ema20"] > last["ema60"]
-            and abs(last["close"] - ema50) / (ema50 + 1e-9) < params["near"]
-            and last["rsi"] <= params["rsi"]
-            and last["volume"] >= prev_vol * params["vol"]
-        )
-    if strategy_name == "T-FLOW":
-        slope = (df["ema20"].iloc[-1] - df["ema20"].iloc[-5]) / (abs(df["ema20"].iloc[-5]) + 1e-9)
-        obv_inc = all(df["obv"].iloc[-i] > df["obv"].iloc[-i - 1] for i in range(1, 4))
-        return (
-            slope > params["slope"]
-            and obv_inc
-            and params["rsi_low"] <= last["rsi"] <= params["rsi_high"]
-        )
-    if strategy_name == "B-LOW":
-        low80 = df["low"][-80:].min()
-        high80 = df["high"][-80:].max()
-        box_ratio = (high80 - low80) / (low80 + 1e-9)
-        return (
-            box_ratio < params["box"]
-            and last["low"] <= low80 * (1 + params["touch"])
-            and last["rsi"] < params["rsi"]
-        )
-    if strategy_name == "V-REV":
-        prev = df.iloc[-2]
-        price_drop = abs(prev["close"] - last["close"]) / (prev["close"] + 1e-9)
-        volume_burst = last["volume"] > prev["volume"] * params["vol"]
-        rsi_rise = last["rsi"] > 20 and prev["rsi"] <= 18
-        rebound = (last["close"] - prev["close"]) / (prev["close"] + 1e-9) > params["rebound"]
-        return price_drop >= params["drop"] and volume_burst and rsi_rise and rebound
-    if strategy_name == "G-REV":
-        prev_vol = df["volume"].iloc[-2]
-        golden = last["ema50"] > last["ema200"]
-        return golden and last["rsi"] >= params["rsi"] and last["volume"] >= prev_vol * params["vol"]
-    if strategy_name == "VOL-BRK":
-        atr10 = df["atr"][-10:].mean()
-        vol20 = df["volume"][-20:].mean()
-        high20 = df["high"][-20:].max()
-        return (
-            last["atr"] > atr10 * params["atr"]
-            and last["volume"] > vol20 * params["vol"]
-            and last["high"] > high20 * 0.999
-            and last["rsi"] >= params["rsi"]
-        )
-    if strategy_name == "EMA-STACK":
-        return (
-            last["ema25"] > last["ema100"] > last["ema200"]
-            and last["adx"] >= params["adx"]
-        )
-    if strategy_name == "VWAP-BNC":
-        prev_vol = df["volume"].iloc[-2]
-        vwap_ratio = abs(last["close"] - last["vwap"]) / (last["vwap"] + 1e-9)
-        return (
-            last["ema5"] > last["ema20"] > last["ema60"]
-            and vwap_ratio < params["vwap"]
-            and params["rsi_low"] <= last["rsi"] <= params["rsi_high"]
-            and last["volume"] >= prev_vol * params["vol"]
-        )
-    return False
+    data: Dict[str, float] = {}
+    for col in df.columns:
+        data[_sanitize(col)] = float(last[col])
+
+    if "ema20" in df.columns:
+        data["ema20_prev5"] = float(df["ema20"].iloc[-5])
+
+    data.update(
+        {
+            "vol0": float(last.get("volume", 0)),
+            "vol1": float(prev1.get("volume", 0)),
+            "vol2": float(prev2.get("volume", 0)),
+            "close1": float(prev1.get("close", 0)),
+            "close2": float(prev2.get("close", 0)),
+            "rsi1": float(prev1.get("rsi", 0)),
+            "rsi2": float(prev2.get("rsi", 0)),
+            "obv1": float(prev1.get("obv", 0)),
+            "obv2": float(prev2.get("obv", 0)),
+        }
+    )
+
+    if "volume" in df:
+        data["ma_vol20"] = float(df["volume"].iloc[-20:].mean())
+    if "high" in df:
+        data["prevhigh20"] = float(df["high"].iloc[-21:-1].max())
+        data["maxhigh20"] = float(df["high"].iloc[-20:].max())
+        data["high80"] = float(df["high"].iloc[-80:].max())
+    if "low" in df:
+        data["minlow5"] = float(df["low"].iloc[-5:].min())
+        data["minlow10"] = float(df["low"].iloc[-10:].min())
+        data["minlow20"] = float(df["low"].iloc[-20:].min())
+        data["low80"] = float(df["low"].iloc[-80:].min())
+    if "atr" in df:
+        data["atr10"] = float(df["atr"].iloc[-10:].mean())
+
+    if buy_price is not None:
+        data["entryprice"] = float(buy_price)
+
+    return data
+
+
+def _select_formula(spec, attr: str, level: str) -> str:
+    """Return formula string for the given level."""
+
+    formula = getattr(spec, attr, "")
+    if formula:
+        return formula
+    levels = getattr(spec, f"{attr.split('_')[0]}_levels", [])
+    idx = LEVEL_INDEX.get(level, 1)
+    if levels and idx < len(levels):
+        return " and ".join(levels[idx])
+    return ""
+
+
+def check_buy_signal(short_code: str, level: str, market: Dict[str, Any]) -> bool:
+    """Evaluate buy formula and return True/False."""
+
+    spec = STRATEGY_SPECS.get(short_code)
+    if not spec:
+        logger.warning("Unknown strategy %s", short_code)
+        return False
+
+    formula = _select_formula(spec, "buy_formula", level)
+    if not formula:
+        logger.warning("No buy formula for %s", short_code)
+        return False
+
+    try:
+        expr = _translate_formula(formula)
+        return bool(safe_eval(expr, market))
+    except Exception as e:  # pragma: no cover - formula errors
+        logger.warning("Buy formula error for %s: %s", short_code, e)
+        return False
 
 
 def check_sell_signal(
-    strategy_name: str,
-    ticker: str,
-    buy_price: float,
-    level: str = "중도적",
+    short_code: str,
+    level: str,
+    market: Dict[str, Any],
     risk_conf: Dict[str, float] | None = None,
 ) -> bool:
-    """Return True if sell conditions are met for given strategy and level.
+    """Evaluate sell formula and return True/False."""
 
-    ``risk_conf`` 가 제공되면 전역 손절 한도를 함께 적용한다.
-    """
-    if strategy_name not in STRATEGY_SPECS:
-        logger.warning("Unknown strategy %s", strategy_name)
+    spec = STRATEGY_SPECS.get(short_code)
+    if not spec:
+        logger.warning("Unknown strategy %s", short_code)
         return False
-    params = SELL_PARAMS.get(strategy_name, {}).get(level)
-    if not params:
+
+    formula = _select_formula(spec, "sell_formula", level)
+    if not formula:
+        logger.warning("No sell formula for %s", short_code)
         return False
+
     if risk_conf is None:
         risk_conf = load_risk_settings()
-    df = _get_df(ticker)
-    if df is None:
-        return False
+
+    entry = float(market.get("entryprice", 0))
+    price = float(market.get("close", 0))
+    max_dd = float(risk_conf.get("max_dd_per_coin", 0)) if risk_conf else 0
+    if entry and max_dd and price <= entry * (1 - max_dd):
+        return True
+
     try:
-        price = pyupbit.get_current_price(ticker) or float(df["close"].iloc[-1])
-    except Exception as e:
-        logger.error("[API Exception] price fail %s", e)
-        _alert(f"[API Exception] 시세 조회 실패: {ticker} {e}")
+        expr = _translate_formula(formula)
+        return bool(safe_eval(expr, market))
+    except Exception as e:  # pragma: no cover - formula errors
+        logger.warning("Sell formula error for %s: %s", short_code, e)
         return False
-    last = df.iloc[-1]
-    tis = calc_tis(ticker) or 100
-    pnl = (price - buy_price) / (buy_price + 1e-9)
-    dc = df["ema5"].iloc[-2] > df["ema20"].iloc[-2] and df["ema5"].iloc[-1] < df["ema20"].iloc[-1]
 
-    if risk_conf and pnl <= -float(risk_conf.get("max_dd_per_coin", 0.0)):
-        return True
 
-    if dc or tis < params["tis"]:
-        return True
-    if pnl <= -params["sl"] or pnl >= params["tp"]:
-        return True
-    return False
+__all__ = [
+    "check_buy_signal",
+    "check_sell_signal",
+    "df_to_market",
+    "safe_eval",
+]
+

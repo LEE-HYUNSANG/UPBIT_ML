@@ -1,7 +1,5 @@
 import pandas as pd
-from unittest.mock import patch
-
-from helpers.strategies import check_buy_signal, check_sell_signal
+from helpers.strategies import check_buy_signal, check_sell_signal, df_to_market
 
 
 def _base_df(rows=80):
@@ -78,17 +76,7 @@ def make_df(strategy: str) -> pd.DataFrame:
     return df
 
 
-def _patch_env(mock_ohlcv, mock_price, mock_ind, df):
-    mock_ohlcv.return_value = df
-    mock_price.return_value = float(df["close"].iloc[-1])
-    mock_ind.side_effect = lambda d: d
-
-
-@patch("helpers.strategies.calc_indicators")
-@patch("helpers.strategies.pyupbit.get_current_price")
-@patch("helpers.strategies.pyupbit.get_ohlcv")
-@patch("helpers.strategies.calc_tis", return_value=100)
-def test_buy_signals(_, mock_ohlcv, mock_price, mock_ind):
+def test_buy_signals():
     for strat in [
         "M-BREAK",
         "P-PULL",
@@ -101,15 +89,11 @@ def test_buy_signals(_, mock_ohlcv, mock_price, mock_ind):
         "VWAP-BNC",
     ]:
         df = make_df(strat)
-        _patch_env(mock_ohlcv, mock_price, mock_ind, df)
-        assert check_buy_signal(strat, "KRW-TEST", "공격적"), strat
+        market = df_to_market(df, 1.0)
+        assert check_buy_signal(strat, "공격적", market)
 
 
-@patch("helpers.strategies.calc_indicators")
-@patch("helpers.strategies.pyupbit.get_current_price")
-@patch("helpers.strategies.pyupbit.get_ohlcv")
-@patch("helpers.strategies.calc_tis", return_value=100)
-def test_sell_signals(_, mock_ohlcv, mock_price, mock_ind):
+def test_sell_signals():
     for strat in [
         "M-BREAK",
         "P-PULL",
@@ -122,5 +106,5 @@ def test_sell_signals(_, mock_ohlcv, mock_price, mock_ind):
         "VWAP-BNC",
     ]:
         df = make_df(strat)
-        _patch_env(mock_ohlcv, mock_price, mock_ind, df)
-        assert check_sell_signal(strat, "KRW-TEST", 1.0, "공격적"), strat
+        market = df_to_market(df, 1.0)
+        assert check_sell_signal(strat, "공격적", market)
