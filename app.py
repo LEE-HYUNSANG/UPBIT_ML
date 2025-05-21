@@ -209,11 +209,20 @@ def update_monitor_list() -> None:
 
     한 번 생성된 목록은 파일로 보관하여 이후 조회 시 그대로 사용한다.
     """
+    global signal_cache
     signals = get_filtered_signals()
     os.makedirs(os.path.dirname(MONITOR_FILE), exist_ok=True)
     with open(MONITOR_FILE, "w", encoding="utf-8") as f:
         json.dump(signals, f, ensure_ascii=False, indent=2)
     logger.debug("[MARKET] Monitor list saved %d coins", len(signals))
+
+    results = []
+    for s in signals:
+        ticker = f"KRW-{s['coin']}"
+        results.append(calc_buy_signal_retry(ticker, s["coin"]))
+    with _signal_lock:
+        signal_cache = results
+    logger.debug("[MARKET] Signal cache primed %d coins", len(results))
 
 
 def refresh_market_data() -> None:
