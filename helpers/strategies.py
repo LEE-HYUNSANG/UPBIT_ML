@@ -4,16 +4,33 @@
 from __future__ import annotations
 
 import logging
+import os
 from typing import Dict
 
 import pandas as pd
 import pyupbit
 
 from bot.indicators import calc_indicators
-from utils import calc_tis
+from utils import calc_tis, load_secrets, send_telegram
 from helpers.utils.risk import load_risk_settings
 
 logger = logging.getLogger(__name__)
+
+try:
+    _SEC = load_secrets()
+    _TOKEN = _SEC.get("TELEGRAM_TOKEN")
+    _CHAT = _SEC.get("TELEGRAM_CHAT_ID")
+except Exception:  # pragma: no cover
+    _TOKEN = os.getenv("TELEGRAM_TOKEN")
+    _CHAT = os.getenv("TELEGRAM_CHAT_ID")
+
+
+def _alert(msg: str) -> None:
+    if _TOKEN and _CHAT:
+        try:
+            send_telegram(_TOKEN, _CHAT, msg)
+        except Exception:
+            logger.debug("telegram send failed")
 
 
 BUY_PARAMS: Dict[str, Dict[str, Dict[str, float]]] = {
@@ -77,7 +94,9 @@ SELL_PARAMS: Dict[str, Dict[str, Dict[str, float]]] = {
 def _get_df(ticker: str) -> pd.DataFrame | None:
     try:
         df = pyupbit.get_ohlcv(ticker, interval="minute5", count=80)
-    except Exception:
+    except Exception as e:
+        logger.error("[API Exception] OHLCV fail %s", e)
+        _alert(f"[API Exception] 캔들 조회 실패: {ticker} {e}")
         return None
     if df is None or df.empty:
         return None
@@ -186,7 +205,12 @@ def check_sell_signal(
     df = _get_df(ticker)
     if df is None:
         return False
-    price = pyupbit.get_current_price(ticker) or float(df["close"].iloc[-1])
+    try:
+        price = pyupbit.get_current_price(ticker) or float(df["close"].iloc[-1])
+    except Exception as e:
+        logger.error("[API Exception] price fail %s", e)
+        _alert(f"[API Exception] 시세 조회 실패: {ticker} {e}")
+        return False
     last = df.iloc[-1]
     tis = calc_tis(ticker) or 100
     pnl = (price - buy_price) / (buy_price + 1e-9)

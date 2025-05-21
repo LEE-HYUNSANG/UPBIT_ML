@@ -13,7 +13,7 @@ from typing import Dict, Callable, Any
 
 import pyupbit
 
-from utils import load_filter_settings, load_market_signals
+from utils import load_filter_settings, load_market_signals, load_secrets, send_telegram
 from helpers.strategies import check_buy_signal, check_sell_signal
 from helpers.execution import smart_buy, smart_sell
 from helpers.logger import log_trade
@@ -25,6 +25,24 @@ from helpers.utils.risk import (
 )
 
 logger = logging.getLogger(__name__)
+
+try:
+    _SEC = load_secrets()
+    _TOKEN = _SEC.get("TELEGRAM_TOKEN")
+    _CHAT = _SEC.get("TELEGRAM_CHAT_ID")
+except Exception:  # pragma: no cover - secrets load
+    _TOKEN = os.getenv("TELEGRAM_TOKEN")
+    _CHAT = os.getenv("TELEGRAM_CHAT_ID")
+
+
+def _alert(msg: str) -> None:
+    """텔레그램과 로그로 오류를 알린다."""
+    logger.error(msg)
+    if _TOKEN and _CHAT:
+        try:
+            send_telegram(_TOKEN, _CHAT, msg)
+        except Exception:  # pragma: no cover - network
+            logger.debug("telegram send failed")
 
 # 포지션 변경 시 동시 접근을 방지하기 위한 락
 _LOCK = threading.Lock()
@@ -45,8 +63,10 @@ def _safe_call(
         except Exception as exc:  # pragma: no cover - runtime
             log_trade("ERROR", {"func": func.__name__, "error": str(exc)})
             logger.warning("%s retry %s/%s", func.__name__, attempt + 1, retries)
+            _alert(f"[API Exception] {func.__name__} 오류: {exc}")
             time.sleep(delay)
             delay *= 2
+    _alert(f"[ERROR] {func.__name__} 호출 실패")
     raise
 
 
@@ -117,6 +137,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
         max_workers=fund_conf.get("max_concurrent_trades", 5)
     )
     next_run = time.time()
+    error_count = 0
     while True:
         try:
             now = time.time()
@@ -218,6 +239,15 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
 
         except Exception as e:  # pragma: no cover - runtime loop
             logger.exception("[BOT] error %s", e)
+            _alert(f"[ERROR] 봇 루프 오류: {e}")
+            error_count += 1
+            if error_count >= 3:
+                _alert(f"[ERROR] 연속 {error_count}회 오류 발생")
+                error_count = 0
+            time.sleep(10)
+            next_run = time.time()
+            continue
+        error_count = 0
         next_run += interval
         sleep = max(0, next_run - time.time())
         time.sleep(sleep)
