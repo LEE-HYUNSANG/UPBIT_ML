@@ -1026,10 +1026,10 @@ def api_get_funds():
 
 @app.route("/api/funds", methods=["POST"])
 def api_post_funds():
-    from helpers.utils.funds import save_fund_settings
+    from helpers.utils.funds import save_fund_settings, load_fund_settings
     data = request.get_json(force=True)
     save_fund_settings(data)
-    return jsonify({"status": "ok"})
+    return jsonify(load_fund_settings())
 
 @app.route("/settings")
 def settings_page():
@@ -1040,6 +1040,9 @@ def settings_page():
 def start_bot():
     logger.debug("start_bot called")
     logger.info("[API] 봇 시작 요청")
+    if settings.running:
+        logger.info("Start request ignored: already running")
+        return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
     try:
         trader.set_tickers(get_filtered_tickers())
         started = trader.start()
@@ -1057,6 +1060,7 @@ def start_bot():
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
     except Exception as e:
+        settings.running = False
         notify_error(f"봇 시작 실패: {e}", "E001")
         return jsonify(result="error", message="봇 시작 실패"), 500
 
