@@ -109,6 +109,7 @@ trader = UpbitTrader(
 
 def notify(message: str) -> None:
     """브라우저와 텔레그램으로 메시지를 전송한다."""
+    logger.debug("[NOTIFY] %s", message)
     socketio.emit('notification', {'message': message})
     token = secrets.get("TELEGRAM_TOKEN")
     chat_id = secrets.get("TELEGRAM_CHAT_ID")
@@ -123,8 +124,10 @@ def notify_error(message: str, code: str) -> None:
 
 def emit_refresh_event() -> None:
     """1초 간격으로 세 번 refresh_data SocketIO 이벤트를 발생시킨다."""
+    logger.debug("[SOCKET] emit_refresh_event")
     def _emit():
         for _ in range(3):
+            logger.debug("[SOCKET] emit refresh_data")
             socketio.emit("refresh_data")
             time.sleep(1)
 
