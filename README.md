@@ -51,10 +51,10 @@ The JavaScript in `main.js` will call `/api/start-bot` and show any returned mes
 SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
 ## Market data
-`app.py` retrieves current prices and 1h volume from Upbit once per minute. The
-coins are filtered by the values in `config/filter.json` (`min_price`,
-`max_price`, `rank`), and this filtered list controls both monitoring and real
-trading targets.
+`app.py` retrieves current prices and 1h volume from Upbit once per minute.
+Coins are filtered by the values in `config/filter.json` (`min_price`, `max_price`, `rank`).
+The resulting list is written to `config/monitor_list.json` only when settings are saved,
+so the same coins are reused until you update the filter.
 
 ## Running
 Install requirements and start the server:

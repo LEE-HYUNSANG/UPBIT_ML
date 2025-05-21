@@ -186,7 +186,10 @@ def save_market_file(data: list[dict]) -> None:
 
 
 def update_monitor_list() -> None:
-    """대시보드 필터를 적용해 모니터링 목록을 저장한다."""
+    """대시보드 필터를 적용해 모니터링 목록을 저장한다.
+
+    한 번 생성된 목록은 파일로 보관하여 이후 조회 시 그대로 사용한다.
+    """
     signals = get_filtered_signals()
     os.makedirs(os.path.dirname(MONITOR_FILE), exist_ok=True)
     with open(MONITOR_FILE, "w", encoding="utf-8") as f:
@@ -236,7 +239,7 @@ def refresh_market_data() -> None:
             market_cache = data
         logger.debug("[MARKET] Updated %d coins", len(data))
         save_market_file(data)
-        update_monitor_list()
+        # 모니터링 코인 목록은 설정 변경 시에만 갱신한다
     except Exception as e:
         logger.exception("Market data fetch failed: %s", e)
 
@@ -453,6 +456,7 @@ def get_filtered_tickers() -> list[str]:
 
 # Initial data load and background threads
 refresh_market_data()
+update_monitor_list()
 threading.Thread(target=market_refresh_loop, daemon=True).start()
 threading.Thread(target=buy_signal_monitor_loop, daemon=True).start()
 
@@ -889,6 +893,7 @@ def save_settings():
         os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
             json.dump(filter_config, f, ensure_ascii=False, indent=2)
+        update_monitor_list()
         update_timestamp()
         notify('설정이 저장되었습니다.')
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
