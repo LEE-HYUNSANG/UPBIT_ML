@@ -3,7 +3,6 @@ UPBIT 5분봉 자동매매 9대 전략 모듈 (최종)
 각 전략별 파라미터/조건/함수, STRATS 등록, select_strategy 지원
 초보자도 이해할 수 있는 상세 주석 포함
 """
-import numpy as np
 import logging
 
 logger = logging.getLogger(__name__)
@@ -237,6 +236,26 @@ STRATS = {
     "EMA-STACK": ema_stack,
     "VWAP-BNC": vwap_bnc
 }
+
+# ---------------------------------------------------------------------------
+# 자동 등록되지 않은 전략에 대한 기본 함수 생성
+# ---------------------------------------------------------------------------
+from strategy_loader import load_strategies
+
+
+def _placeholder(name):
+    def func(df, tis, params):
+        logger.warning("Strategy %s not implemented", name)
+        return False, params
+    func.__name__ = name.lower().replace("-", "_")
+    return func
+
+
+_SPECS = load_strategies()
+for _sc in _SPECS:
+    if _sc not in STRATS:
+        STRATS[_sc] = _placeholder(_sc)
+        globals()[_sc.lower().replace("-", "_")] = STRATS[_sc]
 
 def select_strategy(strategy_name, df, tis, params):
     """
