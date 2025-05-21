@@ -268,9 +268,9 @@ docker run -p 8000:8000 upbit-bot
 ]
 ```
 
-해당 오류는 인라인 스타일에서 Jinja2 템플릿 변수를 사용하면서 세미콜론이 누락되어 발생했습니다. 아래와 같이 수정하여 해결하였습니다.
+해당 오류는 템플릿 변수를 직접 스타일 속성에 사용해 CSS 파서가 값을 인식하지 못해 발생했습니다. `data-pos` 속성으로 위치 값을 전달하고 스크립트에서 스타일을 적용하도록 변경하면 경고가 사라집니다.
 
 ```html
-<span class="pin" style="left: {{ p.pin_pct }}%;"></span>
+<span class="pin" data-pos="{{ p.pin_pct }}"></span>
 ```
 
