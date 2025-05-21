@@ -21,7 +21,8 @@ const f = id => document.getElementById(id);
   f("max-trades").value = data.max_concurrent_trades;
   f("slippage").value = data.slippage_tolerance;
   f("balance-action").value = data.balance_exhausted_action;
-  document.getElementById("last-saved").textContent = new Date().toLocaleString();
+  document.getElementById("last-saved").textContent =
+    data.updated ? new Date(data.updated).toLocaleString() : "-";
 })();
 
 document.getElementById("btn-fund-save").onclick = async () => {
@@ -33,6 +34,16 @@ document.getElementById("btn-fund-save").onclick = async () => {
     balance_exhausted_action: f("balance-action").value,
     updated: new Date().toISOString()
   };
-  console.log("★ funds payload", payload);
-  alert("로컬 미리보기용 — POST /api/funds 는 3단계에서 구현됩니다.");
+  const res = await fetch(apiURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (res.ok) {
+    showAlert("자금 설정이 저장되었습니다.");
+    document.dispatchEvent(new CustomEvent("fundsUpdated", { detail: payload }));
+    document.getElementById("last-saved").textContent = new Date().toLocaleString();
+  } else {
+    showAlert("저장 실패", "에러");
+  }
 };
