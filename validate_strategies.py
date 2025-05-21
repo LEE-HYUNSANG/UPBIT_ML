@@ -12,7 +12,6 @@ def main() -> None:
     specs = load_strategies()
     codes = importlib.import_module("bot.strategy")
     available = {name for name, _ in inspect.getmembers(codes, inspect.isfunction)}
-
     def _func_name(short_code: str) -> str:
         """Convert short code to function name."""
         return short_code.lower().replace("-", "_")
