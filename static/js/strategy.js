@@ -83,7 +83,7 @@ document.getElementById("btn-save").onclick = async ()=>{
 };
 
 document.getElementById("btn-restore").onclick = async ()=>{
-  const ok = await showConfirm("정말 복원하시겠습니까?");
+  const ok = await showConfirm("정말 복원하시겠습니까?", "복원 진행", "복원 취소");
   if(!ok) return;
   const res = await fetch(restoreURL,{method:"POST"});
   if(res.ok){
