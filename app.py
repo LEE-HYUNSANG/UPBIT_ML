@@ -1149,6 +1149,7 @@ def run_analysis():
 
 @app.route("/api/manual-sell", methods=["POST"])
 def manual_sell():
+    """대시보드에서 수동 매도 버튼을 눌렀을 때 호출된다."""
     data = request.get_json(silent=True) or {}
     coin = data.get('coin')
     logger.debug("manual_sell called for %s", coin)
@@ -1169,6 +1170,7 @@ def manual_sell():
 
 @app.route("/api/manual-buy", methods=["POST"])
 def manual_buy():
+    """대시보드에서 수동 매수 버튼을 눌렀을 때 호출된다."""
     data = request.get_json(silent=True) or {}
     coin = data.get('coin')
     logger.debug("manual_buy called for %s", coin)

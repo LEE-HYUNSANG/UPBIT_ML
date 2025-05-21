@@ -154,6 +154,11 @@ Example error:
 `config/market.json` stores fallback market data when live fetching from Upbit
 fails. Tests load this file to avoid network access.
 
+## Documentation
+- `docs/OVERVIEW_KR.md` – 프로젝트 전체 흐름을 한국어로 정리한 문서
+- `docs/BUY_MONITOR_SPEC_KR.md` – 매수 모니터링 표 각 컬럼의 계산 방식
+- `AGENTS.md` – 개발 규칙과 코드 구조 요약
+
 ## Windows 설치 가이드
 Windows 10/11 + Visual Studio C++ 빌드툴 환경에서 다음 순서로 준비합니다.
 
