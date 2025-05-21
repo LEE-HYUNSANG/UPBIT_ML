@@ -7,13 +7,15 @@ import json
 import logging
 import os
 import time
-from typing import Dict
+import threading
+from typing import Dict, Callable, Any
 
 import pyupbit
 
 from utils import load_filter_settings, load_market_signals
 from helpers.strategies import check_buy_signal, check_sell_signal
 from helpers.execution import smart_buy, smart_sell
+from helpers.logger import log_trade
 from helpers.utils.funds import load_fund_settings
 from helpers.utils.risk import (
     load_risk_settings,
@@ -22,6 +24,27 @@ from helpers.utils.risk import (
 )
 
 logger = logging.getLogger(__name__)
+
+# 포지션 변경 시 동시 접근을 방지하기 위한 락
+_LOCK = threading.Lock()
+
+
+def _safe_call(
+    func: Callable[..., Any],
+    *args: Any,
+    retries: int = 3,
+    delay: float = 0.5,
+) -> Any:
+    """Retry ``func`` up to ``retries`` times with exponential backoff."""
+    for attempt in range(retries):
+        try:
+            return func(*args)
+        except Exception as exc:  # pragma: no cover - runtime
+            log_trade("ERROR", {"func": func.__name__, "error": str(exc)})
+            logger.warning("%s retry %s/%s", func.__name__, attempt + 1, retries)
+            time.sleep(delay)
+            delay *= 2
+    raise
 
 
 def load_strategy_settings(path: str = "config/strategy.json") -> Dict[str, str]:
@@ -64,9 +87,28 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     fund_conf = load_fund_settings()
     risk_conf = load_risk_settings()
     active_trades: Dict[str, Dict[str, float]] = {}
+    try:
+        balances = _safe_call(upbit.get_balances)
+        for b in balances:
+            if b.get("currency") == "KRW":
+                continue
+            bal = float(b.get("balance", 0))
+            if bal <= 0:
+                continue
+            ticker = f"KRW-{b['currency']}"
+            with _LOCK:
+                active_trades[ticker] = {
+                    "buy_price": float(b.get("avg_buy_price", 0)),
+                    "qty": bal,
+                    "strategy": "INIT",
+                    "level": strategy_conf.get("level", "중도적"),
+                }
+    except Exception as exc:  # pragma: no cover - runtime
+        logger.warning("Failed to preload positions %s", exc)
     last_reload = time.time()
     logger.info("[BOT] starting trading loop")
 
+    next_run = time.time()
     while True:
         try:
             now = time.time()
@@ -75,14 +117,16 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                 pos = active_trades.get(m)
                 if not pos:
                     continue
-                avg, vol = smart_sell(
+                avg, vol = _safe_call(
+                    smart_sell,
                     upbit,
                     m,
                     pos["qty"],
                     fund_conf.get("slippage_tolerance", 0.001),
                 )
                 logger.info("[BOT] manual sold %s avg=%.8f qty=%.6f", m, avg, vol)
-                active_trades.pop(m, None)
+                with _LOCK:
+                    active_trades.pop(m, None)
             if manual:
                 save_manual_sells([])
             if now - last_reload > 300:
@@ -105,19 +149,21 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                 strat = strategy_conf.get("strategy", "M-BREAK")
                 level = strategy_conf.get("level", "중도적")
                 if check_buy_signal(strat, ticker, level):
-                    price, qty = smart_buy(
+                    price, qty = _safe_call(
+                        smart_buy,
                         upbit,
                         ticker,
                         fund_conf.get("buy_amount", 0),
                         fund_conf.get("slippage_tolerance", 0.001),
                     )
                     if qty > 0:
-                        active_trades[ticker] = {
-                            "buy_price": price,
-                            "qty": qty,
-                            "strategy": strat,
-                            "level": level,
-                        }
+                        with _LOCK:
+                            active_trades[ticker] = {
+                                "buy_price": price,
+                                "qty": qty,
+                                "strategy": strat,
+                                "level": level,
+                            }
                         logger.info(
                             "[BOT] bought %s price=%.8f qty=%.6f", ticker, price, qty
                         )
@@ -130,7 +176,8 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     pos["level"],
                     risk_conf,
                 ):
-                    avg, vol = smart_sell(
+                    avg, vol = _safe_call(
+                        smart_sell,
                         upbit,
                         ticker,
                         pos["qty"],
@@ -139,8 +186,11 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     logger.info(
                         "[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol
                     )
-                    active_trades.pop(ticker, None)
+                    with _LOCK:
+                        active_trades.pop(ticker, None)
 
         except Exception as e:  # pragma: no cover - runtime loop
             logger.exception("[BOT] error %s", e)
-        time.sleep(interval)
+        next_run += interval
+        sleep = max(0, next_run - time.time())
+        time.sleep(sleep)
