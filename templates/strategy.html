@@ -1,189 +1,63 @@
-{% extends 'base.html' %}
-{% block title %}Upbit AutoTrading · 매매 설정{% endblock %}
+{% extends "base.html" %}
 {% block content %}
-
-<div class="container">
-
-    <!-- 전략별 설정 -->
-  <div class="card shadow-sm mb-5">
-    <div class="card-head">
-      <i class="bi bi-gear"></i> 매수/매도 전략 설정
-    </div>
-    <div class="card-body">
-      <form>
-        <div class="table-responsive no-scroll mb-4">
-          <table class="table table-bordered align-middle fs-106">
-            <thead class="table-light">
-              <tr>
-                <th class="min-w-90">활성화 여부</th>
-                <th class="min-w-120">전략명</th>
-                <th class="min-w-160">매수 진입 조건</th>
-                <th class="min-w-160">매도 진입 조건</th>
-                <th class="min-w-100">우선순위</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for st in strategies %}
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox"
-                         name="use_{{ st.key }}" {% if st.enabled %}checked{% endif %}>
-                </td>
-                <td>{{ st.name }}</td>
-                <td>
-                  <select class="form-select" name="buy_{{ st.key }}">
-                    <option>공격적</option>
-                    <option>중도적</option>
-                    <option>소극적</option>
-                  </select>
-                </td>
-                <td>
-                  <select class="form-select" name="sell_{{ st.key }}">
-                    <option>공격적</option>
-                    <option>중도적</option>
-                    <option>소극적</option>
-                  </select>
-                </td>
-                <td>
-                  <input type="number" class="form-control" name="prio_{{ st.key }}"
-                         min="1" max="12" value="{{ loop.index }}">
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <button type="submit" class="btn btn-primary w-100" data-api="/api/save-strategy">저장</button>
-      </form>
-      <div class="mt-4 text-muted">마지막 저장: {{ settings.updated }}</div>
-    </div>
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="fw-bold"><i class="bi bi-kanban-fill me-2"></i>전략 설정</h2>
+    <button id="btn-save" class="btn btn-primary">
+      <i class="bi bi-save me-1"></i>저장
+    </button>
   </div>
-  <!-- 금액/자금·슬리피지·잔고 관리 -->
-  <div class="card shadow-sm mb-5">
-  <div class="card-head">
-      <i class="bi bi-currency-exchange"></i> 금액/자금 · 슬리피지 · 잔고 관리
-      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-         title="최대 매수금, 동시매매 코인 수, 슬리피지, 잔고 소진 시 알림이나 자동 중지를 설정합니다."></i>
-    </div>
-    <div class="card-body">
-      <div class="section-label mb-3"><i class="bi bi-lightbulb"></i> 전략별 체크, 파라미터 설정, 상세 설명·예시
-        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="자금 한도와 슬리피지 옵션에 대한 세부 설명을 확인할 수 있습니다."></i>
-      </div>
-      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다.<br>
-      각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건과 예시를 볼 수 있습니다.<br>
-      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035,<br>
-      20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
-      <form>
-        <div class="row mb-4">
-          <div class="col">
-            <label class="form-label">코인별 최대 투자금</label>
-            <input type="number" class="form-control" name="max_amount"
-                   value="{{ settings.max_amount }}" placeholder="예: 10000">
-            <div class="form-text">예) 한 코인당 최대 50만원까지</div>
-          </div>
-          <div class="col">
-            <label class="form-label">회당 매수금</label>
-            <input type="number" class="form-control" name="buy_amount"
-                   value="{{ settings.buy_amount }}" placeholder="예: 10000">
-            <div class="form-text">예) 한 번에 10만원 단위 분할매수</div>
-          </div>
-          <div class="col">
-            <label class="form-label">동시매매 코인수</label>
-            <input type="number" class="form-control" name="max_positions"
-                   value="{{ settings.max_positions }}" placeholder="예: 7">
-            <div class="form-text">예) 최대 5종목까지 동시매수 허용</div>
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col">
-            <label class="form-label">슬리피지(%)</label>
-            <input type="number" class="form-control" name="slippage"
-                   value="{{ settings.slippage }}" placeholder="예: 0.1">
-            <div class="form-text">예) 체결 허용 오차 0.1%</div>
-          </div>
-          <div class="col">
-            <label class="form-label">잔고 소진시</label>
-            <select class="form-select" name="balance_action">
-              <option value="alert" {% if settings.balance_action == 'alert' %}selected{% endif %}>알림</option>
-              <option value="stop" {% if settings.balance_action == 'stop' %}selected{% endif %}>자동중지</option>
-            </select>
-            <div class="form-text">예) 잔고 소진 시 자동 중지/알림</div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary w-100" data-api="/api/save-funds">저장</button>
-        <div class="mt-4 text-muted">마지막 저장: {{ settings.updated }}</div>
-      </form>
-    </div>
-  </div>
+  <p class="text-muted mt-1">마지막 저장: <span id="last-saved">—</span></p>
 
+  <table id="tbl-strategy" class="table table-hover align-middle mt-3">
+    <thead class="table-light text-center">
+      <tr>
+        <th style="width:6rem">ON/OFF</th>
+        <th style="width:18rem">전략명</th>
+        <th>매수 조건</th>
+        <th>매도 조건</th>
+        <th style="width:8rem">우선순위</th>
+        <th style="width:5rem"></th>
+      </tr>
+    </thead>
+    <tbody class="text-center"><!-- JS 가 삽입 --></tbody>
+  </table>
 
-  <!-- 고급 옵션 / UI/기타 관리 -->
-  <div class="card shadow-sm mb-5">
-  <div class="card-head">
-      <i class="bi bi-sliders2"></i> 고급 옵션 · UI/기타 관리
-      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-         title="백테스트, 캔들 단위, 수수료 설정, AI 최적화 등 고급 기능을 관리합니다."></i>
-    </div>
-    <div class="card-body">
-      <div class="section-label mb-3"><i class="bi bi-lightbulb"></i> 전략별 체크, 파라미터 설정, 상세 설명·예시
-        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="백테스트와 지표 튜닝 등 고급 옵션에 대한 도움말을 제공합니다."></i>
-      </div>
-      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다.<br>
-      각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건과 예시를 볼 수 있습니다.<br>
-      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035,<br>
-      20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
-        <form>
-          <div class="row mb-4">
-            <div class="col">
-              <label class="form-label">백테스트 모드</label>
-              <select class="form-select" name="backtest">
-                <option value="OFF" {% if settings.backtest == 'OFF' %}selected{% endif %}>OFF</option>
-                <option value="ON" {% if settings.backtest == 'ON' %}selected{% endif %}>ON</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">거래 수수료 (매수)</label>
-              <input type="number" class="form-control" name="fee_buy"
-                     value="{{ settings.fee_buy }}" placeholder="예: 0.05">
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col">
-              <label class="form-label">AI 최적화(베타)</label>
-              <select class="form-select" name="ai_opt">
-                <option value="OFF" {% if settings.ai_opt=='OFF' %}selected{% endif %}>OFF</option>
-                <option value="ON" {% if settings.ai_opt=='ON' %}selected{% endif %}>ON</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">거래 수수료 (매도)</label>
-              <input type="number" class="form-control" name="fee_sell"
-                     value="{{ settings.fee_sell }}" placeholder="예: 0.05">
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col">
-              <label class="form-label">설정 관리</label>
-              <div class="d-flex gap-3">
-                <button type="button" class="btn btn-outline-primary btn-lg">
-                  <i class="bi bi-upload"></i> 내보내기
-                </button>
-                <button type="button" class="btn btn-outline-secondary btn-lg">
-                  <i class="bi bi-download"></i> 불러오기
-                </button>
-                <button type="button" class="btn btn-outline-danger btn-lg">
-                  <i class="bi bi-x-circle"></i> 초기화
-                </button>
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary w-100" data-api="/api/save-strategy">저장</button>
-        </form>
-        <div class="mt-4 text-muted">마지막 저장: {{ settings.updated }}</div>
-    </div>
-  </div>
+  <button id="btn-add" class="btn btn-outline-secondary">
+    <i class="bi bi-plus-lg"></i> 전략 추가
+  </button>
 </div>
 
+<!-- 템플릿 row (JS 가 clone) -->
+<template id="row-tpl">
+  <tr>
+    <td><div class="form-check form-switch m-auto">
+          <input class="form-check-input active-toggle" type="checkbox">
+        </div></td>
+    <td class="text-start">
+        <span class="fw-semibold strat-name"></span>
+    </td>
+    <td>
+      <select class="form-select form-select-sm buy-cond">
+        <option>공격적</option><option>중도적</option><option>보수적</option>
+      </select>
+    </td>
+    <td>
+      <select class="form-select form-select-sm sell-cond">
+        <option>공격적</option><option>중도적</option><option>보수적</option>
+      </select>
+    </td>
+    <td>
+      <input type="number" min="1" class="form-control form-control-sm priority" style="width:6rem">
+    </td>
+    <td>
+      <button class="btn btn-sm btn-outline-info info-btn"
+              data-bs-toggle="tooltip" title="전략 설명 미등록">
+        <i class="bi bi-info-circle"></i>
+      </button>
+    </td>
+  </tr>
+</template>
+
+<script type="module" src="{{ url_for('static', filename='js/strategy.js') }}"></script>
 {% endblock %}
