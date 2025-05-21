@@ -20,6 +20,9 @@
       <li class="nav-item"><a class="nav-link {% if '/strategy' in request.path %}active{% endif %}" href="/strategy">매매설정</a></li>
       <li class="nav-item"><a class="nav-link {% if '/ai-analysis' in request.path %}active{% endif %}" href="/ai-analysis">AI전략분석</a></li>
       <li class="nav-item"><a class="nav-link {% if '/risk' in request.path %}active{% endif %}" href="/risk">리스크관리</a></li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path.startswith('/funds') %}active{% endif %}" href="{{ url_for('funds') }}">자금설정</a>
+      </li>
       <li class="nav-item"><a class="nav-link {% if '/settings' in request.path %}active{% endif %}" href="/settings">개인설정</a></li>
     </ul>
   </div>

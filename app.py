@@ -998,9 +998,9 @@ def notifications_page():
     )
 
 @app.route("/funds")
-def funds_page():
+def funds():
     logger.debug("Render funds page")
-    return render_template("funds.html", settings=settings)
+    return render_template("funds.html")
 
 @app.route("/settings")
 def settings_page():
