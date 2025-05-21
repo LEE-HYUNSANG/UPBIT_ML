@@ -76,13 +76,13 @@ notifications.init(
     socketio,
     secrets.get("TELEGRAM_TOKEN"),
     secrets.get("TELEGRAM_CHAT_ID"),
-    {
-        "host": secrets.get("EMAIL_HOST"),
-        "port": secrets.get("EMAIL_PORT"),
-        "user": secrets.get("EMAIL_USER"),
-        "password": secrets.get("EMAIL_PASSWORD"),
-        "to": secrets.get("EMAIL_TO"),
-    },
+    # {
+    #     "host": secrets.get("EMAIL_HOST"),
+    #     "port": secrets.get("EMAIL_PORT"),
+    #     "user": secrets.get("EMAIL_USER"),
+    #     "password": secrets.get("EMAIL_PASSWORD"),
+    #     "to": secrets.get("EMAIL_TO"),
+    # },  # 이메일 알림 비활성화
 )
 
 # 기본 계좌 요약 자리표시자
