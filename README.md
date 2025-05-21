@@ -93,6 +93,10 @@ Both monitoring tables are refreshed right after each calculation. The
 background loops emit a `refresh_data` SocketIO event, which triggers the
 browser to call `/api/balances` and `/api/signals` three times at one‑second
 intervals to avoid missing any update.
+calc_buy_signal_retry() tries up to three times for each coin. If data is still
+missing, the row shows "⛔" and "데이터 대기". Such rows are recalculated every
+10 seconds until ten seconds before the next five‑minute candle. When data is
+filled in, the browser receives a `refresh_data` event immediately.
 
 Running the app with `python app.py` uses Flask's development server. It prints
 a single access log line for every HTTP request. Example:

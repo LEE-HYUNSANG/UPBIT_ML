@@ -468,6 +468,7 @@ def buy_signal_monitor_loop() -> None:
     """매수 모니터링 신호를 주기적으로 계산한다."""
     global signal_cache, next_refresh
     prev_close = None
+    retry_deadline = None
     while True:
         try:
             with open(MONITOR_FILE, "r", encoding="utf-8") as f:
@@ -491,9 +492,29 @@ def buy_signal_monitor_loop() -> None:
             try:
                 dt = datetime.fromisoformat(close_time) + timedelta(minutes=5)
                 next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
+                retry_deadline = dt - timedelta(seconds=10)
             except Exception:
                 next_refresh = None
+                retry_deadline = None
             emit_refresh_event()
+        elif retry_deadline and datetime.now() < retry_deadline:
+            updated = False
+            with _signal_lock:
+                results = list(signal_cache)
+            for idx, c in enumerate(coins):
+                ticker = f"KRW-{c['coin']}"
+                entry = results[idx]
+                keys = ("price", "trend", "volatility", "volume", "strength", "gc", "rsi")
+                if any(entry.get(k) == "⛔" for k in keys):
+                    new_entry = calc_buy_signal_retry(ticker, c["coin"])
+                    if new_entry != entry:
+                        results[idx] = new_entry
+                        updated = True
+            if updated:
+                with _signal_lock:
+                    signal_cache = results
+                logger.debug("[BUY MONITOR] partial refresh")
+                emit_refresh_event()
         time.sleep(10)
 
 def get_filtered_signals():
