@@ -1002,6 +1002,20 @@ def funds():
     logger.debug("Render funds page")
     return render_template("funds.html")
 
+
+@app.route("/api/funds", methods=["GET"])
+def api_get_funds():
+    from helpers.utils.funds import load_fund_settings
+    return jsonify(load_fund_settings())
+
+
+@app.route("/api/funds", methods=["POST"])
+def api_post_funds():
+    from helpers.utils.funds import save_fund_settings
+    data = request.get_json(force=True)
+    save_fund_settings(data)
+    return jsonify({"status": "ok"})
+
 @app.route("/settings")
 def settings_page():
     logger.debug("Render settings page")

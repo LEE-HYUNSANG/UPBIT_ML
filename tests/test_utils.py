@@ -20,6 +20,7 @@ if 'pyupbit' not in sys.modules:
     sys.modules['pyupbit'] = pyupbit
 
 import utils
+from helpers.utils.funds import load_fund_settings, save_fund_settings
 
 
 def test_calc_tis_fallback():
@@ -39,4 +40,18 @@ def test_load_filter_settings(tmp_path):
     sample.write_text('{"min_price": 1, "max_price": 2, "rank": 5}', encoding="utf-8")
     cfg2 = utils.load_filter_settings(str(sample))
     assert cfg2 == {"min_price": 1, "max_price": 2, "rank": 5}
+
+
+def test_fund_settings_io(tmp_path):
+    """funds.json 저장 후 재로드를 확인한다."""
+    path = tmp_path / "funds.json"
+    default = load_fund_settings(str(path))
+    assert default["buy_amount"] == 100000
+    data = {"max_invest_per_coin": 1000, "buy_amount": 200, "max_concurrent_trades": 2,
+            "slippage_tolerance": 0.1, "balance_exhausted_action": "알림"}
+    save_fund_settings(data, str(path))
+    loaded = load_fund_settings(str(path))
+    assert loaded["max_invest_per_coin"] == 1000
+    assert loaded["buy_amount"] == 200
+    assert "updated" in loaded
 
