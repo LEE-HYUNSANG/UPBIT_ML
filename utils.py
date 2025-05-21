@@ -97,6 +97,15 @@ def load_secrets(
     return secrets
 
 
+def _fetch_ticks(ticker: str, count: int) -> list[dict]:
+    """pyupbit에 get_ticks가 없을 때 REST API로 대체 요청한다."""
+    url = "https://api.upbit.com/v1/trades/ticks"
+    params = {"market": ticker, "count": count}
+    resp = requests.get(url, params=params, timeout=5)
+    resp.raise_for_status()
+    return resp.json()
+
+
 def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
     """체결강도(TIS)를 계산해 반환한다.
 
@@ -106,7 +115,10 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
     """
     logging.debug("calc_tis start for %s", ticker)
     try:
-        ticks = pyupbit.get_ticks(ticker, count=count)
+        if hasattr(pyupbit, "get_ticks"):
+            ticks = pyupbit.get_ticks(ticker, count=count)
+        else:
+            ticks = _fetch_ticks(ticker, count)
         if not ticks:
             logging.debug("calc_tis no tick data for %s", ticker)
             raise ValueError("no ticks")
