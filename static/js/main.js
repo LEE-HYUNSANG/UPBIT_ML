@@ -461,8 +461,9 @@ async function reloadAccount(){
 const STATUS_INT = 300000;  // 5분
 const BAL_INT = 300000;  // 5분
 const SIG_INT = 300000;
-let balRemain = BAL_INT / 1000;
-let sigRemain = SIG_INT / 1000;
+const REFRESH_SEC = BAL_INT / 1000;
+let balRemain = REFRESH_SEC;
+let sigRemain = REFRESH_SEC;
 
 function updateRemain(id, sec){
   const el = document.getElementById(id);
@@ -477,8 +478,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(reloadAccount, 10000);
   setInterval(async ()=>{ await reloadBalance(); await loadStatus(); }, BAL_INT);
   setInterval(async ()=>{ await reloadBuyMonitor(); await loadStatus(); }, SIG_INT);
-  setInterval(()=>{ if(balRemain>0) balRemain--; updateRemain('balanceTimer', balRemain); },1000);
-  setInterval(()=>{ if(sigRemain>0) sigRemain--; updateRemain('signalTimer', sigRemain); },1000);
+  setInterval(()=>{
+    balRemain = balRemain > 0 ? balRemain - 1 : REFRESH_SEC;
+    updateRemain('balanceTimer', balRemain);
+  },1000);
+  setInterval(()=>{
+    sigRemain = sigRemain > 0 ? sigRemain - 1 : REFRESH_SEC;
+    updateRemain('signalTimer', sigRemain);
+  },1000);
   setTimeout(loadStatus, 3000);
   reloadAccount();
   reloadBalance();
