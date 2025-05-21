@@ -17,6 +17,7 @@ from utils import (
     load_filter_settings,
 )
 from trader import Trader
+import notifications
 from notifications import notify, notify_error
 from bot.runtime_settings import settings, load_from_file
 from helpers.logger import log_trade, get_recent_logs
@@ -75,6 +76,13 @@ notifications.init(
     socketio,
     secrets.get("TELEGRAM_TOKEN"),
     secrets.get("TELEGRAM_CHAT_ID"),
+    {
+        "host": secrets.get("EMAIL_HOST"),
+        "port": secrets.get("EMAIL_PORT"),
+        "user": secrets.get("EMAIL_USER"),
+        "password": secrets.get("EMAIL_PASSWORD"),
+        "to": secrets.get("EMAIL_TO"),
+    },
 )
 
 # 기본 계좌 요약 자리표시자

@@ -4,6 +4,8 @@ import os
 import sys
 from typing import Iterable
 import time
+import smtplib
+from email.mime.text import MIMEText
 
 import pandas as pd
 import requests
@@ -87,6 +89,30 @@ def send_telegram(token: str, chat_id: str, text: str) -> None:
         logging.info("Telegram message sent")
     except Exception as e:
         logging.exception("Telegram send failed: %s", e)
+
+
+def send_email(
+    host: str,
+    port: int,
+    user: str,
+    password: str,
+    to_addr: str,
+    subject: str,
+    body: str,
+) -> None:
+    """SMTP 서버로 이메일을 전송한다."""
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = user
+    msg["To"] = to_addr
+    try:
+        with smtplib.SMTP(host, port, timeout=5) as server:
+            server.starttls()
+            server.login(user, password)
+            server.sendmail(user, [to_addr], msg.as_string())
+        logging.info("Email sent")
+    except Exception as e:  # SMTP 오류 무시
+        logging.exception("Email send failed: %s", e)
 
 
 def load_secrets(
