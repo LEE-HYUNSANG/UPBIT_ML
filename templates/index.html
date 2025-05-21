@@ -200,9 +200,13 @@
           <thead class="table-light"><tr>
             <th>코인</th>
             <th>현재가</th>
-            <th>추세
+              <th>추세
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 상승(🔼), 케이스 2: 하락(🔻), 케이스 3: 중립(🔸)"></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="추세 의미: EMA5/20/60 배열과 기울기를 활용해 가격 흐름을 판단합니다.&#10;
+🔼(상승): EMA5>EMA20>EMA60 이고 EMA20 기울기 양수&#10;
+🔸(중립): 위 두 조건에 모두 해당하지 않음&#10;
+🔻(하락): EMA5<EMA20<EMA60 이고 EMA20 기울기 음수"></i>
             </th>
             <th>변동성<br>(ATR%)
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
