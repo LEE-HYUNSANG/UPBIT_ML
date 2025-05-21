@@ -87,10 +87,10 @@ The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
 
 The server checks the latest 5‑minute candle every 10 seconds. When the candle
-time changes it refreshes KRW market data using `pyupbit`. Coins are ranked by
-1h volume and filtered according to the dashboard settings (`min_price`,
-`max_price`, `rank`). The resulting ticker list is used for both monitoring and
-trading.
+time changes it refreshes KRW market data using `pyupbit`. Coins are ordered by
+buy signal level first and then by 1h volume. They are filtered according to the
+dashboard settings (`min_price`, `max_price`, `rank`). The resulting ticker list
+is used for both monitoring and trading.
 
 ## Logging and refresh timers
 Each log level is written to a separate file under the `logs/` directory
