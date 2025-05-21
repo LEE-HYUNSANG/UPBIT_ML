@@ -25,7 +25,10 @@
             <tbody>
               {% for st in strategies %}
               <tr>
-                <td><input class="form-check-input" type="checkbox" name="use_{{ st.key }}" {% if st.enabled %}checked{% endif %}></td>
+                <td>
+                  <input class="form-check-input" type="checkbox"
+                         name="use_{{ st.key }}" {% if st.enabled %}checked{% endif %}>
+                </td>
                 <td>{{ st.name }}</td>
                 <td>
                   <select class="form-select" name="buy_{{ st.key }}">
@@ -41,7 +44,10 @@
                     <option>소극적</option>
                   </select>
                 </td>
-                <td><input type="number" class="form-control" name="prio_{{ st.key }}" min="1" max="12" value="{{ loop.index }}"></td>
+                <td>
+                  <input type="number" class="form-control" name="prio_{{ st.key }}"
+                         min="1" max="12" value="{{ loop.index }}">
+                </td>
               </tr>
               {% endfor %}
             </tbody>
@@ -57,36 +63,42 @@
   <div class="card-head">
       <i class="bi bi-currency-exchange"></i> 금액/자금 · 슬리피지 · 잔고 관리
       <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
-         title="회당 최대 매수금, 동시매매 코인 수, 슬리피지(체결 오차), 잔고 소진시 알림/자동중지"></i>
+         title="최대 매수금, 동시매매 코인 수, 슬리피지, 잔고 소진 시 알림이나 자동 중지를 설정합니다."></i>
     </div>
     <div class="card-body">
       <div class="section-label mb-3"><i class="bi bi-lightbulb"></i> 전략별 체크, 파라미터 설정, 상세 설명·예시
-        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="자금 관련 한도와 슬리피지 등을 설정합니다."></i>
+        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="자금 한도와 슬리피지 옵션에 대한 세부 설명을 확인할 수 있습니다."></i>
       </div>
-      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다. 각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건/설명/실전 예시가 나옵니다.<br>
-      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035, 20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
+      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다.<br>
+      각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건과 예시를 볼 수 있습니다.<br>
+      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035,<br>
+      20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
       <form>
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">코인별 최대 투자금</label>
-            <input type="number" class="form-control" name="max_amount" value="{{ settings.max_amount }}" placeholder="예: 10000">
+            <input type="number" class="form-control" name="max_amount"
+                   value="{{ settings.max_amount }}" placeholder="예: 10000">
             <div class="form-text">예) 한 코인당 최대 50만원까지</div>
           </div>
           <div class="col">
             <label class="form-label">회당 매수금</label>
-            <input type="number" class="form-control" name="buy_amount" value="{{ settings.buy_amount }}" placeholder="예: 10000">
+            <input type="number" class="form-control" name="buy_amount"
+                   value="{{ settings.buy_amount }}" placeholder="예: 10000">
             <div class="form-text">예) 한 번에 10만원 단위 분할매수</div>
           </div>
           <div class="col">
             <label class="form-label">동시매매 코인수</label>
-            <input type="number" class="form-control" name="max_positions" value="{{ settings.max_positions }}" placeholder="예: 7">
+            <input type="number" class="form-control" name="max_positions"
+                   value="{{ settings.max_positions }}" placeholder="예: 7">
             <div class="form-text">예) 최대 5종목까지 동시매수 허용</div>
           </div>
         </div>
         <div class="row mb-4">
           <div class="col">
             <label class="form-label">슬리피지(%)</label>
-            <input type="number" class="form-control" name="slippage" value="{{ settings.slippage }}" placeholder="예: 0.1">
+            <input type="number" class="form-control" name="slippage"
+                   value="{{ settings.slippage }}" placeholder="예: 0.1">
             <div class="form-text">예) 체결 허용 오차 0.1%</div>
           </div>
           <div class="col">
@@ -110,14 +122,16 @@
   <div class="card-head">
       <i class="bi bi-sliders2"></i> 고급 옵션 · UI/기타 관리
       <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
-         title="백테스트, 캔들단위, 수수료, 지표튜닝, AI 최적화, 설정 내보내기/초기화 등"></i>
+         title="백테스트, 캔들 단위, 수수료 설정, AI 최적화 등 고급 기능을 관리합니다."></i>
     </div>
     <div class="card-body">
       <div class="section-label mb-3"><i class="bi bi-lightbulb"></i> 전략별 체크, 파라미터 설정, 상세 설명·예시
-        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="백테스트, 지표튜닝 등 고급 옵션을 설정합니다."></i>
+        <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" title="백테스트와 지표 튜닝 등 고급 옵션에 대한 도움말을 제공합니다."></i>
       </div>
-      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다. 각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건/설명/실전 예시가 나옵니다.<br>
-      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035, 20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
+      <div class="form-text mb-4">아래 전략 중 원하는 것만 활성화할 수 있습니다.<br>
+      각 전략명 옆의 <i class="bi bi-info-circle"></i>에 마우스를 올리면 진입 조건과 예시를 볼 수 있습니다.<br>
+      <b>예시:</b> M-BREAK 전략은 "5EMA &gt; 20EMA &gt; 60EMA, ATR≥0.035,<br>
+      20봉 평균 거래량의 1.8배 이상 폭증, 전고점 돌파시 진입" 입니다.</div>
         <form>
           <div class="row mb-4">
             <div class="col">
@@ -129,7 +143,8 @@
             </div>
             <div class="col">
               <label class="form-label">거래 수수료 (매수)</label>
-              <input type="number" class="form-control" name="fee_buy" value="{{ settings.fee_buy }}" placeholder="예: 0.05">
+              <input type="number" class="form-control" name="fee_buy"
+                     value="{{ settings.fee_buy }}" placeholder="예: 0.05">
             </div>
           </div>
           <div class="row mb-4">
@@ -142,16 +157,23 @@
             </div>
             <div class="col">
               <label class="form-label">거래 수수료 (매도)</label>
-              <input type="number" class="form-control" name="fee_sell" value="{{ settings.fee_sell }}" placeholder="예: 0.05">
+              <input type="number" class="form-control" name="fee_sell"
+                     value="{{ settings.fee_sell }}" placeholder="예: 0.05">
             </div>
           </div>
           <div class="row mb-4">
             <div class="col">
               <label class="form-label">설정 관리</label>
               <div class="d-flex gap-3">
-                <button type="button" class="btn btn-outline-primary btn-lg"><i class="bi bi-upload"></i> 내보내기</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg"><i class="bi bi-download"></i> 불러오기</button>
-                <button type="button" class="btn btn-outline-danger btn-lg"><i class="bi bi-x-circle"></i> 초기화</button>
+                <button type="button" class="btn btn-outline-primary btn-lg">
+                  <i class="bi bi-upload"></i> 내보내기
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg">
+                  <i class="bi bi-download"></i> 불러오기
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-lg">
+                  <i class="bi bi-x-circle"></i> 초기화
+                </button>
               </div>
             </div>
           </div>
