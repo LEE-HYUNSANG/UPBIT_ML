@@ -5,7 +5,8 @@
   <div class="card shadow-sm mb-5">
     <div class="card-head">
       <i class="bi bi-person-circle"></i> 거래소 & 텔레그램 연결 정보
-      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" title="API Key/Secret, 텔레그램 등 서비스 연동 정보를 등록합니다."></i>
+      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+         title="거래소 API와 텔레그램 봇 정보를 입력하여 서비스와 연결합니다."></i>
     </div>
     <div class="card-body">
       <form>
@@ -20,27 +21,32 @@
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-key me-2"></i>API Key</label>
-          <input type="password" class="form-control form-control-lg" id="api-key" name="api_key" value="{{ secrets.UPBIT_KEY }}" placeholder="API Key 입력">
+          <input type="password" class="form-control form-control-lg" id="api-key"
+                 name="api_key" value="{{ secrets.UPBIT_KEY }}" placeholder="API Key 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-lock me-2"></i>API Secret</label>
-          <input type="password" class="form-control form-control-lg" id="api-secret" name="api_secret" value="{{ secrets.UPBIT_SECRET }}" placeholder="Secret 입력">
+          <input type="password" class="form-control form-control-lg" id="api-secret"
+                 name="api_secret" value="{{ secrets.UPBIT_SECRET }}" placeholder="Secret 입력">
         </div>
         
         <hr class="my-5">
         <div class="section-label"><i class="bi bi-telegram me-2"></i>텔레그램 연동 설정</div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-telegram me-2"></i>Bot Token</label>
-          <input type="password" class="form-control form-control-lg" id="tg-bot" name="tg_bot" value="{{ secrets.TELEGRAM_TOKEN }}" placeholder="텔레그램 Bot Token 입력">
+          <input type="password" class="form-control form-control-lg" id="tg-bot"
+                 name="tg_bot" value="{{ secrets.TELEGRAM_TOKEN }}" placeholder="텔레그램 Bot Token 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-person-fill me-2"></i>Chat ID</label>
-          <input type="text" class="form-control form-control-lg" id="tg-chat" name="tg_chat" value="{{ secrets.TELEGRAM_CHAT_ID }}" placeholder="텔레그램 Chat ID 입력">
+          <input type="text" class="form-control form-control-lg" id="tg-chat"
+                 name="tg_chat" value="{{ secrets.TELEGRAM_CHAT_ID }}" placeholder="텔레그램 Chat ID 입력">
         </div>
         <div class="mb-4">
           <label class="form-label"><i class="bi bi-bell me-2"></i>텔레그램 알림 ON/OFF</label>
           <div class="form-check form-switch ps-5">
-            <input class="form-check-input" type="checkbox" id="tgOnOff" name="tg_on" {% if settings.tg_on %}checked{% endif %}>
+            <input class="form-check-input" type="checkbox" id="tgOnOff" name="tg_on"
+                   {% if settings.tg_on %}checked{% endif %}>
             <label class="form-check-label small-label" for="tgOnOff">알림 받기</label>
           </div>
         </div>
@@ -49,37 +55,43 @@
           <div class="row mb-2">
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="BUY" id="alarm1" {% if 'BUY' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="BUY" id="alarm1"
+                       {% if 'BUY' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm1">매수 체결</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="SELL" id="alarm2" {% if 'SELL' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="SELL" id="alarm2"
+                       {% if 'SELL' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm2">매도 체결</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="STOP" id="alarm3" {% if 'STOP' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="STOP" id="alarm3"
+                       {% if 'STOP' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm3">손절 발생</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="TP" id="alarm4" {% if 'TP' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="TP" id="alarm4"
+                       {% if 'TP' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm4">익절 발생</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="ERROR" id="alarm5" {% if 'ERROR' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="ERROR" id="alarm5"
+                       {% if 'ERROR' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm5">시스템 오류/경고</label>
               </div>
             </div>
             <div class="col-6 col-lg-4">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="events" value="CHANGE" id="alarm6" {% if 'CHANGE' in settings.events %}checked{% endif %}>
+                <input class="form-check-input" type="checkbox" name="events" value="CHANGE" id="alarm6"
+                       {% if 'CHANGE' in settings.events %}checked{% endif %}>
                 <label class="form-check-label" for="alarm6">전략 변경/중지</label>
               </div>
             </div>
@@ -89,11 +101,13 @@
           <label class="form-label"><i class="bi bi-clock me-2"></i>알림 수신 시간대</label>
           <div class="row g-3 align-items-center">
             <div class="col-4 col-lg-3">
-              <input type="time" class="form-control form-control-lg" id="notify-from" name="notify_from" value="{{ settings.notify_from }}">
+              <input type="time" class="form-control form-control-lg" id="notify-from"
+                     name="notify_from" value="{{ settings.notify_from }}">
             </div>
             <div class="col-1 text-center">~</div>
             <div class="col-4 col-lg-3">
-              <input type="time" class="form-control form-control-lg" id="notify-to" name="notify_to" value="{{ settings.notify_to }}">
+              <input type="time" class="form-control form-control-lg" id="notify-to"
+                     name="notify_to" value="{{ settings.notify_to }}">
             </div>
             <div class="col text-muted fs-small">* 지정 시간 외에는 알림이 발송되지 않습니다.</div>
           </div>
