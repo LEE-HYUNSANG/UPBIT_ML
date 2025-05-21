@@ -56,7 +56,7 @@ The JavaScript in `main.js` will call `/api/start-bot` and show any returned mes
 SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
 ## Market data
-`app.py` retrieves current prices and 1h volume from Upbit whenever a new
+`app.py` retrieves current prices and 24‑hour traded value from Upbit whenever a new
 five‑minute candle closes.
 Coins are filtered by the values in `config/filter.json` (`min_price`, `max_price`, `rank`).
 The resulting list is written to `config/monitor_list.json` only when settings are saved,
@@ -88,7 +88,7 @@ Real time events are pushed to the browser via SocketIO and displayed with `show
 
 The server checks the latest 5‑minute candle every 10 seconds. When the candle
 time changes it refreshes KRW market data using `pyupbit`. Coins are ordered by
-buy signal level first and then by 1h volume. They are filtered according to the
+buy signal level first and then by 24‑hour traded value. They are filtered according to the
 dashboard settings (`min_price`, `max_price`, `rank`). The resulting ticker list
 is used for both monitoring and trading.
 
