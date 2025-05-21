@@ -1,6 +1,22 @@
 import os
 import json
 
+
+def _validate(data: dict) -> None:
+    """숫자 범위와 타입을 확인한다."""
+    max_invest = float(data.get("max_invest_per_coin", 0))
+    buy_amt = float(data.get("buy_amount", 0))
+    max_trades = int(data.get("max_concurrent_trades", 1))
+    slippage = float(data.get("slippage_tolerance", 0))
+    if max_invest < 0 or max_invest > 1_000_000_000:
+        raise ValueError("max_invest_per_coin out of range")
+    if buy_amt < 0 or buy_amt > 1_000_000_000:
+        raise ValueError("buy_amount out of range")
+    if max_trades < 1 or max_trades > 100:
+        raise ValueError("max_concurrent_trades out of range")
+    if slippage < 0 or slippage > 1:
+        raise ValueError("slippage_tolerance out of range")
+
 def load_fund_settings(path: str = "config/funds.json") -> dict:
     """자금 설정 파일을 읽어 반환한다."""
     if not os.path.exists(path):
@@ -17,6 +33,7 @@ def load_fund_settings(path: str = "config/funds.json") -> dict:
 
 def save_fund_settings(data: dict, path: str = "config/funds.json") -> None:
     """자금 설정을 저장하고 업데이트 시각을 기록한다."""
+    _validate(data)
     data["updated"] = __import__("datetime").datetime.now().isoformat(timespec="seconds")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
