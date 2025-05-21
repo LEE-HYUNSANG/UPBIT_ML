@@ -62,6 +62,20 @@ Coins are filtered by the values in `config/filter.json` (`min_price`, `max_pric
 The resulting list is written to `config/monitor_list.json` only when settings are saved,
 so the same coins are reused until you update the filter.
 
+### Buy signal levels
+Buy signals are split into six categories:
+
+1. 매수 적극 추천
+2. 매수 추천
+3. 관망
+4. 매수 회피
+5. 매수 금지
+6. 데이터 대기
+
+The `calc_buy_signal()` function returns these labels along with
+`signal_class` values like `buy-strong`, `buy`, `wait`, `avoid`, `ban`
+and `nodata`. See `docs/BUY_MONITOR_SPEC_KR.md` for detailed rules.
+
 ## Running
 Install requirements and start the server:
 ```bash

@@ -296,7 +296,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
         "gc": "⛔",
         "rsi": "⛔",
         "signal": "데이터 대기",
-        "signal_class": "stop",
+        "signal_class": "nodata",
     }
     try:
         df = pyupbit.get_ohlcv(ticker, interval="minute5", count=60)
@@ -394,12 +394,18 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
             + (ris_code == "S") * 3
         )
 
-        if trend == "U" and (tis or 0) >= 120 and ris_code in ("E", "S") and vol_ratio >= 2:
-            entry["signal"] = "강제 매수"
-            entry["signal_class"] = "go"
-        elif ris_code in ("B", "X") or trend == "D":
-            entry["signal"] = "회피"
-            entry["signal_class"] = "stop"
+        if vol_ratio < 0.7 or (tis is not None and tis < 95):
+            entry["signal"] = "매수 금지"
+            entry["signal_class"] = "ban"
+        elif trend == "D" or ris_code in ("B", "X"):
+            entry["signal"] = "매수 회피"
+            entry["signal_class"] = "avoid"
+        elif trend == "U" and (tis or 0) >= 120 and ris_code in ("E", "S") and vol_ratio >= 2:
+            entry["signal"] = "매수 적극 추천"
+            entry["signal_class"] = "buy-strong"
+        elif trend == "U" and (tis or 0) >= 105 and vol_ratio >= 1.1 and ris_code not in ("B", "X"):
+            entry["signal"] = "매수 추천"
+            entry["signal_class"] = "buy"
         else:
             entry["signal"] = "관망"
             entry["signal_class"] = "wait"
