@@ -38,7 +38,9 @@ function renderTable(arr){
   arr.sort((a,b)=>a.priority-b.priority)
      .forEach(obj=>tbody.appendChild(makeRow(obj)));
   lastSaved.textContent = new Date().toLocaleString();
-  applyToggleAll();
+  // 저장된 활성화 상태를 존중하기 위해
+  // toggle-all 스위치는 모든 항목이 켜져 있을 때만 체크한다
+  toggleAll.checked = arr.every(o => o.active);
 }
 
 function makeRow(o){
