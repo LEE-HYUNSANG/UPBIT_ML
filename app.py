@@ -1006,7 +1006,11 @@ def start_bot():
             logger.info("Start request ignored: already running")
             return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
         settings.running = True
-        notify('봇이 시작되었습니다.')
+        msg = (
+            f"봇 시작: 전략 {settings.strategy}, "
+            f"1회 매수 {settings.buy_amount:,}원, 최대 {settings.max_positions}종목"
+        )
+        notify(msg)
         update_timestamp()
         logger.info("Bot started")
         return jsonify(result="success", message="봇이 시작되었습니다.", status=get_status())
@@ -1024,7 +1028,7 @@ def stop_bot():
             logger.info("Stop request ignored: not running")
             return jsonify(result="error", message="봇이 이미 중지되어 있습니다.", status=get_status())
         settings.running = False
-        notify('봇이 정지되었습니다.')
+        notify('봇이 정지되었습니다. 자동 주문이 중단되었습니다.')
         update_timestamp()
         return jsonify(result="success", message="봇이 정지되었습니다.", status=get_status())
     except Exception as e:
@@ -1038,7 +1042,7 @@ def apply_strategy():
     logger.info(f"[API] 전략 적용: {data}")
     try:
         settings.strategy = data.get("strategy", settings.strategy)
-        notify('전략이 적용되었습니다.')
+        notify(f'전략 적용: {settings.strategy}')
         logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
     except Exception as e:
@@ -1097,7 +1101,8 @@ def save_risk():
     data = request.json
     logger.debug("save_risk called with %s", data)
     try:
-        notify('리스크 설정 저장')
+        details = ', '.join(f'{k}:{v}' for k, v in data.items())
+        notify(f'리스크 설정 저장\n{details}')
         logger.info("Risk settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="리스크 저장 완료")
     except Exception as e:
@@ -1109,7 +1114,8 @@ def save_alerts():
     data = request.json
     logger.debug("save_alerts called with %s", data)
     try:
-        notify('알림 설정 저장')
+        details = ', '.join(f'{k}:{v}' for k, v in data.items())
+        notify(f'알림 설정 저장\n{details}')
         logger.info("Alert settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="알림 설정 저장 완료")
     except Exception as e:
@@ -1124,7 +1130,8 @@ def save_funds():
         for k, v in data.items():
             if hasattr(settings, k):
                 setattr(settings, k, v)
-        notify('자금 설정 저장')
+        details = ', '.join(f'{k}:{v}' for k, v in data.items())
+        notify(f'자금 설정 저장\n{details}')
         logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="자금 설정 저장 완료")
     except Exception as e:
@@ -1136,7 +1143,8 @@ def save_strategy():
     data = request.json
     logger.debug("save_strategy called with %s", data)
     try:
-        notify('전략 설정 저장')
+        details = ', '.join(f'{k}:{v}' for k, v in data.items())
+        notify(f'전략 설정 저장\n{details}')
         logger.info("Strategy settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="전략 설정 저장 완료")
     except Exception as e:
@@ -1148,7 +1156,7 @@ def run_analysis():
     data = request.json
     logger.debug("run_analysis called with %s", data)
     try:
-        notify('AI 분석을 실행했습니다.')
+        notify('AI 분석 실행 요청이 접수되었습니다.')
         logger.info("AI analysis started")
         return jsonify(result="success", message="AI 분석 시작")
     except Exception as e:
@@ -1329,7 +1337,8 @@ def save():
         os.makedirs("config", exist_ok=True)
         with open("config/user_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        notify('설정이 저장되었습니다.')
+        items = ', '.join(f'{k}:{v}' for k, v in data.items())
+        notify(f'사용자 설정 저장\n{items}')
         logger.info("User data saved: %s", json.dumps(data, ensure_ascii=False))
         update_timestamp()
         status = get_status()
