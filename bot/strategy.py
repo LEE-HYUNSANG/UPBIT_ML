@@ -14,7 +14,7 @@ def m_break(df, tis, params):
     ema5 > ema20 > ema60, ATR ≥ 0.035,
     20봉 평균 거래량의 1.8배 폭증, 체결강도 120+, 전고점 0.15% 돌파
     """
-    logger.debug("m_break evaluation")
+    logger.cal("m_break evaluation")
     # 최근 1봉 데이터
     last = df.iloc[-1]  # 현재 봉
     # 이전 20봉 동안의 최고가(돌파 기준선)
@@ -26,7 +26,7 @@ def m_break(df, tis, params):
         tis >= 120 and                                # 체결강도 120 이상
         last['close'] > prev_high * 1.0015             # 전고 돌파
     )
-    logger.debug(
+    logger.cal(
         "m_break close=%s prev_high=%s volume=%s atr=%s tis=%s -> %s",
         last['close'],
         prev_high,
@@ -42,7 +42,7 @@ def p_pull(df, tis, params):
     P-PULL (눌림목 반등)
     ema5 > ema20 > ema60, ema50 근접(0.3% 이내), rsi ≤ 28, 거래량 증가
     """
-    logger.debug("p_pull evaluation")
+    logger.cal("p_pull evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
     ema50 = df['ema50'].iloc[-1]
     ok = (
@@ -51,7 +51,7 @@ def p_pull(df, tis, params):
         last['rsi'] <= params.get('rsi', 28) and
         last['volume'] >= df['volume'].iloc[-2] * 1.2
     )
-    logger.debug(
+    logger.cal(
         "p_pull close=%s ema50=%s rsi=%s volume=%s -> %s",
         last['close'],
         ema50,
@@ -66,7 +66,7 @@ def t_flow(df, tis, params):
     T-FLOW (중기 추세+OBV)
     ema20 기울기 0.15%↑, obv 3봉 연속 상승, rsi 48~60
     """
-    logger.debug("t_flow evaluation")
+    logger.cal("t_flow evaluation")
     # EMA20 최근 5봉 기울기 계산
     ema20_slope = (df['ema20'].iloc[-1] - df['ema20'].iloc[-5]) / (abs(df['ema20'].iloc[-5]) + 1e-9)
     # OBV가 3봉 연속 상승하는지 체크
@@ -75,7 +75,7 @@ def t_flow(df, tis, params):
     ok = (
         ema20_slope > 0.0015 and obv_inc and 48 <= rsi <= 60
     )
-    logger.debug(
+    logger.cal(
         "t_flow slope=%s obv_inc=%s rsi=%s -> %s",
         ema20_slope,
         obv_inc,
@@ -89,7 +89,7 @@ def b_low(df, tis, params):
     B-LOW (박스권 하단 반등)
     80봉 내 박스폭 6% 이내, 저점 터치, rsi < 25
     """
-    logger.debug("b_low evaluation")
+    logger.cal("b_low evaluation")
     # 최근 80봉의 최저·최고가
     low80 = df['low'][-80:].min()
     high80 = df['high'][-80:].max()
@@ -101,7 +101,7 @@ def b_low(df, tis, params):
         last['low'] <= low80 * 1.01 and
         last['rsi'] < params.get('rsi', 25)
     )
-    logger.debug(
+    logger.cal(
         "b_low box_ratio=%s low80=%s rsi=%s -> %s",
         box_ratio,
         low80,
@@ -115,7 +115,7 @@ def v_rev(df, tis, params):
     V-REV (대폭락 후 강한 반등)
     직전봉 -4% 이상 하락, 거래량 2.5배↑, RSI14 18→20 상승, 반등폭 4%↑
     """
-    logger.debug("v_rev evaluation")
+    logger.cal("v_rev evaluation")
     last = df.iloc[-1]   # 현재 봉
     prev = df.iloc[-2]   # 직전 봉
     price_drop = (prev['close'] - last['close']) / (prev['close'] + 1e-9)
@@ -128,7 +128,7 @@ def v_rev(df, tis, params):
         rsi_rise and
         price_rebound
     )
-    logger.debug(
+    logger.cal(
         "v_rev drop=%s vol_burst=%s rsi_rise=%s rebound=%s -> %s",
         price_drop,
         volume_burst,
@@ -143,7 +143,7 @@ def g_rev(df, tis, params):
     G-REV (골든크로스+지지)
     ema50 > ema200 골든, rsi ≥ 48, 거래량 이전봉 대비 0.6배↑
     """
-    logger.debug("g_rev evaluation")
+    logger.cal("g_rev evaluation")
     last = df.iloc[-1]  # 현재 봉 데이터
     golden = last['ema50'] > last['ema200']
     ok = (
@@ -151,7 +151,7 @@ def g_rev(df, tis, params):
         last['rsi'] >= 48 and
         last['volume'] >= df['volume'].iloc[-2] * 0.6
     )
-    logger.debug(
+    logger.cal(
         "g_rev golden=%s rsi=%s volume=%s -> %s",
         golden,
         last['rsi'],
@@ -165,7 +165,7 @@ def vol_brk(df, tis, params):
     VOL-BRK (ATR 폭발·신고가)
     ATR 비율 급등, 거래량 증가, 신고가 돌파, rsi ≥ 60
     """
-    logger.debug("vol_brk evaluation")
+    logger.cal("vol_brk evaluation")
     last = df.iloc[-1]  # 현재 봉
     atr10 = df['atr'][-10:].mean()
     vol20 = df['volume'][-20:].mean()     # 20봉 평균 거래량
@@ -176,7 +176,7 @@ def vol_brk(df, tis, params):
         last['high'] > high20 * 0.999 and
         last['rsi'] >= 60
     )
-    logger.debug(
+    logger.cal(
         "vol_brk atr_ratio=%s vol_ratio=%s high=%s rsi=%s -> %s",
         last['atr'] / (atr10 + 1e-9),
         last['volume'] / (vol20+1e-9),
@@ -191,10 +191,10 @@ def ema_stack(df, tis, params):
     EMA-STACK (다중 EMA + ADX)
     ema25 > ema100 > ema200, adx ≥ 30
     """
-    logger.debug("ema_stack evaluation")
+    logger.cal("ema_stack evaluation")
     last = df.iloc[-1]
     ok = last['ema25'] > last['ema100'] > last['ema200'] and last['adx'] >= 30
-    logger.debug(
+    logger.cal(
         "ema_stack adx=%s -> %s",
         last['adx'],
         ok,
@@ -206,7 +206,7 @@ def vwap_bnc(df, tis, params):
     VWAP-BNC (VWAP/RSI 조합)
     ema5 > ema20 > ema60, vwap 근접, rsi 45~60, 거래량 증가
     """
-    logger.debug("vwap_bnc evaluation")
+    logger.cal("vwap_bnc evaluation")
     last = df.iloc[-1]       # 현재 봉
     vwap = last['vwap']
     vwap_close_ratio = abs(last['close'] - vwap) / (vwap+1e-9)  # 종가와 VWAP 차이
@@ -216,7 +216,7 @@ def vwap_bnc(df, tis, params):
         45 <= last['rsi'] <= 60 and
         last['volume'] >= df['volume'].iloc[-2]
     )
-    logger.debug(
+    logger.cal(
         "vwap_bnc vwap_ratio=%s rsi=%s volume=%s -> %s",
         vwap_close_ratio,
         last['rsi'],
@@ -243,10 +243,10 @@ def select_strategy(strategy_name, df, tis, params):
     전략명/지표/체결강도/파라미터로 전략 함수 실행
     사용 예: ok, param = select_strategy('M-BREAK', df, tis, {...})
     """
-    logger.debug("select_strategy %s", strategy_name)
+    logger.cal("select_strategy %s", strategy_name)
     func = STRATS.get(strategy_name)   # 전략 이름으로 함수 찾기
     if not func:
         return False, {}
     ok, res = func(df, tis, params)
-    logger.debug("%s -> %s", strategy_name, ok)
+    logger.cal("%s -> %s", strategy_name, ok)
     return ok, res

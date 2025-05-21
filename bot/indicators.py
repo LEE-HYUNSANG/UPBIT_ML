@@ -14,7 +14,7 @@ def calc_indicators(df):
     입력: df - OHLCV 데이터프레임 (컬럼명: open/high/low/close/volume)
     출력: df - 지표 컬럼 추가 후 반환
     """
-    logger.debug("calc_indicators called")
+    logger.cal("calc_indicators called")
     # 이동평균선(EMA) 계산 - 모든 컬럼명은 소문자
     df['ema5'] = ta.EMA(df['close'], 5)
     df['ema20'] = ta.EMA(df['close'], 20)
@@ -38,5 +38,5 @@ def calc_indicators(df):
     df.bfill(inplace=True)
     df.fillna(0, inplace=True)
     if not df.empty:
-        logger.debug("Indicators calculated: %s", df.iloc[-1].to_dict())
+        logger.cal("Indicators calculated: %s", df.iloc[-1].to_dict())
     return df  # 지표가 추가된 데이터프레임 반환

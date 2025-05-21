@@ -22,7 +22,7 @@ app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
 
 # 로그 설정 (파일 + 콘솔)
-logger = setup_logging(level="DEBUG", log_file="debug.log")
+logger = setup_logging(level="DEBUG", log_dir="logs")
 
 # 숫자 천 단위 콤마 필터
 @app.template_filter('comma')
@@ -285,7 +285,7 @@ def refresh_market_data_retry(retries: int = 3, delay: float = 0.2) -> None:
 
 def calc_buy_signal(ticker: str, coin: str) -> dict:
     """매수 모니터링 지표를 계산해 반환한다."""
-    logger.debug("[BUY MON] calc_buy_signal for %s", ticker)
+    logger.cal("[BUY MON] calc_buy_signal for %s", ticker)
     entry = {
         "coin": coin,
         "price": "⛔",
@@ -358,7 +358,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
             else:
                 entry["strength"] = f"🔻 {tis:.0f}"
         else:
-            logger.debug("[BUY MON] TIS not available for %s", ticker)
+            logger.cal("[BUY MON] TIS not available for %s", ticker)
 
         gc = (ema5.shift(1) < ema20.shift(1)) & (ema5 > ema20)
         dc = (ema5.shift(1) > ema20.shift(1)) & (ema5 < ema20)
@@ -404,7 +404,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
             entry["signal"] = "관망"
             entry["signal_class"] = "wait"
 
-        logger.debug(
+        logger.cal(
             "[BUY MON] %s price=%s trend=%s atr=%.2f vol=%.2f tis=%s gc=%s rsi=%.2f signal=%s",
             ticker,
             entry["price"],
@@ -452,9 +452,9 @@ def calc_buy_signal_retry(ticker: str, coin: str, retries: int = 3) -> dict:
         ]
         if not missing:
             return entry
-        logger.debug("[BUY MON] retry %d for %s missing %s", i + 1, ticker, missing)
+        logger.cal("[BUY MON] retry %d for %s missing %s", i + 1, ticker, missing)
         time.sleep(0.2)
-    logger.debug("[BUY MON] final entry for %s after retries", ticker)
+    logger.cal("[BUY MON] final entry for %s after retries", ticker)
     return entry
 
 
@@ -532,7 +532,7 @@ def buy_signal_monitor_loop() -> None:
 def get_filtered_signals():
     """가격 범위와 거래대금 순위로 필터링한 시세 데이터를 반환한다."""
     logger.info("[MONITOR] 매수 모니터링 요청")
-    logger.debug("[MONITOR] 필터 조건 %s", filter_config)
+    logger.cal("[MONITOR] 필터 조건 %s", filter_config)
     min_p = float(filter_config.get("min_price", 0) or 0)
     max_p = float(filter_config.get("max_price", 0) or 0)
     rank = int(filter_config.get("rank", 0) or 0)
@@ -541,10 +541,10 @@ def get_filtered_signals():
 
     filtered = []
     for s in data:
-        logger.debug("[MONITOR] 원본 시그널 %s", s)
+        logger.cal("[MONITOR] 원본 시그널 %s", s)
         price = s["price"]
         if min_p and price < min_p:
-            logger.debug(
+            logger.cal(
                 "[MONITOR] 제외 %s price %.8f < min_price %.8f",
                 s["coin"],
                 price,
@@ -552,7 +552,7 @@ def get_filtered_signals():
             )
             continue
         if max_p and max_p > 0 and price > max_p:
-            logger.debug(
+            logger.cal(
                 "[MONITOR] 제외 %s price %.8f > max_price %.8f",
                 s["coin"],
                 price,
@@ -567,7 +567,7 @@ def get_filtered_signals():
     result = []
     for s in filtered:
         entry = {k: v for k, v in s.items() if k != "rank"}
-        logger.debug(
+        logger.cal(
             "[MONITOR] 선정 %s price %.8f rank %d",
             entry["coin"],
             s["price"],
@@ -577,15 +577,15 @@ def get_filtered_signals():
 
     logger.info("[MONITOR] UPBIT 응답 %d개", len(result))
     for s in result:
-        logger.debug("[MONITOR] 응답 데이터 %s", s)
+        logger.cal("[MONITOR] 응답 데이터 %s", s)
     return result
 
 def get_filtered_tickers() -> list[str]:
     """대시보드 조건에 맞는 KRW 티커 목록을 반환한다."""
-    logger.debug("Filtering tickers with %s", filter_config)
+    logger.cal("Filtering tickers with %s", filter_config)
     signals = get_filtered_signals()
     tickers = [f"KRW-{s['coin']}" for s in signals]
-    logger.debug("Filtered tickers: %s", tickers)
+    logger.cal("Filtered tickers: %s", tickers)
     return tickers
 
 
