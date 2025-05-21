@@ -1,6 +1,8 @@
 # UPBIT AutoTrading Example
 
-This repository contains a minimal Flask + SocketIO demo for an automated trading dashboard.  All HTML templates use Jinja2 variables so tables and forms are filled with server side data.
+This repository contains a minimal Flask + SocketIO demo for an automated
+trading dashboard. All HTML templates use Jinja2 variables so tables and forms
+are filled with server side data.
 
 ## Quick Start
 1. 파이썬 3.11 이상 설치 후 저장소를 클론합니다.
@@ -24,9 +26,12 @@ This repository contains a minimal Flask + SocketIO demo for an automated tradin
 
 ## Structure
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
-- **templates/** – Jinja2 templates extending `base.html`. Pages include `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`, `settings.html` and `ai_analysis.html`.
+- **templates/** – Jinja2 templates extending `base.html`. Pages include
+  `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`,
+  `settings.html` and `ai_analysis.html`.
   Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
-- **static/js/main.js** – Common JavaScript handling API calls, SocketIO events, draggable layout and real time table updates.
+- **static/js/main.js** – Common JavaScript handling API calls, SocketIO events,
+  draggable layout and real time table updates.
 - **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
 - **config/market.json** – Sample market data loaded for monitoring filters.
 - **notify()** – Helper in `app.py` that sends messages to SocketIO and Telegram.
@@ -78,6 +83,15 @@ Debug logs are written to `logs/trace.log`. Set `LOG_LEVEL=DEBUG` to record each
 indicator value calculated for buy signals. The dashboard headers display the
 remaining time until the next account and signal refresh, updated when a new
 5‑minute candle closes.
+
+Running the app with `python app.py` uses Flask's development server. It prints
+a single access log line for every HTTP request. Example:
+```
+127.0.0.1 - - [21/May/2025 10:50:29] "GET /api/status HTTP/1.1" 200 236 0.002
+```
+The fields show the client IP, method and path, HTTP status, response size and
+processing time. Because the dashboard polls `/api/status` every five seconds,
+these lines appear repeatedly during development.
 
 ## Running tests
 Install `pytest` and execute the suite:
