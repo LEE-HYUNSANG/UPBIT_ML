@@ -51,7 +51,8 @@ The JavaScript in `main.js` will call `/api/start-bot` and show any returned mes
 SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
 ## Market data
-`app.py` retrieves current prices and 1h volume from Upbit once per minute.
+`app.py` retrieves current prices and 1h volume from Upbit whenever a new
+five‑minute candle closes.
 Coins are filtered by the values in `config/filter.json` (`min_price`, `max_price`, `rank`).
 The resulting list is written to `config/monitor_list.json` only when settings are saved,
 so the same coins are reused until you update the filter.
@@ -66,10 +67,17 @@ python app.py
 The app runs with `socketio.run` so WebSocket notifications work by default.
 Real time events are pushed to the browser via SocketIO and displayed with `showAlert()` in `main.js`.
 
-Every minute the server fetches live KRW market data from Upbit using `pyupbit`.
-Coins are ranked by 1h volume and filtered according to the dashboard settings
-(`min_price`, `max_price`, `rank`). The resulting ticker list is used for both
-monitoring and trading.
+The server checks the latest 5‑minute candle every 10 seconds. When the candle
+time changes it refreshes KRW market data using `pyupbit`. Coins are ranked by
+1h volume and filtered according to the dashboard settings (`min_price`,
+`max_price`, `rank`). The resulting ticker list is used for both monitoring and
+trading.
+
+## Logging and refresh timers
+Debug logs are written to `logs/trace.log`. Set `LOG_LEVEL=DEBUG` to record each
+indicator value calculated for buy signals. The dashboard headers display the
+remaining time until the next account and signal refresh, updated when a new
+5‑minute candle closes.
 
 ## Running tests
 Install `pytest` and execute the suite:
