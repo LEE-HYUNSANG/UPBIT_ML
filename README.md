@@ -182,3 +182,75 @@ docker run -p 8000:8000 upbit-bot
 ```
 
 `scripts/run_gunicorn.sh` 는 간단한 운영 자동화 스크립트 예시입니다.
+
+## 문제 해결 로그
+아래는 VSCode CSS 진단에서 보고된 예시 오류입니다. `templates/index.html` 134번째 줄의 인라인 스타일에서 발생하였습니다.
+
+```json
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-identifierexpected",
+    "severity": 8,
+    "message": "식별자 필요",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 53,
+    "endLineNumber": 134,
+    "endColumn": 54
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-rcurlyexpected",
+    "severity": 8,
+    "message": "} 필요",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 54,
+    "endLineNumber": 134,
+    "endColumn": 55
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-ruleorselectorexpected",
+    "severity": 8,
+    "message": "at-rule 또는 선택기가 필요함",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 68,
+    "endLineNumber": 134,
+    "endColumn": 69
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "emptyRules",
+    "severity": 4,
+    "message": "빈 규칙 집합을 사용하지 마세요.",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 48,
+    "endLineNumber": 134,
+    "endColumn": 53
+  }
+]
+```
+
+해당 오류는 인라인 스타일에서 Jinja2 템플릿 변수를 사용하면서 세미콜론이 누락되어 발생했습니다. 아래와 같이 수정하여 해결하였습니다.
+
+```html
+<span class="pin" style="left: {{ p.pin_pct }}%;"></span>
+```
+
