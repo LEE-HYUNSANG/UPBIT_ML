@@ -1053,29 +1053,37 @@ def save_settings():
         if not isinstance(data, dict):
             raise ValueError("Invalid JSON")
         # 대시보드 필터 값 저장
+        changes = []
         for k in ("min_price", "max_price", "rank"):
             if k in data:
                 value = data[k]
                 if value in (None, ""):
                     continue
                 try:
-                    if k == "rank":
-                        filter_config[k] = int(value)
-                    else:
-                        filter_config[k] = float(value)
+                    new_val = int(value) if k == "rank" else float(value)
                 except (ValueError, TypeError):
                     raise ValueError(f"Invalid value for {k}")
+                old_val = filter_config.get(k)
+                if old_val != new_val:
+                    changes.append(f"{k}: {old_val} → {new_val}")
+                filter_config[k] = new_val
         for k, v in data.items():
             if k in ("min_price", "max_price", "rank"):
                 continue
             if hasattr(settings, k):
+                old = getattr(settings, k)
+                if old != v:
+                    changes.append(f"{k}: {old} → {v}")
                 setattr(settings, k, v)
         os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
             json.dump(filter_config, f, ensure_ascii=False, indent=2)
         update_monitor_list()
         update_timestamp()
-        notify('설정이 저장되었습니다.')
+        msg = '설정이 저장되었습니다.'
+        if changes:
+            msg += '\n' + '\n'.join(changes)
+        notify(msg)
         logger.info("Settings saved: %s", json.dumps(data, ensure_ascii=False))
         return jsonify(result="success", message="저장 완료", status=get_status())
     except Exception as e:
@@ -1156,7 +1164,13 @@ def manual_sell():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        notify(f'{coin} 수동 매도 요청')
+        price = pyupbit.get_current_price(f"KRW-{coin}") or 0
+        msg = (
+            f'{coin} 수동 매도 요청\n'
+            f'주문 가격: {price:,.0f}원\n'
+            '주문 방식: 시장가'
+        )
+        notify(msg)
         global positions, alerts
         positions = [p for p in positions if p['coin'] != coin]
         alerts.insert(0, {"time": datetime.now().strftime('%H:%M'), "message": f"{coin} 매도"})
@@ -1177,7 +1191,15 @@ def manual_buy():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        notify(f'{coin} 수동 매수 요청')
+        price = pyupbit.get_current_price(f"KRW-{coin}") or 0
+        amount = settings.buy_amount
+        msg = (
+            f'{coin} 수동 매수 요청\n'
+            f'주문 금액: {amount:,}원\n'
+            f'주문 가격: {price:,.0f}원\n'
+            '주문 방식: 시장가'
+        )
+        notify(msg)
         global positions, alerts
         positions.append({
             "coin": coin,
