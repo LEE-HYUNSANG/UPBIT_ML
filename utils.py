@@ -114,7 +114,6 @@ def send_telegram(token: str, chat_id: str, text: str) -> None:
 #     except Exception as e:  # SMTP 오류 무시
 #         logging.exception("Email send failed: %s", e)
 
-
 def load_secrets(
     path: str = "config/secrets.json",
     required: Iterable[str] = (

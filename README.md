@@ -143,6 +143,7 @@ All API keys and tokens are read from `config/secrets.json`. Create the file bef
   // "EMAIL_USER": "bot@example.com",
   // "EMAIL_PASSWORD": "pass",
   // "EMAIL_TO": "notify@example.com"  // 이메일 알림은 비활성화 상태
+
 }
 ```
 

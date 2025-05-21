@@ -109,7 +109,6 @@ def test_restore_defaults(tmp_path):
     assert loaded == sample
     assert backup_path.exists()
 
-
 # def test_send_email():
 #     """SMTP 서버 호출 여부를 확인한다."""
 #     with patch('utils.smtplib.SMTP') as mock_smtp:
@@ -119,4 +118,3 @@ def test_restore_defaults(tmp_path):
 #         instance.starttls.assert_called_once()
 #         instance.login.assert_called_once_with('u', 'p')
 #         instance.sendmail.assert_called_once()
-

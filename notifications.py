@@ -5,7 +5,7 @@ from typing import Optional
 
 from flask_socketio import SocketIO
 
-from utils import send_telegram
+from utils import send_telegram, send_email
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +14,7 @@ _socketio: Optional[SocketIO] = None
 _token: Optional[str] = None
 _chat_id: Optional[str] = None
 # _email: dict | None = None  # 이메일 알림 미사용
+
 
 
 def init(
@@ -32,7 +33,6 @@ def init(
     # elif email:
     #     logger.warning("Incomplete email configuration; email notifications disabled")
 
-
 def notify(message: str) -> None:
     """SocketIO와 텔레그램으로 알림을 전송한다."""
     logger.debug("[NOTIFY] %s", message)
@@ -50,7 +50,6 @@ def notify(message: str) -> None:
     #         "Notification",
     #         message,
     #     )
-
 
 def notify_error(message: str, code: str) -> None:
     """Send error notification with code."""
