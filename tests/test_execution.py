@@ -47,3 +47,39 @@ def test_smart_sell_limit():
     assert upbit.limit_sell_called == 1
     assert price == 99 + exe._tick_size(99)
     assert qty == 0.2
+
+
+def test_smart_buy_slippage_guard():
+    upbit = DummyUpbit()
+    with patch(
+        "helpers.execution.pyupbit.get_orderbook",
+        return_value=_mock_orderbook(ask=100, bid=90),
+    ):
+        price, qty = exe.smart_buy(
+            upbit,
+            "KRW-TEST",
+            10000,
+            slippage=0.001,
+            slippage_limit=0.05,
+        )
+    assert price == 0
+    assert qty == 0
+    assert upbit.market_buy_called == 0
+
+
+def test_smart_sell_slippage_guard():
+    upbit = DummyUpbit()
+    with patch(
+        "helpers.execution.pyupbit.get_orderbook",
+        return_value=_mock_orderbook(ask=200, bid=150),
+    ):
+        price, qty = exe.smart_sell(
+            upbit,
+            "KRW-TEST",
+            0.5,
+            slippage=0.001,
+            slippage_limit=0.2,
+        )
+    assert price == 0
+    assert qty == 0
+    assert upbit.market_sell_called == 0

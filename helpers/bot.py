@@ -8,6 +8,7 @@ import logging
 import os
 import time
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, Callable, Any
 
 import pyupbit
@@ -27,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 # 포지션 변경 시 동시 접근을 방지하기 위한 락
 _LOCK = threading.Lock()
+BALANCE_CACHE: list = []
 
 
 def _safe_call(
@@ -34,11 +36,12 @@ def _safe_call(
     *args: Any,
     retries: int = 3,
     delay: float = 0.5,
+    **kwargs: Any,
 ) -> Any:
     """Retry ``func`` up to ``retries`` times with exponential backoff."""
     for attempt in range(retries):
         try:
-            return func(*args)
+            return func(*args, **kwargs)
         except Exception as exc:  # pragma: no cover - runtime
             log_trade("ERROR", {"func": func.__name__, "error": str(exc)})
             logger.warning("%s retry %s/%s", func.__name__, attempt + 1, retries)
@@ -89,6 +92,8 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     active_trades: Dict[str, Dict[str, float]] = {}
     try:
         balances = _safe_call(upbit.get_balances)
+        with _LOCK:
+            BALANCE_CACHE[:] = balances
         for b in balances:
             if b.get("currency") == "KRW":
                 continue
@@ -108,6 +113,9 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     last_reload = time.time()
     logger.info("[BOT] starting trading loop")
 
+    executor = ThreadPoolExecutor(
+        max_workers=fund_conf.get("max_concurrent_trades", 5)
+    )
     next_run = time.time()
     while True:
         try:
@@ -140,34 +148,44 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
             filtered = get_filtered_tickers(filter_conf)
             logger.debug("[BOT] tickers %s", filtered)
 
+            buy_tasks = []
             for ticker in filtered:
                 if ticker in active_trades:
                     continue
-                if len(active_trades) >= fund_conf.get("max_concurrent_trades", 1):
+                if len(active_trades) + len(buy_tasks) >= fund_conf.get(
+                    "max_concurrent_trades", 1
+                ):
                     logger.debug("[BOT] max concurrent trades reached")
                     break
                 strat = strategy_conf.get("strategy", "M-BREAK")
                 level = strategy_conf.get("level", "중도적")
                 if check_buy_signal(strat, ticker, level):
-                    price, qty = _safe_call(
+                    fut = executor.submit(
+                        _safe_call,
                         smart_buy,
                         upbit,
                         ticker,
                         fund_conf.get("buy_amount", 0),
                         fund_conf.get("slippage_tolerance", 0.001),
+                        slippage_limit=fund_conf.get("slippage_tolerance", 0.001),
                     )
-                    if qty > 0:
-                        with _LOCK:
-                            active_trades[ticker] = {
-                                "buy_price": price,
-                                "qty": qty,
-                                "strategy": strat,
-                                "level": level,
-                            }
-                        logger.info(
-                            "[BOT] bought %s price=%.8f qty=%.6f", ticker, price, qty
-                        )
+                    buy_tasks.append((ticker, strat, level, fut))
 
+            needs_update = False
+            for ticker, strat, level, fut in buy_tasks:
+                price, qty = fut.result()
+                if qty > 0:
+                    with _LOCK:
+                        active_trades[ticker] = {
+                            "buy_price": price,
+                            "qty": qty,
+                            "strategy": strat,
+                            "level": level,
+                        }
+                    logger.info("[BOT] bought %s price=%.8f qty=%.6f", ticker, price, qty)
+                    needs_update = True
+
+            sell_tasks = []
             for ticker, pos in list(active_trades.items()):
                 if check_sell_signal(
                     pos["strategy"],
@@ -176,18 +194,27 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     pos["level"],
                     risk_conf,
                 ):
-                    avg, vol = _safe_call(
+                    fut = executor.submit(
+                        _safe_call,
                         smart_sell,
                         upbit,
                         ticker,
                         pos["qty"],
                         fund_conf.get("slippage_tolerance", 0.001),
+                        slippage_limit=fund_conf.get("slippage_tolerance", 0.001),
                     )
-                    logger.info(
-                        "[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol
-                    )
-                    with _LOCK:
-                        active_trades.pop(ticker, None)
+                    sell_tasks.append((ticker, fut))
+
+            for ticker, fut in sell_tasks:
+                avg, vol = fut.result()
+                logger.info("[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol)
+                with _LOCK:
+                    active_trades.pop(ticker, None)
+                needs_update = True
+
+            if needs_update:
+                with _LOCK:
+                    BALANCE_CACHE[:] = _safe_call(upbit.get_balances)
 
         except Exception as e:  # pragma: no cover - runtime loop
             logger.exception("[BOT] error %s", e)
