@@ -87,6 +87,30 @@ if os.path.exists(FILTER_FILE):
     except Exception:
         pass
 
+SIGNAL_ORDER = {
+    "buy-strong": 0,
+    "buy": 1,
+    "wait": 2,
+    "avoid": 3,
+    "ban": 4,
+    "nodata": 5,
+}
+
+
+def sort_results_and_coins(results: list[dict], coins: list[dict]) -> tuple[list[dict], list[dict]]:
+    """신호 우선순위와 1시간 거래량으로 정렬한다."""
+    vol_map = {c["coin"]: c.get("volume", 0) for c in coins}
+    pairs = list(zip(results, coins))
+    pairs.sort(
+        key=lambda p: (
+            SIGNAL_ORDER.get(p[0].get("signal_class"), len(SIGNAL_ORDER)),
+            -vol_map.get(p[0].get("coin"), 0),
+        )
+    )
+    sorted_results = [p[0] for p in pairs]
+    sorted_coins = [p[1] for p in pairs]
+    return sorted_results, sorted_coins
+
 # 매도 모니터링 제외 목록 로드
 EXCLUDE_FILE = 'config/exclude.json'
 excluded_coins = []
@@ -211,15 +235,18 @@ def update_monitor_list() -> None:
     """
     global signal_cache
     signals = get_filtered_signals()
+    results = []
+    for s in signals:
+        ticker = f"KRW-{s['coin']}"
+        results.append(calc_buy_signal_retry(ticker, s["coin"]))
+
+    results, signals = sort_results_and_coins(results, signals)
+
     os.makedirs(os.path.dirname(MONITOR_FILE), exist_ok=True)
     with open(MONITOR_FILE, "w", encoding="utf-8") as f:
         json.dump(signals, f, ensure_ascii=False, indent=2)
     logger.debug("[MARKET] Monitor list saved %d coins", len(signals))
 
-    results = []
-    for s in signals:
-        ticker = f"KRW-{s['coin']}"
-        results.append(calc_buy_signal_retry(ticker, s["coin"]))
     with _signal_lock:
         signal_cache = results
     logger.debug("[MARKET] Signal cache primed %d coins", len(results))
@@ -503,6 +530,8 @@ def buy_signal_monitor_loop() -> None:
             for c in coins:
                 ticker = f"KRW-{c['coin']}"
                 results.append(calc_buy_signal_retry(ticker, c["coin"]))
+
+            results, coins = sort_results_and_coins(results, coins)
             with _signal_lock:
                 signal_cache = results
             logger.debug("[BUY MONITOR] updated %d signals at %s", len(results), close_time)
@@ -519,16 +548,19 @@ def buy_signal_monitor_loop() -> None:
             updated = False
             with _signal_lock:
                 results = list(signal_cache)
-            for idx, c in enumerate(coins):
+            result_map = {r["coin"]: r for r in results}
+            for c in coins:
                 ticker = f"KRW-{c['coin']}"
-                entry = results[idx]
+                entry = result_map.get(c['coin'])
                 keys = ("price", "trend", "volatility", "volume", "strength", "gc", "rsi")
-                if any(entry.get(k) == "⛔" for k in keys):
+                if entry and any(entry.get(k) == "⛔" for k in keys):
                     new_entry = calc_buy_signal_retry(ticker, c["coin"])
                     if new_entry != entry:
-                        results[idx] = new_entry
+                        result_map[c['coin']] = new_entry
                         updated = True
             if updated:
+                results = list(result_map.values())
+                results, coins = sort_results_and_coins(results, coins)
                 with _signal_lock:
                     signal_cache = results
                 logger.debug("[BUY MONITOR] partial refresh")
