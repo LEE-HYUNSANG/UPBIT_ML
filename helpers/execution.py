@@ -10,13 +10,35 @@
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 import time
 from typing import Tuple
 
 import pyupbit
 
+from utils import send_telegram
+
 logger = logging.getLogger(__name__)
+
+try:
+    with open("config/secrets.json", encoding="utf-8") as f:
+        _SEC = json.load(f)
+    _TOKEN = _SEC.get("TELEGRAM_TOKEN")
+    _CHAT = _SEC.get("TELEGRAM_CHAT_ID")
+except Exception:  # pragma: no cover - file issues
+    _TOKEN = os.getenv("TELEGRAM_TOKEN")
+    _CHAT = os.getenv("TELEGRAM_CHAT_ID")
+
+
+def _alert(msg: str) -> None:
+    """텔레그램으로 오류 메시지를 전송한다."""
+    if _TOKEN and _CHAT:
+        try:
+            send_telegram(_TOKEN, _CHAT, msg)
+        except Exception:  # pragma: no cover - network
+            logger.debug("telegram send failed")
 
 
 def _tick_size(price: float) -> float:
@@ -39,11 +61,42 @@ def _tick_size(price: float) -> float:
 
 def _fetch_spread(ticker: str) -> Tuple[float, float, float]:
     """호가창에서 매수호가, 매도호가, 스프레드 비율을 반환한다."""
-    book = pyupbit.get_orderbook(ticker)[0]["orderbook_units"][0]
-    ask = float(book["ask_price"])
-    bid = float(book["bid_price"])
-    spread = (ask - bid) / ask
-    return ask, bid, spread
+    try:
+        book = pyupbit.get_orderbook(ticker)[0]["orderbook_units"][0]
+        ask = float(book["ask_price"])
+        bid = float(book["bid_price"])
+        spread = (ask - bid) / ask
+        return ask, bid, spread
+    except Exception as e:
+        logger.error("[API Exception] orderbook fail %s %s", ticker, e)
+        _alert(f"[API Exception] 호가 조회 실패: {ticker} {e}")
+        raise
+
+
+def check_filled_amount(upbit: pyupbit.Upbit, uuid: str) -> float:
+    """주문 UUID로 실제 체결 수량을 반환한다."""
+    try:
+        order = upbit.get_order(uuid)
+        if not order:
+            return 0.0
+        return float(order.get("executed_volume", 0.0))
+    except Exception as e:  # pragma: no cover - API fail
+        logger.error("[API Exception] get_order fail %s", e)
+        _alert(f"[API Exception] 주문 조회 실패: {e}")
+        return 0.0
+
+
+def is_filled(upbit: pyupbit.Upbit, uuid: str) -> bool:
+    """주문이 완전히 체결되었는지 확인한다."""
+    try:
+        order = upbit.get_order(uuid)
+        if not order:
+            return False
+        return float(order.get("remaining_volume", 0.0)) == 0.0
+    except Exception as e:  # pragma: no cover - API fail
+        logger.error("[API Exception] order status fail %s", e)
+        _alert(f"[API Exception] 주문 상태 조회 실패: {e}")
+        return False
 
 
 def smart_buy(
@@ -69,22 +122,41 @@ def smart_buy(
             if spread <= slippage:
                 res = upbit.buy_market_order(ticker, total_krw)
                 price = float(res.get("price", ask))
-                vol = float(res.get("volume", total_krw / price))
+                vol = float(res.get("volume", total_krw / (price or 1)))
+                uuid = res.get("uuid")
+                if uuid:
+                    for _ in range(3):
+                        if is_filled(upbit, uuid):
+                            vol = check_filled_amount(upbit, uuid)
+                            break
+                        time.sleep(1)
                 logger.info("[BUY] market %s price=%s vol=%s", ticker, price, vol)
                 return price, vol
             tick = _tick_size(ask)
             limit_price = ask - tick
             vol = total_krw / limit_price
             res = upbit.buy_limit_order(ticker, limit_price, vol)
-            if res.get("status") == "done":
+            uuid = res.get("uuid")
+            if res.get("status") == "done" or (uuid and is_filled(upbit, uuid)):
+                if uuid:
+                    vol = check_filled_amount(upbit, uuid)
                 logger.info("[BUY] limit %s price=%s vol=%s", ticker, limit_price, vol)
                 return limit_price, vol
-        except Exception as e:  # pragma: no cover - logging only
-            logger.warning("smart_buy retry %s %s", attempt + 1, e)
-            time.sleep(0.2)
-    res = upbit.buy_market_order(ticker, total_krw)
-    price = float(res.get("price", 0))
-    vol = float(res.get("volume", 0))
+        except Exception as e:
+            logger.error("[ORDER FAIL] smart_buy %s %s", ticker, e)
+            _alert(f"[ORDER FAIL] 매수 실패 {ticker}: {e}")
+            if "잔액" in str(e) or "balance" in str(e):
+                return 0.0, 0.0
+            time.sleep(1)
+    _alert(f"[ORDER FAIL] 매수 포기 {ticker}")
+    try:
+        res = upbit.buy_market_order(ticker, total_krw)
+        price = float(res.get("price", 0))
+        vol = float(res.get("volume", 0))
+    except Exception as e:  # pragma: no cover - final
+        logger.error("[ORDER FAIL] fallback buy %s", e)
+        _alert(f"[ORDER FAIL] 최종 매수 실패 {ticker}: {e}")
+        return 0.0, 0.0
     logger.info("[BUY] fallback market %s price=%s vol=%s", ticker, price, vol)
     return price, vol
 
@@ -119,6 +191,13 @@ def smart_sell(
                     res = upbit.sell_market_order(ticker, part)
                     price = float(res.get("price", bid))
                     qty = float(res.get("volume", part))
+                    uuid = res.get("uuid")
+                    if uuid:
+                        for _ in range(3):
+                            if is_filled(upbit, uuid):
+                                qty = check_filled_amount(upbit, uuid)
+                                break
+                            time.sleep(1)
                     avg_price = ((avg_price * sold) + price * qty) / (sold + qty)
                     sold += qty
                     logger.info(
@@ -128,22 +207,30 @@ def smart_sell(
                 tick = _tick_size(bid)
                 limit_price = bid + tick
                 res = upbit.sell_limit_order(ticker, limit_price, part)
-                if res.get("status") == "done":
-                    avg_price = (
-                        (avg_price * sold) + limit_price * part
-                    ) / (sold + part)
+                uuid = res.get("uuid")
+                done = res.get("status") == "done" or (uuid and is_filled(upbit, uuid))
+                if done:
+                    if uuid:
+                        part = check_filled_amount(upbit, uuid)
+                    avg_price = ((avg_price * sold) + limit_price * part) / (sold + part)
                     sold += part
                     logger.info(
                         "[SELL] limit %s price=%s vol=%s", ticker, limit_price, part
                     )
                     break
             except Exception as e:  # pragma: no cover - logging only
-                logger.warning("smart_sell retry %s %s", attempt + 1, e)
-                time.sleep(0.2)
+                logger.error("[ORDER FAIL] smart_sell %s %s", ticker, e)
+                _alert(f"[ORDER FAIL] 매도 실패 {ticker}: {e}")
+                if "잔액" in str(e) or "balance" in str(e):
+                    return avg_price, sold
+                time.sleep(1)
         else:
             res = upbit.sell_market_order(ticker, part)
             price = float(res.get("price", 0))
             qty = float(res.get("volume", part))
+            uuid = res.get("uuid")
+            if uuid and is_filled(upbit, uuid):
+                qty = check_filled_amount(upbit, uuid)
             avg_price = ((avg_price * sold) + price * qty) / (sold + qty)
             sold += qty
             logger.info(

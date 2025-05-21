@@ -7,7 +7,9 @@ import time           # 주기적 실행을 위한 시간 모듈
 import threading      # 스레드 사용을 위해
 import pandas as pd   # 데이터프레임 처리
 import pyupbit        # 업비트 API 연동
-from utils import calc_tis
+import json
+import os
+from utils import calc_tis, load_secrets, send_telegram
 from .strategy import select_strategy
 from .indicators import calc_indicators
 
@@ -38,8 +40,23 @@ class UpbitTrader:
         self.logger = logger    # 로거
         self.thread = None      # 실행 스레드
         self.tickers = config.get("tickers", ["KRW-BTC", "KRW-ETH"])
+        try:
+            sec = load_secrets()
+            self.token = sec.get("TELEGRAM_TOKEN")
+            self.chat = sec.get("TELEGRAM_CHAT_ID")
+        except Exception:
+            self.token = os.getenv("TELEGRAM_TOKEN")
+            self.chat = os.getenv("TELEGRAM_CHAT_ID")
         if self.logger:
             self.logger.debug("Trader initialized with config %s", config)
+
+    def _alert(self, msg: str) -> None:
+        if self.token and self.chat:
+            try:
+                send_telegram(self.token, self.chat, msg)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("telegram send failed")
 
     def set_tickers(self, tickers: list[str]) -> None:
         """거래 대상 티커 목록을 갱신한다."""
@@ -78,6 +95,7 @@ class UpbitTrader:
 
     def run_loop(self):
         """메인 5분봉 매매 루프"""
+        error_count = 0
         while self.running:
             try:
                 if self.logger:
@@ -134,9 +152,15 @@ class UpbitTrader:
                                 strat_name,
                             )
                 time.sleep(300)  # 5분 대기 후 다음 루프
+                error_count = 0
             except Exception as e:
                 if self.logger:
                     self.logger.exception("[TRADER ERROR] %s", e)
+                self._alert(f"[ERROR] 트레이더 루프 오류: {e}")
+                error_count += 1
+                if error_count >= 3:
+                    self._alert(f"[ERROR] 트레이더 연속 {error_count}회 오류")
+                    error_count = 0
                 time.sleep(10)  # 잠시 대기 후 재시도
 
     def get_balances(self):
@@ -148,6 +172,7 @@ class UpbitTrader:
         except Exception as e:
             if self.logger:
                 self.logger.exception("Failed to get balances: %s", e)
+            self._alert(f"[API Exception] 잔고 조회 실패: {e}")
             return None
 
     def account_summary(self, excluded=None):
@@ -177,6 +202,7 @@ class UpbitTrader:
                     except Exception:
                         if self.logger:
                             self.logger.warning("Price lookup failed for %s", b['currency'])
+                        self._alert(f"[API Exception] 시세 조회 실패: {b['currency']}")
                         price = 0
                     total += bal * price
                 if self.logger:
@@ -228,6 +254,7 @@ class UpbitTrader:
             except Exception:
                 if self.logger:
                     self.logger.warning("Price lookup failed for %s", currency)
+                self._alert(f"[API Exception] 시세 조회 실패: {currency}")
                 price = 0
             avg_buy = float(b.get("avg_buy_price", 0))
             pnl = round((price - avg_buy) / avg_buy * 100, 1) if avg_buy else None
