@@ -176,3 +176,10 @@ input[type="password"] { letter-spacing:0.2em; }
 #confirmModal .btn {
   min-width: 100px;
 }
+
+/* 넓은 툴팁 스타일 */
+.wide-tooltip .tooltip-inner {
+  max-width: 260px;
+  white-space: pre-line;
+  text-align: left;
+}

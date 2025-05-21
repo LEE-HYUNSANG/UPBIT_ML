@@ -200,33 +200,43 @@
           <thead class="table-light"><tr>
             <th>코인</th>
             <th>현재가</th>
-            <th>추세
+              <th>추세
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 상승(🔼), 케이스 2: 하락(🔻), 케이스 3: 중립(🔸)"></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="추세 의미: EMA5/20/60 배열과 기울기를 활용해 가격 흐름을 판단합니다.&#10;
+🔼(상승): EMA5>EMA20>EMA60 이고 EMA20 기울기 양수&#10;
+🔸(중립): 위 두 조건에 모두 해당하지 않음&#10;
+🔻(하락): EMA5<EMA20<EMA60 이고 EMA20 기울기 음수"></i>
             </th>
             <th>변동성<br>(ATR%)
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 변동성 높음(🔵≥5%). 케이스 2: 중간(🟡1~5). 케이스 3: 낮음(🔻<1)."></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="변동성 의미: ATR 비율로 가격 움직임을 판단합니다.&#10;🔵(높음): 5% 이상&#10;🟡(중간): 1~5%&#10;🔻(낮음): 1% 미만"></i>
             </th>
             <th>거래량(%)
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 폭증(⏫≥2). 케이스 2: 증가(🔼1.10~1.99). 케이스 3: 감소(🔻<0.70)."></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="거래량 의미: 평균 대비 증가율을 나타냅니다.&#10;⏫(폭증): 2배 이상&#10;🔼(증가): 1.10~1.99배&#10;🔻(감소): 0.70배 미만"></i>
             </th>
             <th>체결강도
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 강매수(⏫≥120). 케이스 2: 매수우위(🔼105~119). 케이스 3: 매도우위(🔻<95)."></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="체결강도 의미: 매수/매도 비중을 나타냅니다.&#10;⏫(강매수): 120 이상&#10;🔼(매수우위): 105~119&#10;🔻(매도우위): 95 미만"></i>
             </th>
             <th>GC
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 골든(🔼). 케이스 2: 데드(🔻). 케이스 3: 없음(🔸)"></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="GC 의미: EMA 교차로 추세 전환을 확인합니다.&#10;🔼(골든): 골든크로스&#10;🔻(데드): 데드크로스&#10;🔸(없음): 교차 없음"></i>
             </th>
             <th>RIS
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 극과매도(⏫). 케이스 2: 과매도(🔼). 케이스 3: 중립(🔸). 케이스 4: 과매수(🔻)"></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="RIS: RSI 수치 기준&#10;⏫<20&#10;🔼20~30&#10;🔸30~70&#10;🔻>70"></i>
             </th>
             <th>Buy 시그널
               <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 title="케이스 1: 매수 강함. 케이스 2: 매수 우세. 케이스 3: 관망. 케이스 4: 회피. 케이스 5: 금지. 케이스 6: 데이터 대기"></i>
+                 data-bs-custom-class="wide-tooltip"
+                 title="시그널 의미: 복합 지표로 매수 강도를 분류합니다.&#10;1단계: 매수 강함&#10;2단계: 매수 우세&#10;3단계: 관망&#10;4단계: 회피·금지"></i>
             </th>
             <th>액션</th>
           </tr></thead>
