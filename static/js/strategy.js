@@ -3,6 +3,7 @@ const restoreURL = "/api/restore-defaults/strategy";
 const tbody  = document.querySelector("#tbl-strategy tbody");
 const tpl    = document.querySelector("#row-tpl");
 const lastSaved = document.getElementById("last-saved");
+const toggleAll = document.getElementById("toggle-all");
 
 // ────────────────────────────────
 // 1. 초기 로딩
@@ -37,6 +38,7 @@ function renderTable(arr){
   arr.sort((a,b)=>a.priority-b.priority)
      .forEach(obj=>tbody.appendChild(makeRow(obj)));
   lastSaved.textContent = new Date().toLocaleString();
+  applyToggleAll();
 }
 
 function makeRow(o){
@@ -49,18 +51,17 @@ function makeRow(o){
   return tr;
 }
 
-// ────────────────────────────────
-// 3. 전략 추가 (빈 행)
-// ────────────────────────────────
-document.getElementById("btn-add").onclick = ()=>{
-  const obj = {active:true,name:"신규전략",
-               buy_condition:"중도적",sell_condition:"중도적",
-               priority: tbody.children.length+1};
-  tbody.appendChild(makeRow(obj));
-};
+function applyToggleAll(){
+  const on = toggleAll.checked;
+  tbody.querySelectorAll(".active-toggle").forEach(el=>{
+    el.checked = on;
+  });
+}
+
+toggleAll.addEventListener("change", applyToggleAll);
 
 // ────────────────────────────────
-// 4. 저장
+// 3. 저장
 // ────────────────────────────────
 document.getElementById("btn-save").onclick = async ()=>{
   const rows = [...tbody.querySelectorAll("tr")].map(tr=>({

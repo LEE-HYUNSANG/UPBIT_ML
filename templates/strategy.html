@@ -1,8 +1,17 @@
 {% extends "base.html" %}
+{% set tooltip_text %}
+각 전략은 시장 상황에 맞춰 자동으로 매수와 매도 시점을 판단하여 실행되며, 우선순위가 높을수록 먼저 평가됩니다. 모든 전략은 정지 후에도 설정이 유지되며, 상단 토글을 사용하면 전체 전략을 즉시 켜거나 끌 수 있습니다. 매수와 매도 조건을 세밀하게 조정해 기대 수익률을 높이고 리스크를 최소화해 보세요. 설명이 없는 전략은 향후 업데이트에서 보다 자세한 가이드를 제공할 예정입니다.
+{% endset %}
 {% block content %}
 <div class="container my-4">
   <div class="d-flex justify-content-between align-items-center">
-    <h2 class="fw-bold"><i class="bi bi-kanban-fill me-2"></i>전략 설정</h2>
+    <div class="d-flex align-items-center">
+      <h2 class="fw-bold me-3"><i class="bi bi-kanban-fill me-2"></i>전략 설정</h2>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="toggle-all">
+        <label class="form-check-label" for="toggle-all">전체 ON</label>
+      </div>
+    </div>
     <div class="btn-group">
       <button id="btn-restore" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-counterclockwise me-1"></i>기본값 복원
@@ -28,9 +37,6 @@
     <tbody class="text-center"><!-- JS 가 삽입 --></tbody>
   </table>
 
-  <button id="btn-add" class="btn btn-outline-secondary">
-    <i class="bi bi-plus-lg"></i> 전략 추가
-  </button>
 </div>
 
 <!-- 템플릿 row (JS 가 clone) -->
@@ -57,7 +63,7 @@
     </td>
     <td>
       <button class="btn btn-sm btn-outline-info info-btn"
-              data-bs-toggle="tooltip" title="전략 설명 미등록">
+              data-bs-toggle="tooltip" title="{{ tooltip_text|trim }}">
         <i class="bi bi-info-circle"></i>
       </button>
     </td>
