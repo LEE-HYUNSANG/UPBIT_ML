@@ -159,8 +159,7 @@
                     <span class="dot entry" data-pos="{{ p.entry_pct }}"></span>
                     <span class="dot take"></span>
                     {% if p.pin_pct is not none %}
-                      <!-- Jinja2 변수 사용 시 세미콜론 필요 -->
-                      <span class="pin" style="left: {{ p.pin_pct }}%;"></span>
+                      <span class="pin" data-pos="{{ p.pin_pct }}"></span>
                     {% endif %}
                   </div>
                 </td>
