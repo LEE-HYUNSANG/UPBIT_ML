@@ -1,5 +1,9 @@
 import os
 import json
+import threading
+
+# 파일 동시 접근 방지를 위한 락
+_LOCK = threading.Lock()
 
 
 def _validate(data: dict) -> None:
@@ -35,5 +39,7 @@ def save_fund_settings(data: dict, path: str = "config/funds.json") -> None:
     """자금 설정을 저장하고 업데이트 시각을 기록한다."""
     _validate(data)
     data["updated"] = __import__("datetime").datetime.now().isoformat(timespec="seconds")
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    # 락을 이용해 동시 접근을 제어한다
+    with _LOCK:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)

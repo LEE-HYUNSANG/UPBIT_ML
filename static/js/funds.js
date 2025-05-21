@@ -40,8 +40,8 @@ document.getElementById("btn-fund-save").onclick = async () => {
     body: JSON.stringify(payload)
   });
   if (res.ok) {
-    const data = await res.json();
     showAlert("자금 설정이 저장되었습니다.");
+    const data = await fetch(apiURL).then(r => r.json());
     f("max-per-coin").value = data.max_invest_per_coin;
     f("buy-amount").value = data.buy_amount;
     f("max-trades").value = data.max_concurrent_trades;
@@ -51,6 +51,7 @@ document.getElementById("btn-fund-save").onclick = async () => {
       data.updated ? new Date(data.updated).toLocaleString() : "-";
     document.dispatchEvent(new CustomEvent("fundsUpdated", { detail: data }));
   } else {
-    showAlert("저장 실패", "에러");
+    const err = await res.json().catch(() => ({}));
+    showAlert(err.message || "저장 실패", "에러");
   }
 };

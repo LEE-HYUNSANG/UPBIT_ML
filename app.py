@@ -1028,7 +1028,11 @@ def api_get_funds():
 def api_post_funds():
     from helpers.utils.funds import save_fund_settings, load_fund_settings
     data = request.get_json(force=True)
-    save_fund_settings(data)
+    try:
+        save_fund_settings(data)
+    except Exception as e:
+        logger.error("Funds save failed: %s", e)
+        return jsonify(result="error", message=str(e)), 400
     return jsonify(load_fund_settings())
 
 @app.route("/settings")
