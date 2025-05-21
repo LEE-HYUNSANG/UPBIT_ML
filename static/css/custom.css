@@ -142,3 +142,17 @@ input[type="password"] { letter-spacing:0.2em; }
   font-size: 0.9rem;
   color: #fff;
 }
+
+/* Enlarged alert modal for better visibility */
+#alertModal .modal-dialog {
+  max-width: 90%;
+}
+#alertModal .modal-content {
+  font-size: 2.5rem;
+}
+#alertModal .modal-title {
+  font-size: 3rem;
+}
+#alertModal .btn {
+  font-size: 2rem;
+}
