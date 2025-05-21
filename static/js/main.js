@@ -143,9 +143,11 @@ document.addEventListener('click', async e => {
   Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
   const code = `API${btn.dataset.api.replace(/[^a-z0-9]/gi,'').toUpperCase()}`;
   const result = await callApi(btn.dataset.api, data, 'POST', code);
-  if(['/save','/api/save-settings'].includes(btn.dataset.api) && result && result.result === 'success'){
+  if(['/save','/api/save-settings','/api/start-bot','/api/stop-bot'].includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
-    await reloadBuyMonitor();
+    if(btn.dataset.api !== '/api/start-bot' && btn.dataset.api !== '/api/stop-bot'){
+      await reloadBuyMonitor();
+    }
   } else if(btn.dataset.api === '/api/exclude-coin' && result && result.result === 'success'){
     await reloadBalance();
   } else if(btn.dataset.api === '/api/restore-coin' && result && result.result === 'success'){
@@ -384,11 +386,25 @@ async function loadStatus(){
     if (data.result === 'success' && data.status) {
       const el = document.getElementById('bot-status');
       const timeEl = document.getElementById('updateTime');
+      const btn = document.getElementById('botActionBtn');
       if (el) {
         el.textContent = data.status.running ? '실행중' : '정지';
       }
       if (timeEl) {
         timeEl.textContent = '업데이트: ' + data.status.updated;
+      }
+      if (btn) {
+        if (data.status.running) {
+          btn.classList.remove('btn-primary');
+          btn.classList.add('btn-danger');
+          btn.dataset.api = '/api/stop-bot';
+          btn.textContent = '봇 중지';
+        } else {
+          btn.classList.remove('btn-danger');
+          btn.classList.add('btn-primary');
+          btn.dataset.api = '/api/start-bot';
+          btn.textContent = '봇 시작';
+        }
       }
       disconnected = false;
     } else if (data.message) {
@@ -424,9 +440,11 @@ async function reloadAccount(){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  setInterval(loadStatus, 5000);
   setInterval(reloadAccount, 10000);
   setInterval(reloadBalance, 5000);
   setInterval(reloadBuyMonitor, 5000);
+  loadStatus();
   reloadAccount();
   reloadBalance();
   reloadBuyMonitor();
