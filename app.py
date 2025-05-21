@@ -121,6 +121,15 @@ def notify_error(message: str, code: str) -> None:
     logger.error(full)
     notify(full)
 
+def emit_refresh_event() -> None:
+    """1초 간격으로 세 번 refresh_data SocketIO 이벤트를 발생시킨다."""
+    def _emit():
+        for _ in range(3):
+            socketio.emit("refresh_data")
+            time.sleep(1)
+
+    threading.Thread(target=_emit, daemon=True).start()
+
 def get_balances():
     """트레이더에서 현재 코인 잔고를 가져온다."""
     logger.debug("Fetching balances")
@@ -451,6 +460,7 @@ def market_refresh_loop() -> None:
                 next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
             except Exception:
                 next_refresh = None
+            emit_refresh_event()
         time.sleep(10)
 
 
@@ -483,6 +493,7 @@ def buy_signal_monitor_loop() -> None:
                 next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
             except Exception:
                 next_refresh = None
+            emit_refresh_event()
         time.sleep(10)
 
 def get_filtered_signals():

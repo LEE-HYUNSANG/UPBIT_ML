@@ -114,6 +114,15 @@ if(window.io){
 
   socket.on('positions', data => updatePositions(data));
   socket.on('alerts', data => updateAlerts(data));
+  socket.on('refresh_data', () => {
+    for(let i=0;i<3;i++){
+      setTimeout(async () => {
+        await reloadBalance();
+        await reloadBuyMonitor();
+        await loadStatus();
+      }, i * 1000);
+    }
+  });
 }
 
 // 5. Tooltip 자동 활성화 (Bootstrap 5)

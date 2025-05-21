@@ -84,6 +84,16 @@ indicator value calculated for buy signals. The dashboard headers display the
 remaining time until the next account and signal refresh, updated when a new
 5‑minute candle closes.
 
+When the countdown reaches `0:00` the client polls `/api/status` again as soon
+as the server refreshes market data. The returned `next_refresh` value matches
+the close time of the next five‑minute candle so the timer immediately starts
+counting down toward the following update.
+
+Both monitoring tables are refreshed right after each calculation. The
+background loops emit a `refresh_data` SocketIO event, which triggers the
+browser to call `/api/balances` and `/api/signals` three times at one‑second
+intervals to avoid missing any update.
+
 Running the app with `python app.py` uses Flask's development server. It prints
 a single access log line for every HTTP request. Example:
 ```
