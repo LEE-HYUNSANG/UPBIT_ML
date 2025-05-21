@@ -1,4 +1,5 @@
-const apiURL = "/api/strategies";         // TODO: 다음 단계에서 구현
+const apiURL = "/api/strategies";
+const restoreURL = "/api/restore-defaults/strategy";
 const tbody  = document.querySelector("#tbl-strategy tbody");
 const tpl    = document.querySelector("#row-tpl");
 const lastSaved = document.getElementById("last-saved");
@@ -59,7 +60,7 @@ document.getElementById("btn-add").onclick = ()=>{
 };
 
 // ────────────────────────────────
-// 4. 저장 (TODO: 백엔드 POST는 다음 단계에서)
+// 4. 저장
 // ────────────────────────────────
 document.getElementById("btn-save").onclick = async ()=>{
   const rows = [...tbody.querySelectorAll("tr")].map(tr=>({
@@ -70,9 +71,27 @@ document.getElementById("btn-save").onclick = async ()=>{
     priority      : +tr.querySelector(".priority").value || 99,
     updated       : new Date().toISOString()
   }));
-  console.log("★ 저장 payload", rows);
-  // TODO: fetch(apiURL,{method:"POST",headers:{...},body:JSON.stringify(rows)})
-  alert("로컬 미리보기용 — POST 로직은 다음 단계에서 연결합니다.");
+  const res = await fetch(apiURL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(rows)});
+  if(res.ok){
+    showAlert("저장되었습니다.");
+    dispatchUpdated(rows);
+    lastSaved.textContent = new Date().toLocaleString();
+  }else{
+    showAlert("저장 실패","에러");
+  }
+};
+
+document.getElementById("btn-restore").onclick = async ()=>{
+  const ok = await showConfirm("정말 복원하시겠습니까?");
+  if(!ok) return;
+  const res = await fetch(restoreURL,{method:"POST"});
+  if(res.ok){
+    const list = await fetch(apiURL).then(r=>r.json());
+    renderTable(list);
+    showAlert("복원 완료");
+  }else{
+    showAlert("복원 실패","에러");
+  }
 };
 
 // ────────────────────────────────

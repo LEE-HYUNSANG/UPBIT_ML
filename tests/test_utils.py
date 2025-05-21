@@ -1,5 +1,6 @@
 import sys
 import types
+import json
 from unittest.mock import patch
 
 # 의존 모듈이 없을 때를 대비해 간단한 더미 모듈을 등록한다.
@@ -70,4 +71,23 @@ def test_risk_settings_validation(tmp_path):
     path = tmp_path / "r.json"
     with pytest.raises(ValueError):
         save_risk_settings({"max_dd_per_coin": -0.1}, str(path))
+
+
+def test_restore_defaults(tmp_path):
+    from helpers.utils.strategy_cfg import (
+        restore_defaults,
+        load_strategy_list,
+        save_strategy_list,
+    )
+    default_path = tmp_path / "default.json"
+    strat_path = tmp_path / "strategy.json"
+    backup_path = tmp_path / "backup.json"
+    sample = [{"name": "A", "active": False, "buy_condition": "중도적", "sell_condition": "중도적", "priority": 1}]
+    sample2 = [{"name": "B"}]
+    default_path.write_text(json.dumps(sample, ensure_ascii=False), encoding="utf-8")
+    strat_path.write_text(json.dumps(sample2, ensure_ascii=False), encoding="utf-8")
+    restore_defaults(str(default_path), str(strat_path), str(backup_path))
+    loaded = load_strategy_list(str(strat_path))
+    assert loaded == sample
+    assert backup_path.exists()
 
