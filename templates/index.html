@@ -19,7 +19,7 @@
               {% if running %}실행중{% else %}정지{% endif %}
             </span>
           </div>
-          <button class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm min-w-140" data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
+          <button id="botActionBtn" class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm min-w-140" data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
             {% if running %}봇 중지{% else %}봇 시작{% endif %}
           </button>
         </div>

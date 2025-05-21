@@ -116,7 +116,21 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
         return tis
     except Exception as e:  # API or parsing error
         logging.debug("calc_tis failed for %s: %s", ticker, e)
-        return None
+        try:
+            ob = pyupbit.get_orderbook(ticker)
+            if not ob:
+                return None
+            book = ob[0]
+            bid = float(book.get("total_bid_size", 0))
+            ask = float(book.get("total_ask_size", 0))
+            if ask == 0:
+                return None
+            tis = (bid / ask) * 100
+            logging.debug("[TIS-FB] %s orderbook tis=%.2f", ticker, tis)
+            return tis
+        except Exception as e2:
+            logging.debug("calc_tis fallback failed for %s: %s", ticker, e2)
+            return None
 
 
 def load_market_signals(path: str = "config/market.json") -> list[dict]:
