@@ -112,3 +112,7 @@ Flask 개발 서버를 사용하면 모든 HTTP 요청이 다음과 같은 형�
 ```
 
 세미콜론을 추가하여 `<span class="pin" style="left: {{ p.pin_pct }}%;"></span>` 형태로 수정하면 경고가 사라집니다.
+
+## 추가 문서
+- `docs/OVERVIEW_KR.md` 프로젝트 구조와 실행 흐름 요약
+- `docs/BUY_MONITOR_SPEC_KR.md` 매수 모니터링 표 컬럼 상세 설명

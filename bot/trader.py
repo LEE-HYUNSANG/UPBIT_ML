@@ -26,6 +26,11 @@ def calc_sell_signal(dc: bool, tis: float, pnl: float, sl_th: float, tp_th: floa
     return "관망"
 
 class UpbitTrader:
+    """업비트 자동매매를 실행하는 메인 클래스.
+
+    백그라운드 루프에서 지정된 전략을 평가하고
+    조건 충족 시 주문을 실행한다.
+    """
     def __init__(self, upbit_key, upbit_secret, config, logger=None):
         self.upbit = pyupbit.Upbit(upbit_key, upbit_secret)  # API 객체 생성
         self.config = config    # 설정(dict)
