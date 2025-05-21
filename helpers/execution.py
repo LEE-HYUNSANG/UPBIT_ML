@@ -52,11 +52,20 @@ def smart_buy(
     total_krw: float,
     slippage: float = 0.001,
     max_retries: int = 3,
+    slippage_limit: float | None = None,
 ) -> Tuple[float, float]:
     """호가 스프레드를 고려한 하이브리드 매수 주문."""
     for attempt in range(max_retries):
         try:
             ask, bid, spread = _fetch_spread(ticker)
+            if slippage_limit is not None and spread > slippage_limit:
+                logger.warning(
+                    "[BUY] skip %s spread %.6f limit %.6f",
+                    ticker,
+                    spread,
+                    slippage_limit,
+                )
+                return 0.0, 0.0
             if spread <= slippage:
                 res = upbit.buy_market_order(ticker, total_krw)
                 price = float(res.get("price", ask))
@@ -87,6 +96,7 @@ def smart_sell(
     slippage: float = 0.001,
     max_retries: int = 3,
     split: int = 1,
+    slippage_limit: float | None = None,
 ) -> Tuple[float, float]:
     """호가 스프레드를 고려한 하이브리드 매도 주문."""
     remain = quantity
@@ -97,6 +107,14 @@ def smart_sell(
         for attempt in range(max_retries):
             try:
                 ask, bid, spread = _fetch_spread(ticker)
+                if slippage_limit is not None and spread > slippage_limit:
+                    logger.warning(
+                        "[SELL] skip %s spread %.6f limit %.6f",
+                        ticker,
+                        spread,
+                        slippage_limit,
+                    )
+                    return avg_price, sold
                 if spread <= slippage:
                     res = upbit.sell_market_order(ticker, part)
                     price = float(res.get("price", bid))
