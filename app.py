@@ -22,7 +22,7 @@ app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
 
 # 로그 설정 (파일 + 콘솔)
-logger = setup_logging()
+logger = setup_logging(level="DEBUG", log_file="debug.log")
 
 # 숫자 천 단위 콤마 필터
 @app.template_filter('comma')
