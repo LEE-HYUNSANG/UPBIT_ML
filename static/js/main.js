@@ -26,15 +26,21 @@ function handleDisconnect(code) {
 const confirmModalEl = document.getElementById('confirmModal');
 const confirmModal = confirmModalEl ? new bootstrap.Modal(confirmModalEl) : null;
 
-function showConfirm(message){
+function showConfirm(message, okText = '매도 진행', cancelText = '매도 취소'){
   return new Promise(resolve=>{
     if(!confirmModal) return resolve(window.confirm(message));
     confirmModalEl.querySelector('.modal-body').innerText = message;
     const okBtn = confirmModalEl.querySelector('[data-action="ok"]');
     const cancelBtn = confirmModalEl.querySelector('[data-action="cancel"]');
+    const origOk = okBtn.innerText;
+    const origCancel = cancelBtn.innerText;
+    okBtn.innerText = okText;
+    cancelBtn.innerText = cancelText;
     function cleanup(){
       okBtn.removeEventListener('click', ok);
       cancelBtn.removeEventListener('click', cancel);
+      okBtn.innerText = origOk;
+      cancelBtn.innerText = origCancel;
     }
     function ok(){ cleanup(); confirmModal.hide(); resolve(true); }
     function cancel(){ cleanup(); confirmModal.hide(); resolve(false); }
