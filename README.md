@@ -79,7 +79,8 @@ time changes it refreshes KRW market data using `pyupbit`. Coins are ranked by
 trading.
 
 ## Logging and refresh timers
-Debug logs are written to `debug.log`. Set `LOG_LEVEL=DEBUG` to record each
+Each log level is written to a separate file under the `logs/` directory
+(e.g. `logs/debug.log`, `logs/cal.log`). Set `LOG_LEVEL=DEBUG` to record each
 indicator value calculated for buy signals. The dashboard headers display the
 remaining time until the next account and signal refresh, updated when a new
 5‑minute candle closes.

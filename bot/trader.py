@@ -105,11 +105,11 @@ class UpbitTrader:
                     df = calc_indicators(df)
                     if self.logger:
                         last = df.iloc[-1].to_dict()
-                        self.logger.debug("Indicators %s", last)
+                        self.logger.cal("Indicators %s", last)
                     tis = calc_tis(ticker) or 0
                     ok, strat_params = select_strategy(strat_name, df, tis, params)
                     if self.logger:
-                        self.logger.debug(
+                        self.logger.cal(
                             "Strategy %s result=%s params=%s",
                             strat_name,
                             ok,
@@ -188,7 +188,7 @@ class UpbitTrader:
                 "pnl": round(pnl, 2),
             }
             if self.logger:
-                self.logger.debug("Account summary %s", summary)
+                self.logger.cal("Account summary %s", summary)
             return summary
         except Exception as e:
             if self.logger:
