@@ -12,12 +12,12 @@ from datetime import datetime, timedelta
 
 from utils import (
     load_secrets,
-    send_telegram,
     setup_logging,
     calc_tis,
     load_filter_settings,
 )
-from bot.trader import UpbitTrader
+from trader import Trader
+from notifications import notify, notify_error
 from bot.runtime_settings import settings, load_from_file
 from helpers.logger import log_trade, get_recent_logs
 import pyupbit
@@ -71,6 +71,11 @@ load_from_file()
 
 # secrets.json 을 공통 로더로 읽기
 secrets = load_secrets()
+notifications.init(
+    socketio,
+    secrets.get("TELEGRAM_TOKEN"),
+    secrets.get("TELEGRAM_CHAT_ID"),
+)
 
 # 기본 계좌 요약 자리표시자
 ACCOUNT_PLACEHOLDER = {
@@ -133,27 +138,13 @@ if os.path.exists(EXCLUDE_FILE):
 
 
 # 트레이더 인스턴스 (실제 매매 로직)
-trader = UpbitTrader(
+trader = Trader(
     secrets.get("UPBIT_KEY", ""),
     secrets.get("UPBIT_SECRET", ""),
     config,
     logger=logger,
 )
 
-def notify(message: str) -> None:
-    """브라우저와 텔레그램으로 메시지를 전송한다."""
-    logger.debug("[NOTIFY] %s", message)
-    socketio.emit('notification', {'message': message})
-    token = secrets.get("TELEGRAM_TOKEN")
-    chat_id = secrets.get("TELEGRAM_CHAT_ID")
-    if config.get("alerts", {}).get("telegram") and token and chat_id:
-        send_telegram(token, chat_id, message)
-
-def notify_error(message: str, code: str) -> None:
-    """에러 코드를 포함해 로그와 알림을 전송한다."""
-    full = f"[{code}] {message}"
-    logger.error(full)
-    notify(full)
 
 def emit_refresh_event() -> None:
     """1초 간격으로 세 번 refresh_data SocketIO 이벤트를 발생시킨다."""
