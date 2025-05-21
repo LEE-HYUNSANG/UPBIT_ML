@@ -3,7 +3,17 @@
 body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; }
 .navbar { background: #1e2b45 !important; }
 .card { border-radius: 1.25rem; box-shadow: 0 4px 24px #0001; margin-bottom: 2.5rem; }
-.card-head { background: #22315a; color: #fff; font-size: 1.25rem; font-weight: 600; padding: 1.2rem 2rem; display: flex; align-items: center; gap: .7rem; border-radius: 1.25rem 1.25rem 0 0; }
+.card-head {
+  background: #22315a;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
 .card-body { padding: 2.5rem; }
 .btn-primary, .btn-success { border-radius: 0.75rem; font-weight: 600; }
 .table th, .table td { vertical-align: middle; }
@@ -33,11 +43,27 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
 .badge-sell-wait { background: #6c757d; font-size: .8rem; padding: .36rem .85rem; }
 .bar-graph { width: 190px; margin: 0 auto; }
 .se-bar { width: 190px; margin: 0 auto; position: relative; height: 16px; background: #e9ecef; border-radius: 7px; }
-.se-bar .pin { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #0d6efd; }
+.se-bar .pin {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #0d6efd;
+}
 .badge-profit { background:#198754; font-size:.8rem; padding:.36rem .85rem; }
 .badge-loss { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
 .trend-bar { width: 170px; margin: 0 auto; }
-.trend-bar .trend-pin { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #6c757d; }
+.trend-bar .trend-pin {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #6c757d;
+}
 .dot { position: absolute; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; border-radius: 50%; }
 .dot.stop { background: #dc3545; left: 0; }
 .dot.entry { background: #6c757d; }
@@ -108,4 +134,11 @@ input[type="password"] { letter-spacing:0.2em; }
 .no-scroll {
   max-height: none !important;
   overflow: visible !important;
+}
+
+.remain-time {
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
 }
