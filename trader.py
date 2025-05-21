@@ -15,6 +15,7 @@ class Position:
     amount: float
     buy_price: float
     strategy: str
+    level: str
     state: str = "open"
     entry_time: datetime | None = None
     exit_time: datetime | None = None

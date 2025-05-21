@@ -1414,5 +1414,68 @@
                 90
             ]
         }
+    },
+    {
+        "id": 1001,
+        "name": "Demo M-BREAK",
+        "short_code": "M-BREAK",
+        "buy_formula": "ema5 > ema20 and ema20 > ema60 and atr >= 0.035 and volume >= ma_vol20*1.8 and close > prevhigh20*1.001",
+        "sell_formula": "ema5 < ema20 or close <= entryprice*0.97 or close >= entryprice*1.05"
+    },
+    {
+        "id": 1002,
+        "name": "Demo P-PULL",
+        "short_code": "P-PULL",
+        "buy_formula": "ema5 > ema20 and ema20 > ema60 and abs(close-ema50)/ema50 < 0.003 and rsi <= 28 and volume >= vol1*1.2",
+        "sell_formula": "ema5 < ema20 or close <= entryprice*0.97 or close >= entryprice*1.05"
+    },
+    {
+        "id": 1003,
+        "name": "Demo T-FLOW",
+        "short_code": "T-FLOW",
+        "buy_formula": "(ema20 - ema20_prev5)/abs(ema20_prev5) > 0.0015 and rsi >= 48 and rsi <= 60",
+        "sell_formula": "rsi >= 70 or ema5 < ema20"
+    },
+    {
+        "id": 1004,
+        "name": "Demo B-LOW",
+        "short_code": "B-LOW",
+        "buy_formula": "(high80-low80)/low80 < 0.06 and low <= low80*1.01 and rsi < 25",
+        "sell_formula": "rsi >= 50 or close <= entryprice*0.97"
+    },
+    {
+        "id": 1005,
+        "name": "Demo V-REV",
+        "short_code": "V-REV",
+        "buy_formula": "abs(close1-close)/close1 >= 0.04 and volume >= vol1*2.5 and rsi > 20 and rsi1 <= 18 and (close-close1)/close1 > 0.04",
+        "sell_formula": "rsi >= 70 or close <= entryprice*0.97"
+    },
+    {
+        "id": 1006,
+        "name": "Demo G-REV",
+        "short_code": "G-REV",
+        "buy_formula": "ema50 > ema200 and rsi >= 48 and volume >= vol1*0.6",
+        "sell_formula": "ema50 < ema200 or close <= entryprice*0.97"
+    },
+    {
+        "id": 1007,
+        "name": "Demo VOL-BRK",
+        "short_code": "VOL-BRK",
+        "buy_formula": "atr > atr10*1.5 and volume > ma_vol20*2 and high > maxhigh20*0.999 and rsi >= 60",
+        "sell_formula": "rsi <= 40 or close <= entryprice*0.97"
+    },
+    {
+        "id": 1008,
+        "name": "Demo EMA-STACK",
+        "short_code": "EMA-STACK",
+        "buy_formula": "ema25 > ema100 and ema100 > ema200 and adx >= 30",
+        "sell_formula": "adx < 20"
+    },
+    {
+        "id": 1009,
+        "name": "Demo VWAP-BNC",
+        "short_code": "VWAP-BNC",
+        "buy_formula": "ema5 > ema20 and ema20 > ema60 and abs(close-vwap)/vwap < 0.012 and rsi >= 45 and rsi <= 60 and volume >= vol1",
+        "sell_formula": "rsi >= 70 or close <= entryprice*0.97"
     }
 ]
