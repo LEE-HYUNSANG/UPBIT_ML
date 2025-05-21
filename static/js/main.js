@@ -143,7 +143,8 @@ document.addEventListener('click', async e => {
   Object.entries(btn.dataset).forEach(([k,v])=>{ if(k!=='api') data[k]=v; });
   const code = `API${btn.dataset.api.replace(/[^a-z0-9]/gi,'').toUpperCase()}`;
   const result = await callApi(btn.dataset.api, data, 'POST', code);
-  if(['/save','/api/save-settings','/api/start-bot','/api/stop-bot'].includes(btn.dataset.api) && result && result.result === 'success'){
+  const apiList = ['/save','/api/save-settings','/api/start-bot','/api/stop-bot'];
+  if(apiList.includes(btn.dataset.api) && result && result.result === 'success'){
     await loadStatus();
     if(btn.dataset.api !== '/api/start-bot' && btn.dataset.api !== '/api/stop-bot'){
       await reloadBuyMonitor();
@@ -373,7 +374,10 @@ function updateSignalTable(list){
       <td class="icon-cell">${s.gc}</td>
       <td class="icon-cell">${s.rsi}</td>
       <td><span class="badge badge-${s.signal_class}">${s.signal}</span></td>
-      <td><button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy" data-coin="${s.coin}">수동 매수</button></td>
+      <td>
+        <button class="btn btn-sm btn-outline-success" data-api="/api/manual-buy"
+                data-coin="${s.coin}">수동 매수</button>
+      </td>
     </tr>
   `).join('');
 }
@@ -439,15 +443,32 @@ async function reloadAccount(){
   }
 }
 
+const BAL_INT = 300000;  // 5분
+const SIG_INT = 300000;
+let balRemain = BAL_INT / 1000;
+let sigRemain = SIG_INT / 1000;
+
+function updateRemain(id, sec){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const m = Math.floor(sec / 60);
+  const s = String(sec % 60).padStart(2, '0');
+  el.textContent = `데이터 갱신 잔여시간: ${m}:${s}`;
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(loadStatus, 5000);
   setInterval(reloadAccount, 10000);
-  setInterval(reloadBalance, 5000);
-  setInterval(reloadBuyMonitor, 5000);
+  setInterval(()=>{ reloadBalance(); balRemain = BAL_INT/1000; }, BAL_INT);
+  setInterval(()=>{ reloadBuyMonitor(); sigRemain = SIG_INT/1000; }, SIG_INT);
+  setInterval(()=>{ if(balRemain>0) balRemain--; updateRemain('balanceTimer', balRemain); },1000);
+  setInterval(()=>{ if(sigRemain>0) sigRemain--; updateRemain('signalTimer', sigRemain); },1000);
   loadStatus();
   reloadAccount();
   reloadBalance();
   reloadBuyMonitor();
+  updateRemain('balanceTimer', balRemain);
+  updateRemain('signalTimer', sigRemain);
   const btn = document.getElementById('btnExcludedList');
   if(btn){
     btn.addEventListener('click', async ()=>{

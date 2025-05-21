@@ -90,6 +90,7 @@
     <div class="card shadow-sm mb-5">
       <div class="card-head">
         <i class="bi bi-cash-coin"></i> 보유코인 관리 (매도 모니터링)
+        <span id="balanceTimer" class="remain-time"></span>
         <i id="btnExcludedList" class="bi bi-list-ul ms-auto" role="button" data-bs-toggle="tooltip" title="제외 코인 목록"></i>
         <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip"
            title="현재 보유 중인 코인의 손익 상태와 매도(Exit) 우선순위를 모니터링합니다."></i>
@@ -154,6 +155,7 @@
     <div class="card shadow-sm">
       <div class="card-head">
         <i class="bi bi-bullseye"></i> 매수 모니터링
+        <span id="signalTimer" class="remain-time"></span>
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
            title="추세·변동성·거래량·체결강도·골든크로스·RSI를 조합해 매수 우선순위를 한눈에 보여줍니다."></i>
         <i class="ms-2 bi bi-arrow-clockwise" role="button" data-refresh="signals"

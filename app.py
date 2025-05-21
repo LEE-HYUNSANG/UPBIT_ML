@@ -246,6 +246,7 @@ def refresh_market_data() -> None:
 
 def calc_buy_signal(ticker: str, coin: str) -> dict:
     """매수 모니터링 지표를 계산해 반환한다."""
+    logger.debug("[BUY MON] calc_buy_signal for %s", ticker)
     entry = {
         "coin": coin,
         "price": "⛔",
@@ -307,7 +308,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
 
         if ticker.endswith("-XPR"):
             logger.info("[TIS] %s %.2f", ticker, tis if tis is not None else -1)
-            
+
         if tis is not None:
             if tis >= 120:
                 entry["strength"] = f"⏫ {tis:.0f}"
@@ -317,6 +318,8 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
                 entry["strength"] = f"🔸 {tis:.0f}"
             else:
                 entry["strength"] = f"🔻 {tis:.0f}"
+        else:
+            logger.debug("[BUY MON] TIS not available for %s", ticker)
 
         gc = (ema5.shift(1) < ema20.shift(1)) & (ema5 > ema20)
         dc = (ema5.shift(1) > ema20.shift(1)) & (ema5 < ema20)
@@ -362,37 +365,96 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
             entry["signal"] = "관망"
             entry["signal_class"] = "wait"
 
+        logger.debug(
+            "[BUY MON] %s price=%s trend=%s atr=%.2f vol=%.2f tis=%s gc=%s rsi=%.2f signal=%s",
+            ticker,
+            entry["price"],
+            trend,
+            atr_pct,
+            vol_ratio,
+            tis,
+            "GC" if gc.iloc[-1] else "DC" if dc.iloc[-1] else "N",
+            rsi_val,
+            entry["signal"],
+        )
+
     except Exception as e:
         logger.warning("[BUY MON] indicator error %s: %s", ticker, e)
     return entry
 
 
+def get_latest_5m_close(ticker: str) -> str | None:
+    """지정 티커의 최근 5분봉 종료 시각을 반환한다."""
+    try:
+        df = pyupbit.get_ohlcv(ticker, interval="minute5", count=1)
+        if df is not None and not df.empty:
+            return df.index[-1].strftime("%Y-%m-%dT%H:%M:%S")
+    except Exception as e:
+        logger.debug("get_latest_5m_close error %s: %s", ticker, e)
+    return None
+
+
+def calc_buy_signal_retry(ticker: str, coin: str, retries: int = 5) -> dict:
+    """지표 계산 후 데이터가 없으면 재시도한다."""
+    for i in range(retries):
+        entry = calc_buy_signal(ticker, coin)
+        missing = [
+            k
+            for k in (
+                "price",
+                "trend",
+                "volatility",
+                "volume",
+                "strength",
+                "gc",
+                "rsi",
+            )
+            if entry.get(k) == "⛔"
+        ]
+        if not missing:
+            return entry
+        logger.debug("[BUY MON] retry %d for %s missing %s", i + 1, ticker, missing)
+        time.sleep(1)
+    logger.debug("[BUY MON] final entry for %s after retries", ticker)
+    return entry
+
+
 def market_refresh_loop() -> None:
     """시세 데이터를 주기적으로 갱신한다."""
+    prev_close = None
     while True:
-        refresh_market_data()
-        time.sleep(60)
+        close_time = get_latest_5m_close("KRW-BTC")
+        if close_time and close_time != prev_close:
+            refresh_market_data()
+            prev_close = close_time
+        time.sleep(10)
 
 
 def buy_signal_monitor_loop() -> None:
     """매수 모니터링 신호를 주기적으로 계산한다."""
     global signal_cache
+    prev_close = None
     while True:
         try:
             with open(MONITOR_FILE, "r", encoding="utf-8") as f:
                 coins = json.load(f)
         except Exception:
             coins = []
-        time.sleep(1)
-        results = []
-        for c in coins:
-            ticker = f"KRW-{c['coin']}"
-            results.append(calc_buy_signal(ticker, c["coin"]))
-        time.sleep(1)
-        with _signal_lock:
-            signal_cache = results
-        logger.debug("[BUY MONITOR] updated %d signals", len(results))
-        time.sleep(5)
+        if not coins:
+            time.sleep(10)
+            continue
+        ref_ticker = f"KRW-{coins[0]['coin']}"
+        close_time = get_latest_5m_close(ref_ticker)
+        if close_time and close_time != prev_close:
+            results = []
+            for c in coins:
+                ticker = f"KRW-{c['coin']}"
+                results.append(calc_buy_signal_retry(ticker, c["coin"]))
+            with _signal_lock:
+                signal_cache = results
+            logger.debug("[BUY MONITOR] updated %d signals at %s", len(results), close_time)
+            prev_close = close_time
+        time.sleep(10)
 
 def get_filtered_signals():
     """가격 범위와 거래대금 순위로 필터링한 시세 데이터를 반환한다."""
