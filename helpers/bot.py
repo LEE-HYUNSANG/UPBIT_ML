@@ -70,6 +70,31 @@ def _safe_call(
     raise
 
 
+def refresh_positions(upbit: pyupbit.Upbit, active: Dict[str, Dict[str, float]]) -> None:
+    """현재 잔고 정보를 읽어 포지션을 동기화한다."""
+    balances = _safe_call(upbit.get_balances)
+    updated: Dict[str, Dict[str, float]] = {}
+    for b in balances:
+        if b.get("currency") == "KRW":
+            continue
+        qty = float(b.get("balance", 0))
+        if qty <= 0:
+            continue
+        ticker = f"KRW-{b['currency']}"
+        updated[ticker] = {
+            "buy_price": float(b.get("avg_buy_price", 0)),
+            "qty": qty,
+            "strategy": active.get(ticker, {}).get("strategy", "INIT"),
+            "level": active.get(ticker, {}).get("level", "중도적"),
+        }
+    with _LOCK:
+        active.clear()
+        active.update(updated)
+        BALANCE_CACHE[:] = balances
+    log_trade("REFRESH", {"count": len(updated)})
+    logger.info("[BOT] positions refreshed %d", len(updated))
+
+
 def load_strategy_settings(path: str = "config/strategy.json") -> Dict[str, str]:
     """Read strategy settings or fallback to config.json."""
     defaults = {"strategy": "M-BREAK", "level": "중도적"}
@@ -142,6 +167,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
         try:
             now = time.time()
             manual = load_manual_sells()
+            manual_update = False
             for m in manual:
                 pos = active_trades.get(m)
                 if not pos:
@@ -153,11 +179,15 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     pos["qty"],
                     fund_conf.get("slippage_tolerance", 0.001),
                 )
+                log_trade("SELL", {"ticker": m, "price": avg, "qty": vol})
                 logger.info("[BOT] manual sold %s avg=%.8f qty=%.6f", m, avg, vol)
                 with _LOCK:
                     active_trades.pop(m, None)
+                manual_update = True
             if manual:
                 save_manual_sells([])
+            if manual_update:
+                refresh_positions(upbit, active_trades)
             if now - last_reload > 300:
                 filter_conf = load_filter_settings()
                 strategy_conf = load_strategy_settings()
@@ -203,6 +233,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                             "strategy": strat,
                             "level": level,
                         }
+                    log_trade("BUY", {"ticker": ticker, "price": price, "qty": qty})
                     logger.info("[BOT] bought %s price=%.8f qty=%.6f", ticker, price, qty)
                     needs_update = True
 
@@ -228,14 +259,14 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
 
             for ticker, fut in sell_tasks:
                 avg, vol = fut.result()
+                log_trade("SELL", {"ticker": ticker, "price": avg, "qty": vol})
                 logger.info("[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol)
                 with _LOCK:
                     active_trades.pop(ticker, None)
                 needs_update = True
 
             if needs_update:
-                with _LOCK:
-                    BALANCE_CACHE[:] = _safe_call(upbit.get_balances)
+                refresh_positions(upbit, active_trades)
 
         except Exception as e:  # pragma: no cover - runtime loop
             logger.exception("[BOT] error %s", e)
