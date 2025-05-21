@@ -8,7 +8,7 @@
     <div class="card shadow-sm mb-4">
       <div class="card-head">
         <i class="bi bi-robot"></i> 봇 상태
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="봇이 실행 중인지 표시합니다. 실행 상태에서는 설정한 모든 전략이 자동으로 작동합니다."></i>
       </div>
       <div class="card-body">
@@ -31,7 +31,7 @@
     <div class="card shadow-sm mb-4">
       <div class="card-head">
         <i class="bi bi-wallet2"></i> 계좌 요약
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="보유 현금, 총 자산, 누적 수익률을 요약해 보여 줍니다."></i>
       </div>
       <div class="card-body">
@@ -48,7 +48,7 @@
     <div class="card shadow-sm mb-4">
       <div class="card-head">
         <i class="bi bi-filter-square"></i> 모니터링 코인 조건
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="가격, 거래량 순위를 설정해 관심 코인 목록을 좁힐 수 있습니다."></i>
       </div>
       <div class="card-body">
@@ -75,7 +75,7 @@
     <div class="card shadow-sm">
       <div class="card-head">
         <i class="bi bi-bell"></i> 실시간 알림
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="매매 체결, 손절·익절 발생 등 주요 알림을 실시간으로 표시합니다."></i>
       </div>
       <div id="liveAlerts" class="card-body small live-alerts">
@@ -100,12 +100,12 @@
         <i class="bi bi-cash-coin"></i> 보유코인 관리 (매도 모니터링)
         <span id="balanceTimer" class="remain-time"></span>
         <i id="btnExcludedList" class="bi bi-list-ul ms-auto" role="button"
-           data-bs-toggle="tooltip"
+           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="매수·매도 대상에서 제외된 코인 목록을 확인합니다."></i>
-        <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="보유 코인의 손익률과 매도 우선순위를 확인하고 수동 매도도 실행할 수 있습니다."></i>
         <i class="ms-2 bi bi-arrow-clockwise reload-btn" role="button" data-refresh="balances"
-           data-bs-toggle="tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
+           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -115,23 +115,23 @@
                 <th>코인</th>
                 <th>제외</th>
                   <th>수익률
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="현재까지 확정된 수익률과 미실현 수익률을 합산해 보여 줍니다."></i>
                   </th>
                   <th>손절·익절 그래프
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="설정된 손절·익절 가격과 현재가의 상대 위치를 한눈에 표시합니다."></i>
                   </th>
                   <th>추세 손절·익절
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="추세선을 기반으로 손절·익절 조건이 자동 조정되는 방식을 나타냅니다."></i>
                   </th>
                   <th>Sell 시그널
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="여러 코인 보유 시 어떤 종목을 먼저 매도할지 우선순위를 표시합니다."></i>
                   </th>
                   <th>액션
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="버튼을 클릭하면 즉시 시장가로 매도 주문을 보냅니다."></i>
                   </th>
               </tr>
@@ -190,10 +190,10 @@
       <div class="card-head">
         <i class="bi bi-bullseye"></i> 매수 모니터링
         <span id="signalTimer" class="remain-time"></span>
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip"
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
            title="여러 지표를 종합해 실시간 매수 우선순위를 계산해 표시합니다."></i>
         <i class="ms-2 bi bi-arrow-clockwise" role="button" data-refresh="signals"
-           data-bs-toggle="tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
+           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered text-center mb-0">
@@ -209,27 +209,27 @@
 🔻(하락): EMA5<EMA20<EMA60 이고 EMA20 기울기 음수"></i>
             </th>
             <th>변동성<br>(ATR%)
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 변동성 높음(🔵≥5%). 케이스 2: 중간(🟡1~5). 케이스 3: 낮음(🔻<1)."></i>
             </th>
             <th>거래량(%)
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 폭증(⏫≥2). 케이스 2: 증가(🔼1.10~1.99). 케이스 3: 감소(🔻<0.70)."></i>
             </th>
             <th>체결강도
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 강매수(⏫≥120). 케이스 2: 매수우위(🔼105~119). 케이스 3: 매도우위(🔻<95)."></i>
             </th>
             <th>GC
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 골든(🔼). 케이스 2: 데드(🔻). 케이스 3: 없음(🔸)"></i>
             </th>
             <th>RIS
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 극과매도(⏫). 케이스 2: 과매도(🔼). 케이스 3: 중립(🔸). 케이스 4: 과매수(🔻)"></i>
             </th>
             <th>Buy 시그널
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                  title="케이스 1: 매수 강함. 케이스 2: 매수 우세. 케이스 3: 관망. 케이스 4: 회피. 케이스 5: 금지. 케이스 6: 데이터 대기"></i>
             </th>
             <th>액션</th>
