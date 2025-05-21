@@ -122,6 +122,11 @@ input[type="password"] { letter-spacing:0.2em; }
 .min-w-140 { min-width:140px; }
 .min-w-160 { min-width:160px; }
 .min-w-260 { min-width:260px; }
+.max-w-760 { max-width:760px; }
+.w-6rem { width:6rem; }
+.w-18rem { width:18rem; }
+.w-8rem { width:8rem; }
+.w-5rem { width:5rem; }
 
 /* Reload icon */
 .reload-btn { cursor:pointer; color:#fff; transition:transform .2s; }
