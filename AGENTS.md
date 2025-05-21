@@ -12,7 +12,7 @@
 - **Dockerfile**, **requirements.txt**: 실행 환경 예시와 의존 패키지 목록.
 - **scripts/run_gunicorn.sh**: Gunicorn 실행 스크립트.
 - **utils.py**: 로그 설정, 텔레그램 전송, 체결강도(TIS) 계산 등 공통 함수 모음.
-- **calc_buy_signal()**: DEBUG 레벨에서 각 지표 값을 `logs/trace.log` 에 기록해
+- **calc_buy_signal()**: DEBUG 레벨에서 각 지표 값을 `debug.log` 에 기록해
   전략 계산 과정을 역추적할 수 있다.
 
 ### bot 패키지
