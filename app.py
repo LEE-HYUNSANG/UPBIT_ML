@@ -7,7 +7,7 @@ import os
 import shutil
 import logging
 import json  # 기본 모듈들
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from utils import load_secrets, send_telegram, setup_logging, calc_tis
 from bot.trader import UpbitTrader
@@ -134,9 +134,13 @@ def get_balances():
 
 
 def get_status() -> dict:
-    """봇 실행 상태와 마지막 갱신 시각을 반환한다."""
+    """봇 실행 상태와 다음 갱신 시각을 포함한 상태를 반환한다."""
     logger.debug("Fetching status")
-    return {"running": settings.running, "updated": settings.updated}
+    return {
+        "running": settings.running,
+        "updated": settings.updated,
+        "next_refresh": next_refresh,
+    }
 
 
 def get_account_summary():
@@ -176,6 +180,9 @@ market_cache: list[dict] = []
 # Buy monitor signal cache
 _signal_lock = threading.Lock()
 signal_cache: list[dict] = []
+
+# 다음 갱신 예정 시각
+next_refresh: str | None = None
 
 
 def save_market_file(data: list[dict]) -> None:
@@ -242,6 +249,17 @@ def refresh_market_data() -> None:
         # 모니터링 코인 목록은 설정 변경 시에만 갱신한다
     except Exception as e:
         logger.exception("Market data fetch failed: %s", e)
+
+
+def refresh_market_data_retry(retries: int = 3, delay: float = 0.2) -> None:
+    """시세 데이터가 없을 경우 재시도한다."""
+    for i in range(retries):
+        refresh_market_data()
+        with _market_lock:
+            if market_cache:
+                return
+        logger.debug("[MARKET] retry %d due to empty data", i + 1)
+        time.sleep(delay)
 
 
 def calc_buy_signal(ticker: str, coin: str) -> dict:
@@ -394,7 +412,7 @@ def get_latest_5m_close(ticker: str) -> str | None:
     return None
 
 
-def calc_buy_signal_retry(ticker: str, coin: str, retries: int = 5) -> dict:
+def calc_buy_signal_retry(ticker: str, coin: str, retries: int = 3) -> dict:
     """지표 계산 후 데이터가 없으면 재시도한다."""
     for i in range(retries):
         entry = calc_buy_signal(ticker, coin)
@@ -414,25 +432,31 @@ def calc_buy_signal_retry(ticker: str, coin: str, retries: int = 5) -> dict:
         if not missing:
             return entry
         logger.debug("[BUY MON] retry %d for %s missing %s", i + 1, ticker, missing)
-        time.sleep(1)
+        time.sleep(0.2)
     logger.debug("[BUY MON] final entry for %s after retries", ticker)
     return entry
 
 
 def market_refresh_loop() -> None:
     """시세 데이터를 주기적으로 갱신한다."""
+    global next_refresh
     prev_close = None
     while True:
         close_time = get_latest_5m_close("KRW-BTC")
         if close_time and close_time != prev_close:
-            refresh_market_data()
+            refresh_market_data_retry()
             prev_close = close_time
+            try:
+                dt = datetime.fromisoformat(close_time) + timedelta(minutes=5)
+                next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
+            except Exception:
+                next_refresh = None
         time.sleep(10)
 
 
 def buy_signal_monitor_loop() -> None:
     """매수 모니터링 신호를 주기적으로 계산한다."""
-    global signal_cache
+    global signal_cache, next_refresh
     prev_close = None
     while True:
         try:
@@ -454,6 +478,11 @@ def buy_signal_monitor_loop() -> None:
                 signal_cache = results
             logger.debug("[BUY MONITOR] updated %d signals at %s", len(results), close_time)
             prev_close = close_time
+            try:
+                dt = datetime.fromisoformat(close_time) + timedelta(minutes=5)
+                next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
+            except Exception:
+                next_refresh = None
         time.sleep(10)
 
 def get_filtered_signals():
@@ -518,6 +547,13 @@ def get_filtered_tickers() -> list[str]:
 
 # Initial data load and background threads
 refresh_market_data()
+initial_close = get_latest_5m_close("KRW-BTC")
+if initial_close:
+    try:
+        dt = datetime.fromisoformat(initial_close) + timedelta(minutes=5)
+        next_refresh = dt.strftime("%Y-%m-%dT%H:%M:%S")
+    except Exception:
+        next_refresh = None
 update_monitor_list()
 threading.Thread(target=market_refresh_loop, daemon=True).start()
 threading.Thread(target=buy_signal_monitor_loop, daemon=True).start()

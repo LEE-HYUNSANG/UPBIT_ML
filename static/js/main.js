@@ -410,6 +410,12 @@ async function loadStatus(){
           btn.textContent = '봇 시작';
         }
       }
+      if (data.status.next_refresh) {
+        const next = new Date(data.status.next_refresh).getTime();
+        const remain = Math.max(0, Math.ceil((next - Date.now()) / 1000));
+        balRemain = remain;
+        sigRemain = remain;
+      }
       disconnected = false;
     } else if (data.message) {
       showAlert(data.message, '에러');
@@ -460,8 +466,8 @@ function updateRemain(id, sec){
 document.addEventListener('DOMContentLoaded', ()=>{
   setInterval(loadStatus, STATUS_INT);
   setInterval(reloadAccount, 10000);
-  setInterval(()=>{ reloadBalance(); balRemain = BAL_INT/1000; }, BAL_INT);
-  setInterval(()=>{ reloadBuyMonitor(); sigRemain = SIG_INT/1000; }, SIG_INT);
+  setInterval(async ()=>{ await reloadBalance(); await loadStatus(); }, BAL_INT);
+  setInterval(async ()=>{ await reloadBuyMonitor(); await loadStatus(); }, SIG_INT);
   setInterval(()=>{ if(balRemain>0) balRemain--; updateRemain('balanceTimer', balRemain); },1000);
   setInterval(()=>{ if(sigRemain>0) sigRemain--; updateRemain('signalTimer', sigRemain); },1000);
   setTimeout(loadStatus, 3000);
