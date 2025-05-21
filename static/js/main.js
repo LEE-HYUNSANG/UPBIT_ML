@@ -443,6 +443,7 @@ async function reloadAccount(){
   }
 }
 
+const STATUS_INT = 300000;  // 5분
 const BAL_INT = 300000;  // 5분
 const SIG_INT = 300000;
 let balRemain = BAL_INT / 1000;
@@ -457,13 +458,13 @@ function updateRemain(id, sec){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  setInterval(loadStatus, 5000);
+  setInterval(loadStatus, STATUS_INT);
   setInterval(reloadAccount, 10000);
   setInterval(()=>{ reloadBalance(); balRemain = BAL_INT/1000; }, BAL_INT);
   setInterval(()=>{ reloadBuyMonitor(); sigRemain = SIG_INT/1000; }, SIG_INT);
   setInterval(()=>{ if(balRemain>0) balRemain--; updateRemain('balanceTimer', balRemain); },1000);
   setInterval(()=>{ if(sigRemain>0) sigRemain--; updateRemain('signalTimer', sigRemain); },1000);
-  loadStatus();
+  setTimeout(loadStatus, 3000);
   reloadAccount();
   reloadBalance();
   reloadBuyMonitor();
