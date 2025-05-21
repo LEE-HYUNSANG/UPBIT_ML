@@ -212,3 +212,22 @@ def load_market_signals(path: str = "config/market.json") -> list[dict]:
     except Exception as e:  # json error or validation error
         logging.error("Failed to load market file %s: %s", path, e)
     return []
+
+def load_filter_settings(path: str = "config/filter.json") -> dict:
+    """filter.json을 읽어 필터 설정 dict로 반환한다.
+
+    파일이 없거나 읽기 오류가 나면 기본값을 제공한다.
+    """
+    defaults = {"min_price": 0, "max_price": 9e14, "rank": 30}
+    if not os.path.exists(path):
+        return defaults
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        for k, v in defaults.items():
+            data.setdefault(k, v)
+        return data
+    except Exception:
+        logging.warning("Failed to load filter file: %s", path)
+        return defaults
+

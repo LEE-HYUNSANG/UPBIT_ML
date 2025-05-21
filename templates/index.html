@@ -49,7 +49,7 @@
       <div class="card-head">
         <i class="bi bi-filter-square"></i> 모니터링 코인 조건
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="가격, 거래량 순위를 설정해 관심 코인 목록을 좁힐 수 있습니다."></i>
+           title="가격과 24시간 거래대금 순위를 설정해 관심 코인 목록을 좁힐 수 있습니다."></i>
       </div>
       <div class="card-body">
         <form id="coinFilterForm">
@@ -64,7 +64,7 @@
                    name="max_price" value="{{ config.get('max_price', 0) }}">
           </div>
           <div class="form-group d-flex align-items-center mb-3">
-            <label class="form-label me-2 mb-0">거래량 순위</label>
+            <label class="form-label me-2 mb-0">24시간 거래대금 순위</label>
             <input type="number" class="form-control form-control-sm"
                    name="rank" value="{{ config.get('rank', 0) }}">
           </div>

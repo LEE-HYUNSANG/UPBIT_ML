@@ -29,3 +29,14 @@ def test_calc_tis_fallback():
          patch('utils.pyupbit.get_orderbook', return_value=orderbook):
         tis = utils.calc_tis('KRW-BTC')
     assert tis == 200.0
+
+
+def test_load_filter_settings(tmp_path):
+    """filter.json이 없거나 잘못되어도 기본값을 반환한다."""
+    cfg = utils.load_filter_settings(str(tmp_path / "missing.json"))
+    assert cfg["rank"] == 30
+    sample = tmp_path / "f.json"
+    sample.write_text('{"min_price": 1, "max_price": 2, "rank": 5}', encoding="utf-8")
+    cfg2 = utils.load_filter_settings(str(sample))
+    assert cfg2 == {"min_price": 1, "max_price": 2, "rank": 5}
+

@@ -7,9 +7,16 @@ import os
 import shutil
 import logging
 import json  # 기본 모듈들
+import requests
 from datetime import datetime, timedelta
 
-from utils import load_secrets, send_telegram, setup_logging, calc_tis
+from utils import (
+    load_secrets,
+    send_telegram,
+    setup_logging,
+    calc_tis,
+    load_filter_settings,
+)
 from bot.trader import UpbitTrader
 from bot.runtime_settings import settings, load_from_file
 import pyupbit
@@ -78,14 +85,8 @@ account_cache = ACCOUNT_PLACEHOLDER.copy()
 
 
 # 대시보드 코인 필터 설정 로드/저장용
-FILTER_FILE = 'config/filter.json'
-filter_config = {"min_price": 0, "max_price": 0, "rank": 0}
-if os.path.exists(FILTER_FILE):
-    try:
-        with open(FILTER_FILE, encoding='utf-8') as f:
-            filter_config.update(json.load(f))
-    except Exception:
-        pass
+FILTER_FILE = "config/filter.json"
+filter_config = load_filter_settings(FILTER_FILE)
 
 SIGNAL_ORDER = {
     "buy-strong": 0,
@@ -98,7 +99,7 @@ SIGNAL_ORDER = {
 
 
 def sort_results_and_coins(results: list[dict], coins: list[dict]) -> tuple[list[dict], list[dict]]:
-    """신호 우선순위와 1시간 거래량으로 정렬한다."""
+    """신호 우선순위와 24시간 거래대금으로 정렬한다."""
     vol_map = {c["coin"]: c.get("volume", 0) for c in coins}
     pairs = list(zip(results, coins))
     pairs.sort(
@@ -253,23 +254,21 @@ def update_monitor_list() -> None:
 
 
 def refresh_market_data() -> None:
-    """업비트에서 원화 마켓 시세와 거래량을 가져온다."""
+    """업비트에서 원화 마켓 시세와 24시간 거래대금을 가져온다."""
     global market_cache
     try:
         tickers = pyupbit.get_tickers(fiat="KRW")
-        prices = pyupbit.get_current_price(tickers) or {}
+        url = "https://api.upbit.com/v1/ticker?markets=" + ",".join(tickers)
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        tick_data = resp.json()
         data = []
-        for t in tickers:
-            # use 1-hour volume for ranking
-            df = pyupbit.get_ohlcv(t, interval="minute60", count=1)
-            vol = 0
-            if df is not None and not df.empty:
-                vol = float(df["volume"].iloc[-1])
-            price = prices.get(t) if isinstance(prices, dict) else prices
-            if price is None:
-                price = 0
-            logger.debug("[MARKET] fetched %s price=%.8f vol=%.2f", t, price, vol)
-            data.append({"coin": t.split("-")[-1], "price": float(price), "volume": vol})
+        for item in tick_data:
+            price = float(item.get("trade_price", 0))
+            vol = float(item.get("acc_trade_price_24h", 0))
+            market = item.get("market", "")
+            logger.debug("[MARKET] fetched %s price=%.8f vol=%.2f", market, price, vol)
+            data.append({"coin": market.split("-")[-1], "price": price, "volume": vol})
         data.sort(key=lambda x: x["volume"], reverse=True)
         for i, d in enumerate(data, start=1):
             d["rank"] = i
@@ -627,6 +626,18 @@ def get_filtered_tickers() -> list[str]:
     return tickers
 
 
+def _reload_filter_periodically() -> None:
+    """filter.json을 주기적으로 다시 읽어 설정을 갱신한다."""
+    global filter_config
+    while True:
+        socketio.sleep(300)
+        new_cfg = load_filter_settings(FILTER_FILE)
+        if new_cfg != filter_config:
+            filter_config = new_cfg
+            update_monitor_list()
+            logger.info("[FILTER] reloaded %s", new_cfg)
+
+
 # Initial data load and background threads
 refresh_market_data()
 initial_close = get_latest_5m_close("KRW-BTC")
@@ -639,6 +650,7 @@ if initial_close:
 update_monitor_list()
 threading.Thread(target=market_refresh_loop, daemon=True).start()
 threading.Thread(target=buy_signal_monitor_loop, daemon=True).start()
+socketio.start_background_task(_reload_filter_periodically)
 
 alerts = []
 history = [
@@ -1082,6 +1094,7 @@ def save_settings():
         os.makedirs(os.path.dirname(FILTER_FILE), exist_ok=True)
         with open(FILTER_FILE, "w", encoding="utf-8") as f:
             json.dump(filter_config, f, ensure_ascii=False, indent=2)
+        filter_config.update(load_filter_settings(FILTER_FILE))
         update_monitor_list()
         update_timestamp()
         msg = '설정이 저장되었습니다.'
