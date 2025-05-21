@@ -18,7 +18,9 @@ def setup_logging(level: str | None = None, log_file: str = "logs/trace.log") ->
     logger = logging.getLogger()
     logger.setLevel(numeric_level)
     if not logger.handlers:
-        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        directory = os.path.dirname(log_file)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
         fmt = logging.Formatter(
             "[%(levelname)s][%(asctime)s][%(name)s] %(message)s",
             "%Y-%m-%d %H:%M:%S",
