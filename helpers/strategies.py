@@ -11,6 +11,7 @@ import pyupbit
 
 from bot.indicators import calc_indicators
 from utils import calc_tis
+from helpers.utils.risk import load_risk_settings
 
 logger = logging.getLogger(__name__)
 
@@ -166,11 +167,22 @@ def check_buy_signal(strategy_name: str, ticker: str, level: str = "중도적") 
     return False
 
 
-def check_sell_signal(strategy_name: str, ticker: str, buy_price: float, level: str = "중도적") -> bool:
-    """Return True if sell conditions are met for given strategy and level."""
+def check_sell_signal(
+    strategy_name: str,
+    ticker: str,
+    buy_price: float,
+    level: str = "중도적",
+    risk_conf: Dict[str, float] | None = None,
+) -> bool:
+    """Return True if sell conditions are met for given strategy and level.
+
+    ``risk_conf`` 가 제공되면 전역 손절 한도를 함께 적용한다.
+    """
     params = SELL_PARAMS.get(strategy_name, {}).get(level)
     if not params:
         return False
+    if risk_conf is None:
+        risk_conf = load_risk_settings()
     df = _get_df(ticker)
     if df is None:
         return False
@@ -179,6 +191,9 @@ def check_sell_signal(strategy_name: str, ticker: str, buy_price: float, level: 
     tis = calc_tis(ticker) or 100
     pnl = (price - buy_price) / (buy_price + 1e-9)
     dc = df["ema5"].iloc[-2] > df["ema20"].iloc[-2] and df["ema5"].iloc[-1] < df["ema20"].iloc[-1]
+
+    if risk_conf and pnl <= -float(risk_conf.get("max_dd_per_coin", 0.0)):
+        return True
 
     if dc or tis < params["tis"]:
         return True

@@ -15,6 +15,11 @@ from utils import load_filter_settings, load_market_signals
 from helpers.strategies import check_buy_signal, check_sell_signal
 from helpers.execution import smart_buy, smart_sell
 from helpers.utils.funds import load_fund_settings
+from helpers.utils.risk import (
+    load_risk_settings,
+    load_manual_sells,
+    save_manual_sells,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +62,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     filter_conf = load_filter_settings()
     strategy_conf = load_strategy_settings()
     fund_conf = load_fund_settings()
+    risk_conf = load_risk_settings()
     active_trades: Dict[str, Dict[str, float]] = {}
     last_reload = time.time()
     logger.info("[BOT] starting trading loop")
@@ -64,10 +70,26 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     while True:
         try:
             now = time.time()
+            manual = load_manual_sells()
+            for m in manual:
+                pos = active_trades.get(m)
+                if not pos:
+                    continue
+                avg, vol = smart_sell(
+                    upbit,
+                    m,
+                    pos["qty"],
+                    fund_conf.get("slippage_tolerance", 0.001),
+                )
+                logger.info("[BOT] manual sold %s avg=%.8f qty=%.6f", m, avg, vol)
+                active_trades.pop(m, None)
+            if manual:
+                save_manual_sells([])
             if now - last_reload > 300:
                 filter_conf = load_filter_settings()
                 strategy_conf = load_strategy_settings()
                 fund_conf = load_fund_settings()
+                risk_conf = load_risk_settings()
                 last_reload = now
                 logger.info("[BOT] config reloaded")
 
@@ -101,7 +123,13 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                         )
 
             for ticker, pos in list(active_trades.items()):
-                if check_sell_signal(pos["strategy"], ticker, pos["buy_price"], pos["level"]):
+                if check_sell_signal(
+                    pos["strategy"],
+                    ticker,
+                    pos["buy_price"],
+                    pos["level"],
+                    risk_conf,
+                ):
                     avg, vol = smart_sell(
                         upbit,
                         ticker,
