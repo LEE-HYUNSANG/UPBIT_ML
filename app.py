@@ -89,6 +89,13 @@ account_cache = ACCOUNT_PLACEHOLDER.copy()
 FILTER_FILE = "config/filter.json"
 filter_config = load_filter_settings(FILTER_FILE)
 
+# 전략 설정 파일 경로
+STRATEGY_FILE = "config/strategy.json"
+DEFAULT_STRATEGY_FILE = "config/default_strategy.json"
+from helpers.utils.strategy_cfg import load_strategy_list, save_strategy_list, restore_defaults
+# 서버 시작 시 전략 목록 로드
+strategy_table = load_strategy_list(STRATEGY_FILE)
+
 SIGNAL_ORDER = {
     "buy-strong": 0,
     "buy": 1,
@@ -1187,6 +1194,41 @@ def save_strategy():
     except Exception as e:
         notify_error(f"전략 설정 저장 실패: {e}", "E008")
         return jsonify(result="error", message="전략 저장 실패"), 500
+
+
+@app.route("/api/strategies", methods=["GET"])
+def get_strategies():
+    logger.debug("get_strategies called")
+    return jsonify(strategy_table)
+
+
+@app.route("/api/strategies", methods=["POST"])
+def update_strategies():
+    data = request.get_json(force=True)
+    logger.debug("update_strategies called with %s", data)
+    try:
+        if not isinstance(data, list):
+            raise ValueError("Invalid data")
+        save_strategy_list(data, STRATEGY_FILE)
+        global strategy_table
+        strategy_table = data
+        return jsonify({"status": "ok"})
+    except Exception as e:
+        notify_error(f"전략 저장 실패: {e}", "E008")
+        return jsonify(result="error", message="전략 저장 실패"), 500
+
+
+@app.route("/api/restore-defaults/strategy", methods=["POST"])
+def restore_strategy_defaults_api():
+    logger.debug("restore_strategy_defaults_api called")
+    try:
+        restore_defaults(DEFAULT_STRATEGY_FILE, STRATEGY_FILE)
+        global strategy_table
+        strategy_table = load_strategy_list(STRATEGY_FILE)
+        return jsonify(ok=True)
+    except Exception as e:
+        notify_error(f"복원 실패: {e}", "E015")
+        return jsonify(result="error", message="복원 실패"), 500
 
 @app.route("/api/run-analysis", methods=["POST"])
 def run_analysis():
