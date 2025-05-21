@@ -1,0 +1,8 @@
+{
+  "max_invest_per_coin": 1234,
+  "buy_amount": 1234,
+  "max_concurrent_trades": 1,
+  "slippage_tolerance": 0.001,
+  "balance_exhausted_action": "알림",
+  "updated": "2025-05-22T01:40:50"
+}
