@@ -29,7 +29,10 @@
 
 서버는 5분봉 마감마다 시세와 거래량을 받아 정렬한 뒤, 필터 조건에 맞는 코인만 `monitor_list.json` 으로 저장합니다. 이 문서는 초보자가 프로젝트 구조를 빠르게 이해할 수 있도록 작성되었습니다.
 
-모니터링 값이 계산되면 서버에서 `refresh_data` SocketIO 이벤트를 세 번(1초 간격) 발생시켜 브라우저가 잔고와 매수 모니터링 정보를 다시 조회합니다. `/api/status` 가 반환하는 `next_refresh` 값은 다음 5분봉 마감 시각이며, 페이지의 "데이터 갱신 잔여시간" 표시가 이 값을 기준으로 갱신됩니다.
+모니터링 값이 계산되면 서버에서 `refresh_data` SocketIO 이벤트를 세 번(1초 간격) 발생시켜
+브라우저가 잔고와 매수 모니터링 정보를 다시 조회합니다. `/api/status` 가 반환하는
+`next_refresh` 값은 다음 5분봉 마감 시각이며, 페이지의 "데이터 갱신 잔여시간" 표시가 이 값을
+기준으로 갱신됩니다.
 calc_buy_signal_retry() 는 각 코인을 최대 세 번 계산한다. 세 번 모두 값이 없으면 해당 행은 '⛔'과 "데이터 대기"로 남는다.
 이러한 항목은 다음 5분봉 마감 10초 전까지 10초 간격으로 계속 재계산하며 값이 채워지면 즉시 `refresh_data` 이벤트로 브라우저에 반영한다.
 
@@ -40,3 +43,70 @@ Flask 개발 서버를 사용하면 모든 HTTP 요청이 다음과 같은 형�
 ```
 각 항목은 IP 주소, 요청 경로, 상태 코드, 응답 크기(byte), 처리 시간을 의미합니다.
 대시보드에서 `/api/status` 를 5초마다 호출하므로 개발 중에는 위와 같은 로그가 반복됩니다.
+
+## 최근 문제 로그
+다음은 CSS 인라인 스타일에서 발생한 경고 예시입니다. `templates/index.html` 의 134번째 줄에서 발견되었습니다.
+
+```json
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-identifierexpected",
+    "severity": 8,
+    "message": "식별자 필요",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 53,
+    "endLineNumber": 134,
+    "endColumn": 54
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-rcurlyexpected",
+    "severity": 8,
+    "message": "} 필요",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 54,
+    "endLineNumber": 134,
+    "endColumn": 55
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "css-ruleorselectorexpected",
+    "severity": 8,
+    "message": "at-rule 또는 선택기가 필요함",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 68,
+    "endLineNumber": 134,
+    "endColumn": 69
+  }
+]
+
+[
+  {
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "owner": "_generated_diagnostic_collection_name_#0",
+    "code": "emptyRules",
+    "severity": 4,
+    "message": "빈 규칙 집합을 사용하지 마세요.",
+    "source": "css",
+    "startLineNumber": 134,
+    "startColumn": 48,
+    "endLineNumber": 134,
+    "endColumn": 53
+  }
+]
+```
+
+세미콜론을 추가하여 `<span class="pin" style="left: {{ p.pin_pct }}%;"></span>` 형태로 수정하면 경고가 사라집니다.
