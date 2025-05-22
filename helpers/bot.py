@@ -13,7 +13,13 @@ from typing import Dict, Callable, Any
 
 import pyupbit
 
-from utils import load_filter_settings, load_market_signals, load_secrets, send_telegram
+from utils import (
+    load_filter_settings,
+    load_market_signals,
+    load_secrets,
+    send_telegram,
+    calc_tis,
+)
 from helpers.strategies import check_buy_signal, check_sell_signal, df_to_market
 from bot.indicators import calc_indicators
 from helpers.execution import smart_buy, smart_sell
@@ -226,7 +232,8 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     }
                 )
                 df_ind = calc_indicators(df_raw)
-                market = df_to_market(df_ind, 0)
+                tis = calc_tis(ticker) or 0.0
+                market = {"df": df_ind, "tis": tis}
                 if check_buy_signal(strat, level, market):
                     fut = executor.submit(
                         _safe_call,
