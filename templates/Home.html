@@ -5,7 +5,7 @@
 <div id="layout">
   <!-- 좌측 -->
   <div id="left">
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 status-card">
       <div class="card-head">
         <i class="bi bi-robot"></i> 봇 상태
         <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
@@ -15,8 +15,12 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div>
             <span class="me-2">현재 상태:</span>
-            <span class="badge {% if running %}bg-success{% else %}bg-secondary{% endif %} px-3" id="bot-status">
-              {% if running %}실행중{% else %}정지{% endif %}
+            <span id="bot-status">
+              {% if running %}
+                <span class="status-icon status-running">▶️</span> 실행중
+              {% else %}
+                <span class="status-icon status-stopped">⏸️</span> 정지
+              {% endif %}
             </span>
           </div>
           <button id="botActionBtn"
@@ -72,28 +76,13 @@
         </form>
       </div>
     </div>
-    <div class="card shadow-sm">
-      <div class="card-head">
-        <i class="bi bi-bell"></i> 실시간 알림
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="매매 체결, 손절·익절 발생 등 주요 알림을 실시간으로 표시합니다."></i>
-      </div>
-      <div id="liveAlerts" class="card-body small live-alerts">
-        {% if alerts %}
-        {% for a in alerts %}
-        <div>[{{ a.time }}] {{ a.message }}</div>
-        {% endfor %}
-        {% else %}
-        <div class="text-muted">실시간 알림 대기중......</div>
-        {% endif %}
-      </div>
-    </div>
+
   </div><!-- /left -->
 
-  <div id="drag"></div>
+  <div id="drag-left"></div>
 
-  <!-- 우측 -->
-  <div id="right">
+  <!-- 중앙 -->
+  <div id="center">
     <!-- 보유코인 관리(매도 모니터링) + 손절·익절/추세 그래프 -->
     <div class="card shadow-sm mb-5">
       <div class="card-head">
@@ -113,18 +102,15 @@
             <thead class="table-light">
               <tr>
                 <th>코인</th>
+                <th>매매 전략</th>
                 <th>제외</th>
                   <th>수익률
                     <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="현재까지 확정된 수익률과 미실현 수익률을 합산해 보여 줍니다."></i>
                   </th>
-                  <th>손절·익절 그래프
+                  <th>손절 · 익절 · 추세익절
                     <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
                        title="설정된 손절·익절 가격과 현재가의 상대 위치를 한눈에 표시합니다."></i>
-                  </th>
-                  <th>추세 손절·익절
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-                       title="추세선을 기반으로 손절·익절 조건이 자동 조정되는 방식을 나타냅니다."></i>
                   </th>
                   <th>Sell 시그널
                     <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
@@ -140,6 +126,7 @@
               {% for p in positions %}
               <tr>
                 <td>{{ p.coin }}</td>
+                <td>{{ p.strategy }}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-primary text-dark"
                           data-api="/api/exclude-coin" data-coin="{{ p.coin }}">제외</button>
@@ -162,9 +149,7 @@
                       <span class="pin" data-pos="{{ p.pin_pct }}"></span>
                     {% endif %}
                   </div>
-                </td>
-                <td>
-                  <div class="trend-bar">
+                  <div class="trend-bar mt-1">
                     <span class="tick tick1"></span>
                     <span class="tick tick2"></span>
                     <span class="dot trend {{ p.trend_color }}" data-pos="{{ p.trend }}"></span>
@@ -259,6 +244,28 @@
             {% endfor %}
           </tbody>
         </table>
+      </div>
+    </div>
+  </div><!-- /center -->
+
+  <div id="drag-right"></div>
+
+  <!-- 우측 -->
+  <div id="right">
+    <div class="card shadow-sm h-100">
+      <div class="card-head">
+        <i class="bi bi-bell"></i> 실시간 알림
+        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
+           title="매매 체결, 손절·익절 발생 등 주요 알림을 실시간으로 표시합니다."></i>
+      </div>
+      <div id="liveAlerts" class="card-body small live-alerts">
+        {% if alerts %}
+        {% for a in alerts %}
+        <div>[{{ a.time }}] {{ a.message }}</div>
+        {% endfor %}
+        {% else %}
+        <div class="text-muted">실시간 알림 대기중......</div>
+        {% endif %}
       </div>
     </div>
   </div><!-- /right -->
