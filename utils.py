@@ -42,6 +42,18 @@ class LevelFilter(logging.Filter):
         return record.levelno == self.level
 
 
+class MessagePrefixFilter(logging.Filter):
+    """Filter log records by message prefix."""
+
+    def __init__(self, prefix: str) -> None:
+        super().__init__()
+        self.prefix = prefix
+
+    def filter(self, record: logging.LogRecord) -> bool:  # type: ignore[override]
+        msg = record.getMessage()
+        return msg.startswith(self.prefix)
+
+
 def setup_logging(level: str | None = None, log_dir: str = "logs") -> logging.Logger:
     """로그 파일과 콘솔 출력을 설정한다."""
     if level is None:
@@ -69,6 +81,19 @@ def setup_logging(level: str | None = None, log_dir: str = "logs") -> logging.Lo
             fh.setLevel(lvl)
             fh.addFilter(LevelFilter(lvl))
             logger.addHandler(fh)
+
+        # 자동 매매 매수/매도 로그 파일
+        buy_fh = logging.FileHandler(os.path.join(log_dir, "Auto_B.log"), encoding="utf-8")
+        buy_fh.setFormatter(fmt)
+        buy_fh.setLevel(logging.INFO)
+        buy_fh.addFilter(MessagePrefixFilter("[BUY]"))
+        logger.addHandler(buy_fh)
+
+        sell_fh = logging.FileHandler(os.path.join(log_dir, "Auto_S.log"), encoding="utf-8")
+        sell_fh.setFormatter(fmt)
+        sell_fh.setLevel(logging.INFO)
+        sell_fh.addFilter(MessagePrefixFilter("[SELL]"))
+        logger.addHandler(sell_fh)
         sh = logging.StreamHandler()
         sh.setFormatter(fmt)
         sh.setLevel(logging.INFO)
@@ -201,9 +226,6 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
         buy_qty = recent[recent["ask_bid"] == "BID"]["trade_volume"].sum()
         sell_qty = recent[recent["ask_bid"] == "ASK"]["trade_volume"].sum()
         tis = (buy_qty / sell_qty) * 100 if sell_qty > 0 else 0.0
-        cal("[TIS] %s buy=%.2f sell=%.2f tis=%.2f", ticker, buy_qty, sell_qty, tis)
-        if ticker.endswith("-XPR"):
-            logging.info("[TIS] XPR buy=%.2f sell=%.2f tis=%.2f", buy_qty, sell_qty, tis)
         return tis
     except Exception as e:  # API or parsing error
         cal("calc_tis failed for %s: %s", ticker, e)
@@ -219,7 +241,6 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
                 cal("calc_tis ask size zero for %s", ticker)
                 return None
             tis = (bid / ask) * 100
-            cal("[TIS-FB] %s orderbook tis=%.2f", ticker, tis)
             return tis
         except Exception as e2:
             cal("calc_tis fallback failed for %s: %s", ticker, e2)
