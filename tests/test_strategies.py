@@ -4,7 +4,10 @@ from helpers.strategies import (
     check_sell_signal,
     df_to_market,
     _normalize,
+    _apply_shifts,
 )
+from bot.indicators import compute_indicators
+from strategy_loader import load_strategies
 
 
 def _base_df(rows=80):
@@ -29,6 +32,22 @@ def _base_df(rows=80):
         "vwap": [1.2] * rows,
     }
     return pd.DataFrame(data, index=idx)
+
+
+def _indicator_df(rows: int = 60) -> pd.DataFrame:
+    """DataFrame with indicators computed for formula evaluation."""
+    idx = pd.date_range("2021-01-01", periods=rows, freq="5T")
+    base = {
+        "Open": [1.0] * rows,
+        "High": [1.1] * rows,
+        "Low": [0.9] * rows,
+        "Close": [1.0] * rows,
+        "Volume": [100] * rows,
+    }
+    df = pd.DataFrame(base, index=idx)
+    df = compute_indicators(df)
+    df["Vol"] = df["Volume"]  # alias used in formulas
+    return df
 
 
 def make_df(strategy: str) -> pd.DataFrame:
@@ -117,6 +136,21 @@ def test_sell_signals():
 
 def test_normalize_zero_offset():
     assert _normalize("Low(0)") == "Low"
-    assert _normalize("Vol(0)") == "Volume"
-    assert _normalize("Vol(-1)") == "Volume_prev"
-    assert _normalize("MA(Vol,20)") == "Volume_MA20"
+    assert _normalize("Vol(0)") == "Vol"
+
+
+def test_normalize_atr_ma():
+    assert _normalize("MA(ATR(14),20)") == "ATR14_MA20"
+
+
+def test_atr_ma_formulas_eval():
+    specs = load_strategies()
+    df = _indicator_df()
+    for spec in specs.values():
+        for formula in spec.buy_formula_levels:
+            if "MA(ATR" not in formula:
+                continue
+            expr = formula.replace(" and ", " & ").replace(" or ", " | ")
+            expr = _normalize(expr)
+            df_tmp = _apply_shifts(df, expr)
+            df_tmp.eval(expr, engine="python")

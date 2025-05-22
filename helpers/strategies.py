@@ -9,7 +9,15 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 def _normalize(formula: str) -> str:
     """Convert indicator function calls to column-friendly names."""
-    # MA(Vol,20) 형식을 Vol_MA20으로 변환한다
+
+    # MA(ATR(14),20) -> ATR14_MA20
+    def _repl_ma_atr(match: re.Match) -> str:
+        atr_period, ma_period = match.group(1), match.group(2)
+        return f"ATR{atr_period}_MA{ma_period}"
+
+    formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
+
+    # Replace MA(Vol,20) -> Vol_MA20
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
     # Bollinger bands: BB_upper(20,2) -> BB_upper, BB_upper(20,2,-1) -> BB_upper_prev
@@ -26,6 +34,7 @@ def _normalize(formula: str) -> str:
         return result
 
     def _repl_multi(match: re.Match) -> str:
+        """Handle indicators with period and offset."""
         name, period, offset = match.group(1), match.group(2), match.group(3)
         result = f"{name}{period}"
         if offset:
@@ -36,7 +45,7 @@ def _normalize(formula: str) -> str:
                 result += "_next" + (str(off) if off != 1 else "")
         return result
 
-    # e.g. MFI(14,-1) -> MFI14_prev, Tenkan(9,-26) -> Tenkan9_next26
+    # e.g. MFI(14,-1) -> MFI14_prev
     formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
 
     # Close(-1) -> Close_prev, Low(0) -> Low
