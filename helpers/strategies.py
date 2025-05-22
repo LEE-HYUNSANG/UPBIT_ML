@@ -33,7 +33,7 @@ def evaluate_buy_signals(strategy, risk_level):
     if '_prev' in formula_eval:
         # create columns with suffix for previous values
         for col in ['Close','Open','High','Low','Volume','Strength','EMA5','EMA20','EMA60','EMA120',
-                    'ATR14','RSI14','MFI14','CCI20','MACD_hist','BandWidth20']:
+                    'ATR14','RSI14','MFI14','VWAP','CCI20','MACD_hist','BandWidth20']:
             if col in df and f'{col}_prev' in formula_eval:
                 df[f'{col}_prev'] = df[col].shift(1)
             if col in df and f'{col}_prev2' in formula_eval:
