@@ -132,6 +132,8 @@ def test_sell_signals():
     ]:
         df = make_df(strat)
         market = df_to_market(df, 1.0)
+        market["Entry"] = df["Close"].iloc[-1] * 0.97
+        market["Peak"] = df["High"].cummax().iloc[-1]
         assert check_sell_signal(strat, "공격적", market)
 
 

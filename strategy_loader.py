@@ -19,6 +19,8 @@ class StrategySpec:
     sell_formula: str
     buy_levels: List[List[str]]
     sell_levels: List[List[str]]
+    buy_formula_levels: List[str]
+    sell_formula_levels: List[str]
     params: dict
 
 
@@ -36,6 +38,8 @@ def load_strategies(path: str | Path = "config/strategies_master.json") -> Dict[
             sell_formula=item.get("sell_formula", ""),
             buy_levels=item.get("buy_levels", []),
             sell_levels=item.get("sell_levels", []),
+            buy_formula_levels=item.get("buy_formula_levels", []),
+            sell_formula_levels=item.get("sell_formula_levels", []),
             params=item.get("params", {}),
         )
         result[spec.short_code] = spec
