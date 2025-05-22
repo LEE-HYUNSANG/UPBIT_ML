@@ -241,6 +241,7 @@ class UpbitTrader:
         sl_pct = params.get("sl", 0) * 100
         tp_pct = params.get("tp", 0) * 100
         strategy_code = self.config.get("strategy", "-")
+        risk_level = self.config.get("level", "중도적")
         for b in balances:
             currency = b.get("currency")
             bal = float(b.get("balance", 0))
@@ -283,6 +284,7 @@ class UpbitTrader:
             positions.append({
                 "coin": currency,
                 "strategy": strategy_code,
+                "level": risk_level,
                 "pnl": pnl,
                 "entry_pct": entry_pct,
                 "pin_pct": pin_pct,

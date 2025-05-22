@@ -51,52 +51,53 @@ def _indicator_df(rows: int = 60) -> pd.DataFrame:
 
 
 def make_df(strategy: str) -> pd.DataFrame:
-    df = _base_df()
+    df = _indicator_df()
     if strategy == "P-PULL":
-        df.loc[df.index[-1], "rsi"] = 25
-        df.loc[df.index[-1], "ema50"] = df["close"].iloc[-1] * 1.0005
-        df.loc[df.index[-2], "volume"] = 100
-        df.loc[df.index[-1], "volume"] = 120
+        df.loc[df.index[-1], "RSI14"] = 25
+        df.loc[df.index[-1], "EMA50"] = df["Close"].iloc[-1] * 1.0005
+        df.loc[df.index[-2], "Volume"] = 100
+        df.loc[df.index[-1], "Volume"] = 120
     elif strategy == "T-FLOW":
-        df.loc[df.index[-5], "ema20"] = 1.0
-        df.loc[df.index[-1], "ema20"] = 1.02
-        df.loc[df.index[-1], "rsi"] = 55
+        df.loc[df.index[-5], "EMA20"] = 1.0
+        df.loc[df.index[-1], "EMA20"] = 1.02
+        df.loc[df.index[-1], "RSI14"] = 55
     elif strategy == "B-LOW":
-        df.loc[df.index[:-1], "high"] = 1.05
-        df.loc[df.index[:-1], "low"] = 1.0
-        df.loc[df.index[-1], "low"] = 1.01
-        df.loc[df.index[-1], "rsi"] = 20
+        df.loc[df.index[:-1], "High"] = 1.05
+        df.loc[df.index[:-1], "Low"] = 1.0
+        df.loc[df.index[-1], "Low"] = 1.01
+        df.loc[df.index[-1], "RSI14"] = 20
     elif strategy == "V-REV":
-        df.loc[df.index[-2], "close"] = 0.95
-        df.loc[df.index[-1], "close"] = 1.0
-        df.loc[df.index[-2], "volume"] = 100
-        df.loc[df.index[-1], "volume"] = 260
-        df.loc[df.index[-2], "rsi"] = 18
-        df.loc[df.index[-1], "rsi"] = 21
+        df.loc[df.index[-2], "Close"] = 0.95
+        df.loc[df.index[-1], "Close"] = 1.0
+        df.loc[df.index[-2], "Volume"] = 100
+        df.loc[df.index[-1], "Volume"] = 260
+        df.loc[df.index[-2], "RSI14"] = 18
+        df.loc[df.index[-1], "RSI14"] = 21
     elif strategy == "G-REV":
-        df.loc[df.index[-1], "ema50"] = 1.1
-        df.loc[df.index[-1], "ema200"] = 1.0
-        df.loc[df.index[-2], "volume"] = 100
-        df.loc[df.index[-1], "volume"] = 80
-        df.loc[df.index[-1], "rsi"] = 50
+        df.loc[df.index[-1], "EMA50"] = 1.1
+        df.loc[df.index[-1], "EMA200"] = 1.0
+        df.loc[df.index[-2], "Volume"] = 100
+        df.loc[df.index[-1], "Volume"] = 80
+        df.loc[df.index[-1], "RSI14"] = 50
     elif strategy == "VOL-BRK":
-        df.loc[df.index[-10:], "atr"] = 0.04
-        df.loc[df.index[-1], "atr"] = 0.08
-        df.loc[df.index[-20:], "volume"] = 100
-        df.loc[df.index[-1], "volume"] = 250
-        df.loc[df.index[-1], "high"] = 1.2
-        df.loc[df.index[-1], "rsi"] = 65
+        df.loc[df.index[-10:], "ATR14"] = 0.04
+        df.loc[df.index[-1], "ATR14"] = 0.08
+        df.loc[df.index[-20:], "Volume"] = 100
+        df.loc[df.index[-1], "Volume"] = 250
+        df.loc[df.index[-1], "High"] = 1.2
+        df.loc[df.index[-1], "RSI14"] = 65
     elif strategy == "EMA-STACK":
-        df.loc[df.index[-1], "ema25"] = 1.1
-        df.loc[df.index[-1], "ema100"] = 1.05
-        df.loc[df.index[-1], "ema200"] = 1.0
-        df.loc[df.index[-1], "adx"] = 32
+        df.loc[df.index[-1], "EMA25"] = 1.1
+        df.loc[df.index[-1], "EMA100"] = 1.05
+        df.loc[df.index[-1], "EMA200"] = 1.0
+        df.loc[df.index[-1], "ADX"] = 32
     elif strategy == "VWAP-BNC":
-        df.loc[df.index[-1], "vwap"] = 1.199
-        df.loc[df.index[-1], "close"] = 1.2
-        df.loc[df.index[-2], "volume"] = 100
-        df.loc[df.index[-1], "volume"] = 120
-        df.loc[df.index[-1], "rsi"] = 50
+        df.loc[df.index[-1], "VWAP"] = 1.199
+        df.loc[df.index[-1], "Close"] = 1.2
+        df.loc[df.index[-2], "Volume"] = 100
+        df.loc[df.index[-1], "Volume"] = 120
+        df.loc[df.index[-1], "RSI14"] = 50
+    df["Vol"] = df["Volume"]
     return df
 
 

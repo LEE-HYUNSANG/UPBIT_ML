@@ -14,7 +14,8 @@ from typing import Dict, Callable, Any
 import pyupbit
 
 from utils import load_filter_settings, load_market_signals, load_secrets, send_telegram
-from helpers.strategies import check_buy_signal, check_sell_signal
+from helpers.strategies import check_buy_signal, check_sell_signal, df_to_market
+from bot.indicators import calc_indicators
 from helpers.execution import smart_buy, smart_sell
 from helpers.logger import log_trade
 from helpers.utils.funds import load_fund_settings
@@ -210,7 +211,23 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     break
                 strat = strategy_conf.get("strategy", "M-BREAK")
                 level = strategy_conf.get("level", "중도적")
-                if check_buy_signal(strat, ticker, level):
+                df_raw = _safe_call(
+                    pyupbit.get_ohlcv, ticker, interval="minute5", count=120
+                )
+                if df_raw is None or len(df_raw) < 20:
+                    continue
+                df_raw = df_raw.rename(
+                    columns={
+                        "open": "Open",
+                        "high": "High",
+                        "low": "Low",
+                        "close": "Close",
+                        "volume": "Volume",
+                    }
+                )
+                df_ind = calc_indicators(df_raw)
+                market = df_to_market(df_ind, 0)
+                if check_buy_signal(strat, level, market):
                     fut = executor.submit(
                         _safe_call,
                         smart_buy,
@@ -239,13 +256,25 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
 
             sell_tasks = []
             for ticker, pos in list(active_trades.items()):
-                if check_sell_signal(
-                    pos["strategy"],
-                    ticker,
-                    pos["buy_price"],
-                    pos["level"],
-                    risk_conf,
-                ):
+                df_raw = _safe_call(
+                    pyupbit.get_ohlcv, ticker, interval="minute5", count=120
+                )
+                if df_raw is None or len(df_raw) < 20:
+                    continue
+                df_raw = df_raw.rename(
+                    columns={
+                        "open": "Open",
+                        "high": "High",
+                        "low": "Low",
+                        "close": "Close",
+                        "volume": "Volume",
+                    }
+                )
+                df_ind = calc_indicators(df_raw)
+                market = df_to_market(df_ind, 0)
+                market["Entry"] = pos["buy_price"]
+                market["Peak"] = df_ind["High"].cummax().iloc[-1]
+                if check_sell_signal(pos["strategy"], pos["level"], market):
                     fut = executor.submit(
                         _safe_call,
                         smart_sell,
