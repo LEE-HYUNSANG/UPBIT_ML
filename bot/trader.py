@@ -171,9 +171,10 @@ class UpbitTrader:
                             break
 
                     if chosen:
-                        last_price = df_ind['Close'].iloc[-1]
-                        qty = self.config.get("amount", 10000) / last_price
-                        self.upbit.buy_market_order(ticker, qty)
+                        last_price = df_ind["Close"].iloc[-1]
+                        krw = self.config.get("amount", 10000)
+                        qty = krw / last_price
+                        self.upbit.buy_market_order(ticker, krw)
                         self.positions[ticker] = {
                             "qty": qty,
                             "entry": last_price,
