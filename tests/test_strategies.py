@@ -144,6 +144,11 @@ def test_normalize_offsets():
     assert _normalize("Close(1)") == "Close_prev"
     assert _normalize("PSAR(1)") == "PSAR_prev"
 
+
+def test_normalize_ma_vol_and_atr():
+    assert _normalize("MA(Vol,20)") == "Vol_MA20"
+    assert _normalize("MA(ATR(14),20)") == "ATR14_MA20"
+
     
 def test_compute_indicators_strength():
     idx = pd.date_range("2021-01-01", periods=5, freq="5T")
