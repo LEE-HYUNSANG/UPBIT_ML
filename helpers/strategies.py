@@ -9,7 +9,7 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 def _normalize(formula: str) -> str:
     """Convert indicator function calls to column-friendly names."""
-    # Replace MA(Vol,20) -> Vol_MA20
+    # MA(Vol,20) 형식을 Vol_MA20으로 변환한다
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
     # Bollinger bands: BB_upper(20,2) -> BB_upper, BB_upper(20,2,-1) -> BB_upper_prev
@@ -17,6 +17,17 @@ def _normalize(formula: str) -> str:
         name = match.group(1)
         offset = match.group(2)
         result = name
+        if offset:
+            off = int(offset)
+            if off < 0:
+                result += "_prev" + (str(-off) if off != -1 else "")
+            elif off > 0:
+                result += "_next" + (str(off) if off != 1 else "")
+        return result
+
+    def _repl_multi(match: re.Match) -> str:
+        name, period, offset = match.group(1), match.group(2), match.group(3)
+        result = f"{name}{period}"
         if offset:
             off = int(offset)
             if off < 0:
@@ -43,18 +54,12 @@ def _normalize(formula: str) -> str:
     # e.g. EMA(5) -> EMA5
     formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
 
-    def _repl_multi(match: re.Match) -> str:
-        name, period, offset = match.group(1), match.group(2), match.group(3)
-        result = f"{name}{period}"
-        if offset:
-            off = int(offset)
-            if off < 0:
-                result += "_prev" + (str(-off) if off != -1 else "")
-            elif off > 0:
-                result += "_next" + (str(off) if off != 1 else "")
-        return result
-
     formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
+
+    # Vol, Vol_prev, Vol_MA20 등의 표기를 Volume 컬럼 기반으로 변환한다
+    formula = re.sub(r"\bVol_MA(\d+)\b", r"Volume_MA\1", formula)
+    formula = re.sub(r"\bVol_(prev|next)(\d*)", r"Volume_\1\2", formula)
+    formula = re.sub(r"\bVol\b", "Volume", formula)
     return formula
 
 
