@@ -125,6 +125,15 @@ class UpbitTrader:
                         self.logger.debug(
                             "Fetched OHLCV for %s close=%s", ticker, df['close'].iloc[-1]
                         )
+                    df = df.rename(
+                        columns={
+                            "open": "Open",
+                            "high": "High",
+                            "low": "Low",
+                            "close": "Close",
+                            "volume": "Volume",
+                        }
+                    )
                     df = calc_indicators(df)
                     if self.logger:
                         last = df.iloc[-1].to_dict()
