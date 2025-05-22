@@ -9,6 +9,7 @@ import pandas as pd   # 데이터프레임 처리
 import pyupbit        # 업비트 API 연동
 import json
 import os
+MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
 from utils import calc_tis, load_secrets, send_telegram
 from helpers.strategies import (
     check_buy_signal,
@@ -78,6 +79,10 @@ class UpbitTrader:
             self._fail_counts[currency] = 0
             self._failed_until[currency] = time.time()
             self._alert(f"[INFO] {currency} 시세 조회 실패로 모니터링에서 제외")
+
+    def _position_count(self) -> int:
+        """5천원 이상 가치가 있는 포지션 수를 반환한다."""
+        return sum(1 for p in self.positions.values() if p.get("qty", 0) * p.get("entry", 0) > MIN_POSITION_VALUE)
 
     def set_tickers(self, tickers: list[str]) -> None:
         """거래 대상 티커 목록을 갱신한다."""
@@ -165,7 +170,7 @@ class UpbitTrader:
                         params,
                     )
                 for ticker in tickers:
-                    if len(self.positions) >= self.config.get("max_positions", 1):
+                    if self._position_count() >= self.config.get("max_positions", 1):
                         if self.logger:
                             self.logger.debug("[TRADER] max positions reached")
                         break
@@ -200,7 +205,7 @@ class UpbitTrader:
                             break
 
                     if chosen:
-                        if len(self.positions) >= self.config.get("max_positions", 1):
+                        if self._position_count() >= self.config.get("max_positions", 1):
                             if self.logger:
                                 self.logger.debug("[TRADER] max positions reached")
                             break
@@ -287,6 +292,9 @@ class UpbitTrader:
             if b.get("currency") == "KRW":
                 continue
             qty = float(b.get("balance", 0))
+            value = qty * float(b.get("avg_buy_price", 0))
+            if value <= MIN_POSITION_VALUE:
+                continue
             if qty <= 0:
                 continue
             ticker = f"KRW-{b['currency']}"
