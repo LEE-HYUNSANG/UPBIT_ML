@@ -60,8 +60,9 @@ def _normalize(formula: str) -> str:
     # 4) Offsets such as Close(-1) or PSAR(1)
     formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
 
-    # 5) Rename Vol column to Volume
-    formula = re.sub(r"\bVol(?=\b|_)", "Volume", formula)
+    # 5) Rename Vol column to Volume, except for volume moving averages
+    #    such as Vol_MA20 which should keep the Vol prefix.
+    formula = re.sub(r"\bVol(?!_MA\d+)(?=\b|_)", "Volume", formula)
 
     return formula
 
