@@ -152,10 +152,15 @@
 
 ### 2.10 액션
 - **툴팁**
-  - 버튼 클릭 시 해당 코인에 대한 시장가 매수 주문을 요청합니다.
-  - 봇 설정에 따라 매수 불가 상태라면 비활성화됩니다.
-- **동작**: POST `/api/manual-buy` 호출, 매수 불가 시 비활성화됩니다.
-- **UI 예시**: `<button class="btn btn-outline-success">수동 매수</button>`
+  - 매수 버튼 클릭 시 해당 코인에 대한 시장가 매수 주문을 요청합니다.
+  - 매도 버튼 클릭 시 보유량 전체를 시장가로 매도합니다.
+  - 봇 설정에 따라 매수 불가 상태라면 매수 버튼이 비활성화됩니다.
+- **동작**: 
+  - 매수: POST `/api/manual-buy` 호출, 회당 매수금(₩) 설정값으로 주문합니다.
+  - 매도: POST `/api/manual-sell` 호출, 보유량을 전량 매도합니다.
+- **UI 예시**: 
+  - `<button class="btn btn-outline-success">수동 매수</button>`
+  - `<button class="btn btn-outline-danger">수동 매도</button>`
 
 ## 3. 공통 예외 처리
 - 모든 계산은 완료된 봉 기준으로 수행합니다.

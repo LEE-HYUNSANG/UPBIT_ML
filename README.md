@@ -56,6 +56,14 @@ Buttons with a `data-api` attribute automatically send the nearest form data via
 The JavaScript in `main.js` will call `/api/start-bot` and show any returned message via a modal.
 SocketIO events `notification`, `positions` and `alerts` push real time updates to the browser.
 
+### Manual buy and sell
+Two buttons on the Home page allow direct trading:
+
+* **Manual Buy** – POST `/api/manual-buy` with the selected coin. The bot uses
+  the "회당 매수금(₩)" value from the fund settings and places a market order.
+* **Manual Sell** – POST `/api/manual-sell` and sell the entire position of that
+  coin at market price.
+
 ## Market data
 `app.py` retrieves current prices and 24‑hour traded value from Upbit whenever a new
 five‑minute candle closes.
