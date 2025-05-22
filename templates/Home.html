@@ -12,16 +12,20 @@
            title="봇이 실행 중인지 표시합니다. 실행 상태에서는 설정한 모든 전략이 자동으로 작동합니다."></i>
       </div>
       <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="mb-2">
+          <span class="me-2">현재 상태:</span>
+          <span id="bot-state">
+            {% if running %}
+              <span class="status-icon status-running">🟩</span>
+            {% else %}
+              <span class="status-icon status-stopped">🟨</span>
+            {% endif %}
+          </span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
           <div>
-            <span class="me-2">현재 상태:</span>
-            <span id="bot-status">
-              {% if running %}
-                <span class="status-icon status-running">▶️</span> 실행중
-              {% else %}
-                <span class="status-icon status-stopped">⏸️</span> 정지
-              {% endif %}
-            </span>
+            <span class="me-2">자동 매매:</span>
+            <span id="bot-trade">{% if running %}▶️{% else %}⏹️{% endif %}</span>
           </div>
           <button id="botActionBtn"
                   class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm min-w-140"
@@ -29,7 +33,7 @@
             {% if running %}봇 중지{% else %}봇 시작{% endif %}
           </button>
         </div>
-        <small class="text-muted" id="updateTime">업데이트: {{ updated }}</small>
+        <small class="text-muted" id="webStart">{{ start_time }} [{{ uptime }}]</small>
       </div>
     </div>
     <div class="card shadow-sm mb-4">
@@ -126,7 +130,7 @@
               {% for p in positions %}
               <tr>
                 <td>{{ p.coin }}</td>
-                <td>{{ p.strategy }}</td>
+                <td>{% if running %}{{ p.strategy }}{% else %}수동 매매{% endif %}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-primary text-dark"
                           data-api="/api/exclude-coin" data-coin="{{ p.coin }}">제외</button>

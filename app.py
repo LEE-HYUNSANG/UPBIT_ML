@@ -33,6 +33,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 Socket
 # 로그 설정 (파일 + 콘솔)
 logger = setup_logging(level="DEBUG", log_dir="logs")
 
+# 웹 서버 시작 시각과 문자열 표현
+WEB_START = datetime.now()
+WEB_START_STR = WEB_START.strftime("%Y-%m-%d %H:%M")
+
 # 숫자 천 단위 콤마 필터
 @app.template_filter('comma')
 def comma_format(value):
@@ -180,10 +184,15 @@ def get_balances():
 def get_status() -> dict:
     """봇 실행 상태와 다음 갱신 시각을 포함한 상태를 반환한다."""
     logger.debug("Fetching status")
+    uptime = datetime.now() - WEB_START
+    hours, rem = divmod(int(uptime.total_seconds()), 3600)
+    minutes = rem // 60
     return {
         "running": settings.running,
         "updated": settings.updated,
         "next_refresh": next_refresh,
+        "start_time": WEB_START_STR,
+        "uptime": f"{hours:02d}:{minutes:02d}",
     }
 
 
@@ -950,6 +959,9 @@ def dashboard():
     data = get_balances()
     ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
     current_positions = trader.build_positions(data, ex_ids) if data else []
+    uptime = datetime.now() - WEB_START
+    h, rem = divmod(int(uptime.total_seconds()), 3600)
+    m = rem // 60
     return render_template(
         "Home.html",
         running=settings.running,
@@ -958,6 +970,8 @@ def dashboard():
         signals=get_filtered_signals(),
         updated=settings.updated,
         account=get_account_summary(),
+        start_time=WEB_START_STR,
+        uptime=f"{h:02d}:{m:02d}",
         config=filter_config,
     )
 
