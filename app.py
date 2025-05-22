@@ -1,7 +1,7 @@
 """
 UPBIT 5분봉 자동매매 Flask 메인 앱 (초보자 상세 주석)
 """
-from flask import Flask, render_template, jsonify, request, send_file
+from flask import Flask, render_template, jsonify, request, send_file, redirect
 from flask_socketio import SocketIO
 import os
 import shutil
@@ -951,7 +951,7 @@ def dashboard():
     ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
     current_positions = trader.build_positions(data, ex_ids) if data else []
     return render_template(
-        "index.html",
+        "Home.html",
         running=settings.running,
         positions=current_positions,
         alerts=alerts,
@@ -966,7 +966,7 @@ def dashboard():
 def realtime_dashboard():
     """실시간 로그와 포지션을 모니터링하는 페이지를 렌더링한다."""
     logger.debug("Render real-time dashboard")
-    return render_template("dashboard.html")
+    return render_template("realTimeLogs.html")
 
 @app.route("/strategy")
 def strategy_page():
@@ -983,7 +983,7 @@ def strategy_page():
 def ai_analysis_page():
     logger.debug("Render AI analysis page")
     return render_template(
-        "ai_analysis.html",
+        "aiAnalysis.html",
         buy_results=buy_results,
         sell_results=sell_results,
         history=history,
@@ -1000,7 +1000,7 @@ def risk_page():
         "cont_loss": 4, "cont_profit": 5,
         "log_path": "logs/trades.csv", "updated": settings.updated
     }
-    return render_template("risk.html", risk=risk)
+    return render_template("fund-risk.html", risk=risk)
 
 @app.route("/notifications")
 def notifications_page():
@@ -1013,8 +1013,9 @@ def notifications_page():
 
 @app.route("/funds")
 def funds():
-    logger.debug("Render funds page")
-    return render_template("funds.html")
+    """Old URL retained for backward compatibility."""
+    logger.debug("Redirect /funds to /risk")
+    return redirect("/risk")
 
 
 @app.route("/api/funds", methods=["GET"])
@@ -1037,7 +1038,7 @@ def api_post_funds():
 @app.route("/settings")
 def settings_page():
     logger.debug("Render settings page")
-    return render_template("settings.html", settings=settings, secrets=secrets)
+    return render_template("pSettings.html", settings=settings, secrets=secrets)
 
 @app.route("/api/start-bot", methods=["POST"])
 def start_bot():
