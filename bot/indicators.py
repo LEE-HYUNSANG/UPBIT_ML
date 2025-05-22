@@ -11,15 +11,22 @@ def calc_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """
     return compute_indicators(df)
 
-def compute_indicators(df):
+def compute_indicators(df, strength=None):
     """
-    Compute all indicators and derived fields required by strategy formulas.
-    Assumes df has at least 'Open', 'High', 'Low', 'Close', 'Volume', and optionally 'Strength'.
-    Returns the DataFrame with new indicator columns added.
+    전략 포뮬러 계산에 필요한 각종 지표를 생성한다.
+
+    ``Strength`` 컬럼은 체결강도(TIS) 값으로, 보통 :func:`utils.calc_tis`
+    결과를 사용한다. ``strength`` 인수를 지정하면 해당 값을 ``Strength``
+    열에 채워 넣고, 컬럼이 없을 경우 0으로 초기화한다.
     """
     # Ensure DataFrame is sorted in time order
     df = df.copy()
     df = df.reset_index(drop=True)
+
+    if strength is not None:
+        df['Strength'] = strength
+    elif 'Strength' not in df.columns:
+        df['Strength'] = 0
 
     # 1. Exponential Moving Averages (EMA)
     df['EMA5'] = df['Close'].ewm(span=5, adjust=False).mean()
