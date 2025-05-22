@@ -27,8 +27,8 @@ are filled with server side data.
 ## Structure
 - **app.py** – Flask application providing HTML pages and API routes. SocketIO is used to push live notifications.
 - **templates/** – Jinja2 templates extending `base.html`. Pages include
-  `index.html`, `strategy.html`, `risk.html`, `funds.html`, `notifications.html`,
-  `settings.html` and `ai_analysis.html`.
+  `Home.html`, `strategy.html`, `fund-risk.html`, `notifications.html`,
+  `pSettings.html` and `aiAnalysis.html`.
   Each template gets variables like `positions`, `strategies`, `alerts` or `settings` directly from Flask.
 - **static/js/main.js** – Common JavaScript handling API calls, SocketIO events,
   draggable layout and real time table updates.
@@ -39,7 +39,7 @@ are filled with server side data.
 ## Example variables passed to templates
 ```python
 return render_template(
-    "index.html",
+    "Home.html",
     running=settings["running"],
     positions=positions,
     alerts=alerts,
@@ -210,12 +210,12 @@ docker run -p 8000:8000 upbit-bot
 `scripts/run_gunicorn.sh` 는 간단한 운영 자동화 스크립트 예시입니다.
 
 ## 문제 해결 로그
-아래는 VSCode CSS 진단에서 보고된 예시 오류입니다. `templates/index.html` 134번째 줄의 인라인 스타일에서 발생하였습니다.
+아래는 VSCode CSS 진단에서 보고된 예시 오류입니다. `templates/Home.html` 134번째 줄의 인라인 스타일에서 발생하였습니다.
 
 ```json
 [
   {
-    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/Home.html",
     "owner": "_generated_diagnostic_collection_name_#0",
     "code": "css-identifierexpected",
     "severity": 8,
@@ -230,7 +230,7 @@ docker run -p 8000:8000 upbit-bot
 
 [
   {
-    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/Home.html",
     "owner": "_generated_diagnostic_collection_name_#0",
     "code": "css-rcurlyexpected",
     "severity": 8,
@@ -245,7 +245,7 @@ docker run -p 8000:8000 upbit-bot
 
 [
   {
-    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/Home.html",
     "owner": "_generated_diagnostic_collection_name_#0",
     "code": "css-ruleorselectorexpected",
     "severity": 8,
@@ -260,7 +260,7 @@ docker run -p 8000:8000 upbit-bot
 
 [
   {
-    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/index.html",
+    "resource": "/c:/Users/twtko/Desktop/UPBIT_AutoTrader_HS/templates/Home.html",
     "owner": "_generated_diagnostic_collection_name_#0",
     "code": "emptyRules",
     "severity": 4,
