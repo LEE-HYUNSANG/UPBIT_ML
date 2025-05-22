@@ -15,14 +15,14 @@ const toggleAll = document.getElementById("toggle-all");
     data = res.ok ? await res.json() : null;
   } catch { /* dev */ }
   if (!data) {
-    // ─── 임시 기본값 (25개 전략) ───
+    // ─── 임시 기본값 (22개 전략) ───
     data = [
       // 예: 이름, 기본 휴리스틱 설정
-      "M-BREAK","VOL-BRK","RSI-PULL","ADX-TREND","MA-CROSS",
-      "Boll-BB","KDJ-OSC","MACD-BOOST","CCI-REV","OBV-PEAK",
-      "TEMA-PUMP","Ichimoku","SAR-SWING","FIBO-PIVOT","HTF-ALIGN",
-      "VWAP-EDGE","ROC-MOM","ATR-STOP","STOCH-RDY","KD-RANGE",
-      "PSAR-TRAIL","BB-BREAK","VOL-EXP","ADX-DM","RSI-BIAS"
+      "M-BREAK","P-PULL","T-FLOW","G-REV","VOL-BRK",
+      "EMA-STACK","VWAP-BNC","B-BAND","BB-SQZ","T-PULL",
+      "RSI-BOUNCE","BOLL-B","G-CROSS","ATR-EXPLODE","MACD-MOM",
+      "STOCH-BOUNCE","RSI-DIV","I-BREAK","ADX-TRND","SAR-REV",
+      "R-BREAK","MFI-BOUNCE"
     ].map((n,i)=>({active:false,name:n,
                    buy_condition:"중도적",sell_condition:"중도적",
                    priority:i+1}));
