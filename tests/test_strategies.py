@@ -141,6 +141,7 @@ def test_normalize_zero_offset():
 
 def test_normalize_offsets():
     assert _normalize("Close(-1)") == "Close_prev"
+    assert _normalize("Close(1)") == "Close_prev"
     assert _normalize("PSAR(1)") == "PSAR_prev"
 
     

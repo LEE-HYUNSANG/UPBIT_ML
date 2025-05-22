@@ -8,15 +8,11 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 
 def _normalize(formula: str) -> str:
-    """Convert indicator function calls to column-friendly names."""
+    """지표 호출을 DataFrame 컬럼 이름으로 정리한다."""
+
     def _repl_ma_atr(match: re.Match) -> str:
         atr_period, ma_period = match.group(1), match.group(2)
         return f"ATR{atr_period}_MA{ma_period}"
-
-    formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
-
-    # Replace MA(Vol,20) -> Vol_MA20
-    formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
@@ -45,23 +41,25 @@ def _normalize(formula: str) -> str:
             result += "_prev" + (str(off) if off > 1 else "")
         return result
 
-    # Replace MA(Vol,20) -> Vol_MA20
+    # MA(ATR(14),7) 형태 변환
+    formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
+
+    # MA(Vol,20) -> Vol_MA20 변환
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
-    # 1) Bollinger bands first
+    # 볼린저밴드 처리
     formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
 
-    # 2) Multi-argument indicators like MFI(14,-1)
+    # 두 개의 인자를 가진 지표 처리 (예: MFI(14,-1))
     formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
 
-    # 3) Single-argument indicators
-    formula = re.sub(r"([A-Za-z_]+)\(([1-9]\d*)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
-
-    # 4) Offsets such as Close(-1) or PSAR(1)
+    # 오프셋 컬럼 변환 (예: Close(1), PSAR(-2))
     formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
 
-    # 5) Rename Vol column to Volume, except for volume moving averages
-    #    such as Vol_MA20 which should keep the Vol prefix.
+    # 단일 인자 지표 변환 (예: EMA(20))
+    formula = re.sub(r"([A-Za-z_]+)\(([1-9]\d*)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
+
+    # Vol 컬럼은 Volume 으로 변경하되 이동평균은 예외
     formula = re.sub(r"\bVol(?!_MA\d+)(?=\b|_)", "Volume", formula)
 
     return formula
