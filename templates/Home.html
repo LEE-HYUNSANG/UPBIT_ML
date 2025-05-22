@@ -22,11 +22,7 @@
             {% endif %}
           </span>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div>
-            <span class="me-2">자동 매매:</span>
-            <span id="bot-trade">{% if running %}▶️{% else %}⏹️{% endif %}</span>
-          </div>
+        <div class="mb-2 text-end">
           <button id="botActionBtn"
                   class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm min-w-140"
                   data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
