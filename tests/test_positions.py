@@ -16,3 +16,23 @@ def test_build_positions_uses_saved_strategy(monkeypatch):
     result = tr.build_positions(balances)
     assert result and result[0]["strategy"] == "EMA-STACK"
     assert result[0]["level"] == "공격적"
+
+
+def test_build_positions_skips_failed(monkeypatch):
+    conf = {}
+    tr = UpbitTrader("k", "s", conf)
+    tr.upbit = DummyUpbit()
+    tr._failed_until["AAA"] = 9999999999
+
+    called = False
+
+    def fake_price(*a, **k):
+        nonlocal called
+        called = True
+        return 1000.0
+
+    monkeypatch.setattr("pyupbit.get_current_price", fake_price)
+    balances = [{"currency": "AAA", "balance": "1", "avg_buy_price": "0"}]
+    positions = tr.build_positions(balances)
+    assert positions and positions[0]["coin"] == "AAA"
+    assert called is False
