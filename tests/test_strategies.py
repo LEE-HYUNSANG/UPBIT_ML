@@ -123,6 +123,18 @@ def test_sell_signals():
         assert isinstance(res, bool)
 
 
+def test_entryprice_alias():
+    """EntryPrice 변수도 인식되는지 확인한다."""
+    strategies = load_strategies()
+    strat = next(iter(strategies))
+    df = make_df(strat)
+    market = df_to_market(df, 1.0)
+    market["EntryPrice"] = df["Close"].iloc[-1] * 0.97
+    market["Peak"] = df["High"].cummax().iloc[-1]
+    res = check_sell_signal(strat, "공격적", market)
+    assert isinstance(res, bool)
+
+
 def test_normalize_zero_offset():
     assert _normalize("Low(0)") == "Low"
     assert _normalize("Vol(0)") == "Volume"

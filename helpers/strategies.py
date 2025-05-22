@@ -137,6 +137,7 @@ def evaluate_sell_signals(
     df = _apply_shifts(df, expr)
     df = df.copy()
     df["Entry"] = entry
+    df["EntryPrice"] = entry  # 레거시 포뮬러 호환용
     df["Peak"] = peak
     return df.eval(expr, engine="python").astype(bool)
 
