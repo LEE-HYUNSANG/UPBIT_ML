@@ -28,9 +28,10 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
 
 /* Dashboard page */
 #layout { display: flex; height: calc(100vh - 66px); }
-#left { width: 22%; min-width: 300px; max-width: 410px; overflow: auto; padding: 1.6rem 1rem 1rem 1.4rem; }
-#right { flex: 1; overflow: auto; padding: 1.7rem 1.8rem 1.7rem 0.5rem; }
-#drag { width: 7px; background: #dee2e6; cursor: col-resize; min-height: 90vh; }
+#left { width: 16%; min-width: 220px; max-width: 340px; overflow: auto; padding: 1.6rem 1rem 1rem 1.4rem; }
+#center { flex: 1; overflow: auto; padding: 1.7rem 1.8rem; }
+#right { width: 16%; min-width: 220px; max-width: 340px; overflow: auto; padding: 1.6rem 1rem; }
+#drag-left, #drag-right { width: 7px; background: #dee2e6; cursor: col-resize; min-height: 90vh; }
 .table-responsive { max-height: 46vh; overflow: auto; }
 .table thead { position: sticky; top: 0; z-index: 2; }
 .badge-go { background: #198754; font-size: .8rem; padding: .36rem .85rem; }
@@ -58,6 +59,10 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
   border-radius: 50%;
   background: #0d6efd;
 }
+.status-card { background: linear-gradient(135deg,#fdfdfd,#e4ebf5); box-shadow: 0 2px 8px #0002; }
+.status-icon { font-size: 1.4rem; }
+.status-running { color: #198754; }
+.status-stopped { color: #6c757d; }
 .badge-profit { background:#198754; font-size:.8rem; padding:.36rem .85rem; }
 .badge-loss { background:#dc3545; font-size:.8rem; padding:.36rem .85rem; }
 .trend-bar { width: 170px; margin: 0 auto; }

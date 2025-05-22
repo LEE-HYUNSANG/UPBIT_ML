@@ -187,24 +187,31 @@ document.addEventListener('click', e => {
 
 // 9. 레이아웃 드래그 분할 초기화
 function initDragLayout(){
-  const drag = document.getElementById('drag');
+  const leftBar = document.getElementById('drag-left');
+  const rightBar = document.getElementById('drag-right');
   const left = document.getElementById('left');
-  if(!drag || !left) return;
-  let sx=0, sw=0;
-  drag.addEventListener('mousedown', e=>{
-    sx = e.clientX; sw = left.offsetWidth;
-    document.addEventListener('mousemove', mv);
-    document.addEventListener('mouseup', up);
-  });
-  function mv(e){
-    const w = sw + (e.clientX - sx);
-    const min=260, max=window.innerWidth*0.45;
-    if(w>min && w<max) left.style.width = w+'px';
+  const right = document.getElementById('right');
+  function attach(bar, target, dir){
+    if(!bar || !target) return;
+    let sx=0, sw=0;
+    bar.addEventListener('mousedown', e=>{
+      sx = e.clientX; sw = target.offsetWidth;
+      document.addEventListener('mousemove', mv);
+      document.addEventListener('mouseup', up);
+    });
+    function mv(e){
+      const delta = dir==='left' ? e.clientX - sx : sx - e.clientX;
+      const w = sw + delta;
+      const min=220, max=window.innerWidth*0.4;
+      if(w>min && w<max) target.style.width = w+'px';
+    }
+    function up(){
+      document.removeEventListener('mousemove', mv);
+      document.removeEventListener('mouseup', up);
+    }
   }
-  function up(){
-    document.removeEventListener('mousemove', mv);
-    document.removeEventListener('mouseup', up);
-  }
+  attach(leftBar, left, 'left');
+  attach(rightBar, right, 'right');
 }
 document.addEventListener('DOMContentLoaded', initDragLayout);
 
@@ -224,10 +231,10 @@ function initDotPositions(){
 function updatePositions(list){
   const body = document.getElementById('positionBody');
   if(!body) return;
-  body.innerHTML = list.map((p, i) => `
+  body.innerHTML = list.map(p => `
     <tr>
-      <td>${i+1}</td>
       <td>${p.coin}</td>
+      <td>${p.strategy || ''}</td>
       <td>
         <button class="btn btn-sm btn-outline-primary text-dark"
                 data-api="/api/exclude-coin" data-coin="${p.coin}">제외</button>
@@ -247,9 +254,7 @@ function updatePositions(list){
             ? `<span class="pin" data-pos="${p.pin_pct}"></span>`
             : ''}
         </div>
-      </td>
-      <td>
-        <div class="trend-bar">
+        <div class="trend-bar mt-1">
           <span class="tick tick1"></span>
           <span class="tick tick2"></span>
           <span class="dot trend ${p.trend_color}" data-pos="${p.trend}"></span>
@@ -407,7 +412,11 @@ async function loadStatus(){
       const timeEl = document.getElementById('updateTime');
       const btn = document.getElementById('botActionBtn');
       if (el) {
-        el.textContent = data.status.running ? '실행중' : '정지';
+        if (data.status.running) {
+          el.innerHTML = '<span class="status-icon status-running">▶️</span> 실행중';
+        } else {
+          el.innerHTML = '<span class="status-icon status-stopped">⏸️</span> 정지';
+        }
       }
       if (timeEl) {
         timeEl.textContent = '업데이트: ' + data.status.updated;
