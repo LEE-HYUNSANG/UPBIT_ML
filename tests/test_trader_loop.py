@@ -33,3 +33,40 @@ def test_buy_market_order_uses_krw(monkeypatch):
     with pytest.raises(SystemExit):
         tr.run_loop()
     assert up.last == 10000
+
+
+def test_failure_limit_removes_ticker():
+    tr = UpbitTrader("k", "s", {"tickers": ["KRW-AAA"], "failure_limit": 2})
+    tr._record_price_failure("AAA")
+    assert "KRW-AAA" in tr.tickers
+    tr._record_price_failure("AAA")
+    assert "KRW-AAA" not in tr.tickers
+
+
+def test_price_failure_removes_and_restores(monkeypatch):
+    tr = UpbitTrader("k", "s", {"tickers": ["KRW-AAA"], "failure_limit": 1, "retry_after": 1})
+    tr._record_price_failure("AAA")
+    assert "KRW-AAA" not in tr.tickers
+
+    class T:
+        t = 0
+        @staticmethod
+        def time():
+            return T.t
+
+    df = pd.DataFrame({"open": [1]*120, "high": [1]*120, "low": [1]*120,
+                        "close": [1]*120, "volume": [1]*120})
+    monkeypatch.setattr("time.time", T.time)
+    monkeypatch.setattr("pyupbit.get_ohlcv", lambda *a, **k: df)
+    monkeypatch.setattr("bot.trader.calc_indicators", lambda d: d)
+    monkeypatch.setattr("bot.trader.calc_tis", lambda t: 100.0)
+    monkeypatch.setattr("bot.trader.df_to_market", lambda d, t: {})
+    monkeypatch.setattr("bot.trader.check_buy_signal", lambda s, l, m: False)
+    monkeypatch.setattr("bot.trader.check_sell_signal", lambda s, l, m: False)
+    monkeypatch.setattr("time.sleep", lambda x: (_ for _ in ()).throw(SystemExit))
+
+    T.t = 2
+    tr.running = True
+    with pytest.raises(SystemExit):
+        tr.run_loop()
+    assert "KRW-AAA" in tr.tickers
