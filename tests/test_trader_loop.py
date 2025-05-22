@@ -35,18 +35,18 @@ def test_buy_market_order_uses_krw(monkeypatch):
     assert up.last == 10000
 
 
-def test_failure_limit_removes_ticker():
+def test_failure_limit_warns_but_keeps_ticker():
     tr = UpbitTrader("k", "s", {"tickers": ["KRW-AAA"], "failure_limit": 2})
     tr._record_price_failure("AAA")
     assert "KRW-AAA" in tr.tickers
     tr._record_price_failure("AAA")
-    assert "KRW-AAA" not in tr.tickers
+    assert "KRW-AAA" in tr.tickers
 
 
-def test_price_failure_removes_and_restores(monkeypatch):
-    tr = UpbitTrader("k", "s", {"tickers": ["KRW-AAA"], "failure_limit": 1, "retry_after": 1})
+def test_price_failure_does_not_remove_in_loop(monkeypatch):
+    tr = UpbitTrader("k", "s", {"tickers": ["KRW-AAA"], "failure_limit": 1})
     tr._record_price_failure("AAA")
-    assert "KRW-AAA" not in tr.tickers
+    assert "KRW-AAA" in tr.tickers
 
     class T:
         t = 0

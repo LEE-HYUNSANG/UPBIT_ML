@@ -175,9 +175,9 @@ Example error:
 fails. Tests load this file to avoid network access.
 
 The bot tracks price lookup errors per coin. When a coin fails more than
-`failure_limit` times (default `3`), its ticker is removed from monitoring.
-After `retry_after` seconds (default `600`), the ticker is automatically
-restored.
+`failure_limit` times (default `3`), a warning is raised but the ticker remains
+monitored. The failure count is then reset so additional alerts may trigger if
+the problem continues.
 
 ## Documentation
 - `docs/OVERVIEW_KR.md` – 프로젝트 전체 흐름을 한국어로 정리한 문서
