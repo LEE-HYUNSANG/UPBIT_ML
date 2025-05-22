@@ -9,6 +9,14 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 def _normalize(formula: str) -> str:
     """Convert indicator function calls to column-friendly names."""
+
+    # MA(ATR(14),20) -> ATR14_MA20
+    def _repl_ma_atr(match: re.Match) -> str:
+        atr_period, ma_period = match.group(1), match.group(2)
+        return f"ATR{atr_period}_MA{ma_period}"
+
+    formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
+
     # Replace MA(Vol,20) -> Vol_MA20
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
@@ -25,7 +33,19 @@ def _normalize(formula: str) -> str:
                 result += "_next" + (str(off) if off != 1 else "")
         return result
 
-    # e.g. MFI(14,-1) -> MFI14_prev, Tenkan(9,-26) -> Tenkan9_next26
+    def _repl_multi(match: re.Match) -> str:
+        """Handle indicators with period and offset."""
+        name, period, offset = match.group(1), match.group(2), match.group(3)
+        result = f"{name}{period}"
+        if offset:
+            off = int(offset)
+            if off < 0:
+                result += "_prev" + (str(-off) if off != -1 else "")
+            elif off > 0:
+                result += "_next" + (str(off) if off != 1 else "")
+        return result
+
+    # e.g. MFI(14,-1) -> MFI14_prev
     formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
 
     # Close(-1) -> Close_prev, Low(0) -> Low
@@ -42,17 +62,6 @@ def _normalize(formula: str) -> str:
 
     # e.g. EMA(5) -> EMA5
     formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
-
-    def _repl_multi(match: re.Match) -> str:
-        name, period, offset = match.group(1), match.group(2), match.group(3)
-        result = f"{name}{period}"
-        if offset:
-            off = int(offset)
-            if off < 0:
-                result += "_prev" + (str(-off) if off != -1 else "")
-            elif off > 0:
-                result += "_next" + (str(off) if off != 1 else "")
-        return result
 
     formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
     return formula
