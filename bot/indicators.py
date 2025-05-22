@@ -55,6 +55,18 @@ def compute_indicators(df):
     # We can similarly compute shorter volume averages if needed (like 5).
     df['Vol_MA5'] = df['Volume'].rolling(window=5).mean()
 
+    # 5. MFI(Money Flow Index)와 VWAP 계산
+    tp = (df['High'] + df['Low'] + df['Close']) / 3
+    raw_mf = tp * df['Volume']
+    pos_mf = raw_mf.where(tp > tp.shift(1), 0.0)
+    neg_mf = raw_mf.where(tp < tp.shift(1), 0.0)
+    mf_ratio = pos_mf.rolling(window=14).sum() / (neg_mf.rolling(window=14).sum() + 1e-9)
+    df['MFI14'] = 100 - (100 / (1 + mf_ratio))
+
+    vwap_num = (tp * df['Volume']).cumsum()
+    vwap_den = df['Volume'].cumsum()
+    df['VWAP'] = vwap_num / vwap_den
+
     # 5. Bollinger Bands (20-period, 2 std)
     period = 20
     std = 2
