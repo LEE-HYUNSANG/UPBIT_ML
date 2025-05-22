@@ -1,7 +1,7 @@
 import re
 from typing import Any, Dict
 import pandas as pd
-from bot.strategy import select_strategy
+from strategy_loader import load_strategies
 
 # Risk level mapping for convenience
 RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, "moderate": 1, "conservative": 2}
@@ -111,11 +111,43 @@ def df_to_market(df: pd.DataFrame, tis: float) -> Dict[str, Any]:
     return {"df": df.copy(), "tis": tis}
 
 
+_SPEC_CACHE = load_strategies()
+
+
+def evaluate_sell_signals(
+    df: pd.DataFrame,
+    strategy: Dict[str, Any],
+    risk_level: Any,
+    entry: float,
+    peak: float,
+) -> pd.Series:
+    """매도 전략 포뮬러를 평가한다."""
+    level_idx = RISK_LEVELS.get(risk_level, risk_level)
+    formula = strategy["sell_formula_levels"][level_idx]
+    expr = formula.replace(" and ", " & ").replace(" or ", " | ")
+    expr = _normalize(expr)
+    df = _apply_shifts(df, expr)
+    df = df.copy()
+    df["Entry"] = entry
+    df["Peak"] = peak
+    return df.eval(expr, engine="python").astype(bool)
+
+
 def check_buy_signal(strategy_name: str, level: str, market: Dict[str, Any]) -> bool:
-    ok, _ = select_strategy(strategy_name, market['df'], market.get('tis', 0), {})
-    return ok
+    """전략명과 시장 데이터로 매수 신호를 계산한다."""
+    spec = _SPEC_CACHE.get(strategy_name)
+    if not spec:
+        return False
+    res = evaluate_buy_signals(market["df"], spec.__dict__, level)
+    return bool(res.iloc[-1])
 
 
 def check_sell_signal(strategy_name: str, level: str, market: Dict[str, Any]) -> bool:
-    # Placeholder: always signal sell in tests
-    return True
+    """전략명과 시장 데이터로 매도 신호를 계산한다."""
+    spec = _SPEC_CACHE.get(strategy_name)
+    if not spec:
+        return False
+    entry = market.get("Entry", 0.0)
+    peak = market.get("Peak", market["df"]["High"].cummax().iloc[-1])
+    res = evaluate_sell_signals(market["df"], spec.__dict__, level, entry, peak)
+    return bool(res.iloc[-1])
