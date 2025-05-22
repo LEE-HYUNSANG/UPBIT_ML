@@ -408,18 +408,24 @@ async function loadStatus(){
     const data = await fetchJsonRetry('/api/status');
     console.log('[API-A004] GET /api/status', data);
     if (data.result === 'success' && data.status) {
-      const el = document.getElementById('bot-status');
-      const timeEl = document.getElementById('updateTime');
+      const stateEl = document.getElementById('bot-state');
+      const tradeEl = document.getElementById('bot-trade');
+      const timeEl = document.getElementById('webStart');
       const btn = document.getElementById('botActionBtn');
-      if (el) {
-        if (data.status.running) {
-          el.innerHTML = '<span class="status-icon status-running">▶️</span> 실행중';
+      if (stateEl) {
+        if (disconnected) {
+          stateEl.innerHTML = '🛑';
+        } else if (data.status.running) {
+          stateEl.innerHTML = '🟩';
         } else {
-          el.innerHTML = '<span class="status-icon status-stopped">⏸️</span> 정지';
+          stateEl.innerHTML = '🟨';
         }
       }
+      if (tradeEl) {
+        tradeEl.textContent = data.status.running ? '▶️' : '⏹️';
+      }
       if (timeEl) {
-        timeEl.textContent = '업데이트: ' + data.status.updated;
+        timeEl.textContent = `${data.status.start_time} [${data.status.uptime}]`;
       }
       if (btn) {
         if (data.status.running) {
