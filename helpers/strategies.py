@@ -1,180 +1,96 @@
-"""
-Strategy signal helpers using formulas from JSON specifications.
-- 25개 전략 공식에 필요한 market_data 변수 누락 없이 모두 포함.
-"""
-from __future__ import annotations
-import ast
-import logging
-import re
-from typing import Any, Dict
 import pandas as pd
+import numpy as np
+from indicators import compute_indicators
 
-from helpers.utils.risk import load_risk_settings
-from strategy_loader import load_strategies
+# Load price data into a DataFrame 'df' with columns: 'Open', 'High', 'Low', 'Close', 'Volume', and optionally 'Strength'.
+# Compute all indicators and derived fields.
+df = compute_indicators(df)
 
-logger = logging.getLogger(__name__)
+# Risk level mapping for convenience
+RISK_LEVELS = {"aggressive": 0, "moderate": 1, "conservative": 2}
 
-# 전략 정의 로드
-STRATEGY_SPECS = load_strategies()
-
-# 레벨 문자열 -> 인덱스 매핑
-LEVEL_INDEX = {
-    "공격적": 0,
-    "aggressive": 0,
-    "중도적": 1,
-    "moderate": 1,
-    "보수적": 2,
-    "conservative": 2,
-}
-
-def _sanitize(token: str) -> str:
-    """Convert raw indicator token to a safe variable name."""
-    return re.sub(r"[^a-zA-Z0-9_]", "", token).lower()
-
-def _translate_formula(expr: str) -> str:
-    """Replace indicator tokens with safe variable names."""
-    pattern = r"[A-Za-z][A-Za-z0-9_%(),-]*"
-    keywords = {"and", "or", "not", "True", "False"}
-    def repl(match: re.Match[str]) -> str:
-        token = match.group(0)
-        if token in keywords:
-            return token
-        return _sanitize(token)
-    return re.sub(pattern, repl, expr)
-
-def safe_eval(expr: str, variables: Dict[str, Any]) -> Any:
-    """Safely evaluate an expression with the given variables."""
-    node = ast.parse(expr, mode="eval")
-    for sub in ast.walk(node):
-        if isinstance(sub, ast.Call):
-            raise ValueError("function calls not allowed")
-        if isinstance(sub, ast.Name) and sub.id not in variables:
-            raise ValueError(f"unknown variable {sub.id}")
-    compiled = compile(node, "<formula>", "eval")
-    return eval(compiled, {"__builtins__": {}}, variables)
-
-def df_to_market(
-    df: pd.DataFrame,
-    buy_price: float | None = None,
-    strength: float = None,
-) -> Dict[str, float]:
+def evaluate_buy_signals(strategy, risk_level):
     """
-    Convert indicator DataFrame to a market data dictionary.
-    - indicators.py에서 생성된 컬럼 및 실시간 특수값을 모두 포함
+    Evaluate the buy signal (entry condition) for all bars for a given strategy and risk level.
+    Returns a boolean Series where True indicates the strategy conditions are met on that bar.
     """
-    last = df.iloc[-1]
-    prev1 = df.iloc[-2] if len(df) > 1 else last
-    prev2 = df.iloc[-3] if len(df) > 2 else prev1
-    data: Dict[str, float] = {}
-    for col in df.columns:
-        data[_sanitize(col)] = float(last[col])
-    # prev, rolling, 파생 필드
-    data.update({
-        "vol0": float(last.get("volume", 0)),
-        "vol1": float(prev1.get("volume", 0)),
-        "vol2": float(prev2.get("volume", 0)),
-        "close1": float(prev1.get("close", 0)),
-        "close2": float(prev2.get("close", 0)),
-        "rsi1": float(prev1.get("rsi14", 0)),
-        "rsi2": float(prev2.get("rsi14", 0)),
-        "obv1": float(prev1.get("obv", 0)),
-        "obv2": float(prev2.get("obv", 0)),
-        "ma_vol20": float(df["volume"].iloc[-20:].mean()) if "volume" in df else 0,
-        "maxhigh20": float(df["high"].iloc[-20:].max()) if "high" in df else 0,
-        "minlow5": float(df["low"].iloc[-5:].min()) if "low" in df else 0,
-        "minlow10": float(df["low"].iloc[-10:].min()) if "low" in df else 0,
-        "minlow20": float(df["low"].iloc[-20:].min()) if "low" in df else 0,
-        "cumvol_today": float(last.get("cumvol_today", 0)),
-        "prevclose": float(last.get("prevclose", 0)),
-        "bullish_candle": int(last.get("bullish_candle", 0)),
-        "bearish_candle": int(last.get("bearish_candle", 0)),
-        "pullback": float(last.get("pullback", 0)),
-    })
-    # 모든 주요 지표/파생필드 누락 없이 포함
-    for x in [
-        # Bollinger Bands
-        "bb_upper202","bb_lower202","bb_mid202","bandwidth20",
-        # MACD
-        "macd","macd_signal","macd_hist",
-        # CCI, MFI, Stochastic, Ichimoku
-        "cci20","mfi14","stoch_k143","stoch_d143",
-        "tenkan9","kijun26","senkou_span_a","senkou_span_b",
-        # DI
-        "di_plus","di_minus",
-        # MA/EMA
-        "ema5","ema14","ema20","ema25","ema50","ema60","ema100","ema120","ema200",
-        "ma5","ma14","ma20","ma25","ma50","ma60","ma100","ma120","ma200",
-        # 기타
-        "vwap","obv","adx14","atr14","rsi2","rsi5","rsi14"
-    ]:
-        if x in df:
-            data[x] = float(last[x])
-    if buy_price is not None:
-        data["entryprice"] = float(buy_price)
-    if strength is not None:
-        data["strength"] = float(strength)
-    return data
+    # Determine index for risk level
+    level_index = RISK_LEVELS.get(risk_level, risk_level)  # allow numeric index or name
+    formula = strategy['buy_formula_levels'][level_index]
+    # Prepare formula for vectorized evaluation:
+    # Replace logical operators with bitwise operators for Pandas evaluation
+    formula_eval = formula.replace(' and ', ' & ').replace(' or ', ' | ')
+    # Replace indicator function calls with column names, and handle offset references
+    formula_eval = formula_eval.replace('EMA(', 'EMA').replace('RSI(', 'RSI').replace('ATR(', 'ATR')
+    formula_eval = formula_eval.replace('MFI(', 'MFI').replace('CCI(', 'CCI').replace('PSAR(', 'PSAR')
+    # Remove '(0)' as current value, replace '( -1)' or similar with shifted column names
+    formula_eval = formula_eval.replace('(0)', '')
+    # For negative offsets
+    formula_eval = formula_eval.replace('(-1)', '_prev').replace('(-2)', '_prev2').replace('(-5)', '_prev5')
+    # For positive offsets, though not common in buy formulas
+    formula_eval = formula_eval.replace('(1)', '_prev').replace('(2)', '_prev2').replace('(5)', '_prev5')
+    # Provide shifted columns if needed (for simplicity, we handle a few typical offsets)
+    if '_prev' in formula_eval:
+        # create columns with suffix for previous values
+        for col in ['Close','Open','High','Low','Volume','Strength','EMA5','EMA20','EMA60','EMA120',
+                    'ATR14','RSI14','MFI14','CCI20','MACD_hist','BandWidth20']:
+            if col in df and f'{col}_prev' in formula_eval:
+                df[f'{col}_prev'] = df[col].shift(1)
+            if col in df and f'{col}_prev2' in formula_eval:
+                df[f'{col}_prev2'] = df[col].shift(2)
+            if col in df and f'{col}_prev5' in formula_eval:
+                df[f'{col}_prev5'] = df[col].shift(5)
+    # Evaluate formula across DataFrame (engine='python' to allow complex expressions)
+    signals = df.eval(formula_eval, engine='python')
+    return signals.astype(bool)
 
-def _select_formula(spec, attr: str, level: str) -> str:
-    """Return formula string for the given level."""
-    formula = getattr(spec, attr, "")
-    if formula:
-        return formula
-    levels = getattr(spec, f"{attr.split('_')[0]}_levels", [])
-    idx = LEVEL_INDEX.get(level, 1)
-    if levels and idx < len(levels):
-        return " and ".join(levels[idx])
-    return ""
+def evaluate_sell_signal(strategy, risk_level, entry_price, peak_price, index):
+    """
+    Evaluate the sell signal at a specific bar (index) for a given strategy and risk level, using current trade context.
+    entry_price: entry price of the open trade
+    peak_price: highest price achieved since entry (for trailing stop)
+    index: current bar index in df for evaluation
+    Returns True if any sell condition triggers at this bar.
+    """
+    level_index = RISK_LEVELS.get(risk_level, risk_level)
+    formula = strategy['sell_formula_levels'][level_index]
+    # Prepare context for safe eval: include all indicator values at this index and trade variables
+    context = {col: df.at[index, col] for col in df.columns if col not in ['Date','Time']}
+    context.update({'Entry': entry_price, 'Peak': peak_price})
+    # Adjust context keys for any indicator names with special characters
+    # (We'll ensure our context keys match the formula exactly by similar replacements)
+    # Replace indicator function calls in formula with names matching DataFrame columns
+    formula_eval = formula.replace('EMA(', 'EMA').replace('RSI(', 'RSI').replace('ATR(', 'ATR')
+    formula_eval = formula_eval.replace('MFI(', 'MFI').replace('CCI(', 'CCI').replace('PSAR(', 'PSAR')
+    formula_eval = formula_eval.replace('+DI', 'DI_plus').replace('-DI', 'DI_minus')
+    # Remove '(0)' and treat offsets if present
+    formula_eval = formula_eval.replace('(0)', '')
+    formula_eval = formula_eval.replace('(1)', '_prev').replace('(-1)', '_prev')
+    formula_eval = formula_eval.replace('EntryPrice', 'Entry').replace('entry_price', 'Entry')
+    # Evaluate the sell formula in a restricted environment
+    result = eval(formula_eval, {"__builtins__": None}, context)
+    return bool(result)
 
-def check_buy_signal(short_code: str, level: str, market: Dict[str, Any]) -> bool:
-    """Evaluate buy formula and return True/False."""
-    spec = STRATEGY_SPECS.get(short_code)
-    if not spec:
-        logger.warning("Unknown strategy %s", short_code)
-        return False
-    formula = _select_formula(spec, "buy_formula", level)
-    if not formula:
-        logger.warning("No buy formula for %s", short_code)
-        return False
-    try:
-        expr = _translate_formula(formula)
-        return bool(safe_eval(expr, market))
-    except Exception as e:
-        logger.warning("Buy formula error for %s: %s", short_code, e)
-        return False
-
-def check_sell_signal(
-    short_code: str,
-    level: str,
-    market: Dict[str, Any],
-    risk_conf: Dict[str, float] | None = None,
-) -> bool:
-    """Evaluate sell formula and return True/False."""
-    spec = STRATEGY_SPECS.get(short_code)
-    if not spec:
-        logger.warning("Unknown strategy %s", short_code)
-        return False
-    formula = _select_formula(spec, "sell_formula", level)
-    if not formula:
-        logger.warning("No sell formula for %s", short_code)
-        return False
-    if risk_conf is None:
-        risk_conf = load_risk_settings()
-    entry = float(market.get("entryprice", 0))
-    price = float(market.get("close", 0))
-    max_dd = float(risk_conf.get("max_dd_per_coin", 0)) if risk_conf else 0
-    if entry and max_dd and price <= entry * (1 - max_dd):
-        return True
-    try:
-        expr = _translate_formula(formula)
-        return bool(safe_eval(expr, market))
-    except Exception as e:
-        logger.warning("Sell formula error for %s: %s", short_code, e)
-        return False
-
-__all__ = [
-    "check_buy_signal",
-    "check_sell_signal",
-    "df_to_market",
-    "safe_eval",
-]
+# Example usage scenario (backtesting loop):
+# in_trade = False
+# entry_price = 0
+# peak_price = 0
+# risk = 'aggressive'
+# strategy = strategies_master[0]  # e.g., first strategy
+# buy_signals = evaluate_buy_signals(strategy, risk)
+# for i, signal in buy_signals.iteritems():
+#     if not in_trade and signal:
+#         # Enter trade
+#         in_trade = True
+#         entry_price = df.at[i, 'Close']
+#         peak_price = entry_price
+#     if in_trade:
+#         # Update peak price for trailing stops
+#         peak_price = max(peak_price, df.at[i, 'High'])
+#         # Check sell conditions
+#         if evaluate_sell_signal(strategy, risk, entry_price, peak_price, i):
+#             # Exit trade
+#             in_trade = False
+#             entry_price = 0
+#             peak_price = 0
+# ```
