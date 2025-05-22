@@ -138,7 +138,11 @@ def check_buy_signal(strategy_name: str, level: str, market: Dict[str, Any]) -> 
     spec = _SPEC_CACHE.get(strategy_name)
     if not spec:
         return False
-    res = evaluate_buy_signals(market["df"], spec.__dict__, level)
+    res = evaluate_buy_signals(
+        market["df"],
+        {"buy_formula_levels": spec.buy_formula_levels},
+        level,
+    )
     return bool(res.iloc[-1])
 
 
@@ -149,5 +153,11 @@ def check_sell_signal(strategy_name: str, level: str, market: Dict[str, Any]) ->
         return False
     entry = market.get("Entry", 0.0)
     peak = market.get("Peak", market["df"]["High"].cummax().iloc[-1])
-    res = evaluate_sell_signals(market["df"], spec.__dict__, level, entry, peak)
+    res = evaluate_sell_signals(
+        market["df"],
+        {"sell_formula_levels": spec.sell_formula_levels},
+        level,
+        entry,
+        peak,
+    )
     return bool(res.iloc[-1])
