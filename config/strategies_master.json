@@ -1090,8 +1090,8 @@
         ],
         "buy_formula_levels": [
             "Close > SpanA and Close > SpanB and Tenkan(9) > Kijun(26) and Vol(0) >= MA(Vol,20) * 1.5 and Strength >= 110 and Close <= MaxSpan * 1.003",
-            "Close > SpanA and SpanA > SpanB and Tenkan(9) > Kijun(26) and Vol(0) >= MA(Vol,20) * 1.8 and Strength >= 120 and Close <= MaxSpan * 1.0015",
-            "Close > SpanA and SpanB and Close(-26) > SpanA(-26) and Close(-26) > SpanB(-26) and Tenkan(9) > Kijun(26) and Kijun(26) > MaxSpan and Vol(0) >= MA(Vol,20) * 2.0 and Strength >= 130 and Close <= MaxSpan * 1.001"
+            "Close > SpanA and Close > SpanB and SpanA > SpanB and Tenkan(9) > Kijun(26) and Vol(0) >= MA(Vol,20) * 1.8 and Strength >= 120 and Close <= MaxSpan * 1.0015",
+            "Close > SpanA and Close > SpanB and Close(-26) > SpanA(-26) and Close(-26) > SpanB(-26) and Tenkan(9) > Kijun(26) and Kijun(26) > MaxSpan and Vol(0) >= MA(Vol,20) * 2.0 and Strength >= 130 and Close <= MaxSpan * 1.001"
         ],
         "sell_levels": [
             [
