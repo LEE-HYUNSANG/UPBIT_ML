@@ -1307,13 +1307,19 @@ def manual_sell():
         if not coin:
             raise ValueError("Invalid coin")
         price = pyupbit.get_current_price(f"KRW-{coin}") or 0
+        # 보유 수량 조회 후 시장가 매도
+        balances = trader.get_balances() or []
+        qty = next((float(b.get('balance', 0)) for b in balances if b.get('currency') == coin), 0)
+        if qty <= 0:
+            raise ValueError("No balance to sell")
+        trader.upbit.sell_market_order(f"KRW-{coin}", qty)
         msg = (
             f'{coin} 수동 매도 요청\n'
             f'주문 가격: {price:,.0f}원\n'
             '주문 방식: 시장가'
         )
         notify(msg)
-        log_trade("trade", {"action": "sell", "coin": coin, "price": price})
+        log_trade("trade", {"action": "sell", "coin": coin, "price": price, "qty": qty})
         socketio.emit('log', {"type": "trade", "action": "sell", "coin": coin, "price": price})
         global positions, alerts
         positions = [p for p in positions if p['coin'] != coin]
@@ -1337,6 +1343,8 @@ def manual_buy():
             raise ValueError("Invalid coin")
         price = pyupbit.get_current_price(f"KRW-{coin}") or 0
         amount = settings.buy_amount
+        # 시장가 매수 주문 실행
+        trader.upbit.buy_market_order(f"KRW-{coin}", amount)
         msg = (
             f'{coin} 수동 매수 요청\n'
             f'주문 금액: {amount:,}원\n'
