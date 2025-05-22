@@ -169,7 +169,7 @@ class UpbitTrader:
                             break
                     if chosen:
                         # 실제 매수/매도 로직 (실매수시 주의)
-                        last_price = df['close'].iloc[-1]  # 현재가
+                        last_price = df['Close'].iloc[-1]  # 현재가
                         qty = self.config.get("amount", 10000) / last_price  # 매수 수량
                         # self.upbit.buy_market_order(ticker, qty)  # 실전 매수(주의)
                         if self.logger:
