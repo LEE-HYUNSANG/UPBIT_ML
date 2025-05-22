@@ -1028,10 +1028,16 @@ def api_post_funds():
     data = request.get_json(force=True)
     try:
         save_fund_settings(data)
+        conf = load_fund_settings()
+        settings.buy_amount = conf["buy_amount"]
+        settings.max_positions = conf["max_concurrent_trades"]
+        trader.config["amount"] = conf["buy_amount"]
+        trader.config["max_positions"] = conf["max_concurrent_trades"]
+        trader.config["slippage"] = conf["slippage_tolerance"]
     except Exception as e:
         logger.error("Funds save failed: %s", e)
         return jsonify(result="error", message=str(e)), 400
-    return jsonify(load_fund_settings())
+    return jsonify(conf)
 
 @app.route("/settings")
 def settings_page():
@@ -1046,6 +1052,13 @@ def start_bot():
         logger.info("Start request ignored: already running")
         return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
     try:
+        from helpers.utils.funds import load_fund_settings
+        conf = load_fund_settings()
+        settings.buy_amount = conf["buy_amount"]
+        settings.max_positions = conf["max_concurrent_trades"]
+        trader.config["amount"] = conf["buy_amount"]
+        trader.config["max_positions"] = conf["max_concurrent_trades"]
+        trader.config["slippage"] = conf["slippage_tolerance"]
         trader.set_tickers(get_filtered_tickers())
         started = trader.start()
         if not started:
