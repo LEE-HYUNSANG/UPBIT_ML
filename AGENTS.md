@@ -19,7 +19,7 @@
 
 ### bot 패키지
 - **trader.py**: 업비트 자동매매 메인 클래스. 전략 평가 후 주문을 실행합니다.
-- **strategy.py**: 아홉 가지 전략 함수와 `select_strategy` 로직.
+- **strategy.py**: 22가지 매매 전략 함수와 `select_strategy` 로직.
 - **indicators.py**: EMA, RSI, ATR 등 기술적 지표 계산 함수.
 - **ai_analysis.py**: AI 기반 파라미터 추천 예시.
 - **runtime_settings.py**: 실행 중 변경되는 설정을 dataclass 로 관리합니다.
