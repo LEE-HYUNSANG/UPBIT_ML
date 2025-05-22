@@ -1,42 +1,82 @@
 """
-기술적 지표 계산 모듈 (ta-lib + pandas)
-EMA, RSI, ATR, ADX, OBV, VWAP 등 9전략에서 필요한 지표 전체 포함
+업비트 5분봉 자동매매용 기술적 지표 계산 (25전략 대응 완전판)
+- EMA, MA, RSI, ATR, ADX, OBV, VWAP, MACD, Bollinger Bands, CCI, MFI, Stochastic, Ichimoku 등
+- min/max/avg/pullback/bullish_candle/rolling 컬럼 포함
 """
-import pandas as pd  # 데이터프레임 처리를 위해 사용
-import numpy as np   # 수치 계산용
-import talib as ta   # TA-Lib: 기술적 지표 계산 라이브러리
+import pandas as pd
+import numpy as np
+import talib as ta
 import logging
 
 logger = logging.getLogger(__name__)
 
 def calc_indicators(df):
     """
-    입력: df - OHLCV 데이터프레임 (컬럼명: open/high/low/close/volume)
-    출력: df - 지표 컬럼 추가 후 반환
+    입력: df - OHLCV DataFrame (open/high/low/close/volume)
+    출력: df - 25전략 공식에 필요한 모든 컬럼 추가
     """
-    logger.cal("calc_indicators called")
-    # 이동평균선(EMA) 계산 - 모든 컬럼명은 소문자
-    df['ema5'] = ta.EMA(df['close'], 5)
-    df['ema20'] = ta.EMA(df['close'], 20)
-    df['ema25'] = ta.EMA(df['close'], 25)
-    df['ema50'] = ta.EMA(df['close'], 50)
-    df['ema60'] = ta.EMA(df['close'], 60)
-    df['ema100'] = ta.EMA(df['close'], 100)
-    df['ema200'] = ta.EMA(df['close'], 200)
-    # RSI (14) 계산
-    df['rsi'] = ta.RSI(df['close'], 14)
-    # ATR (14) 계산 - 변동성 지표를 비율로 변환
-    df['atr'] = ta.ATR(df['high'], df['low'], df['close'], 14) / df['close']
-    # ADX (14) 계산 - 추세 강도
-    df['adx'] = ta.ADX(df['high'], df['low'], df['close'], 14)
-    # OBV 지표 - 거래량 흐름
+    # EMA/MA
+    for n in [5, 14, 20, 25, 50, 60, 100, 120, 200]:
+        df[f'ema{n}'] = ta.EMA(df['close'], n)
+        df[f'ma{n}'] = ta.SMA(df['close'], n)
+    # RSI
+    for n in [2, 5, 14]:
+        df[f'rsi{n}'] = ta.RSI(df['close'], n)
+    # ATR (진짜 ATR)
+    df['atr14'] = ta.ATR(df['high'], df['low'], df['close'], 14)
+    # ADX, DI
+    df['adx14'] = ta.ADX(df['high'], df['low'], df['close'], 14)
+    df['di_plus'] = ta.PLUS_DI(df['high'], df['low'], df['close'], 14)
+    df['di_minus'] = ta.MINUS_DI(df['high'], df['low'], df['close'], 14)
+    # OBV
     df['obv'] = ta.OBV(df['close'], df['volume'])
-    # VWAP 계산 (간단 버전, 시가 사용 안 함)
-    vwap = (df['close'] * df['volume']).cumsum() / (df['volume'].cumsum() + 1e-9)
-    df['vwap'] = vwap
-    # 계산 후 결측값(backfill) 보정 및 0 채우기
+    # VWAP
+    df['vwap'] = (df['close'] * df['volume']).cumsum() / (df['volume'].cumsum() + 1e-9)
+    # MACD
+    macd, macd_signal, macd_hist = ta.MACD(df['close'], 12, 26, 9)
+    df['macd'] = macd
+    df['macd_signal'] = macd_signal
+    df['macd_hist'] = macd_hist
+    # Bollinger Bands (20,2)
+    df['bb_mid202'] = ta.SMA(df['close'], 20)
+    df['bb_std202'] = ta.STDDEV(df['close'], 20, 1)
+    df['bb_upper202'] = df['bb_mid202'] + 2 * df['bb_std202']
+    df['bb_lower202'] = df['bb_mid202'] - 2 * df['bb_std202']
+    df['bandwidth20'] = (df['bb_upper202'] - df['bb_lower202']) / (df['bb_mid202'] + 1e-9)
+    # MFI
+    df['mfi14'] = ta.MFI(df['high'], df['low'], df['close'], df['volume'], 14)
+    # CCI
+    df['cci20'] = ta.CCI(df['high'], df['low'], df['close'], 20)
+    # Stochastic
+    stoch_k, stoch_d = ta.STOCH(df['high'], df['low'], df['close'], 14, 3, 0, 3, 0)
+    df['stoch_k143'] = stoch_k
+    df['stoch_d143'] = stoch_d
+    # Ichimoku
+    nine_high = df['high'].rolling(window=9).max()
+    nine_low = df['low'].rolling(window=9).min()
+    df['tenkan9'] = (nine_high + nine_low) / 2
+    twenty_six_high = df['high'].rolling(window=26).max()
+    twenty_six_low = df['low'].rolling(window=26).min()
+    df['kijun26'] = (twenty_six_high + twenty_six_low) / 2
+    df['senkou_span_a'] = ((df['tenkan9'] + df['kijun26']) / 2).shift(26)
+    fifty_two_high = df['high'].rolling(window=52).max()
+    fifty_two_low = df['low'].rolling(window=52).min()
+    df['senkou_span_b'] = ((fifty_two_high + fifty_two_low) / 2).shift(26)
+    # min/max/avg/rolling 필드
+    df['maxhigh20'] = df['high'].rolling(window=20).max()
+    df['minlow5'] = df['low'].rolling(window=5).min()
+    df['minlow10'] = df['low'].rolling(window=10).min()
+    df['minlow20'] = df['low'].rolling(window=20).min()
+    df['ma_vol20'] = df['volume'].rolling(window=20).mean()
+    df['cumvol_today'] = df['volume'].expanding().sum()
+    df['prevclose'] = df['close'].shift(1)
+    # 캔들/파생 필드
+    df['bullish_candle'] = (df['close'] > df['open']).astype(int)
+    df['bearish_candle'] = (df['close'] < df['open']).astype(int)
+    df['pullback'] = (df['high'] - df['close']) / (df['high'] + 1e-9)
+    # 결측값 보정
     df.bfill(inplace=True)
     df.fillna(0, inplace=True)
     if not df.empty:
-        logger.cal("Indicators calculated: %s", df.iloc[-1].to_dict())
-    return df  # 지표가 추가된 데이터프레임 반환
+        logger.info("Indicators calculated: %s", df.iloc[-1].to_dict())
+    return df
