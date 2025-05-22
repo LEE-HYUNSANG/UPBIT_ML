@@ -94,6 +94,7 @@ class UpbitTrader:
             if self.logger:
                 self.logger.warning("Trader already running")
             return False
+        self.sync_positions()
         self.running = True  # 루프 실행 플래그 활성화
         self.thread = threading.Thread(target=self.run_loop, daemon=True)
         self.thread.start()  # 별도 스레드에서 run_loop 실행
@@ -140,6 +141,10 @@ class UpbitTrader:
                         params,
                     )
                 for ticker in tickers:
+                    if len(self.positions) >= self.config.get("max_positions", 1):
+                        if self.logger:
+                            self.logger.debug("[TRADER] max positions reached")
+                        break
                     df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
                     if df is None or len(df) < 60:
                         if self.logger:
@@ -171,6 +176,10 @@ class UpbitTrader:
                             break
 
                     if chosen:
+                        if len(self.positions) >= self.config.get("max_positions", 1):
+                            if self.logger:
+                                self.logger.debug("[TRADER] max positions reached")
+                            break
                         last_price = df_ind["Close"].iloc[-1]
                         krw = self.config.get("amount", 10000)
                         qty = krw / last_price
@@ -242,6 +251,27 @@ class UpbitTrader:
                 self.logger.exception("Failed to get balances: %s", e)
             self._alert(f"[API Exception] 잔고 조회 실패: {e}")
             return None
+
+    def sync_positions(self) -> None:
+        """현재 보유 코인을 self.positions에 반영한다."""
+        balances = self.get_balances()
+        if not balances:
+            return
+        self.positions.clear()
+        level = self.config.get("level", "중도적")
+        for b in balances:
+            if b.get("currency") == "KRW":
+                continue
+            qty = float(b.get("balance", 0))
+            if qty <= 0:
+                continue
+            ticker = f"KRW-{b['currency']}"
+            self.positions[ticker] = {
+                "qty": qty,
+                "entry": float(b.get("avg_buy_price", 0)),
+                "strategy": "INIT",
+                "level": level,
+            }
 
     def account_summary(self, excluded=None):
         """잔고 목록을 이용해 현금/총액/손익을 계산한다.
