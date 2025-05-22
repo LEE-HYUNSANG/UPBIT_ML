@@ -10,7 +10,11 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 from utils import calc_tis, load_secrets, send_telegram
-from .strategy import select_strategy
+from helpers.strategies import (
+    check_buy_signal,
+    check_sell_signal,
+    df_to_market,
+)
 from .indicators import calc_indicators
 
 
@@ -40,6 +44,7 @@ class UpbitTrader:
         self.logger = logger    # 로거
         self.thread = None      # 실행 스레드
         self.tickers = config.get("tickers", ["KRW-BTC", "KRW-ETH"])
+        self.positions: dict[str, dict] = {}  # 보유 포지션 관리
         try:
             sec = load_secrets()
             self.token = sec.get("TELEGRAM_TOKEN")
@@ -64,18 +69,24 @@ class UpbitTrader:
         if self.logger:
             self.logger.info("[TRADER] Tickers updated: %s", tickers)
 
-    def _load_active_strategies(self) -> list[str]:
-        """활성화된 전략명을 우선순위 순으로 반환한다."""
+    def _load_active_strategies(self) -> list[dict]:
+        """활성화된 전략 정보를 우선순위 순으로 반환한다."""
         try:
             from helpers.utils.strategy_cfg import load_strategy_list
             table = load_strategy_list()
             active = [s for s in table if s.get("active")]
             active.sort(key=lambda x: x.get("priority", 0))
-            return [s.get("name") for s in active]
+            return active
         except Exception as exc:  # pragma: no cover - file missing
             if self.logger:
                 self.logger.warning("Strategy list load failed: %s", exc)
-            return [self.config.get("strategy", "M-BREAK")]
+            return [
+                {
+                    "name": self.config.get("strategy", "M-BREAK"),
+                    "buy_condition": self.config.get("level", "중도적"),
+                    "sell_condition": self.config.get("level", "중도적"),
+                }
+            ]
 
     def start(self) -> bool:
         """자동매매 시작 (스레드)"""
@@ -147,31 +158,28 @@ class UpbitTrader:
                             "volume": "Volume",
                         }
                     )
-                    df = calc_indicators(df)
-                    if self.logger:
-                        last = df.iloc[-1].to_dict()
-                        self.logger.cal("Indicators %s", last)
+                    df_ind = calc_indicators(df)
                     tis = calc_tis(ticker) or 0
+                    market = df_to_market(df_ind, tis)
+
                     chosen = None
-                    strat_params = {}
+                    level = "중도적"
                     for s in strategies:
-                        ok, res = select_strategy(s, df, tis, params)
-                        if self.logger:
-                            self.logger.cal(
-                                "Strategy %s result=%s params=%s",
-                                s,
-                                ok,
-                                res,
-                            )
-                        if ok:
-                            chosen = s
-                            strat_params = res
+                        if check_buy_signal(s["name"], s.get("buy_condition", "중도적"), market):
+                            chosen = s["name"]
+                            level = s.get("sell_condition", "중도적")
                             break
+
                     if chosen:
-                        # 실제 매수/매도 로직 (실매수시 주의)
-                        last_price = df['Close'].iloc[-1]  # 현재가
-                        qty = self.config.get("amount", 10000) / last_price  # 매수 수량
-                        self.upbit.buy_market_order(ticker, qty)  # 실전 매수(주의)
+                        last_price = df_ind['Close'].iloc[-1]
+                        qty = self.config.get("amount", 10000) / last_price
+                        self.upbit.buy_market_order(ticker, qty)
+                        self.positions[ticker] = {
+                            "qty": qty,
+                            "entry": last_price,
+                            "strategy": chosen,
+                            "level": level,
+                        }
                         if self.logger:
                             self.logger.info(
                                 "[BUY] %s %.1f (%0.4f개) %s 진입",
@@ -180,6 +188,36 @@ class UpbitTrader:
                                 qty,
                                 chosen,
                             )
+
+                # 매도 신호 확인
+                for ticker, pos in list(self.positions.items()):
+                    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
+                    if df is None or len(df) < 20:
+                        continue
+                    df = df.rename(
+                        columns={
+                            "open": "Open",
+                            "high": "High",
+                            "low": "Low",
+                            "close": "Close",
+                            "volume": "Volume",
+                        }
+                    )
+                    df_ind = calc_indicators(df)
+                    market = df_to_market(df_ind, 0)
+                    market["Entry"] = pos["entry"]
+                    market["Peak"] = df_ind["High"].cummax().iloc[-1]
+                    if check_sell_signal(pos["strategy"], pos["level"], market):
+                        self.upbit.sell_market_order(ticker, pos["qty"])
+                        if self.logger:
+                            self.logger.info(
+                                "[SELL] %s %.1f (%0.4f개) %s 청산",
+                                ticker,
+                                df_ind['Close'].iloc[-1],
+                                pos["qty"],
+                                pos["strategy"],
+                            )
+                        self.positions.pop(ticker, None)
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
             except Exception as e:
