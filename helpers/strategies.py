@@ -15,8 +15,6 @@ def _normalize(formula: str) -> str:
 
     formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
 
-    # Replace MA(Vol,20) -> Vol_MA20
-    formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
