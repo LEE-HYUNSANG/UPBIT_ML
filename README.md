@@ -21,8 +21,8 @@ are filled with server side data.
 2. "전략" 메뉴에서 원하는 전략과 파라미터를 설정합니다.
 3. "봇 시작" 버튼을 누르면 자동매매가 진행됩니다.
 4. 각 메뉴에서 자금 한도와 위험 관리 값을 조정할 수 있습니다.
-5. `config/secrets.json` 에 API 키와 텔레그램 토큰을 입력하면 알림 기능을 활용할 수 있습니다.
-해당 파일은 예시 값으로 제공되므로, 로컬에서는 실제 키를 채워 넣어야 합니다.
+5. 실제 API 키와 텔레그램 토큰은 `config/secrets.json`에 입력합니다. 먼저
+   `config/secrets.json.example`을 복사해 파일을 만든 뒤 값을 수정하세요.
 
 
 ## Structure
@@ -131,8 +131,9 @@ pytest
 ```
 
 ## Secrets configuration
-All API keys and tokens are read from `config/secrets.json`. Create the file before starting the server.
-This path is included in `.gitignore` so your real keys stay private:
+Copy `config/secrets.json.example` to `config/secrets.json` and fill in your keys
+before starting the server. This path is included in `.gitignore` so your real keys
+stay private:
 
 ```json
 {

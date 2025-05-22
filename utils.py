@@ -144,8 +144,14 @@ def load_secrets(
         with open(path, encoding="utf-8") as f:
             secrets = json.load(f)
     except FileNotFoundError:
-        alert(f"[ERROR] Required file '{path}' not found.")
-        sys.exit(1)
+        example_path = f"{path}.example"
+        if os.path.exists(example_path):
+            with open(example_path, encoding="utf-8") as f:
+                secrets = json.load(f)
+            logging.info("Secrets loaded from %s", example_path)
+        else:
+            alert(f"[ERROR] Required file '{path}' not found.")
+            sys.exit(1)
     except PermissionError:
         alert(f"[ERROR] No permission to read '{path}'.")
         sys.exit(1)
