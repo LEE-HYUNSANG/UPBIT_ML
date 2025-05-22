@@ -43,8 +43,12 @@ def compute_indicators(df, strength=None):
     # 1. Exponential Moving Averages (EMA)
     df['EMA5'] = df['Close'].ewm(span=5, adjust=False).mean()
     df['EMA20'] = df['Close'].ewm(span=20, adjust=False).mean()
+    df['EMA25'] = df['Close'].ewm(span=25, adjust=False).mean()
+    df['EMA50'] = df['Close'].ewm(span=50, adjust=False).mean()
     df['EMA60'] = df['Close'].ewm(span=60, adjust=False).mean()
+    df['EMA100'] = df['Close'].ewm(span=100, adjust=False).mean()
     df['EMA120'] = df['Close'].ewm(span=120, adjust=False).mean()
+    df['EMA200'] = df['Close'].ewm(span=200, adjust=False).mean()
 
     # 2. ATR (Average True Range) with period 14
     high_low = df['High'] - df['Low']
