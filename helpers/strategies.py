@@ -25,7 +25,23 @@ def _normalize(formula: str) -> str:
                 result += "_next" + (str(off) if off != 1 else "")
         return result
 
-    formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
+    # e.g. MFI(14,-1) -> MFI14_prev, Tenkan(9,-26) -> Tenkan9_next26
+    formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
+
+    # Close(-1) -> Close_prev, Low(0) -> Low
+    def _repl_offset(match: re.Match) -> str:
+        col, off = match.group(1), int(match.group(2))
+        result = col
+        if off < 0:
+            result += "_prev" + (str(-off) if off != -1 else "")
+        elif off > 0:
+            result += "_next" + (str(off) if off != 1 else "")
+        return result
+
+    formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
+
+    # e.g. EMA(5) -> EMA5
+    formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
 
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
@@ -38,22 +54,7 @@ def _normalize(formula: str) -> str:
                 result += "_next" + (str(off) if off != 1 else "")
         return result
 
-    # e.g. MFI(14,-1) -> MFI14_prev, Tenkan(9,-26) -> Tenkan9_next26
-    formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
-    # e.g. EMA(5) -> EMA5
-    formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
-
-    # Close(-1) -> Close_prev
-    def _repl_offset(match: re.Match) -> str:
-        col, off = match.group(1), int(match.group(2))
-        result = col
-        if off < 0:
-            result += "_prev" + (str(-off) if off != -1 else "")
-        elif off > 0:
-            result += "_next" + (str(off) if off != 1 else "")
-        return result
-
-    formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
+    formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
     return formula
 
 

@@ -1,5 +1,10 @@
 import pandas as pd
-from helpers.strategies import check_buy_signal, check_sell_signal, df_to_market
+from helpers.strategies import (
+    check_buy_signal,
+    check_sell_signal,
+    df_to_market,
+    _normalize,
+)
 
 
 def _base_df(rows=80):
@@ -108,3 +113,8 @@ def test_sell_signals():
         df = make_df(strat)
         market = df_to_market(df, 1.0)
         assert check_sell_signal(strat, "공격적", market)
+
+
+def test_normalize_zero_offset():
+    assert _normalize("Low(0)") == "Low"
+    assert _normalize("Vol(0)") == "Vol"
