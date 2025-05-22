@@ -190,6 +190,8 @@ def compute_indicators(df):
     # Senkou Span B (Leading Span B, 52-period midpoint, plotted 26 forward)
     spanB_raw = (df['High'].rolling(window=52).max() + df['Low'].rolling(window=52).min()) / 2
     df['SpanB'] = spanB_raw.shift(26)
+    # 가장 강한 구름 값을 구하기 위한 MaxSpan 컬럼 추가
+    df['MaxSpan'] = np.maximum(df['SpanA'], df['SpanB'])
     # Chikou (Lagging span, close plotted 26 periods back)
     df['LaggingSpan'] = df['Close'].shift(-26)
 
