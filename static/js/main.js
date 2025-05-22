@@ -409,7 +409,6 @@ async function loadStatus(){
     console.log('[API-A004] GET /api/status', data);
     if (data.result === 'success' && data.status) {
       const stateEl = document.getElementById('bot-state');
-      const tradeEl = document.getElementById('bot-trade');
       const timeEl = document.getElementById('webStart');
       const btn = document.getElementById('botActionBtn');
       if (stateEl) {
@@ -420,9 +419,6 @@ async function loadStatus(){
         } else {
           stateEl.innerHTML = '🟨';
         }
-      }
-      if (tradeEl) {
-        tradeEl.textContent = data.status.running ? '▶️' : '⏹️';
       }
       if (timeEl) {
         timeEl.textContent = `${data.status.start_time} [${data.status.uptime}]`;

@@ -100,7 +100,11 @@ def _apply_shifts(df: pd.DataFrame, formula: str) -> pd.DataFrame:
 
 def evaluate_buy_signals(df: pd.DataFrame, strategy: Dict[str, Any], risk_level: Any) -> pd.Series:
     level_idx = RISK_LEVELS.get(risk_level, risk_level)
-    formula = strategy['buy_formula_levels'][level_idx]
+    levels = strategy.get('buy_formula_levels')
+    if levels:
+        formula = levels[level_idx]
+    else:
+        formula = strategy.get('buy_formula', '')
     expr = formula.replace(' and ', ' & ').replace(' or ', ' | ')
     expr = _normalize(expr)
     df = _apply_shifts(df, expr)
@@ -123,7 +127,11 @@ def evaluate_sell_signals(
 ) -> pd.Series:
     """매도 전략 포뮬러를 평가한다."""
     level_idx = RISK_LEVELS.get(risk_level, risk_level)
-    formula = strategy["sell_formula_levels"][level_idx]
+    levels = strategy.get("sell_formula_levels")
+    if levels:
+        formula = levels[level_idx]
+    else:
+        formula = strategy.get("sell_formula", "")
     expr = formula.replace(" and ", " & ").replace(" or ", " | ")
     expr = _normalize(expr)
     df = _apply_shifts(df, expr)
@@ -138,7 +146,11 @@ def check_buy_signal(strategy_name: str, level: str, market: Dict[str, Any]) -> 
     spec = _SPEC_CACHE.get(strategy_name)
     if not spec:
         return False
-    res = evaluate_buy_signals(market["df"], spec.__dict__, level)
+    res = evaluate_buy_signals(
+        market["df"],
+        {"buy_formula_levels": spec.buy_formula_levels},
+        level,
+    )
     return bool(res.iloc[-1])
 
 
@@ -149,5 +161,11 @@ def check_sell_signal(strategy_name: str, level: str, market: Dict[str, Any]) ->
         return False
     entry = market.get("Entry", 0.0)
     peak = market.get("Peak", market["df"]["High"].cummax().iloc[-1])
-    res = evaluate_sell_signals(market["df"], spec.__dict__, level, entry, peak)
+    res = evaluate_sell_signals(
+        market["df"],
+        {"sell_formula_levels": spec.sell_formula_levels},
+        level,
+        entry,
+        peak,
+    )
     return bool(res.iloc[-1])

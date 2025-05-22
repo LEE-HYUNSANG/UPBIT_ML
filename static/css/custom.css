@@ -15,6 +15,7 @@ body { background: #f6f8fb; color: #22315a; font-family: 'Noto Sans KR', sans-se
   border-radius: 1.25rem 1.25rem 0 0;
 }
 .card-body { padding: 2.5rem; }
+#left .card-body { padding-left: 1.25rem; padding-right: 1.25rem; }
 .btn-primary, .btn-success { border-radius: 0.75rem; font-weight: 600; }
 .table th, .table td { vertical-align: middle; }
 ::-webkit-scrollbar { width: 8px; background: #eaeaea; }
