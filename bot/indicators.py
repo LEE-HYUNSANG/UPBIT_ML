@@ -76,6 +76,9 @@ def compute_indicators(df):
     df['BB_lower'] = df['BB_mid'] - std * df['BB_std']
     # Bollinger Band Width (difference between bands)
     df['BandWidth20'] = df['BB_upper'] - df['BB_lower']
+    # Precompute rolling minima for BandWidth20 for strategy formulas
+    df['BandWidth20_min10'] = df['BandWidth20'].rolling(window=10).min()
+    df['BandWidth20_min20'] = df['BandWidth20'].rolling(window=20).min()
 
     # 6. Rolling max/min for various look-back periods
     df['MaxHigh5'] = df['High'].rolling(window=5).max()
