@@ -1,8 +1,8 @@
 [
   {
     "coin": "BTC",
-    "price": 150147000.0,
-    "volume": 418308552282.4946,
+    "price": 154006000.0,
+    "volume": 597064236083.4587,
     "rank": 1,
     "trend": "",
     "volatility": "",
@@ -15,8 +15,8 @@
   },
   {
     "coin": "XRP",
-    "price": 3301.0,
-    "volume": 304809242560.0209,
+    "price": 3366.0,
+    "volume": 376242279991.64777,
     "rank": 2,
     "trend": "",
     "volatility": "",
@@ -29,8 +29,8 @@
   },
   {
     "coin": "ETH",
-    "price": 3494000.0,
-    "volume": 253531042034.00854,
+    "price": 3693000.0,
+    "volume": 369299150846.7804,
     "rank": 3,
     "trend": "",
     "volatility": "",
@@ -42,9 +42,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "WCT",
-    "price": 862.7,
-    "volume": 223909899801.46124,
+    "coin": "DOGE",
+    "price": 333.8,
+    "volume": 255194836804.6235,
     "rank": 4,
     "trend": "",
     "volatility": "",
@@ -56,9 +56,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "DOGE",
-    "price": 315.6,
-    "volume": 183551822562.92426,
+    "coin": "USDT",
+    "price": 1391.0,
+    "volume": 170036327989.05725,
     "rank": 5,
     "trend": "",
     "volatility": "",
@@ -70,9 +70,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "KAITO",
-    "price": 3048.0,
-    "volume": 170792728208.9432,
+    "coin": "TRUMP",
+    "price": 21480.0,
+    "volume": 139143156557.14102,
     "rank": 6,
     "trend": "",
     "volatility": "",
@@ -84,9 +84,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TRUMP",
-    "price": 19870.0,
-    "volume": 161537623676.3397,
+    "coin": "WCT",
+    "price": 844.0,
+    "volume": 98978660166.05882,
     "rank": 7,
     "trend": "",
     "volatility": "",
@@ -98,9 +98,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "USDT",
-    "price": 1396.5,
-    "volume": 157325006830.5884,
+    "coin": "SOL",
+    "price": 247800.0,
+    "volume": 97657189151.4945,
     "rank": 8,
     "trend": "",
     "volatility": "",
@@ -112,9 +112,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "OM",
-    "price": 574.9,
-    "volume": 112086557368.17392,
+    "coin": "PEPE",
+    "price": 0.02015,
+    "volume": 91165986956.50253,
     "rank": 9,
     "trend": "",
     "volatility": "",
@@ -126,9 +126,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "NXPC",
-    "price": 2565.0,
-    "volume": 108093232512.43904,
+    "coin": "KAITO",
+    "price": 2921.0,
+    "volume": 83480577765.44017,
     "rank": 10,
     "trend": "",
     "volatility": "",
@@ -140,9 +140,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SOL",
-    "price": 235200.0,
-    "volume": 70887808525.32529,
+    "coin": "COW",
+    "price": 644.1,
+    "volume": 79869418807.36362,
     "rank": 11,
     "trend": "",
     "volatility": "",
@@ -154,9 +154,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "PEPE",
-    "price": 0.01925,
-    "volume": 68270505639.69741,
+    "coin": "SUI",
+    "price": 5658.0,
+    "volume": 78084416472.42433,
     "rank": 12,
     "trend": "",
     "volatility": "",
@@ -168,9 +168,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "VIRTUAL",
-    "price": 2783.0,
-    "volume": 68109687843.99213,
+    "coin": "NXPC",
+    "price": 2569.0,
+    "volume": 76561943587.7704,
     "rank": 13,
     "trend": "",
     "volatility": "",
@@ -182,9 +182,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "COW",
-    "price": 660.1,
-    "volume": 67728288268.339806,
+    "coin": "ANIME",
+    "price": 38.46,
+    "volume": 71684169329.06233,
     "rank": 14,
     "trend": "",
     "volatility": "",
@@ -196,9 +196,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SUI",
-    "price": 5451.0,
-    "volume": 54206767934.70139,
+    "coin": "VIRTUAL",
+    "price": 2818.0,
+    "volume": 66386334701.87296,
     "rank": 15,
     "trend": "",
     "volatility": "",
@@ -210,9 +210,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SONIC",
-    "price": 445.7,
-    "volume": 53357536536.80626,
+    "coin": "ONDO",
+    "price": 1401.0,
+    "volume": 50411336668.60962,
     "rank": 16,
     "trend": "",
     "volatility": "",
@@ -224,9 +224,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ONDO",
-    "price": 1339.0,
-    "volume": 43260213673.29736,
+    "coin": "BSV",
+    "price": 54510.0,
+    "volume": 44635697459.63195,
     "rank": 17,
     "trend": "",
     "volatility": "",
@@ -238,9 +238,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SNT",
-    "price": 41.55,
-    "volume": 28178696874.851418,
+    "coin": "OM",
+    "price": 579.9,
+    "volume": 34883302508.62265,
     "rank": 18,
     "trend": "",
     "volatility": "",
@@ -252,9 +252,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ADA",
-    "price": 1053.0,
-    "volume": 24915733454.028557,
+    "coin": "SONIC",
+    "price": 470.1,
+    "volume": 32694897486.88819,
     "rank": 19,
     "trend": "",
     "volatility": "",
@@ -266,9 +266,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "LAYER",
-    "price": 1311.0,
-    "volume": 24128589882.81955,
+    "coin": "ADA",
+    "price": 1109.0,
+    "volume": 31874968188.88586,
     "rank": 20,
     "trend": "",
     "volatility": "",
@@ -281,8 +281,8 @@
   },
   {
     "coin": "SHIB",
-    "price": 0.02035,
-    "volume": 21557625996.751278,
+    "price": 0.02126,
+    "volume": 31793149018.92766,
     "rank": 21,
     "trend": "",
     "volatility": "",
@@ -294,9 +294,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ENS",
-    "price": 31190.0,
-    "volume": 19334886670.8618,
+    "coin": "STX",
+    "price": 1356.0,
+    "volume": 29041291785.965324,
     "rank": 22,
     "trend": "",
     "volatility": "",
@@ -308,9 +308,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "PENGU",
-    "price": 18.55,
-    "volume": 17721147381.544266,
+    "coin": "MASK",
+    "price": 2600.0,
+    "volume": 24710135775.5622,
     "rank": 23,
     "trend": "",
     "volatility": "",
@@ -322,9 +322,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "LINK",
-    "price": 22100.0,
-    "volume": 17630896890.791054,
+    "coin": "PENGU",
+    "price": 19.59,
+    "volume": 24662341495.728394,
     "rank": 24,
     "trend": "",
     "volatility": "",
@@ -336,9 +336,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STX",
-    "price": 1273.0,
-    "volume": 17387862067.41405,
+    "coin": "ENS",
+    "price": 33150.0,
+    "volume": 23364752650.4719,
     "rank": 25,
     "trend": "",
     "volatility": "",
@@ -350,9 +350,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STMX",
-    "price": 4.187,
-    "volume": 17124938197.182219,
+    "coin": "BCH",
+    "price": 604300.0,
+    "volume": 22455890214.658707,
     "rank": 26,
     "trend": "",
     "volatility": "",
@@ -364,9 +364,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "PYTH",
-    "price": 179.2,
-    "volume": 16458440005.927368,
+    "coin": "LAYER",
+    "price": 1344.0,
+    "volume": 21416793272.217636,
     "rank": 27,
     "trend": "",
     "volatility": "",
@@ -378,9 +378,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ANIME",
-    "price": 33.4,
-    "volume": 16367531087.803476,
+    "coin": "LINK",
+    "price": 22980.0,
+    "volume": 20938049595.037724,
     "rank": 28,
     "trend": "",
     "volatility": "",
@@ -392,9 +392,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "WAVES",
-    "price": 1827.0,
-    "volume": 15047223154.714333,
+    "coin": "DEEP",
+    "price": 289.9,
+    "volume": 18471914807.451,
     "rank": 29,
     "trend": "",
     "volatility": "",
@@ -406,9 +406,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SIGN",
-    "price": 118.4,
-    "volume": 14581338858.92269,
+    "coin": "BONK",
+    "price": 0.03038,
+    "volume": 18038808339.20451,
     "rank": 30,
     "trend": "",
     "volatility": "",
@@ -420,9 +420,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "EOS",
-    "price": 1038.0,
-    "volume": 12839085249.279087,
+    "coin": "MEW",
+    "price": 5.097,
+    "volume": 17137001976.52703,
     "rank": 31,
     "trend": "",
     "volatility": "",
@@ -434,9 +434,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BONK",
-    "price": 0.02864,
-    "volume": 12401892278.879738,
+    "coin": "ATH",
+    "price": 71.68,
+    "volume": 14065362918.95709,
     "rank": 32,
     "trend": "",
     "volatility": "",
@@ -448,9 +448,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AAVE",
-    "price": 349100.0,
-    "volume": 12344200584.22174,
+    "coin": "TAIKO",
+    "price": 1061.0,
+    "volume": 13201916775.627821,
     "rank": 33,
     "trend": "",
     "volatility": "",
@@ -462,9 +462,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "UNI",
-    "price": 8535.0,
-    "volume": 11798168796.9103,
+    "coin": "EOS",
+    "price": 1070.0,
+    "volume": 12864304133.280962,
     "rank": 34,
     "trend": "",
     "volatility": "",
@@ -476,9 +476,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "XEM",
-    "price": 17.54,
-    "volume": 11118062074.1053,
+    "coin": "PUNDIX",
+    "price": 595.9,
+    "volume": 12567923806.105925,
     "rank": 35,
     "trend": "",
     "volatility": "",
@@ -490,9 +490,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MEW",
-    "price": 4.762,
-    "volume": 9738517496.066065,
+    "coin": "STMX",
+    "price": 4.236,
+    "volume": 12493163794.369148,
     "rank": 36,
     "trend": "",
     "volatility": "",
@@ -504,9 +504,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BERA",
-    "price": 4398.0,
-    "volume": 9707012668.320593,
+    "coin": "AVAX",
+    "price": 34600.0,
+    "volume": 11922471472.4755,
     "rank": 37,
     "trend": "",
     "volatility": "",
@@ -518,9 +518,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "NEAR",
-    "price": 3932.0,
-    "volume": 9205013306.699394,
+    "coin": "AAVE",
+    "price": 352000.0,
+    "volume": 11685411031.100445,
     "rank": 38,
     "trend": "",
     "volatility": "",
@@ -533,8 +533,8 @@
   },
   {
     "coin": "TRX",
-    "price": 377.0,
-    "volume": 9185250448.554464,
+    "price": 385.0,
+    "volume": 11500522454.216814,
     "rank": 39,
     "trend": "",
     "volatility": "",
@@ -546,9 +546,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MASK",
-    "price": 2334.0,
-    "volume": 8808886948.045216,
+    "coin": "PYTH",
+    "price": 188.7,
+    "volume": 11126288645.90814,
     "rank": 40,
     "trend": "",
     "volatility": "",
@@ -560,9 +560,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "PUNDIX",
-    "price": 587.3,
-    "volume": 8662345303.276945,
+    "coin": "SAND",
+    "price": 465.0,
+    "volume": 10898975183.879456,
     "rank": 41,
     "trend": "",
     "volatility": "",
@@ -574,9 +574,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AWE",
-    "price": 94.27,
-    "volume": 8527562663.841394,
+    "coin": "CVC",
+    "price": 207.1,
+    "volume": 9988382785.761738,
     "rank": 42,
     "trend": "",
     "volatility": "",
@@ -588,9 +588,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MOVE",
-    "price": 250.3,
-    "volume": 8211129465.308163,
+    "coin": "XEM",
+    "price": 17.9,
+    "volume": 9966449467.92671,
     "rank": 43,
     "trend": "",
     "volatility": "",
@@ -602,9 +602,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TAIKO",
-    "price": 1026.0,
-    "volume": 7755252854.134525,
+    "coin": "UNI",
+    "price": 8981.0,
+    "volume": 9444686762.553602,
     "rank": 44,
     "trend": "",
     "volatility": "",
@@ -616,9 +616,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SEI",
-    "price": 317.0,
-    "volume": 7747825653.045556,
+    "coin": "NEAR",
+    "price": 4186.0,
+    "volume": 9340756225.628666,
     "rank": 45,
     "trend": "",
     "volatility": "",
@@ -630,9 +630,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ATH",
-    "price": 69.64,
-    "volume": 7665080773.95261,
+    "coin": "SEI",
+    "price": 335.0,
+    "volume": 9178591261.123976,
     "rank": 46,
     "trend": "",
     "volatility": "",
@@ -644,9 +644,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SAND",
-    "price": 434.0,
-    "volume": 7361773905.410407,
+    "coin": "BERA",
+    "price": 4544.0,
+    "volume": 9058358768.053547,
     "rank": 47,
     "trend": "",
     "volatility": "",
@@ -658,9 +658,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "JUP",
-    "price": 713.4,
-    "volume": 7235718760.64757,
+    "coin": "SIGN",
+    "price": 121.0,
+    "volume": 9025917036.15055,
     "rank": 48,
     "trend": "",
     "volatility": "",
@@ -672,9 +672,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CVC",
-    "price": 201.1,
-    "volume": 7212711218.829653,
+    "coin": "ETC",
+    "price": 27280.0,
+    "volume": 8841952399.165632,
     "rank": 49,
     "trend": "",
     "volatility": "",
@@ -686,9 +686,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ARB",
-    "price": 561.0,
-    "volume": 7078661725.144432,
+    "coin": "W",
+    "price": 155.7,
+    "volume": 8420748091.652859,
     "rank": 50,
     "trend": "",
     "volatility": "",
@@ -700,9 +700,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BCH",
-    "price": 560700.0,
-    "volume": 6998375241.940971,
+    "coin": "MOVE",
+    "price": 259.4,
+    "volume": 8356672772.725377,
     "rank": 51,
     "trend": "",
     "volatility": "",
@@ -714,9 +714,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "HBAR",
-    "price": 272.8,
-    "volume": 6865401815.728802,
+    "coin": "ARB",
+    "price": 591.5,
+    "volume": 8334351114.386531,
     "rank": 52,
     "trend": "",
     "volatility": "",
@@ -728,9 +728,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AVAX",
-    "price": 31910.0,
-    "volume": 6354390224.839574,
+    "coin": "JUP",
+    "price": 761.2,
+    "volume": 8156329453.838442,
     "rank": 53,
     "trend": "",
     "volatility": "",
@@ -742,9 +742,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "UXLINK",
-    "price": 619.2,
-    "volume": 5978126982.17745,
+    "coin": "HBAR",
+    "price": 282.2,
+    "volume": 8004964266.568901,
     "rank": 54,
     "trend": "",
     "volatility": "",
@@ -756,9 +756,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ETC",
-    "price": 26090.0,
-    "volume": 5950250655.530464,
+    "coin": "SNT",
+    "price": 41.02,
+    "volume": 7687414770.8677025,
     "rank": 55,
     "trend": "",
     "volatility": "",
@@ -770,9 +770,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "DEEP",
-    "price": 266.5,
-    "volume": 5944407749.444877,
+    "coin": "AWE",
+    "price": 96.5,
+    "volume": 7685358589.512944,
     "rank": 56,
     "trend": "",
     "volatility": "",
@@ -784,9 +784,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "XLM",
-    "price": 404.1,
-    "volume": 5906229428.325565,
+    "coin": "UXLINK",
+    "price": 633.2,
+    "volume": 7159442631.1561775,
     "rank": 57,
     "trend": "",
     "volatility": "",
@@ -798,9 +798,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ID",
-    "price": 289.7,
-    "volume": 5666533618.0379095,
+    "coin": "XLM",
+    "price": 417.9,
+    "volume": 7092248359.210839,
     "rank": 58,
     "trend": "",
     "volatility": "",
@@ -812,9 +812,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "WAL",
-    "price": 888.2,
-    "volume": 5247104018.414385,
+    "coin": "BTT",
+    "price": 0.001044,
+    "volume": 6573254063.158026,
     "rank": 59,
     "trend": "",
     "volatility": "",
@@ -826,9 +826,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ME",
-    "price": 1326.0,
-    "volume": 5145143940.935171,
+    "coin": "ORCA",
+    "price": 3799.0,
+    "volume": 6297501981.816096,
     "rank": 60,
     "trend": "",
     "volatility": "",
@@ -840,9 +840,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BLUR",
-    "price": 147.0,
-    "volume": 5059154401.506387,
+    "coin": "VANA",
+    "price": 8776.0,
+    "volume": 5409064751.652741,
     "rank": 61,
     "trend": "",
     "volatility": "",
@@ -854,9 +854,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AERGO",
-    "price": 186.1,
-    "volume": 4699466062.175812,
+    "coin": "PENDLE",
+    "price": 6402.0,
+    "volume": 5305611888.476736,
     "rank": 62,
     "trend": "",
     "volatility": "",
@@ -868,9 +868,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ZRO",
-    "price": 3744.0,
-    "volume": 4637121408.3197,
+    "coin": "NEO",
+    "price": 9572.0,
+    "volume": 5298653080.148302,
     "rank": 63,
     "trend": "",
     "volatility": "",
@@ -882,9 +882,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "NEO",
-    "price": 9217.0,
-    "volume": 4440581135.91994,
+    "coin": "BLUR",
+    "price": 154.0,
+    "volume": 5033349258.585742,
     "rank": 64,
     "trend": "",
     "volatility": "",
@@ -896,9 +896,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ARKM",
-    "price": 937.2,
-    "volume": 4093198810.3776717,
+    "coin": "WAVES",
+    "price": 1849.0,
+    "volume": 4973647813.351522,
     "rank": 65,
     "trend": "",
     "volatility": "",
@@ -910,9 +910,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "VANA",
-    "price": 8202.0,
-    "volume": 3997852128.516101,
+    "coin": "INJ",
+    "price": 18220.0,
+    "volume": 4847005189.528433,
     "rank": 66,
     "trend": "",
     "volatility": "",
@@ -924,9 +924,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ALGO",
-    "price": 315.0,
-    "volume": 3962984674.2872424,
+    "coin": "ZRO",
+    "price": 3998.0,
+    "volume": 4797570932.87892,
     "rank": 67,
     "trend": "",
     "volatility": "",
@@ -938,9 +938,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "POL",
-    "price": 329.0,
-    "volume": 3730630681.09,
+    "coin": "ME",
+    "price": 1421.0,
+    "volume": 4548001588.493423,
     "rank": 68,
     "trend": "",
     "volatility": "",
@@ -952,9 +952,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GRT",
-    "price": 155.0,
-    "volume": 3709673688.304685,
+    "coin": "ARKM",
+    "price": 999.9,
+    "volume": 4491281633.288488,
     "rank": 69,
     "trend": "",
     "volatility": "",
@@ -966,9 +966,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "DOT",
-    "price": 6562.0,
-    "volume": 3680442507.7305765,
+    "coin": "ALGO",
+    "price": 332.0,
+    "volume": 4080174321.0430264,
     "rank": 70,
     "trend": "",
     "volatility": "",
@@ -980,9 +980,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AXS",
-    "price": 4112.0,
-    "volume": 3554397425.7553616,
+    "coin": "AKT",
+    "price": 2248.0,
+    "volume": 4041617296.466665,
     "rank": 71,
     "trend": "",
     "volatility": "",
@@ -994,9 +994,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "DRIFT",
-    "price": 911.7,
-    "volume": 3510817201.422857,
+    "coin": "POL",
+    "price": 347.0,
+    "volume": 4026732901.936639,
     "rank": 72,
     "trend": "",
     "volatility": "",
@@ -1008,9 +1008,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BIGTIME",
-    "price": 103.0,
-    "volume": 3446741079.5356116,
+    "coin": "AERGO",
+    "price": 192.3,
+    "volume": 4015180291.900649,
     "rank": 73,
     "trend": "",
     "volatility": "",
@@ -1022,9 +1022,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GAS",
-    "price": 4706.0,
-    "volume": 3428246967.2221727,
+    "coin": "BEAM",
+    "price": 11.3,
+    "volume": 3940804018.2550836,
     "rank": 74,
     "trend": "",
     "volatility": "",
@@ -1036,9 +1036,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "PENDLE",
-    "price": 6049.0,
-    "volume": 3280680943.9772882,
+    "coin": "DOT",
+    "price": 6783.0,
+    "volume": 3720797887.4627795,
     "rank": 75,
     "trend": "",
     "volatility": "",
@@ -1050,9 +1050,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GMT",
-    "price": 81.65,
-    "volume": 3177401148.5162964,
+    "coin": "MANA",
+    "price": 467.0,
+    "volume": 3692530302.7441435,
     "rank": 76,
     "trend": "",
     "volatility": "",
@@ -1064,9 +1064,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "JST",
-    "price": 52.33,
-    "volume": 3171248367.8726826,
+    "coin": "GRT",
+    "price": 167.0,
+    "volume": 3660749717.429619,
     "rank": 77,
     "trend": "",
     "volatility": "",
@@ -1078,9 +1078,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AKT",
-    "price": 2109.0,
-    "volume": 3131434413.103782,
+    "coin": "DRIFT",
+    "price": 936.4,
+    "volume": 3549315357.444913,
     "rank": 78,
     "trend": "",
     "volatility": "",
@@ -1092,9 +1092,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BEAM",
-    "price": 10.82,
-    "volume": 2945989310.2483807,
+    "coin": "AXS",
+    "price": 4328.0,
+    "volume": 3524030563.2545786,
     "rank": 79,
     "trend": "",
     "volatility": "",
@@ -1106,9 +1106,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MOCA",
-    "price": 126.6,
-    "volume": 2729152767.4158335,
+    "coin": "GMT",
+    "price": 86.22,
+    "volume": 3504295516.6748505,
     "rank": 80,
     "trend": "",
     "volatility": "",
@@ -1120,9 +1120,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "INJ",
-    "price": 16980.0,
-    "volume": 2722771561.1854362,
+    "coin": "XEC",
+    "price": 0.03332,
+    "volume": 3494693349.9630103,
     "rank": 81,
     "trend": "",
     "volatility": "",
@@ -1134,9 +1134,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CARV",
-    "price": 512.0,
-    "volume": 2634740516.9428587,
+    "coin": "BIGTIME",
+    "price": 109.1,
+    "volume": 3329220921.059916,
     "rank": 82,
     "trend": "",
     "volatility": "",
@@ -1148,9 +1148,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "W",
-    "price": 134.3,
-    "volume": 2415407482.3727746,
+    "coin": "GAS",
+    "price": 4842.0,
+    "volume": 3204502578.621079,
     "rank": 83,
     "trend": "",
     "volatility": "",
@@ -1162,9 +1162,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SAFE",
-    "price": 694.5,
-    "volume": 2328083546.902307,
+    "coin": "WAL",
+    "price": 892.5,
+    "volume": 3165938364.507054,
     "rank": 84,
     "trend": "",
     "volatility": "",
@@ -1176,9 +1176,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ZETA",
-    "price": 358.9,
-    "volume": 2276538342.7865233,
+    "coin": "THETA",
+    "price": 1333.0,
+    "volume": 2932143356.077014,
     "rank": 85,
     "trend": "",
     "volatility": "",
@@ -1190,9 +1190,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MANA",
-    "price": 440.0,
-    "volume": 2235883100.7515836,
+    "coin": "CARV",
+    "price": 525.0,
+    "volume": 2854908032.87063,
     "rank": 86,
     "trend": "",
     "volatility": "",
@@ -1204,9 +1204,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ORCA",
-    "price": 3584.0,
-    "volume": 2220018339.763565,
+    "coin": "CTC",
+    "price": 1002.0,
+    "volume": 2775491343.159227,
     "rank": 87,
     "trend": "",
     "volatility": "",
@@ -1218,9 +1218,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AGLD",
-    "price": 1303.0,
-    "volume": 2205868146.529603,
+    "coin": "IMX",
+    "price": 970.0,
+    "volume": 2755982717.1099358,
     "rank": 88,
     "trend": "",
     "volatility": "",
@@ -1232,9 +1232,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AUCTION",
-    "price": 16440.0,
-    "volume": 2191242582.7656913,
+    "coin": "ID",
+    "price": 303.9,
+    "volume": 2720571480.5757217,
     "rank": 89,
     "trend": "",
     "volatility": "",
@@ -1246,9 +1246,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "APT",
-    "price": 7236.0,
-    "volume": 2161011035.43208,
+    "coin": "MOCA",
+    "price": 132.3,
+    "volume": 2712561604.6000333,
     "rank": 90,
     "trend": "",
     "volatility": "",
@@ -1260,9 +1260,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "THETA",
-    "price": 1254.0,
-    "volume": 2153527611.4325156,
+    "coin": "VET",
+    "price": 42.02,
+    "volume": 2596238497.6862655,
     "rank": 91,
     "trend": "",
     "volatility": "",
@@ -1274,9 +1274,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "FLOW",
-    "price": 573.0,
-    "volume": 2140566759.05158,
+    "coin": "APT",
+    "price": 7580.0,
+    "volume": 2355132230.5411983,
     "rank": 92,
     "trend": "",
     "volatility": "",
@@ -1288,9 +1288,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BTT",
-    "price": 0.001022,
-    "volume": 2034273959.7170477,
+    "coin": "ZETA",
+    "price": 376.8,
+    "volume": 2352690829.1171308,
     "rank": 93,
     "trend": "",
     "volatility": "",
@@ -1302,9 +1302,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BSV",
-    "price": 49960.0,
-    "volume": 2027482947.309044,
+    "coin": "AGLD",
+    "price": 1351.0,
+    "volume": 2225501817.6065617,
     "rank": 94,
     "trend": "",
     "volatility": "",
@@ -1316,9 +1316,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "VET",
-    "price": 39.6,
-    "volume": 2001544793.222379,
+    "coin": "AUCTION",
+    "price": 16930.0,
+    "volume": 2199298206.4778686,
     "rank": 95,
     "trend": "",
     "volatility": "",
@@ -1330,9 +1330,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BLAST",
-    "price": 4.56,
-    "volume": 1978423731.493047,
+    "coin": "FLOW",
+    "price": 598.8,
+    "volume": 2145215514.4353454,
     "rank": 96,
     "trend": "",
     "volatility": "",
@@ -1345,8 +1345,8 @@
   },
   {
     "coin": "POLYX",
-    "price": 233.8,
-    "volume": 1908981252.4932323,
+    "price": 246.0,
+    "volume": 2113320537.9576147,
     "rank": 97,
     "trend": "",
     "volatility": "",
@@ -1358,9 +1358,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ARDR",
-    "price": 133.7,
-    "volume": 1834911489.471969,
+    "coin": "SAFE",
+    "price": 723.7,
+    "volume": 2093346404.4163404,
     "rank": 98,
     "trend": "",
     "volatility": "",
@@ -1372,9 +1372,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CTC",
-    "price": 949.5,
-    "volume": 1814802050.4545476,
+    "coin": "FIL",
+    "price": 4224.0,
+    "volume": 1912171294.482236,
     "rank": 99,
     "trend": "",
     "volatility": "",
@@ -1386,9 +1386,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ATOM",
-    "price": 6841.0,
-    "volume": 1794950494.065519,
+    "coin": "STRAX",
+    "price": 73.46,
+    "volume": 1887770924.5879266,
     "rank": 100,
     "trend": "",
     "volatility": "",
@@ -1401,8 +1401,8 @@
   },
   {
     "coin": "IOTA",
-    "price": 309.5,
-    "volume": 1759361044.4127524,
+    "price": 325.4,
+    "volume": 1885844481.2593055,
     "rank": 101,
     "trend": "",
     "volatility": "",
@@ -1414,9 +1414,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ONT",
-    "price": 209.9,
-    "volume": 1707850438.1160266,
+    "coin": "CHZ",
+    "price": 64.99,
+    "volume": 1827837632.1673584,
     "rank": 102,
     "trend": "",
     "volatility": "",
@@ -1428,9 +1428,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STRAX",
-    "price": 71.1,
-    "volume": 1688649375.904196,
+    "coin": "STG",
+    "price": 280.0,
+    "volume": 1733255031.2438936,
     "rank": 103,
     "trend": "",
     "volatility": "",
@@ -1442,9 +1442,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "IMX",
-    "price": 927.3,
-    "volume": 1651722532.8966177,
+    "coin": "ARDR",
+    "price": 136.6,
+    "volume": 1729355494.1637256,
     "rank": 104,
     "trend": "",
     "volatility": "",
@@ -1456,9 +1456,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "FIL",
-    "price": 4006.0,
-    "volume": 1536794584.1622407,
+    "coin": "TIA",
+    "price": 3865.0,
+    "volume": 1617415203.8113062,
     "rank": 105,
     "trend": "",
     "volatility": "",
@@ -1470,9 +1470,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STG",
-    "price": 275.0,
-    "volume": 1442043076.9151917,
+    "coin": "EGLD",
+    "price": 26980.0,
+    "volume": 1604381605.4854674,
     "rank": 106,
     "trend": "",
     "volatility": "",
@@ -1484,9 +1484,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TIA",
-    "price": 3661.0,
-    "volume": 1420545244.7113829,
+    "coin": "G",
+    "price": 22.11,
+    "volume": 1593420793.238687,
     "rank": 107,
     "trend": "",
     "volatility": "",
@@ -1498,9 +1498,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ASTR",
-    "price": 41.92,
-    "volume": 1406852364.6471317,
+    "coin": "ATOM",
+    "price": 7105.0,
+    "volume": 1534548503.4704819,
     "rank": 108,
     "trend": "",
     "volatility": "",
@@ -1513,8 +1513,8 @@
   },
   {
     "coin": "RENDER",
-    "price": 6558.0,
-    "volume": 1336574992.5273771,
+    "price": 6941.0,
+    "volume": 1490906739.0113945,
     "rank": 109,
     "trend": "",
     "volatility": "",
@@ -1526,9 +1526,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ARK",
-    "price": 577.7,
-    "volume": 1279264785.2750094,
+    "coin": "HIVE",
+    "price": 375.8,
+    "volume": 1368553726.881715,
     "rank": 110,
     "trend": "",
     "volatility": "",
@@ -1540,9 +1540,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CHZ",
-    "price": 61.9,
-    "volume": 1212188000.0260954,
+    "coin": "VTHO",
+    "price": 3.677,
+    "volume": 1368257257.870957,
     "rank": 111,
     "trend": "",
     "volatility": "",
@@ -1554,9 +1554,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "HIVE",
-    "price": 362.3,
-    "volume": 1206979014.4226062,
+    "coin": "ICX",
+    "price": 159.0,
+    "volume": 1349661447.4435084,
     "rank": 112,
     "trend": "",
     "volatility": "",
@@ -1568,9 +1568,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "JTO",
-    "price": 2805.0,
-    "volume": 1179457534.66839,
+    "coin": "JST",
+    "price": 54.34,
+    "volume": 1339374217.287168,
     "rank": 113,
     "trend": "",
     "volatility": "",
@@ -1582,9 +1582,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MINA",
-    "price": 350.0,
-    "volume": 1106983744.4037836,
+    "coin": "ARK",
+    "price": 593.1,
+    "volume": 1333908420.6237774,
     "rank": 114,
     "trend": "",
     "volatility": "",
@@ -1596,9 +1596,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "XEC",
-    "price": 0.03163,
-    "volume": 1099288128.0962257,
+    "coin": "CRO",
+    "price": 139.2,
+    "volume": 1264654318.816289,
     "rank": 115,
     "trend": "",
     "volatility": "",
@@ -1610,9 +1610,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "EGLD",
-    "price": 25690.0,
-    "volume": 1087550777.167327,
+    "coin": "QTUM",
+    "price": 3328.0,
+    "volume": 1262236385.6105673,
     "rank": 116,
     "trend": "",
     "volatility": "",
@@ -1624,9 +1624,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "IQ",
-    "price": 6.014,
-    "volume": 1068298979.8164338,
+    "coin": "CELO",
+    "price": 566.0,
+    "volume": 1259908514.329142,
     "rank": 117,
     "trend": "",
     "volatility": "",
@@ -1638,9 +1638,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CRO",
-    "price": 134.4,
-    "volume": 1067533198.4278206,
+    "coin": "IQ",
+    "price": 6.152,
+    "volume": 1258268960.2689283,
     "rank": 118,
     "trend": "",
     "volatility": "",
@@ -1652,9 +1652,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "QTUM",
-    "price": 3167.0,
-    "volume": 1064234300.4376328,
+    "coin": "MINA",
+    "price": 366.0,
+    "volume": 1184881631.53285,
     "rank": 119,
     "trend": "",
     "volatility": "",
@@ -1666,9 +1666,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SXP",
-    "price": 275.6,
-    "volume": 1059812923.981467,
+    "coin": "WAXP",
+    "price": 35.11,
+    "volume": 1177649717.3443136,
     "rank": 120,
     "trend": "",
     "volatility": "",
@@ -1680,9 +1680,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ICX",
-    "price": 148.0,
-    "volume": 1053609894.8497952,
+    "coin": "BLAST",
+    "price": 4.723,
+    "volume": 1137266862.2557743,
     "rank": 121,
     "trend": "",
     "volatility": "",
@@ -1694,9 +1694,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "VTHO",
-    "price": 3.473,
-    "volume": 1016658317.462991,
+    "coin": "JTO",
+    "price": 2885.0,
+    "volume": 1098749197.032828,
     "rank": 122,
     "trend": "",
     "volatility": "",
@@ -1708,9 +1708,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CELO",
-    "price": 532.0,
-    "volume": 967650257.0889614,
+    "coin": "KAVA",
+    "price": 610.0,
+    "volume": 1094440453.791545,
     "rank": 123,
     "trend": "",
     "volatility": "",
@@ -1722,9 +1722,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "USDC",
-    "price": 1396.0,
-    "volume": 959741608.4246777,
+    "coin": "ANKR",
+    "price": 26.84,
+    "volume": 1094127413.8003821,
     "rank": 124,
     "trend": "",
     "volatility": "",
@@ -1736,9 +1736,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "KAVA",
-    "price": 592.5,
-    "volume": 934122240.7693572,
+    "coin": "USDC",
+    "price": 1391.0,
+    "volume": 1072526794.0023664,
     "rank": 125,
     "trend": "",
     "volatility": "",
@@ -1750,9 +1750,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TOKAMAK",
-    "price": 1587.0,
-    "volume": 898203388.3112587,
+    "coin": "ASTR",
+    "price": 43.22,
+    "volume": 1046505744.1998729,
     "rank": 126,
     "trend": "",
     "volatility": "",
@@ -1764,9 +1764,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TT",
-    "price": 4.09,
-    "volume": 891640210.7562739,
+    "coin": "GLM",
+    "price": 383.3,
+    "volume": 1043334746.0602149,
     "rank": 127,
     "trend": "",
     "volatility": "",
@@ -1778,9 +1778,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ZRX",
-    "price": 383.2,
-    "volume": 887524044.0151559,
+    "coin": "T",
+    "price": 25.19,
+    "volume": 1022264527.790193,
     "rank": 128,
     "trend": "",
     "volatility": "",
@@ -1792,9 +1792,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "WAXP",
-    "price": 33.55,
-    "volume": 838401063.152677,
+    "coin": "CKB",
+    "price": 7.63,
+    "volume": 1014580961.1234862,
     "rank": 129,
     "trend": "",
     "volatility": "",
@@ -1806,9 +1806,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "TFUEL",
-    "price": 51.28,
-    "volume": 835319445.2855444,
+    "coin": "MNT",
+    "price": 1062.0,
+    "volume": 985546045.4995209,
     "rank": 130,
     "trend": "",
     "volatility": "",
@@ -1820,9 +1820,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ANKR",
-    "price": 25.99,
-    "volume": 824988162.4458315,
+    "coin": "SXP",
+    "price": 289.1,
+    "volume": 966648569.6762887,
     "rank": 131,
     "trend": "",
     "volatility": "",
@@ -1834,9 +1834,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "T",
-    "price": 24.09,
-    "volume": 820600793.0495006,
+    "coin": "ZIL",
+    "price": 18.85,
+    "volume": 948281888.0517346,
     "rank": 132,
     "trend": "",
     "volatility": "",
@@ -1848,9 +1848,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "G",
-    "price": 21.03,
-    "volume": 797225753.4750493,
+    "coin": "ZRX",
+    "price": 404.1,
+    "volume": 922656891.8536751,
     "rank": 133,
     "trend": "",
     "volatility": "",
@@ -1862,9 +1862,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "CKB",
-    "price": 7.195,
-    "volume": 769248167.1090827,
+    "coin": "TFUEL",
+    "price": 53.09,
+    "volume": 914177097.2328912,
     "rank": 134,
     "trend": "",
     "volatility": "",
@@ -1877,8 +1877,8 @@
   },
   {
     "coin": "STORJ",
-    "price": 413.4,
-    "volume": 767264467.4598056,
+    "price": 435.3,
+    "volume": 844434665.4125955,
     "rank": 135,
     "trend": "",
     "volatility": "",
@@ -1890,9 +1890,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GLM",
-    "price": 370.8,
-    "volume": 758685228.9122783,
+    "coin": "LSK",
+    "price": 767.9,
+    "volume": 842403172.3759137,
     "rank": 136,
     "trend": "",
     "volatility": "",
@@ -1904,9 +1904,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "POWR",
-    "price": 253.9,
-    "volume": 676691324.9708766,
+    "coin": "ONT",
+    "price": 219.7,
+    "volume": 836610020.5685222,
     "rank": 137,
     "trend": "",
     "volatility": "",
@@ -1918,9 +1918,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "XTZ",
-    "price": 866.6,
-    "volume": 669968508.0450925,
+    "coin": "AQT",
+    "price": 1630.0,
+    "volume": 830496018.6883873,
     "rank": 138,
     "trend": "",
     "volatility": "",
@@ -1932,9 +1932,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ZIL",
-    "price": 17.89,
-    "volume": 667633754.5169688,
+    "coin": "STEEM",
+    "price": 216.9,
+    "volume": 819044435.0016057,
     "rank": 139,
     "trend": "",
     "volatility": "",
@@ -1946,9 +1946,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MNT",
-    "price": 1029.0,
-    "volume": 657720386.8240541,
+    "coin": "SC",
+    "price": 5.021,
+    "volume": 789412425.4951642,
     "rank": 140,
     "trend": "",
     "volatility": "",
@@ -1960,9 +1960,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MTL",
-    "price": 1135.0,
-    "volume": 655455670.3404436,
+    "coin": "STRIKE",
+    "price": 10150.0,
+    "volume": 786529737.1092652,
     "rank": 141,
     "trend": "",
     "volatility": "",
@@ -1974,9 +1974,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "IOST",
-    "price": 5.481,
-    "volume": 650333082.7970105,
+    "coin": "MLK",
+    "price": 239.2,
+    "volume": 781486912.2182976,
     "rank": 142,
     "trend": "",
     "volatility": "",
@@ -1988,9 +1988,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MLK",
-    "price": 233.1,
-    "volume": 648810052.7758685,
+    "coin": "MOC",
+    "price": 96.7,
+    "volume": 774348791.6751262,
     "rank": 143,
     "trend": "",
     "volatility": "",
@@ -2002,9 +2002,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STEEM",
-    "price": 207.9,
-    "volume": 639931679.4894124,
+    "coin": "XTZ",
+    "price": 905.2,
+    "volume": 764270347.4994565,
     "rank": 144,
     "trend": "",
     "volatility": "",
@@ -2016,9 +2016,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AQT",
-    "price": 1591.0,
-    "volume": 634711032.6070708,
+    "coin": "ORBS",
+    "price": 29.63,
+    "volume": 736748481.3568451,
     "rank": 145,
     "trend": "",
     "volatility": "",
@@ -2030,9 +2030,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "COMP",
-    "price": 60190.0,
-    "volume": 618898355.3857691,
+    "coin": "1INCH",
+    "price": 334.0,
+    "volume": 706086081.0029958,
     "rank": 146,
     "trend": "",
     "volatility": "",
@@ -2044,9 +2044,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "STRIKE",
-    "price": 9950.0,
-    "volume": 595068985.0436466,
+    "coin": "MTL",
+    "price": 1195.0,
+    "volume": 689216646.8502935,
     "rank": 147,
     "trend": "",
     "volatility": "",
@@ -2058,9 +2058,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MOC",
-    "price": 95.13,
-    "volume": 591585112.7497008,
+    "coin": "ONG",
+    "price": 300.6,
+    "volume": 669120097.291557,
     "rank": 148,
     "trend": "",
     "volatility": "",
@@ -2072,9 +2072,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "1INCH",
-    "price": 316.8,
-    "volume": 572614891.8247507,
+    "coin": "POWR",
+    "price": 264.0,
+    "volume": 648699897.6127213,
     "rank": 149,
     "trend": "",
     "volatility": "",
@@ -2086,9 +2086,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "AHT",
-    "price": 5.629,
-    "volume": 543646442.9376807,
+    "coin": "BAT",
+    "price": 217.5,
+    "volume": 640536652.9143908,
     "rank": 150,
     "trend": "",
     "volatility": "",
@@ -2100,9 +2100,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ELF",
-    "price": 330.0,
-    "volume": 516647748.3594552,
+    "coin": "IOST",
+    "price": 5.71,
+    "volume": 633434727.1420327,
     "rank": 151,
     "trend": "",
     "volatility": "",
@@ -2114,9 +2114,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "HUNT",
-    "price": 352.8,
-    "volume": 512566407.8930591,
+    "coin": "BORA",
+    "price": 130.5,
+    "volume": 611822519.6637782,
     "rank": 152,
     "trend": "",
     "volatility": "",
@@ -2128,9 +2128,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "QKC",
-    "price": 10.59,
-    "volume": 499221749.91863596,
+    "coin": "COMP",
+    "price": 62360.0,
+    "volume": 601897693.2397918,
     "rank": 153,
     "trend": "",
     "volatility": "",
@@ -2142,9 +2142,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BAT",
-    "price": 205.6,
-    "volume": 494975814.4863757,
+    "coin": "TT",
+    "price": 4.118,
+    "volume": 576359348.9621062,
     "rank": 154,
     "trend": "",
     "volatility": "",
@@ -2156,9 +2156,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BORA",
-    "price": 127.9,
-    "volume": 491569448.4015589,
+    "coin": "TOKAMAK",
+    "price": 1620.0,
+    "volume": 552095055.5286196,
     "rank": 155,
     "trend": "",
     "volatility": "",
@@ -2170,9 +2170,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ONG",
-    "price": 291.3,
-    "volume": 474284029.17929304,
+    "coin": "GAME2",
+    "price": 5.095,
+    "volume": 540070074.3505578,
     "rank": 156,
     "trend": "",
     "volatility": "",
@@ -2184,9 +2184,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "SC",
-    "price": 4.832,
-    "volume": 472329219.8925687,
+    "coin": "HP",
+    "price": 68.47,
+    "volume": 531654438.1976221,
     "rank": 157,
     "trend": "",
     "volatility": "",
@@ -2198,9 +2198,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "LSK",
-    "price": 731.2,
-    "volume": 456982167.3817903,
+    "coin": "ELF",
+    "price": 335.0,
+    "volume": 496968257.06836575,
     "rank": 158,
     "trend": "",
     "volatility": "",
@@ -2212,9 +2212,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GAME2",
-    "price": 5.004,
-    "volume": 385240130.2142176,
+    "coin": "QKC",
+    "price": 10.86,
+    "volume": 491724292.03639805,
     "rank": 159,
     "trend": "",
     "volatility": "",
@@ -2227,8 +2227,8 @@
   },
   {
     "coin": "CBK",
-    "price": 751.8,
-    "volume": 364818772.4552107,
+    "price": 767.9,
+    "volume": 456900724.94171333,
     "rank": 160,
     "trend": "",
     "volatility": "",
@@ -2240,9 +2240,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "HP",
-    "price": 67.55,
-    "volume": 337026636.1602062,
+    "coin": "HUNT",
+    "price": 360.8,
+    "volume": 445441087.7105872,
     "rank": 161,
     "trend": "",
     "volatility": "",
@@ -2254,9 +2254,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "ORBS",
-    "price": 28.84,
-    "volume": 334796669.1306268,
+    "coin": "MBL",
+    "price": 3.427,
+    "volume": 444733310.9114586,
     "rank": 162,
     "trend": "",
     "volatility": "",
@@ -2268,9 +2268,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MBL",
-    "price": 3.284,
-    "volume": 302985369.5055585,
+    "coin": "MVL",
+    "price": 4.99,
+    "volume": 420816553.3106381,
     "rank": 163,
     "trend": "",
     "volatility": "",
@@ -2282,9 +2282,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MED",
-    "price": 10.07,
-    "volume": 298914233.0244551,
+    "coin": "AHT",
+    "price": 5.765,
+    "volume": 409940800.76216185,
     "rank": 164,
     "trend": "",
     "volatility": "",
@@ -2296,9 +2296,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "MVL",
-    "price": 4.858,
-    "volume": 288842310.8569665,
+    "coin": "DKA",
+    "price": 24.59,
+    "volume": 375630215.77486354,
     "rank": 165,
     "trend": "",
     "volatility": "",
@@ -2310,9 +2310,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "GRS",
-    "price": 478.0,
-    "volume": 287059816.53812027,
+    "coin": "MED",
+    "price": 10.26,
+    "volume": 371992691.3388401,
     "rank": 166,
     "trend": "",
     "volatility": "",
@@ -2324,9 +2324,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "DKA",
-    "price": 24.14,
-    "volume": 277184718.54888886,
+    "coin": "FCT2",
+    "price": 44.56,
+    "volume": 316988953.0656272,
     "rank": 167,
     "trend": "",
     "volatility": "",
@@ -2339,8 +2339,8 @@
   },
   {
     "coin": "KNC",
-    "price": 510.2,
-    "volume": 236637690.7433177,
+    "price": 540.9,
+    "volume": 314041437.180562,
     "rank": 168,
     "trend": "",
     "volatility": "",
@@ -2352,9 +2352,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "BOUNTY",
-    "price": 70.51,
-    "volume": 221385837.0671016,
+    "coin": "META",
+    "price": 32.57,
+    "volume": 282096800.1942733,
     "rank": 169,
     "trend": "",
     "volatility": "",
@@ -2366,9 +2366,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "META",
-    "price": 31.99,
-    "volume": 164665182.88239002,
+    "coin": "GRS",
+    "price": 485.0,
+    "volume": 267017541.28157008,
     "rank": 170,
     "trend": "",
     "volatility": "",
@@ -2380,9 +2380,9 @@
     "key": "MBREAK"
   },
   {
-    "coin": "FCT2",
-    "price": 43.7,
-    "volume": 140413900.29762077,
+    "coin": "BOUNTY",
+    "price": 71.19,
+    "volume": 170252776.07984826,
     "rank": 171,
     "trend": "",
     "volatility": "",
