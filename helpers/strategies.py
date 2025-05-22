@@ -160,7 +160,9 @@ def check_sell_signal(strategy_name: str, level: str, market: Dict[str, Any]) ->
     spec = _SPEC_CACHE.get(strategy_name)
     if not spec:
         return False
-    entry = market.get("Entry", 0.0)
+    entry = market.get("Entry")
+    if entry is None:
+        entry = market.get("EntryPrice", 0.0)
     peak = market.get("Peak", market["df"]["High"].cummax().iloc[-1])
     res = evaluate_sell_signals(
         market["df"],

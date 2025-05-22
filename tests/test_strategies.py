@@ -124,15 +124,24 @@ def test_sell_signals():
 
 
 def test_entryprice_alias():
-    """EntryPrice 변수도 인식되는지 확인한다."""
+    """EntryPrice 키를 사용해도 동일한 결과가 나오는지 확인한다."""
     strategies = load_strategies()
     strat = next(iter(strategies))
     df = make_df(strat)
-    market = df_to_market(df, 1.0)
-    market["EntryPrice"] = df["Close"].iloc[-1] * 0.97
-    market["Peak"] = df["High"].cummax().iloc[-1]
-    res = check_sell_signal(strat, "공격적", market)
-    assert isinstance(res, bool)
+    entry = df["Close"].iloc[-1] * 0.97
+    peak = df["High"].cummax().iloc[-1]
+
+    with_entry = df_to_market(df, 1.0)
+    with_entry["Entry"] = entry
+    with_entry["Peak"] = peak
+    res_entry = check_sell_signal(strat, "공격적", with_entry)
+
+    with_alias = df_to_market(df, 1.0)
+    with_alias["EntryPrice"] = entry
+    with_alias["Peak"] = peak
+    res_alias = check_sell_signal(strat, "공격적", with_alias)
+
+    assert res_entry == res_alias
 
 
 def test_normalize_zero_offset():
