@@ -9,52 +9,52 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 def _normalize(formula: str) -> str:
     """Convert indicator function calls to column-friendly names."""
-    # Replace MA(Vol,20) -> Vol_MA20
-    formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
-
-    # Bollinger bands: BB_upper(20,2) -> BB_upper, BB_upper(20,2,-1) -> BB_upper_prev
-    def _repl_bb(match: re.Match) -> str:
-        name = match.group(1)
-        offset = match.group(2)
-        result = name
-        if offset:
-            off = int(offset)
-            if off < 0:
-                result += "_prev" + (str(-off) if off != -1 else "")
-            elif off > 0:
-                result += "_next" + (str(off) if off != 1 else "")
-        return result
-
-    # e.g. MFI(14,-1) -> MFI14_prev, Tenkan(9,-26) -> Tenkan9_next26
-    formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
-
-    # Close(-1) -> Close_prev, Low(0) -> Low
-    def _repl_offset(match: re.Match) -> str:
-        col, off = match.group(1), int(match.group(2))
-        result = col
-        if off < 0:
-            result += "_prev" + (str(-off) if off != -1 else "")
-        elif off > 0:
-            result += "_next" + (str(off) if off != 1 else "")
-        return result
-
-    formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
-
-    # e.g. EMA(5) -> EMA5
-    formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
 
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
         result = f"{name}{period}"
         if offset:
-            off = int(offset)
-            if off < 0:
-                result += "_prev" + (str(-off) if off != -1 else "")
-            elif off > 0:
-                result += "_next" + (str(off) if off != 1 else "")
+            off = abs(int(offset))
+            if off:
+                result += "_prev" + (str(off) if off > 1 else "")
         return result
 
+    def _repl_bb(match: re.Match) -> str:
+        name = match.group(1)
+        offset = match.group(2)
+        result = name
+        if offset:
+            off = abs(int(offset))
+            if off:
+                result += "_prev" + (str(off) if off > 1 else "")
+        return result
+
+    def _repl_offset(match: re.Match) -> str:
+        col, off = match.group(1), int(match.group(2))
+        result = col
+        if off != 0:
+            off = abs(off)
+            result += "_prev" + (str(off) if off > 1 else "")
+        return result
+
+    # Replace MA(Vol,20) -> Vol_MA20
+    formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
+
+    # 1) Bollinger bands first
     formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
+
+    # 2) Multi-argument indicators like MFI(14,-1)
+    formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
+
+    # 3) Single-argument indicators
+    formula = re.sub(r"([A-Za-z_]+)\(([1-9]\d*)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
+
+    # 4) Offsets such as Close(-1) or PSAR(1)
+    formula = re.sub(r"(\b[A-Za-z_][A-Za-z0-9_]*)\((-?\d+)\)", _repl_offset, formula)
+
+    # 5) Rename Vol column to Volume
+    formula = re.sub(r"\bVol(?=\b|_)", "Volume", formula)
+
     return formula
 
 

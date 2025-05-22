@@ -117,4 +117,9 @@ def test_sell_signals():
 
 def test_normalize_zero_offset():
     assert _normalize("Low(0)") == "Low"
-    assert _normalize("Vol(0)") == "Vol"
+    assert _normalize("Vol(0)") == "Volume"
+
+
+def test_normalize_offsets():
+    assert _normalize("Close(-1)") == "Close_prev"
+    assert _normalize("PSAR(1)") == "PSAR_prev"
