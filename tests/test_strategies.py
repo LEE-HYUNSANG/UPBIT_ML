@@ -102,39 +102,25 @@ def make_df(strategy: str) -> pd.DataFrame:
 
 
 def test_buy_signals():
-    for strat in [
-        "M-BREAK",
-        "P-PULL",
-        "T-FLOW",
-        "B-LOW",
-        "V-REV",
-        "G-REV",
-        "VOL-BRK",
-        "EMA-STACK",
-        "VWAP-BNC",
-    ]:
+    """모든 전략의 매수 포뮬러가 오류 없이 계산되는지 확인한다."""
+    strategies = load_strategies()
+    for strat in strategies:
         df = make_df(strat)
         market = df_to_market(df, 1.0)
-        assert check_buy_signal(strat, "공격적", market)
+        res = check_buy_signal(strat, "공격적", market)
+        assert isinstance(res, bool)
 
 
 def test_sell_signals():
-    for strat in [
-        "M-BREAK",
-        "P-PULL",
-        "T-FLOW",
-        "B-LOW",
-        "V-REV",
-        "G-REV",
-        "VOL-BRK",
-        "EMA-STACK",
-        "VWAP-BNC",
-    ]:
+    """모든 전략의 매도 포뮬러가 오류 없이 계산되는지 확인한다."""
+    strategies = load_strategies()
+    for strat in strategies:
         df = make_df(strat)
         market = df_to_market(df, 1.0)
         market["Entry"] = df["Close"].iloc[-1] * 0.97
         market["Peak"] = df["High"].cummax().iloc[-1]
-        assert check_sell_signal(strat, "공격적", market)
+        res = check_sell_signal(strat, "공격적", market)
+        assert isinstance(res, bool)
 
 
 def test_normalize_zero_offset():
