@@ -113,6 +113,9 @@ continues decreasing every second. Once the server finishes processing and
 `/api/status` returns a new `next_refresh` value, the timer is synchronised with
 the actual remaining time until the next five‑minute candle closes.
 
+Account information and sell monitoring data are fetched every 10 seconds so
+the dashboard always shows recent positions.
+
 Both monitoring tables are refreshed right after each calculation. The
 background loops emit a `refresh_data` SocketIO event, which triggers the
 browser to call `/api/balances` and `/api/signals` three times at one‑second

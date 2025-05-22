@@ -475,9 +475,9 @@ async function reloadAccount(){
   }
 }
 
-const STATUS_INT = 300000;  // 5분
-const BAL_INT = 300000;  // 5분
-const SIG_INT = 300000;
+const STATUS_INT = 10000;  // 10초
+const BAL_INT = 10000;  // 10초
+const SIG_INT = 10000;
 const REFRESH_SEC = BAL_INT / 1000;
 let balRemain = REFRESH_SEC;
 let sigRemain = REFRESH_SEC;
