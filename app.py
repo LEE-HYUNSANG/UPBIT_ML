@@ -1255,6 +1255,7 @@ def get_strategies():
 
 @app.route("/api/strategies", methods=["POST"])
 def update_strategies():
+    global strategy_table
     data = request.get_json(force=True)
     logger.debug("update_strategies called with %s", data)
     try:
@@ -1262,7 +1263,6 @@ def update_strategies():
             raise ValueError("Invalid data")
         old_table = strategy_table
         save_strategy_list(data, STRATEGY_FILE)
-        global strategy_table
         strategy_table = data
         if old_table != data:
             log_config_change("strategy_table", "count", len(old_table), len(data))
