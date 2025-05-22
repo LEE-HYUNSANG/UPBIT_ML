@@ -79,6 +79,11 @@ def compute_indicators(df, strength=None):
     # We can similarly compute shorter volume averages if needed (like 5).
     df['Vol_MA5'] = df['Volume'].rolling(window=5).mean()
 
+    # 4-1. OBV (On Balance Volume)
+    close_diff = df['Close'].diff().fillna(0)
+    direction = np.sign(close_diff)
+    df['OBV'] = (df['Volume'] * direction).cumsum()
+
     # 5. MFI(Money Flow Index)와 VWAP 계산
     tp = (df['High'] + df['Low'] + df['Close']) / 3
     raw_mf = tp * df['Volume']
