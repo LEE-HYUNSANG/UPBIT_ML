@@ -9,6 +9,14 @@ RISK_LEVELS = {"공격적": 0, "중도적": 1, "보수적": 2, "aggressive": 0, 
 
 def _normalize(formula: str) -> str:
     """Convert indicator function calls to column-friendly names."""
+    def _repl_ma_atr(match: re.Match) -> str:
+        atr_period, ma_period = match.group(1), match.group(2)
+        return f"ATR{atr_period}_MA{ma_period}"
+
+    formula = re.sub(r"MA\(ATR\((\d+)\),\s*(\d+)\)", _repl_ma_atr, formula)
+
+    # Replace MA(Vol,20) -> Vol_MA20
+    formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
