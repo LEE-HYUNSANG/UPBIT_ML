@@ -184,6 +184,8 @@ class UpbitTrader:
             계산에서 제외할 코인 심볼 집합.
         """
         balances = self.get_balances()
+        if not balances:
+            return None
         if excluded:
             balances = [b for b in balances if b.get("currency") not in excluded]
         if not balances:
