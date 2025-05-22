@@ -1052,9 +1052,11 @@ def start_bot():
             logger.info("Start request ignored: already running")
             return jsonify(result="error", message="봇이 이미 실행중입니다.", status=get_status())
         settings.running = True
+        buy_amount = trader.config.get("amount", settings.buy_amount)
+        max_pos = trader.config.get("max_positions", settings.max_positions)
         msg = (
             f"봇 시작: 전략 {settings.strategy}, "
-            f"1회 매수 {settings.buy_amount:,}원, 최대 {settings.max_positions}종목"
+            f"1회 매수 {buy_amount:,}원, 최대 {max_pos}종목"
         )
         notify(msg)
         log_trade("bot", {"action": "start"})
