@@ -1,31 +1,912 @@
 [
     {
         "id": 1,
-        "name": "5-20 EMA 골든 크로스 돌파 전략",
-        "short_code": "EMA-GC",
+        "short_code": "M-BREAK",
+        "name": "모멘텀 돌파 전략",
         "type": "돌파",
-        "description": "5일/20일 EMA 골든크로스에 거래량 급증과 체결강도 강화가 동반된 가격 돌파를 포착하는 전략",
+        "description": "고변동·거래량 급증 시 20봉 최고가 돌파 매매",
         "buy_levels": [
             [
-                "5 EMA > 20 EMA",
+                "EMA(5) > EMA(20) and EMA(20) > EMA(60)",
                 "ATR(14) ≥ 0.03",
-                "최근 봉 거래량 ≥ 20봉 평균 × 1.5"
+                "Vol(0) ≥ MA(Vol,20) × 1.5",
+                "Strength ≥ 110%",
+                "Close ≤ MaxHigh20 * 1.003"
             ],
             [
-                "5 EMA > 20 EMA",
-                "ATR(14) ≥ 0.03",
-                "최근 봉 거래량 ≥ 20봉 평균 × 1.5",
-                "체결강도 ≥ 110%"
+                "EMA(5) > EMA(20) and EMA(20) > EMA(60)",
+                "ATR(14) ≥ 0.035",
+                "Vol(0) ≥ MA(Vol,20) × 1.8",
+                "Strength ≥ 120%",
+                "Close ≤ MaxHigh20 * 1.0015"
             ],
             [
-                "5 EMA > 20 EMA",
-                "ATR(14) ≥ 0.03",
-                "최근 봉 거래량 ≥ 20봉 평균 × 1.5",
-                "체결강도 ≥ 110%",
-                "가격 20봉 최고가 돌파 직후 ≤ +0.3%"
+                "EMA(5) > EMA(20) and EMA(20) > EMA(60)",
+                "ATR(14) ≥ 0.04",
+                "Vol(0) ≥ MA(Vol,20) × 2.0",
+                "Strength ≥ 130%",
+                "Close ≤ MaxHigh20 * 1.001"
             ]
         ],
-        "buy_formula": "EMA(5) > EMA(20) and ATR(14) >= 0.03 and Vol(0) >= MA(Vol,20)*1.5 and Strength >= 110 and Close <= MaxHigh20*1.003",
+        "buy_formula_levels": [
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and ATR(14) >= 0.03 and Vol(0) >= MA(Vol,20) * 1.5 and Strength >= 110 and Close <= MaxHigh20 * 1.003",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and ATR(14) >= 0.035 and Vol(0) >= MA(Vol,20) * 1.8 and Strength >= 120 and Close <= MaxHigh20 * 1.0015",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and ATR(14) >= 0.04 and Vol(0) >= MA(Vol,20) * 2.0 and Strength >= 130 and Close <= MaxHigh20 * 1.001"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 2,
+        "short_code": "P-PULL",
+        "name": "조정 매수 전략",
+        "type": "반등",
+        "description": "상승 추세 중 단기 조정 시 매수 진입하는 전략",
+        "buy_levels": [
+            [
+                "EMA(20) > EMA(60)",
+                "EMA(5) < EMA(20)",
+                "RSI(14) ≤ 40",
+                "ATR(14) ≤ 0.04",
+                "Strength ≥ 95%"
+            ],
+            [
+                "EMA(20) > EMA(60)",
+                "EMA(5) < EMA(20)",
+                "RSI(14) ≤ 30",
+                "ATR(14) ≤ 0.03",
+                "Strength ≥ 100%"
+            ],
+            [
+                "EMA(20) > EMA(60)",
+                "EMA(5) < EMA(20)",
+                "RSI(14) ≤ 25",
+                "ATR(14) ≤ 0.025",
+                "Strength ≥ 105%"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(20) > EMA(60) and EMA(5) < EMA(20) and RSI(14) <= 40 and ATR(14) <= 0.04 and Strength >= 95",
+            "EMA(20) > EMA(60) and EMA(5) < EMA(20) and RSI(14) <= 30 and ATR(14) <= 0.03 and Strength >= 100",
+            "EMA(20) > EMA(60) and EMA(5) < EMA(20) and RSI(14) <= 25 and ATR(14) <= 0.025 and Strength >= 105"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 3,
+        "short_code": "T-FLOW",
+        "name": "추세 추종 전략",
+        "type": "추세",
+        "description": "강한 상승 추세에서 가격 조정이 거의 없는 종목을 추세 지속 관점으로 매수하는 전략",
+        "buy_levels": [
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "RSI(14) > 50",
+                "가격 조정 제한",
+                "ATR(14) ≥ 0.02",
+                "Strength ≥ 100%"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "RSI(14) > 55",
+                "가격 조정 미미",
+                "ATR(14) ≥ 0.025",
+                "Strength ≥ 110%"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "RSI(14) > 60",
+                "가격 조정 없음",
+                "ATR(14) ≥ 0.03",
+                "Strength ≥ 120%"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and RSI(14) > 50 and (MaxHigh5 - MinLow5) / MinLow5 <= 0.05 and ATR(14) >= 0.02 and Strength >= 100",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and RSI(14) > 55 and (MaxHigh5 - MinLow5) / MinLow5 <= 0.03 and ATR(14) >= 0.025 and Strength >= 110",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and RSI(14) > 60 and (MaxHigh5 - MinLow5) / MinLow5 <= 0.01 and ATR(14) >= 0.03 and Strength >= 120"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 4,
+        "short_code": "G-REV",
+        "name": "추세 반전 전략",
+        "type": "반등",
+        "description": "장기 하락 추세 종목의 저점 부근에서 RSI 다이버전스와 지지선 형성 등을 근거로 추세 반등을 노리는 전략",
+        "buy_levels": [
+            [
+                "120 EMA 하락세",
+                "저점 낙폭 감소",
+                "RSI 다이버전스",
+                "지지선 인근 양봉",
+                "반전 진입"
+            ],
+            [
+                "120 EMA 하락세 둔화",
+                "저점 낙폭 감소",
+                "RSI 다이버전스",
+                "지지선 부근 양봉",
+                "반전 진행"
+            ],
+            [
+                "120 EMA 평탄",
+                "이중 바닥 형성",
+                "RSI 다이버전스",
+                "추세선 돌파",
+                "반전 진행"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(120) < EMA(120,-1) and Close <= MinLow120 * 1.03 and RSI(14,-1) < RSI(14) and Close > Open",
+            "EMA(120) < EMA(120,-1) and Close <= MinLow120 * 1.02 and RSI(14,-1) < RSI(14) and Close > Open",
+            "EMA(120,-1) <= EMA(120) and Close <= MinLow120 * 1.05 and RSI(14,-2) < RSI(14) and Close > EMA(20)"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 5,
+        "short_code": "VOL-BRK",
+        "name": "거래량 돌파 전략",
+        "type": "돌파",
+        "description": "거래량 급증과 함께 주가가 신고가 부근까지 상승하는 종목을 포착하는 전략",
+        "buy_levels": [
+            [
+                "거래량 스파이크",
+                "5봉 강세",
+                "EMA(5) > EMA(20)",
+                "RSI(14) > 50",
+                "급증 직후 진입"
+            ],
+            [
+                "거래량 스파이크",
+                "신고가 부근",
+                "EMA(5) > EMA(20)",
+                "RSI(14) > 55",
+                "급증 직후 진입"
+            ],
+            [
+                "거래량 스파이크",
+                "신고가 갱신",
+                "EMA(5) > EMA(20) > EMA(60)",
+                "RSI(14) > 60",
+                "급증 직후 진입"
+            ]
+        ],
+        "buy_formula_levels": [
+            "Vol(0) >= MA(Vol,20) * 2.0 and Close > Close(-5) and EMA(5) > EMA(20) and RSI(14) > 50",
+            "Vol(0) >= MA(Vol,20) * 3.0 and Close >= MaxHigh120 * 0.98 and EMA(5) > EMA(20) and RSI(14) > 55",
+            "Vol(0) >= MA(Vol,20) * 4.0 and Close >= MaxHigh120 and EMA(5) > EMA(20) and EMA(20) > EMA(60) and RSI(14) > 60"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 6,
+        "short_code": "EMA-STACK",
+        "name": "이평선 정배열 추세 전략",
+        "type": "추세",
+        "description": "다수 기간 EMA가 상승 정배열로 진행 중인 강한 추세 종목을 대상, 단기 조정 시 매수 진입하는 전략",
+        "buy_levels": [
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "상승 추세 지속",
+                "5 EMA 부근 조정",
+                "RSI(14) > 50",
+                "Vol(0) ≥ MA(Vol,20)"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "상승 추세 지속",
+                "20 EMA 부근 조정",
+                "RSI(14) > 55",
+                "Vol(0) ≥ MA(Vol,20)"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "상승 추세 지속",
+                "조정 없음",
+                "RSI(14) > 60",
+                "Vol(0) ≥ MA(Vol,20)"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and EMA(5,-1) > EMA(5) and RSI(14) > 50 and Vol(0) >= MA(Vol,20)",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close >= EMA(20) * 0.98 and RSI(14) > 55 and Vol(0) >= MA(Vol,20)",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close >= EMA(5) and RSI(14) > 60 and Vol(0) >= MA(Vol,20)"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 7,
+        "short_code": "VWAP-BNC",
+        "name": "VWAP 지지 반등 전략",
+        "type": "반등",
+        "description": "장중 주가가 VWAP 부근까지 눌렸다가 다시 상향 반등할 때 매수 진입하는 전략",
+        "buy_levels": [
+            [
+                "EMA(20) > EMA(60)",
+                "Price < VWAP (1%↓)",
+                "VWAP 지지 확인",
+                "RSI(14) > 45",
+                "VWAP 재돌파"
+            ],
+            [
+                "EMA(20) > EMA(60)",
+                "Price ≈ VWAP",
+                "VWAP 터치 반등 캔들",
+                "RSI(14) > 50",
+                "VWAP 회복 매수"
+            ],
+            [
+                "EMA(20) > EMA(60)",
+                "Price ≈ VWAP",
+                "연속 반등 캔들",
+                "RSI(14) > 55",
+                "VWAP 회복 매수"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(20) > EMA(60) and Low(0) <= VWAP * 0.99 and Close >= VWAP and Close > Open and RSI(14) > 45",
+            "EMA(20) > EMA(60) and Low(0) <= VWAP and Close >= VWAP and Close > Open and RSI(14) > 50",
+            "EMA(20) > EMA(60) and Low(-1) <= VWAP and Close(-1) >= VWAP and Close(-1) > Open(-1) and Close > Open and RSI(14) > 55"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 8,
+        "short_code": "B-BAND",
+        "name": "볼린저 밴드 반등 전략",
+        "type": "반등",
+        "description": "주가가 볼린저 밴드 하단을 이탈한 뒤 다시 밴드 안으로 진입하며 반등하는 경우를 노리는 전략",
+        "buy_levels": [
+            [
+                "밴드 하단 이탈",
+                "재진입 확인",
+                "RSI(14) < 30",
+                "Vol ↑",
+                "반등 캔들"
+            ],
+            [
+                "밴드 하단 이탈",
+                "재진입 확인",
+                "RSI(14) < 25",
+                "Vol ↑",
+                "강한 반등 캔들"
+            ],
+            [
+                "밴드 하단 크게 이탈",
+                "재진입 확인",
+                "RSI(14) < 20",
+                "Vol 감소",
+                "연속 양봉"
+            ]
+        ],
+        "buy_formula_levels": [
+            "Close(-1) < BB_lower(20,2,-1) and Close >= BB_lower(20,2) and RSI(14) < 30 and Vol(0) > Vol(-1) and Close > Open",
+            "Close(-1) < BB_lower(20,2,-1) and Close >= BB_lower(20,2) and RSI(14) < 25 and Vol(0) > Vol(-1) and Close > Open",
+            "Close(-2) < BB_lower(20,2,-2) and Close(-1) < BB_lower(20,2,-1) and Close >= BB_lower(20,2) and RSI(14) < 20 and Vol(0) < MA(Vol,20) and Close(-1) > Open(-1) and Close > Open"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 9,
+        "short_code": "BB-SQZ",
+        "name": "밴드 스퀴즈 돌파 전략",
+        "type": "돌파",
+        "description": "밴드 폭이 극히 좁아진 종목에서 거래 급증과 함께 상단 밴드 돌파 흐름이 나타나는 전략",
+        "buy_levels": [
+            [
+                "BandWidth ↓",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 2",
+                "돌파 직후 진입",
+                "상단 유지"
+            ],
+            [
+                "BandWidth ↓",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 3",
+                "돌파 직후 진입",
+                "상단 유지"
+            ],
+            [
+                "BandWidth ↓ min",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 4",
+                "돌파 초입 진입",
+                "상단 유지"
+            ]
+        ],
+        "buy_formula_levels": [
+            "BandWidth20 < BandWidth20(-1) and BandWidth20(-1) < BandWidth20(-2) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2",
+            "BandWidth20 = min(BandWidth20 over last 10) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3",
+            "BandWidth20 = min(BandWidth20 over last 20) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 4"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 10,
+        "short_code": "T-PULL",
+        "name": "추세 눌림목 매수 전략",
+        "type": "반등",
+        "description": "강한 상승 추세 중 잠시 눌림목이 발생했을 때 진입하는 추세 매수 전략",
+        "buy_levels": [
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "Price < EMA(5) (살짝 이탈)",
+                "RSI(14) ≥ 45",
+                "ATR(14) ≥ 0.025",
+                "Strength ≥ 100%"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "Price < EMA(5)",
+                "RSI(14) ≥ 50",
+                "ATR(14) ≥ 0.03",
+                "Strength ≥ 110%"
+            ],
+            [
+                "EMA(5) > EMA(20) > EMA(60)",
+                "Price < EMA(5)",
+                "RSI(14) ≥ 55",
+                "ATR(14) ≥ 0.035",
+                "Strength ≥ 120%"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close < EMA(5) and RSI(14) >= 45 and ATR(14) >= 0.025 and Strength >= 100",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close < EMA(5) and RSI(14) >= 50 and ATR(14) >= 0.03 and Strength >= 110",
+            "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close < EMA(5) and RSI(14) >= 55 and ATR(14) >= 0.035 and Strength >= 120"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 11,
+        "short_code": "RSI-BOUNCE",
+        "name": "RSI 과매도 반등 전략",
+        "type": "반등",
+        "description": "RSI가 과매도 영역에서 상승 반전할 때 초기 반등 구간을 매수 포착하는 전략",
+        "buy_levels": [
+            [
+                "RSI(14) ≤ 35",
+                "RSI(14)(1) < 35 and RSI(14)(0) > 35",
+                "반등 양봉 출현"
+            ],
+            [
+                "RSI(14) < 30",
+                "RSI(14)(1) < 30 and RSI(14)(0) > 30",
+                "Vol ↑ or Strength > 100%"
+            ],
+            [
+                "RSI(14) ≤ 20",
+                "RSI(14)(1) < 20 and RSI(14)(0) > 30",
+                "Vol ↑↑ and 강한 양봉"
+            ]
+        ],
+        "buy_formula_levels": [
+            "RSI(14,-1) <= 35 and RSI(14) > 35 and Close > Open",
+            "RSI(14,-1) < 30 and RSI(14) > 30 and (Vol(0) > Vol(-1) or Strength >= 100) and Close > Open",
+            "RSI(14,-1) < 20 and RSI(14) > 30 and Vol(0) >= MA(Vol,20) * 2 and Close >= Open * 1.01"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 12,
+        "short_code": "BOLL-B",
+        "name": "볼린저 밴드 돌파 전략",
+        "type": "돌파",
+        "description": "밴드 폭이 좁은 상태에서 주가가 거래 증가와 함께 볼린저 밴드 상단을 돌파할 때 진입하는 전략",
+        "buy_levels": [
+            [
+                "BandWidth ↓",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 2"
+            ],
+            [
+                "BandWidth ↓",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 2.5",
+                "돌파 직후 진입",
+                "상단 유지 확인"
+            ],
+            [
+                "BandWidth ↓ min",
+                "Close > UpperBand",
+                "Vol(0) ≥ MA(Vol,20) × 3",
+                "돌파 직후 진입",
+                "상단 유지 확인"
+            ]
+        ],
+        "buy_formula_levels": [
+            "BandWidth20 < BandWidth20(-1) and BandWidth20(-1) < BandWidth20(-2) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2",
+            "BandWidth20 < BandWidth20(-1) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2.5",
+            "BandWidth20 = min(BandWidth20 over last 20) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 13,
+        "short_code": "G-CROSS",
+        "name": "골든 크로스 돌파 전략",
+        "type": "돌파",
+        "description": "단기/중기 EMA 골든크로스 발생 후 주요 저항 돌파 시 매수 진입하는 전략",
+        "buy_levels": [
+            [
+                "EMA(5) 골든크로스 EMA(20)",
+                "직전 하락 추세",
+                "Vol 평소 수준",
+                "RSI(14) 상승",
+                "전환 기대 진입"
+            ],
+            [
+                "EMA(5) > EMA(20)",
+                "저항 돌파 확인",
+                "Vol(0) ≥ MA(Vol,20) × 1.5",
+                "RSI(14) > 50",
+                "신호 후 진입"
+            ],
+            [
+                "EMA(5) > EMA(20)",
+                "주요 저항 돌파 확인",
+                "Vol(0) ≥ MA(Vol,20) × 2",
+                "RSI(14) > 55",
+                "신호 후 매수"
+            ]
+        ],
+        "buy_formula_levels": [
+            "EMA(5,-1) <= EMA(20,-1) and EMA(5) > EMA(20) and EMA(60) < EMA(60,-1) and RSI(14) > RSI(14,-1) and Vol(0) >= MA(Vol,20)",
+            "EMA(5) > EMA(20) and Close >= MaxHigh20 and Vol(0) >= MA(Vol,20) * 1.5 and RSI(14) > 50",
+            "EMA(5) > EMA(20) and Close >= MaxHigh60 and Vol(0) >= MA(Vol,20) * 2 and RSI(14) > 55"
+        ],
+        "sell_levels": [
+            [
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA",
+                "종가 ≥ 진입가 × 1.10",
+                "종가 ≤ 진입가 × 0.95"
+            ],
+            [
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA",
+                "종가 ≥ 진입가 × 1.10",
+                "종가 ≤ 진입가 × 0.95"
+            ],
+            [
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA",
+                "종가 ≥ 진입가 × 1.10",
+                "종가 ≤ 진입가 × 0.95"
+            ]
+        ],
+        "sell_formula_levels": [
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95",
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95",
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
+        ]
+    },
+    {
+        "id": 14,
+        "short_code": "ATR-EXPLODE",
+        "name": "ATR 폭발 추세전환 전략",
+        "type": "추세",
+        "description": "ATR 지표가 급등할 때 거래량과 가격 움직임을 분석하여 추세의 방향 전환 신호로 활용하는 전략",
+        "buy_levels": [
+            [
+                "ATR(14) 급등",
+                "추세 방향으로",
+                "Vol 증가",
+                "ATR 급등 시 진입",
+                "엄격 손절"
+            ],
+            [
+                "ATR(14) 급등",
+                "추세 전환 신호",
+                "Vol 증가",
+                "급등 캔들 후 진입",
+                "엄격 손절"
+            ],
+            [
+                "ATR(14) 급등",
+                "추세 전환 명확",
+                "Vol(0) ≥ MA(Vol,20) × 2",
+                "급등 캔들 후 진입",
+                "엄격 손절"
+            ]
+        ],
+        "buy_formula_levels": [
+            "ATR(14) > 1.5 * MA(ATR(14),20) and EMA(20) > EMA(60) and Vol(0) > Vol(-1)",
+            "ATR(14) > 2 * MA(ATR(14),20) and EMA(20) < EMA(60) and Close > EMA(20) and Vol(0) > Vol(-1)",
+            "ATR(14) > 2.5 * MA(ATR(14),20) and EMA(20) < EMA(60) and EMA(5) > EMA(20) and Vol(0) >= MA(Vol,20) * 2"
+        ],
+        "sell_levels": [
+            [
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
+            ],
+            [
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
+            ]
+        ],
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    },
+    {
+        "id": 15,
+        "short_code": "MACD-MOM",
+        "name": "MACD 모멘텀 전략",
+        "type": "추세",
+        "description": "MACD의 골든크로스와 히스토그램 양전환 등을 통해 상승 모멘텀을 포착하는 전략",
+        "buy_levels": [
+            [
+                "MACD GC 발생",
+                "직전 하락세",
+                "MACD 히스토그램 > 0",
+                "Vol 증가",
+                "신호 발생 시 매수"
+            ],
+            [
+                "MACD GC 발생",
+                "고점 돌파",
+                "MACD 히스토그램 > 0",
+                "Vol 증가",
+                "신호 직후 매수"
+            ],
+            [
+                "MACD GC 발생",
+                "중요 저항 돌파",
+                "MACD 히스토그램 > 0 지속",
+                "Vol(0) ≥ MA(Vol,20) × 1.5",
+                "신호 후 매수"
+            ]
+        ],
+        "buy_formula_levels": [
+            "MACD_hist(-1) <= 0 and MACD_hist(0) > 0 and Vol(0) > Vol(-1)",
+            "MACD_hist(-1) <= 0 and MACD_hist(0) > 0 and Close > MaxHigh20 and Vol(0) > Vol(-1)",
+            "MACD_hist(-2) > 0 and MACD_hist(-1) > 0 and MACD_hist(0) > 0 and Close > MaxHigh60 and Vol(0) >= MA(Vol,20) * 1.5"
+        ],
         "sell_levels": [
             [
                 "5 EMA < 20 EMA",
@@ -46,1373 +927,444 @@
                 "최근 5봉 최저가 이탈"
             ]
         ],
-        "sell_formula": "EMA(5) < EMA(20) or Close <= EntryPrice*0.97 or Close >= EntryPrice*1.05 or Strength <= 90 or Close <= MinLow5",
-        "params": {
-            "fast_ema": 5,
-            "slow_ema": 20,
-            "atr_period": 14,
-            "vol_period": 20,
-            "price_range": 20,
-            "strength_thresholds": [
-                110,
-                90
-            ]
-        }
-    },
-    {
-        "id": 2,
-        "name": "RSI(2) 과매도 반등 전략",
-        "short_code": "RSI2-Rebound",
-        "type": "반등",
-        "description": "장기 상승 추세 속 2일 연속 2% 이상 하락으로 RSI(2)가 과매도인 상황에서 반등을 노리는 전략",
-        "buy_levels": [
-            [
-                "20 EMA > 60 EMA",
-                "RSI(2) < 5",
-                "현재 종가 ≤ 2일 전 종가 × 0.98"
-            ],
-            [
-                "20 EMA > 60 EMA",
-                "RSI(2) < 5",
-                "현재 종가 ≤ 2일 전 종가 × 0.98",
-                "최근 조정 구간 거래량 감소"
-            ],
-            [
-                "20 EMA > 60 EMA",
-                "RSI(2) < 5",
-                "현재 종가 ≤ 2일 전 종가 × 0.98",
-                "최근 조정 구간 거래량 감소",
-                "당일 양봉 전환"
-            ]
-        ],
-        "buy_formula": "EMA(20) > EMA(60) and RSI(2) < 5 and Close <= Close(-2)*0.98 and Vol(0) < MA(Vol,5) and Close > Open",
-        "sell_levels": [
-            [
-                "RSI(2) > 80",
-                "현재가 ≥ 진입가",
-                "5 EMA < 20 EMA"
-            ],
-            [
-                "RSI(2) > 80",
-                "현재가 ≥ 진입가",
-                "5 EMA < 20 EMA",
-                "종가 ≤ 진입가 × 0.95"
-            ],
-            [
-                "RSI(2) > 80",
-                "현재가 ≥ 진입가",
-                "5 EMA < 20 EMA",
-                "종가 ≤ 진입가 × 0.95",
-                "보유기간 경과/장 마감"
-            ]
-        ],
-        "sell_formula": "RSI(2) > 80 or Close >= EntryPrice or EMA(5) < EMA(20) or Close <= EntryPrice*0.95 or Time >= EndOfDay",
-        "params": {
-            "long_ema": 60,
-            "short_ema": 20,
-            "rsi_period": 2,
-            "drop_threshold": 0.98,
-            "vol_period": 5
-        }
-    },
-    {
-        "id": 3,
-        "name": "볼린저 밴드 하단 매수 전략",
-        "short_code": "BB-Lower",
-        "type": "반등",
-        "description": "가격이 볼린저 밴드 하단에 도달하고 RSI, CCI 등 과매도 신호가 나타날 때 저점 매수를 노리는 전략",
-        "buy_levels": [
-            [
-                "종가 Bollinger 밴드 하단선 터치",
-                "RSI(14) < 30",
-                "CCI(20) < -100"
-            ],
-            [
-                "종가 Bollinger 밴드 하단선 터치",
-                "RSI(14) < 30",
-                "CCI(20) < -100",
-                "가격 20봉 최저가 부근"
-            ],
-            [
-                "종가 Bollinger 밴드 하단선 터치",
-                "RSI(14) < 30",
-                "CCI(20) < -100",
-                "가격 20봉 최저가 부근",
-                "거래량 평소 대비 감소"
-            ]
-        ],
-        "buy_formula": "Close <= BB_lower(20,2) and RSI(14) < 30 and CCI(20) < -100 and Close <= MinLow20*1.01 and Vol(0) <= MA(Vol,20)",
-        "sell_levels": [
-            [
-                "종가 Bollinger 중간선 도달",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "종가 Bollinger 중간선 도달",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ],
-            [
-                "종가 Bollinger 중간선 도달",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close >= MA(20) or RSI(14) >= 50 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95 or Strength <= 90",
-        "params": {
-            "bb_period": 20,
-            "bb_stddev": 2,
-            "rsi_period": 14,
-            "cci_period": 20,
-            "support_range": 20,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 4,
-        "name": "볼린저 밴드 스퀴즈 돌파 전략",
-        "short_code": "BB-Squeeze",
-        "type": "돌파",
-        "description": "볼린저 밴드 폭이 최근 최저로 좁아진 후 가격이 상단 밴드를 돌파할 때 거래량 및 체결강도 증가를 동반한 돌파 전략",
-        "buy_levels": [
-            [
-                "최근 볼린저 밴드 폭 20봉 중 최저",
-                "ATR(14) ≤ 20봉 ATR 평균의 50%",
-                "종가 Bollinger 상단 돌파"
-            ],
-            [
-                "최근 볼린저 밴드 폭 20봉 중 최저",
-                "ATR(14) ≤ 20봉 ATR 평균의 50%",
-                "종가 Bollinger 상단 돌파",
-                "체결강도 ≥ 110%"
-            ],
-            [
-                "최근 볼린저 밴드 폭 20봉 중 최저",
-                "ATR(14) ≤ 20봉 ATR 평균의 50%",
-                "종가 Bollinger 상단 돌파",
-                "체결강도 ≥ 110%",
-                "거래량 증가"
-            ]
-        ],
-        "buy_formula": "BandWidth(20) = min(BandWidth(20) over last 20 bars) and ATR(14) <= 0.5*MA(ATR(14),20) and Close > BB_upper(20,2) and Strength >= 110 and Vol(0) > Vol(-1)",
-        "sell_levels": [
-            [
-                "종가 Bollinger 중간선 이하",
-                "종가 ≤ 5 EMA",
-                "종가 ≥ 진입가 × 1.10"
-            ],
-            [
-                "종가 Bollinger 중간선 이하",
-                "종가 ≤ 5 EMA",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95"
-            ],
-            [
-                "종가 Bollinger 중간선 이하",
-                "종가 ≤ 5 EMA",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close < MA(20) or Close < EMA(5) or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95 or Strength <= 90",
-        "params": {
-            "band_period": 20,
-            "atr_period": 14,
-            "atr_avg_period": 20,
-            "bandwidth_period": 20,
-            "band_stddev": 2
-        }
-    },
-    {
-        "id": 5,
-        "name": "MACD 골든크로스 매수 전략",
-        "short_code": "MACD-GC",
-        "type": "추세",
-        "description": "MACD(12,26) 지표가 신호선 상향 돌파(골든크로스)할 때 가격이 EMA20 위에 있고 모멘텀(RSI>50)과 거래량이 뒷받침되는 추세 매매 전략",
-        "buy_levels": [
-            [
-                "MACD(12,26) > MACD Signal",
-                "MACD 히스토그램 양전환",
-                "종가 > 20 EMA"
-            ],
-            [
-                "MACD(12,26) > MACD Signal",
-                "MACD 히스토그램 양전환",
-                "종가 > 20 EMA",
-                "RSI(14) > 50"
-            ],
-            [
-                "MACD(12,26) > MACD Signal",
-                "MACD 히스토그램 양전환",
-                "종가 > 20 EMA",
-                "RSI(14) > 50",
-                "거래량 ≥ 20봉 평균"
-            ]
-        ],
-        "buy_formula": "MACD(12,26) > MACD_Signal and MACD_hist(0) > 0 and Close > EMA(20) and RSI(14) > 50 and Vol(0) >= MA(Vol,20)",
-        "sell_levels": [
-            [
-                "MACD 히스토그램 음전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50"
-            ],
-            [
-                "MACD 히스토그램 음전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "MACD 히스토그램 음전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "MACD_hist(0) < 0 or Close < EMA(20) or RSI(14) < 50 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95",
-        "params": {
-            "fast_ma": 12,
-            "slow_ma": 26,
-            "signal_ma": 9,
-            "ema_period": 20,
-            "rsi_period": 14,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 6,
-        "name": "MACD 히스토그램 돌파 전략",
-        "short_code": "MACD-Hist",
-        "type": "추세",
-        "description": "MACD 히스토그램이 0선을 넘어 상승 모멘텀으로 전환되는 시점에 가격이 EMA20을 상회하고 RSI 등 모멘텀이 양호하며 거래량이 증가하는 추세 매매 전략",
-        "buy_levels": [
-            [
-                "MACD 히스토그램 0선 상향 돌파",
-                "종가 > 20 EMA",
-                "RSI(14) > 50"
-            ],
-            [
-                "MACD 히스토그램 0선 상향 돌파",
-                "종가 > 20 EMA",
-                "RSI(14) > 50",
-                "거래량 3봉 연속 증가"
-            ],
-            [
-                "MACD 히스토그램 0선 상향 돌파",
-                "종가 > 20 EMA",
-                "RSI(14) > 50",
-                "거래량 3봉 연속 증가",
-                "MACD 지표 지속 상승"
-            ]
-        ],
-        "buy_formula": "MACD_hist(-1) <= 0 and MACD_hist(0) > 0 and Close > EMA(20) and RSI(14) > 50 and Vol(-2) < Vol(-1) < Vol(0)",
-        "sell_levels": [
-            [
-                "MACD 히스토그램 하향 전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50"
-            ],
-            [
-                "MACD 히스토그램 하향 전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "MACD 히스토그램 하향 전환",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "MACD_hist(0) < 0 or Close < EMA(20) or RSI(14) < 50 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95",
-        "params": {
-            "macd_hist_periods": [
-                12,
-                26,
-                9
-            ],
-            "ema_period": 20,
-            "rsi_period": 14
-        }
-    },
-    {
-        "id": 7,
-        "name": "스토캐스틱 과매도 매수 전략",
-        "short_code": "STO-OS",
-        "type": "반등",
-        "description": "Slow 스토캐스틱 %K가 20 미만의 과매도권에서 %D선을 상향 돌파(골든크로스)하고 RSI도 과매도인 상황에서 가격이 볼린저 밴드 하단 부근이며 거래량이 감소한 경우 반등 매수를 노리는 전략",
-        "buy_levels": [
-            [
-                "Slow %K < 20",
-                "%K > %D 골든크로스 발생",
-                "RSI(14) < 30"
-            ],
-            [
-                "Slow %K < 20",
-                "%K > %D 골든크로스 발생",
-                "RSI(14) < 30",
-                "가격 Bollinger 밴드 하단 근접"
-            ],
-            [
-                "Slow %K < 20",
-                "%K > %D 골든크로스 발생",
-                "RSI(14) < 30",
-                "가격 Bollinger 밴드 하단 근접",
-                "거래량 평소 이하"
-            ]
-        ],
-        "buy_formula": "Stoch%K(14,3) < 20 and Stoch%K(14,3) > Stoch%D(14,3) and RSI(14) < 30 and Close <= BB_lower(20,2) and Vol(0) < MA(Vol,20)",
-        "sell_levels": [
-            [
-                "Slow %K > 80",
-                "%K < %D 데드크로스 발생",
-                "RSI(14) > 70"
-            ],
-            [
-                "Slow %K > 80",
-                "%K < %D 데드크로스 발생",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "Slow %K > 80",
-                "%K < %D 데드크로스 발생",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "Stoch%K(14,3) > 80 or Stoch%K(14,3) < Stoch%D(14,3) or RSI(14) > 70 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95",
-        "params": {
-            "stoch_period": 14,
-            "stoch_d": 3,
-            "rsi_period": 14,
-            "bb_period": 20,
-            "bb_stddev": 2,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 8,
-        "name": "CCI 과매도 반등 전략",
-        "short_code": "CCI-OS",
-        "type": "반등",
-        "description": "CCI(20)이 -100 이하로 급락 후 직전 저점 대비 상승 반전하고 RSI도 30 미만인 경우, 가격이 최근 최저가 부근인 종목의 반등을 노리는 전략",
-        "buy_levels": [
-            [
-                "CCI(20) ≤ -100",
-                "CCI 상승 전환 (직전 저점 대비)",
-                "RSI(14) < 30"
-            ],
-            [
-                "CCI(20) ≤ -100",
-                "CCI 상승 전환 (직전 저점 대비)",
-                "RSI(14) < 30",
-                "가격 10봉 최저가 부근 (+1% 이내)"
-            ],
-            [
-                "CCI(20) ≤ -100",
-                "CCI 상승 전환 (직전 저점 대비)",
-                "RSI(14) < 30",
-                "가격 10봉 최저가 부근 (+1% 이내)",
-                "거래량 평소 이하"
-            ]
-        ],
-        "buy_formula": "CCI(20) <= -100 and CCI(20) > CCI(20,-1) and RSI(14) < 30 and Close <= MinLow10*1.01 and Vol(0) < MA(Vol,20)",
-        "sell_levels": [
-            [
-                "CCI(20) ≥ 100",
-                "CCI 하락 반전",
-                "RSI(14) > 70"
-            ],
-            [
-                "CCI(20) ≥ 100",
-                "CCI 하락 반전",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "CCI(20) ≥ 100",
-                "CCI 하락 반전",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "CCI(20) >= 100 or CCI(20) < CCI(20,-1) or RSI(14) > 70 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95",
-        "params": {
-            "cci_period": 20,
-            "rsi_period": 14,
-            "low_window": 10,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 9,
-        "name": "이평선 지지 매매 전략 (EMA20)",
-        "short_code": "EMA20-Support",
-        "type": "추세",
-        "description": "상승 추세의 20일 이동평균선 부근까지 가격이 소폭 조정된 후, 지지선에서 양봉 전환과 체결강도 개선이 확인될 때 매수하여 추세 지속을 노리는 전략",
-        "buy_levels": [
-            [
-                "종가 20 EMA 부근 (근접 마무리)",
-                "20 EMA 상승 추세",
-                "최근 조정폭 ≤ 5%"
-            ],
-            [
-                "종가 20 EMA 부근 (근접 마무리)",
-                "20 EMA 상승 추세",
-                "최근 조정폭 ≤ 5%",
-                "당일 양봉 전환"
-            ],
-            [
-                "종가 20 EMA 부근 (근접 마무리)",
-                "20 EMA 상승 추세",
-                "최근 조정폭 ≤ 5%",
-                "당일 양봉 전환",
-                "체결강도 ≥ 100%"
-            ]
-        ],
-        "buy_formula": "Close ≈ EMA(20) and EMA(20) > EMA(20,-1) and (MaxHigh5 - MinLow5)/MinLow5 <= 0.05 and Close > Open and Strength >= 100",
-        "sell_levels": [
-            [
-                "종가 20 EMA 이탈",
-                "20 EMA 하락 추세 전환",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "종가 20 EMA 이탈",
-                "20 EMA 하락 추세 전환",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97"
-            ],
-            [
-                "종가 20 EMA 이탈",
-                "20 EMA 하락 추세 전환",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close < EMA(20) or EMA(20) < EMA(20,-1) or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.97 or Strength <= 90",
-        "params": {
-            "ema_period": 20,
-            "pullback_threshold": 0.05,
-            "strength_thresholds": [
-                100,
-                90
-            ]
-        }
-    },
-    {
-        "id": 10,
-        "name": "다중 이평선 정배열 추세전략",
-        "short_code": "Multi-EMA",
-        "type": "추세",
-        "description": "5일, 20일, 60일, 120일 이동평균선이 단기부터 장기까지 모두 상향 정렬되고 상승세인 상황에서 RSI(14)가 50 이상으로 모멘텀이 양호할 때 추세를 따라 매수하는 전략",
-        "buy_levels": [
-            [
-                "5 EMA > 20 EMA",
-                "20 EMA > 60 EMA",
-                "60 EMA > 120 EMA"
-            ],
-            [
-                "5 EMA > 20 EMA",
-                "20 EMA > 60 EMA",
-                "60 EMA > 120 EMA",
-                "모든 이평선 우상향"
-            ],
-            [
-                "5 EMA > 20 EMA",
-                "20 EMA > 60 EMA",
-                "60 EMA > 120 EMA",
-                "모든 이평선 우상향",
-                "RSI(14) ≥ 50"
-            ]
-        ],
-        "buy_formula": "EMA(5) > EMA(20) and EMA(20) > EMA(60) and EMA(60) > EMA(120) and EMA(5,-1) < EMA(5) and EMA(20,-1) < EMA(20) and EMA(60,-1) < EMA(60) and EMA(120,-1) < EMA(120) and RSI(14) >= 50",
-        "sell_levels": [
-            [
-                "5 EMA < 20 EMA",
-                "RSI(14) > 80",
-                "종가 < 60 EMA"
-            ],
-            [
-                "5 EMA < 20 EMA",
-                "RSI(14) > 80",
-                "종가 < 60 EMA",
-                "종가 ≥ 진입가 × 1.10"
-            ],
-            [
-                "5 EMA < 20 EMA",
-                "RSI(14) > 80",
-                "종가 < 60 EMA",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "EMA(5) < EMA(20) or RSI(14) > 80 or Close < EMA(60) or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "ema_periods": [
-                5,
-                20,
-                60,
-                120
-            ],
-            "rsi_period": 14
-        }
-    },
-    {
-        "id": 11,
-        "name": "박스권 돌파전략 (20봉)",
-        "short_code": "Range-BO",
-        "type": "돌파",
-        "description": "최근 20봉 동안 가격 변동폭이 5% 이하로 매우 좁은 박스권이었던 종목이 박스 상단을 돌파할 때, 거래량 급증과 체결강도 강화가 수반되는 돌파 추세를 타는 전략",
-        "buy_levels": [
-            [
-                "20봉 최고가-최저가 폭 ≤ 5%",
-                "종가 20봉 최고가 돌파",
-                "거래량 ≥ 20봉 평균 × 2"
-            ],
-            [
-                "20봉 최고가-최저가 폭 ≤ 5%",
-                "종가 20봉 최고가 돌파",
-                "거래량 ≥ 20봉 평균 × 2",
-                "체결강도 ≥ 120%"
-            ],
-            [
-                "20봉 최고가-최저가 폭 ≤ 5%",
-                "종가 20봉 최고가 돌파",
-                "거래량 ≥ 20봉 평균 × 2",
-                "체결강도 ≥ 120%",
-                "RSI(14) ≥ 60"
-            ]
-        ],
-        "buy_formula": "(MaxHigh20 - MinLow20)/MinLow20 <= 0.05 and Close > MaxHigh20 and Vol(0) >= 2*MA(Vol,20) and Strength >= 120 and RSI(14) >= 60",
-        "sell_levels": [
-            [
-                "박스권 상단 재이탈 (돌파 실패)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ],
-            [
-                "박스권 상단 재이탈 (돌파 실패)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95",
-                "RSI(14) < 50"
-            ],
-            [
-                "박스권 상단 재이탈 (돌파 실패)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95",
-                "RSI(14) < 50",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close < MaxHigh20 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95 or RSI(14) < 50 or Strength <= 90",
-        "params": {
-            "range_period": 20,
-            "range_threshold": 0.05,
-            "vol_period": 20,
-            "strength_thresholds": [
-                120,
-                90
-            ]
-        }
-    },
-    {
-        "id": 12,
-        "name": "갭상승 돌파전략",
-        "short_code": "Gap-BO",
-        "type": "돌파",
-        "description": "전일 대비 2% 이상 상승 갭으로 시작해 장 초반 강세를 유지하는 종목을 높은 체결강도와 거래량 증가를 확인하여 돌파 매수하는 전략",
-        "buy_levels": [
-            [
-                "시가 전일종가 대비 +2% 이상 갭상승",
-                "초반 강세 지속",
-                "체결강도 ≥ 120%"
-            ],
-            [
-                "시가 전일종가 대비 +2% 이상 갭상승",
-                "초반 강세 지속",
-                "체결강도 ≥ 120%",
-                "RSI(14) ≥ 60"
-            ],
-            [
-                "시가 전일종가 대비 +2% 이상 갭상승",
-                "초반 강세 지속",
-                "체결강도 ≥ 120%",
-                "RSI(14) ≥ 60",
-                "거래량 ≥ 전일 평균"
-            ]
-        ],
-        "buy_formula": "Open(0) >= PrevClose*1.02 and (Intraday trend stays up) and Strength >= 120 and RSI(14) >= 60 and Vol(0) >= MA(Vol,1)",
-        "sell_levels": [
-            [
-                "전일종가 이하로 복귀",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97"
-            ],
-            [
-                "전일종가 이하로 복귀",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97",
-                "RSI(14) < 50"
-            ],
-            [
-                "전일종가 이하로 복귀",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97",
-                "RSI(14) < 50",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close < PrevClose or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.97 or RSI(14) < 50 or Strength <= 90",
-        "params": {
-            "gap_threshold": 0.02,
-            "strength_thresholds": [
-                120,
-                90
-            ],
-            "target": 1.05,
-            "stop": 0.97
-        }
-    },
-    {
-        "id": 13,
-        "name": "CCI +100 강세 추세전략",
-        "short_code": "CCI+100",
-        "type": "추세",
-        "description": "CCI(20)이 +100 이상으로 강한 상승 추세를 보이는 종목에서 추세가 유지되고 가격이 20일선 위에 있으며 RSI도 60 이상일 때 거래량이 뒷받침되는 강세 추세 매매 전략",
-        "buy_levels": [
-            [
-                "CCI(20) > +100",
-                "CCI 추세 유지 (지속 과열)",
-                "종가 > 20 EMA"
-            ],
-            [
-                "CCI(20) > +100",
-                "CCI 추세 유지 (지속 과열)",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 60"
-            ],
-            [
-                "CCI(20) > +100",
-                "CCI 추세 유지 (지속 과열)",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 60",
-                "거래량 평균 이상"
-            ]
-        ],
-        "buy_formula": "CCI(20) > 100 and CCI(20,-1) > 100 and Close > EMA(20) and RSI(14) >= 60 and Vol(0) >= MA(Vol,20)",
-        "sell_levels": [
-            [
-                "CCI(20) < 100 하락",
-                "RSI(14) < 50",
-                "종가 < 20 EMA"
-            ],
-            [
-                "CCI(20) < 100 하락",
-                "RSI(14) < 50",
-                "종가 < 20 EMA",
-                "종가 ≥ 진입가 × 1.10"
-            ],
-            [
-                "CCI(20) < 100 하락",
-                "RSI(14) < 50",
-                "종가 < 20 EMA",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "CCI(20) < 100 or RSI(14) < 50 or Close < EMA(20) or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "cci_period": 20,
-            "rsi_period": 14,
-            "ema_period": 20
-        }
-    },
-    {
-        "id": 14,
-        "name": "돌파 후 되돌림 매수전략",
-        "short_code": "BO-Pullback",
-        "type": "돌파",
-        "description": "중요 저항대를 돌파한 후 3% 이내의 얕은 눌림목이 발생하고, 돌파했던 가격대가 지지로 확인되어 다시 상승 전환되는 시점에 매수하는 전략",
-        "buy_levels": [
-            [
-                "주요 저항 돌파 후 소폭 조정",
-                "조정폭 3% 이내",
-                "돌파한 가격대 지지 확인"
-            ],
-            [
-                "주요 저항 돌파 후 소폭 조정",
-                "조정폭 3% 이내",
-                "돌파한 가격대 지지 확인",
-                "RSI(14) ≥ 50"
-            ],
-            [
-                "주요 저항 돌파 후 소폭 조정",
-                "조정폭 3% 이내",
-                "돌파한 가격대 지지 확인",
-                "RSI(14) ≥ 50",
-                "재상승 캔들 형성"
-            ]
-        ],
-        "buy_formula": "Breakout occurred then pullback < 0.03 and support holds (price stays above breakout level) and RSI(14) >= 50 and bullish candle after pullback",
-        "sell_levels": [
-            [
-                "지지선 이탈 (돌파 실패 확정)",
-                "조정폭 5% 이상 확대",
-                "RSI(14) < 50"
-            ],
-            [
-                "지지선 이탈 (돌파 실패 확정)",
-                "조정폭 5% 이상 확대",
-                "RSI(14) < 50",
-                "종가 ≤ 진입가"
-            ],
-            [
-                "지지선 이탈 (돌파 실패 확정)",
-                "조정폭 5% 이상 확대",
-                "RSI(14) < 50",
-                "종가 ≤ 진입가",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "Close < breakout_support or pullback > 0.05 or RSI(14) < 50 or Close <= EntryPrice or Close <= EntryPrice*0.95",
-        "params": {
-            "pullback_limit": 0.03,
-            "extended_pullback": 0.05,
-            "rsi_period": 14,
-            "stop": 0.95
-        }
-    },
-    {
-        "id": 15,
-        "name": "ADX 추세추종 전략",
-        "short_code": "ADX-Trend",
-        "type": "추세",
-        "description": "ADX(14)이 25 이상으로 추세가 강하고 +DI가 -DI보다 높으며 ADX가 상승 추세일 때, 가격이 20일선 위에 있고 RSI(14)도 50 이상인 종목을 추세 추종 매수하는 전략",
-        "buy_levels": [
-            [
-                "ADX(14) ≥ 25",
-                "+DI > -DI (상승 DMI 우세)",
-                "ADX 상승 추세"
-            ],
-            [
-                "ADX(14) ≥ 25",
-                "+DI > -DI (상승 DMI 우세)",
-                "ADX 상승 추세",
-                "종가 > 20 EMA"
-            ],
-            [
-                "ADX(14) ≥ 25",
-                "+DI > -DI (상승 DMI 우세)",
-                "ADX 상승 추세",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 50"
-            ]
-        ],
-        "buy_formula": "ADX(14) >= 25 and DI+ > DI- and ADX(14) > ADX(14,-1) and Close > EMA(20) and RSI(14) >= 50",
-        "sell_levels": [
-            [
-                "+DI < -DI (DMI 약세전환)",
-                "ADX(14) ≤ 20",
-                "종가 < 20 EMA"
-            ],
-            [
-                "+DI < -DI (DMI 약세전환)",
-                "ADX(14) ≤ 20",
-                "종가 < 20 EMA",
-                "종가 ≥ 진입가 × 1.10"
-            ],
-            [
-                "+DI < -DI (DMI 약세전환)",
-                "ADX(14) ≤ 20",
-                "종가 < 20 EMA",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "DI+ < DI- or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "adx_period": 14,
-            "adx_threshold": 25,
-            "di_period": 14,
-            "ema_period": 20,
-            "rsi_period": 14
-        }
+        "sell_formula_levels": [
+            "EMA(5) < EMA(20) or Close <= EntryPrice * 0.97 or Close >= EntryPrice * 1.05 or Strength <= 90 or Close <= MinLow5",
+            "EMA(5) < EMA(20) or Close <= EntryPrice * 0.97 or Close >= EntryPrice * 1.05 or Strength <= 90 or Close <= MinLow5",
+            "EMA(5) < EMA(20) or Close <= EntryPrice * 0.97 or Close >= EntryPrice * 1.05 or Strength <= 90 or Close <= MinLow5"
+        ]
     },
     {
         "id": 16,
-        "name": "거래량 폭발 추세 전략",
-        "short_code": "Vol-Spike",
-        "type": "추세",
-        "description": "당일 누적 거래량이 전일 대비 2배 이상으로 급증하고 단기 추세(5분 봉 등)가 상승세이며 체결강도가 130% 이상, RSI(14)≥60으로 모멘텀이 강한 경우 변동성 확대와 함께 추세를 추종하는 전략",
+        "short_code": "STOCH-BOUNCE",
+        "name": "스토캐스틱 과매도 반등 전략",
+        "type": "반등",
+        "description": "스토캐스틱이 과매도 구간에서 %K선이 %D선을 상향 돌파할 때 반등을 노리는 전략",
         "buy_levels": [
             [
-                "전일 대비 누적 거래량 ≥ 2배",
-                "5분봉 고점 상승 지속",
-                "체결강도 ≥ 130%"
+                "%K < 30",
+                "%K × %D 골든크로스",
+                "작은 양봉",
+                "RSI(14) < 50",
+                "약세 추세"
             ],
             [
-                "전일 대비 누적 거래량 ≥ 2배",
-                "5분봉 고점 상승 지속",
-                "체결강도 ≥ 130%",
-                "RSI(14) ≥ 60"
+                "%K < 20",
+                "%K × %D 골든크로스",
+                "중앙선까지 반등 기대",
+                "RSI(14) < 45",
+                "부분 청산"
             ],
             [
-                "전일 대비 누적 거래량 ≥ 2배",
-                "5분봉 고점 상승 지속",
-                "체결강도 ≥ 130%",
-                "RSI(14) ≥ 60",
-                "ATR(14) 전봉 대비 ≥ 2배"
+                "%K < 15",
+                "%K × %D 골든크로스",
+                "소폭 상승 시 익절",
+                "RSI(14) < 40",
+                "엄격 손절"
             ]
         ],
-        "buy_formula": "CumVol(today) >= 2*Vol(prevDay) and (Higher highs in 5-min chart) and Strength >= 130 and RSI(14) >= 60 and ATR(14) >= 2*ATR(14,-1)",
+        "buy_formula_levels": [
+            "StochK(14) < 30 and StochK(14) > StochD(14) and Close > Open and RSI(14) < 50",
+            "StochK(14) < 20 and StochK(14) > StochD(14) and RSI(14) < 45",
+            "StochK(14) < 15 and StochK(14) > StochD(14) and RSI(14) < 40"
+        ],
         "sell_levels": [
             [
-                "거래량 급감 (수급 이탈)",
-                "5분봉 저점 하락 전환",
-                "체결강도 ≤ 100%"
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "거래량 급감 (수급 이탈)",
-                "5분봉 저점 하락 전환",
-                "체결강도 ≤ 100%",
-                "종가 ≥ 진입가 × 1.10"
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "거래량 급감 (수급 이탈)",
-                "5분봉 저점 하락 전환",
-                "체결강도 ≤ 100%",
-                "종가 ≥ 진입가 × 1.10",
-                "종가 ≤ 진입가 × 0.95"
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
             ]
         ],
-        "sell_formula": "Vol dropping or (Lower lows in 5-min) or Strength <= 100 or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "volume_multiplier": 2,
-            "strength_thresholds": [
-                130,
-                100
-            ],
-            "target": 1.10,
-            "stop": 0.95
-        }
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
     },
     {
         "id": 17,
-        "name": "갭상승 후 눌림 매수전략",
-        "short_code": "Gap-Dip",
-        "type": "돌파",
-        "description": "전일 종가 대비 3% 이상 갭상승 출발 후 장 초반 눌림 발생으로 갭을 일부 메웠지만 전일 종가 위를 유지하고, 이후 VWAP을 돌파하며 매수세가 회복될 때 진입하는 전략",
+        "short_code": "RSI-DIV",
+        "name": "RSI 다이버전스 반전 전략",
+        "type": "반등",
+        "description": "RSI의 강세 다이버전스를 활용하여 가격 추세 반전을 노리는 전략",
         "buy_levels": [
             [
-                "전일 종가 대비 +3% 이상 갭상승",
-                "장초반 일시 조정 발생",
-                "전일 종가 유지 (갭 유지 확인)"
+                "RSI 강세 다이버전스",
+                "첫 양봉 발생",
+                "반등 캔들 매수",
+                "추세 지속 가능",
+                "손절 엄수"
             ],
             [
-                "전일 종가 대비 +3% 이상 갭상승",
-                "장초반 일시 조정 발생",
-                "전일 종가 유지 (갭 유지 확인)",
-                "VWAP 상향 돌파"
+                "RSI 강세 다이버전스",
+                "강한 양봉 발생",
+                "반등 캔들 매수",
+                "추세 지속 가능",
+                "손절 엄수"
             ],
             [
-                "전일 종가 대비 +3% 이상 갭상승",
-                "장초반 일시 조정 발생",
-                "전일 종가 유지 (갭 유지 확인)",
-                "VWAP 상향 돌파",
-                "체결강도 ≥ 100%"
+                "RSI 강세 다이버전스",
+                "강한 양봉 발생",
+                "추세선 돌파 확인 후 매수",
+                "추세 지속 가능성 낮음",
+                "손절 엄수"
             ]
         ],
-        "buy_formula": "Open(0) >= PrevClose*1.03 and (early pullback after open) and Low ≈ PrevClose and Close > VWAP and Strength >= 100",
+        "buy_formula_levels": [
+            "Close < Close(-5) and RSI(14) > RSI(14,-5) and Close > Open",
+            "Close < Close(-10) and RSI(14) > RSI(14,-10) and Close >= Open * 1.01",
+            "Close < Close(-15) and RSI(14) > RSI(14,-15) and Close >= EMA(20)"
+        ],
         "sell_levels": [
             [
-                "전일 종가 이탈 (갭상승분 소멸)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97"
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "전일 종가 이탈 (갭상승분 소멸)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97",
-                "체결강도 ≤ 90%"
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "전일 종가 이탈 (갭상승분 소멸)",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.97",
-                "체결강도 ≤ 90%",
-                "—"
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
             ]
         ],
-        "sell_formula": "Close < PrevClose or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.97 or Strength <= 90",
-        "params": {
-            "gap_threshold": 0.03,
-            "target": 1.05,
-            "stop": 0.97
-        }
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
     },
     {
         "id": 18,
-        "name": "DMI +DI 교차 매매전략",
-        "short_code": "DMI-Cross",
-        "type": "추세",
-        "description": "ADX(14)이 15 이하로 추세가 거의 없던 상황에서 +DI가 -DI를 상향 돌파하여 새로운 상승 추세가 시작될 때, 가격이 20일선 위에 있고 RSI(14)≥50이며 거래량이 평소 이상인 종목에 진입하는 전략",
+        "short_code": "I-BREAK",
+        "name": "Ichimoku 구름 돌파 전략",
+        "type": "돌파",
+        "description": "일목균형표 구름대를 상향 돌파하여 상승 전환하는 시점에 매수 진입하는 전략",
         "buy_levels": [
             [
-                "ADX(14) ≤ 15 (추세 거의 없음)",
-                "+DI > -DI 발생 (상승 추세 시작)",
-                "종가 > 20 EMA"
+                "Close > CloudTop",
+                "Tenkan > Kijun",
+                "Vol(0) ≥ MA(Vol,20) × 1.5",
+                "Strength ≥ 110%",
+                "Close ≤ CloudTop × 1.003"
             ],
             [
-                "ADX(14) ≤ 15 (추세 거의 없음)",
-                "+DI > -DI 발생 (상승 추세 시작)",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 50"
+                "Close > CloudTop and SenkouA > SenkouB",
+                "Tenkan > Kijun",
+                "Vol(0) ≥ MA(Vol,20) × 1.8",
+                "Strength ≥ 120%",
+                "Close ≤ CloudTop × 1.0015"
             ],
             [
-                "ADX(14) ≤ 15 (추세 거의 없음)",
-                "+DI > -DI 발생 (상승 추세 시작)",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 50",
-                "거래량 ≥ 20봉 평균"
+                "Close > CloudTop and LaggingSpan > CloudTop",
+                "Tenkan > Kijun and Kijun > CloudTop",
+                "Vol(0) ≥ MA(Vol,20) × 2.0",
+                "Strength ≥ 130%",
+                "Close ≤ CloudTop × 1.001"
             ]
         ],
-        "buy_formula": "ADX(14) <= 15 and DI+ crosses above DI- and Close > EMA(20) and RSI(14) >= 50 and Vol(0) > MA(Vol,20)",
+        "buy_formula_levels": [
+            "Close > SpanA and Close > SpanB and Tenkan(9) > Kijun(26) and Vol(0) >= MA(Vol,20) * 1.5 and Strength >= 110 and Close <= max(SpanA, SpanB) * 1.003",
+            "Close > SpanA and SpanA > SpanB and Tenkan(9) > Kijun(26) and Vol(0) >= MA(Vol,20) * 1.8 and Strength >= 120 and Close <= max(SpanA, SpanB) * 1.0015",
+            "Close > SpanA and SpanB and Close(-26) > SpanA(-26) and Close(-26) > SpanB(-26) and Tenkan(9) > Kijun(26) and Kijun(26) > max(SpanA, SpanB) and Vol(0) >= MA(Vol,20) * 2.0 and Strength >= 130 and Close <= max(SpanA, SpanB) * 1.001"
+        ],
         "sell_levels": [
             [
-                "-DI > +DI 발생 (추세 역전)",
-                "ADX(14) ≥ 25 → <25 (추세종료)",
-                "종가 < 20 EMA"
+                "종가 구름대 하단 이탈",
+                "전환선 < 기준선 (음전 발생)",
+                "체결강도 ≤ 90%"
             ],
             [
-                "-DI > +DI 발생 (추세 역전)",
-                "ADX(14) ≥ 25 → <25 (추세종료)",
-                "종가 < 20 EMA",
+                "종가 구름대 하단 이탈",
+                "전환선 < 기준선 (음전 발생)",
+                "체결강도 ≤ 90%",
                 "종가 ≥ 진입가 × 1.10"
             ],
             [
-                "-DI > +DI 발생 (추세 역전)",
-                "ADX(14) ≥ 25 → <25 (추세종료)",
-                "종가 < 20 EMA",
+                "종가 구름대 하단 이탈",
+                "전환선 < 기준선 (음전 발생)",
+                "체결강도 ≤ 90%",
                 "종가 ≥ 진입가 × 1.10",
                 "종가 ≤ 진입가 × 0.95"
             ]
         ],
-        "sell_formula": "DI- > DI+ or (ADX(14) dropping below 25) or Close < EMA(20) or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "adx_period": 14,
-            "di_period": 14,
-            "no_trend_threshold": 15,
-            "trend_confirm": 25,
-            "ema_period": 20,
-            "rsi_period": 14
-        }
+        "sell_formula_levels": [
+            "Close < SpanB or Tenkan(9) < Kijun(26) or Strength <= 90 or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95",
+            "Close < SpanB or Tenkan(9) < Kijun(26) or Strength <= 90 or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95",
+            "Close < SpanB or Tenkan(9) < Kijun(26) or Strength <= 90 or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
+        ]
     },
     {
         "id": 19,
-        "name": "일목균형표 구름대 돌파전략",
-        "short_code": "Ichimoku-BO",
-        "type": "돌파",
-        "description": "일목균형표 구름대를 상향 돌파하여 상승 전환하는 시점에, 전환선이 기준선을 상향 돌파하고 양운 (선행스팬A > 선행스팬B)이 형성되며 RSI(14)≥50, 거래량도 평소보다 많은 종목을 매수하는 전략",
+        "short_code": "ADX-TRND",
+        "name": "ADX 추세 진입 전략",
+        "type": "추세",
+        "description": "ADX로 추세 강도를 확인하고 DMI를 통해 상승 추세를 판단하여 추세 추종 진입하는 전략",
         "buy_levels": [
             [
-                "종가 구름대 상단 돌파",
-                "전환선 > 기준선 (호전 발생)",
-                "선행스팬A > 선행스팬B (양운 형성)"
+                "ADX(14) ≥ 25 (추세 형성)",
+                "+DI > -DI (상승 DMI 우세)",
+                "ADX 상승 추세",
+                "종가 > 20 EMA"
             ],
             [
-                "종가 구름대 상단 돌파",
-                "전환선 > 기준선 (호전 발생)",
-                "선행스팬A > 선행스팬B (양운 형성)",
+                "ADX(14) ≥ 30 (추세 강함)",
+                "+DI > -DI (상승 DMI 우세)",
+                "ADX 상승 추세",
+                "종가 > 20 EMA",
                 "RSI(14) ≥ 50"
             ],
             [
-                "종가 구름대 상단 돌파",
-                "전환선 > 기준선 (호전 발생)",
-                "선행스팬A > 선행스팬B (양운 형성)",
-                "RSI(14) ≥ 50",
-                "거래량 평소 이상"
+                "ADX(14) ≥ 35 (추세 매우 강함)",
+                "+DI > -DI (상승 DMI 우세)",
+                "ADX 상승 추세",
+                "종가 > 20 EMA",
+                "RSI(14) ≥ 50"
             ]
         ],
-        "buy_formula": "Close > IchimokuSpanA and Tenkan(9) > Kijun(26) and SpanA > SpanB and RSI(14) >= 50 and Vol(0) >= MA(Vol,20)",
+        "buy_formula_levels": [
+            "EMA(20) > EMA(60) and ADX(14) >= 25 and DI_plus > DI_minus and ADX(14) > ADX(14,-1) and Close >= MaxHigh20",
+            "EMA(5) > EMA(20) > EMA(60) and ADX(14) >= 30 and DI_plus > DI_minus and ADX(14) > ADX(14,-1) and Close >= MaxHigh20",
+            "EMA(5) > EMA(20) > EMA(60) and ADX(14) >= 35 and DI_plus > DI_minus and ADX(14) > ADX(14,-1) and Close >= MaxHigh20"
+        ],
         "sell_levels": [
             [
-                "종가 구름대 하단 이탈",
-                "전환선 < 기준선 (음전 발생)",
-                "체결강도 ≤ 90%"
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA"
             ],
             [
-                "종가 구름대 하단 이탈",
-                "전환선 < 기준선 (음전 발생)",
-                "체결강도 ≤ 90%",
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA",
                 "종가 ≥ 진입가 × 1.10"
             ],
             [
-                "종가 구름대 하단 이탈",
-                "전환선 < 기준선 (음전 발생)",
-                "체결강도 ≤ 90%",
+                "+DI < -DI (DMI 약세전환)",
+                "ADX(14) ≤ 20",
+                "종가 < 20 EMA",
                 "종가 ≥ 진입가 × 1.10",
                 "종가 ≤ 진입가 × 0.95"
             ]
         ],
-        "sell_formula": "Close < IchimokuSpanB or Tenkan(9) < Kijun(26) or Strength <= 90 or Close >= EntryPrice*1.10 or Close <= EntryPrice*0.95",
-        "params": {
-            "tenkan": 9,
-            "kijun": 26,
-            "senkouA": 26,
-            "senkouB": 52,
-            "rsi_period": 14,
-            "vol_period": 20
-        }
+        "sell_formula_levels": [
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20)",
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10",
+            "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
+        ]
     },
     {
         "id": 20,
-        "name": "이격도 과매도 매매전략",
-        "short_code": "Dev-OS",
-        "type": "반등",
-        "description": "현재 가격이 20일 이동평균 대비 5% 이상 아래로 이탈하여 과매도 상태이고 RSI(14)<30인 종목에서 당일 양봉 전환과 체결강도 개선 징후(≥100%) 및 감소된 거래량을 근거로 평균회귀 반등을 노리는 전략",
+        "short_code": "SAR-REV",
+        "name": "파라볼릭SAR 반전 전략",
+        "type": "반전",
+        "description": "파라볼릭 SAR 지표가 매수 시그널로 전환될 때 매수 진입하여 추세 반전을 노리는 전략",
         "buy_levels": [
             [
-                "주가 20일 이동평균 대비 -5% 이하 (이격도 과매도)",
-                "RSI(14) < 30",
-                "당일 양봉 전환"
+                "EMA(20) < EMA(60)",
+                "PSAR(1) > Close(1) and PSAR(0) < Close(0)",
+                "RSI(14) ≤ 40",
+                "Strength ≥ 100%",
+                "Close > EMA(5)"
             ],
             [
-                "주가 20일 이동평균 대비 -5% 이하 (이격도 과매도)",
-                "RSI(14) < 30",
-                "당일 양봉 전환",
-                "체결강도 ≥ 100%"
+                "EMA(20) < EMA(60)",
+                "PSAR(1) > Close(1) and PSAR(0) < Close(0)",
+                "RSI(14) ≤ 30",
+                "Strength ≥ 110%",
+                "EMA(5) > EMA(20)"
             ],
             [
-                "주가 20일 이동평균 대비 -5% 이하 (이격도 과매도)",
-                "RSI(14) < 30",
-                "당일 양봉 전환",
-                "체결강도 ≥ 100%",
-                "거래량 평소 대비 감소"
+                "EMA(20) < EMA(60)",
+                "PSAR(1) > Close(1) and PSAR(0) < Close(0)",
+                "RSI(14) ≤ 20",
+                "Strength ≥ 120%",
+                "Close > EMA(60)"
             ]
         ],
-        "buy_formula": "Close <= MA(20)*0.95 and RSI(14) < 30 and Close > Open and Strength >= 100 and Vol(0) < MA(Vol,20)",
+        "buy_formula_levels": [
+            "EMA(20) < EMA(60) and PSAR(1) > Close(1) and PSAR(0) < Close(0) and RSI(14) <= 40 and Strength >= 100 and Close > EMA(5)",
+            "EMA(20) < EMA(60) and PSAR(1) > Close(1) and PSAR(0) < Close(0) and RSI(14) <= 30 and Strength >= 110 and EMA(5) > EMA(20)",
+            "EMA(20) < EMA(60) and PSAR(1) > Close(1) and PSAR(0) < Close(0) and RSI(14) <= 20 and Strength >= 120 and Close > EMA(60)"
+        ],
         "sell_levels": [
             [
-                "주가 20일선 회귀 (평균회귀 완료)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05"
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "주가 20일선 회귀 (평균회귀 완료)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "주가 20일선 회귀 (평균회귀 완료)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95",
-                "체결강도 ≤ 90%"
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
             ]
         ],
-        "sell_formula": "Close >= MA(20) or RSI(14) >= 50 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95 or Strength <= 90",
-        "params": {
-            "ma_period": 20,
-            "deviation_threshold": -0.05,
-            "rsi_period": 14,
-            "target": 1.05,
-            "stop": 0.95
-        }
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
     },
     {
         "id": 21,
-        "name": "연속양봉 추세전략",
-        "short_code": "3Up-Trend",
-        "type": "추세",
-        "description": "3일 연속 종가 상승과 매일 거래량 증가로 상승 추세가 뚜렷한 종목에서 RSI(14)>50, 체결강도≥110% 등 모멘텀이 양호하고 과열이 크지 않을 때 추세를 따라 매수하는 전략",
+        "short_code": "R-BREAK",
+        "name": "돌파 후 되돌림 진입 전략",
+        "type": "반등",
+        "description": "강한 돌파 후 단기 되돌림 구간에서 재진입하여 상승을 노리는 전략",
         "buy_levels": [
             [
-                "3봉 연속 종가 상승",
-                "각 봉 거래량 증가 추세",
-                "RSI(14) > 50"
+                "EMA(20) > EMA(60)",
+                "Close ≥ MaxHigh20 × 0.99",
+                "RSI(14) ≥ 40",
+                "Vol(0) ≤ MA(Vol,20)",
+                "Strength ≥ 105%"
             ],
             [
-                "3봉 연속 종가 상승",
-                "각 봉 거래량 증가 추세",
-                "RSI(14) > 50",
-                "체결강도 ≥ 110%"
+                "EMA(20) > EMA(60)",
+                "Close ≥ MaxHigh20 × 0.995",
+                "RSI(14) ≥ 50",
+                "Vol(0) ≤ MA(Vol,20) × 0.5",
+                "Strength ≥ 110%"
             ],
             [
-                "3봉 연속 종가 상승",
-                "각 봉 거래량 증가 추세",
-                "RSI(14) > 50",
-                "체결강도 ≥ 110%",
-                "ATR(14) 안정 (과열 없음)"
+                "EMA(20) > EMA(60)",
+                "Close ≥ MaxHigh20 × 0.997",
+                "RSI(14) ≥ 55",
+                "Vol(0) ≤ MA(Vol,20) × 0.3",
+                "Strength ≥ 120%"
             ]
         ],
-        "buy_formula": "Close(-2) < Close(-1) < Close(0) and Vol(-2) < Vol(-1) < Vol(0) and RSI(14) > 50 and Strength >= 110 and ATR(14) ≈ ATR(14,-1)",
+        "buy_formula_levels": [
+            "EMA(20) > EMA(60) and Close >= MaxHigh20 * 0.99 and RSI(14) >= 40 and Vol(0) <= MA(Vol,20) and Strength >= 105",
+            "EMA(20) > EMA(60) and Close >= MaxHigh20 * 0.995 and RSI(14) >= 50 and Vol(0) <= MA(Vol,20) * 0.5 and Strength >= 110",
+            "EMA(20) > EMA(60) and Close >= MaxHigh20 * 0.997 and RSI(14) >= 55 and Vol(0) <= MA(Vol,20) * 0.3 and Strength >= 120"
+        ],
         "sell_levels": [
             [
-                "음봉 전환 발생 (상승세 중단)",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.03"
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "음봉 전환 발생 (상승세 중단)",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.98"
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "음봉 전환 발생 (상승세 중단)",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.98",
-                "체결강도 ≤ 90%"
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
             ]
         ],
-        "sell_formula": "Close < Close(-1) or RSI(14) > 70 or Close >= EntryPrice*1.03 or Close <= EntryPrice*0.98 or Strength <= 90",
-        "params": {
-            "consecutive_days": 3,
-            "vol_trend": true,
-            "rsi_period": 14,
-            "atr_period": 14,
-            "target": 1.03,
-            "stop": 0.98
-        }
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
     },
     {
         "id": 22,
-        "name": "연속음봉 반등전략",
-        "short_code": "3Down-Rebound",
+        "short_code": "MFI-BOUNCE",
+        "name": "MFI 과매도 반등 전략",
         "type": "반등",
-        "description": "2~3일 연속 음봉으로 단기 과매도 국면이며 거래량이 점차 감소해 투매가 아닌 종목이 당일 양봉으로 전환되고 RSI(14)<30, 체결강도 ≥ 100%로 매수세가 유입되기 시작할 때 반등을 노리는 전략",
+        "description": "MFI 지표가 과매도 영역에서 상승 반전할 때 매수 진입하는 평균회귀 반등 전략",
         "buy_levels": [
             [
-                "2~3봉 연속 종가하락 (단기 과매도)",
-                "거래량 감소 추세",
-                "현재봉 양전환 (반등 신호)"
+                "MFI(14) ≤ 20",
+                "MFI(1) < 20 and MFI(0) > 20",
+                "Vol(0) ≤ MA(Vol,20)",
+                "Strength ≥ 105%",
+                "Close > EMA(5)"
             ],
             [
-                "2~3봉 연속 종가하락 (단기 과매도)",
-                "거래량 감소 추세",
-                "현재봉 양전환 (반등 신호)",
-                "RSI(14) < 30"
+                "MFI(14) ≤ 15",
+                "MFI(1) < 15 and MFI(0) > 15",
+                "Vol(0) ≤ MA(Vol,20) × 0.8",
+                "Strength ≥ 110%",
+                "EMA(5) > EMA(20)"
             ],
             [
-                "2~3봉 연속 종가하락 (단기 과매도)",
-                "거래량 감소 추세",
-                "현재봉 양전환 (반등 신호)",
-                "RSI(14) < 30",
-                "체결강도 ≥ 100%"
+                "MFI(14) ≤ 10",
+                "MFI(1) < 10 and MFI(0) > 10",
+                "Vol(0) ≤ MA(Vol,20) × 0.5",
+                "Strength ≥ 120%",
+                "Close > EMA(20)"
             ]
         ],
-        "buy_formula": "Close(-2) > Close(-1) > Close(0) and Vol(-2) > Vol(-1) > Vol(0) and Close > Close(-1) and RSI(14) < 30 and Strength >= 100",
+        "buy_formula_levels": [
+            "MFI(14) <= 20 and MFI(14,-1) < 20 and MFI(14) > 20 and Vol(0) <= MA(Vol,20) and Strength >= 105 and Close > EMA(5)",
+            "MFI(14) <= 15 and MFI(14,-1) < 15 and MFI(14) > 15 and Vol(0) <= MA(Vol,20) * 0.8 and Strength >= 110 and EMA(5) > EMA(20)",
+            "MFI(14) <= 10 and MFI(14,-1) < 10 and MFI(14) > 10 and Vol(0) <= MA(Vol,20) * 0.5 and Strength >= 120 and Close > EMA(20)"
+        ],
         "sell_levels": [
             [
-                "음봉 재출현 (반등실패)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.03"
+                "Close ≥ Entry * 1.04",
+                "Close ≤ Peak * 0.98",
+                "Close ≤ Entry * 0.98",
+                "RSI(14) < 45",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "음봉 재출현 (반등실패)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.97"
+                "Close ≥ Entry * 1.02",
+                "Close ≤ Peak * 0.988",
+                "Close ≤ Entry * 0.99",
+                "RSI(14) < 55",
+                "EMA(5) < EMA(20)"
             ],
             [
-                "음봉 재출현 (반등실패)",
-                "RSI(14) ≥ 50",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.97",
-                "체결강도 ≤ 90%"
+                "Close ≥ Entry * 1.015",
+                "Close ≤ Peak * 0.992",
+                "Close ≤ Entry * 0.993",
+                "RSI(14) < 60",
+                "EMA(5) < EMA(20)"
             ]
         ],
-        "sell_formula": "Close < Close(-1) or RSI(14) >= 50 or Close >= EntryPrice*1.03 or Close <= EntryPrice*0.97 or Strength <= 90",
-        "params": {
-            "consecutive_days": 3,
-            "vol_trend": true,
-            "rsi_period": 14,
-            "target": 1.03,
-            "stop": 0.97
-        }
-    },
-    {
-        "id": 23,
-        "name": "OBV 상승추세 전략",
-        "short_code": "OBV-Trend",
-        "type": "추세",
-        "description": "OBV가 연속 상승하며 최고치를 경신해 매수세가 꾸준한 종목에서 가격이 20일 EMA 위를 유지하고 RSI(14)≥50, 거래량도 평균 이상일 때 추세를 따라 매수하는 전략",
-        "buy_levels": [
-            [
-                "OBV 5봉 연속 상승",
-                "OBV 신고가 갱신",
-                "종가 > 20 EMA"
-            ],
-            [
-                "OBV 5봉 연속 상승",
-                "OBV 신고가 갱신",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 50"
-            ],
-            [
-                "OBV 5봉 연속 상승",
-                "OBV 신고가 갱신",
-                "종가 > 20 EMA",
-                "RSI(14) ≥ 50",
-                "거래량 20봉 평균 이상"
-            ]
-        ],
-        "buy_formula": "OBV(0) > OBV(-1) > ... (5 consecutive) and OBV(0) = max(OBV,20) and Close > EMA(20) and RSI(14) >= 50 and Vol(0) >= MA(Vol,20)",
-        "sell_levels": [
-            [
-                "OBV 하락반전",
-                "종가 < 20 EMA",
-                "RSI(14) < 50"
-            ],
-            [
-                "OBV 하락반전",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "OBV 하락반전",
-                "종가 < 20 EMA",
-                "RSI(14) < 50",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ]
-        ],
-        "sell_formula": "OBV(0) < OBV(-1) or Close < EMA(20) or RSI(14) < 50 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95",
-        "params": {
-            "obv_consecutive": 5,
-            "obv_high_period": 20,
-            "ema_period": 20,
-            "rsi_period": 14,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 24,
-        "name": "MFI 과매도매수 전략",
-        "short_code": "MFI-OS",
-        "type": "반등",
-        "description": "MFI(14)가 20 미만으로 자금유출 과다 상태이고 RSI(14)<30인 종목 중 가격이 50일 이동평균선 위에서 조정을 받고 거래량이 평소보다 적을 때 체결강도가 회복되면 매수하는 전략",
-        "buy_levels": [
-            [
-                "MFI(14) < 20",
-                "RSI(14) < 30",
-                "종가 > 50 EMA"
-            ],
-            [
-                "MFI(14) < 20",
-                "RSI(14) < 30",
-                "종가 > 50 EMA",
-                "거래량 20봉 평균 이하"
-            ],
-            [
-                "MFI(14) < 20",
-                "RSI(14) < 30",
-                "종가 > 50 EMA",
-                "거래량 20봉 평균 이하",
-                "체결강도 ≥ 100%"
-            ]
-        ],
-        "buy_formula": "MFI(14) < 20 and RSI(14) < 30 and Close > EMA(50) and Vol(0) < MA(Vol,20) and Strength >= 100",
-        "sell_levels": [
-            [
-                "MFI(14) > 80",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05"
-            ],
-            [
-                "MFI(14) > 80",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95"
-            ],
-            [
-                "MFI(14) > 80",
-                "RSI(14) > 70",
-                "종가 ≥ 진입가 × 1.05",
-                "종가 ≤ 진입가 × 0.95",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "MFI(14) > 80 or RSI(14) > 70 or Close >= EntryPrice*1.05 or Close <= EntryPrice*0.95 or Strength <= 90",
-        "params": {
-            "mfi_period": 14,
-            "rsi_period": 14,
-            "ema_period": 50,
-            "vol_period": 20
-        }
-    },
-    {
-        "id": 25,
-        "name": "VWAP 돌파매매 전략",
-        "short_code": "VWAP-BO",
-        "type": "돌파",
-        "description": "장중 가격이 VWAP 아래로 눌렸다가 다시 상향 돌파하고 체결강도 110% 이상, RSI(14)≥50으로 모멘텀 회복과 함께 거래량이 증가하면 매수 진입하는 VWAP 기반 돌파 전략",
-        "buy_levels": [
-            [
-                "장중 주가 VWAP 이하 눌림",
-                "주가 VWAP 상향 돌파",
-                "체결강도 ≥ 110%"
-            ],
-            [
-                "장중 주가 VWAP 이하 눌림",
-                "주가 VWAP 상향 돌파",
-                "체결강도 ≥ 110%",
-                "RSI(14) ≥ 50"
-            ],
-            [
-                "장중 주가 VWAP 이하 눌림",
-                "주가 VWAP 상향 돌파",
-                "체결강도 ≥ 110%",
-                "RSI(14) ≥ 50",
-                "거래량 증가"
-            ]
-        ],
-        "buy_formula": "Close < VWAP and Close > VWAP and Strength >= 110 and RSI(14) >= 50 and Vol(0) > Vol(-1)",
-        "sell_levels": [
-            [
-                "주가 VWAP 다시 하회 (추세 전환 실패)",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.98"
-            ],
-            [
-                "주가 VWAP 다시 하회 (추세 전환 실패)",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.98",
-                "RSI(14) < 50"
-            ],
-            [
-                "주가 VWAP 다시 하회 (추세 전환 실패)",
-                "종가 ≥ 진입가 × 1.03",
-                "종가 ≤ 진입가 × 0.98",
-                "RSI(14) < 50",
-                "체결강도 ≤ 90%"
-            ]
-        ],
-        "sell_formula": "Close < VWAP or Close >= EntryPrice*1.03 or Close <= EntryPrice*0.98 or RSI(14) < 50 or Strength <= 90",
-        "params": {
-            "vwap": true,
-            "target": 1.03,
-            "stop": 0.98,
-            "strength_thresholds": [
-                110,
-                90
-            ]
-        }
-    },
+        "sell_formula_levels": [
+            "Close >= Entry * 1.04 or Close <= Peak * 0.98 or Close <= Entry * 0.98 or RSI(14) < 45 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.02 or Close <= Peak * 0.988 or Close <= Entry * 0.99 or RSI(14) < 55 or EMA(5) < EMA(20)",
+            "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+        ]
+    }
 ]
