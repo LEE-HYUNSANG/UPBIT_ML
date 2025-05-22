@@ -8,7 +8,7 @@
   5분마다 업비트 시세를 갱신하고 매수/매도 모니터링 데이터를 계산합니다.
 - **bot/**: 실제 매매 로직을 담당하는 패키지입니다.
   - `trader.py` – 업비트 주문을 실행하는 메인 클래스
-  - `strategy.py` – 9가지 매매 전략 함수와 `select_strategy` 헬퍼
+  - `strategy.py` – 22가지 매매 전략 함수와 `select_strategy` 헬퍼
   - `indicators.py` – EMA, RSI 등 기술적 지표 계산
   - `ai_analysis.py` – AI 기반 파라미터 추천 예시
   - `runtime_settings.py` – 실행 중 변경되는 설정 저장소
