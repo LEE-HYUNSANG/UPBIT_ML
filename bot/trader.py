@@ -37,7 +37,7 @@ class UpbitTrader:
     백그라운드 루프에서 지정된 전략을 평가하고
     조건 충족 시 주문을 실행한다.
     """
-    def __init__(self, upbit_key, upbit_secret, config, logger=None):
+    def __init__(self, upbit_key, upbit_secret, config, logger=None, on_price_fail=None):
         self.upbit = pyupbit.Upbit(upbit_key, upbit_secret)  # API 객체 생성
         self.config = config    # 설정(dict)
         self.running = False    # 봇 실행 여부
@@ -45,6 +45,8 @@ class UpbitTrader:
         self.thread = None      # 실행 스레드
         self.tickers = config.get("tickers", ["KRW-BTC", "KRW-ETH"])
         self.positions: dict[str, dict] = {}  # 보유 포지션 관리
+        self.on_price_fail = on_price_fail
+        self.price_fail_counts: dict[str, int] = {}
         try:
             sec = load_secrets()
             self.token = sec.get("TELEGRAM_TOKEN")
@@ -62,6 +64,16 @@ class UpbitTrader:
             except Exception:
                 if self.logger:
                     self.logger.debug("telegram send failed")
+
+    def _record_price_fail(self, coin: str) -> None:
+        cnt = self.price_fail_counts.get(coin, 0) + 1
+        self.price_fail_counts[coin] = cnt
+        if cnt >= 3 and self.on_price_fail:
+            self.on_price_fail(coin)
+
+    def _reset_price_fail(self, coin: str) -> None:
+        if coin in self.price_fail_counts:
+            self.price_fail_counts[coin] = 0
 
     def set_tickers(self, tickers: list[str]) -> None:
         """거래 대상 티커 목록을 갱신한다."""
@@ -299,9 +311,11 @@ class UpbitTrader:
                 else:
                     try:
                         price = pyupbit.get_current_price(f"KRW-{b['currency']}") or 0
+                        self._reset_price_fail(b['currency'])
                     except Exception:
                         if self.logger:
                             self.logger.warning("Price lookup failed for %s", b['currency'])
+                        self._record_price_fail(b['currency'])
                         self._alert(f"[API Exception] 시세 조회 실패: {b['currency']}")
                         price = 0
                     total += bal * price
@@ -353,9 +367,11 @@ class UpbitTrader:
                 continue
             try:
                 price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                self._reset_price_fail(currency)
             except Exception:
                 if self.logger:
                     self.logger.warning("Price lookup failed for %s", currency)
+                self._record_price_fail(currency)
                 self._alert(f"[API Exception] 시세 조회 실패: {currency}")
                 price = 0
             ticker = f"KRW-{currency}"

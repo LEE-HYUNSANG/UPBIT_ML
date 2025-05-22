@@ -147,6 +147,29 @@ if os.path.exists(EXCLUDE_FILE):
     except Exception:
         excluded_coins = []
 
+# 매수 모니터링 제외 목록 로드
+BUY_EXCLUDE_FILE = 'config/buy_exclude.json'
+buy_excluded_coins = []
+if os.path.exists(BUY_EXCLUDE_FILE):
+    try:
+        with open(BUY_EXCLUDE_FILE, encoding='utf-8') as f:
+            buy_excluded_coins = json.load(f)
+    except Exception:
+        buy_excluded_coins = []
+
+def save_buy_excluded() -> None:
+    os.makedirs(os.path.dirname(BUY_EXCLUDE_FILE), exist_ok=True)
+    with open(BUY_EXCLUDE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(buy_excluded_coins, f, ensure_ascii=False, indent=2)
+
+def add_buy_excluded(coin: str) -> None:
+    if not any(c['coin'] == coin for c in buy_excluded_coins):
+        buy_excluded_coins.append({
+            'coin': coin,
+            'deleted': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        save_buy_excluded()
+
 
 
 # 트레이더 인스턴스 (실제 매매 로직)
@@ -155,6 +178,7 @@ trader = Trader(
     secrets.get("UPBIT_SECRET", ""),
     config,
     logger=logger,
+    on_price_fail=add_buy_excluded,
 )
 
 
@@ -589,10 +613,15 @@ def get_filtered_signals():
     with _market_lock:
         data = list(market_cache)
 
+    excluded = {c['coin'] for c in buy_excluded_coins} if buy_excluded_coins else set()
+
     filtered = []
     for s in data:
         logger.cal("[MONITOR] 원본 시그널 %s", s)
         price = s["price"]
+        if s["coin"] in excluded:
+            logger.cal("[MONITOR] 제외 %s in buy exclude list", s["coin"])
+            continue
         if min_p and price < min_p:
             logger.cal(
                 "[MONITOR] 제외 %s price %.8f < min_price %.8f",
@@ -1418,6 +1447,50 @@ def get_excluded_coins():
     except Exception as e:
         notify_error(f"조회 실패: {e}", "E014")
         return jsonify(result="error", message="조회 실패"), 500
+
+
+@app.route("/api/buy-excluded-coins", methods=["GET"])
+def get_buy_excluded_coins():
+    logger.debug("get_buy_excluded_coins called")
+    try:
+        return jsonify(result="success", coins=buy_excluded_coins)
+    except Exception as e:
+        notify_error(f"조회 실패: {e}", "E014")
+        return jsonify(result="error", message="조회 실패"), 500
+
+
+@app.route("/api/restore-buy-coin", methods=["POST"])
+def restore_buy_coin():
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
+    logger.debug("restore_buy_coin called for %s", coin)
+    try:
+        if not coin:
+            raise ValueError("Invalid coin")
+        global buy_excluded_coins
+        new_list = [c for c in buy_excluded_coins if c.get('coin') != coin]
+        if len(new_list) != len(buy_excluded_coins):
+            buy_excluded_coins = new_list
+            save_buy_excluded()
+        return jsonify(result="success", message=f"{coin} 복구됨")
+    except Exception as e:
+        notify_error(f"복구 실패: {e}", "E013")
+        return jsonify(result="error", message="복구 실패"), 500
+
+
+@app.route("/api/exclude-buy-coin", methods=["POST"])
+def exclude_buy_coin():
+    data = request.get_json(silent=True) or {}
+    coin = data.get('coin')
+    logger.debug("exclude_buy_coin called for %s", coin)
+    try:
+        if not coin:
+            raise ValueError("Invalid coin")
+        add_buy_excluded(coin)
+        return jsonify(result="success", message=f"{coin} 제외됨")
+    except Exception as e:
+        notify_error(f"제외 실패: {e}", "E012")
+        return jsonify(result="error", message="제외 실패"), 500
 
 @app.route("/api/balances", methods=["GET"])
 def api_balances():
