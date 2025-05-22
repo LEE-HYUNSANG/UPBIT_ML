@@ -130,7 +130,8 @@ pytest
 ```
 
 ## Secrets configuration
-All API keys and tokens are read from `config/secrets.json`. Create the file before starting the server:
+All API keys and tokens are read from `config/secrets.json`. Create the file before starting the server.
+This path is included in `.gitignore` so your real keys stay private:
 
 ```json
 {
