@@ -12,6 +12,21 @@ def _normalize(formula: str) -> str:
     # Replace MA(Vol,20) -> Vol_MA20
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
+    # Bollinger bands: BB_upper(20,2) -> BB_upper, BB_upper(20,2,-1) -> BB_upper_prev
+    def _repl_bb(match: re.Match) -> str:
+        name = match.group(1)
+        offset = match.group(2)
+        result = name
+        if offset:
+            off = int(offset)
+            if off < 0:
+                result += "_prev" + (str(-off) if off != -1 else "")
+            elif off > 0:
+                result += "_next" + (str(off) if off != 1 else "")
+        return result
+
+    formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
+
     def _repl_multi(match: re.Match) -> str:
         name, period, offset = match.group(1), match.group(2), match.group(3)
         result = f"{name}{period}"
@@ -27,21 +42,6 @@ def _normalize(formula: str) -> str:
     formula = re.sub(r"([A-Za-z_]+)\((\d+),\s*(-?\d+)\)", _repl_multi, formula)
     # e.g. EMA(5) -> EMA5
     formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
-
-    # Bollinger bands: BB_upper(20,2,-1) -> BB_upper_prev
-    def _repl_bb(match: re.Match) -> str:
-        name = match.group(1)
-        offset = match.group(3)
-        result = name
-        if offset:
-            off = int(offset)
-            if off < 0:
-                result += "_prev" + (str(-off) if off != -1 else "")
-            elif off > 0:
-                result += "_next" + (str(off) if off != 1 else "")
-        return result
-
-    formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
 
     # Close(-1) -> Close_prev
     def _repl_offset(match: re.Match) -> str:
