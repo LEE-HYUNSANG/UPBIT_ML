@@ -310,8 +310,8 @@ class UpbitTrader:
         params = self.config.get("params", {})
         sl_pct = params.get("sl", 0) * 100
         tp_pct = params.get("tp", 0) * 100
-        strategy_code = self.config.get("strategy", "-")
-        risk_level = self.config.get("level", "중도적")
+        default_strategy = self.config.get("strategy", "-")
+        default_level = self.config.get("level", "중도적")
         for b in balances:
             currency = b.get("currency")
             bal = float(b.get("balance", 0))
@@ -328,6 +328,13 @@ class UpbitTrader:
                     self.logger.warning("Price lookup failed for %s", currency)
                 self._alert(f"[API Exception] 시세 조회 실패: {currency}")
                 price = 0
+            ticker = f"KRW-{currency}"
+            strategy_code = default_strategy
+            risk_level = default_level
+            if ticker in self.positions:
+                info = self.positions[ticker]
+                strategy_code = info.get("strategy", strategy_code)
+                risk_level = info.get("level", risk_level)
             avg_buy = float(b.get("avg_buy_price", 0))
             pnl = round((price - avg_buy) / avg_buy * 100, 1) if avg_buy else None
 
