@@ -64,6 +64,19 @@ class UpbitTrader:
         if self.logger:
             self.logger.info("[TRADER] Tickers updated: %s", tickers)
 
+    def _load_active_strategies(self) -> list[str]:
+        """활성화된 전략명을 우선순위 순으로 반환한다."""
+        try:
+            from helpers.utils.strategy_cfg import load_strategy_list
+            table = load_strategy_list()
+            active = [s for s in table if s.get("active")]
+            active.sort(key=lambda x: x.get("priority", 0))
+            return [s.get("name") for s in active]
+        except Exception as exc:  # pragma: no cover - file missing
+            if self.logger:
+                self.logger.warning("Strategy list load failed: %s", exc)
+            return [self.config.get("strategy", "M-BREAK")]
+
     def start(self) -> bool:
         """자동매매 시작 (스레드)"""
         if self.thread and self.thread.is_alive():
@@ -106,13 +119,13 @@ class UpbitTrader:
                         self.logger.warning("[TRADER] No tickers to trade")
                     time.sleep(60)
                     continue
-                strat_name = self.config.get("strategy", "M-BREAK")
                 params = self.config.get("params", {})
+                strategies = self._load_active_strategies()
                 if self.logger:
                     self.logger.debug(
-                        "Tickers=%s strategy=%s params=%s",
+                        "Tickers=%s strategies=%s params=%s",
                         tickers,
-                        strat_name,
+                        strategies,
                         params,
                     )
                 for ticker in tickers:
@@ -139,15 +152,22 @@ class UpbitTrader:
                         last = df.iloc[-1].to_dict()
                         self.logger.cal("Indicators %s", last)
                     tis = calc_tis(ticker) or 0
-                    ok, strat_params = select_strategy(strat_name, df, tis, params)
-                    if self.logger:
-                        self.logger.cal(
-                            "Strategy %s result=%s params=%s",
-                            strat_name,
-                            ok,
-                            strat_params,
-                        )
-                    if ok:
+                    chosen = None
+                    strat_params = {}
+                    for s in strategies:
+                        ok, res = select_strategy(s, df, tis, params)
+                        if self.logger:
+                            self.logger.cal(
+                                "Strategy %s result=%s params=%s",
+                                s,
+                                ok,
+                                res,
+                            )
+                        if ok:
+                            chosen = s
+                            strat_params = res
+                            break
+                    if chosen:
                         # 실제 매수/매도 로직 (실매수시 주의)
                         last_price = df['close'].iloc[-1]  # 현재가
                         qty = self.config.get("amount", 10000) / last_price  # 매수 수량
@@ -158,7 +178,7 @@ class UpbitTrader:
                                 ticker,
                                 last_price,
                                 qty,
-                                strat_name,
+                                chosen,
                             )
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
