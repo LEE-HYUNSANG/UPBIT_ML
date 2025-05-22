@@ -64,6 +64,11 @@ def _normalize(formula: str) -> str:
     formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
 
     formula = re.sub(r"(BB_(?:upper|lower))\(\d+,\s*\d+(?:,\s*(-?\d+))?\)", _repl_bb, formula)
+
+    # Vol, Vol_prev, Vol_MA20 등의 표기를 Volume 컬럼 기반으로 변환한다
+    formula = re.sub(r"\bVol_MA(\d+)\b", r"Volume_MA\1", formula)
+    formula = re.sub(r"\bVol_(prev|next)(\d*)", r"Volume_\1\2", formula)
+    formula = re.sub(r"\bVol\b", "Volume", formula)
     return formula
 
 
