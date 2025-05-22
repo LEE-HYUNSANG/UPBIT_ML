@@ -9,7 +9,7 @@
   },
   {
     "active": true,
-    "name": "VOL-BRK",
+    "name": "P-PULL",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 2,
@@ -17,7 +17,7 @@
   },
   {
     "active": true,
-    "name": "RSI-PULL",
+    "name": "T-FLOW",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 3,
@@ -25,7 +25,7 @@
   },
   {
     "active": true,
-    "name": "ADX-TREND",
+    "name": "G-REV",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 4,
@@ -33,7 +33,7 @@
   },
   {
     "active": true,
-    "name": "MA-CROSS",
+    "name": "VOL-BRK",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 5,
@@ -41,7 +41,7 @@
   },
   {
     "active": true,
-    "name": "Boll-BB",
+    "name": "EMA-STACK",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 6,
@@ -49,7 +49,7 @@
   },
   {
     "active": true,
-    "name": "KDJ-OSC",
+    "name": "VWAP-BNC",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 7,
@@ -57,7 +57,7 @@
   },
   {
     "active": true,
-    "name": "MACD-BOOST",
+    "name": "B-BAND",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 8,
@@ -65,7 +65,7 @@
   },
   {
     "active": true,
-    "name": "CCI-REV",
+    "name": "BB-SQZ",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 9,
@@ -73,7 +73,7 @@
   },
   {
     "active": true,
-    "name": "OBV-PEAK",
+    "name": "T-PULL",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 10,
@@ -81,7 +81,7 @@
   },
   {
     "active": true,
-    "name": "TEMA-PUMP",
+    "name": "RSI-BOUNCE",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 11,
@@ -89,7 +89,7 @@
   },
   {
     "active": true,
-    "name": "Ichimoku",
+    "name": "BOLL-B",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 12,
@@ -97,7 +97,7 @@
   },
   {
     "active": true,
-    "name": "SAR-SWING",
+    "name": "G-CROSS",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 13,
@@ -105,7 +105,7 @@
   },
   {
     "active": true,
-    "name": "FIBO-PIVOT",
+    "name": "ATR-EXPLODE",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 14,
@@ -113,7 +113,7 @@
   },
   {
     "active": true,
-    "name": "HTF-ALIGN",
+    "name": "MACD-MOM",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 15,
@@ -121,7 +121,7 @@
   },
   {
     "active": true,
-    "name": "VWAP-EDGE",
+    "name": "STOCH-BOUNCE",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 16,
@@ -129,7 +129,7 @@
   },
   {
     "active": true,
-    "name": "ROC-MOM",
+    "name": "RSI-DIV",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 17,
@@ -137,7 +137,7 @@
   },
   {
     "active": true,
-    "name": "ATR-STOP",
+    "name": "I-BREAK",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 18,
@@ -145,7 +145,7 @@
   },
   {
     "active": true,
-    "name": "STOCH-RDY",
+    "name": "ADX-TRND",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 19,
@@ -153,7 +153,7 @@
   },
   {
     "active": true,
-    "name": "KD-RANGE",
+    "name": "SAR-REV",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 20,
@@ -161,7 +161,7 @@
   },
   {
     "active": true,
-    "name": "PSAR-TRAIL",
+    "name": "R-BREAK",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 21,
@@ -169,34 +169,10 @@
   },
   {
     "active": true,
-    "name": "BB-BREAK",
+    "name": "MFI-BOUNCE",
     "buy_condition": "중도적",
     "sell_condition": "중도적",
     "priority": 22,
-    "updated": "2025-05-21T15:37:05.647Z"
-  },
-  {
-    "active": true,
-    "name": "VOL-EXP",
-    "buy_condition": "중도적",
-    "sell_condition": "중도적",
-    "priority": 23,
-    "updated": "2025-05-21T15:37:05.647Z"
-  },
-  {
-    "active": true,
-    "name": "ADX-DM",
-    "buy_condition": "중도적",
-    "sell_condition": "중도적",
-    "priority": 24,
-    "updated": "2025-05-21T15:37:05.647Z"
-  },
-  {
-    "active": true,
-    "name": "RSI-BIAS",
-    "buy_condition": "중도적",
-    "sell_condition": "중도적",
-    "priority": 25,
     "updated": "2025-05-21T15:37:05.647Z"
   }
 ]
