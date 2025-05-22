@@ -47,7 +47,6 @@ class UpbitTrader:
         self.positions: dict[str, dict] = {}  # 보유 포지션 관리
         self.on_price_fail = on_price_fail
         self._fail_counts: dict[str, int] = {}
-        self._failed_until: dict[str, float] = {}
         try:
             sec = load_secrets()
             self.token = sec.get("TELEGRAM_TOKEN")
@@ -67,17 +66,19 @@ class UpbitTrader:
                     self.logger.debug("telegram send failed")
 
     def _record_price_failure(self, currency: str) -> None:
-        """시세 조회 실패 횟수를 기록하고 제한 초과 시 티커를 제외한다."""
+        """시세 조회 실패 횟수를 누적하고 경고만 전송한다."""
         count = self._fail_counts.get(currency, 0) + 1
         self._fail_counts[currency] = count
         limit = self.config.get("failure_limit", 3)
         if count >= limit:
-            ticker = f"KRW-{currency}"
-            if ticker in self.tickers:
-                self.tickers.remove(ticker)
+            self._alert(f"[WARN] {currency} 시세 조회 {count}회 연속 실패")
             self._fail_counts[currency] = 0
-            self._failed_until[currency] = time.time()
-            self._alert(f"[INFO] {currency} 시세 조회 실패로 모니터링에서 제외")
+        if self.on_price_fail:
+            try:
+                self.on_price_fail(currency, count)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("on_price_fail callback error")
 
     def set_tickers(self, tickers: list[str]) -> None:
         """거래 대상 티커 목록을 갱신한다."""
@@ -142,13 +143,6 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.debug("run_loop iteration")
                 now = time.time()
-                retry_after = self.config.get("retry_after", 600)
-                for c, ts in list(self._failed_until.items()):
-                    if now - ts >= retry_after:
-                        ticker = f"KRW-{c}"
-                        if ticker not in self.tickers:
-                            self.tickers.append(ticker)
-                        self._failed_until.pop(c, None)
                 tickers = self.tickers
                 if not tickers:
                     if self.logger:
@@ -322,19 +316,14 @@ class UpbitTrader:
                     total += bal
                 else:
                     currency = b.get("currency")
-                    if currency in self._failed_until:
+                    try:
+                        price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                    except Exception:
                         if self.logger:
-                            self.logger.debug("Skip price lookup for %s in cooldown", currency)
+                            self.logger.warning("Price lookup failed for %s", currency)
+                        self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                        self._record_price_failure(currency)
                         price = 0
-                    else:
-                        try:
-                            price = pyupbit.get_current_price(f"KRW-{currency}") or 0
-                        except Exception:
-                            if self.logger:
-                                self.logger.warning("Price lookup failed for %s", currency)
-                            self._alert(f"[API Exception] 시세 조회 실패: {currency}")
-                            self._record_price_failure(currency)
-                            price = 0
                     total += bal * price
                 if self.logger:
                     self.logger.debug(
@@ -382,19 +371,14 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.debug("Skip position for excluded coin %s", currency)
                 continue
-            if currency in self._failed_until:
+            try:
+                price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+            except Exception:
                 if self.logger:
-                    self.logger.debug("Skip price lookup for %s in cooldown", currency)
+                    self.logger.warning("Price lookup failed for %s", currency)
+                self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                self._record_price_failure(currency)
                 price = 0
-            else:
-                try:
-                    price = pyupbit.get_current_price(f"KRW-{currency}") or 0
-                except Exception:
-                    if self.logger:
-                        self.logger.warning("Price lookup failed for %s", currency)
-                    self._alert(f"[API Exception] 시세 조회 실패: {currency}")
-                    self._record_price_failure(currency)
-                    price = 0
             ticker = f"KRW-{currency}"
             strategy_code = default_strategy
             risk_level = default_level

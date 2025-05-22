@@ -18,21 +18,16 @@ def test_build_positions_uses_saved_strategy(monkeypatch):
     assert result[0]["level"] == "공격적"
 
 
-def test_build_positions_skips_failed(monkeypatch):
+def test_build_positions_records_failure(monkeypatch):
     conf = {}
     tr = UpbitTrader("k", "s", conf)
     tr.upbit = DummyUpbit()
-    tr._failed_until["AAA"] = 9999999999
-
-    called = False
 
     def fake_price(*a, **k):
-        nonlocal called
-        called = True
-        return 1000.0
+        raise Exception("fail")
 
     monkeypatch.setattr("pyupbit.get_current_price", fake_price)
     balances = [{"currency": "AAA", "balance": "1", "avg_buy_price": "0"}]
     positions = tr.build_positions(balances)
     assert positions and positions[0]["coin"] == "AAA"
-    assert called is False
+    assert tr._fail_counts.get("AAA") == 1
