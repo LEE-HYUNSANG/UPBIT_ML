@@ -14,5 +14,5 @@ def test_refresh_positions(monkeypatch):
     act = {"KRW-ETH": {"qty": 1, "buy_price": 200, "strategy": "S", "level": "중"}}
     monkeypatch.setattr(bot, "_safe_call", lambda f, *a, **k: f(*a, **k))
     bot.refresh_positions(up, act)
-    assert "KRW-BTC" in act and "KRW-ETH" not in act
+    assert "KRW-BTC" not in act and "KRW-ETH" not in act
     assert up.called == 1

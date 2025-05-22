@@ -40,6 +40,7 @@ try:
 except Exception:  # pragma: no cover - secrets load
     _TOKEN = os.getenv("TELEGRAM_TOKEN")
     _CHAT = os.getenv("TELEGRAM_CHAT_ID")
+MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
 
 
 def _alert(msg: str) -> None:
@@ -54,6 +55,11 @@ def _alert(msg: str) -> None:
 # 포지션 변경 시 동시 접근을 방지하기 위한 락
 _LOCK = threading.Lock()
 BALANCE_CACHE: list = []
+
+def count_active_positions(active: Dict[str, Dict[str, float]], min_value: float = MIN_POSITION_VALUE) -> int:
+    """min_value 이상 가치가 있는 포지션 수를 반환한다."""
+    return sum(1 for v in active.values() if v.get("qty", 0) * v.get("buy_price", 0) > min_value)
+
 
 
 def _safe_call(
@@ -85,6 +91,9 @@ def refresh_positions(upbit: pyupbit.Upbit, active: Dict[str, Dict[str, float]])
         if b.get("currency") == "KRW":
             continue
         qty = float(b.get("balance", 0))
+        value = qty * float(b.get("avg_buy_price", 0))
+        if value <= MIN_POSITION_VALUE:
+            continue
         if qty <= 0:
             continue
         ticker = f"KRW-{b['currency']}"
@@ -210,9 +219,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
             for ticker in filtered:
                 if ticker in active_trades:
                     continue
-                if len(active_trades) + len(buy_tasks) >= fund_conf.get(
-                    "max_concurrent_trades", 1
-                ):
+                if count_active_positions(active_trades) + len(buy_tasks) >= fund_conf.get("max_concurrent_trades", 1):
                     logger.debug("[BOT] max concurrent trades reached")
                     break
                 strat = strategy_conf.get("strategy", "M-BREAK")
