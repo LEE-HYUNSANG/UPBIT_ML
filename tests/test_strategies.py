@@ -145,6 +145,14 @@ def test_normalize_offsets():
     assert _normalize("PSAR(1)") == "PSAR_prev"
 
 
+def test_normalize_single_indicators():
+    assert _normalize("EMA(5)") == "EMA5"
+    assert _normalize("ATR(14)") == "ATR14"
+    assert _normalize("RSI(14)") == "RSI14"
+    assert _normalize("StochK(14)") == "StochK14"
+    assert _normalize("MACD_hist(-1)") == "MACD_hist_prev"
+
+
 def test_normalize_ma_vol_and_atr():
     assert _normalize("MA(Vol,20)") == "Vol_MA20"
     assert _normalize("MA(ATR(14),20)") == "ATR14_MA20"
