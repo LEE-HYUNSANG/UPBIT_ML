@@ -154,3 +154,19 @@ def test_compute_indicators_strength():
     res = compute_indicators(df, strength=123)
     assert "Strength" in res.columns
     assert res["Strength"].iloc[0] == 123
+
+
+def test_compute_indicators_obv():
+    idx = pd.date_range("2021-01-01", periods=4, freq="5T")
+    base = {
+        "Open": [1, 1, 1, 1],
+        "High": [1, 1, 1, 1],
+        "Low": [1, 1, 1, 1],
+        "Close": [1, 2, 2, 1],
+        "Volume": [10, 20, 30, 40],
+    }
+    df = pd.DataFrame(base, index=idx)
+    res = compute_indicators(df)
+    assert "OBV" in res.columns
+    expected = [0, 20, 20, -20]
+    assert list(res["OBV"]) == expected
