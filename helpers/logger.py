@@ -39,3 +39,25 @@ def get_recent_logs(limit: int = 20) -> list[dict]:
     """최근 ``limit``개 로그를 반환한다."""
     return list(_recent_logs)[:limit]
 
+
+def log_config_change(
+    category: str,
+    key: str,
+    before: Any,
+    after: Any,
+    path: str = "logs/config_history.csv",
+) -> None:
+    """설정 변경 내역을 CSV 로 기록한다."""
+    entry = {
+        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "category": category,
+        "key": key,
+        "before": before,
+        "after": after,
+    }
+    _recent_logs.appendleft(entry)
+    try:
+        _write_csv(path, entry)
+    except Exception:
+        pass
+
