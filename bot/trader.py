@@ -321,14 +321,20 @@ class UpbitTrader:
                     cash += bal
                     total += bal
                 else:
-                    try:
-                        price = pyupbit.get_current_price(f"KRW-{b['currency']}") or 0
-                    except Exception:
+                    currency = b.get("currency")
+                    if currency in self._failed_until:
                         if self.logger:
-                            self.logger.warning("Price lookup failed for %s", b['currency'])
-                        self._alert(f"[API Exception] 시세 조회 실패: {b['currency']}")
-                        self._record_price_failure(b['currency'])
+                            self.logger.debug("Skip price lookup for %s in cooldown", currency)
                         price = 0
+                    else:
+                        try:
+                            price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                        except Exception:
+                            if self.logger:
+                                self.logger.warning("Price lookup failed for %s", currency)
+                            self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                            self._record_price_failure(currency)
+                            price = 0
                     total += bal * price
                 if self.logger:
                     self.logger.debug(
@@ -376,14 +382,19 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.debug("Skip position for excluded coin %s", currency)
                 continue
-            try:
-                price = pyupbit.get_current_price(f"KRW-{currency}") or 0
-            except Exception:
+            if currency in self._failed_until:
                 if self.logger:
-                    self.logger.warning("Price lookup failed for %s", currency)
-                self._alert(f"[API Exception] 시세 조회 실패: {currency}")
-                self._record_price_failure(currency)
+                    self.logger.debug("Skip price lookup for %s in cooldown", currency)
                 price = 0
+            else:
+                try:
+                    price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                except Exception:
+                    if self.logger:
+                        self.logger.warning("Price lookup failed for %s", currency)
+                    self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                    self._record_price_failure(currency)
+                    price = 0
             ticker = f"KRW-{currency}"
             strategy_code = default_strategy
             risk_level = default_level
