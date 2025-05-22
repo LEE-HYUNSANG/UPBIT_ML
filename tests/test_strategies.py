@@ -142,3 +142,7 @@ def test_normalize_zero_offset():
 def test_normalize_offsets():
     assert _normalize("Close(-1)") == "Close_prev"
     assert _normalize("PSAR(1)") == "PSAR_prev"
+
+
+def test_normalize_volume_ma():
+    assert _normalize("MA(Vol,20)") == "Vol_MA20"
