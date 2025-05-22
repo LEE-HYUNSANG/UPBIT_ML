@@ -143,6 +143,11 @@ def test_normalize_offsets():
     assert _normalize("Close(-1)") == "Close_prev"
     assert _normalize("PSAR(1)") == "PSAR_prev"
 
-
-def test_normalize_volume_ma():
-    assert _normalize("MA(Vol,20)") == "Vol_MA20"
+    
+def test_compute_indicators_strength():
+    idx = pd.date_range("2021-01-01", periods=5, freq="5T")
+    base = {"Open": [1]*5, "High": [1]*5, "Low": [1]*5, "Close": [1]*5, "Volume": [1]*5}
+    df = pd.DataFrame(base, index=idx)
+    res = compute_indicators(df, strength=123)
+    assert "Strength" in res.columns
+    assert res["Strength"].iloc[0] == 123

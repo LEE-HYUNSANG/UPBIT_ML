@@ -83,6 +83,10 @@
 - **케이스 4:** 🔻 95 미만
 - **UI 예시**: `<span class="tis-high">⏫ 135</span>`
 
+해당 체결강도 값은 전략 수식에서 **Strength** 컬럼으로 사용됩니다. `utils.calc_tis()`
+함수를 통해 계산한 값을 `compute_indicators()` 호출 전에 DataFrame에
+`Strength` 열로 추가하면 전략 조건식을 그대로 평가할 수 있습니다.
+
 ### 2.7 GC (골든/데드크로스)
 - **툴팁**
   - EMA5가 EMA20을 상향 돌파하면 골든크로스(GC)로 판단합니다.
