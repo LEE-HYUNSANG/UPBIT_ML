@@ -20,7 +20,7 @@ from trader import Trader
 import notifications
 from notifications import notify, notify_error
 from bot.runtime_settings import settings, load_from_file
-from helpers.logger import log_trade, get_recent_logs
+from helpers.logger import log_trade, log_config_change, get_recent_logs
 import pyupbit
 import threading
 import time
@@ -1024,8 +1024,13 @@ def api_post_funds():
     from helpers.utils.funds import save_fund_settings, load_fund_settings
     data = request.get_json(force=True)
     try:
+        old_conf = load_fund_settings()
         save_fund_settings(data)
         conf = load_fund_settings()
+        for k, v in conf.items():
+            if old_conf.get(k) != v:
+                log_config_change("funds", k, old_conf.get(k), v)
+                logger.info("Funds %s changed: %s -> %s", k, old_conf.get(k), v)
         settings.buy_amount = conf["buy_amount"]
         settings.max_positions = conf["max_concurrent_trades"]
         trader.config["amount"] = conf["buy_amount"]
@@ -1102,7 +1107,11 @@ def apply_strategy():
     logger.debug("apply_strategy called with %s", data)
     logger.info(f"[API] 전략 적용: {data}")
     try:
+        old = settings.strategy
         settings.strategy = data.get("strategy", settings.strategy)
+        if old != settings.strategy:
+            log_config_change("strategy", "strategy", old, settings.strategy)
+            logger.info("Strategy strategy changed: %s -> %s", old, settings.strategy)
         notify(f'전략 적용: {settings.strategy}')
         logger.info("Strategy applied")
         return jsonify(result="success", message="전략이 적용되었습니다.")
@@ -1163,6 +1172,13 @@ def save_risk():
     data = request.json
     logger.debug("save_risk called with %s", data)
     try:
+        from helpers.utils.risk import save_risk_settings, load_risk_settings
+        old_conf = load_risk_settings()
+        save_risk_settings(data)
+        for k, v in data.items():
+            if old_conf.get(k) != v:
+                log_config_change("risk", k, old_conf.get(k), v)
+                logger.info("Risk %s changed: %s -> %s", k, old_conf.get(k), v)
         details = ', '.join(f'{k}:{v}' for k, v in data.items())
         notify(f'리스크 설정 저장\n{details}')
         logger.info("Risk settings saved: %s", json.dumps(data, ensure_ascii=False))
@@ -1176,6 +1192,12 @@ def save_alerts():
     data = request.json
     logger.debug("save_alerts called with %s", data)
     try:
+        old_conf = config.get("alerts", {}).copy()
+        config["alerts"] = data
+        for k, v in data.items():
+            if old_conf.get(k) != v:
+                log_config_change("alerts", k, old_conf.get(k), v)
+                logger.info("Alert %s changed: %s -> %s", k, old_conf.get(k), v)
         details = ', '.join(f'{k}:{v}' for k, v in data.items())
         notify(f'알림 설정 저장\n{details}')
         logger.info("Alert settings saved: %s", json.dumps(data, ensure_ascii=False))
@@ -1189,9 +1211,13 @@ def save_funds():
     data = request.json
     logger.debug("save_funds called with %s", data)
     try:
+        old_vals = {k: getattr(settings, k) for k in data if hasattr(settings, k)}
         for k, v in data.items():
             if hasattr(settings, k):
                 setattr(settings, k, v)
+                if old_vals.get(k) != v:
+                    log_config_change("funds", k, old_vals.get(k), v)
+                    logger.info("Funds %s changed: %s -> %s", k, old_vals.get(k), v)
         details = ', '.join(f'{k}:{v}' for k, v in data.items())
         notify(f'자금 설정 저장\n{details}')
         logger.info("Funds settings saved: %s", json.dumps(data, ensure_ascii=False))
@@ -1205,6 +1231,13 @@ def save_strategy():
     data = request.json
     logger.debug("save_strategy called with %s", data)
     try:
+        old_vals = {k: getattr(settings, k) for k in data if hasattr(settings, k)}
+        for k, v in data.items():
+            if hasattr(settings, k):
+                if old_vals.get(k) != v:
+                    log_config_change("strategy", k, old_vals.get(k), v)
+                    logger.info("Strategy %s changed: %s -> %s", k, old_vals.get(k), v)
+                setattr(settings, k, v)
         details = ', '.join(f'{k}:{v}' for k, v in data.items())
         notify(f'전략 설정 저장\n{details}')
         logger.info("Strategy settings saved: %s", json.dumps(data, ensure_ascii=False))
@@ -1227,9 +1260,13 @@ def update_strategies():
     try:
         if not isinstance(data, list):
             raise ValueError("Invalid data")
+        old_table = strategy_table
         save_strategy_list(data, STRATEGY_FILE)
         global strategy_table
         strategy_table = data
+        if old_table != data:
+            log_config_change("strategy_table", "count", len(old_table), len(data))
+            logger.info("Strategy table changed: %s -> %s", len(old_table), len(data))
         return jsonify({"status": "ok"})
     except Exception as e:
         notify_error(f"전략 저장 실패: {e}", "E008")
