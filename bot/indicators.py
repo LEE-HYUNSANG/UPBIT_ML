@@ -23,6 +23,18 @@ def compute_indicators(df, strength=None):
     df = df.copy()
     df = df.reset_index(drop=True)
 
+    # 컬럼명이 소문자로 들어오는 경우를 대비해 대소문자를 통일한다.
+    rename_map = {
+        "open": "Open",
+        "high": "High",
+        "low": "Low",
+        "close": "Close",
+        "volume": "Volume",
+    }
+    for src, dst in rename_map.items():
+        if src in df.columns and dst not in df.columns:
+            df = df.rename(columns={src: dst})
+
     if strength is not None:
         df['Strength'] = strength
     elif 'Strength' not in df.columns:
