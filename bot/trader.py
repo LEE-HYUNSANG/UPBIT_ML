@@ -137,6 +137,14 @@ class UpbitTrader:
             try:
                 if self.logger:
                     self.logger.debug("run_loop iteration")
+                now = time.time()
+                retry_after = self.config.get("retry_after", 600)
+                for c, ts in list(self._failed_until.items()):
+                    if now - ts >= retry_after:
+                        ticker = f"KRW-{c}"
+                        if ticker not in self.tickers:
+                            self.tickers.append(ticker)
+                        self._failed_until.pop(c, None)
                 tickers = self.tickers
                 if not tickers:
                     if self.logger:
@@ -317,6 +325,7 @@ class UpbitTrader:
                             self.logger.warning("Price lookup failed for %s", b['currency'])
                         self._record_price_fail(b['currency'])
                         self._alert(f"[API Exception] 시세 조회 실패: {b['currency']}")
+                        self._record_price_failure(b['currency'])
                         price = 0
                     total += bal * price
                 if self.logger:
@@ -373,6 +382,7 @@ class UpbitTrader:
                     self.logger.warning("Price lookup failed for %s", currency)
                 self._record_price_fail(currency)
                 self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                self._record_price_failure(currency)
                 price = 0
             ticker = f"KRW-{currency}"
             strategy_code = default_strategy

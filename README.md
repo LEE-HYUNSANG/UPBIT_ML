@@ -174,6 +174,11 @@ Example error:
 `config/market.json` stores fallback market data when live fetching from Upbit
 fails. Tests load this file to avoid network access.
 
+The bot tracks price lookup errors per coin. When a coin fails more than
+`failure_limit` times (default `3`), its ticker is removed from monitoring.
+After `retry_after` seconds (default `600`), the ticker is automatically
+restored.
+
 ## Documentation
 - `docs/OVERVIEW_KR.md` – 프로젝트 전체 흐름을 한국어로 정리한 문서
 - `docs/BUY_MONITOR_SPEC_KR.md` – 매수 모니터링 표 각 컬럼의 계산 방식
