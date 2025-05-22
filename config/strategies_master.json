@@ -534,8 +534,8 @@
         ],
         "buy_formula_levels": [
             "BandWidth20 < BandWidth20(-1) and BandWidth20(-1) < BandWidth20(-2) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2",
-            "BandWidth20 = min(BandWidth20 over last 10) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3",
-            "BandWidth20 = min(BandWidth20 over last 20) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 4"
+            "BandWidth20 == BandWidth20.rolling(10).min() and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3",
+            "BandWidth20 == BandWidth20.rolling(20).min() and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 4"
         ],
         "sell_levels": [
             [
@@ -716,7 +716,7 @@
         "buy_formula_levels": [
             "BandWidth20 < BandWidth20(-1) and BandWidth20(-1) < BandWidth20(-2) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2",
             "BandWidth20 < BandWidth20(-1) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 2.5",
-            "BandWidth20 = min(BandWidth20 over last 20) and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3"
+            "BandWidth20 == BandWidth20.rolling(20).min() and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3"
         ],
         "sell_levels": [
             [
