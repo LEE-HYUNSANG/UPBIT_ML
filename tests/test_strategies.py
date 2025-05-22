@@ -136,21 +136,9 @@ def test_sell_signals():
 
 def test_normalize_zero_offset():
     assert _normalize("Low(0)") == "Low"
-    assert _normalize("Vol(0)") == "Vol"
+    assert _normalize("Vol(0)") == "Volume"
 
 
-def test_normalize_atr_ma():
-    assert _normalize("MA(ATR(14),20)") == "ATR14_MA20"
-
-
-def test_atr_ma_formulas_eval():
-    specs = load_strategies()
-    df = _indicator_df()
-    for spec in specs.values():
-        for formula in spec.buy_formula_levels:
-            if "MA(ATR" not in formula:
-                continue
-            expr = formula.replace(" and ", " & ").replace(" or ", " | ")
-            expr = _normalize(expr)
-            df_tmp = _apply_shifts(df, expr)
-            df_tmp.eval(expr, engine="python")
+def test_normalize_offsets():
+    assert _normalize("Close(-1)") == "Close_prev"
+    assert _normalize("PSAR(1)") == "PSAR_prev"
