@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 
 from bot.trader import UpbitTrader as BaseTrader
 
@@ -29,4 +29,6 @@ class Trader(BaseTrader):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.positions: List[Position] = []
+        # UpbitTrader expects a dict keyed by ticker, so use dict to avoid
+        # list index errors when accessing positions by ticker name.
+        self.positions: Dict[str, Position] = {}
