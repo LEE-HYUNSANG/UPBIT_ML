@@ -1,6 +1,16 @@
 import pandas as pd
 import numpy as np
 
+
+def calc_indicators(df: pd.DataFrame) -> pd.DataFrame:
+    """Backward compatible wrapper for :func:`compute_indicators`.
+
+    기존 코드에서 ``calc_indicators`` 함수를 사용하던 부분을 그대로 지원하기
+    위해 추가된 얇은 래퍼 함수다. 내부적으로 :func:`compute_indicators` 를 호출해
+    동일한 결과를 반환한다.
+    """
+    return compute_indicators(df)
+
 def compute_indicators(df):
     """
     Compute all indicators and derived fields required by strategy formulas.
