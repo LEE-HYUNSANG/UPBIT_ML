@@ -530,6 +530,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
                   </td>
                 </tr>`).join('') :
               '<tr><td colspan="3" class="text-muted py-3">없음</td></tr>';
+            const title = document.querySelector('#excludeListModal .modal-title');
+            if(title) title.textContent = '매도 제외 목록';
             new bootstrap.Modal(document.getElementById('excludeListModal')).show();
           }
         } else if(data.message){
@@ -537,6 +539,40 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
       }catch(err){
         handleDisconnect('A006');
+      }
+    });
+  }
+
+  const btnBuy = document.getElementById('btnBuyExcludedList');
+  if(btnBuy){
+    btnBuy.addEventListener('click', async ()=>{
+      try{
+        const data = await fetchJsonRetry('/api/buy-excluded-coins');
+        console.log('[API-A007] GET /api/buy-excluded-coins', data);
+        if(data.result === 'success'){
+          const body = document.getElementById('excludeListBody');
+          if(body){
+            body.innerHTML = data.coins.length ?
+              data.coins.map(c => `
+                <tr>
+                  <td>${c.coin}</td>
+                  <td>${c.deleted}</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary"
+                            data-api="/api/restore-buy-coin"
+                            data-coin="${c.coin}">복구</button>
+                  </td>
+                </tr>`).join('') :
+              '<tr><td colspan="3" class="text-muted py-3">없음</td></tr>';
+            const title = document.querySelector('#excludeListModal .modal-title');
+            if(title) title.textContent = '매수 제외 목록';
+            new bootstrap.Modal(document.getElementById('excludeListModal')).show();
+          }
+        } else if(data.message){
+          showAlert(data.message, '에러');
+        }
+      }catch(err){
+        handleDisconnect('A007');
       }
     });
   }
