@@ -39,8 +39,9 @@ def compute_indicators(df, strength=None):
     high_close_prev = np.abs(df['High'] - df['Close'].shift(1))
     low_close_prev = np.abs(df['Low'] - df['Close'].shift(1))
     # True Range
-    tr = np.maximum.reduce([high_low, high_close_prev, low_close_prev])
-    # ATR using Wilder's smoothing (EMA with alpha=1/14)
+    # 넘파이 배열 형태로 계산되기 때문에 Series 로 변환해야 ewm 메서드를 사용할 수 있다
+    tr = pd.Series(np.maximum.reduce([high_low, high_close_prev, low_close_prev]), index=df.index)
+    # ATR 을 와일더 방식(EMA alpha=1/14)으로 계산
     df['ATR14'] = tr.ewm(alpha=1/14, adjust=False).mean()
     # Simple moving average of ATR over 20 periods (for squeeze conditions)
     df['ATR14_MA20'] = df['ATR14'].rolling(window=20).mean()
