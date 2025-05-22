@@ -12,9 +12,11 @@ def _normalize(formula: str) -> str:
     # Replace MA(Vol,20) -> Vol_MA20
     formula = re.sub(r"MA\((\w+),\s*(\d+)\)", r"\1_MA\2", formula)
 
-    def _repl_multi(match: re.Match) -> str:
-        name, period, offset = match.group(1), match.group(2), match.group(3)
-        result = f"{name}{period}"
+    # Bollinger bands: BB_upper(20,2) -> BB_upper, BB_upper(20,2,-1) -> BB_upper_prev
+    def _repl_bb(match: re.Match) -> str:
+        name = match.group(1)
+        offset = match.group(2)
+        result = name
         if offset:
             off = int(offset)
             if off < 0:
@@ -41,11 +43,9 @@ def _normalize(formula: str) -> str:
     # e.g. EMA(5) -> EMA5
     formula = re.sub(r"([A-Za-z_]+)\((\d+)\)", lambda m: f"{m.group(1)}{m.group(2)}", formula)
 
-    # Bollinger bands: BB_upper(20,2,-1) -> BB_upper_prev
-    def _repl_bb(match: re.Match) -> str:
-        name = match.group(1)
-        offset = match.group(3)
-        result = name
+    def _repl_multi(match: re.Match) -> str:
+        name, period, offset = match.group(1), match.group(2), match.group(3)
+        result = f"{name}{period}"
         if offset:
             off = int(offset)
             if off < 0:
