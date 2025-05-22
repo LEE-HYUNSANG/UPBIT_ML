@@ -33,8 +33,13 @@ def _mock_orderbook(ask=100.0, bid=99.0):
 
 def test_smart_buy_market():
     upbit = DummyUpbit()
-    with patch("helpers.execution.pyupbit.get_orderbook", return_value=_mock_orderbook(ask=100, bid=99.95)), \
-         patch("helpers.execution.pyupbit.get_order", return_value={"state": "done", "remaining": "0", "executed_volume": 0.1}):
+    with patch(
+        "helpers.execution.pyupbit.get_orderbook",
+        return_value=_mock_orderbook(ask=100, bid=99.95),
+    ), patch(
+        "helpers.execution.pyupbit.get_order",
+        return_value={"state": "done", "remaining": "0", "executed_volume": 0.1},
+    ):
         price, qty = exe.smart_buy(upbit, "KRW-TEST", 10000)
     assert upbit.market_buy_called == 1
     assert price == 100
@@ -43,8 +48,13 @@ def test_smart_buy_market():
 
 def test_smart_sell_partial():
     upbit = DummyUpbit()
-    with patch("helpers.execution.pyupbit.get_orderbook", return_value=_mock_orderbook(ask=100, bid=99)), \
-         patch("helpers.execution.pyupbit.get_order", return_value={"state": "done", "remaining": "0", "executed_volume": 0.1}):
+    with patch(
+        "helpers.execution.pyupbit.get_orderbook",
+        return_value=_mock_orderbook(ask=100, bid=99),
+    ), patch(
+        "helpers.execution.pyupbit.get_order",
+        return_value={"state": "done", "remaining": "0", "executed_volume": 0.1},
+    ):
         price, qty = exe.smart_sell(upbit, "KRW-TEST", 0.2)
     assert upbit.market_sell_called == 1
     assert upbit.limit_sell_called == 1
