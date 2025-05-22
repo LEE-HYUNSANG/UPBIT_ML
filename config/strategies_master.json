@@ -1334,9 +1334,9 @@
             ]
         ],
         "buy_formula_levels": [
-            "MFI(14) <= 20 and MFI(14,-1) < 20 and MFI(14) > 20 and Vol(0) <= MA(Vol,20) and Strength >= 105 and Close > EMA(5)",
-            "MFI(14) <= 15 and MFI(14,-1) < 15 and MFI(14) > 15 and Vol(0) <= MA(Vol,20) * 0.8 and Strength >= 110 and EMA(5) > EMA(20)",
-            "MFI(14) <= 10 and MFI(14,-1) < 10 and MFI(14) > 10 and Vol(0) <= MA(Vol,20) * 0.5 and Strength >= 120 and Close > EMA(20)"
+            "MFI(14,-1) < 20 and MFI(14) > 20 and Vol(0) <= MA(Vol,20) and Strength >= 105 and Close > EMA(5)",
+            "MFI(14,-1) < 15 and MFI(14) > 15 and Vol(0) <= MA(Vol,20) * 0.8 and Strength >= 110 and EMA(5) > EMA(20)",
+            "MFI(14,-1) < 10 and MFI(14) > 10 and Vol(0) <= MA(Vol,20) * 0.5 and Strength >= 120 and Close > EMA(20)"
         ],
         "sell_levels": [
             [
