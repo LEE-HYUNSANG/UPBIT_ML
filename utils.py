@@ -10,6 +10,8 @@ from email.mime.text import MIMEText
 import pandas as pd
 import requests
 import pyupbit
+from collections import deque
+import threading
 
 
 # Custom log level for detailed calculations
@@ -29,6 +31,37 @@ logging.Logger.cal = _cal
 def cal(message: str, *args, **kwargs) -> None:
     """Module level CAL log."""
     logging.log(CAL_LEVEL, message, *args, **kwargs)
+
+
+class RateLimiter:
+    """Simple sliding window rate limiter."""
+
+    def __init__(self, max_calls: int, period: float) -> None:
+        self.max_calls = max_calls
+        self.period = period
+        self.calls: deque[float] = deque()
+        self.lock = threading.Lock()
+
+    def acquire(self) -> None:
+        while True:
+            with self.lock:
+                now = time.time()
+                while self.calls and now - self.calls[0] >= self.period:
+                    self.calls.popleft()
+                if len(self.calls) < self.max_calls:
+                    self.calls.append(now)
+                    return
+                wait = self.period - (now - self.calls[0])
+            time.sleep(max(wait, 0))
+
+
+_RATE_LIMITER = RateLimiter(7, 1.0)
+
+
+def call_upbit_api(func, *args, **kwargs):
+    """Call Upbit API function with global rate limiting."""
+    _RATE_LIMITER.acquire()
+    return func(*args, **kwargs)
 
 
 class LevelFilter(logging.Filter):
@@ -212,7 +245,7 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
     cal("calc_tis start for %s", ticker)
     try:
         if hasattr(pyupbit, "get_ticks"):
-            ticks = pyupbit.get_ticks(ticker, count=count)
+            ticks = call_upbit_api(pyupbit.get_ticks, ticker, count=count)
         else:
             ticks = _fetch_ticks(ticker, count)
         if not ticks:
@@ -230,7 +263,7 @@ def calc_tis(ticker: str, minutes: int = 5, count: int = 200) -> float | None:
     except Exception as e:  # API or parsing error
         cal("calc_tis failed for %s: %s", ticker, e)
         try:
-            ob = pyupbit.get_orderbook(ticker)
+            ob = call_upbit_api(pyupbit.get_orderbook, ticker)
             if not ob:
                 cal("calc_tis no orderbook for %s", ticker)
                 return None
