@@ -19,6 +19,7 @@ from utils import (
     load_secrets,
     send_telegram,
     calc_tis,
+    call_upbit_api,
 )
 from helpers.strategies import check_buy_signal, check_sell_signal, df_to_market
 from bot.indicators import calc_indicators
@@ -30,6 +31,7 @@ from helpers.utils.risk import (
     load_manual_sells,
     save_manual_sells,
 )
+from helpers.utils.positions import load_open_positions, save_open_positions
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +87,8 @@ def _safe_call(
 
 def refresh_positions(upbit: pyupbit.Upbit, active: Dict[str, Dict[str, float]]) -> None:
     """현재 잔고 정보를 읽어 포지션을 동기화한다."""
-    balances = _safe_call(upbit.get_balances)
+    balances = _safe_call(call_upbit_api, upbit.get_balances)
+    saved = load_open_positions()
     updated: Dict[str, Dict[str, float]] = {}
     for b in balances:
         if b.get("currency") == "KRW":
@@ -97,16 +100,18 @@ def refresh_positions(upbit: pyupbit.Upbit, active: Dict[str, Dict[str, float]])
         if qty <= 0:
             continue
         ticker = f"KRW-{b['currency']}"
+        src = saved.get(ticker, active.get(ticker, {}))
         updated[ticker] = {
             "buy_price": float(b.get("avg_buy_price", 0)),
             "qty": qty,
-            "strategy": active.get(ticker, {}).get("strategy", "INIT"),
-            "level": active.get(ticker, {}).get("level", "중도적"),
+            "strategy": src.get("strategy", "INIT"),
+            "level": src.get("level", "중도적"),
         }
     with _LOCK:
         active.clear()
         active.update(updated)
         BALANCE_CACHE[:] = balances
+    save_open_positions(updated)
     log_trade("REFRESH", {"count": len(updated)})
     logger.info("[BOT] positions refreshed %d", len(updated))
 
@@ -151,8 +156,9 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
     fund_conf = load_fund_settings()
     risk_conf = load_risk_settings()
     active_trades: Dict[str, Dict[str, float]] = {}
+    saved = load_open_positions()
     try:
-        balances = _safe_call(upbit.get_balances)
+        balances = _safe_call(call_upbit_api, upbit.get_balances)
         with _LOCK:
             BALANCE_CACHE[:] = balances
         for b in balances:
@@ -162,15 +168,17 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
             if bal <= 0:
                 continue
             ticker = f"KRW-{b['currency']}"
+            src = saved.get(ticker, {})
             with _LOCK:
                 active_trades[ticker] = {
                     "buy_price": float(b.get("avg_buy_price", 0)),
                     "qty": bal,
-                    "strategy": "INIT",
-                    "level": strategy_conf.get("level", "중도적"),
+                    "strategy": src.get("strategy", "INIT"),
+                    "level": src.get("level", strategy_conf.get("level", "중도적")),
                 }
     except Exception as exc:  # pragma: no cover - runtime
         logger.warning("Failed to preload positions %s", exc)
+    save_open_positions(active_trades)
     last_reload = time.time()
     logger.info("[BOT] starting trading loop")
 
@@ -200,6 +208,7 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                 with _LOCK:
                     active_trades.pop(m, None)
                 manual_update = True
+                save_open_positions(active_trades)
             if manual:
                 save_manual_sells([])
             if manual_update:
@@ -215,6 +224,53 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
             filtered = get_filtered_tickers(filter_conf)
             logger.debug("[BOT] tickers %s", filtered)
 
+            needs_update = False
+
+            sell_tasks = []
+            for ticker, pos in list(active_trades.items()):
+                df_raw = _safe_call(
+                    call_upbit_api,
+                    pyupbit.get_ohlcv,
+                    ticker,
+                    interval="minute5",
+                    count=120,
+                )
+                if df_raw is None or len(df_raw) < 20:
+                    continue
+                df_raw = df_raw.rename(
+                    columns={
+                        "open": "Open",
+                        "high": "High",
+                        "low": "Low",
+                        "close": "Close",
+                        "volume": "Volume",
+                    }
+                )
+                df_ind = calc_indicators(df_raw)
+                market = df_to_market(df_ind, 0)
+                market["Entry"] = pos["buy_price"]
+                market["Peak"] = df_ind["High"].cummax().iloc[-1]
+                if check_sell_signal(pos["strategy"], pos["level"], market):
+                    fut = executor.submit(
+                        _safe_call,
+                        smart_sell,
+                        upbit,
+                        ticker,
+                        pos["qty"],
+                        fund_conf.get("slippage_tolerance", 0.001),
+                        slippage_limit=fund_conf.get("slippage_tolerance", 0.001),
+                    )
+                    sell_tasks.append((ticker, fut))
+
+            for ticker, fut in sell_tasks:
+                avg, vol = fut.result()
+                log_trade("SELL", {"ticker": ticker, "price": avg, "qty": vol})
+                logger.info("[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol)
+                with _LOCK:
+                    active_trades.pop(ticker, None)
+                needs_update = True
+                save_open_positions(active_trades)
+
             buy_tasks = []
             for ticker in filtered:
                 if ticker in active_trades:
@@ -225,7 +281,11 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                 strat = strategy_conf.get("strategy", "M-BREAK")
                 level = strategy_conf.get("level", "중도적")
                 df_raw = _safe_call(
-                    pyupbit.get_ohlcv, ticker, interval="minute5", count=120
+                    call_upbit_api,
+                    pyupbit.get_ohlcv,
+                    ticker,
+                    interval="minute5",
+                    count=120,
                 )
                 if df_raw is None or len(df_raw) < 20:
                     continue
@@ -267,49 +327,11 @@ def run_trading_bot(upbit: pyupbit.Upbit, interval: float = 3.0) -> None:
                     log_trade("BUY", {"ticker": ticker, "price": price, "qty": qty})
                     logger.info("[BOT] bought %s price=%.8f qty=%.6f", ticker, price, qty)
                     needs_update = True
-
-            sell_tasks = []
-            for ticker, pos in list(active_trades.items()):
-                df_raw = _safe_call(
-                    pyupbit.get_ohlcv, ticker, interval="minute5", count=120
-                )
-                if df_raw is None or len(df_raw) < 20:
-                    continue
-                df_raw = df_raw.rename(
-                    columns={
-                        "open": "Open",
-                        "high": "High",
-                        "low": "Low",
-                        "close": "Close",
-                        "volume": "Volume",
-                    }
-                )
-                df_ind = calc_indicators(df_raw)
-                market = df_to_market(df_ind, 0)
-                market["Entry"] = pos["buy_price"]
-                market["Peak"] = df_ind["High"].cummax().iloc[-1]
-                if check_sell_signal(pos["strategy"], pos["level"], market):
-                    fut = executor.submit(
-                        _safe_call,
-                        smart_sell,
-                        upbit,
-                        ticker,
-                        pos["qty"],
-                        fund_conf.get("slippage_tolerance", 0.001),
-                        slippage_limit=fund_conf.get("slippage_tolerance", 0.001),
-                    )
-                    sell_tasks.append((ticker, fut))
-
-            for ticker, fut in sell_tasks:
-                avg, vol = fut.result()
-                log_trade("SELL", {"ticker": ticker, "price": avg, "qty": vol})
-                logger.info("[BOT] sold %s avg=%.8f qty=%.6f", ticker, avg, vol)
-                with _LOCK:
-                    active_trades.pop(ticker, None)
-                needs_update = True
+                    save_open_positions(active_trades)
 
             if needs_update:
                 refresh_positions(upbit, active_trades)
+
 
         except Exception as e:  # pragma: no cover - runtime loop
             logger.exception("[BOT] error %s", e)

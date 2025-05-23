@@ -10,13 +10,14 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
-from utils import calc_tis, load_secrets, send_telegram
+from utils import calc_tis, load_secrets, send_telegram, call_upbit_api
 from helpers.strategies import (
     check_buy_signal,
     check_sell_signal,
     df_to_market,
 )
 from .indicators import calc_indicators
+from helpers.utils.positions import load_open_positions, save_open_positions
 
 
 def calc_sell_signal(dc: bool, tis: float, pnl: float, sl_th: float, tp_th: float,
@@ -59,6 +60,15 @@ class UpbitTrader:
             self.logger.debug("Trader initialized with config %s", config)
 
     def _alert(self, msg: str) -> None:
+        if self.token and self.chat:
+            try:
+                send_telegram(self.token, self.chat, msg)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("telegram send failed")
+
+    def _notify(self, msg: str) -> None:
+        """일반 정보성 메시지를 텔레그램으로 전송한다."""
         if self.token and self.chat:
             try:
                 send_telegram(self.token, self.chat, msg)
@@ -163,12 +173,43 @@ class UpbitTrader:
                         strategies,
                         params,
                     )
+                # 매도 신호 확인을 우선한다
+                for ticker, pos in list(self.positions.items()):
+                    df = call_upbit_api(pyupbit.get_ohlcv, ticker, interval="minute5", count=120)
+                    if df is None or len(df) < 20:
+                        continue
+                    df = df.rename(
+                        columns={
+                            "open": "Open",
+                            "high": "High",
+                            "low": "Low",
+                            "close": "Close",
+                            "volume": "Volume",
+                        }
+                    )
+                    df_ind = calc_indicators(df)
+                    market = df_to_market(df_ind, 0)
+                    market["Entry"] = pos["entry"]
+                    market["Peak"] = df_ind["High"].cummax().iloc[-1]
+                    if check_sell_signal(pos["strategy"], pos["level"], market):
+                        call_upbit_api(self.upbit.sell_market_order, ticker, pos["qty"])
+                        if self.logger:
+                            self.logger.info(
+                                "[SELL] %s %.1f (%0.4f개) %s 청산",
+                                ticker,
+                                df_ind['Close'].iloc[-1],
+                                pos["qty"],
+                                pos["strategy"],
+                            )
+                        self.positions.pop(ticker, None)
+                        save_open_positions(self.positions)
+
                 for ticker in tickers:
                     if self._position_count() >= self.config.get("max_positions", 1):
                         if self.logger:
                             self.logger.debug("[TRADER] max positions reached")
                         break
-                    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
+                    df = call_upbit_api(pyupbit.get_ohlcv, ticker, interval="minute5", count=120)
                     if df is None or len(df) < 60:
                         if self.logger:
                             self.logger.debug("Insufficient data for %s", ticker)
@@ -206,13 +247,14 @@ class UpbitTrader:
                         last_price = df_ind["Close"].iloc[-1]
                         krw = self.config.get("amount", 10000)
                         qty = krw / last_price
-                        self.upbit.buy_market_order(ticker, krw)
+                        call_upbit_api(self.upbit.buy_market_order, ticker, krw)
                         self.positions[ticker] = {
                             "qty": qty,
                             "entry": last_price,
                             "strategy": chosen,
                             "level": level,
                         }
+                        save_open_positions(self.positions)
                         if self.logger:
                             self.logger.info(
                                 "[BUY] %s %.1f (%0.4f개) %s 진입",
@@ -221,36 +263,6 @@ class UpbitTrader:
                                 qty,
                                 chosen,
                             )
-
-                # 매도 신호 확인
-                for ticker, pos in list(self.positions.items()):
-                    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
-                    if df is None or len(df) < 20:
-                        continue
-                    df = df.rename(
-                        columns={
-                            "open": "Open",
-                            "high": "High",
-                            "low": "Low",
-                            "close": "Close",
-                            "volume": "Volume",
-                        }
-                    )
-                    df_ind = calc_indicators(df)
-                    market = df_to_market(df_ind, 0)
-                    market["Entry"] = pos["entry"]
-                    market["Peak"] = df_ind["High"].cummax().iloc[-1]
-                    if check_sell_signal(pos["strategy"], pos["level"], market):
-                        self.upbit.sell_market_order(ticker, pos["qty"])
-                        if self.logger:
-                            self.logger.info(
-                                "[SELL] %s %.1f (%0.4f개) %s 청산",
-                                ticker,
-                                df_ind['Close'].iloc[-1],
-                                pos["qty"],
-                                pos["strategy"],
-                            )
-                        self.positions.pop(ticker, None)
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
             except Exception as e:
@@ -268,7 +280,7 @@ class UpbitTrader:
         try:
             if self.logger:
                 self.logger.debug("Fetching balances from Upbit")
-            return self.upbit.get_balances()
+            return call_upbit_api(self.upbit.get_balances)
         except Exception as e:
             if self.logger:
                 self.logger.exception("Failed to get balances: %s", e)
@@ -280,6 +292,7 @@ class UpbitTrader:
         balances = self.get_balances()
         if not balances:
             return
+        saved = load_open_positions()
         self.positions.clear()
         level = self.config.get("level", "중도적")
         for b in balances:
@@ -292,12 +305,14 @@ class UpbitTrader:
             if qty <= 0:
                 continue
             ticker = f"KRW-{b['currency']}"
+            src = saved.get(ticker, {})
             self.positions[ticker] = {
                 "qty": qty,
                 "entry": float(b.get("avg_buy_price", 0)),
-                "strategy": "INIT",
-                "level": level,
+                "strategy": src.get("strategy", "INIT"),
+                "level": src.get("level", level),
             }
+        save_open_positions(self.positions)
 
     def account_summary(self, excluded=None):
         """잔고 목록을 이용해 보유 KRW, 총 매수금액, 총 평가금액과 손익률을 계산한다.
@@ -384,7 +399,7 @@ class UpbitTrader:
                     self.logger.debug("Skip position for excluded coin %s", currency)
                 continue
             try:
-                price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                price = call_upbit_api(pyupbit.get_current_price, f"KRW-{currency}") or 0
             except Exception:
                 if self.logger:
                     self.logger.warning("Price lookup failed for %s", currency)
