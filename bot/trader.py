@@ -10,7 +10,7 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
-from utils import calc_tis, load_secrets, send_telegram
+from utils import calc_tis, load_secrets, send_telegram, call_upbit_api
 import notifications
 
 from helpers.strategies import (
@@ -87,7 +87,7 @@ class UpbitTrader:
             self._fail_counts[currency] = 0
         if self.on_price_fail:
             try:
-                self.on_price_fail(currency, count)
+                self.on_price_fail(currency)
             except Exception:
                 if self.logger:
                     self.logger.debug("on_price_fail callback error")
@@ -270,7 +270,9 @@ class UpbitTrader:
 
                 # 매도 신호 확인
                 for ticker, pos in list(self.positions.items()):
-                    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
+                    df = call_upbit_api(
+                        pyupbit.get_ohlcv, ticker, interval="minute5", count=120
+                    )
                     if df is None or len(df) < 20:
                         continue
                     df = df.rename(
@@ -287,7 +289,7 @@ class UpbitTrader:
                     market["Entry"] = pos["entry"]
                     market["Peak"] = df_ind["High"].cummax().iloc[-1]
                     if check_sell_signal(pos["strategy"], pos["level"], market):
-                        self.upbit.sell_market_order(ticker, pos["qty"])
+                        call_upbit_api(self.upbit.sell_market_order, ticker, pos["qty"])
                         if self.logger:
                             self.logger.info(
                                 "[SELL] %s %.1f (%0.4f개) %s 청산",
@@ -379,7 +381,9 @@ class UpbitTrader:
                 avg_buy = float(b.get("avg_buy_price", 0))
                 buy_total += bal * avg_buy
                 try:
-                    price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                    price = call_upbit_api(
+                        pyupbit.get_current_price, f"KRW-{currency}"
+                    ) or 0
                 except Exception:
                     if self.logger:
                         self.logger.warning("Price lookup failed for %s", currency)
