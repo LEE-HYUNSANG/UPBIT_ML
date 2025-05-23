@@ -10,6 +10,7 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
+PID_FILE = "trader.pid"  # 실행 중인 트레이더 PID 저장 경로
 from utils import calc_tis, load_secrets, send_telegram, call_upbit_api
 import notifications
 
