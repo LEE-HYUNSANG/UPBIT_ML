@@ -62,7 +62,17 @@ _RATE_LIMITER = RateLimiter(7, 1.0)
 def call_upbit_api(func, *args, **kwargs):
     """Call Upbit API function with global rate limiting."""
     _RATE_LIMITER.acquire()
-    return func(*args, **kwargs)
+    try:
+        return func(*args, **kwargs)
+    except Exception as exc:  # noqa: BLE001 - pyupbit custom error
+        # pyupbit 1.x raises RemainingReqParsingError when the header is missing.
+        # Retry once in that case so caller doesn't immediately fail.
+        if exc.__class__.__name__ == "RemainingReqParsingError":
+            logging.getLogger(__name__).warning(
+                "Remaining-Req header parse failed, retrying"  # noqa: TRY003
+            )
+            return func(*args, **kwargs)
+        raise
 
 
 class LevelFilter(logging.Filter):
