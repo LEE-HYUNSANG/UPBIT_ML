@@ -59,20 +59,44 @@ class RateLimiter:
 _RATE_LIMITER = RateLimiter(7, 1.0)
 
 
-def call_upbit_api(func, *args, **kwargs):
-    """Call Upbit API function with global rate limiting."""
-    _RATE_LIMITER.acquire()
+def _patch_pyupbit_parser() -> None:
+    """Replace pyupbit's Remaining-Req parser with a tolerant version."""
     try:
-        return func(*args, **kwargs)
-    except Exception as exc:  # noqa: BLE001 - pyupbit custom error
-        # pyupbit 1.x raises RemainingReqParsingError when the header is missing.
-        # Retry once in that case so caller doesn't immediately fail.
-        if exc.__class__.__name__ == "RemainingReqParsingError":
-            logging.getLogger(__name__).warning(
-                "Remaining-Req header parse failed, retrying"  # noqa: TRY003
-            )
+        from pyupbit import request_api
+    except Exception:  # pragma: no cover - optional dependency
+        return
+
+    original = getattr(request_api, "_parse", None)
+
+    def _safe_parse(header: str):
+        try:
+            if original:
+                return original(header)
+        except Exception:  # noqa: BLE001 - pyupbit custom error
+            pass
+        return 0
+
+    request_api._parse = _safe_parse
+
+
+def call_upbit_api(func, *args, retries: int = 2, delay: float = 0.2, **kwargs):
+    """Call Upbit API function with global rate limiting and retry logic."""
+    for attempt in range(retries + 1):
+        _RATE_LIMITER.acquire()
+        try:
             return func(*args, **kwargs)
-        raise
+        except Exception as exc:  # noqa: BLE001 - pyupbit custom error
+            if exc.__class__.__name__ == "RemainingReqParsingError":
+                logging.getLogger(__name__).warning(
+                    "Remaining-Req header parse failed, retry %s/%s", attempt + 1, retries
+                )
+                if attempt == 0:
+                    _patch_pyupbit_parser()
+                if attempt < retries:
+                    time.sleep(delay)
+                    delay *= 2
+                    continue
+            raise
 
 
 class LevelFilter(logging.Filter):
