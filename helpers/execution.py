@@ -17,6 +17,7 @@ import time
 from typing import Tuple
 
 import pyupbit
+from utils import call_upbit_api
 
 from utils import send_telegram
 
@@ -60,7 +61,7 @@ def ask_tick(price: float) -> float:
 def _fetch_spread(ticker: str) -> Tuple[float, float, float]:
     """호가창에서 매수호가, 매도호가, 스프레드 비율을 반환한다."""
     try:
-        book = pyupbit.get_orderbook(ticker)[0]["orderbook_units"][0]
+        book = call_upbit_api(pyupbit.get_orderbook, ticker)[0]["orderbook_units"][0]
         ask = float(book["ask_price"])
         bid = float(book["bid_price"])
         spread = (ask - bid) / ask
@@ -74,7 +75,7 @@ def _fetch_spread(ticker: str) -> Tuple[float, float, float]:
 def check_filled_amount(uuid: str) -> float:
     """주문 UUID로 체결된 수량을 조회한다."""
     try:
-        order = pyupbit.get_order(uuid)
+        order = call_upbit_api(pyupbit.get_order, uuid)
         if not order:
             return 0.0
         return float(order.get("executed_volume", 0.0))
@@ -87,7 +88,7 @@ def check_filled_amount(uuid: str) -> float:
 def is_filled(uuid: str) -> bool:
     """주문이 전량 체결되었는지 확인한다."""
     try:
-        order = pyupbit.get_order(uuid)
+        order = call_upbit_api(pyupbit.get_order, uuid)
         if not order:
             return False
         return order.get("state") == "done" and float(order.get("remaining", 0)) == 0
@@ -109,7 +110,7 @@ def smart_buy(
         try:
             ask, bid, spread = _fetch_spread(ticker)
             if spread <= slippage_limit:
-                res = upbit.buy_market_order(ticker, total_krw)
+                res = call_upbit_api(upbit.buy_market_order, ticker, total_krw)
                 price = float(res.get("price", ask))
                 qty = float(res.get("volume", total_krw / price))
                 uuid = res.get("uuid")
@@ -120,7 +121,7 @@ def smart_buy(
             tick = ask_tick(ask)
             limit_price = ask - tick
             qty = total_krw / limit_price
-            res = upbit.buy_limit_order(ticker, limit_price, qty)
+            res = call_upbit_api(upbit.buy_limit_order, ticker, limit_price, qty)
             uuid = res.get("uuid")
             time.sleep(0.5)
             if uuid and is_filled(uuid):
@@ -133,7 +134,7 @@ def smart_buy(
             time.sleep(1)
     _alert(f"[BUY RETRY] 시장가 전환 {ticker}")
     try:
-        res = upbit.buy_market_order(ticker, total_krw)
+        res = call_upbit_api(upbit.buy_market_order, ticker, total_krw)
         price = float(res.get("price", ask))
         qty = float(res.get("volume", total_krw / price))
     except Exception as e:  # pragma: no cover - final
@@ -170,7 +171,7 @@ def smart_sell(
         sold = 0.0
         for i in range(parts):
             part = remain / (parts - i)
-            res = upbit.sell_market_order(ticker, part)
+            res = call_upbit_api(upbit.sell_market_order, ticker, part)
             price = float(res.get("price", bid))
             qty = float(res.get("volume", part))
             uuid = res.get("uuid")
@@ -186,7 +187,7 @@ def smart_sell(
     # PARTIAL 또는 기본
     m_qty = quantity * partial_ratio
     l_qty = quantity - m_qty
-    res = upbit.sell_market_order(ticker, m_qty)
+    res = call_upbit_api(upbit.sell_market_order, ticker, m_qty)
     m_price = float(res.get("price", bid))
     m_filled = float(res.get("volume", m_qty))
     uuid = res.get("uuid")
@@ -196,7 +197,7 @@ def smart_sell(
     for attempt in range(max_retry):
         tick = ask_tick(bid)
         limit_price = bid + tick
-        res = upbit.sell_limit_order(ticker, limit_price, l_qty)
+        res = call_upbit_api(upbit.sell_limit_order, ticker, limit_price, l_qty)
         uuid = res.get("uuid")
         time.sleep(0.5)
         if uuid and is_filled(uuid):
@@ -204,7 +205,7 @@ def smart_sell(
             price = ((m_price * m_filled) + limit_price * l_filled) / (m_filled + l_filled)
             logger.info("[SELL] partial limit %s %.6f %.6f", ticker, limit_price, l_filled)
             return price, m_filled + l_filled
-    res = upbit.sell_market_order(ticker, l_qty)
+    res = call_upbit_api(upbit.sell_market_order, ticker, l_qty)
     price2 = float(res.get("price", bid))
     qty2 = float(res.get("volume", l_qty))
     uuid = res.get("uuid")
