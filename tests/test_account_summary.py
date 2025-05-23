@@ -22,3 +22,14 @@ def test_account_summary_records_failure(monkeypatch):
         "pnl": 0.0,
     }
     assert tr._fail_counts.get("AAA") == 1
+
+
+def test_account_summary_invalid_key(monkeypatch):
+    class ErrUpbit:
+        def get_balances(self):
+            return {"error": {"name": "invalid_access_key"}}
+
+    tr = UpbitTrader("k", "s", {})
+    tr.upbit = ErrUpbit()
+    summary = tr.account_summary()
+    assert summary is None

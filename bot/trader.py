@@ -333,8 +333,18 @@ class UpbitTrader:
                 self.logger.debug("Fetching balances from Upbit")
             data = call_upbit_api(self.upbit.get_balances)
             if not isinstance(data, list):
-                if self.logger:
-                    self.logger.warning("Unexpected response for balances: %s", data)
+                if isinstance(data, dict) and data.get("error", {}).get("name"):
+                    if self.logger:
+                        self.logger.warning(
+                            "Balances API error: %s", data["error"].get("name")
+                        )
+                    if data["error"].get("name") == "invalid_access_key":
+                        self._alert("[ERROR] 업비트 API 키가 잘못되었습니다.")
+                else:
+                    if self.logger:
+                        self.logger.warning(
+                            "Unexpected response for balances: %s", data
+                        )
                 return None
             # Filter out invalid entries to avoid type errors
             result = [b for b in data if isinstance(b, dict)]
