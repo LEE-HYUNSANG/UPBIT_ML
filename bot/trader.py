@@ -10,7 +10,9 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
-from utils import calc_tis, load_secrets, send_telegram, call_upbit_api
+from utils import calc_tis, load_secrets, send_telegram
+import notifications
+
 from helpers.strategies import (
     check_buy_signal,
     check_sell_signal,
@@ -68,13 +70,12 @@ class UpbitTrader:
                     self.logger.debug("telegram send failed")
 
     def _notify(self, msg: str) -> None:
-        """일반 정보성 메시지를 텔레그램으로 전송한다."""
-        if self.token and self.chat:
-            try:
-                send_telegram(self.token, self.chat, msg)
-            except Exception:
-                if self.logger:
-                    self.logger.debug("telegram send failed")
+        """SocketIO 및 텔레그램으로 일반 메시지를 전송한다."""
+        try:
+            notifications.notify(msg)
+        except Exception:
+            if self.logger:
+                self.logger.debug("telegram send failed")
 
     def _record_price_failure(self, currency: str) -> None:
         """시세 조회 실패 횟수를 누적하고 경고만 전송한다."""
@@ -263,6 +264,42 @@ class UpbitTrader:
                                 qty,
                                 chosen,
                             )
+                        self._notify(
+                            f"[BUY] {ticker} {qty:.4f}개 @ {last_price:,.1f}원"
+                        )
+
+                # 매도 신호 확인
+                for ticker, pos in list(self.positions.items()):
+                    df = pyupbit.get_ohlcv(ticker, interval="minute5", count=120)
+                    if df is None or len(df) < 20:
+                        continue
+                    df = df.rename(
+                        columns={
+                            "open": "Open",
+                            "high": "High",
+                            "low": "Low",
+                            "close": "Close",
+                            "volume": "Volume",
+                        }
+                    )
+                    df_ind = calc_indicators(df)
+                    market = df_to_market(df_ind, 0)
+                    market["Entry"] = pos["entry"]
+                    market["Peak"] = df_ind["High"].cummax().iloc[-1]
+                    if check_sell_signal(pos["strategy"], pos["level"], market):
+                        self.upbit.sell_market_order(ticker, pos["qty"])
+                        if self.logger:
+                            self.logger.info(
+                                "[SELL] %s %.1f (%0.4f개) %s 청산",
+                                ticker,
+                                df_ind['Close'].iloc[-1],
+                                pos["qty"],
+                                pos["strategy"],
+                            )
+                        self._notify(
+                            f"[SELL] {ticker} {pos['qty']:.4f}개 @ {df_ind['Close'].iloc[-1]:,.1f}원"
+                        )
+                        self.positions.pop(ticker, None)
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
             except Exception as e:

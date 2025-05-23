@@ -1,6 +1,7 @@
 import pandas as pd
 import pytest
 from bot.trader import UpbitTrader
+import notifications
 
 class DummyUpbit:
     def __init__(self):
@@ -26,7 +27,7 @@ def test_buy_triggers_notification(monkeypatch):
     monkeypatch.setattr("bot.trader.check_buy_signal",lambda s,l,m:True)
     monkeypatch.setattr("bot.trader.check_sell_signal",lambda s,l,m:False)
     sent={}
-    monkeypatch.setattr(tr,"_notify",lambda msg:sent.setdefault("msg",msg))
+    monkeypatch.setattr(notifications, "notify", lambda msg: sent.setdefault("msg", msg))
     monkeypatch.setattr("time.sleep",lambda x:(_ for _ in ()).throw(SystemExit))
     tr.running=True
     with pytest.raises(SystemExit):
