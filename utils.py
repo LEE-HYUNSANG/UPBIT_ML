@@ -1,5 +1,6 @@
 import json
 import logging
+from logging.handlers import RotatingFileHandler
 import os
 import sys
 from typing import Iterable
@@ -109,20 +110,26 @@ def setup_logging(level: str | None = None, log_dir: str = "logs") -> logging.Lo
             ("critical", logging.CRITICAL),
         ]
         for name, lvl in files:
-            fh = logging.FileHandler(os.path.join(log_dir, f"{name}.log"), encoding="utf-8")
+            fh = RotatingFileHandler(
+                os.path.join(log_dir, f"{name}.log"), encoding="utf-8", maxBytes=1_000_000, backupCount=3
+            )
             fh.setFormatter(fmt)
             fh.setLevel(lvl)
             fh.addFilter(LevelFilter(lvl))
             logger.addHandler(fh)
 
         # 자동 매매 매수/매도 로그 파일
-        buy_fh = logging.FileHandler(os.path.join(log_dir, "Auto_B.log"), encoding="utf-8")
+        buy_fh = RotatingFileHandler(
+            os.path.join(log_dir, "Auto_B.log"), encoding="utf-8", maxBytes=1_000_000, backupCount=3
+        )
         buy_fh.setFormatter(fmt)
         buy_fh.setLevel(logging.INFO)
         buy_fh.addFilter(MessagePrefixFilter("[BUY]"))
         logger.addHandler(buy_fh)
 
-        sell_fh = logging.FileHandler(os.path.join(log_dir, "Auto_S.log"), encoding="utf-8")
+        sell_fh = RotatingFileHandler(
+            os.path.join(log_dir, "Auto_S.log"), encoding="utf-8", maxBytes=1_000_000, backupCount=3
+        )
         sell_fh.setFormatter(fmt)
         sell_fh.setLevel(logging.INFO)
         sell_fh.addFilter(MessagePrefixFilter("[SELL]"))

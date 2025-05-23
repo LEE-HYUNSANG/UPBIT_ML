@@ -1605,4 +1605,4 @@ def download_code():
         return jsonify(result="error", message="다운로드 실패"), 500
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    socketio.run(app)
