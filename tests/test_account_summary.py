@@ -15,5 +15,10 @@ def test_account_summary_records_failure(monkeypatch):
 
     monkeypatch.setattr("pyupbit.get_current_price", fake_price)
     summary = tr.account_summary()
-    assert summary == {"cash": 1000, "total": 1000, "pnl": 0.0}
+    assert summary == {
+        "krw": 1000,
+        "buy_total": 0,
+        "eval_total": 0,
+        "pnl": 0.0,
+    }
     assert tr._fail_counts.get("AAA") == 1

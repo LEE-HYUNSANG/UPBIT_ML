@@ -15,6 +15,7 @@ from utils import (
     setup_logging,
     calc_tis,
     load_filter_settings,
+    call_upbit_api,
 )
 from trader import Trader
 import notifications
@@ -91,8 +92,9 @@ notifications.init(
 
 # 기본 계좌 요약 자리표시자
 ACCOUNT_PLACEHOLDER = {
-    "cash": "현재 로딩중...",
-    "total": "현재 로딩중...",
+    "krw": "현재 로딩중...",
+    "buy_total": "현재 로딩중...",
+    "eval_total": "현재 로딩중...",
     "pnl": "현재 로딩중...",
 }
 
@@ -227,8 +229,9 @@ def get_account_summary():
     summary = trader.account_summary(excluded)
     if summary is None:
         account_cache = {
-            "cash": "네트워크 연결 안됨",
-            "total": "네트워크 연결 안됨",
+            "krw": "네트워크 연결 안됨",
+            "buy_total": "네트워크 연결 안됨",
+            "eval_total": "네트워크 연결 안됨",
             "pnl": "네트워크 연결 안됨",
         }
     else:
@@ -297,7 +300,7 @@ def refresh_market_data() -> None:
     """업비트에서 원화 마켓 시세와 24시간 거래대금을 가져온다."""
     global market_cache
     try:
-        tickers = pyupbit.get_tickers(fiat="KRW")
+        tickers = call_upbit_api(pyupbit.get_tickers, fiat="KRW")
         url = "https://api.upbit.com/v1/ticker?markets=" + ",".join(tickers)
         resp = requests.get(url, timeout=5)
         resp.raise_for_status()
@@ -365,10 +368,10 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
         "signal_class": "nodata",
     }
     try:
-        df = pyupbit.get_ohlcv(ticker, interval="minute5", count=60)
+        df = call_upbit_api(pyupbit.get_ohlcv, ticker, interval="minute5", count=60)
         if df is None or df.empty:
             return entry
-        price = pyupbit.get_current_price(ticker) or float(df["close"].iloc[-1])
+        price = call_upbit_api(pyupbit.get_current_price, ticker) or float(df["close"].iloc[-1])
         entry["price"] = round(float(price), 2)
         df = df.iloc[:-1]
         if df.empty:
@@ -494,7 +497,7 @@ def calc_buy_signal(ticker: str, coin: str) -> dict:
 def get_latest_5m_close(ticker: str) -> str | None:
     """지정 티커의 최근 5분봉 종료 시각을 반환한다."""
     try:
-        df = pyupbit.get_ohlcv(ticker, interval="minute5", count=1)
+        df = call_upbit_api(pyupbit.get_ohlcv, ticker, interval="minute5", count=1)
         if df is not None and not df.empty:
             return df.index[-1].strftime("%Y-%m-%dT%H:%M:%S")
     except Exception as e:
@@ -1335,13 +1338,13 @@ def manual_sell():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        price = pyupbit.get_current_price(f"KRW-{coin}") or 0
+        price = call_upbit_api(pyupbit.get_current_price, f"KRW-{coin}") or 0
         # 보유 수량 조회 후 시장가 매도
         balances = trader.get_balances() or []
         qty = next((float(b.get('balance', 0)) for b in balances if b.get('currency') == coin), 0)
         if qty <= 0:
             raise ValueError("No balance to sell")
-        trader.upbit.sell_market_order(f"KRW-{coin}", qty)
+        call_upbit_api(trader.upbit.sell_market_order, f"KRW-{coin}", qty)
         msg = (
             f'{coin} 수동 매도 요청\n'
             f'주문 가격: {price:,.0f}원\n'
@@ -1370,10 +1373,10 @@ def manual_buy():
     try:
         if not coin:
             raise ValueError("Invalid coin")
-        price = pyupbit.get_current_price(f"KRW-{coin}") or 0
+        price = call_upbit_api(pyupbit.get_current_price, f"KRW-{coin}") or 0
         amount = settings.buy_amount
         # 시장가 매수 주문 실행
-        trader.upbit.buy_market_order(f"KRW-{coin}", amount)
+        call_upbit_api(trader.upbit.buy_market_order, f"KRW-{coin}", amount)
         msg = (
             f'{coin} 수동 매수 요청\n'
             f'주문 금액: {amount:,}원\n'
