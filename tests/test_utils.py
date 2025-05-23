@@ -47,7 +47,7 @@ import pytest
 def test_calc_tis_fallback():
     """get_ticks 실패 시 주문서 정보를 이용한 체결강도 계산을 확인한다."""
     orderbook = [{'total_bid_size': 20, 'total_ask_size': 10}]
-    with patch('utils.pyupbit.get_ticks', side_effect=Exception('error')),
+    with patch('utils.pyupbit.get_ticks', side_effect=Exception('error')), \
          patch('utils.pyupbit.get_orderbook', return_value=orderbook):
         tis = utils.calc_tis('KRW-BTC')
     assert tis == 200.0
