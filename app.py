@@ -199,12 +199,21 @@ def get_balances():
     """트레이더에서 현재 코인 잔고를 가져온다."""
     logger.debug("Fetching balances")
     data = trader.get_balances()
-    if data is None:
+    if not data:
         return []
-    if excluded_coins:
-        ex_ids = {c['coin'] for c in excluded_coins}
-        data = [b for b in data if b.get('currency') not in ex_ids]
-    return data
+    if not isinstance(data, list):
+        logger.warning("Invalid balances response: %s", data)
+        return []
+    ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
+    results = []
+    for b in data:
+        if not isinstance(b, dict):
+            logger.warning("Skip invalid balance entry: %s", b)
+            continue
+        if ex_ids and b.get('currency') in ex_ids:
+            continue
+        results.append(b)
+    return results
 
 
 def get_status() -> dict:
