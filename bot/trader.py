@@ -66,6 +66,15 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.debug("telegram send failed")
 
+    def _notify(self, msg: str) -> None:
+        """일반 정보성 메시지를 텔레그램으로 전송한다."""
+        if self.token and self.chat:
+            try:
+                send_telegram(self.token, self.chat, msg)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("telegram send failed")
+
     def _record_price_failure(self, currency: str) -> None:
         """시세 조회 실패 횟수를 누적하고 경고만 전송한다."""
         count = self._fail_counts.get(currency, 0) + 1
@@ -315,8 +324,9 @@ class UpbitTrader:
         if not balances:
             return None
         try:
-            cash = 0.0
-            total = 0.0
+            krw = 0.0
+            buy_total = 0.0
+            eval_total = 0.0
             for b in balances:
                 bal = float(b.get("balance", 0))
                 if b.get("currency") == "KRW":
@@ -335,15 +345,17 @@ class UpbitTrader:
                     total += bal * price
                 if self.logger:
                     self.logger.debug(
-                        "Balance %s=%.6f price=%s",
-                        b.get("currency"),
+                        "Balance %s=%.6f buy=%s price=%s",
+                        currency,
                         bal,
-                        locals().get("price", "N/A"),
+                        avg_buy,
+                        price,
                     )
-            pnl = ((total - cash) / cash * 100) if cash else 0.0
+            pnl = (eval_total / buy_total * 100) if buy_total else 0.0
             summary = {
-                "cash": int(cash),
-                "total": int(total),
+                "krw": int(krw),
+                "buy_total": int(buy_total),
+                "eval_total": int(eval_total),
                 "pnl": round(pnl, 2),
             }
             if self.logger:

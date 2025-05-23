@@ -462,11 +462,13 @@ async function reloadAccount(){
     const data = await fetchJsonRetry('/api/account');
     console.log('[API-A005] GET /api/account', data);
     if (data.result === 'success' && data.account) {
-      const c = document.getElementById('accountCash');
-      const t = document.getElementById('accountTotal');
+      const k = document.getElementById('accountKrw');
+      const b = document.getElementById('accountBuy');
+      const e = document.getElementById('accountEval');
       const p = document.getElementById('accountPnl');
-      if (c) c.textContent = formatNumber(data.account.cash) + ' 원';
-      if (t) t.textContent = formatNumber(data.account.total) + ' 원';
+      if (k) k.textContent = formatNumber(data.account.krw) + ' 원';
+      if (b) b.textContent = formatNumber(data.account.buy_total) + ' 원';
+      if (e) e.textContent = formatNumber(data.account.eval_total) + ' 원';
       if (p) p.textContent = data.account.pnl + ' %';
       disconnected = false;
     }
