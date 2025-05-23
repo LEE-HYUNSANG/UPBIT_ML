@@ -424,7 +424,8 @@ class UpbitTrader:
         params = self.config.get("params", {})
         sl_pct = params.get("sl", 0) * 100
         tp_pct = params.get("tp", 0) * 100
-        default_strategy = self.config.get("strategy", "-")
+        # 기본 전략값이 없으면 원인 불명 포지션으로 간주한다
+        default_strategy = "INIT"
         default_level = self.config.get("level", "중도적")
         for b in balances:
             currency = b.get("currency")

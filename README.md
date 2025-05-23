@@ -36,6 +36,7 @@ are filled with server side data.
 - **static/css/custom.css** – Consolidated styles for all pages with no inline styles left in templates.
 - **config/market.json** – Sample market data loaded for monitoring filters.
 - **config/active_positions.json** – Persisted open trades restored on startup.
+  Missing strategy information results in a strategy code of `INIT`, meaning the trade's origin is unknown.
 - **notify()** – Helper in `app.py` that sends messages to SocketIO and Telegram.
 
 ## Example variables passed to templates
@@ -172,7 +173,8 @@ Example error:
 [ERROR] Missing required secrets: UPBIT_KEY, UPBIT_SECRET
 ```
 
-`config/market.json` stores fallback market data when live fetching from Upbit fails. Tests load this file to avoid network access.
+`config/market.json` stores fallback market data when live fetching from Upbit fails.
+Tests load this file to avoid network access.
 `config/active_positions.json` keeps track of open positions so strategies are restored on startup.
 
 The bot tracks price lookup errors per coin. When a coin fails more than
