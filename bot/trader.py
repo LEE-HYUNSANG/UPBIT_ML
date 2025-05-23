@@ -11,6 +11,7 @@ import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
 from utils import calc_tis, load_secrets, send_telegram
+import notifications
 from helpers.strategies import (
     check_buy_signal,
     check_sell_signal,
@@ -65,6 +66,14 @@ class UpbitTrader:
             except Exception:
                 if self.logger:
                     self.logger.debug("telegram send failed")
+
+    def _notify(self, msg: str) -> None:
+        """SocketIO 및 텔레그램으로 일반 메시지를 전송한다."""
+        try:
+            notifications.notify(msg)
+        except Exception:
+            if self.logger:
+                self.logger.debug("telegram send failed")
 
     def _record_price_failure(self, currency: str) -> None:
         """시세 조회 실패 횟수를 누적하고 경고만 전송한다."""
@@ -221,6 +230,9 @@ class UpbitTrader:
                                 qty,
                                 chosen,
                             )
+                        self._notify(
+                            f"[BUY] {ticker} {qty:.4f}개 @ {last_price:,.1f}원"
+                        )
 
                 # 매도 신호 확인
                 for ticker, pos in list(self.positions.items()):
@@ -250,6 +262,9 @@ class UpbitTrader:
                                 pos["qty"],
                                 pos["strategy"],
                             )
+                        self._notify(
+                            f"[SELL] {ticker} {pos['qty']:.4f}개 @ {df_ind['Close'].iloc[-1]:,.1f}원"
+                        )
                         self.positions.pop(ticker, None)
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
