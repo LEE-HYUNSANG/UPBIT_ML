@@ -331,7 +331,12 @@ class UpbitTrader:
         try:
             if self.logger:
                 self.logger.debug("Fetching balances from Upbit")
-            return call_upbit_api(self.upbit.get_balances)
+            data = call_upbit_api(self.upbit.get_balances)
+            if isinstance(data, str):
+                if self.logger:
+                    self.logger.warning("Unexpected response for balances: %s", data)
+                return None
+            return data
         except Exception as e:
             if self.logger:
                 self.logger.exception("Failed to get balances: %s", e)
