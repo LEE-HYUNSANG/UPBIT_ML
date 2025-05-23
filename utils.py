@@ -59,20 +59,38 @@ class RateLimiter:
 _RATE_LIMITER = RateLimiter(7, 1.0)
 
 
-def call_upbit_api(func, *args, **kwargs):
-    """Call Upbit API function with global rate limiting."""
-    _RATE_LIMITER.acquire()
-    try:
-        return func(*args, **kwargs)
-    except Exception as exc:  # noqa: BLE001 - pyupbit custom error
-        # pyupbit 1.x raises RemainingReqParsingError when the header is missing.
-        # Retry once in that case so caller doesn't immediately fail.
-        if exc.__class__.__name__ == "RemainingReqParsingError":
-            logging.getLogger(__name__).warning(
-                "Remaining-Req header parse failed, retrying"  # noqa: TRY003
-            )
+def call_upbit_api(func, *args, retries: int = 2, delay: float = 0.2, **kwargs):
+    """Call Upbit API with rate limiting and graceful header parse fallback."""
+    for attempt in range(retries + 1):
+        _RATE_LIMITER.acquire()
+        try:
             return func(*args, **kwargs)
-        raise
+        except Exception as exc:  # noqa: BLE001 - pyupbit custom error
+            if exc.__class__.__name__ == "RemainingReqParsingError":
+                if attempt < retries:
+                    logging.getLogger(__name__).warning(
+                        "Remaining-Req header parse failed, retry %s/%s", attempt + 1, retries
+                    )
+                    try:
+                        import pyupbit.request_api as req_api
+
+                        orig_parse = getattr(req_api, "_parse", None)
+                        if orig_parse and not getattr(orig_parse, "_patched", False):
+                            def _safe_parse(header: str | None) -> int:  # type: ignore[override]
+                                try:
+                                    return orig_parse(header)
+                                except Exception:
+                                    logging.getLogger(__name__).debug("Remaining-Req parse ignored")
+                                    return 1
+
+                            _safe_parse._patched = True
+                            req_api._parse = _safe_parse
+                    except Exception:
+                        logging.getLogger(__name__).debug("Unable to patch pyupbit parser")
+                    time.sleep(delay)
+                    delay *= 2
+                    continue
+            raise
 
 
 class LevelFilter(logging.Filter):
