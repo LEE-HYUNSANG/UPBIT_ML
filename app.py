@@ -91,8 +91,9 @@ notifications.init(
 
 # 기본 계좌 요약 자리표시자
 ACCOUNT_PLACEHOLDER = {
-    "cash": "현재 로딩중...",
-    "total": "현재 로딩중...",
+    "krw": "현재 로딩중...",
+    "buy_total": "현재 로딩중...",
+    "eval_total": "현재 로딩중...",
     "pnl": "현재 로딩중...",
 }
 
@@ -227,8 +228,9 @@ def get_account_summary():
     summary = trader.account_summary(excluded)
     if summary is None:
         account_cache = {
-            "cash": "네트워크 연결 안됨",
-            "total": "네트워크 연결 안됨",
+            "krw": "네트워크 연결 안됨",
+            "buy_total": "네트워크 연결 안됨",
+            "eval_total": "네트워크 연결 안됨",
             "pnl": "네트워크 연결 안됨",
         }
     else:
