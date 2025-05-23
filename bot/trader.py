@@ -10,7 +10,7 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
-from utils import calc_tis, load_secrets, send_telegram
+from utils import calc_tis, load_secrets, send_telegram, call_upbit_api
 from helpers.strategies import (
     check_buy_signal,
     check_sell_signal,
