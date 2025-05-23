@@ -10,6 +10,7 @@ import pyupbit        # 업비트 API 연동
 import json
 import os
 MIN_POSITION_VALUE = 5000.0  # 5천원 이하는 매매 불가이므로 보유 개수 계산에서 제외
+PID_FILE = "trader.pid"
 from utils import calc_tis, load_secrets, send_telegram
 import notifications
 
@@ -123,7 +124,7 @@ class UpbitTrader:
 
     def start(self) -> bool:
         """자동매매 시작 (스레드)"""
-        if self.thread and self.thread.is_alive():
+        if os.path.exists(PID_FILE) or (self.thread and self.thread.is_alive()):
             if self.logger:
                 self.logger.warning("Trader already running")
             return False
@@ -131,6 +132,12 @@ class UpbitTrader:
         self.running = True  # 루프 실행 플래그 활성화
         self.thread = threading.Thread(target=self.run_loop, daemon=True)
         self.thread.start()  # 별도 스레드에서 run_loop 실행
+        try:
+            with open(PID_FILE, "w", encoding="utf-8") as f:
+                f.write(str(os.getpid()))
+        except Exception:
+            if self.logger:
+                self.logger.debug("PID file write failed")
         if self.logger:
             self.logger.debug("Trader start called")
             self.logger.info("[TRADER] 자동매매 봇 시작됨")
@@ -146,6 +153,12 @@ class UpbitTrader:
         self.running = False  # 루프 종료 플래그
         if self.thread:
             self.thread.join(timeout=1)  # 스레드 종료 대기
+        if os.path.exists(PID_FILE):
+            try:
+                os.remove(PID_FILE)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("PID file remove failed")
         if self.logger:
             self.logger.debug("Trader stop called")
             self.logger.info("[TRADER] 자동매매 봇 중지됨")
