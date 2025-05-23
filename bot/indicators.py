@@ -35,6 +35,11 @@ def compute_indicators(df, strength=None):
         if src in df.columns and dst not in df.columns:
             df = df.rename(columns={src: dst})
 
+    required = {"Open", "High", "Low", "Close", "Volume"}
+    missing = required - set(df.columns)
+    if missing:
+        raise KeyError(f"DataFrame missing required columns: {sorted(missing)}")
+
     if strength is not None:
         df['Strength'] = strength
     elif 'Strength' not in df.columns:
