@@ -315,7 +315,7 @@ class UpbitTrader:
         save_open_positions(self.positions)
 
     def account_summary(self, excluded=None):
-        """잔고 목록을 이용해 현금/총액/손익을 계산한다.
+        """잔고 목록을 이용해 보유 KRW, 총 매수금액, 총 평가금액과 손익률을 계산한다.
 
         Parameters
         ----------
@@ -335,20 +335,21 @@ class UpbitTrader:
             eval_total = 0.0
             for b in balances:
                 bal = float(b.get("balance", 0))
-                if b.get("currency") == "KRW":
-                    cash += bal
-                    total += bal
-                else:
-                    currency = b.get("currency")
-                    try:
-                        price = call_upbit_api(pyupbit.get_current_price, f"KRW-{currency}") or 0
-                    except Exception:
-                        if self.logger:
-                            self.logger.warning("Price lookup failed for %s", currency)
-                        self._alert(f"[API Exception] 시세 조회 실패: {currency}")
-                        self._record_price_failure(currency)
-                        price = 0
-                    total += bal * price
+                currency = b.get("currency")
+                if currency == "KRW":
+                    krw += bal
+                    continue
+                avg_buy = float(b.get("avg_buy_price", 0))
+                buy_total += bal * avg_buy
+                try:
+                    price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                except Exception:
+                    if self.logger:
+                        self.logger.warning("Price lookup failed for %s", currency)
+                    self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                    self._record_price_failure(currency)
+                    price = 0
+                eval_total += bal * price
                 if self.logger:
                     self.logger.debug(
                         "Balance %s=%.6f buy=%s price=%s",
