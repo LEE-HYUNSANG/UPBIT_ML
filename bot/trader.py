@@ -332,11 +332,15 @@ class UpbitTrader:
             if self.logger:
                 self.logger.debug("Fetching balances from Upbit")
             data = call_upbit_api(self.upbit.get_balances)
-            if isinstance(data, str):
+            if not isinstance(data, list):
                 if self.logger:
                     self.logger.warning("Unexpected response for balances: %s", data)
                 return None
-            return data
+            # Filter out invalid entries to avoid type errors
+            result = [b for b in data if isinstance(b, dict)]
+            if len(result) != len(data) and self.logger:
+                self.logger.warning("Skipped invalid balance entries")
+            return result
         except Exception as e:
             if self.logger:
                 self.logger.exception("Failed to get balances: %s", e)
@@ -379,8 +383,11 @@ class UpbitTrader:
             계산에서 제외할 코인 심볼 집합.
         """
         balances = self.get_balances()
-        if not balances:
+        if not isinstance(balances, list):
+            if self.logger:
+                self.logger.warning("Invalid balances data: %s", balances)
             return None
+        balances = [b for b in balances if isinstance(b, dict)]
         if excluded:
             balances = [b for b in balances if b.get("currency") not in excluded]
         if not balances:
