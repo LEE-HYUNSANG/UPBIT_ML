@@ -24,12 +24,19 @@ def compute_indicators(df, strength=None):
     df = df.reset_index(drop=True)
 
     # 컬럼명이 소문자로 들어오는 경우를 대비해 대소문자를 통일한다.
+    # Upbit REST API 에서 내려오는 다양한 컬럼명을 모두 지원하기 위해
+    # 대소문자와 함께 기본 영문 컬럼을 맵핑한다.
     rename_map = {
         "open": "Open",
+        "opening_price": "Open",  # candle api alias
         "high": "High",
+        "high_price": "High",
         "low": "Low",
+        "low_price": "Low",
         "close": "Close",
+        "trade_price": "Close",
         "volume": "Volume",
+        "candle_acc_trade_volume": "Volume",
     }
     for src, dst in rename_map.items():
         if src in df.columns and dst not in df.columns:
