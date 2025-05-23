@@ -300,7 +300,7 @@ class UpbitTrader:
             }
 
     def account_summary(self, excluded=None):
-        """잔고 목록을 이용해 현금/총액/손익을 계산한다.
+        """잔고 목록을 이용해 보유 KRW, 총 매수금액, 총 평가금액과 손익률을 계산한다.
 
         Parameters
         ----------
@@ -315,35 +315,39 @@ class UpbitTrader:
         if not balances:
             return None
         try:
-            cash = 0.0
-            total = 0.0
+            krw = 0.0
+            buy_total = 0.0
+            eval_total = 0.0
             for b in balances:
                 bal = float(b.get("balance", 0))
-                if b.get("currency") == "KRW":
-                    cash += bal
-                    total += bal
-                else:
-                    currency = b.get("currency")
-                    try:
-                        price = pyupbit.get_current_price(f"KRW-{currency}") or 0
-                    except Exception:
-                        if self.logger:
-                            self.logger.warning("Price lookup failed for %s", currency)
-                        self._alert(f"[API Exception] 시세 조회 실패: {currency}")
-                        self._record_price_failure(currency)
-                        price = 0
-                    total += bal * price
+                currency = b.get("currency")
+                if currency == "KRW":
+                    krw += bal
+                    continue
+                avg_buy = float(b.get("avg_buy_price", 0))
+                buy_total += bal * avg_buy
+                try:
+                    price = pyupbit.get_current_price(f"KRW-{currency}") or 0
+                except Exception:
+                    if self.logger:
+                        self.logger.warning("Price lookup failed for %s", currency)
+                    self._alert(f"[API Exception] 시세 조회 실패: {currency}")
+                    self._record_price_failure(currency)
+                    price = 0
+                eval_total += bal * price
                 if self.logger:
                     self.logger.debug(
-                        "Balance %s=%.6f price=%s",
-                        b.get("currency"),
+                        "Balance %s=%.6f buy=%s price=%s",
+                        currency,
                         bal,
-                        locals().get("price", "N/A"),
+                        avg_buy,
+                        price,
                     )
-            pnl = ((total - cash) / cash * 100) if cash else 0.0
+            pnl = (eval_total / buy_total * 100) if buy_total else 0.0
             summary = {
-                "cash": int(cash),
-                "total": int(total),
+                "krw": int(krw),
+                "buy_total": int(buy_total),
+                "eval_total": int(eval_total),
                 "pnl": round(pnl, 2),
             }
             if self.logger:
