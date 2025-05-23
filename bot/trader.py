@@ -17,6 +17,7 @@ from helpers.strategies import (
     df_to_market,
 )
 from .indicators import calc_indicators
+from helpers.utils.positions import load_open_positions, save_open_positions
 
 
 def calc_sell_signal(dc: bool, tis: float, pnl: float, sl_th: float, tp_th: float,
@@ -201,6 +202,7 @@ class UpbitTrader:
                                 pos["strategy"],
                             )
                         self.positions.pop(ticker, None)
+                        save_open_positions(self.positions)
 
                 for ticker in tickers:
                     if self._position_count() >= self.config.get("max_positions", 1):
@@ -252,6 +254,7 @@ class UpbitTrader:
                             "strategy": chosen,
                             "level": level,
                         }
+                        save_open_positions(self.positions)
                         if self.logger:
                             self.logger.info(
                                 "[BUY] %s %.1f (%0.4f개) %s 진입",
@@ -289,6 +292,7 @@ class UpbitTrader:
         balances = self.get_balances()
         if not balances:
             return
+        saved = load_open_positions()
         self.positions.clear()
         level = self.config.get("level", "중도적")
         for b in balances:
@@ -301,12 +305,14 @@ class UpbitTrader:
             if qty <= 0:
                 continue
             ticker = f"KRW-{b['currency']}"
+            src = saved.get(ticker, {})
             self.positions[ticker] = {
                 "qty": qty,
                 "entry": float(b.get("avg_buy_price", 0)),
-                "strategy": "INIT",
-                "level": level,
+                "strategy": src.get("strategy", "INIT"),
+                "level": src.get("level", level),
             }
+        save_open_positions(self.positions)
 
     def account_summary(self, excluded=None):
         """잔고 목록을 이용해 현금/총액/손익을 계산한다.
