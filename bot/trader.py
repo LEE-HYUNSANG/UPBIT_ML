@@ -66,6 +66,15 @@ class UpbitTrader:
                 if self.logger:
                     self.logger.debug("telegram send failed")
 
+    def _notify(self, msg: str) -> None:
+        """일반 정보성 메시지를 텔레그램으로 전송한다."""
+        if self.token and self.chat:
+            try:
+                send_telegram(self.token, self.chat, msg)
+            except Exception:
+                if self.logger:
+                    self.logger.debug("telegram send failed")
+
     def _record_price_failure(self, currency: str) -> None:
         """시세 조회 실패 횟수를 누적하고 경고만 전송한다."""
         count = self._fail_counts.get(currency, 0) + 1
@@ -221,6 +230,9 @@ class UpbitTrader:
                                 qty,
                                 chosen,
                             )
+                        self._notify(
+                            f"[BUY] {ticker} {qty:.4f}개 @ {last_price:,.1f}원"
+                        )
 
                 # 매도 신호 확인
                 for ticker, pos in list(self.positions.items()):
@@ -250,6 +262,9 @@ class UpbitTrader:
                                 pos["qty"],
                                 pos["strategy"],
                             )
+                        self._notify(
+                            f"[SELL] {ticker} {pos['qty']:.4f}개 @ {df_ind['Close'].iloc[-1]:,.1f}원"
+                        )
                         self.positions.pop(ticker, None)
                 time.sleep(300)  # 5분 대기 후 다음 루프
                 error_count = 0
