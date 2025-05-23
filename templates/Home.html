@@ -40,11 +40,13 @@
       </div>
       <div class="card-body">
         <div class="row gy-2">
-          <div class="col-6">현금:</div>
-          <div class="col-6 text-end fw-semibold" id="accountCash">{{ account.cash|comma }} 원</div>
-          <div class="col-6">총 자산:</div>
-          <div class="col-6 text-end fw-semibold" id="accountTotal">{{ account.total|comma }} 원</div>
-          <div class="col-6">누적 수익률:</div>
+          <div class="col-6">보유 KRW:</div>
+          <div class="col-6 text-end fw-semibold" id="accountKrw">{{ account.krw|comma }} 원</div>
+          <div class="col-6">총 매수금액:</div>
+          <div class="col-6 text-end fw-semibold" id="accountBuy">{{ account.buy_total|comma }} 원</div>
+          <div class="col-6">총 평가금액:</div>
+          <div class="col-6 text-end fw-semibold" id="accountEval">{{ account.eval_total|comma }} 원</div>
+          <div class="col-6">평가 손익률:</div>
           <div class="col-6 text-end text-success fw-semibold" id="accountPnl">{{ account.pnl }} %</div>
         </div>
       </div>
