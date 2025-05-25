@@ -37,7 +37,7 @@
       <div class="flex flex-wrap gap-2 mt-2 mb-1">
         {% for ticker in universe %}
         <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
-          {{ ticker }}
+          {{ ticker.replace('KRW-', '') }}
         </span>
         {% endfor %}
       </div>
