@@ -5,13 +5,12 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
       <div class="text-xs text-gray-400 mb-1">KRW 잔고</div>
-      <div class="text-3xl font-extrabold tracking-tight mt-1">12,300,000</div>
+      <div id="krw-balance" class="text-3xl font-extrabold tracking-tight mt-1">0</div>
     </div>
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
       <div class="text-xs text-gray-400 mb-1">오늘 손익(PnL)</div>
       <div class="flex items-baseline mt-1">
-        <span class="text-3xl font-extrabold tracking-tight mr-2">+224,000</span>
-        <span class="text-xl font-bold text-green-400 align-middle">1.83%</span>
+        <span id="pnl-amount" class="text-3xl font-extrabold tracking-tight mr-2">0</span>
       </div>
     </div>
     <!-- 모니터링 코인 카드 -->
@@ -222,4 +221,22 @@
       </form>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function updateAccount() {
+  fetch('/api/account')
+    .then(r => r.json())
+    .then(d => {
+      const krw = document.getElementById('krw-balance');
+      if (krw) krw.textContent = Number(d.krw_balance).toLocaleString();
+      const pnl = document.getElementById('pnl-amount');
+      if (pnl) pnl.textContent = Number(d.pnl).toLocaleString();
+    })
+    .catch(console.error);
+}
+updateAccount();
+setInterval(updateAccount, 10000);
+</script>
 {% endblock %}
