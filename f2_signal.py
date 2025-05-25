@@ -1,6 +1,27 @@
 import pandas as pd
 import json
-from indicators import ema, sma, rsi, atr, macd, stochastic, bollinger_bands, vwap, mfi, adx, ichimoku, parabolic_sar
+import logging
+import numpy as np
+from indicators import (
+    ema,
+    sma,
+    rsi,
+    atr,
+    macd,
+    stochastic,
+    bollinger_bands,
+    vwap,
+    mfi,
+    adx,
+    ichimoku,
+    parabolic_sar,
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [F2] [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler()],
+)
 
 # Load common parameters and strategy formulas
 with open("config/signal.json", "r", encoding="utf-8") as cfg:
@@ -15,6 +36,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     Returns a dictionary with the symbol, boolean flags 'buy_signal' and 'sell_signal',
     and lists of triggered strategies.
     """
+    logging.debug(f"[{symbol}] Starting signal calculation")
     # Ensure data is sorted by time in ascending order
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
     df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
@@ -112,6 +134,10 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             # If not enough data for full window, still define columns (will be NaN for latest if window not reached)
             df1[f"MaxHigh{window}"] = df1["high"].rolling(window=window).max()
             df1[f"MinLow{window}"] = df1["low"].rolling(window=window).min()
+
+    logging.debug(
+        f"[{symbol}] EMA_5(1m): {df1['EMA_5'].iloc[-1]}, RSI_14(1m): {df1['RSI_14'].iloc[-1]}, Strength(1m): {df1['Strength'].iloc[-1]}"
+    )
     
     # Compute technical indicators for 5-minute data (similar to 1m, but to save time, compute only needed ones)
     df5 = df_5m.copy()
@@ -164,6 +190,10 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             df5[f"MaxHigh{window}"] = df5["high"].rolling(window=window).max()
             df5[f"MinLow{window}"] = df5["low"].rolling(window=window).min()
 
+    logging.debug(
+        f"[{symbol}] EMA_5(5m): {df5['EMA_5'].iloc[-1]}, RSI_14(5m): {df5['RSI_14'].iloc[-1]}, Strength(5m): {df5['Strength'].iloc[-1]}"
+    )
+
     # ATR moving average used by some strategies
     df1[f"ATR_{atr_period}_MA20"] = df1[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
     df5[f"ATR_{atr_period}_MA20"] = df5[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
@@ -197,6 +227,14 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         if sell_cond_1m:
             sell_signal = True
             triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
+        logging.info(
+            f"[{symbol}] Strategy {strat['short_code']} | Buy_1m: {buy_cond_1m}, Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
+        )
+    if buy_signal:
+        logging.warning(f"[{symbol}] BUY SIGNAL TRIGGERED: {triggered_buys}")
+    if sell_signal:
+        logging.warning(f"[{symbol}] SELL SIGNAL TRIGGERED: {triggered_sells}")
+
     result = {
         "symbol": symbol,
         "buy_signal": buy_signal,
@@ -204,6 +242,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         "buy_triggers": triggered_buys,
         "sell_triggers": triggered_sells,
     }
+    logging.debug(f"[{symbol}] Result: {result}")
     return result
 
 def eval_formula(formula: str, data_row: pd.Series) -> bool:
@@ -300,13 +339,13 @@ def eval_formula(formula: str, data_row: pd.Series) -> bool:
         expr = expr.replace(name, str(float(val)) if hasattr(val, "__float__") else str(val))
     # Replace mathematical symbols that might use '×' or '≤','≥' in the formula string with Python equivalents
     expr = expr.replace("×", "*").replace("≤", "<=").replace("≥", ">=")
+    logging.debug(f"Evaluating formula: {formula} -> {expr}")
     # Evaluate the expression safely
     try:
         result = eval(expr)
-        # Ensure result is boolean (if numeric result, interpret >0 as True)
         if isinstance(result, (int, float)):
             result = bool(result)
         return bool(result)
     except Exception as e:
-        # If any error (e.g., None values), return False
+        logging.debug(f"Formula evaluation error for '{formula}': {e}")
         return False
