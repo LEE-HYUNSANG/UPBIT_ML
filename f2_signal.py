@@ -2,6 +2,7 @@ import pandas as pd
 import json
 import logging
 import numpy as np
+import os
 from indicators import (
     ema,
     sma,
@@ -17,10 +18,14 @@ from indicators import (
     parabolic_sar,
 )
 
+os.makedirs("log", exist_ok=True)
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",
-    handlers=[logging.StreamHandler()],
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(os.path.join("log", "F2_signal_engine.log")),
+    ],
 )
 
 # Load common parameters and strategy formulas
@@ -136,7 +141,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             df1[f"MinLow{window}"] = df1["low"].rolling(window=window).min()
 
     logging.debug(
-        f"[{symbol}] EMA_5(1m): {df1['EMA_5'].iloc[-1]}, RSI_14(1m): {df1['RSI_14'].iloc[-1]}, Strength(1m): {df1['Strength'].iloc[-1]}"
+        f"[{symbol}][F2][1분봉] 지표 계산 - EMA_5: {df1['EMA_5'].iloc[-1]}, EMA_20: {df1['EMA_20'].iloc[-1]}, RSI_14: {df1['RSI_14'].iloc[-1]}, ATR_14: {df1['ATR_14'].iloc[-1]}"
     )
     
     # Compute technical indicators for 5-minute data (similar to 1m, but to save time, compute only needed ones)
@@ -191,7 +196,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             df5[f"MinLow{window}"] = df5["low"].rolling(window=window).min()
 
     logging.debug(
-        f"[{symbol}] EMA_5(5m): {df5['EMA_5'].iloc[-1]}, RSI_14(5m): {df5['RSI_14'].iloc[-1]}, Strength(5m): {df5['Strength'].iloc[-1]}"
+        f"[{symbol}][F2][5분봉] 지표 계산 - EMA_5: {df5['EMA_5'].iloc[-1]}, EMA_20: {df5['EMA_20'].iloc[-1]}, RSI_14: {df5['RSI_14'].iloc[-1]}, ATR_14: {df5['ATR_14'].iloc[-1]}"
     )
 
     # ATR moving average used by some strategies
@@ -209,31 +214,44 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     for strat in strategies:
         buy_formula = strat["buy_formula_levels"][0]
         sell_formula = strat["sell_formula_levels"][0]
-        # Evaluate buy conditions on both timeframes
+        logging.info(
+            f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
+        )
         try:
-            buy_cond_1m = eval_formula(buy_formula, latest1)
-            buy_cond_5m = eval_formula(buy_formula, latest5)
+            buy_cond_1m = eval_formula(buy_formula, latest1, symbol, strat["short_code"])
+            buy_cond_5m = eval_formula(buy_formula, latest5, symbol, strat["short_code"])
         except Exception as e:
+            logging.error(
+                f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
+            )
             buy_cond_1m = False
             buy_cond_5m = False
+        try:
+            sell_cond_1m = eval_formula(sell_formula, latest1, symbol, strat["short_code"])
+        except Exception as e:
+            logging.error(
+                f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
+            )
+            sell_cond_1m = False
         if buy_cond_1m and buy_cond_5m:
             buy_signal = True
             triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula})
-        # Evaluate sell conditions on 1-minute only
-        try:
-            sell_cond_1m = eval_formula(sell_formula, latest1)
-        except Exception as e:
-            sell_cond_1m = False
         if sell_cond_1m:
             sell_signal = True
             triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
         logging.info(
-            f"[{symbol}] Strategy {strat['short_code']} | Buy_1m: {buy_cond_1m}, Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
+            f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_1m: {buy_cond_1m}, Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
         )
     if buy_signal:
-        logging.warning(f"[{symbol}] BUY SIGNAL TRIGGERED: {triggered_buys}")
+        triggered_buys_codes = [b['strategy'] for b in triggered_buys]
+        logging.warning(
+            f"[{symbol}][F2] BUY SIGNAL TRIGGERED - 전략: {triggered_buys_codes}"
+        )
     if sell_signal:
-        logging.warning(f"[{symbol}] SELL SIGNAL TRIGGERED: {triggered_sells}")
+        triggered_sell_codes = [s['strategy'] for s in triggered_sells]
+        logging.warning(
+            f"[{symbol}][F2] SELL SIGNAL TRIGGERED - 전략: {triggered_sell_codes}"
+        )
 
     result = {
         "symbol": symbol,
@@ -242,10 +260,10 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         "buy_triggers": triggered_buys,
         "sell_triggers": triggered_sells,
     }
-    logging.debug(f"[{symbol}] Result: {result}")
+    logging.debug(f"[{symbol}][F2] Result: {result}")
     return result
 
-def eval_formula(formula: str, data_row: pd.Series) -> bool:
+def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code: str = "") -> bool:
     """
     Helper function to evaluate a buy/sell formula string on a given data row (Series of indicators).
     Returns True/False based on the formula conditions.
@@ -339,13 +357,20 @@ def eval_formula(formula: str, data_row: pd.Series) -> bool:
         expr = expr.replace(name, str(float(val)) if hasattr(val, "__float__") else str(val))
     # Replace mathematical symbols that might use '×' or '≤','≥' in the formula string with Python equivalents
     expr = expr.replace("×", "*").replace("≤", "<=").replace("≥", ">=")
-    logging.debug(f"Evaluating formula: {formula} -> {expr}")
+    logging.debug(
+        f"[{symbol}][F2][{strat_code}] 공식 치환: {formula} → {expr}"
+    )
     # Evaluate the expression safely
     try:
         result = eval(expr)
         if isinstance(result, (int, float)):
             result = bool(result)
+        logging.debug(
+            f"[{symbol}][F2][{strat_code}] 평가값: {result}"
+        )
         return bool(result)
     except Exception as e:
-        logging.debug(f"Formula evaluation error for '{formula}': {e}")
+        logging.error(
+            f"[{symbol}][F2][{strat_code}] 공식 평가 오류: {formula} | 예외: {str(e)}"
+        )
         return False
