@@ -1,19 +1,32 @@
 from flask import Flask, render_template
-from f1_universe import select_universe
+from f1_universe import (
+    select_universe,
+    load_config,
+    get_universe,
+    schedule_universe_updates,
+)
 
 app = Flask(__name__)
+
+CONFIG = load_config()
+schedule_universe_updates(1800, CONFIG)
 
 @app.route("/")
 def home():
     """Root page showing the current trading universe."""
-    universe = select_universe()
+    universe = get_universe()
+    if not universe:
+        universe = select_universe(CONFIG)
     return render_template("index.html", universe=universe)
 
 
 @app.route("/dashboard")
 def dashboard():
     """Render the main dashboard page."""
-    return render_template("01_Home.html")
+    universe = get_universe()
+    if not universe:
+        universe = select_universe(CONFIG)
+    return render_template("01_Home.html", universe=universe)
 
 
 @app.route("/strategy")
