@@ -5,5 +5,36 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    tickers = select_universe()
-    return render_template("index.html", tickers=tickers)
+    """Root page showing the current trading universe."""
+    universe = select_universe()
+    return render_template("index.html", universe=universe)
+
+
+@app.route("/dashboard")
+def dashboard():
+    """Render the main dashboard page."""
+    return render_template("01_Home.html")
+
+
+@app.route("/strategy")
+def strategy():
+    """Render the strategy configuration page."""
+    return render_template("02_Strategy.html")
+
+
+@app.route("/risk")
+def risk():
+    """Render the risk management page."""
+    return render_template("03_Risk.html")
+
+
+@app.route("/analysis")
+def analysis():
+    """Render the data analysis page."""
+    return render_template("04_Analysis.html")
+
+
+@app.route("/settings")
+def settings():
+    """Render the personal settings page."""
+    return render_template("05_pSettings.html")
