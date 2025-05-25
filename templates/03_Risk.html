@@ -5,11 +5,8 @@
     html, body {
       width: 100vw;
       height: 100vh;
-      background: #181e25;
     }
     body {
-      min-width: 1920px;
-      min-height: 1080px;
       overflow-x: auto;
     }
     .main-wrap {
@@ -17,22 +14,22 @@
       margin: 0 auto;
     }
     .section-card {
-      background: #232b35;
-      border-radius: 20px;
-      box-shadow: 0 1px 16px #0004;
-      padding: 2.8rem 2.8rem 2.2rem 2.8rem;
+      background: #1f2937;
+      border-radius: 18px;
+      box-shadow: 0 1px 4px #0006;
+      padding: 2rem;
       margin-bottom: 44px;
     }
     .card-title {
       font-weight: 700;
-      font-size: 1.55rem;
+      font-size: 1.25rem;
       letter-spacing: -0.5px;
     }
     .input-label {
-      font-size: 1.22rem;
+      font-size: 1rem;
       color: #cbd5e1;
       font-weight: 500;
-      margin-bottom: 11px;
+      margin-bottom: 8px;
     }
     .risk-grid {
       display: grid;
@@ -45,16 +42,16 @@
     }
     .input-xl,
     .select-xl {
-      background: #161b22;
-      border: 2px solid #394150;
+      background: #0f172a;
+      border: 2px solid #374151;
       color: #fff;
-      font-size: 1.27rem;
-      border-radius: 13px;
+      font-size: 1rem;
+      border-radius: 10px;
       width: 100%;
       font-family: inherit;
       box-sizing: border-box;
-      padding: 18px 24px 18px 16px;
-      height: 60px; /* select 높이 통일 */
+      padding: 14px 16px;
+      height: 48px; /* select 높이 통일 */
       outline: none;
       transition: border 0.15s;
       line-height: 1.25;
@@ -79,20 +76,20 @@
       margin-top: 12px;
     }
     .btn-save {
-      background: #15803d;
-      color: #fff;
-      font-weight: 600;
+      background: #22c55e;
+      color: #15212b;
+      font-weight: 700;
     }
     .btn-save:hover {
-      background: #166534;
+      background: #4ade80;
     }
     .btn-restore {
-      background: #64748b;
+      background: #475569;
       color: #fff;
       font-weight: 600;
     }
     .btn-restore:hover {
-      background: #475569;
+      background: #334155;
     }
     .btn-reset {
       background: #374151;
@@ -134,7 +131,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      background: #232b35;
+      background: #1f2937;
       border-radius: 17px;
       box-shadow: 0 8px 32px #000a;
       width: 460px;
@@ -162,7 +159,7 @@
       font-size: 1.21rem;
     }
     .modal-table th {
-      background: #222b36;
+      background: #334155;
       font-weight: 600;
     }
     .modal-actions {
@@ -188,7 +185,6 @@
       }
     }
   </style>
-</style>
 {% endblock %}
 {% block content %}
   <div class="main-wrap py-16">
@@ -473,7 +469,7 @@
       else if (mode === '원복') after = yday[card];
       else if (mode === '초기화') after = init[card];
       let content = `<table class="modal-table mx-auto">
-        <tr style="background:#222b36;">
+        <tr style="background:#334155;">
           <th>항목</th><th>이전값</th><th>변경될 값</th>
         </tr>`;
       for (let i = 0; i < ids.length; i++) {

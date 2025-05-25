@@ -3,12 +3,13 @@
 {% block head_extra %}
   <style>
     :root {
-      --main-bg: #1a202a;
-      --card-bg: #212733;
-      --header-bg: #232b35;
-      --table-bg: #232832;
-      --input-bg: #181e25;
-      --input-border: #293043;
+      /* Use the same palette as the home page */
+      --main-bg: #222831;
+      --card-bg: #1f2937;
+      --header-bg: #334155;
+      --table-bg: #1f2937;
+      --input-bg: #0f172a;
+      --input-border: #374151;
       --green: #22c55e;
       --green-light: #4ade80;
       --white: #e5e7eb;
@@ -17,31 +18,26 @@
       --shadow: 0 2px 20px #0005;
       --radius: 18px;
     }
-    body {
-      background: var(--main-bg);
-      color: var(--white);
-      font-family: 'Pretendard','Noto Sans KR',sans-serif;
-      font-size: 1.05rem;
-      letter-spacing: -0.2px;
-    }
+    /* Use the base template's body styles for consistency */
     .main-wrap {
-      max-width: 1160px; margin: 44px auto 0 auto;
+      max-width: 1160px;
+      margin: 32px auto 0 auto;
       background: var(--card-bg);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 36px 36px 44px 36px;
-      border: 1.3px solid var(--header-bg);
+      box-shadow: 0 1px 4px #0006;
+      padding: 32px;
+      border: 1px solid var(--header-bg);
     }
     .title-bar {
-      display: flex; align-items: center; gap: 16px; margin-bottom: 22px;
-      padding-bottom: 10px; border-bottom: 1.3px solid #3ba27240;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
     }
     .title-icon {
-      background: var(--header-bg);
-      color: var(--green); border-radius: 8px; padding: 10px 24px;
-      font-size: 1.16rem; font-weight: 900; letter-spacing: -1px;
-      box-shadow: 0 1px 7px #22c55e2c;
-      border: 1.2px solid var(--green);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
     }
     .toggle-all { margin-right: 14px; }
     .last-saved { color: var(--muted); font-size: 0.96rem; margin-left: 10px;}
