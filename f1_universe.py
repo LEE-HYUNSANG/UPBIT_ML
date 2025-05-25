@@ -24,7 +24,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [F1] [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logs/F1_signal_engine.log"),
+        logging.FileHandler("logs/F1_signal_engine.log", encoding="utf-8"),
         logging.StreamHandler(),
     ],
 )

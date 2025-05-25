@@ -24,7 +24,7 @@ logging.basicConfig(
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler(os.path.join("log", "F2_signal_engine.log")),
+        logging.FileHandler(os.path.join("log", "F2_signal_engine.log"), encoding="utf-8"),
     ],
 )
 
