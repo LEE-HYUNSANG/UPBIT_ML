@@ -27,6 +27,7 @@ import threading
 import time
 import pandas as pd
 import talib as ta
+from f1_universe import select_universe
 
 app = Flask(__name__)  # Flask 애플리케이션 생성
 socketio = SocketIO(app, cors_allowed_origins="*")  # 실시간 알림용 SocketIO
@@ -977,25 +978,10 @@ analysis_strategies = [
 
 @app.route("/")
 def dashboard():
-    logger.debug("Render dashboard")
-    data = get_balances()
-    ex_ids = {c['coin'] for c in excluded_coins} if excluded_coins else None
-    current_positions = trader.build_positions(data, ex_ids) if data else []
-    uptime = datetime.now() - WEB_START
-    h, rem = divmod(int(uptime.total_seconds()), 3600)
-    m = rem // 60
-    return render_template(
-        "Home.html",
-        running=settings.running,
-        positions=current_positions,
-        alerts=alerts,
-        signals=get_filtered_signals(),
-        updated=settings.updated,
-        account=get_account_summary(),
-        start_time=WEB_START_STR,
-        uptime=f"{h:02d}:{m:02d}",
-        config=filter_config,
-    )
+    """Render the universe selection page."""
+    logger.debug("Render universe page")
+    universe = select_universe()
+    return render_template("index.html", universe=universe)
 
 
 @app.route("/dashboard")
