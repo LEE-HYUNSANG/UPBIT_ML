@@ -10,11 +10,24 @@ is available.
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
-from typing import List, Dict
+from typing import Dict, List
 
+import logging
 import requests
+
+os.makedirs("logs", exist_ok=True)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [F1] [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("logs/F1_signal_engine.log"),
+        logging.StreamHandler(),
+    ],
+)
 
 BASE_URL = "https://api.upbit.com/v1"
 CONFIG_PATH = "config/universe.json"
@@ -54,9 +67,13 @@ def load_config(path: str = CONFIG_PATH) -> Dict:
 
 def _fetch_json(url: str, params: Dict | None = None) -> list | dict:
     """Helper to perform a GET request and decode JSON."""
-    response = requests.get(url, params=params, timeout=10)
-    response.raise_for_status()
-    return response.json()
+    try:
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except Exception as exc:  # pragma: no cover - network best effort
+        logging.error(f"[F1][API] Request failed: {url} | params={params} | {exc}")
+        return []
 
 
 def _get_tick_size(price: float) -> float:
@@ -78,16 +95,18 @@ def _get_tick_size(price: float) -> float:
     return 500
 
 
-def get_top_volume_tickers() -> List[str]:
-    """Return a list of tickers with the highest 24h trading volume.
+def get_top_volume_tickers(size: int = 50) -> List[str]:
+    """Return a list of tickers with the highest 24h trading volume."""
 
-    The function queries all KRW markets from the Upbit API and sorts them by
-    ``acc_trade_price_24h`` in descending order.
-    """
     markets = _fetch_json(f"{BASE_URL}/market/all", {"isDetails": "true"})
-    krw_markets = [m["market"] for m in markets if m["market"].startswith("KRW-")]
+    if not markets:
+        logging.warning("[F1][SCAN] 거래대금 TOP 리스트를 불러오지 못했습니다!")
+        return []
 
-    # ``/ticker`` accepts up to 100 markets per request
+    krw_markets = [
+        m["market"] for m in markets if m.get("market", "").startswith("KRW-")
+    ]
+
     ticker_info = []
     for i in range(0, len(krw_markets), 100):
         chunk = krw_markets[i : i + 100]
@@ -98,53 +117,74 @@ def get_top_volume_tickers() -> List[str]:
         ticker_info, key=lambda x: x.get("acc_trade_price_24h", 0), reverse=True
     )
 
-    return [item["market"] for item in sorted_info[:50]]
+    tickers = [item["market"] for item in sorted_info[:size]]
+    logging.info(f"거래대금 TOP {size} 종목: {tickers}")
+    return tickers
 
 
 def apply_filters(tickers: List[str], config: Dict) -> List[str]:
-    """Apply filter conditions to the given tickers.
+    """Apply filter conditions to the given tickers and log each step."""
 
-    Parameters
-    ----------
-    tickers : list[str]
-        List of ticker symbols.
-    config : dict
-        Dictionary with filter values such as price, volatility, tick
-        and spread.
-
-    Returns
-    -------
-    list[str]
-        Filtered list of ticker symbols.
-    """
-    filtered: List[str] = []
+    info: List[Dict] = []
     for i in range(0, len(tickers), 100):
         chunk = tickers[i : i + 100]
         ticker_data = _fetch_json(f"{BASE_URL}/ticker", {"markets": ",".join(chunk)})
 
         for item in ticker_data:
-            price = item["trade_price"]
-            if price < config.get("min_price", 0) or price > config.get("max_price", float("inf")):
-                continue
+            price = item.get("trade_price", 0)
+            volatility = (
+                (item.get("high_price", 0) - item.get("low_price", 0))
+                / item.get("prev_closing_price", 1)
+                * 100
+            )
+            tick_range = (
+                item.get("high_price", 0) - item.get("low_price", 0)
+            ) / _get_tick_size(price)
+            orderbook = _fetch_json(
+                f"{BASE_URL}/orderbook", {"markets": item.get("market")}
+            )
+            if orderbook:
+                ask = orderbook[0]["orderbook_units"][0]["ask_price"]
+                bid = orderbook[0]["orderbook_units"][0]["bid_price"]
+            else:
+                ask = bid = price
+            spread = (ask - bid) / price * 100 if price else 0
 
-            volatility = (item["high_price"] - item["low_price"]) / item["prev_closing_price"] * 100
-            if volatility < config.get("min_volatility", 0):
-                continue
+            info.append(
+                {
+                    "symbol": item.get("market", ""),
+                    "price": price,
+                    "volatility": volatility,
+                    "tick_range": tick_range,
+                    "spread": spread,
+                }
+            )
 
-            tick_range = (item["high_price"] - item["low_price"]) / _get_tick_size(price)
-            if tick_range < config.get("min_ticks", 0):
-                continue
+    min_price = config.get("min_price", 0)
+    max_price = config.get("max_price", float("inf"))
+    min_ticks = config.get("min_ticks", 0)
+    price_filtered = [
+        t
+        for t in info
+        if min_price <= t["price"] <= max_price and t["tick_range"] >= min_ticks
+    ]
+    logging.info(
+        f"가격 필터 통과: {[t['symbol'] for t in price_filtered]} | 가격 {min_price}-{max_price} | min_ticks={min_ticks}"
+    )
 
-            orderbook = _fetch_json(f"{BASE_URL}/orderbook", {"markets": item["market"]})[0]
-            ask = orderbook["orderbook_units"][0]["ask_price"]
-            bid = orderbook["orderbook_units"][0]["bid_price"]
-            spread = (ask - bid) / price * 100
-            if spread > config.get("max_spread", 100):
-                continue
+    min_vol = config.get("min_volatility", 0)
+    volatility_filtered = [t for t in price_filtered if t["volatility"] >= min_vol]
+    logging.info(
+        f"변동성(ATR) 필터 통과: {[t['symbol'] for t in volatility_filtered]} | min_volatility={min_vol}"
+    )
 
-            filtered.append(item["market"])
+    max_spread = config.get("max_spread", 100)
+    spread_filtered = [t for t in volatility_filtered if t["spread"] <= max_spread]
+    logging.info(
+        f"스프레드 필터 통과: {[t['symbol'] for t in spread_filtered]} | max_spread={max_spread}"
+    )
 
-    return filtered
+    return [t["symbol"] for t in spread_filtered]
 
 
 def select_universe(config: Dict | None = None) -> List[str]:
@@ -161,12 +201,15 @@ def select_universe(config: Dict | None = None) -> List[str]:
         Final list of ticker symbols.
     """
     cfg = config or load_config()
-    tickers = get_top_volume_tickers()
     volume_rank = int(cfg.get("volume_rank", 50))
-    tickers = tickers[:volume_rank]
+    tickers = get_top_volume_tickers(volume_rank)
     filtered = apply_filters(tickers, cfg)
-    # Return only the first five coins for monitoring
-    return filtered[:5]
+
+    universe = filtered[:5]
+    if not universe:
+        logging.error("최종 Universe가 비었습니다. 필터 조건/데이터 확인 필요!")
+    logging.info(f"최종 Universe 선정: {universe}")
+    return universe
 
 
 def update_universe(config: Dict | None = None) -> None:
@@ -175,6 +218,7 @@ def update_universe(config: Dict | None = None) -> None:
     with _LOCK:
         _UNIVERSE.clear()
         _UNIVERSE.extend(universe)
+    logging.info(f"Universe updated: {universe}")
 
 
 def get_universe() -> List[str]:
@@ -191,7 +235,7 @@ def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) 
             try:
                 update_universe(config)
             except Exception as exc:  # pragma: no cover - best effort
-                print("Universe update failed:", exc)
+                logging.error(f"Universe update failed: {exc}")
             time.sleep(interval)
 
     thread = threading.Thread(target=_loop, daemon=True)
