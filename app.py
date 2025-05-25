@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, Response, render_template, jsonify, request
 import json
 import os
 import uuid
@@ -61,13 +61,13 @@ def fetch_account_info() -> dict:
 
 
 @app.route("/api/account")
-def api_account() -> "Response":
+def api_account() -> Response:
     """Return account info as JSON."""
     return jsonify(fetch_account_info())
 
 
 @app.route("/api/universe_config", methods=["GET", "POST"])
-def universe_config_endpoint() -> "Response":
+def universe_config_endpoint() -> Response:
     """Get or update universe filter configuration."""
     if request.method == "GET":
         cfg = load_config()
