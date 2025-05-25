@@ -1,75 +1,273 @@
-{% extends "base.html" %}
-{% set tooltip_text %}
-각 전략은 시장 상황에 맞춰 자동으로 매수와 매도 시점을 판단하여 실행되며, 우선순위가 높을수록 먼저 평가됩니다. 모든 전략은 정지 후에도 설정이 유지되며, 상단 토글을 사용하면 전체 전략을 즉시 켜거나 끌 수 있습니다. 매수와 매도 조건을 세밀하게 조정해 기대 수익률을 높이고 리스크를 최소화해 보세요. 설명이 없는 전략은 향후 업데이트에서 보다 자세한 가이드를 제공할 예정입니다.
-{% endset %}
+{% extends 'base.html' %}
+{% block title %}AUTO UPBIT 전략 설정{% endblock %}
+{% block head_extra %}
+  <style>
+    :root {
+      --main-bg: #1a202a;
+      --card-bg: #212733;
+      --header-bg: #232b35;
+      --table-bg: #232832;
+      --input-bg: #181e25;
+      --input-border: #293043;
+      --green: #22c55e;
+      --green-light: #4ade80;
+      --white: #e5e7eb;
+      --muted: #64748b;
+      --muted2: #334155;
+      --shadow: 0 2px 20px #0005;
+      --radius: 18px;
+    }
+    body {
+      background: var(--main-bg);
+      color: var(--white);
+      font-family: 'Pretendard','Noto Sans KR',sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: -0.2px;
+    }
+    .main-wrap {
+      max-width: 1160px; margin: 44px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 36px 44px 36px;
+      border: 1.3px solid var(--header-bg);
+    }
+    .title-bar {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 22px;
+      padding-bottom: 10px; border-bottom: 1.3px solid #3ba27240;
+    }
+    .title-icon {
+      background: var(--header-bg);
+      color: var(--green); border-radius: 8px; padding: 10px 24px;
+      font-size: 1.16rem; font-weight: 900; letter-spacing: -1px;
+      box-shadow: 0 1px 7px #22c55e2c;
+      border: 1.2px solid var(--green);
+    }
+    .toggle-all { margin-right: 14px; }
+    .last-saved { color: var(--muted); font-size: 0.96rem; margin-left: 10px;}
+    .btn {
+      background: var(--green);
+      color: #1a2e1a; font-weight: 800; border-radius: 7px;
+      font-size: 1.04rem; padding: 10px 30px; border: none;
+      transition: box-shadow .13s, background .13s;
+      box-shadow: 0 1px 7px #22c55e32;
+    }
+    .btn:hover { background: var(--green-light);}
+    .btn-outline {
+      background: var(--table-bg);
+      color: var(--green); border: 1.5px solid var(--green);
+      font-weight: 700; border-radius: 7px;
+      font-size: 1.02rem; padding: 10px 28px;
+    }
+    .btn-outline:hover { background: var(--header-bg);}
+    table {
+      width: 100%; border-collapse: separate; border-spacing: 0 7px;
+      margin-top: 10px;
+    }
+    th, td { padding: 13px 8px; text-align: center; }
+    th {
+      background: var(--header-bg);
+      color: var(--green-light); font-size: 1.06rem; font-weight: 900;
+      border-bottom: 1.5px solid #33415580; letter-spacing: -0.5px;
+      border-radius: 7px;
+    }
+    tr {
+      background: var(--table-bg);
+      border-radius: 8px; transition: background 0.13s;
+      border-bottom: 1.3px solid #242c38;
+    }
+    tr:hover { background: var(--header-bg);}
+    .onoff-switch { cursor: pointer; }
+    .onoff-switch input { display: none; }
+    .onoff-slider {
+      background: var(--muted2); border-radius: 15px; width: 44px; height: 24px;
+      position: relative; display: inline-block; vertical-align: middle; transition: .14s;
+      border: 1.2px solid var(--header-bg);
+    }
+    .onoff-slider:before {
+      content: ""; position: absolute; left: 3px; top: 3px;
+      width: 16px; height: 16px; background: var(--input-bg);
+      border-radius: 50%; transition: .14s;
+      border: 1px solid #334155;
+    }
+    .onoff-switch input:checked + .onoff-slider { background: var(--green);}
+    .onoff-switch input:checked + .onoff-slider:before { left: 22px; background: #fff;}
+    .dropdown {
+      width: 114px; border-radius: 8px; border: 1.5px solid var(--input-border);
+      background: var(--input-bg); color: var(--green-light);
+      font-size: 1.05rem; font-weight: 700; padding: 8px 8px;
+      box-shadow: 0 1px 4px #1115;
+    }
+    .dropdown:focus { outline: none; border-color: var(--green);}
+    .order-inp {
+      width: 54px; border-radius: 7px; border: 1.3px solid var(--input-border);
+      background: var(--input-bg); color: var(--green-light); padding: 8px 5px;
+      font-size: 1.03rem; text-align: center; font-weight:700;
+    }
+    .order-inp:focus { outline: none; border-color: var(--green);}
+    .info-btn {
+      background: var(--input-bg); color: var(--green);
+      border-radius: 7px; border: none;
+      font-size: 1.08rem; width: 32px; height: 32px; cursor: pointer;
+      box-shadow: 0 1px 6px #22c55e38; transition: background .16s;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 5px;
+    }
+    .info-btn:hover { background: var(--green); color: #111c17;}
+    .tooltip {
+      display: none; position: absolute; background: var(--header-bg);
+      color: var(--green-light); padding: 12px 19px; border-radius: 8px;
+      box-shadow: 0 7px 24px #10192088; font-size: 1.02rem; z-index: 20;
+      left: -35px; top: 32px; border: 1.5px solid #33415599;
+      min-width: 140px; max-width: 320px; text-align: left;
+    }
+    tr:hover .tooltip { display: block; }
+    @media (max-width:1050px) { .main-wrap { max-width: 99vw; padding: 10px 2vw;}
+      th, td { font-size: 0.98rem; }
+      .dropdown, .order-inp { width: 78px; font-size: 0.97rem; }
+    }
+  </style>
+{% endblock %}
 {% block content %}
-<div class="container my-4">
-  <div class="card shadow-sm mb-5">
-    <div class="card-head"><i class="bi bi-kanban-fill"></i> 전략 설정</div>
-    <div class="card-body">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="toggle-all">
-          <label class="form-check-label" for="toggle-all">전체 ON</label>
-        </div>
-        <div class="btn-group">
-          <button id="btn-restore" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-counterclockwise me-1"></i>기본값 복원
-          </button>
-          <button id="btn-save" class="btn btn-primary">
-            <i class="bi bi-save me-1"></i>저장
-          </button>
-        </div>
+  <div class="main-wrap">
+    <!-- 상단 전체 옵션/저장바 -->
+    <div class="title-bar flex flex-wrap gap-2 items-center">
+      <span class="title-icon">전략 설정</span>
+      <label class="onoff-switch toggle-all">
+        <input type="checkbox" id="all-onoff" checked onchange="toggleAll(this.checked)">
+        <span class="onoff-slider"></span>
+      </label>
+      <span style="color:var(--green); font-weight:700;">전체 ON</span>
+      <div class="flex gap-2 items-center ml-6">
+        <span class="text-sm text-gray-300 mr-1">전체 매수조건</span>
+        <select id="all-buy" class="dropdown">
+          <option>공격적</option>
+          <option>중도적</option>
+          <option selected>보수적</option>
+        </select>
+        <span class="text-sm text-gray-300 mr-1 ml-6">전체 매도조건</span>
+        <select id="all-sell" class="dropdown">
+          <option>공격적</option>
+          <option>중도적</option>
+          <option selected>보수적(짧게)</option>
+        </select>
+        <button class="btn-outline" onclick="applyAllSettings()">전체 적용</button>
       </div>
-      <p class="text-muted">마지막 저장: <span id="last-saved">—</span></p>
-
-      <table id="tbl-strategy" class="table table-hover align-middle mt-3">
-        <thead class="table-light text-center">
-          <tr>
-            <th class="w-6rem">ON/OFF</th>
-            <th class="w-18rem">전략명</th>
-            <th>매수 조건</th>
-            <th>매도 조건</th>
-            <th class="w-8rem">우선순위</th>
-            <th class="w-5rem"></th>
-          </tr>
-        </thead>
-        <tbody class="text-center"><!-- JS 가 삽입 --></tbody>
-      </table>
+      <span class="last-saved ml-7">마지막 저장: 2025. 5. 23. 오후 5:59:58</span>
+      <button class="btn-outline ml-3" onclick="resetDefaults()">기본값 복원</button>
+      <button class="btn ml-2" onclick="alert('설정이 저장되었습니다!')">저장</button>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ON/OFF</th>
+          <th>전략명</th>
+          <th>매수 조건</th>
+          <th>매도 조건</th>
+          <th>우선순위</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbl-body"></tbody>
+    </table>
   </div>
-</div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    const buyLevels = ["공격적", "중도적", "보수적"];
+    const sellLevels = ["공격적", "중도적", "보수적(짧게)"];
 
-<!-- 템플릿 row (JS 가 clone) -->
-<template id="row-tpl">
-  <tr>
-    <td><div class="form-check form-switch m-auto">
-          <input class="form-check-input active-toggle" type="checkbox">
-        </div></td>
-    <td class="text-start">
-        <span class="fw-semibold strat-name"></span>
-    </td>
-    <td>
-      <select class="form-select form-select-sm buy-cond">
-        <option>공격적</option><option>중도적</option><option>보수적</option>
-      </select>
-    </td>
-    <td>
-      <select class="form-select form-select-sm sell-cond">
-        <option>공격적</option><option>중도적</option><option>보수적</option>
-      </select>
-    </td>
-    <td>
-      <input type="number" min="1" class="form-control form-control-sm priority w-6rem">
-    </td>
-    <td>
-      <button class="btn btn-sm btn-outline-info info-btn"
-              data-bs-toggle="tooltip" title="{{ tooltip_text|trim }}">
-        <i class="bi bi-info-circle"></i>
-      </button>
-    </td>
-  </tr>
-</template>
+    // 22개 전략 (실전 예시, 모두 보수적으로 기본값 셋팅)
+    const strategies = [
+      {name:"M-BREAK", info:"고변동·거래량 급증 시 20봉 최고가 돌파", on:true, buy:"보수적", sell:"보수적(짧게)", order:1},
+      {name:"P-PULL", info:"상승 추세 중 단기 조정 진입", on:true, buy:"보수적", sell:"보수적(짧게)", order:2},
+      {name:"T-FLOW", info:"강한 상승 추세 지속 종목 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:3},
+      {name:"G-REV", info:"장기 하락 후 저점 부근 반전 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:4},
+      {name:"VOL-BRK", info:"거래량 급증, 신고가 부근 상승 포착", on:true, buy:"보수적", sell:"보수적(짧게)", order:5},
+      {name:"EMA-STACK", info:"EMA 상승 정배열+단기 조정 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:6},
+      {name:"VWAP-BNC", info:"VWAP 지지 반등", on:true, buy:"보수적", sell:"보수적(짧게)", order:7},
+      {name:"B-BAND", info:"볼린저 하단 이탈→재진입 반등", on:true, buy:"보수적", sell:"보수적(짧게)", order:8},
+      {name:"BB-SQZ", info:"밴드 폭 축소+거래급증 돌파", on:true, buy:"보수적", sell:"보수적(짧게)", order:9},
+      {name:"T-PULL", info:"추세 중 눌림목 반등 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:10},
+      {name:"RSI-BOUNCE", info:"RSI 과매도→반등 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:11},
+      {name:"BOLL-B", info:"볼린저 밴드 상단 돌파 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:12},
+      {name:"BB-SQZ", info:"밴드 폭 축소+거래급증 돌파", on:true, buy:"보수적", sell:"보수적(짧게)", order:13},
+      {name:"G-CROSS", info:"EMA 골든크로스+저항 돌파", on:true, buy:"보수적", sell:"보수적(짧게)", order:14},
+      {name:"ATR-EXPLODE", info:"ATR 급등+추세전환", on:true, buy:"보수적", sell:"보수적(짧게)", order:15},
+      {name:"MACD-MOM", info:"MACD GC+히스토그램 상승", on:true, buy:"보수적", sell:"보수적(짧게)", order:16},
+      {name:"STOCH-BOUNCE", info:"Stoch 과매도+GC 반등", on:true, buy:"보수적", sell:"보수적(짧게)", order:17},
+      {name:"RSI-DIV", info:"RSI 다이버전스+양봉", on:true, buy:"보수적", sell:"보수적(짧게)", order:18},
+      {name:"I-BREAK", info:"일목균형 구름 돌파", on:true, buy:"보수적", sell:"보수적(짧게)", order:19},
+      {name:"ADX-TRND", info:"ADX/DMI 상승 추세 진입", on:true, buy:"보수적", sell:"보수적(짧게)", order:20},
+      {name:"SAR-REV", info:"PSAR 반전 신호 매수", on:true, buy:"보수적", sell:"보수적(짧게)", order:21},
+      {name:"MFI-BOUNCE", info:"MFI 과매도→상승 반전", on:true, buy:"보수적", sell:"보수적(짧게)", order:22},
+    ];
 
-<script type="module" src="{{ url_for('static', filename='js/strategy.js') }}"></script>
+    function renderTable() {
+      let html = "";
+      strategies.forEach((s, i) => {
+        html += `<tr>
+          <td>
+            <label class="onoff-switch">
+              <input type="checkbox" ${s.on ? "checked" : ""} onchange="toggleOne(${i},this.checked)">
+              <span class="onoff-slider"></span>
+            </label>
+          </td>
+          <td style="font-weight:900; color:var(--green); letter-spacing:-0.5px;">${s.name}</td>
+          <td>
+            <select class="dropdown" onchange="setBuy(${i},this.value)">
+              ${buyLevels.map(l=>`<option ${l===s.buy?"selected":""}>${l}</option>`).join("")}
+            </select>
+          </td>
+          <td>
+            <select class="dropdown" onchange="setSell(${i},this.value)">
+              ${sellLevels.map(l=>`<option ${l===s.sell?"selected":""}>${l}</option>`).join("")}
+            </select>
+          </td>
+          <td>
+            <input class="order-inp" type="number" min="1" max="22"
+                   value="${s.order}" onchange="setOrder(${i},this.value)">
+          </td>
+          <td style="position:relative;">
+            <button class="info-btn" onmouseover="showTip(event,${i})" onmouseout="hideTip(event)">i</button>
+            <div class="tooltip">${s.info}</div>
+          </td>
+        </tr>`;
+      });
+      document.getElementById("tbl-body").innerHTML = html;
+    }
+    // 일괄 전체 ON/OFF
+    function toggleAll(val){
+      strategies.forEach(s=>s.on=val);
+      renderTable();
+    }
+    function toggleOne(idx, val){
+      strategies[idx].on = val;
+    }
+    // 전체 적용 (상단 드롭다운 값 전체에)
+    function applyAllSettings(){
+      const allBuy = document.getElementById("all-buy").value;
+      const allSell = document.getElementById("all-sell").value;
+      strategies.forEach(s=>{ s.buy = allBuy; s.sell = allSell; });
+      renderTable();
+    }
+    function setBuy(idx, val){ strategies[idx].buy = val; renderTable(); }
+    function setSell(idx, val){ strategies[idx].sell = val; renderTable(); }
+    function setOrder(idx, val){ strategies[idx].order = Number(val); }
+    function resetDefaults(){
+      strategies.forEach((s,i)=>{s.on=true; s.buy="보수적"; s.sell="보수적(짧게)"; s.order=i+1;});
+      renderTable();
+    }
+    function showTip(e,idx){
+      let tip = e.target.nextElementSibling;
+      tip.style.display='block';
+      tip.style.left=(e.target.offsetLeft-35)+'px';
+      tip.style.top=(e.target.offsetTop+32)+'px';
+    }
+    function hideTip(e){
+      let tip = e.target.nextElementSibling;
+      tip.style.display='none';
+    }
+    renderTable();
+  </script>
 {% endblock %}

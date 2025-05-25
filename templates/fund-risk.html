@@ -1,150 +1,511 @@
 {% extends 'base.html' %}
-{% block title %}Upbit AutoTrading · 자금 · 리스크 설정{% endblock %}
+{% block title %}AUTO UPBIT - 리스크/투자 설정{% endblock %}
+{% block head_extra %}
+  <style>
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      background: #181e25;
+    }
+    body {
+      min-width: 1920px;
+      min-height: 1080px;
+      overflow-x: auto;
+    }
+    .main-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-card {
+      background: #232b35;
+      border-radius: 20px;
+      box-shadow: 0 1px 16px #0004;
+      padding: 2.8rem 2.8rem 2.2rem 2.8rem;
+      margin-bottom: 44px;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 1.55rem;
+      letter-spacing: -0.5px;
+    }
+    .input-label {
+      font-size: 1.22rem;
+      color: #cbd5e1;
+      font-weight: 500;
+      margin-bottom: 11px;
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px 32px;
+      margin-bottom: 24px;
+    }
+    .risk-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .input-xl,
+    .select-xl {
+      background: #161b22;
+      border: 2px solid #394150;
+      color: #fff;
+      font-size: 1.27rem;
+      border-radius: 13px;
+      width: 100%;
+      font-family: inherit;
+      box-sizing: border-box;
+      padding: 18px 24px 18px 16px;
+      height: 60px; /* select 높이 통일 */
+      outline: none;
+      transition: border 0.15s;
+      line-height: 1.25;
+      vertical-align: middle;
+    }
+    .input-xl:focus,
+    .select-xl:focus {
+      border: 2px solid #22c55e;
+    }
+    .comma {
+      text-align: right;
+    }
+    .select-xl {
+      text-align-last: center;
+      appearance: none;
+      overflow: visible;
+    }
+    .card-bottom-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 13px;
+      margin-top: 12px;
+    }
+    .btn-save {
+      background: #15803d;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-save:hover {
+      background: #166534;
+    }
+    .btn-restore {
+      background: #64748b;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-restore:hover {
+      background: #475569;
+    }
+    .btn-reset {
+      background: #374151;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-reset:hover {
+      background: #1e293b;
+    }
+    .badge-ml {
+      display: inline-block;
+      background: #22c55e;
+      color: #173622;
+      font-weight: 600;
+      font-size: 1.14rem;
+      border-radius: 7px;
+      padding: 6px 17px 5px 17px;
+      margin-left: 14px;
+    }
+    .save-status {
+      color: #22c55e;
+      font-size: 1.13rem;
+      margin-left: 24px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .modal-bg {
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 16, 20, 0.65);
+    }
+    .modal {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #232b35;
+      border-radius: 17px;
+      box-shadow: 0 8px 32px #000a;
+      width: 460px;
+      max-width: 98vw;
+    }
+    .modal-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 24px 0 12px 0;
+      text-align: center;
+    }
+    .modal-content {
+      color: #e3eaf6;
+      font-size: 1.16rem;
+      text-align: center;
+    }
+    .modal-table {
+      width: 100%;
+      margin: 20px 0 26px 0;
+      border-radius: 8px;
+    }
+    .modal-table td {
+      padding: 11px 18px;
+      font-size: 1.21rem;
+    }
+    .modal-table th {
+      background: #222b36;
+      font-weight: 600;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 38px;
+      margin-bottom: 28px;
+    }
+    .modal-actions button {
+      font-size: 1.13rem;
+      border-radius: 10px;
+      padding: 11px 38px;
+    }
+    @media (max-width: 1700px) {
+      .main-wrap {
+        max-width: 100vw;
+      }
+      .section-card {
+        padding: 2rem 1rem;
+      }
+      .modal {
+        width: 97vw;
+      }
+    }
+  </style>
+</style>
+{% endblock %}
 {% block content %}
+  <div class="main-wrap py-16">
 
-<div class="container">
-  <div class="card shadow-sm mb-5">
-    <div class="card-head"><i class="bi bi-wallet2"></i> 자금 · 리스크 설정</div>
-    <div class="card-body">
-      <form id="fund-form" class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">코인별 최대 투자금(₩)</label>
-          <input type="number" min="0" class="form-control" id="max-per-coin">
+    <!-- 투자금/동시매매 한도 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">투자금/동시매매 한도
+          <span class="badge-ml">ML</span>
+        </span>
+      </div>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">코인 초기 투자금액(원)</div>
+          <input id="invest-1" type="text" value="100,000" class="input-xl comma">
         </div>
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">회당 매수금(₩)</label>
-          <input type="number" min="0" class="form-control" id="buy-amount">
+        <div>
+          <div class="input-label">전체 투자금 총 한도</div>
+          <input id="invest-2" type="text" value="1,000,000" class="input-xl comma">
         </div>
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">동시매매 코인수</label>
-          <input type="number" min="1" class="form-control" id="max-trades">
+        <div>
+          <div class="input-label">동시매매 코인 수</div>
+          <input id="invest-3" type="text" value="5" class="input-xl comma">
         </div>
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">슬리피지 허용(%)</label>
-          <input type="number" step="0.0001" class="form-control" id="slippage">
+        <div></div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('invest', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('invest', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('invest', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-invest" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 물/불타기 카드: 최대 4열 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">물타기 · 불타기 설정
+          <span class="badge-ml">ML</span>
+        </span>
+      </div>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">물타기 추가 금액</div>
+          <input id="add-1" type="text" value="100,000" class="input-xl comma">
         </div>
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">잔고 소진 시</label>
-          <select class="form-select" id="balance-action">
-            <option value="알림">알림</option>
-            <option value="자동중지">자동중지</option>
+        <div>
+          <div class="input-label">물타기 허용 횟수</div>
+          <input id="add-2" type="text" value="2" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">물타기 허용 여부</div>
+          <select id="add-3" class="select-xl">
+            <option value="예" selected>예</option>
+            <option value="아니오">아니오</option>
           </select>
         </div>
-      </form>
-      <div class="d-flex justify-content-end mt-3">
-        <button id="btn-fund-save" class="btn btn-primary">
-          <i class="bi bi-save2 me-1"></i>저장
-        </button>
+        <div></div>
+        <div>
+          <div class="input-label">불타기 추가 금액</div>
+          <input id="add-4" type="text" value="100,000" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">불타기 허용 횟수</div>
+          <input id="add-5" type="text" value="2" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">불타기 허용 여부</div>
+          <select id="add-6" class="select-xl">
+            <option value="예" selected>예</option>
+            <option value="아니오">아니오</option>
+          </select>
+        </div>
+        <div></div>
       </div>
-      <p class="text-muted mt-3">마지막 저장: <span id="last-saved">—</span></p>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('add', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('add', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('add', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-add" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 체결/슬리피지 카드: 2열~3열 자동 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">체결/슬리피지 설정
+          <span class="badge-ml">ML</span>
+        </span>
+      </div>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(2,1fr);">
+        <div>
+          <div class="input-label">슬리피지 허용(%)</div>
+          <input id="slip-1" type="text" value="0.15" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">체결 실패시 동작</div>
+          <select id="slip-2" class="select-xl">
+            <option value="재시도" selected>재시도</option>
+            <option value="알림 및 대기">알림 및 대기</option>
+            <option value="포기/스킵">포기/스킵</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('slip', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('slip', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('slip', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-slip" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 리스크 한도/자동 정지 카드: 최대 4열 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">리스크 한도 · 자동 정지
+          <span class="badge-ml">ML</span>
+        </span>
+      </div>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">일 최대 손실(%)</div>
+          <input id="risk-1" type="text" value="2.5" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">MDD 최대 손실(%)</div>
+          <input id="risk-2" type="text" value="7.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">월 MDD 최대 손실(%)</div>
+          <input id="risk-3" type="text" value="10.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">자동 정지 옵션</div>
+          <select id="risk-4" class="select-xl">
+            <option value="ON" selected>ON</option>
+            <option value="OFF">OFF</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('risk', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('risk', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('risk', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-risk" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 손절/익절/TS 조건 카드: 2행(2+3열) 구조 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">손절/익절/TS 조건
+          <span class="badge-ml">ML</span>
+        </span>
+      </div>
+      <div class="risk-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:0;">
+        <div>
+          <div class="input-label">손절 조건(%)</div>
+          <input id="ts-1" type="text" value="2.5" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">익절 조건(%)</div>
+          <input id="ts-2" type="text" value="4.5" class="input-xl comma">
+        </div>
+      </div>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(3,1fr); margin-top:16px;">
+        <div>
+          <div class="input-label">TS(트레일링스탑) 사용 여부</div>
+          <select id="ts-3" class="select-xl">
+            <option value="사용" selected>사용</option>
+            <option value="미사용">미사용</option>
+          </select>
+        </div>
+        <div>
+          <div class="input-label">TS 적용 시작 구간(%)</div>
+          <input id="ts-4" type="text" value="4.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">TS 적용 조건(%)</div>
+          <input id="ts-5" type="text" value="1.0" class="input-xl comma">
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('ts', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('ts', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('ts', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-ts" class="save-status"></span>
+      </div>
     </div>
   </div>
 
-  <!-- 리스크 관리 입력폼 -->
-  <div class="card shadow-sm mb-5">
-    <div class="card-head">
-      <i class="bi bi-shield-check"></i> 리스크 관리 & 알림
-      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-         title="손실 한도, 자동 손절, 알림, 로그 설정으로 리스크를 체계적으로 관리합니다."></i>
-    </div>
-    <div class="card-body">
-      <form>
-        <div class="row mb-4 align-items-center">
-          <div class="col-3">
-            <label class="form-label"><i class="bi bi-graph-down-arrow me-2"></i>손실 한도</label>
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="daily" value="{{ risk.daily }}" placeholder="일간(%)">
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="weekly" value="{{ risk.weekly }}" placeholder="주간(%)">
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="monthly" value="{{ risk.monthly }}" placeholder="월간(%)">
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label"><i class="bi bi-bell me-2"></i>알림 설정</label>
-          <div class="form-check form-switch mb-2">
-            <input class="form-check-input" type="checkbox" id="push1" name="push" {% if risk.push %}checked{% endif %}>
-            <label class="form-check-label" for="push1">익절/손절시 푸시 알림</label>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="push2" name="telegram" {% if risk.telegram %}checked{% endif %}>
-            <label class="form-check-label" for="push2">텔레그램 알림 연동</label>
-          </div>
-        </div>
-        <div class="row mb-4 align-items-center">
-          <div class="col-4">
-            <label class="form-label"><i class="bi bi-x-octagon me-2"></i>강제 매도/손절 기준</label>
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="force_pct" value="{{ risk.force_pct }}" placeholder="손실 퍼센트(%) 기준">
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="force_count" value="{{ risk.force_count }}" placeholder="연속 손실 허용(횟수)">
-          </div>
-        </div>
-        <div class="row mb-4 align-items-center">
-          <div class="col-4">
-            <label class="form-label"><i class="bi bi-exclamation-diamond me-2"></i>연속 손실/수익 자동 중지</label>
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="cont_loss" value="{{ risk.cont_loss }}" placeholder="연속 손실(횟수)">
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="cont_profit" value="{{ risk.cont_profit }}" placeholder="연속 수익(횟수)">
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label"><i class="bi bi-file-earmark-arrow-down me-2"></i>로그 기록/내보내기</label>
-          <div class="input-group mb-2">
-            <input type="text" class="form-control" name="log_path" value="{{ risk.log_path }}" placeholder="CSV 로그 파일 경로">
-            <button class="btn btn-outline-secondary" type="button">
-              <i class="bi bi-download"></i> 내보내기
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary w-100 mt-2" data-api="/api/save-risk">저장</button>
-      </form>
-      <div class="mt-4 text-muted">마지막 저장: {{ risk.updated }}</div>
+  <!-- 모달: 변경 확인용 -->
+  <div id="modal-bg" class="modal-bg" style="display:none;"></div>
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-title" id="modal-title">설정값 변경 확인</div>
+    <div class="modal-content" id="modal-content"></div>
+    <div class="modal-actions">
+      <button id="modal-confirm" class="bg-green-600 hover:bg-green-700 font-bold">저장</button>
+      <button onclick="closeModal()" class="bg-gray-700 hover:bg-gray-600">취소</button>
     </div>
   </div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    // 콤마 자동 처리 (콤마 넣고, 숫자만 입력되게)
+    document.querySelectorAll('.comma').forEach(function (input) {
+      input.addEventListener('input', function () {
+        let n = this.value.replace(/[^0-9.]/g, '');
+        n = n.replace(/(\..*)\./g, '$1');
+        if (n.length === 0) {
+          this.value = '';
+        } else if (n.includes('.')) {
+          let parts = n.split('.');
+          parts[0] = Number(parts[0]).toLocaleString('ko-KR');
+          this.value = parts[0] + '.' + parts[1].slice(0, 2);
+        } else {
+          this.value = Number(n).toLocaleString('ko-KR');
+        }
+      });
+    });
 
-  <!-- 추가 기능: 로그/이력/백업/복구/다운로드 -->
-  <div class="card shadow-sm mb-5">
-    <div class="card-head">
-      <i class="bi bi-hdd-stack"></i> 고급 로그 관리 · 감사 이력 · 백업/복구
-      <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-         title="로그 로테이션, 감사 이력, 설정 백업과 복구 기능을 한눈에 관리합니다."></i>
-    </div>
-    <div class="card-body">
-      <div class="card-toolbar mb-4">
-        <button class="btn btn-outline-primary btn-lg" data-alert="로그 파일 관리/로테이션(서버 API 필요)">
-          <i class="bi bi-folder2-open"></i> 로그 파일 관리/로테이션
-        </button>
-        <button class="btn btn-outline-success btn-lg" data-alert="감사로그 실시간 조회/다운로드(서버 API 필요)">
-          <i class="bi bi-clock-history"></i> 감사로그 조회/다운로드
-        </button>
-        <button class="btn btn-outline-warning btn-lg" data-alert="설정/포지션/로그 백업 및 복구(서버 API 필요)">
-          <i class="bi bi-cloud-arrow-down"></i> 백업/복구/다운로드
-        </button>
-      </div>
-      <div>
-        <ul>
-          <li>logs/ 폴더에 시스템/에러/매매/이벤트 로그를 각각 10MB, 30일 보관</li>
-          <li>감사이력: 모든 설정/AI/리스크변경 이력 CSV/JSON 기록 및 즉시 다운로드</li>
-          <li>백업: 1일 1회 자동, 수동 다운로드/복구도 웹UI에서 지원</li>
-        </ul>
-        <div class="alert alert-info mt-4">
-          <i class="bi bi-info-circle"></i>
-          실제 파일 목록, 다운로드/복구/이력조회는 서버 연동 필요!
-          (AJAX/Flask API/파일 연동으로 확장)
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    // 카드별 현재값, 어제값, 초기값 (예시)
+    const values = {
+      invest: ['100,000', '1,000,000', '5'],
+      add: ['100,000', '2', '예', '100,000', '2', '예'],
+      slip: ['0.15', '재시도'],
+      risk: ['2.5', '7.0', '10.0', 'ON'],
+      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
+    };
+    const yday = {
+      invest: ['120,000', '900,000', '4'],
+      add: ['90,000', '1', '예', '90,000', '1', '예'],
+      slip: ['0.20', '알림 및 대기'],
+      risk: ['3.0', '9.0', '12.0', 'OFF'],
+      ts: ['3.0', '4.0', '사용', '3.5', '1.2'],
+    };
+    const init = {
+      invest: ['100,000', '1,000,000', '5'],
+      add: ['100,000', '2', '예', '100,000', '2', '예'],
+      slip: ['0.15', '재시도'],
+      risk: ['2.5', '7.0', '10.0', 'ON'],
+      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
+    };
+    const labels = {
+      invest: ['코인 초기 투자금액(원)', '전체 투자금 총 한도', '동시매매 코인 수'],
+      add: [
+        '물타기 추가 금액',
+        '물타기 허용 횟수',
+        '물타기 허용 여부',
+        '불타기 추가 금액',
+        '불타기 허용 횟수',
+        '불타기 허용 여부',
+      ],
+      slip: ['슬리피지 허용(%)', '체결 실패시 동작'],
+      risk: ['일 최대 손실(%)', 'MDD 최대 손실(%)', '월 MDD 최대 손실(%)', '자동 정지 옵션'],
+      ts: [
+        '손절 조건(%)',
+        '익절 조건(%)',
+        'TS(트레일링스탑) 사용 여부',
+        'TS 적용 시작 구간(%)',
+        'TS 적용 조건(%)',
+      ],
+    };
 
-<script type="module" src="{{ url_for('static', filename='js/funds.js') }}"></script>
+    let targetCard;
+    let targetMode;
+    function triggerModal(card, mode) {
+      targetCard = card;
+      targetMode = mode;
+      let ids = [];
+      if (card === 'invest') ids = ['invest-1', 'invest-2', 'invest-3'];
+      if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
+      if (card === 'slip') ids = ['slip-1', 'slip-2'];
+      if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
+      if (card === 'ts') ids = ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      let before = ids.map((id) => {
+        let el = document.getElementById(id);
+        return el.tagName === 'INPUT' ? el.value : el.options[el.selectedIndex].text;
+      });
+      let after = [];
+      if (mode === '수동 변경') after = before.slice();
+      else if (mode === '원복') after = yday[card];
+      else if (mode === '초기화') after = init[card];
+      let content = `<table class="modal-table mx-auto">
+        <tr style="background:#222b36;">
+          <th>항목</th><th>이전값</th><th>변경될 값</th>
+        </tr>`;
+      for (let i = 0; i < ids.length; i++) {
+        content += `<tr><td>${labels[card][i]}</td><td>${before[i]}</td><td>${after[i]}</td></tr>`;
+      }
+      content += `</table>
+      <div class="mt-1 mb-2 text-green-400 font-bold">${mode}을(를) 적용하시겠습니까?</div>`;
+      document.getElementById('modal-content').innerHTML = content;
+      document.getElementById('modal-bg').style.display = '';
+      document.getElementById('modal').style.display = '';
+      document.getElementById('modal-confirm').onclick = function () {
+        ids.forEach((id, i) => {
+          let el = document.getElementById(id);
+          if (el.tagName === 'INPUT') {
+            el.value = after[i];
+          } else {
+            for (let j = 0; j < el.options.length; j++) {
+              if (el.options[j].text === after[i]) el.selectedIndex = j;
+            }
+          }
+        });
+        values[card] = after.slice();
+        document.getElementById('status-' + card).innerText = '✅ ' + mode + ' 적용됨';
+        setTimeout(() => {
+          document.getElementById('status-' + card).innerText = '';
+        }, 2000);
+        closeModal();
+      };
+    }
+    function closeModal() {
+      document.getElementById('modal-bg').style.display = 'none';
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
 {% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block title %}AUTO UPBIT KPI/Stats Explorer{% endblock %}
+{% block head_extra %}
+<style>
+  body { background: linear-gradient(135deg,#222831 65%,#1a232e 100%); color: #e5e7eb; }
+  .main-wrap { max-width: 1200px; margin: 44px auto 0 auto; border-radius: 18px; background: #232b35; box-shadow: 0 2px 24px #0009; padding: 39px 35px 48px 35px; }
+  .section-title { font-size: 1.5rem; font-weight: 900; color: #38bdf8; letter-spacing: -1px; margin-bottom: 18px; }
+  .pivotbar { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 28px; align-items: center; }
+  .dropdown, .inp-date, .inp-txt { background: #181e25; border: 1.5px solid #334155aa; color: #bae6fd; border-radius: 7px; padding: 7px 12px; font-size: 1.03rem; }
+  .dropdown:focus, .inp-date:focus, .inp-txt:focus { outline: none; border-color: #22c55e; }
+  .inp-date { width: 130px; }
+  .inp-txt { width: 140px; }
+  .btn { background: #22c55e; color: #15212b; font-weight: 800; border-radius: 8px; font-size: 1.02rem; padding: 8px 19px; }
+  .btn:hover { background: #4ade80; }
+  .btn-excel { background: #334155; color: #e5e7eb; border-radius: 7px; font-weight: 700; padding: 9px 22px; margin-top: 7px; }
+  .btn-excel:hover { background: #22c55e; color: #153926; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0 7px; margin-bottom: 18px; }
+  th, td { padding: 11px 8px; text-align: center; }
+  th { background: #202733; color: #38bdf8; font-weight: 900; }
+  tr { background: #242c38; }
+  tr:hover { background: #334155; }
+  .chart, .chart2, .chart3 { background: #1a232e; border-radius: 12px; height: 200px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; color: #4ade80; font-weight: 900; font-size: 1.11rem; }
+  .sub-title { font-size: 1.13rem; color: #4ade80; font-weight: 800; margin-top: 20px; margin-bottom: 8px; }
+  .desc { color: #b6bccf; font-size: 1.01rem; margin-bottom: 6px; }
+  .tag-green { background: #22c55e; color: #1a3a23; font-size: 0.92rem; border-radius: 6px; padding: 2px 11px; margin-left: 8px; }
+  .tag-blue { background: #38bdf8; color: #123548; font-size: 0.92rem; border-radius: 6px; padding: 2px 11px; margin-left: 8px; }
+  @media (max-width: 1200px) { .main-wrap { max-width: 99vw; padding: 9px 2vw; } }
+</style>
+{% endblock %}
+{% block content %}
+<div class="main-wrap">
+  <div class="section-title">KPI/Stats 분석 · 피벗(Stats Explorer)</div>
+  <div class="desc mb-5">기간/전략/코인/시간대별 KPI(ROI, WinRate, 거래수, 변동성 등)와 다양한 실전 인사이트를 한눈에 분석</div>
+  <div class="pivotbar">
+    <select class="dropdown" id="sel-period">
+      <option value="30d" selected>최근 30일</option>
+      <option value="7d">최근 7일</option>
+      <option value="1d">오늘</option>
+      <option value="custom">직접 선택</option>
+    </select>
+    <input type="date" class="inp-date" id="date-from" style="display:none;">
+    <span style="color:#7dd3fc; font-size:0.98rem;">~</span>
+    <input type="date" class="inp-date" id="date-to" style="display:none;">
+    <select class="dropdown" id="sel-strategy">
+      <option value="all" selected>전체 전략</option>
+      <option>M-BREAK</option><option>T-FLOW</option><option>P-PULL</option>
+      <option>VOL-BRK</option><option>EMA-STACK</option>
+    </select>
+    <select class="dropdown" id="sel-symbol">
+      <option value="all" selected>전체 코인</option>
+      <option>BTC</option><option>ETH</option><option>XRP</option>
+      <option>ADA</option><option>SOL</option>
+    </select>
+    <select class="dropdown" id="sel-hour">
+      <option value="all" selected>전체 시간대</option>
+      <option>0~6시</option>
+      <option>6~12시</option>
+      <option>12~18시</option>
+      <option>18~24시</option>
+      <option>주말</option>
+      <option>평일</option>
+    </select>
+    <select class="dropdown" id="sel-day">
+      <option value="all" selected>전체 요일</option>
+      <option>월요일</option><option>화요일</option><option>수요일</option>
+      <option>목요일</option><option>금요일</option>
+      <option>토요일</option><option>일요일</option>
+    </select>
+    <input class="inp-txt" id="inp-search" placeholder="검색(전략/코인)">
+    <button class="btn" onclick="alert('검색 실행!')">검색</button>
+  </div>
+  <div class="chart">[ 라인차트: 시간대별 ROI/MDD, 거래집중도, 트레이딩 패턴 ]</div>
+  <div class="chart2">[ 히트맵: 전략별 x 시간대별 승률/수익률 분포 ]</div>
+  <div class="chart3">[ 바차트: 수익 상위 Top10/손실 상위 Top10 코인·전략 랭킹 ]</div>
+  <table>
+    <thead>
+      <tr>
+        <th>기간</th><th>코인</th><th>전략</th><th>시간대</th>
+        <th>ROI</th><th>WinRate</th><th>MDD</th><th>Sharpe</th>
+        <th>거래수</th><th>평균보유(분)</th><th>슬리피지</th><th>변동성</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2024-05-01~05-25</td>
+        <td>BTC</td>
+        <td>M-BREAK</td>
+        <td>12~18시</td>
+        <td class="text-green-400 font-bold">+3.5%</td>
+        <td>62%</td>
+        <td>6.2%</td>
+        <td>2.04</td>
+        <td>86</td>
+        <td>47</td>
+        <td>0.13%</td>
+        <td>1.22%</td>
+      </tr>
+      <tr>
+        <td>2024-05-01~05-25</td>
+        <td>BTC</td>
+        <td>M-BREAK</td>
+        <td>18~24시</td>
+        <td class="text-red-400 font-bold">-0.2%</td>
+        <td>46%</td>
+        <td>7.5%</td>
+        <td>1.44</td>
+        <td>52</td>
+        <td>62</td>
+        <td>0.17%</td>
+        <td>1.43%</td>
+      </tr>
+      <tr>
+        <td>2024-05-01~05-25</td>
+        <td>ETH</td>
+        <td>T-FLOW</td>
+        <td>0~6시</td>
+        <td class="text-green-400 font-bold">+1.8%</td>
+        <td>57%</td>
+        <td>5.9%</td>
+        <td>1.71</td>
+        <td>60</td>
+        <td>31</td>
+        <td>0.12%</td>
+        <td>1.05%</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn-excel" onclick="alert('엑셀로 내보내기!')">엑셀로 내보내기</button>
+  <div class="sub-title">자동 인사이트 분석/피드백 <span class="tag-green">추천</span></div>
+  <ul class="desc">
+    <li>• <b>시간대별/요일별 수익률·승률 패턴</b>: “오전~오후 거래 집중, 밤/주말은 변동성↑, 손실확률↑” 등</li>
+    <li>• <b>전략/코인별 Top10/Bottom10 랭킹</b>: 가장 수익·손실 많은 전략/코인 자동 분석</li>
+    <li>• <b>거래 집중/비집중 시간대 시각화</b> (히트맵, 라인차트)</li>
+    <li>• <b>평균 보유시간/회전율</b>로 “단타/스윙/장기포지션” 전략별 구분</li>
+    <li>• <b>슬리피지/실행품질</b> 모니터링: 시장유동성/오더효율 분석</li>
+    <li>• <b>이상치/급등락/시스템 경보</b> 자동탐지 및 알림</li>
+    <li>• <b>필터/검색 조합 즉시 적용</b> → 실전형 피벗/분석 환경</li>
+    <li>• <b>엑셀로 내보내기, API 연동/차트 라이브 가능</b></li>
+  </ul>
+  <div class="desc mt-4 text-green-300 font-semibold">
+    ※ 실제 차트/데이터 연동은 JS/백엔드에서, 위 예시는 실전 대시보드 UX/구조 예시!
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById('sel-period').onchange = function(){
+    const show = this.value === 'custom';
+    document.getElementById('date-from').style.display = show ? '' : 'none';
+    document.getElementById('date-to').style.display = show ? '' : 'none';
+  };
+</script>
+{% endblock %}

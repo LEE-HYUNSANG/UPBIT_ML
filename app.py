@@ -1014,6 +1014,11 @@ def strategy_page():
         settings=settings,
     )
 
+@app.route("/analysis")
+def analysis_page():
+    logger.debug("Render analysis page")
+    return render_template("Analysis.html")
+
 # AI 전략 분석 페이지
 @app.route("/ai-analysis")
 def ai_analysis_page():

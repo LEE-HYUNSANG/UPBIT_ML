@@ -1,279 +1,238 @@
 {% extends 'base.html' %}
-{% block title %}UPBIT AutoTrading · 메인 대시보드{% endblock %}
+{% block title %}AUTO UPBIT 실전 대시보드{% endblock %}
 {% block content %}
-
-<div id="layout">
-  <!-- 좌측 -->
-  <div id="left">
-    <div class="card shadow-sm mb-4 status-card">
-      <div class="card-head">
-        <i class="bi bi-robot"></i> 봇 상태
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="봇이 실행 중인지 표시합니다. 실행 상태에서는 설정한 모든 전략이 자동으로 작동합니다."></i>
+  <!-- 4분할 상단 Row -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+      <div class="text-xs text-gray-400 mb-1">KRW 잔고</div>
+      <div class="text-3xl font-extrabold tracking-tight mt-1">12,300,000</div>
+    </div>
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+      <div class="text-xs text-gray-400 mb-1">오늘 손익(PnL)</div>
+      <div class="flex items-baseline mt-1">
+        <span class="text-3xl font-extrabold tracking-tight mr-2">+224,000</span>
+        <span class="text-xl font-bold text-green-400 align-middle">1.83%</span>
       </div>
-      <div class="card-body">
-        <div class="mb-2">
-          <span class="me-2">현재 상태:</span>
-          <span id="bot-state">
-            {% if running %}
-              <span class="status-icon status-running">🟩</span>
-            {% else %}
-              <span class="status-icon status-stopped">🟨</span>
-            {% endif %}
+    </div>
+    <!-- 모니터링 코인 카드 -->
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col h-36 min-w-[240px] relative">
+      <div class="flex items-center justify-between mb-2">
+        <span class="card-title text-white">모니터링 코인</span>
+        <button onclick="openMonitorModal()"
+                class="text-gray-400 hover:text-green-400 p-1 rounded-full transition absolute right-4 top-4"
+                title="조건 설정">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3.5" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33
+                     1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51
+                     1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82
+                     1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09c.66 0 1.26-.35 1.51-1a1.65 1.65 0 0 0-.33-1.82l-.06-.06
+                     a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09A1.65 1.65 0 0 0 9 3.09V3a2 2 0 0 1 4 0v.09
+                     c0 .66.35 1.26 1 1.51a1.65 1.65 0 0 0 1.82-.33l.06-.06
+                     a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82
+                     v.09c0 .66.35 1.26 1 1.51z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-2 mb-1">
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          BTC
+        </span>
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          ETH
+        </span>
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          XRP
+        </span>
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          ADA
+        </span>
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          SOL
+        </span>
+        <span class="inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold">
+          DYDX
+        </span>
+      </div>
+    </div>
+    <!-- 자동매매 카드 -->
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-between h-36 min-w-[200px] relative">
+      <div class="flex items-center justify-between mb-3">
+        <span class="card-title text-white">자동매매</span>
+        <label class="toggle-switch ml-2" title="자동매매 실행/중지">
+          <input id="autotrade-toggle" type="checkbox" checked onchange="toggleStatus(this)">
+          <span class="toggle-slider">
+            <span class="icon" id="toggle-play">&#9654;</span>
+            <span class="icon" id="toggle-stop" style="display:none;">&#9632;</span>
+            <span class="toggle-dot"></span>
           </span>
+        </label>
+      </div>
+        <span id="run-status"
+              class="w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1">
+          실행중
+        </span>
+      <div class="text-xs text-gray-400 text-right w-full mt-1">업데이트: 2024-05-25 14:11:21</div>
+    </div>
+  </div>
+
+  <!-- 실시간 포지션 상세 (전략 표시, 수량 삭제) -->
+  <div class="bg-gray-800 rounded-2xl shadow p-7 mb-8">
+    <h2 class="text-xl font-bold mb-4">실시간 포지션 상세</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm align-middle">
+        <thead>
+          <tr class="text-gray-400 border-b border-gray-700 text-center">
+            <th class="py-2 font-semibold">코인</th>
+            <th class="py-2 font-semibold td-strategy">전략</th>
+            <th class="py-2 font-semibold">진입가</th>
+            <th class="py-2 font-semibold">매수평균가</th>
+            <th class="py-2 font-semibold">현재가</th>
+            <th class="py-2 font-semibold">평가금액</th>
+            <th class="py-2 font-semibold">수익 구간</th>
+            <th class="py-2 font-semibold">수익률</th>
+            <th class="py-2 font-semibold">불타기</th>
+            <th class="py-2 font-semibold">물타기</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-700 hover:bg-gray-900 text-center">
+            <td class="py-2 td-coin">BTC</td>
+            <td class="py-2 td-strategy font-semibold text-green-300">
+              M-BREAK<br>
+              <span class="text-xs text-green-400">보수적</span>
+            </td>
+            <td class="py-2 td-price">89,500,000</td>
+            <td class="py-2 td-price">89,700,000</td>
+            <td class="py-2 td-price">90,200,000</td>
+            <td class="py-2 td-price">1,108,446</td>
+            <td class="py-2 td-graph">
+              <div class="relative w-56 h-8 mx-auto flex items-center">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-2 bg-gray-700 rounded-full"></div>
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                  <span class="w-4 h-4 bg-red-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <span class="w-4 h-4 bg-blue-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                  <span class="w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute top-0" style="left:70%;">
+                  <span class="w-2 h-8 bg-white rounded-md block mx-auto"></span>
+                </span>
+              </div>
+            </td>
+            <td class="py-2 font-bold text-green-400">+1.5%</td>
+            <td class="py-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-500/20 text-orange-400">2</span>
+            </td>
+            <td class="py-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300">1</span>
+            </td>
+          </tr>
+          <tr class="border-b border-gray-700 hover:bg-gray-900 text-center">
+            <td class="py-2 td-coin">ETH</td>
+            <td class="py-2 td-strategy font-semibold text-green-300">
+              T-FLOW<br>
+              <span class="text-xs text-green-400">보수적</span>
+            </td>
+            <td class="py-2 td-price">4,200,000</td>
+            <td class="py-2 td-price">4,150,000</td>
+            <td class="py-2 td-price">4,180,000</td>
+            <td class="py-2 td-price">3,298,200</td>
+            <td class="py-2 td-graph">
+              <div class="relative w-56 h-8 mx-auto flex items-center">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-2 bg-gray-700 rounded-full"></div>
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                  <span class="w-4 h-4 bg-red-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute" style="left:30%; top:50%; transform:translateY(-50%);">
+                  <span class="w-4 h-4 bg-blue-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                  <span class="w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></span>
+                </span>
+                <span class="absolute top-0" style="left:10%;">
+                  <span class="w-2 h-8 bg-white rounded-md block mx-auto"></span>
+                </span>
+              </div>
+            </td>
+            <td class="py-2 font-bold text-red-400">-0.5%</td>
+            <td class="py-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-500/20 text-orange-400">1</span>
+            </td>
+            <td class="py-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300">0</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="bg-gray-800 rounded-2xl shadow p-7 mb-10">
+    <h2 class="text-xl font-bold mb-4">실시간 알림/이벤트</h2>
+    <ul>
+      <li class="flex text-sm text-gray-300 border-b border-gray-700 py-2">
+        <span class="text-gray-400 w-28">15:04:22</span>
+        <span class="ml-4 flex-1">BTC 진입 체결 (시장가)</span>
+      </li>
+      <li class="flex text-sm text-gray-300 border-b border-gray-700 py-2">
+        <span class="text-gray-400 w-28">15:05:01</span>
+        <span class="ml-4 flex-1">ETH 익절 (+1.8%)</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 모니터링 코인 조건 팝업(모달) -->
+  <div id="monitorModal"
+       class="hidden fixed z-50 inset-0 modal-bg fade-in flex items-center justify-center">
+    <div class="bg-gray-800 rounded-2xl shadow-xl p-8 w-full max-w-md border border-green-400/40">
+      <div class="flex items-center mb-4 justify-between">
+        <span class="card-title text-white">모니터링 코인 조건 설정</span>
+        <button onclick="closeMonitorModal()"
+                class="text-gray-400 hover:text-green-400 px-2 rounded transition text-xl">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); saveMonitorCondition();">
+        <div class="mb-3">
+          <label class="input-label block mb-1">최소 가격(원)</label>
+          <input type="number" step="0.1" min="0" id="minPrice"
+                 class="w-full px-3 py-2 rounded bg-gray-900 border border-gray-700 text-white"
+                 class="focus:outline-none focus:border-green-400"
+                 value="700.0">
         </div>
-        <div class="mb-2 text-end">
-          <button id="botActionBtn"
-                  class="btn {% if running %}btn-danger{% else %}btn-primary{% endif %} btn-sm min-w-140"
-                  data-api="{{ '/api/stop-bot' if running else '/api/start-bot' }}">
-            {% if running %}봇 중지{% else %}봇 시작{% endif %}
+        <div class="mb-3">
+          <label class="input-label block mb-1">최대 가격(원)</label>
+          <input type="number" step="0.1" min="0" id="maxPrice"
+                 class="w-full px-3 py-2 rounded bg-gray-900 border border-gray-700 text-white"
+                 class="focus:outline-none focus:border-green-400"
+                 value="23000.0">
+        </div>
+        <div class="mb-3">
+          <label class="input-label block mb-1">변동성 하한(%)</label>
+          <input type="number" step="0.01" min="0" max="100" id="minVolatility"
+                 class="w-full px-3 py-2 rounded bg-gray-900 border border-gray-700 text-white"
+                 class="focus:outline-none focus:border-green-400"
+                 value="1.5">
+        </div>
+        <div class="mb-5">
+          <label class="input-label block mb-1">24h 거래대금 순위(Top N)</label>
+          <input type="number" min="1" max="50" id="volumeRank"
+                 class="w-full px-3 py-2 rounded bg-gray-900 border border-gray-700 text-white"
+                 class="focus:outline-none focus:border-green-400"
+                 value="30">
+        </div>
+        <div class="flex gap-2">
+          <button type="button" onclick="closeMonitorModal()"
+                  class="flex-1 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white font-semibold">취소</button>
+          <button type="submit"
+                  class="flex-1 py-2 bg-green-500 hover:bg-green-400 rounded text-gray-900 font-bold transition">
+            저장
           </button>
         </div>
-        <small class="text-muted" id="webStart">{{ start_time }} [{{ uptime }}]</small>
-      </div>
+      </form>
     </div>
-    <div class="card shadow-sm mb-4">
-      <div class="card-head">
-        <i class="bi bi-wallet2"></i> 계좌 요약
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="보유 KRW, 총 매수금액, 총 평가금액과 평가 손익률을 보여 줍니다."></i>
-      </div>
-      <div class="card-body">
-        <div class="row gy-2">
-          <div class="col-6">보유 KRW:</div>
-          <div class="col-6 text-end fw-semibold" id="accountKrw">{{ account.krw|comma }} 원</div>
-          <div class="col-6">총 매수금액:</div>
-          <div class="col-6 text-end fw-semibold" id="accountBuy">{{ account.buy_total|comma }} 원</div>
-          <div class="col-6">총 평가금액:</div>
-          <div class="col-6 text-end fw-semibold" id="accountEval">{{ account.eval_total|comma }} 원</div>
-          <div class="col-6">평가 손익률:</div>
-          <div class="col-6 text-end text-success fw-semibold" id="accountPnl">{{ account.pnl }} %</div>
-        </div>
-      </div>
-    </div>
-    <div class="card shadow-sm mb-4">
-      <div class="card-head">
-        <i class="bi bi-filter-square"></i> 모니터링 코인 조건
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="가격과 24시간 거래대금 순위를 설정해 관심 코인 목록을 좁힐 수 있습니다."></i>
-      </div>
-      <div class="card-body">
-        <form id="coinFilterForm">
-          <div class="form-group d-flex align-items-center mb-2">
-            <label class="form-label me-2 mb-0">최소 가격(원)</label>
-            <input type="number" class="form-control form-control-sm"
-                   name="min_price" value="{{ config.get('min_price', 0) }}">
-          </div>
-          <div class="form-group d-flex align-items-center mb-2">
-            <label class="form-label me-2 mb-0">최대 가격(원)</label>
-            <input type="number" class="form-control form-control-sm"
-                   name="max_price" value="{{ config.get('max_price', 0) }}">
-          </div>
-          <div class="form-group d-flex align-items-center mb-3">
-            <label class="form-label me-2 mb-0">24시간 거래대금 순위</label>
-            <input type="number" class="form-control form-control-sm"
-                   name="rank" value="{{ config.get('rank', 0) }}">
-          </div>
-          <button type="button" class="btn btn-primary btn-sm w-100" data-api="/api/save-settings">저장</button>
-        </form>
-      </div>
-    </div>
-
-  </div><!-- /left -->
-
-  <div id="drag-left"></div>
-
-  <!-- 중앙 -->
-  <div id="center">
-    <!-- 보유코인 관리(매도 모니터링) + 손절·익절/추세 그래프 -->
-    <div class="card shadow-sm mb-5">
-      <div class="card-head">
-        <i class="bi bi-cash-coin"></i> 보유코인 관리 (매도 모니터링)
-        <span id="balanceTimer" class="remain-time"></span>
-        <i id="btnExcludedList" class="bi bi-list-ul ms-auto" role="button"
-           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="매수·매도 대상에서 제외된 코인 목록을 확인합니다."></i>
-        <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="보유 코인의 손익률과 매도 우선순위를 확인하고 수동 매도도 실행할 수 있습니다."></i>
-        <i class="ms-2 bi bi-arrow-clockwise reload-btn" role="button" data-refresh="balances"
-           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered text-center align-middle mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>코인</th>
-                <th>매매 전략</th>
-                <th>제외</th>
-                  <th>수익률
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-                       title="현재까지 확정된 수익률과 미실현 수익률을 합산해 보여 줍니다."></i>
-                  </th>
-                  <th>손절 · 익절 · 추세익절
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-                       title="설정된 손절·익절 가격과 현재가의 상대 위치를 한눈에 표시합니다."></i>
-                  </th>
-                  <th>Sell 시그널
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-                       title="여러 코인 보유 시 어떤 종목을 먼저 매도할지 우선순위를 표시합니다."></i>
-                  </th>
-                  <th>액션
-                    <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-                       title="버튼을 클릭하면 즉시 시장가로 매도 주문을 보냅니다."></i>
-                  </th>
-              </tr>
-            </thead>
-            <tbody id="positionBody">
-              {% for p in positions %}
-              <tr>
-                <td>{{ p.coin }}</td>
-                <td>{% if running %}{{ p.strategy }}{% else %}수동 매매{% endif %}</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary text-dark"
-                          data-api="/api/exclude-coin" data-coin="{{ p.coin }}">제외</button>
-                </td>
-                <td>
-                  {% if p.pnl is not none %}
-                    <span class="badge {{ 'badge-profit' if p.pnl >= 0 else 'badge-loss' }}">
-                      {{ '%+.1f'|format(p.pnl) }}%
-                    </span>
-                  {% else %}
-                    <span class="text-muted">데이터 없음</span>
-                  {% endif %}
-                </td>
-                <td>
-                  <div class="se-bar">
-                  <span class="dot stop"></span>
-                    <span class="dot entry" data-pos="{{ p.entry_pct }}"></span>
-                    <span class="dot take"></span>
-                    {% if p.pin_pct is not none %}
-                      <span class="pin" data-pos="{{ p.pin_pct }}"></span>
-                    {% endif %}
-                  </div>
-                  <div class="trend-bar mt-1">
-                    <span class="tick tick1"></span>
-                    <span class="tick tick2"></span>
-                    <span class="dot trend {{ p.trend_color }}" data-pos="{{ p.trend }}"></span>
-                  </div>
-                </td>
-                <td><span class="badge badge-{{ p.signal }}">{{ p.signal_label }}</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-danger"
-                          data-api="/api/manual-sell"
-                          data-confirm="시장가로 매도 요청을 하시겠습니까?"
-                          data-coin="{{ p.coin }}">수동 매도</button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- 매수 모니터링 -->
-    <div class="card shadow-sm">
-      <div class="card-head">
-        <i class="bi bi-bullseye"></i> 매수 모니터링
-        <span id="signalTimer" class="remain-time"></span>
-        <i id="btnBuyExcludedList" class="bi bi-list-ul ms-auto" role="button"
-           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="매수 대상에서 제외된 코인 목록을 확인합니다."></i>
-        <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="여러 지표를 종합해 실시간 매수 우선순위를 계산해 표시합니다."></i>
-        <i class="ms-2 bi bi-arrow-clockwise" role="button" data-refresh="signals"
-           data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip" title="표시된 데이터를 즉시 다시 불러옵니다."></i>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-bordered text-center mb-0">
-          <thead class="table-light"><tr>
-            <th>코인</th>
-            <th>현재가</th>
-              <th>추세
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="추세 의미: EMA5/20/60 배열과 기울기를 활용해 가격 흐름을 판단합니다.&#10;
-🔼(상승): EMA5>EMA20>EMA60 이고 EMA20 기울기 양수&#10;
-🔸(중립): 위 두 조건에 모두 해당하지 않음&#10;
-🔻(하락): EMA5<EMA20<EMA60 이고 EMA20 기울기 음수"></i>
-            </th>
-            <th>변동성<br>(ATR%)
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="변동성 의미: ATR 비율로 가격 움직임을 판단합니다.&#10;🔵(높음): 5% 이상&#10;🟡(중간): 1~5%&#10;🔻(낮음): 1% 미만"></i>
-            </th>
-            <th>거래량(%)
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="거래량 의미: 평균 대비 증가율을 나타냅니다.&#10;⏫(폭증): 2배 이상&#10;🔼(증가): 1.10~1.99배&#10;🔻(감소): 0.70배 미만"></i>
-            </th>
-            <th>체결강도
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="체결강도 의미: 매수/매도 비중을 나타냅니다.&#10;⏫(강매수): 120 이상&#10;🔼(매수우위): 105~119&#10;🔻(매도우위): 95 미만"></i>
-            </th>
-            <th>GC
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="GC 의미: EMA 교차로 추세 전환을 확인합니다.&#10;🔼(골든): 골든크로스&#10;🔻(데드): 데드크로스&#10;🔸(없음): 교차 없음"></i>
-            </th>
-            <th>RIS
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="RIS: RSI 수치 기준&#10;⏫<20&#10;🔼20~30&#10;🔸30~70&#10;🔻>70"></i>
-            </th>
-            <th>Buy 시그널
-              <i class="bi bi-info-circle" data-bs-toggle="tooltip"
-                 data-bs-custom-class="wide-tooltip"
-                 title="시그널 의미: 복합 지표로 매수 강도를 분류합니다.&#10;1단계: 매수 강함&#10;2단계: 매수 우세&#10;3단계: 관망&#10;4단계: 회피·금지"></i>
-            </th>
-            <th>액션</th>
-          </tr></thead>
-          <tbody id="signalBody">
-            {% for s in signals %}
-            <tr>
-              <td>{{ s.coin }}</td>
-              <td>{{ s.price }}</td>
-              <td class="icon-cell">{{ s.trend }}</td>
-              <td class="icon-cell">{{ s.volatility }}</td>
-              <td class="icon-cell">{{ s.volume }}</td>
-              <td class="icon-cell">{{ s.strength }}</td>
-              <td class="icon-cell">{{ s.gc }}</td>
-              <td class="icon-cell">{{ s.rsi }}</td>
-              <td><span class="badge badge-{{ s.signal_class }}">{{ s.signal }}</span></td>
-              <td>
-                <button class="btn btn-sm btn-outline-success"
-                        data-api="/api/manual-buy" data-coin="{{ s.coin }}">수동 매수</button>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div><!-- /center -->
-
-  <div id="drag-right"></div>
-
-  <!-- 우측 -->
-  <div id="right">
-    <div class="card shadow-sm h-100">
-      <div class="card-head">
-        <i class="bi bi-bell"></i> 실시간 알림
-        <i class="bi bi-question-circle ms-auto" data-bs-toggle="tooltip" data-bs-custom-class="wide-tooltip"
-           title="매매 체결, 손절·익절 발생 등 주요 알림을 실시간으로 표시합니다."></i>
-      </div>
-      <div id="liveAlerts" class="card-body small live-alerts">
-        {% if alerts %}
-        {% for a in alerts %}
-        <div>[{{ a.time }}] {{ a.message }}</div>
-        {% endfor %}
-        {% else %}
-        <div class="text-muted">실시간 알림 대기중......</div>
-        {% endif %}
-      </div>
-    </div>
-  </div><!-- /right -->
-</div><!-- /layout -->
-
+  </div>
 {% endblock %}

@@ -1,5 +1,0 @@
-config/secrets.json
-
-logs/
-*.log
-__pycache__/
