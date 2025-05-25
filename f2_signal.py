@@ -12,7 +12,8 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     """
     Determine buy/sell signals for a given symbol based on 1-minute and 5-minute data.
     df_1m and df_5m are DataFrames with columns ['timestamp','open','high','low','close','volume'].
-    Returns a dictionary with the symbol and boolean flags 'buy_signal' and 'sell_signal'.
+    Returns a dictionary with the symbol, boolean flags 'buy_signal' and 'sell_signal',
+    and lists of triggered strategies.
     """
     # Ensure data is sorted by time in ascending order
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
@@ -162,13 +163,17 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         else:
             df5[f"MaxHigh{window}"] = df5["high"].rolling(window=window).max()
             df5[f"MinLow{window}"] = df5["low"].rolling(window=window).min()
+
+    # ATR moving average used by some strategies
+    df1[f"ATR_{atr_period}_MA20"] = df1[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
+    df5[f"ATR_{atr_period}_MA20"] = df5[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
     
     # Evaluate each strategy's conditions on the latest data
     latest1 = df1.iloc[-1]  # last row of 1m data (latest completed 1m candle)
     latest5 = df5.iloc[-1]  # last row of 5m data (latest completed 5m candle)
     buy_signal = False
     sell_signal = False
-    # (Optional: track which strategies triggered, for logging or debugging)
+    # Track strategies that triggered for transparency
     triggered_buys = []
     triggered_sells = []
     for strat in strategies:
@@ -183,7 +188,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             buy_cond_5m = False
         if buy_cond_1m and buy_cond_5m:
             buy_signal = True
-            triggered_buys.append(strat["short_code"])
+            triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula})
         # Evaluate sell conditions on 1-minute only
         try:
             sell_cond_1m = eval_formula(sell_formula, latest1)
@@ -191,15 +196,14 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             sell_cond_1m = False
         if sell_cond_1m:
             sell_signal = True
-            triggered_sells.append(strat["short_code"])
+            triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
     result = {
         "symbol": symbol,
         "buy_signal": buy_signal,
-        "sell_signal": sell_signal
+        "sell_signal": sell_signal,
+        "buy_triggers": triggered_buys,
+        "sell_triggers": triggered_sells,
     }
-    # The result can be extended with triggered strategy info if needed, e.g.:
-    # result["buy_strategies"] = triggered_buys
-    # result["sell_strategies"] = triggered_sells
     return result
 
 def eval_formula(formula: str, data_row: pd.Series) -> bool:
@@ -209,6 +213,9 @@ def eval_formula(formula: str, data_row: pd.Series) -> bool:
     """
     # Replace indicator references in the formula with actual numeric values from data_row
     expr = formula
+    # Normalize some function names to match computed column names
+    expr = expr.replace("MA(Vol,20)", "Vol_MA20")
+    expr = expr.replace("MA(ATR(14),20)", "ATR_14_MA20")
     # Handle indicators and fields present in data_row (like EMA(5), RSI(14), Close, etc.)
     # We will replace each known pattern with its value from data_row.
     # Note: It's important that longer names are replaced before shorter ones to avoid partial replacements.
@@ -233,7 +240,7 @@ def eval_formula(formula: str, data_row: pd.Series) -> bool:
     # We handle common indicators:
     ind_patterns = ["EMA", "RSI", "ATR", "MFI", "ADX", "MACD_line", "MACD_signal", "MACD_hist",
                     "StochK", "StochD", "BB_upper", "BB_lower", "BB_mid",
-                    "BandWidth20", "Vol_MA20", "VWAP", "Strength",
+                    "BandWidth20", "Vol_MA20", "ATR_14_MA20", "VWAP", "Strength",
                     "Tenkan", "Kijun", "SpanA", "SpanB", "Chikou",
                     "DI_plus", "DI_minus", "PSAR",
                     "MaxHigh5", "MaxHigh20", "MaxHigh60", "MaxHigh120",
