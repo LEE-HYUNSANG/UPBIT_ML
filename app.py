@@ -38,3 +38,9 @@ def analysis():
 def settings():
     """Render the personal settings page."""
     return render_template("05_pSettings.html")
+
+
+if __name__ == "__main__":
+    # Run the Flask development server when executing this file directly.
+    # Set host to "0.0.0.0" so the app is reachable via localhost.
+    app.run(host="0.0.0.0", port=5000, debug=True)
