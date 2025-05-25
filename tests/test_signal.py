@@ -15,7 +15,7 @@ if pandas_available:
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
+    format="%(asctime)s [F2] [%(levelname)s] %(message)s",
     handlers=[logging.StreamHandler()],
 )
 
