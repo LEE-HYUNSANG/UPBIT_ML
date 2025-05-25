@@ -1,4 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+import json
+import os
+import uuid
+import jwt
+import requests
 from f1_universe import (
     select_universe,
     load_config,
@@ -10,6 +15,53 @@ app = Flask(__name__)
 
 CONFIG = load_config()
 schedule_universe_updates(1800, CONFIG)
+
+
+def _load_api_keys(path: str = ".env.json") -> tuple[str, str]:
+    """Return Upbit API access and secret keys from the JSON env file."""
+    if not os.path.exists(path):
+        return "", ""
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("UPBIT_KEY", ""), data.get("UPBIT_SECRET", "")
+
+
+def fetch_account_info() -> dict:
+    """Fetch KRW balance and today's PnL from Upbit.
+
+    The function uses a JWT token to authenticate with the Upbit API. If the
+    request fails, ``0`` values are returned.
+    """
+
+    access_key, secret_key = _load_api_keys()
+    if not access_key or not secret_key:
+        return {"krw_balance": 0, "pnl": 0}
+
+    payload = {"access_key": access_key, "nonce": str(uuid.uuid4())}
+    token = jwt.encode(payload, secret_key)
+    headers = {"Authorization": f"Bearer {token}"}
+
+    try:
+        response = requests.get("https://api.upbit.com/v1/accounts", headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        krw_balance = 0.0
+        for item in data:
+            if item.get("currency") == "KRW":
+                krw_balance = float(item.get("balance", 0))
+                break
+    except Exception:
+        krw_balance = 0.0
+
+    # TODO: Calculate today's PnL using trade history
+    pnl = 0.0
+    return {"krw_balance": krw_balance, "pnl": pnl}
+
+
+@app.route("/api/account")
+def api_account() -> "Response":
+    """Return account info as JSON."""
+    return jsonify(fetch_account_info())
 
 @app.route("/")
 def home():
