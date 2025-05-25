@@ -3,12 +3,13 @@
 {% block head_extra %}
   <style>
     :root {
-      --main-bg: #1a202a;
-      --card-bg: #212733;
-      --header-bg: #232b35;
-      --table-bg: #232832;
-      --input-bg: #181e25;
-      --input-border: #293043;
+      /* Align color palette with the dashboard */
+      --main-bg: #222831;
+      --card-bg: #1f2937;
+      --header-bg: #334155;
+      --table-bg: #1f2937;
+      --input-bg: #0f172a;
+      --input-border: #334155;
       --green: #22c55e;
       --green-light: #4ade80;
       --white: #e5e7eb;
@@ -17,13 +18,7 @@
       --shadow: 0 2px 20px #0005;
       --radius: 18px;
     }
-    body {
-      background: var(--main-bg);
-      color: var(--white);
-      font-family: 'Pretendard','Noto Sans KR',sans-serif;
-      font-size: 1.05rem;
-      letter-spacing: -0.2px;
-    }
+    /* Use the base template's body styles for consistency */
     .main-wrap {
       max-width: 1160px; margin: 44px auto 0 auto;
       background: var(--card-bg);
