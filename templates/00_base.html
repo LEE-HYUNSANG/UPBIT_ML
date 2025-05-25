@@ -91,19 +91,43 @@
       }
     }
     function openMonitorModal() {
-      document.getElementById("monitorModal").classList.remove("hidden");
+      fetch('/api/universe_config')
+        .then(r => r.json())
+        .then(cfg => {
+          document.getElementById('minPrice').value = cfg.min_price;
+          document.getElementById('maxPrice').value = cfg.max_price;
+          document.getElementById('minVolatility').value = cfg.min_volatility;
+          document.getElementById('volumeRank').value = cfg.volume_rank;
+          document.getElementById("monitorModal").classList.remove("hidden");
+        })
+        .catch(() => {
+          document.getElementById("monitorModal").classList.remove("hidden");
+        });
     }
     function closeMonitorModal() {
       document.getElementById("monitorModal").classList.add("hidden");
     }
     function saveMonitorCondition() {
-      var minPrice = document.getElementById("minPrice").value;
-      var maxPrice = document.getElementById("maxPrice").value;
-      var minVolatility = document.getElementById("minVolatility").value;
-      var volumeRank = document.getElementById("volumeRank").value;
-      alert("저장 완료!\n\n최소 가격: " + minPrice + "\n최대 가격: " + maxPrice +
-            "\n변동성 하한: " + minVolatility + "%\n거래대금 순위: Top " + volumeRank);
-      closeMonitorModal();
+      var minPrice = parseFloat(document.getElementById("minPrice").value);
+      var maxPrice = parseFloat(document.getElementById("maxPrice").value);
+      var minVolatility = parseFloat(document.getElementById("minVolatility").value);
+      var volumeRank = parseInt(document.getElementById("volumeRank").value);
+      fetch('/api/universe_config', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          min_price: minPrice,
+          max_price: maxPrice,
+          min_volatility: minVolatility,
+          volume_rank: volumeRank
+        })
+      })
+        .then(r => r.json())
+        .then(() => {
+          closeMonitorModal();
+          location.reload();
+        })
+        .catch(console.error);
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === "Escape") closeMonitorModal();

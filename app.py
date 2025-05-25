@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import json
 import os
 import uuid
@@ -9,6 +9,8 @@ from f1_universe import (
     load_config,
     get_universe,
     schedule_universe_updates,
+    update_universe,
+    CONFIG_PATH,
 )
 
 app = Flask(__name__)
@@ -63,6 +65,37 @@ def api_account() -> "Response":
     """Return account info as JSON."""
     return jsonify(fetch_account_info())
 
+
+@app.route("/api/universe_config", methods=["GET", "POST"])
+def universe_config_endpoint() -> "Response":
+    """Get or update universe filter configuration."""
+    if request.method == "GET":
+        cfg = load_config()
+        return jsonify(
+            {
+                "min_price": cfg.get("min_price", 0),
+                "max_price": cfg.get("max_price", float("inf")),
+                "min_volatility": cfg.get("min_volatility", 0.0),
+                "volume_rank": cfg.get("volume_rank", 50),
+            }
+        )
+
+    data = request.get_json(force=True) or {}
+    cfg = load_config()
+    cfg["min_price"] = float(data.get("min_price", cfg.get("min_price", 0)))
+    cfg["max_price"] = float(data.get("max_price", cfg.get("max_price", 0)))
+    cfg["min_volatility"] = float(
+        data.get("min_volatility", cfg.get("min_volatility", 0.0))
+    )
+    cfg["volume_rank"] = int(data.get("volume_rank", cfg.get("volume_rank", 50)))
+
+    with open(CONFIG_PATH, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, indent=2)
+
+    CONFIG.update(cfg)
+    update_universe(CONFIG)
+    return jsonify({"status": "ok", "universe": get_universe()})
+
 @app.route("/")
 def home():
     """Root page showing the current trading universe."""
@@ -78,7 +111,7 @@ def dashboard():
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
-    return render_template("01_Home.html", universe=universe)
+    return render_template("01_Home.html", universe=universe, config=CONFIG)
 
 
 @app.route("/strategy")
