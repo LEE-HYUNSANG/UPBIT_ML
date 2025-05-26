@@ -3,6 +3,8 @@
 로그: logs/F3_position_manager.log
 """
 import logging
+import os
+import sqlite3
 from .utils import log_with_tag, now
 
 logger = logging.getLogger("F3_position_manager")
@@ -18,6 +20,7 @@ class PositionManager:
         self.dynamic_params = dynamic_params
         self.kpi_guard = kpi_guard
         self.exception_handler = exception_handler
+        self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions = []
 
     def open_position(self, order_result):
@@ -39,9 +42,134 @@ class PositionManager:
         1Hz 루프: 각 포지션별 FSM 관리 (불타기/물타기/익절/손절/트레일/타임스탑 등)
         ※ 조건/산식은 config와 dynamic_params 기준. (실제 시세 연동 필요)
         """
+        remaining = []
         for pos in self.positions:
-            # TODO: 실시간 시세/ATR/RSI 등 조건 반영
-            log_with_tag(logger, f"Position checked: {pos['symbol']} status: {pos['status']}")
-            # 예시: 만료/익절/손절시 포지션 종료
-            # if 조건: pos['status'] = 'closed'
-        # 포지션 종료/정리 처리도 필요 (리스트에서 제거 등)
+            if pos.get("status") != "open":
+                continue
+            cur_price = pos.get("current_price")
+            if cur_price is None:
+                log_with_tag(logger, f"No price info for {pos['symbol']}")
+                remaining.append(pos)
+                continue
+
+            entry = pos.get("entry_price", cur_price)
+            pos["max_price"] = max(pos.get("max_price", cur_price), cur_price)
+            pos["min_price"] = min(pos.get("min_price", cur_price), cur_price)
+            change_pct = (cur_price - entry) / entry * 100
+
+            if change_pct >= self.config.get("TP_PCT", 1.2):
+                self.execute_sell(pos, "take_profit")
+            elif change_pct <= -abs(self.config.get("SL_PCT", 1.0)):
+                self.execute_sell(pos, "stop_loss")
+            else:
+                self.process_pyramiding(pos)
+                self.process_averaging_down(pos)
+                self.manage_trailing_stop(pos)
+
+            if pos.get("status") == "open":
+                remaining.append(pos)
+
+        self.positions = remaining
+
+    def place_order(self, symbol, side, qty, order_type="market", price=None):
+        """Simulate order placement and return result."""
+        order = {
+            "timestamp": now(),
+            "symbol": symbol,
+            "side": side,
+            "qty": qty,
+            "price": price,
+            "order_type": order_type,
+            "filled": True,
+        }
+        log_with_tag(logger, f"Order placed: {order}")
+        self.log_order_to_db(order)
+        return order
+
+    def execute_sell(self, position, exit_type, qty=None):
+        """Execute a sell order for a position."""
+        if qty is None:
+            qty = position.get("qty", 0)
+        order = self.place_order(position["symbol"], "sell", qty, "market", position.get("current_price"))
+        slip = 0.0
+        if position.get("current_price") and position.get("entry_price"):
+            slip = abs(position["current_price"] - position["entry_price"]) / position["entry_price"] * 100
+        order["exit_type"] = exit_type
+        order["slippage_pct"] = slip
+        self.exception_handler.handle_slippage(position["symbol"], order)
+        position["qty"] -= qty
+        if position["qty"] <= 0:
+            position["status"] = "closed"
+        log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
+        return order
+
+    def manage_trailing_stop(self, position):
+        if not self.config.get("TRAILING_STOP_ENABLED", True):
+            return
+        cur = position.get("current_price")
+        if cur is None:
+            return
+        max_price = position.get("max_price", cur)
+        start_pct = self.config.get("TRAIL_START_PCT", 0.7)
+        step_pct = self.config.get("TRAIL_STEP_PCT", 1.0)
+        gain_pct = (max_price - position["entry_price"]) / position["entry_price"] * 100
+        if gain_pct >= start_pct:
+            drop = (max_price - cur) / max_price * 100
+            if drop >= step_pct:
+                self.execute_sell(position, "trailing_stop")
+
+    def process_pyramiding(self, position):
+        if not self.config.get("PYR_ENABLED", False):
+            return
+        if position["pyramid_count"] >= self.config.get("PYR_MAX_COUNT", 0):
+            return
+        cur = position.get("current_price")
+        if cur is None:
+            return
+        trigger = self.dynamic_params.get("PYR_TRIGGER", 1.0)
+        if (cur - position["entry_price"]) / position["entry_price"] * 100 >= trigger:
+            qty = self.config.get("PYR_SIZE", 0) / cur
+            res = self.place_order(position["symbol"], "buy", qty)
+            if res.get("filled"):
+                position["qty"] += qty
+                position["pyramid_count"] += 1
+
+    def process_averaging_down(self, position):
+        if not self.config.get("AVG_ENABLED", False):
+            return
+        if position["avgdown_count"] >= self.config.get("AVG_MAX_COUNT", 0):
+            return
+        cur = position.get("current_price")
+        if cur is None:
+            return
+        trigger = self.dynamic_params.get("AVG_TRIGGER", 1.0)
+        if (position["entry_price"] - cur) / position["entry_price"] * 100 >= trigger:
+            qty = self.config.get("AVG_SIZE", 0) / cur
+            res = self.place_order(position["symbol"], "buy", qty)
+            if res.get("filled"):
+                position["qty"] += qty
+                position["avgdown_count"] += 1
+
+    def log_order_to_db(self, order_data):
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+        cur.execute(
+            "CREATE TABLE IF NOT EXISTS orders (timestamp TEXT, symbol TEXT, side TEXT, qty REAL, price REAL, order_type TEXT, exit_type TEXT, slippage REAL)"
+        )
+        cur.execute(
+            "INSERT INTO orders VALUES (?,?,?,?,?,?,?,?)",
+            (
+                order_data.get("timestamp", now()),
+                order_data.get("symbol"),
+                order_data.get("side"),
+                order_data.get("qty"),
+                order_data.get("price"),
+                order_data.get("order_type"),
+                order_data.get("exit_type"),
+                order_data.get("slippage_pct", 0.0),
+            ),
+        )
+        conn.commit()
+        conn.close()
+

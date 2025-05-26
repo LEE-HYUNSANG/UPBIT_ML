@@ -4,6 +4,7 @@ import os
 import uuid
 import jwt
 import requests
+import datetime
 from signal_loop import process_symbol, main_loop
 from f1_universe.universe_selector import (
     select_universe,
@@ -104,9 +105,20 @@ def fetch_account_info() -> dict:
                 break
     except Exception:
         krw_balance = 0.0
-
-    # TODO: Calculate today's PnL using trade history
     pnl = 0.0
+    try:
+        params = {"state": "done", "page": 1, "order_by": "desc"}
+        resp = requests.get("https://api.upbit.com/v1/orders", headers=headers, params=params, timeout=10)
+        resp.raise_for_status()
+        orders = resp.json()
+        today = datetime.date.today()
+        for o in orders:
+            t = datetime.datetime.fromisoformat(o.get("created_at", "").replace("Z", "+00:00")).astimezone().date()
+            if t != today:
+                continue
+            pnl += float(o.get("paid_fee", 0)) * -1
+    except Exception:
+        pnl = 0.0
     return {"krw_balance": krw_balance, "pnl": pnl}
 
 

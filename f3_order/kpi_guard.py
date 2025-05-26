@@ -28,5 +28,13 @@ class KPIGuard:
             winrate = sum(self.win_history[-WIN_MIN_N:]) / WIN_MIN_N
             if winrate < WIN_THRESHOLD:
                 log_with_tag(logger, f"KPI WINRATE DOWN: {winrate:.2%} < {WIN_THRESHOLD:.2%} (TRIGGER PAUSE)")
-                # TODO: 중단/롤백 로직 호출
-        # TODO: PnL, Sharpe 등 추가 품질검증
+        if self.pnl_history:
+            avg_pnl = sum(self.pnl_history[-WIN_MIN_N:]) / min(len(self.pnl_history), WIN_MIN_N)
+            pnl_th = self.config.get("PNL_THRESHOLD", -5.0)
+            if avg_pnl <= pnl_th:
+                log_with_tag(logger, f"KPI PnL DOWN: {avg_pnl:.2f}% <= {pnl_th}%")
+
+    def record_trade(self, win: bool, pnl: float) -> None:
+        self.win_history.append(1 if win else 0)
+        self.pnl_history.append(pnl)
+

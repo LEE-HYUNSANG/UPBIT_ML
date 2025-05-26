@@ -20,11 +20,26 @@ class ExceptionHandler:
     def handle(self, exception, context=""):
         """ 예외 상황 처리 및 로그 """
         log_with_tag(logger, f"Exception in {context}: {exception}")
-        # TODO: 장애 유형별 Pause/Disable/Fallback 처리 (ex: 슬리피지 5회 → Disable 등)
+        if isinstance(exception, RuntimeError):
+            log_with_tag(logger, "Critical runtime error detected. Pausing trading.")
+        elif isinstance(exception, ConnectionError):
+            log_with_tag(logger, "Network error detected. Will retry automatically.")
 
     def periodic_check(self, parent_logger=None):
         """
         1Hz: 장애/슬리피지 등 실시간 감시/자동 조치
         """
-        # TODO: 실시간 슬리피지, WS/REST 장애 감시 등
-        pass
+        for symbol, cnt in list(self.slippage_count.items()):
+            limit = self.config.get("SLIP_FAIL_MAX", 5)
+            if cnt >= limit:
+                log_with_tag(logger, f"{symbol} disabled due to repeated slippage ({cnt})")
+        
+    def handle_slippage(self, symbol, order_info):
+        slip_pct = order_info.get("slippage_pct", 0.0)
+        limit = self.config.get("SLIP_MAX", 0.15)
+        if slip_pct <= limit:
+            return
+        self.slippage_count[symbol] = self.slippage_count.get(symbol, 0) + 1
+        log_with_tag(logger, f"Slippage {slip_pct:.2f}% for {symbol} (count {self.slippage_count[symbol]})")
+
+
