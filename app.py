@@ -5,7 +5,7 @@ import uuid
 import jwt
 import requests
 from signal_loop import process_symbol, main_loop
-from f1_universe import (
+from f1_universe.universe_selector import (
     select_universe,
     load_config,
     get_universe,

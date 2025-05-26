@@ -11,7 +11,7 @@ else:
     pandas_available = True
 
 if pandas_available:
-    from f2_signal import eval_formula, f2_signal
+    from f2_signal.signal_engine import eval_formula, f2_signal
 
 logging.basicConfig(
     level=logging.INFO,
