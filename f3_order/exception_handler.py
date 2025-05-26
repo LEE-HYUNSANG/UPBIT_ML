@@ -3,7 +3,11 @@
 로그: logs/F3_exception_handler.log
 """
 import logging
-from .utils import log_with_tag
+try:
+    import requests
+except Exception:  # pragma: no cover - offline test env
+    requests = None
+from .utils import log_with_tag, load_env
 
 logger = logging.getLogger("F3_exception_handler")
 fh = logging.FileHandler("logs/F3_exception_handler.log")
@@ -16,6 +20,23 @@ class ExceptionHandler:
     def __init__(self, config):
         self.config = config
         self.slippage_count = {}
+        env = load_env()
+        self.tg_token = env.get("TELEGRAM_TOKEN")
+        self.tg_chat_id = env.get("TELEGRAM_CHAT_ID")
+
+    def send_alert(self, message: str, severity: str = "info") -> None:
+        """Send a Telegram notification if credentials are set."""
+        if not self.tg_token or not self.tg_chat_id or not requests:
+            return
+        text = f"[{severity.upper()}] {message}"
+        try:
+            requests.post(
+                f"https://api.telegram.org/bot{self.tg_token}/sendMessage",
+                data={"chat_id": self.tg_chat_id, "text": text},
+                timeout=5,
+            )
+        except Exception:
+            pass
 
     def handle(self, exception, context=""):
         """ 예외 상황 처리 및 로그 """
@@ -32,7 +53,9 @@ class ExceptionHandler:
         for symbol, cnt in list(self.slippage_count.items()):
             limit = self.config.get("SLIP_FAIL_MAX", 5)
             if cnt >= limit:
-                log_with_tag(logger, f"{symbol} disabled due to repeated slippage ({cnt})")
+                msg = f"{symbol} disabled due to repeated slippage ({cnt})"
+                log_with_tag(logger, msg)
+                self.send_alert(msg, "warning")
         
     def handle_slippage(self, symbol, order_info):
         slip_pct = order_info.get("slippage_pct", 0.0)
@@ -40,6 +63,9 @@ class ExceptionHandler:
         if slip_pct <= limit:
             return
         self.slippage_count[symbol] = self.slippage_count.get(symbol, 0) + 1
-        log_with_tag(logger, f"Slippage {slip_pct:.2f}% for {symbol} (count {self.slippage_count[symbol]})")
+        msg = f"Slippage {slip_pct:.2f}% for {symbol} (count {self.slippage_count[symbol]})"
+        log_with_tag(logger, msg)
+        if self.slippage_count[symbol] >= self.config.get("SLIP_FAIL_MAX", 5):
+            self.send_alert(msg, "warning")
 
 

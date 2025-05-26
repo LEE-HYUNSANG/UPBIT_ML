@@ -4,6 +4,7 @@
 """
 import logging
 from .utils import log_with_tag
+from .exception_handler import ExceptionHandler
 
 logger = logging.getLogger("F3_kpi_guard")
 fh = logging.FileHandler("logs/F3_kpi_guard.log")
@@ -17,6 +18,7 @@ class KPIGuard:
         self.config = config
         self.win_history = []  # 최근 N회 승패
         self.pnl_history = []  # 최근 N회 손익
+        self.exception_handler = ExceptionHandler(config)
 
     def check(self, parent_logger=None):
         """
@@ -27,12 +29,16 @@ class KPIGuard:
         if len(self.win_history) >= WIN_MIN_N:
             winrate = sum(self.win_history[-WIN_MIN_N:]) / WIN_MIN_N
             if winrate < WIN_THRESHOLD:
-                log_with_tag(logger, f"KPI WINRATE DOWN: {winrate:.2%} < {WIN_THRESHOLD:.2%} (TRIGGER PAUSE)")
+                msg = f"KPI WINRATE DOWN: {winrate:.2%} < {WIN_THRESHOLD:.2%} (TRIGGER PAUSE)"
+                log_with_tag(logger, msg)
+                self.exception_handler.send_alert(msg, "warning")
         if self.pnl_history:
             avg_pnl = sum(self.pnl_history[-WIN_MIN_N:]) / min(len(self.pnl_history), WIN_MIN_N)
             pnl_th = self.config.get("PNL_THRESHOLD", -5.0)
             if avg_pnl <= pnl_th:
-                log_with_tag(logger, f"KPI PnL DOWN: {avg_pnl:.2f}% <= {pnl_th}%")
+                msg = f"KPI PnL DOWN: {avg_pnl:.2f}% <= {pnl_th}%"
+                log_with_tag(logger, msg)
+                self.exception_handler.send_alert(msg, "warning")
 
     def record_trade(self, win: bool, pnl: float) -> None:
         self.win_history.append(1 if win else 0)

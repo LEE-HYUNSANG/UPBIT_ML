@@ -6,6 +6,7 @@ import logging
 import os
 import sqlite3
 from .utils import log_with_tag, now
+from .upbit_api import UpbitClient
 
 logger = logging.getLogger("F3_position_manager")
 fh = logging.FileHandler("logs/F3_position_manager.log")
@@ -22,6 +23,7 @@ class PositionManager:
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions = []
+        self.client = UpbitClient()
 
     def open_position(self, order_result):
         """ 신규 포지션 오픈 (filled 주문 결과 기반) """
@@ -72,19 +74,43 @@ class PositionManager:
         self.positions = remaining
 
     def place_order(self, symbol, side, qty, order_type="market", price=None):
-        """Simulate order placement and return result."""
-        order = {
-            "timestamp": now(),
-            "symbol": symbol,
-            "side": side,
-            "qty": qty,
-            "price": price,
-            "order_type": order_type,
-            "filled": True,
-        }
-        log_with_tag(logger, f"Order placed: {order}")
-        self.log_order_to_db(order)
-        return order
+        """Submit an order through the Upbit API and return the response."""
+        try:
+            resp = self.client.place_order(
+                market=symbol,
+                side=side,
+                volume=qty,
+                price=price,
+                ord_type=order_type,
+            )
+            resp["filled"] = resp.get("state") == "done"
+            resp["timestamp"] = now()
+            resp["symbol"] = symbol
+            resp["qty"] = qty
+            resp["price"] = price
+            resp["order_type"] = order_type
+            log_with_tag(logger, f"Order API response: {resp}")
+            self.log_order_to_db(resp)
+            return resp
+        except Exception as e:
+            self.exception_handler.handle(e, context="place_order")
+            return {"symbol": symbol, "side": side, "qty": qty, "price": price, "order_type": order_type, "filled": False}
+
+    def update_position_from_fill(self, order_id, fill_info):
+        """Update a position based on filled order information."""
+        symbol = fill_info.get("market")
+        for pos in self.positions:
+            if pos.get("symbol") == symbol and pos.get("status") == "open":
+                if fill_info.get("side") == "bid":
+                    pos["qty"] += float(fill_info.get("volume", 0))
+                    if not pos.get("entry_price"):
+                        pos["entry_price"] = float(fill_info.get("price", 0))
+                else:
+                    pos["qty"] -= float(fill_info.get("volume", 0))
+                    if pos["qty"] <= 0:
+                        pos["status"] = "closed"
+                log_with_tag(logger, f"Position updated from fill {order_id}: {pos}")
+                break
 
     def execute_sell(self, position, exit_type, qty=None):
         """Execute a sell order for a position."""
@@ -155,17 +181,19 @@ class PositionManager:
         conn = sqlite3.connect(self.db_path)
         cur = conn.cursor()
         cur.execute(
-            "CREATE TABLE IF NOT EXISTS orders (timestamp TEXT, symbol TEXT, side TEXT, qty REAL, price REAL, order_type TEXT, exit_type TEXT, slippage REAL)"
+            "CREATE TABLE IF NOT EXISTS orders (timestamp TEXT, uuid TEXT, symbol TEXT, side TEXT, qty REAL, price REAL, order_type TEXT, state TEXT, exit_type TEXT, slippage REAL)"
         )
         cur.execute(
-            "INSERT INTO orders VALUES (?,?,?,?,?,?,?,?)",
+            "INSERT INTO orders VALUES (?,?,?,?,?,?,?,?,?,?)",
             (
                 order_data.get("timestamp", now()),
+                order_data.get("uuid"),
                 order_data.get("symbol"),
                 order_data.get("side"),
                 order_data.get("qty"),
                 order_data.get("price"),
                 order_data.get("order_type"),
+                order_data.get("state"),
                 order_data.get("exit_type"),
                 order_data.get("slippage_pct", 0.0),
             ),
