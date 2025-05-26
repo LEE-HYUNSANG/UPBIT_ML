@@ -31,6 +31,7 @@ logging.basicConfig(
 
 BASE_URL = "https://api.upbit.com/v1"
 CONFIG_PATH = "config/universe.json"
+UNIVERSE_FILE = "config/current_universe.json"
 
 _UNIVERSE: List[str] = []
 _LOCK = threading.Lock()
@@ -220,13 +221,37 @@ def update_universe(config: Dict | None = None) -> None:
     with _LOCK:
         _UNIVERSE.clear()
         _UNIVERSE.extend(universe)
+    try:
+        with open(UNIVERSE_FILE, "w", encoding="utf-8") as f:
+            json.dump(universe, f, ensure_ascii=False, indent=2)
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Failed to write universe file: {exc}")
     logging.info(f"Universe updated: {universe}")
+
+
+def load_universe_from_file(path: str = UNIVERSE_FILE) -> List[str]:
+    """Load the cached universe from ``path`` and populate the global list."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            with _LOCK:
+                _UNIVERSE.clear()
+                _UNIVERSE.extend(data)
+            return list(data)
+    except FileNotFoundError:
+        return []
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Failed to load universe file: {exc}")
+    return []
 
 
 def get_universe() -> List[str]:
     """Return the last cached universe."""
     with _LOCK:
-        return list(_UNIVERSE)
+        if _UNIVERSE:
+            return list(_UNIVERSE)
+    return load_universe_from_file()
 
 
 def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) -> None:

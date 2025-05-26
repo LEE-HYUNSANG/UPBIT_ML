@@ -11,12 +11,14 @@ from f1_universe import (
     get_universe,
     schedule_universe_updates,
     update_universe,
+    load_universe_from_file,
     CONFIG_PATH,
 )
 
 app = Flask(__name__)
 
 CONFIG = load_config()
+load_universe_from_file()
 schedule_universe_updates(1800, CONFIG)
 
 
