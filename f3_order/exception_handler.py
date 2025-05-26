@@ -7,6 +7,8 @@ try:
     import requests
 except Exception:  # pragma: no cover - offline test env
     requests = None
+    import urllib.request as _urlreq
+from urllib.parse import urlencode
 from .utils import log_with_tag, load_env
 
 logger = logging.getLogger("F3_exception_handler")
@@ -26,15 +28,17 @@ class ExceptionHandler:
 
     def send_alert(self, message: str, severity: str = "info") -> None:
         """Send a Telegram notification if credentials are set."""
-        if not self.tg_token or not self.tg_chat_id or not requests:
+        if not self.tg_token or not self.tg_chat_id:
             return
         text = f"[{severity.upper()}] {message}"
+        url = f"https://api.telegram.org/bot{self.tg_token}/sendMessage"
+        data = {"chat_id": self.tg_chat_id, "text": text}
         try:
-            requests.post(
-                f"https://api.telegram.org/bot{self.tg_token}/sendMessage",
-                data={"chat_id": self.tg_chat_id, "text": text},
-                timeout=5,
-            )
+            if requests:
+                requests.post(url, data=data, timeout=5)
+            else:
+                req = _urlreq.Request(url, data=urlencode(data).encode())
+                _urlreq.urlopen(req, timeout=5)
         except Exception:
             pass
 
