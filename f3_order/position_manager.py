@@ -83,13 +83,35 @@ class PositionManager:
                 price=price,
                 ord_type=order_type,
             )
+
+            # Determine fill status and executed quantity
+            executed_qty = float(resp.get("executed_volume", 0))
+            if executed_qty == 0 and resp.get("remaining_volume") is not None:
+                try:
+                    executed_qty = float(qty) - float(resp.get("remaining_volume", 0))
+                except Exception:
+                    executed_qty = 0
+
+            is_partial = resp.get("state") != "done" and executed_qty > 0
+
             resp["filled"] = resp.get("state") == "done"
             resp["timestamp"] = now()
             resp["symbol"] = symbol
             resp["qty"] = qty
             resp["price"] = price
             resp["order_type"] = order_type
+
             log_with_tag(logger, f"Order API response: {resp}")
+
+            if is_partial:
+                fill = {
+                    "market": symbol,
+                    "side": side,
+                    "volume": str(executed_qty),
+                    "price": price or resp.get("price"),
+                }
+                self.update_position_from_fill(resp.get("uuid"), fill)
+
             self.log_order_to_db(resp)
             return resp
         except Exception as e:

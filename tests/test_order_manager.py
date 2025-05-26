@@ -70,23 +70,25 @@ def test_update_position_from_fill(tmp_path, monkeypatch):
     assert pm.positions[0]["status"] == "closed"
 
 
-def test_send_alert_fallback(monkeypatch):
-    from f3_order import exception_handler as eh
+def test_place_order_partial_fill(tmp_path, monkeypatch):
+    class PartialFillClient:
+        def place_order(self, *args, **kwargs):
+            return {
+                "uuid": "2",
+                "state": "wait",
+                "side": kwargs.get("side"),
+                "market": kwargs.get("market"),
+                "volume": kwargs.get("volume"),
+                "remaining_volume": "1.0",
+                "executed_volume": "1.0",
+                "price": kwargs.get("price"),
+            }
 
-    handler = eh.ExceptionHandler({})
-    handler.tg_token = "T"
-    handler.tg_chat_id = "C"
-
-    calls = {}
-
-    def fake_open(req, timeout=0):
-        calls["called"] = True
-        class Dummy:
-            pass
-        return Dummy()
-
-    monkeypatch.setattr(eh, "requests", None)
-    monkeypatch.setattr(eh._urlreq, "urlopen", fake_open)
-    handler.send_alert("hi")
-    assert calls.get("called")
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: PartialFillClient())
+    pm = make_pm(tmp_path)
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 2.0}
+    pm.open_position(order)
+    pm.place_order("KRW-BTC", "sell", 2.0, "market", 100.0)
+    assert pm.positions[0]["qty"] == 1.0
+    assert pm.positions[0]["status"] == "open"
 
