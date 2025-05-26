@@ -130,7 +130,15 @@ def apply_filters(tickers: List[str], config: Dict) -> List[str]:
     info: List[Dict] = []
     for i in range(0, len(tickers), 100):
         chunk = tickers[i : i + 100]
-        ticker_data = _fetch_json(f"{BASE_URL}/ticker", {"markets": ",".join(chunk)})
+        ticker_data = _fetch_json(
+            f"{BASE_URL}/ticker", {"markets": ",".join(chunk)}
+        )
+
+        # Fetch orderbook data once per chunk instead of per ticker
+        orderbook_data = _fetch_json(
+            f"{BASE_URL}/orderbook", {"markets": ",".join(chunk)}
+        )
+        orderbook_map = {d.get("market", ""): d for d in orderbook_data}
 
         for item in ticker_data:
             price = item.get("trade_price", 0)
@@ -142,12 +150,11 @@ def apply_filters(tickers: List[str], config: Dict) -> List[str]:
             tick_range = (
                 item.get("high_price", 0) - item.get("low_price", 0)
             ) / _get_tick_size(price)
-            orderbook = _fetch_json(
-                f"{BASE_URL}/orderbook", {"markets": item.get("market")}
-            )
-            if orderbook:
-                ask = orderbook[0]["orderbook_units"][0]["ask_price"]
-                bid = orderbook[0]["orderbook_units"][0]["bid_price"]
+
+            ob = orderbook_map.get(item.get("market"))
+            if ob and ob.get("orderbook_units"):
+                ask = ob["orderbook_units"][0].get("ask_price", price)
+                bid = ob["orderbook_units"][0].get("bid_price", price)
             else:
                 ask = bid = price
             spread = (ask - bid) / price * 100 if price else 0
