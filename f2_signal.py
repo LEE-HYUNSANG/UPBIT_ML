@@ -288,6 +288,25 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
     # Normalize some function names to match computed column names
     expr = expr.replace("MA(Vol,20)", "Vol_MA20")
     expr = expr.replace("MA(ATR(14),20)", "ATR_14_MA20")
+
+    # Handle basic OHLCV fields with optional offsets like Close(-1)
+    base_fields = {
+        "Close": "close",
+        "Open": "open",
+        "High": "high",
+        "Low": "low",
+        "Vol": "volume",
+    }
+    for fld, col in base_fields.items():
+        pattern = rf"{fld}\((-?[0-9]+)\)"
+        def _repl(m):
+            off = m.group(1)
+            if off in ("0", "+0", ""):
+                val = data_row.get(col, 0)
+            else:
+                val = 0
+            return str(float(val))
+        expr = re.sub(pattern, _repl, expr)
     # Handle indicators and fields present in data_row (like EMA(5), RSI(14), Close, etc.)
     # We will replace each known pattern with its value from data_row.
     # Note: It's important that longer names are replaced before shorter ones to avoid partial replacements.
@@ -298,8 +317,7 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
         "Open": data_row["open"],
         "High": data_row["high"],
         "Low": data_row["low"],
-        "Vol(0)": data_row["volume"],  # current volume
-        "Vol": data_row["volume"]  # if used without parentheses as shorthand
+        "Vol": data_row["volume"],  # shorthand for current volume
     }
     # Also replace 'EntryPrice', 'Entry', 'Peak' if present (if no position, these may not apply; assume False conditions if referenced)
     if "Entry" in formula or "EntryPrice" in formula:

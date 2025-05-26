@@ -4,7 +4,7 @@ import os
 import uuid
 import jwt
 import requests
-from signal_loop import process_symbol
+from signal_loop import process_symbol, main_loop
 from f1_universe import (
     select_universe,
     load_config,
@@ -156,6 +156,23 @@ def settings():
 
 
 if __name__ == "__main__":
-    # Run the Flask development server when executing this file directly.
-    # Set host to "0.0.0.0" so the app is reachable via localhost.
+    # When running this file directly, also launch the signal processing loop
+    # in a background thread so signals continue to be evaluated.
+    import logging
+    import threading
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [F1F2] [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler("logs/F1F2_loop.log", encoding="utf-8"),
+            logging.StreamHandler(),
+        ],
+        force=True,
+    )
+
+    thread = threading.Thread(target=main_loop, daemon=True)
+    thread.start()
+
+    # Run the Flask development server. Set host to "0.0.0.0" so the app is reachable via localhost.
     app.run(host="0.0.0.0", port=5000, debug=True)
