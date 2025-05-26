@@ -2,11 +2,13 @@
 F4 RiskLogger - 리스크/상태/이벤트 로그 및 알림
 """
 import logging
+import os
 
 class RiskLogger:
     def __init__(self, log_path):
         self.logger = logging.getLogger("F4_risk_manager")
-        fh = logging.FileHandler(log_path)
+        os.makedirs(os.path.dirname(log_path), exist_ok=True)
+        fh = logging.FileHandler(log_path, encoding="utf-8")
         formatter = logging.Formatter('%(asctime)s [F4] %(levelname)s %(message)s')
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
