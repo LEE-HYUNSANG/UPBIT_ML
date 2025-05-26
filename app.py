@@ -21,7 +21,13 @@ CONFIG = load_config()
 load_universe_from_file()
 schedule_universe_updates(1800, CONFIG)
 
-RISK_CONFIG_PATH = "config/risk.json"
+CFG_DIR = "config/setting_date"
+LATEST_CFG = os.path.join(CFG_DIR, "Latest_config.json")
+DEFAULT_CFG = os.path.join(CFG_DIR, "default_config.json")
+ML_CFG = os.path.join(CFG_DIR, "ML_config.json")
+YDAY_CFG = os.path.join(CFG_DIR, "yesterday_config.json")
+
+RISK_CONFIG_PATH = LATEST_CFG
 
 
 def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
@@ -38,6 +44,17 @@ def save_risk_config(data: dict, path: str = RISK_CONFIG_PATH) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=2, ensure_ascii=False)
+
+
+def get_config_path(name: str) -> str:
+    """Return full path for a named config set."""
+    mapping = {
+        "latest": LATEST_CFG,
+        "default": DEFAULT_CFG,
+        "ml": ML_CFG,
+        "yesterday": YDAY_CFG,
+    }
+    return mapping.get(name, LATEST_CFG)
 
 
 WEB_LOGGER = None
@@ -148,11 +165,15 @@ def universe_config_endpoint() -> Response:
 def risk_config_endpoint() -> Response:
     """Get or update risk management configuration."""
     if request.method == "GET":
-        cfg = load_risk_config()
+        src = request.args.get("source", "latest")
+        path = get_config_path(src)
+        cfg = load_risk_config(path)
+        if not cfg and src == "latest":
+            cfg = load_risk_config(DEFAULT_CFG)
         return jsonify(cfg)
 
     data = request.get_json(force=True) or {}
-    save_risk_config(data)
+    save_risk_config(data, LATEST_CFG)
     WEB_LOGGER.info(f"Risk config updated: {data}")
     return jsonify({"status": "ok"})
 

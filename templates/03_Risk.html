@@ -1,6 +1,9 @@
 {% extends '00_base.html' %}
 {% block title %}AUTO UPBIT - 리스크/투자 설정{% endblock %}
 {% block head_extra %}
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <style>
     html, body {
       width: 100vw;
@@ -29,6 +32,12 @@
       font-size: 1rem;
       color: #cbd5e1;
       font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .input-desc {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-top: -4px;
       margin-bottom: 8px;
     }
     .risk-grid {
@@ -106,16 +115,6 @@
     }
     .btn-reset:hover {
       background: #1e293b;
-    }
-    .badge-ml {
-      display: inline-block;
-      background: #22c55e;
-      color: #173622;
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 7px;
-      padding: 6px 17px 5px 17px;
-      margin-left: 14px;
     }
     .save-status {
       color: #22c55e;
@@ -200,21 +199,22 @@
     <!-- 투자금/동시매매 한도 -->
     <div class="section-card">
       <div class="flex items-center mb-8">
-        <span class="card-title text-white">투자금/동시매매 한도
-          <span class="badge-ml">ML</span>
-        </span>
+        <span class="card-title text-white">투자금/동시매매 한도</span>
       </div>
       <div class="risk-grid">
         <div>
           <div class="input-label">코인 초기 투자금액(원)</div>
+          <div class="input-desc">첫 구매 시 투입할 금액을 설정합니다.</div>
           <input id="invest-1" type="text" value="100,000" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">전체 투자금 총 한도</div>
+          <div class="input-desc">모든 거래에 사용할 최대 투자금입니다.</div>
           <input id="invest-2" type="text" value="1,000,000" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">동시매매 코인 수</div>
+          <div class="input-desc">동시에 보유 가능한 코인 수를 제한합니다.</div>
           <input id="invest-3" type="text" value="5" class="input-xl comma">
         </div>
         <div></div>
@@ -231,21 +231,22 @@
     <!-- 물/불타기 카드: 최대 4열 지원 -->
     <div class="section-card">
       <div class="flex items-center mb-8">
-        <span class="card-title text-white">물타기 · 불타기 설정
-          <span class="badge-ml">ML</span>
-        </span>
+        <span class="card-title text-white">물타기 · 불타기 설정</span>
       </div>
       <div class="risk-grid">
         <div>
           <div class="input-label">물타기 추가 금액</div>
+          <div class="input-desc">가격 하락 시 추가 매수에 사용할 금액.</div>
           <input id="add-1" type="text" value="100,000" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">물타기 허용 횟수</div>
+          <div class="input-desc">물타기 가능한 최대 횟수.</div>
           <input id="add-2" type="text" value="2" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">물타기 허용 여부</div>
+          <div class="input-desc">물타기 기능 사용 여부.</div>
           <select id="add-3" class="select-xl">
             <option value="예" selected>예</option>
             <option value="아니오">아니오</option>
@@ -254,14 +255,17 @@
         <div></div>
         <div>
           <div class="input-label">불타기 추가 금액</div>
+          <div class="input-desc">가격 상승 시 추가 매수에 사용할 금액.</div>
           <input id="add-4" type="text" value="100,000" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">불타기 허용 횟수</div>
+          <div class="input-desc">불타기 가능한 최대 횟수.</div>
           <input id="add-5" type="text" value="2" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">불타기 허용 여부</div>
+          <div class="input-desc">불타기 기능 사용 여부.</div>
           <select id="add-6" class="select-xl">
             <option value="예" selected>예</option>
             <option value="아니오">아니오</option>
@@ -281,17 +285,17 @@
     <!-- 체결/슬리피지 카드: 2열~3열 자동 지원 -->
     <div class="section-card">
       <div class="flex items-center mb-8">
-        <span class="card-title text-white">체결/슬리피지 설정
-          <span class="badge-ml">ML</span>
-        </span>
+        <span class="card-title text-white">체결/슬리피지 설정</span>
       </div>
       <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(2,1fr);">
         <div>
           <div class="input-label">슬리피지 허용(%)</div>
+          <div class="input-desc">주문과 체결 가격 차이를 허용하는 범위.</div>
           <input id="slip-1" type="text" value="0.15" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">체결 실패시 동작</div>
+          <div class="input-desc">주문 실패 시 실행할 동작을 선택합니다.</div>
           <select id="slip-2" class="select-xl">
             <option value="재시도" selected>재시도</option>
             <option value="알림 및 대기">알림 및 대기</option>
@@ -311,25 +315,27 @@
     <!-- 리스크 한도/자동 정지 카드: 최대 4열 지원 -->
     <div class="section-card">
       <div class="flex items-center mb-8">
-        <span class="card-title text-white">리스크 한도 · 자동 정지
-          <span class="badge-ml">ML</span>
-        </span>
+        <span class="card-title text-white">리스크 한도 · 자동 정지</span>
       </div>
       <div class="risk-grid">
         <div>
           <div class="input-label">일 최대 손실(%)</div>
+          <div class="input-desc">하루 동안 허용되는 최대 손실 비율.</div>
           <input id="risk-1" type="text" value="2.5" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">MDD 최대 손실(%)</div>
+          <div class="input-desc">최대 낙폭을 제한하는 손실 비율.</div>
           <input id="risk-2" type="text" value="7.0" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">월 MDD 최대 손실(%)</div>
+          <div class="input-desc">월간 최대 낙폭을 제한하는 손실 비율.</div>
           <input id="risk-3" type="text" value="10.0" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">자동 정지 옵션</div>
+          <div class="input-desc">설정된 손실 한도 도달 시 자동 중지 여부.</div>
           <select id="risk-4" class="select-xl">
             <option value="ON" selected>ON</option>
             <option value="OFF">OFF</option>
@@ -348,23 +354,24 @@
     <!-- 손절/익절/TS 조건 카드: 2행(2+3열) 구조 -->
     <div class="section-card">
       <div class="flex items-center mb-8">
-        <span class="card-title text-white">손절/익절/TS 조건
-          <span class="badge-ml">ML</span>
-        </span>
+        <span class="card-title text-white">손절/익절/TS 조건</span>
       </div>
       <div class="risk-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:0;">
         <div>
           <div class="input-label">손절 조건(%)</div>
+          <div class="input-desc">설정 손실률 도달 시 포지션을 종료합니다.</div>
           <input id="ts-1" type="text" value="2.5" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">익절 조건(%)</div>
+          <div class="input-desc">설정 수익률 도달 시 포지션을 정리합니다.</div>
           <input id="ts-2" type="text" value="4.5" class="input-xl comma">
         </div>
       </div>
       <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(3,1fr); margin-top:16px;">
         <div>
           <div class="input-label">TS(트레일링스탑) 사용 여부</div>
+          <div class="input-desc">트레일링 스탑 기능 사용 여부를 선택합니다.</div>
           <select id="ts-3" class="select-xl">
             <option value="사용" selected>사용</option>
             <option value="미사용">미사용</option>
@@ -372,10 +379,12 @@
         </div>
         <div>
           <div class="input-label">TS 적용 시작 구간(%)</div>
+          <div class="input-desc">트레일링 스탑이 시작되는 수익 구간.</div>
           <input id="ts-4" type="text" value="4.0" class="input-xl comma">
         </div>
         <div>
           <div class="input-label">TS 적용 조건(%)</div>
+          <div class="input-desc">최대 수익 대비 허용 손실 비율.</div>
           <input id="ts-5" type="text" value="1.0" class="input-xl comma">
         </div>
       </div>
@@ -419,35 +428,82 @@
       });
     });
 
-    // 카드별 현재값, 어제값, 초기값 (예시)
-    const values = {
-      invest: ['100,000', '1,000,000', '5'],
-      add: ['100,000', '2', '예', '100,000', '2', '예'],
-      slip: ['0.15', '재시도'],
-      risk: ['2.5', '7.0', '10.0', 'ON'],
-      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
-    };
-    const yday = {
-      invest: ['120,000', '900,000', '4'],
-      add: ['90,000', '1', '예', '90,000', '1', '예'],
-      slip: ['0.20', '알림 및 대기'],
-      risk: ['3.0', '9.0', '12.0', 'OFF'],
-      ts: ['3.0', '4.0', '사용', '3.5', '1.2'],
-    };
-    const init = {
-      invest: ['100,000', '1,000,000', '5'],
-      add: ['100,000', '2', '예', '100,000', '2', '예'],
-      slip: ['0.15', '재시도'],
-      risk: ['2.5', '7.0', '10.0', 'ON'],
-      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
-    };
-    const ml = {
-      invest: ['110,000', '1,200,000', '6'],
-      add: ['150,000', '3', '예', '120,000', '2', '예'],
-      slip: ['0.12', '재시도'],
-      risk: ['2.0', '6.0', '9.0', 'ON'],
-      ts: ['2.0', '5.0', '사용', '5.0', '1.5'],
-    };
+    let values = {};
+    let yday = {};
+    let init = {};
+    let ml = {};
+
+    function cfgToValues(cfg) {
+      return {
+        invest: [
+          Number(cfg.ENTRY_SIZE_INITIAL).toLocaleString('ko-KR'),
+          Number(cfg.TOTAL_INVEST_LIMIT).toLocaleString('ko-KR'),
+          String(cfg.MAX_SYMBOLS),
+        ],
+        add: [
+          Number(cfg.AVG_SIZE).toLocaleString('ko-KR'),
+          String(cfg.AVG_MAX_COUNT),
+          cfg.AVG_ENABLED ? '예' : '아니오',
+          Number(cfg.PYR_SIZE).toLocaleString('ko-KR'),
+          String(cfg.PYR_MAX_COUNT),
+          cfg.PYR_ENABLED ? '예' : '아니오',
+        ],
+        slip: [String(cfg.SLIP_MAX), cfg.ORDER_FAIL_ACTION],
+        risk: [
+          String(cfg.DAILY_LOSS_LIM),
+          String(cfg.MDD_LIM),
+          String(cfg.MONTHLY_MDD_LIM),
+          cfg.AUTO_STOP_ENABLED ? 'ON' : 'OFF',
+        ],
+        ts: [
+          String(cfg.SL_PCT),
+          String(cfg.TP_PCT),
+          cfg.TRAILING_STOP_ENABLED ? '사용' : '미사용',
+          String(cfg.TRAIL_START_PCT),
+          String(cfg.TRAIL_STEP_PCT),
+        ],
+      };
+    }
+
+    function setCardValues(cardVals) {
+      const idMap = {
+        invest: ['invest-1', 'invest-2', 'invest-3'],
+        add: ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'],
+        slip: ['slip-1', 'slip-2'],
+        risk: ['risk-1', 'risk-2', 'risk-3', 'risk-4'],
+        ts: ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'],
+      };
+      Object.keys(cardVals).forEach((card) => {
+        const ids = idMap[card];
+        ids.forEach((id, i) => {
+          const el = document.getElementById(id);
+          const val = cardVals[card][i];
+          if (el.tagName === 'INPUT') {
+            el.value = val;
+          } else {
+            for (let j = 0; j < el.options.length; j++) {
+              if (el.options[j].text === val || el.options[j].value === val) {
+                el.selectedIndex = j;
+              }
+            }
+          }
+        });
+      });
+    }
+
+    async function loadConfigs() {
+      const latest = await fetch('/api/risk_config?source=latest').then(r => r.json());
+      const defaultCfg = await fetch('/api/risk_config?source=default').then(r => r.json());
+      const mlCfg = await fetch('/api/risk_config?source=ml').then(r => r.json());
+      const ydayCfg = await fetch('/api/risk_config?source=yesterday').then(r => r.json());
+      values = cfgToValues(latest);
+      init = cfgToValues(defaultCfg);
+      ml = cfgToValues(mlCfg);
+      yday = cfgToValues(ydayCfg);
+      setCardValues(values);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadConfigs);
     const labels = {
       invest: ['코인 초기 투자금액(원)', '전체 투자금 총 한도', '동시매매 코인 수'],
       add: [
@@ -563,5 +619,10 @@
         body: JSON.stringify(data)
       }).catch(err => console.error(err));
     }
+
+    // 캐시된 페이지로 돌아올 때 최신 데이터를 표시하기 위해 새로고침
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) window.location.reload();
+    });
   </script>
 {% endblock %}
