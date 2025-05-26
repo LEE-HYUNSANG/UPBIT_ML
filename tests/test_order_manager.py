@@ -69,3 +69,26 @@ def test_update_position_from_fill(tmp_path, monkeypatch):
     pm.update_position_from_fill("1", fill)
     assert pm.positions[0]["status"] == "closed"
 
+
+def test_place_order_partial_fill(tmp_path, monkeypatch):
+    class PartialFillClient:
+        def place_order(self, *args, **kwargs):
+            return {
+                "uuid": "2",
+                "state": "wait",
+                "side": kwargs.get("side"),
+                "market": kwargs.get("market"),
+                "volume": kwargs.get("volume"),
+                "remaining_volume": "1.0",
+                "executed_volume": "1.0",
+                "price": kwargs.get("price"),
+            }
+
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: PartialFillClient())
+    pm = make_pm(tmp_path)
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 2.0}
+    pm.open_position(order)
+    pm.place_order("KRW-BTC", "sell", 2.0, "market", 100.0)
+    assert pm.positions[0]["qty"] == 1.0
+    assert pm.positions[0]["status"] == "open"
+
