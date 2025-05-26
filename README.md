@@ -8,6 +8,10 @@ The latest selected trading universe is saved to `config/current_universe.json`.
 
 External processes such as `signal_loop.py` can use this file to share the same universe.
 
+## Orderbook batching
+
+`f1_universe.universe_selector.apply_filters` fetches orderbook data in batches of up to 100 tickers with a single API call per chunk. This reduces the number of requests sent to Upbit when building the universe.
+
 ## Running `signal_loop.py`
 
 To start the F1/F2 signal loop, run:
