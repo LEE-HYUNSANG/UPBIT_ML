@@ -7,8 +7,8 @@ def replay_trades(start_date: str, end_date: str, strategy_id: str, db_path: str
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     cur.execute(
-        "SELECT * FROM orders WHERE timestamp BETWEEN ? AND ?",
-        (start_date, end_date),
+        "SELECT * FROM orders WHERE timestamp BETWEEN ? AND ? AND strategy_id = ?",
+        (start_date, end_date, strategy_id),
     )
     for row in cur.fetchall():
         yield row
