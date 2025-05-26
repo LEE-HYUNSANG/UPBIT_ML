@@ -62,6 +62,7 @@ def load_config(path: str = CONFIG_PATH) -> Dict:
             "min_ticks": 0,
             "max_spread": 100.0,
             "volume_rank": 50,
+            "universe_size": 5,
         }
 
 
@@ -205,7 +206,8 @@ def select_universe(config: Dict | None = None) -> List[str]:
     tickers = get_top_volume_tickers(volume_rank)
     filtered = apply_filters(tickers, cfg)
 
-    universe = filtered[:5]
+    universe_size = int(cfg.get("universe_size", 0))
+    universe = filtered if universe_size <= 0 else filtered[:universe_size]
     if not universe:
         logging.error("최종 Universe가 비었습니다. 필터 조건/데이터 확인 필요!")
     logging.info(f"최종 Universe 선정: {universe}")
