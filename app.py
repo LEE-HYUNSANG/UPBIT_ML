@@ -70,13 +70,7 @@ if WEB_LOGGER is None:
     WEB_LOGGER.setLevel(logging.INFO)
 
 
-def _load_api_keys(path: str = ".env.json") -> tuple[str, str]:
-    """Return Upbit API access and secret keys from the JSON env file."""
-    if not os.path.exists(path):
-        return "", ""
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return data.get("UPBIT_KEY", ""), data.get("UPBIT_SECRET", "")
+from f3_order.utils import load_api_keys
 
 
 def fetch_account_info() -> dict:
@@ -86,7 +80,7 @@ def fetch_account_info() -> dict:
     request fails, ``0`` values are returned.
     """
 
-    access_key, secret_key = _load_api_keys()
+    access_key, secret_key = load_api_keys()
     if not access_key or not secret_key:
         return {"krw_balance": 0, "pnl": 0}
 

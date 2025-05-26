@@ -4,6 +4,23 @@
 import json
 import datetime
 import logging
+import os
+
+
+def load_env(path: str = ".env.json") -> dict:
+    """Load environment secrets such as API keys from a JSON file."""
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def load_api_keys(path: str = ".env.json") -> tuple[str, str]:
+    env = load_env(path)
+    return env.get("UPBIT_KEY", ""), env.get("UPBIT_SECRET", "")
 
 def load_config(path):
     """ config JSON 파일 로드 """

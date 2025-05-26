@@ -5,9 +5,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from f3_order.position_manager import PositionManager
 from f3_order.kpi_guard import KPIGuard
 from f3_order.exception_handler import ExceptionHandler
+from f3_order.upbit_api import UpbitClient
 
 
-def make_pm(tmp_path):
+def make_pm(tmp_path, monkeypatch=None):
     cfg = {
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "TP_PCT": 1.0,
@@ -18,11 +19,22 @@ def make_pm(tmp_path):
     dyn = {}
     guard = KPIGuard({})
     handler = ExceptionHandler({"SLIP_MAX": 0.15})
+    if monkeypatch is not None:
+        class DummyClient:
+            def place_order(self, *args, **kwargs):
+                return {
+                    "uuid": "1",
+                    "state": "done",
+                    "side": kwargs.get("side"),
+                    "volume": kwargs.get("volume"),
+                }
+
+        monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     return PositionManager(cfg, dyn, guard, handler)
 
 
-def test_execute_sell_closes_position(tmp_path):
-    pm = make_pm(tmp_path)
+def test_execute_sell_closes_position(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
     pm.open_position(order)
     pm.positions[0]["current_price"] = 101.0
@@ -35,11 +47,25 @@ def test_execute_sell_closes_position(tmp_path):
     conn.close()
 
 
-def test_slippage_handling(tmp_path):
-    pm = make_pm(tmp_path)
+def test_slippage_handling(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
     pm.open_position(order)
     info = {"slippage_pct": 0.2}
     pm.exception_handler.handle_slippage("KRW-BTC", info)
     assert pm.exception_handler.slippage_count["KRW-BTC"] == 1
+
+
+def test_update_position_from_fill(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
+    pm.open_position(order)
+    fill = {
+        "market": "KRW-BTC",
+        "side": "ask",
+        "volume": "1.0",
+        "price": "101.0",
+    }
+    pm.update_position_from_fill("1", fill)
+    assert pm.positions[0]["status"] == "closed"
 
