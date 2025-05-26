@@ -1,5 +1,6 @@
 from flask import Flask, Response, render_template, jsonify, request
 import json
+import sqlite3
 import os
 import uuid
 import jwt
@@ -182,6 +183,24 @@ def risk_config_endpoint() -> Response:
     save_risk_config(data, LATEST_CFG)
     WEB_LOGGER.info(f"Risk config updated: {data}")
     return jsonify({"status": "ok"})
+
+
+@app.route("/api/risk_events")
+def risk_events_endpoint() -> Response:
+    """Return recent risk manager events from the SQLite log."""
+    db_path = os.path.join("logs", "risk_events.db")
+    if not os.path.exists(db_path):
+        return jsonify([])
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("SELECT timestamp, state, message FROM risk_events ORDER BY timestamp DESC LIMIT 100")
+    rows = cur.fetchall()
+    conn.close()
+    events = [
+        {"timestamp": ts, "state": st, "message": msg}
+        for ts, st, msg in rows
+    ]
+    return jsonify(events)
 
 @app.route("/")
 def home():

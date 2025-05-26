@@ -57,6 +57,6 @@ The F4 module monitors drawdowns, daily loss and execution errors. It operates a
 `pause()`, `halt()` and `disable_symbol()` automatically close relevant open positions using the order engine and send a Telegram alert through `ExceptionHandler.send_alert()`.
 Risk events are recorded in `logs/risk_events.db` for later review.
 
-When `risk.json` is modified the manager detects the change via `hot_reload()` and applies the new parameters immediately. A notification is also sent.
+When the risk configuration file is modified (e.g. `config/setting_date/Latest_config.json`) the manager detects the change via `hot_reload()` and applies the new parameters immediately. A notification is also sent.
 
 To recover from a halted state simply restart the application or wait for `periodic()` to transition back to `ACTIVE` when allowed.

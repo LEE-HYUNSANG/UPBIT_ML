@@ -7,7 +7,7 @@ from .risk_logger import RiskLogger
 from .risk_utils import RiskState, now
 
 class RiskManager:
-    def __init__(self, config_path="config/risk.json", order_executor=None, exception_handler=None):
+    def __init__(self, config_path="config/setting_date/Latest_config.json", order_executor=None, exception_handler=None):
         self.config = RiskConfig(config_path)
         self.logger = RiskLogger("logs/F4_risk_manager.log")
         self.order_executor = order_executor
@@ -18,6 +18,7 @@ class RiskManager:
         self.monthly_mdd = 0.0
         self.slippage_events = {}
         self.open_symbols = set()
+        self.disabled_symbols = set()
         self.pause_timer = None
 
         self.logger.info("RiskManager 초기화 완료 (ACTIVE)")
@@ -102,7 +103,11 @@ class RiskManager:
                         pm.execute_sell(pos, "risk_disable", pos.get("qty"))
         if self.exception_handler:
             self.exception_handler.send_alert(f"DISABLE {symbol}", "warning")
-        # 실제 엔진에서 해당 코인 진입 차단 변수/목록에 추가 필요
+        self.disabled_symbols.add(symbol)
+
+    def is_symbol_disabled(self, symbol: str) -> bool:
+        """Return True if *symbol* is currently disabled."""
+        return symbol in self.disabled_symbols
 
     def halt(self, reason=""):
         """전체 중단(HALT), 모든 포지션 청산"""
