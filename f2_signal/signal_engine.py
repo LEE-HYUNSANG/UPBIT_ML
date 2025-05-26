@@ -50,6 +50,14 @@ else:
 # Map short_code -> settings
 STRATEGY_SETTINGS = {s["short_code"]: s for s in _settings}
 
+
+def _as_utc(ts):
+    """Return a timezone-aware timestamp in UTC."""
+    ts = pd.to_datetime(ts)
+    if ts.tzinfo is None:
+        return ts.tz_localize("UTC")
+    return ts.tz_convert("UTC")
+
 def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     """
     Determine buy/sell signals for a given symbol based on 1-minute and 5-minute data.
@@ -61,18 +69,20 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     # Ensure data is sorted by time in ascending order
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
     df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
+    df_1m["timestamp"] = pd.to_datetime(df_1m["timestamp"], utc=True)
+    df_5m["timestamp"] = pd.to_datetime(df_5m["timestamp"], utc=True)
 
     # Filter out partial candles close to the current time
-    now = pd.Timestamp.utcnow()
+    now = pd.Timestamp.utcnow().tz_localize("UTC")
     if not df_1m.empty:
-        last_1m_ts = pd.to_datetime(df_1m["timestamp"].iloc[-1])
+        last_1m_ts = _as_utc(df_1m["timestamp"].iloc[-1])
         if (now - last_1m_ts).total_seconds() < 60:
             logging.info(
                 f"[{symbol}] Dropping partial 1m candle at {last_1m_ts}"
             )
             df_1m = df_1m.iloc[:-1]
     if not df_5m.empty:
-        last_5m_ts = pd.to_datetime(df_5m["timestamp"].iloc[-1])
+        last_5m_ts = _as_utc(df_5m["timestamp"].iloc[-1])
         if (now - last_5m_ts).total_seconds() < 300:
             logging.info(
                 f"[{symbol}] Dropping partial 5m candle at {last_5m_ts}"
