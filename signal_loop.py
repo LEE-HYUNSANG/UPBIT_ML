@@ -4,7 +4,13 @@ from typing import Optional
 
 import pyupbit
 
-from f1_universe import get_universe, load_config, select_universe, schedule_universe_updates
+from f1_universe import (
+    get_universe,
+    load_config,
+    select_universe,
+    schedule_universe_updates,
+    load_universe_from_file,
+)
 from f2_signal import f2_signal
 
 
@@ -37,6 +43,7 @@ def process_symbol(symbol: str) -> Optional[dict]:
 def main_loop(interval: int = 30) -> None:
     """Main processing loop fetching the universe and evaluating signals."""
     cfg = load_config()
+    load_universe_from_file()
     schedule_universe_updates(1800, cfg)
     while True:
         universe = get_universe()
@@ -60,4 +67,5 @@ if __name__ == "__main__":
             logging.StreamHandler(),
         ],
     )
+    load_universe_from_file()
     main_loop()
