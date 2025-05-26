@@ -24,13 +24,15 @@ class RiskConfig:
         return json.loads(text or "{}")
 
     def reload(self):
-        """Reload ``config/risk.json`` if it has changed."""
+        """Reload ``config/risk.json`` if it has changed. Return True if updated."""
         if not os.path.exists(self.path):
-            return
+            return False
         mtime = os.path.getmtime(self.path)
         if mtime != self._mtime:
             self._cache = self._load_json()
             self._mtime = mtime
+            return True
+        return False
 
     def get(self, key, default=None):
         return self._cache.get(key, default)

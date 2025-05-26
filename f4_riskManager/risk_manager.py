@@ -7,9 +7,12 @@ from .risk_logger import RiskLogger
 from .risk_utils import RiskState, now
 
 class RiskManager:
-    def __init__(self, config_path="config/risk.json"):
+    def __init__(self, config_path="config/risk.json", order_executor=None, exception_handler=None):
         self.config = RiskConfig(config_path)
         self.logger = RiskLogger("logs/F4_risk_manager.log")
+        self.order_executor = order_executor
+        self.exception_handler = exception_handler
+        self.last_reload = self.config._mtime
         self.state = RiskState.ACTIVE
         self.daily_loss = 0.0
         self.mdd = 0.0
@@ -19,6 +22,18 @@ class RiskManager:
         self.pause_timer = None
 
         self.logger.info("RiskManager 초기화 완료 (ACTIVE)")
+
+    def set_order_executor(self, executor):
+        self.order_executor = executor
+
+    def set_exception_handler(self, handler):
+        self.exception_handler = handler
+
+    def close_all_positions(self):
+        if self.order_executor:
+            pm = getattr(self.order_executor, "position_manager", None)
+            if pm:
+                pm.close_all_positions()
 
     def update_account(self, account_pnl, mdd, monthly_mdd, open_symbols):
         """
@@ -37,6 +52,10 @@ class RiskManager:
         """슬리피지 초과 이벤트 처리"""
         self.slippage_events[symbol] = self.slippage_events.get(symbol, 0) + 1
         self.logger.warn(f"{symbol} 슬리피지 초과: 누적 {self.slippage_events[symbol]}")
+        if self.exception_handler:
+            self.exception_handler.send_alert(
+                f"{symbol} slippage event #{self.slippage_events[symbol]}", "warning"
+            )
         max_slip = self.config.get("SLIP_FAIL_MAX", 5)
         if self.slippage_events[symbol] >= max_slip:
             self.disable_symbol(symbol)
@@ -66,30 +85,49 @@ class RiskManager:
 
     def pause(self, minutes, reason=""):
         """일시중단 상태 진입"""
+        self.close_all_positions()
         self.state = RiskState.PAUSE
         self.pause_timer = now() + minutes * 60  # 타임스탬프 기준
         self.logger.warn(f"상태전이: PAUSE - {reason}, {minutes}분간 신규진입 중단")
+        if self.exception_handler:
+            self.exception_handler.send_alert(f"PAUSE: {reason}", "warning")
 
     def disable_symbol(self, symbol):
         """특정 심볼(코인) 엔트리 중단"""
         self.logger.warn(f"{symbol} 진입중단(DISABLE) - 슬리피지 초과")
+        if self.order_executor:
+            pm = getattr(self.order_executor, "position_manager", None)
+            if pm:
+                for pos in list(pm.positions):
+                    if pos.get("symbol") == symbol and pos.get("status") == "open":
+                        pm.execute_sell(pos, "risk_disable", pos.get("qty"))
+        if self.exception_handler:
+            self.exception_handler.send_alert(f"DISABLE {symbol}", "warning")
         # 실제 엔진에서 해당 코인 진입 차단 변수/목록에 추가 필요
 
     def halt(self, reason=""):
         """전체 중단(HALT), 모든 포지션 청산"""
+        self.close_all_positions()
         self.state = RiskState.HALT
         self.logger.critical(f"상태전이: HALT - {reason}, 모든 포지션 청산 및 서비스 중단")
+        if self.exception_handler:
+            self.exception_handler.send_alert(f"HALT: {reason}", "critical")
         # 엔진에 전체 청산 명령 및 신규 진입 불가 트리거
 
     def hot_reload(self):
         """config/risk.json 등 변경시 5초 이내 핫리로드"""
-        self.config.reload()
-        self.logger.info("리스크 파라미터 핫리로드 적용")
+        if self.config.reload():
+            self.logger.info("리스크 파라미터 핫리로드 적용")
+            if self.exception_handler:
+                self.exception_handler.send_alert("Risk parameters reloaded", "info")
 
     def periodic(self):
         """메인 루프(1Hz)에서 주기적 호출"""
         if self.state == RiskState.PAUSE and self.pause_timer and now() > self.pause_timer:
             self.state = RiskState.ACTIVE
             self.logger.info("PAUSE 해제 → ACTIVE 복귀")
+            if self.exception_handler:
+                self.exception_handler.send_alert("Trading resumed", "info")
+        self.hot_reload()
         self.check_risk()
 

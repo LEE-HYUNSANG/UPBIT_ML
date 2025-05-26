@@ -223,3 +223,14 @@ class PositionManager:
         conn.commit()
         conn.close()
 
+    def close_all_positions(self, order_type="market"):
+        """Close all open positions immediately."""
+        remaining = []
+        for pos in list(self.positions):
+            if pos.get("status") == "open":
+                self.execute_sell(pos, "risk_close", pos.get("qty"))
+            if pos.get("status") == "open":
+                remaining.append(pos)
+        self.positions = remaining
+
+
