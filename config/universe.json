@@ -4,5 +4,6 @@
   "min_volatility": 1.5,
   "min_ticks": 0,
   "max_spread": 0.15,
-  "volume_rank": 30
+  "volume_rank": 30,
+  "universe_size": 0
 }
