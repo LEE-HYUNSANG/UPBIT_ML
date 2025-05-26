@@ -12,7 +12,6 @@ class RiskManager:
         self.logger = RiskLogger("logs/F4_risk_manager.log")
         self.order_executor = order_executor
         self.exception_handler = exception_handler
-        self.last_reload = self.config._mtime
         self.state = RiskState.ACTIVE
         self.daily_loss = 0.0
         self.mdd = 0.0
