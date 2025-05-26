@@ -127,7 +127,10 @@
           closeMonitorModal();
           location.reload();
         })
-        .catch(console.error);
+        .catch(err => {
+          console.error(err);
+          closeMonitorModal();
+        });
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === "Escape") closeMonitorModal();
