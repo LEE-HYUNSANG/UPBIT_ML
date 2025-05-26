@@ -77,6 +77,7 @@ if __name__ == "__main__":
             logging.FileHandler("logs/F1F2_loop.log", encoding="utf-8"),
             logging.StreamHandler(),
         ],
+        force=True,
     )
     load_universe_from_file()
     logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
