@@ -14,20 +14,27 @@ logger.setLevel(logging.INFO)
 
 
 class OrderExecutor:
-    def __init__(self, config_path="config/order.json", dyn_param_path="config/dynamic_params.json"):
+    def __init__(self, config_path="config/order.json", dyn_param_path="config/dynamic_params.json", risk_manager=None):
         self.config = load_config(config_path)
         self.dynamic_params = load_config(dyn_param_path)
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
+        self.risk_manager = risk_manager
         self.position_manager = PositionManager(
             self.config, self.dynamic_params, self.kpi_guard, self.exception_handler, logger
         )
         log_with_tag(logger, "OrderExecutor initialized.")
 
+    def set_risk_manager(self, rm):
+        self.risk_manager = rm
+
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
             if signal["buy_signal"]:
+                if self.risk_manager and self.risk_manager.is_symbol_disabled(signal.get("symbol")):
+                    log_with_tag(logger, f"Entry blocked by RiskManager for {signal.get('symbol')}")
+                    return
                 order_result = smart_buy(signal, self.config, self.dynamic_params, logger)
                 if order_result.get("filled", False):
                     self.position_manager.open_position(order_result)

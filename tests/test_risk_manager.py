@@ -39,3 +39,10 @@ def test_hot_reload_updates_config(tmp_path, monkeypatch):
     rm.hot_reload()
     assert rm.config.get("DAILY_LOSS_LIM") == 1
 
+
+def test_disable_symbol_blocks_entry(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
+    rm = RiskManager(order_executor=type("E", (), {"position_manager": pm})(), exception_handler=ExceptionHandler({}))
+    rm.disable_symbol("KRW-BTC")
+    assert rm.is_symbol_disabled("KRW-BTC")
+

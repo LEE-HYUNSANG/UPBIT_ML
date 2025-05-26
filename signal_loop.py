@@ -2,7 +2,8 @@ import logging
 import time
 from typing import Optional
 
-from f3_order.order_executor import entry as f3_entry
+from f3_order.order_executor import entry as f3_entry, _default_executor
+from f4_riskManager import RiskManager
 
 import pyupbit
 
@@ -64,11 +65,19 @@ def main_loop(interval: int = 1) -> None:
     load_universe_from_file()
     logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
     schedule_universe_updates(1800, cfg)
+
+    executor = _default_executor
+    risk_manager = RiskManager(order_executor=executor, exception_handler=executor.exception_handler)
+    executor.set_risk_manager(risk_manager)
     while True:
         universe = get_universe()
         if not universe:
             universe = select_universe(cfg)
         logging.info(f"[Loop] Universe: {universe}")
+        # Update risk manager with open positions
+        open_syms = [p.get("symbol") for p in executor.position_manager.positions if p.get("status") == "open"]
+        risk_manager.update_account(0.0, 0.0, 0.0, open_syms)
+        risk_manager.periodic()
         for symbol in universe:
             try:
                 logging.info(f"[F1-F2] process_symbol() \uc2dc\uc791: {symbol}")
