@@ -61,8 +61,33 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     # Ensure data is sorted by time in ascending order
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
     df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
-    # Use only completed candle data (if current partial candle is present, consider removing it)
-    # (Assume data provided has only completed bars)
+
+    # Filter out partial candles close to the current time
+    now = pd.Timestamp.utcnow()
+    if not df_1m.empty:
+        last_1m_ts = pd.to_datetime(df_1m["timestamp"].iloc[-1])
+        if (now - last_1m_ts).total_seconds() < 60:
+            logging.info(
+                f"[{symbol}] Dropping partial 1m candle at {last_1m_ts}"
+            )
+            df_1m = df_1m.iloc[:-1]
+    if not df_5m.empty:
+        last_5m_ts = pd.to_datetime(df_5m["timestamp"].iloc[-1])
+        if (now - last_5m_ts).total_seconds() < 300:
+            logging.info(
+                f"[{symbol}] Dropping partial 5m candle at {last_5m_ts}"
+            )
+            df_5m = df_5m.iloc[:-1]
+
+    if df_1m.empty or df_5m.empty:
+        logging.warning(f"[{symbol}] Insufficient data after filtering partial candles")
+        return {
+            "symbol": symbol,
+            "buy_signal": False,
+            "sell_signal": False,
+            "buy_triggers": [],
+            "sell_triggers": [],
+        }
     
     # Compute technical indicators for 1-minute data
     df1 = df_1m.copy()
@@ -220,8 +245,21 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     df5[f"ATR_{atr_period}_MA20"] = df5[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
     
     # Evaluate each strategy's conditions on the latest data
-    latest1 = df1.iloc[-1]  # last row of 1m data (latest completed 1m candle)
-    latest5 = df5.iloc[-1]  # last row of 5m data (latest completed 5m candle)
+    latest5 = df5.iloc[-1]  # latest completed 5m candle
+    sync_ts = latest5["timestamp"]
+    matching_1m = df1[df1["timestamp"] == sync_ts]
+    if matching_1m.empty:
+        logging.warning(
+            f"[{symbol}] No matching 1m candle for 5m timestamp {sync_ts}. Skipping signal evaluation."
+        )
+        return {
+            "symbol": symbol,
+            "buy_signal": False,
+            "sell_signal": False,
+            "buy_triggers": [],
+            "sell_triggers": [],
+        }
+    latest1 = matching_1m.iloc[-1]
     buy_signal = False
     sell_signal = False
     # Track strategies that triggered for transparency
