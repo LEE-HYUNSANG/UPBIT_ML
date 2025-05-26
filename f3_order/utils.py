@@ -8,14 +8,22 @@ import os
 
 
 def load_env(path: str = ".env.json") -> dict:
-    """Load environment secrets such as API keys from a JSON file."""
+    """Load API keys and tokens from environment variables or ``path``.
+
+    The function first checks the current process' environment variables and
+    then loads values from ``path`` if the file exists. Entries found in the
+    JSON file override those from the environment.
+    """
+    env = dict(os.environ)
     if not os.path.exists(path):
-        return {}
+        return env
     try:
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            file_env = json.load(f)
+            env.update(file_env)
     except Exception:
-        return {}
+        pass
+    return env
 
 
 def load_api_keys(path: str = ".env.json") -> tuple[str, str]:
