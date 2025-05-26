@@ -212,8 +212,23 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     triggered_buys = []
     triggered_sells = []
     for strat in strategies:
-        buy_formula = strat["buy_formula_levels"][0]
-        sell_formula = strat["sell_formula_levels"][0]
+        buy_formula = None
+        sell_formula = None
+        if "buy_formula_levels" in strat:
+            buy_formula = strat["buy_formula_levels"][0]
+        elif "buy_formula" in strat:
+            buy_formula = strat["buy_formula"]
+
+        if "sell_formula_levels" in strat:
+            sell_formula = strat["sell_formula_levels"][0]
+        elif "sell_formula" in strat:
+            sell_formula = strat["sell_formula"]
+
+        if buy_formula is None or sell_formula is None:
+            logging.error(
+                f"[{symbol}][F2][{strat.get('short_code','UNKNOWN')}] 전략 포뮬러가 없습니다"
+            )
+            continue
         logging.info(
             f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
         )
