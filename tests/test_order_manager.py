@@ -69,3 +69,24 @@ def test_update_position_from_fill(tmp_path, monkeypatch):
     pm.update_position_from_fill("1", fill)
     assert pm.positions[0]["status"] == "closed"
 
+
+def test_send_alert_fallback(monkeypatch):
+    from f3_order import exception_handler as eh
+
+    handler = eh.ExceptionHandler({})
+    handler.tg_token = "T"
+    handler.tg_chat_id = "C"
+
+    calls = {}
+
+    def fake_open(req, timeout=0):
+        calls["called"] = True
+        class Dummy:
+            pass
+        return Dummy()
+
+    monkeypatch.setattr(eh, "requests", None)
+    monkeypatch.setattr(eh._urlreq, "urlopen", fake_open)
+    handler.send_alert("hi")
+    assert calls.get("called")
+
