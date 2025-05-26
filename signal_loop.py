@@ -2,18 +2,18 @@ import logging
 import time
 from typing import Optional
 
-from f3_order_executor import entry as f3_entry
+from f3_order.order_executor import entry as f3_entry
 
 import pyupbit
 
-from f1_universe import (
+from f1_universe.universe_selector import (
     get_universe,
     load_config,
     select_universe,
     schedule_universe_updates,
     load_universe_from_file,
 )
-from f2_signal import f2_signal
+from f2_signal.signal_engine import f2_signal
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
