@@ -20,19 +20,17 @@ def smart_buy(signal, config, dynamic_params, parent_logger=None):
     - 모두 실패시 시장가 폴백
     """
     symbol = signal["symbol"]
-    # TODO: 실제 호가/스프레드 실시간 데이터 연동 필요
-    spread = 0.0005 # MOCK
+    spread = float(signal.get("spread", 0.0))
     SPREAD_TH = dynamic_params.get("SPREAD_TH", 0.0008)
     MAX_RETRY = config.get("MAX_RETRY", 2)
 
     for attempt in range(MAX_RETRY + 1):
         if spread <= SPREAD_TH or attempt == MAX_RETRY:
-            # 시장가 주문 (실거래 Upbit API 연동 필요)
             log_with_tag(logger, f"Market order executed for {symbol} (spread: {spread}, attempt: {attempt})")
             return {"filled": True, "symbol": symbol, "order_type": "market"}
         else:
-            # 지정가 IOC 주문 (실거래 Upbit API 연동 필요)
             log_with_tag(logger, f"IOC order for {symbol} (attempt {attempt+1})")
     # 최종 폴백
     log_with_tag(logger, f"Fallback to market order for {symbol}")
     return {"filled": True, "symbol": symbol, "order_type": "market"}
+

@@ -59,8 +59,10 @@ class RiskManager:
         if len(self.open_symbols) > c.get("MAX_SYMBOLS", 5):
             self.logger.warn(f"동시매매 한도 초과! ({len(self.open_symbols)} > {c.get('MAX_SYMBOLS', 5)})")
             # 진입 차단 (진입 함수 내에서 활용)
-
-        # TODO: 기타 리스크 (체결 실패, WS/REST 장애 등도 추가)
+        if hasattr(self, "order_fail_count") and self.order_fail_count > c.get("ORDER_FAIL_LIMIT", 5):
+            self.pause(30, reason="주문 실패 누적")
+        if hasattr(self, "ws_fail_count") and self.ws_fail_count > c.get("WS_FAIL_LIMIT", 3):
+            self.pause(10, reason="WS 장애 누적")
 
     def pause(self, minutes, reason=""):
         """일시중단 상태 진입"""
@@ -90,3 +92,4 @@ class RiskManager:
             self.state = RiskState.ACTIVE
             self.logger.info("PAUSE 해제 → ACTIVE 복귀")
         self.check_risk()
+
