@@ -3,6 +3,7 @@ import json
 import logging
 import numpy as np
 import os
+import re
 from indicators import (
     ema,
     sma,
@@ -373,7 +374,6 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
             if key + "(" in formula:
                 # Extract content inside parentheses
                 # Example: key="EMA", formula segment "EMA(20)" or "EMA(20,-1)"
-                import re
                 pattern = rf"{key}\(([0-9]+)(?:,(-?[0-9]+))?\)"
                 matches = re.finditer(pattern, expr)
                 for m in matches:
