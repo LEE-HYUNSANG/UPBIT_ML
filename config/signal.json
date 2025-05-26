@@ -13,7 +13,7 @@
     "stddev": 2
   },
   "VWAP": {
-    "reset_interval": "1D"  // reset VWAP calculation daily
+    "reset_interval": "1D"
   },
   "Volume": {
     "ma_period": 20
