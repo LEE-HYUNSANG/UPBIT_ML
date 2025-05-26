@@ -83,6 +83,14 @@
     .btn-save:hover {
       background: #4ade80;
     }
+    .btn-ml {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-ml:hover {
+      background: #2563eb;
+    }
     .btn-restore {
       background: #475569;
       color: #fff;
@@ -213,6 +221,7 @@
       </div>
       <div class="card-bottom-btns">
         <button onclick="triggerModal('invest', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('invest', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
         <button onclick="triggerModal('invest', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
         <button onclick="triggerModal('invest', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
         <span id="status-invest" class="save-status"></span>
@@ -262,6 +271,7 @@
       </div>
       <div class="card-bottom-btns">
         <button onclick="triggerModal('add', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('add', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
         <button onclick="triggerModal('add', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
         <button onclick="triggerModal('add', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
         <span id="status-add" class="save-status"></span>
@@ -291,6 +301,7 @@
       </div>
       <div class="card-bottom-btns">
         <button onclick="triggerModal('slip', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('slip', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
         <button onclick="triggerModal('slip', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
         <button onclick="triggerModal('slip', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
         <span id="status-slip" class="save-status"></span>
@@ -327,6 +338,7 @@
       </div>
       <div class="card-bottom-btns">
         <button onclick="triggerModal('risk', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('risk', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
         <button onclick="triggerModal('risk', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
         <button onclick="triggerModal('risk', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
         <span id="status-risk" class="save-status"></span>
@@ -369,6 +381,7 @@
       </div>
       <div class="card-bottom-btns">
         <button onclick="triggerModal('ts', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('ts', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
         <button onclick="triggerModal('ts', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
         <button onclick="triggerModal('ts', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
         <span id="status-ts" class="save-status"></span>
@@ -428,6 +441,13 @@
       risk: ['2.5', '7.0', '10.0', 'ON'],
       ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
     };
+    const ml = {
+      invest: ['110,000', '1,200,000', '6'],
+      add: ['150,000', '3', '예', '120,000', '2', '예'],
+      slip: ['0.12', '재시도'],
+      risk: ['2.0', '6.0', '9.0', 'ON'],
+      ts: ['2.0', '5.0', '사용', '5.0', '1.5'],
+    };
     const labels = {
       invest: ['코인 초기 투자금액(원)', '전체 투자금 총 한도', '동시매매 코인 수'],
       add: [
@@ -460,14 +480,16 @@
       if (card === 'slip') ids = ['slip-1', 'slip-2'];
       if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
       if (card === 'ts') ids = ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
-      let before = ids.map((id) => {
+      let before = values[card].slice();
+      let current = ids.map((id) => {
         let el = document.getElementById(id);
         return el.tagName === 'INPUT' ? el.value : el.options[el.selectedIndex].text;
       });
       let after = [];
-      if (mode === '수동 변경') after = before.slice();
+      if (mode === '수동 변경') after = current.slice();
       else if (mode === '원복') after = yday[card];
       else if (mode === '초기화') after = init[card];
+      else if (mode === 'ML 파일 변경') after = ml[card];
       let content = `<table class="modal-table mx-auto">
         <tr style="background:#334155;">
           <th>항목</th><th>이전값</th><th>변경될 값</th>
@@ -492,6 +514,7 @@
           }
         });
         values[card] = after.slice();
+        saveRiskConfig(getCardConfig(card));
         document.getElementById('status-' + card).innerText = '✅ ' + mode + ' 적용됨';
         setTimeout(() => {
           document.getElementById('status-' + card).innerText = '';
@@ -502,6 +525,43 @@
     function closeModal() {
       document.getElementById('modal-bg').style.display = 'none';
       document.getElementById('modal').style.display = 'none';
+    }
+
+    const keyMap = {
+      invest: ['ENTRY_SIZE_INITIAL','TOTAL_INVEST_LIMIT','MAX_SYMBOLS'],
+      add: ['AVG_SIZE','AVG_MAX_COUNT','AVG_ENABLED','PYR_SIZE','PYR_MAX_COUNT','PYR_ENABLED'],
+      slip: ['SLIP_MAX','ORDER_FAIL_ACTION'],
+      risk: ['DAILY_LOSS_LIM','MDD_LIM','MONTHLY_MDD_LIM','AUTO_STOP_ENABLED'],
+      ts: ['SL_PCT','TP_PCT','TRAILING_STOP_ENABLED','TRAIL_START_PCT','TRAIL_STEP_PCT']
+    };
+
+    function getCardConfig(card) {
+      let ids = [];
+      if (card === 'invest') ids = ['invest-1', 'invest-2', 'invest-3'];
+      if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
+      if (card === 'slip') ids = ['slip-1', 'slip-2'];
+      if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
+      if (card === 'ts') ids = ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      const keys = keyMap[card];
+      let cfg = {};
+      ids.forEach((id, i) => {
+        let el = document.getElementById(id);
+        let val = el.tagName === 'INPUT' ? el.value : el.value;
+        val = val.replace(/,/g, '');
+        if (val === '예' || val === '사용' || val === 'ON') val = true;
+        else if (val === '아니오' || val === '미사용' || val === 'OFF') val = false;
+        else if (!isNaN(parseFloat(val))) val = parseFloat(val);
+        cfg[keys[i]] = val;
+      });
+      return cfg;
+    }
+
+    function saveRiskConfig(data) {
+      fetch('/api/risk_config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).catch(err => console.error(err));
     }
   </script>
 {% endblock %}

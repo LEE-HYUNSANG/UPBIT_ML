@@ -21,6 +21,36 @@ CONFIG = load_config()
 load_universe_from_file()
 schedule_universe_updates(1800, CONFIG)
 
+RISK_CONFIG_PATH = "config/risk.json"
+
+
+def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+
+def save_risk_config(data: dict, path: str = RISK_CONFIG_PATH) -> None:
+    cfg = load_risk_config(path)
+    cfg.update(data)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, indent=2, ensure_ascii=False)
+
+
+WEB_LOGGER = None
+if WEB_LOGGER is None:
+    import logging
+
+    WEB_LOGGER = logging.getLogger("web")
+    os.makedirs("logs", exist_ok=True)
+    handler = logging.FileHandler("logs/web.log", encoding="utf-8")
+    handler.setFormatter(logging.Formatter("%(asctime)s [WEB] %(levelname)s %(message)s"))
+    WEB_LOGGER.addHandler(handler)
+    WEB_LOGGER.setLevel(logging.INFO)
+
 
 def _load_api_keys(path: str = ".env.json") -> tuple[str, str]:
     """Return Upbit API access and secret keys from the JSON env file."""
@@ -112,6 +142,19 @@ def universe_config_endpoint() -> Response:
     CONFIG.update(cfg)
     update_universe(CONFIG)
     return jsonify({"status": "ok", "universe": get_universe()})
+
+
+@app.route("/api/risk_config", methods=["GET", "POST"])
+def risk_config_endpoint() -> Response:
+    """Get or update risk management configuration."""
+    if request.method == "GET":
+        cfg = load_risk_config()
+        return jsonify(cfg)
+
+    data = request.get_json(force=True) or {}
+    save_risk_config(data)
+    WEB_LOGGER.info(f"Risk config updated: {data}")
+    return jsonify({"status": "ok"})
 
 @app.route("/")
 def home():
