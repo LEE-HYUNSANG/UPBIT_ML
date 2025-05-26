@@ -8,3 +8,13 @@ The latest selected trading universe is saved to `config/current_universe.json`.
 
 External processes such as `signal_loop.py` can use this file to share the same universe.
 
+## Running the signal loop
+
+Run the F1/F2 signal loop using:
+
+```bash
+python signal_loop.py
+```
+
+The script writes logs to `logs/F1F2_loop.log`.
+
