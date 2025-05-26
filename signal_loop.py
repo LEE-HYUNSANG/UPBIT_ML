@@ -15,9 +15,16 @@ from f2_signal import f2_signal
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
-    """Fetch OHLCV data for a symbol using pyupbit."""
+    """Fetch OHLCV data for a symbol using pyupbit.
+
+    The returned DataFrame has its timestamp index converted to a
+    ``timestamp`` column so downstream code can rely on it.
+    """
     try:
-        return pyupbit.get_ohlcv(symbol, interval=interval, count=count)
+        df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
+        if df is not None:
+            df = df.reset_index().rename(columns={"index": "timestamp"})
+        return df
     except Exception as exc:  # pragma: no cover - network access
         logging.error(f"[{symbol}] Failed to fetch {interval} data: {exc}")
         return None
