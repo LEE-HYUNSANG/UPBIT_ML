@@ -22,8 +22,7 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
     """
     try:
         df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
-        if df is not None:
-            df = df.reset_index().rename(columns={"index": "timestamp"})
+        df = df.reset_index().rename(columns={"index": "timestamp"})
         return df
     except Exception as exc:  # pragma: no cover - network access
         logging.error(f"[{symbol}] Failed to fetch {interval} data: {exc}")
