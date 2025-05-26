@@ -4,6 +4,7 @@ import os
 import uuid
 import jwt
 import requests
+from signal_loop import process_symbol
 from f1_universe import (
     select_universe,
     load_config,
@@ -64,6 +65,20 @@ def fetch_account_info() -> dict:
 def api_account() -> Response:
     """Return account info as JSON."""
     return jsonify(fetch_account_info())
+
+
+@app.route("/api/signals")
+def api_signals() -> Response:
+    """Return F2 signal results for the current universe."""
+    universe = get_universe()
+    if not universe:
+        universe = select_universe(CONFIG)
+    results = {}
+    for ticker in universe:
+        data = process_symbol(ticker)
+        if data:
+            results[ticker] = data
+    return jsonify(results)
 
 
 @app.route("/api/universe_config", methods=["GET", "POST"])
