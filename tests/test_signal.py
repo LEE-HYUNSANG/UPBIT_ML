@@ -74,3 +74,50 @@ def test_eval_formula_numeric_comparison():
     logging.info(f"[F2_TEST] FORMULA_COMPARE | result={res}")
     assert res
 
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_requires_synced_candles():
+    df1 = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01 00:00", periods=25, freq="T"),
+        "open": np.linspace(1, 25, 25),
+        "high": np.linspace(1.1, 25.1, 25),
+        "low": np.linspace(0.9, 24.9, 25),
+        "close": np.linspace(1, 25, 25),
+        "volume": np.full(25, 100),
+    })
+    df5 = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01 00:00", periods=6, freq="5T"),
+        "open": np.linspace(1, 6, 6),
+        "high": np.linspace(1.1, 6.1, 6),
+        "low": np.linspace(0.9, 5.9, 6),
+        "close": np.linspace(1, 6, 6),
+        "volume": np.full(6, 100),
+    })
+    result = f2_signal(df1, df5, symbol="SYNC_FAIL")
+    assert not result["buy_signal"] and not result["sell_signal"]
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_handles_partial_candle(monkeypatch):
+    now = pd.Timestamp("2021-01-01 00:25:30")
+    monkeypatch.setattr(pd.Timestamp, "utcnow", staticmethod(lambda: now))
+
+    df1 = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01 00:00", periods=27, freq="T"),
+        "open": np.linspace(1, 27, 27),
+        "high": np.linspace(1.1, 27.1, 27),
+        "low": np.linspace(0.9, 26.9, 27),
+        "close": np.linspace(1, 27, 27),
+        "volume": np.full(27, 100),
+    })
+    df5 = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01 00:00", periods=6, freq="5T"),
+        "open": np.linspace(1, 6, 6),
+        "high": np.linspace(1.1, 6.1, 6),
+        "low": np.linspace(0.9, 5.9, 6),
+        "close": np.linspace(1, 6, 6),
+        "volume": np.full(6, 100),
+    })
+    result = f2_signal(df1, df5, symbol="PART")
+    assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
+
