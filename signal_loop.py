@@ -2,6 +2,8 @@ import logging
 import time
 from typing import Optional
 
+from f3_order_executor import entry as f3_entry
+
 import pyupbit
 
 from f1_universe import (
@@ -46,10 +48,17 @@ def process_symbol(symbol: str) -> Optional[dict]:
         )
     else:
         logging.debug(f"[{symbol}] No signal")
+
+    # Forward the resulting signal to F3
+    try:
+        f3_entry(result)
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"[{symbol}] Failed to send signal to F3: {exc}")
+
     return result
 
 
-def main_loop(interval: int = 30) -> None:
+def main_loop(interval: int = 1) -> None:
     """Main processing loop fetching the universe and evaluating signals."""
     cfg = load_config()
     load_universe_from_file()

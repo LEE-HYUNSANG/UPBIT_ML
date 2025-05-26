@@ -34,6 +34,21 @@ with open("config/signal.json", "r", encoding="utf-8") as cfg:
 with open("strategies_master_pruned.json", "r", encoding="utf-8") as sf:
     strategies = json.load(sf)
 
+# Load per-strategy ON/OFF and priority settings synchronized with the UI
+strategy_settings_path = os.path.join("config", "strategy_settings.json")
+if os.path.exists(strategy_settings_path):
+    with open(strategy_settings_path, "r", encoding="utf-8") as ssf:
+        _settings = json.load(ssf)
+else:
+    # Default: all strategies on with sequential order
+    _settings = [
+        {"short_code": s["short_code"], "on": True, "order": i + 1}
+        for i, s in enumerate(strategies)
+    ]
+
+# Map short_code -> settings
+STRATEGY_SETTINGS = {s["short_code"]: s for s in _settings}
+
 def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     """
     Determine buy/sell signals for a given symbol based on 1-minute and 5-minute data.
@@ -212,6 +227,9 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     triggered_buys = []
     triggered_sells = []
     for strat in strategies:
+        settings = STRATEGY_SETTINGS.get(strat["short_code"], {"on": True, "order": 999})
+        if not settings.get("on", True):
+            continue
         buy_formula = None
         sell_formula = None
         if "buy_formula_levels" in strat:
@@ -250,7 +268,7 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             sell_cond_1m = False
         if buy_cond_1m and buy_cond_5m:
             buy_signal = True
-            triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula})
+            triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula, "order": settings.get("order", 999)})
         if sell_cond_1m:
             sell_signal = True
             triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
@@ -258,10 +276,15 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_1m: {buy_cond_1m}, Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
         )
     if buy_signal:
-        triggered_buys_codes = [b['strategy'] for b in triggered_buys]
+        # Select the highest priority strategy among triggered ones
+        triggered_buys.sort(key=lambda x: x.get("order", 999))
+        top_strategy = triggered_buys[0]["strategy"]
+        triggered_buys_codes = [top_strategy]
         logging.warning(
             f"[{symbol}][F2] BUY SIGNAL TRIGGERED - 전략: {triggered_buys_codes}"
         )
+    else:
+        triggered_buys_codes = []
     if sell_signal:
         triggered_sell_codes = [s['strategy'] for s in triggered_sells]
         logging.warning(
@@ -272,8 +295,8 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         "symbol": symbol,
         "buy_signal": buy_signal,
         "sell_signal": sell_signal,
-        "buy_triggers": triggered_buys,
-        "sell_triggers": triggered_sells,
+        "buy_triggers": triggered_buys_codes,
+        "sell_triggers": [s["strategy"] for s in triggered_sells],
     }
     logging.debug(f"[{symbol}][F2] Result: {result}")
     return result
