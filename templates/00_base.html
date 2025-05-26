@@ -16,7 +16,6 @@
       display: flex; align-items: center; justify-content: space-between; padding: 0 7px;
       font-weight: bold; font-size: 15px; color: #b1c1db;
     }
-    .toggle-slider .icon { font-size: 17px; }
     .toggle-switch input:checked + .toggle-slider {
       background: #22c55e; color: #fff;
     }
@@ -74,20 +73,14 @@
   <script>
     function toggleStatus(checkbox) {
       var status = document.getElementById("run-status");
-      var playIcon = document.getElementById("toggle-play");
-      var stopIcon = document.getElementById("toggle-stop");
       if (checkbox.checked) {
         status.textContent = "실행중";
         status.className =
           "w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1";
-        playIcon.style.display = "";
-        stopIcon.style.display = "none";
       } else {
         status.textContent = "중단 상태";
         status.className =
           "w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1";
-        playIcon.style.display = "none";
-        stopIcon.style.display = "";
       }
     }
     function openMonitorModal() {
