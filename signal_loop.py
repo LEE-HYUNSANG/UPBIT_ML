@@ -15,9 +15,16 @@ from f2_signal import f2_signal
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
-    """Fetch OHLCV data for a symbol using pyupbit."""
+    """Fetch OHLCV data for a symbol using pyupbit.
+
+    The returned DataFrame has its timestamp index converted to a
+    ``timestamp`` column so downstream code can rely on it.
+    """
     try:
-        return pyupbit.get_ohlcv(symbol, interval=interval, count=count)
+        df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
+        if df is not None:
+            df = df.reset_index().rename(columns={"index": "timestamp"})
+        return df
     except Exception as exc:  # pragma: no cover - network access
         logging.error(f"[{symbol}] Failed to fetch {interval} data: {exc}")
         return None
@@ -30,7 +37,9 @@ def process_symbol(symbol: str) -> Optional[dict]:
     if df_1m is None or df_5m is None or df_1m.empty or df_5m.empty:
         logging.warning(f"[{symbol}] No OHLCV data available")
         return None
+    logging.info(f"[F1-F2] process_symbol() \uc774 OHLCV \ub370\uc774\ud130\ub97c \uac00\uc838\uc654\uc2b5\ub2c8\ub2e4: {symbol}")
     result = f2_signal(df_1m, df_5m, symbol)
+    logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
             f"[{symbol}] BUY={result['buy_signal']} SELL={result['sell_signal']}"
@@ -44,6 +53,7 @@ def main_loop(interval: int = 30) -> None:
     """Main processing loop fetching the universe and evaluating signals."""
     cfg = load_config()
     load_universe_from_file()
+    logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
     schedule_universe_updates(1800, cfg)
     while True:
         universe = get_universe()
@@ -52,6 +62,7 @@ def main_loop(interval: int = 30) -> None:
         logging.info(f"[Loop] Universe: {universe}")
         for symbol in universe:
             try:
+                logging.info(f"[F1-F2] process_symbol() \uc2dc\uc791: {symbol}")
                 process_symbol(symbol)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error(f"[{symbol}] Processing error: {exc}")
@@ -68,4 +79,5 @@ if __name__ == "__main__":
         ],
     )
     load_universe_from_file()
+    logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
     main_loop()
