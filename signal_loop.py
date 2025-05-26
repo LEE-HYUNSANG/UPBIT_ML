@@ -15,10 +15,11 @@ from f2_signal import f2_signal
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
-    """Fetch OHLCV data for a symbol using pyupbit.
+    """Fetch OHLCV data for *symbol* using pyupbit.
 
-    The returned DataFrame has its timestamp index converted to a
-    ``timestamp`` column so downstream code can rely on it.
+    The OHLCV DataFrame returned by ``pyupbit.get_ohlcv`` has its index
+    reset and the index column renamed to ``"timestamp"`` so that
+    ``process_symbol`` supplies the expected columns to ``f2_signal``.
     """
     try:
         df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
