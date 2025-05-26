@@ -428,35 +428,82 @@
       });
     });
 
-    // 카드별 현재값, 어제값, 초기값 (예시)
-    const values = {
-      invest: ['100,000', '1,000,000', '5'],
-      add: ['100,000', '2', '예', '100,000', '2', '예'],
-      slip: ['0.15', '재시도'],
-      risk: ['2.5', '7.0', '10.0', 'ON'],
-      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
-    };
-    const yday = {
-      invest: ['120,000', '900,000', '4'],
-      add: ['90,000', '1', '예', '90,000', '1', '예'],
-      slip: ['0.20', '알림 및 대기'],
-      risk: ['3.0', '9.0', '12.0', 'OFF'],
-      ts: ['3.0', '4.0', '사용', '3.5', '1.2'],
-    };
-    const init = {
-      invest: ['100,000', '1,000,000', '5'],
-      add: ['100,000', '2', '예', '100,000', '2', '예'],
-      slip: ['0.15', '재시도'],
-      risk: ['2.5', '7.0', '10.0', 'ON'],
-      ts: ['2.5', '4.5', '사용', '4.0', '1.0'],
-    };
-    const ml = {
-      invest: ['110,000', '1,200,000', '6'],
-      add: ['150,000', '3', '예', '120,000', '2', '예'],
-      slip: ['0.12', '재시도'],
-      risk: ['2.0', '6.0', '9.0', 'ON'],
-      ts: ['2.0', '5.0', '사용', '5.0', '1.5'],
-    };
+    let values = {};
+    let yday = {};
+    let init = {};
+    let ml = {};
+
+    function cfgToValues(cfg) {
+      return {
+        invest: [
+          Number(cfg.ENTRY_SIZE_INITIAL).toLocaleString('ko-KR'),
+          Number(cfg.TOTAL_INVEST_LIMIT).toLocaleString('ko-KR'),
+          String(cfg.MAX_SYMBOLS),
+        ],
+        add: [
+          Number(cfg.AVG_SIZE).toLocaleString('ko-KR'),
+          String(cfg.AVG_MAX_COUNT),
+          cfg.AVG_ENABLED ? '예' : '아니오',
+          Number(cfg.PYR_SIZE).toLocaleString('ko-KR'),
+          String(cfg.PYR_MAX_COUNT),
+          cfg.PYR_ENABLED ? '예' : '아니오',
+        ],
+        slip: [String(cfg.SLIP_MAX), cfg.ORDER_FAIL_ACTION],
+        risk: [
+          String(cfg.DAILY_LOSS_LIM),
+          String(cfg.MDD_LIM),
+          String(cfg.MONTHLY_MDD_LIM),
+          cfg.AUTO_STOP_ENABLED ? 'ON' : 'OFF',
+        ],
+        ts: [
+          String(cfg.SL_PCT),
+          String(cfg.TP_PCT),
+          cfg.TRAILING_STOP_ENABLED ? '사용' : '미사용',
+          String(cfg.TRAIL_START_PCT),
+          String(cfg.TRAIL_STEP_PCT),
+        ],
+      };
+    }
+
+    function setCardValues(cardVals) {
+      const idMap = {
+        invest: ['invest-1', 'invest-2', 'invest-3'],
+        add: ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'],
+        slip: ['slip-1', 'slip-2'],
+        risk: ['risk-1', 'risk-2', 'risk-3', 'risk-4'],
+        ts: ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'],
+      };
+      Object.keys(cardVals).forEach((card) => {
+        const ids = idMap[card];
+        ids.forEach((id, i) => {
+          const el = document.getElementById(id);
+          const val = cardVals[card][i];
+          if (el.tagName === 'INPUT') {
+            el.value = val;
+          } else {
+            for (let j = 0; j < el.options.length; j++) {
+              if (el.options[j].text === val || el.options[j].value === val) {
+                el.selectedIndex = j;
+              }
+            }
+          }
+        });
+      });
+    }
+
+    async function loadConfigs() {
+      const latest = await fetch('/api/risk_config?source=latest').then(r => r.json());
+      const defaultCfg = await fetch('/api/risk_config?source=default').then(r => r.json());
+      const mlCfg = await fetch('/api/risk_config?source=ml').then(r => r.json());
+      const ydayCfg = await fetch('/api/risk_config?source=yesterday').then(r => r.json());
+      values = cfgToValues(latest);
+      init = cfgToValues(defaultCfg);
+      ml = cfgToValues(mlCfg);
+      yday = cfgToValues(ydayCfg);
+      setCardValues(values);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadConfigs);
     const labels = {
       invest: ['코인 초기 투자금액(원)', '전체 투자금 총 한도', '동시매매 코인 수'],
       add: [
