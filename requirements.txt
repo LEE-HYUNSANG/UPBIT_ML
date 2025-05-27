@@ -11,5 +11,6 @@ numpy==1.24.4
 talib-binary==0.4.0 ; sys_platform != 'win32'
 pyupbit==0.2.34
 requests==2.31.0
+PyJWT==2.8.0
 wheel
-ta-lib 
+ta-lib

@@ -203,6 +203,7 @@ if WEB_LOGGER is None:
 
 
 from f3_order.utils import load_api_keys
+from f3_order.upbit_api import UpbitClient
 
 
 def fetch_account_info() -> dict:
@@ -214,32 +215,31 @@ def fetch_account_info() -> dict:
 
     access_key, secret_key = load_api_keys()
     if not access_key or not secret_key:
-        return {"krw_balance": 0, "pnl": 0}
+        return {"krw_balance": 0.0, "pnl": 0.0}
 
-    payload = {"access_key": access_key, "nonce": str(uuid.uuid4())}
-    token = jwt.encode(payload, secret_key)
-    headers = {"Authorization": f"Bearer {token}"}
+    client = UpbitClient(access_key, secret_key)
 
     try:
-        response = requests.get("https://api.upbit.com/v1/accounts", headers=headers, timeout=10)
-        response.raise_for_status()
-        data = response.json()
+        accounts = client.get_accounts()
         krw_balance = 0.0
-        for item in data:
+        for item in accounts:
             if item.get("currency") == "KRW":
                 krw_balance = float(item.get("balance", 0))
                 break
     except Exception:
         krw_balance = 0.0
+
     pnl = 0.0
     try:
         params = {"state": "done", "page": 1, "order_by": "desc"}
-        resp = requests.get("https://api.upbit.com/v1/orders", headers=headers, params=params, timeout=10)
-        resp.raise_for_status()
-        orders = resp.json()
+        orders = client.orders(params)
         today = datetime.date.today()
         for o in orders:
-            t = datetime.datetime.fromisoformat(o.get("created_at", "").replace("Z", "+00:00")).astimezone().date()
+            t = (
+                datetime.datetime.fromisoformat(o.get("created_at", "").replace("Z", "+00:00"))
+                .astimezone()
+                .date()
+            )
             if t != today:
                 continue
             pnl += float(o.get("paid_fee", 0)) * -1
