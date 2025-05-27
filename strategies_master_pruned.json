@@ -66,7 +66,7 @@
   },
   {
     "short_code": "HYUN",
-    "buy_formula": "((EMA(5) > EMA(20) and EMA(20) > EMA(60) and (EMA(20) - EMA(20,-1)) / EMA(20,-1) > 0) * 25 + (ATR(14) / Close * 100 >= 5) * 15 + ((ATR(14) / Close * 100 >= 1 and ATR(14) / Close * 100 < 5)) * 10 + (Vol(0) >= MA(Vol,20) * 2) * 15 + (Vol(0) >= MA(Vol,20) * 1.1) * 10 + (BuyQty_5m / SellQty_5m * 100 >= 120) * 15 + (BuyQty_5m / SellQty_5m * 100 >= 105) * 10 + ((EMA(5,-1) < EMA(20,-1)) and (EMA(5) > EMA(20))) * 5 + (RSI(14) < 30) * 5 + ((RSI(14) >= 30 and RSI(14) < 40)) * 3) >= 50",
+    "buy_formula": "((EMA(5) > EMA(20) and EMA(20) > EMA(60) and (EMA(20) - EMA(20,-1)) / EMA(20,-1) > 0) * 25 + (ATR(14) / Close * 100 >= 5) * 15 + ((ATR(14) / Close * 100 >= 1 and ATR(14) / Close * 100 < 5)) * 10 + (Vol(0) >= MA(Vol,20) * 2) * 15 + (Vol(0) >= MA(Vol,20) * 1.1) * 10 + (BuyQty_5m / SellQty_5m * 100 >= 120) * 15 + (BuyQty_5m / SellQty_5m * 100 >= 105) * 10 + ((EMA(5,-1) < EMA(20,-1)) and (EMA(5) > EMA(20))) * 5 + (RSI(14) < 30) * 5 + ((RSI(14) >= 30 and RSI(14) < 40)) * 3) >= 45",
     "sell_formula": "Close >= Entry * 1.007 or Close <= Entry * 0.993 or EMA(5) < EMA(20) or RSI(14) < 60"
   }
 ]
