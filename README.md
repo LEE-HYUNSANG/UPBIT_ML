@@ -2,6 +2,14 @@
 
 This project contains utilities for building a trading universe and evaluating trading signals.
 
+## Overview
+This project consists of four main components:
+- **F1 Universe Selector** gathers tradable tickers.
+- **F2 Signal Engine** analyzes OHLCV data and issues buy/sell signals.
+- **F3 Order Executor** manages orders and open positions.
+- **F4 Risk Manager** monitors drawdowns and can pause or halt trading.
+
+See the [doc](doc/) folder for more details.
 ## Universe cache
 
 The latest selected trading universe is saved to `config/current_universe.json`. It is written by `f1_universe.universe_selector.update_universe()` and loaded on startup via `load_universe_from_file()`.
