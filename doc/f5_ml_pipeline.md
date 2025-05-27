@@ -47,3 +47,10 @@ referenced in the formulas are handled via the `_get_col` helper. You can run
 this step directly from the repository root using `python f5_ml_pipeline/04_label.py`.
 The script automatically adjusts `sys.path` so that `strategy_loader` is
 imported correctly.
+## 05_split.py
+Splits each feature dataset under `ml_data/03_features/` into chronological training,
+validation and test sets. The default ratios are 70% train, 15% validation and
+15% test. Files are saved to `ml_data/05_split/` with the original filename
+plus `_train`, `_val` or `_test` suffixes. The script ensures each dataset
+contains at least one row when possible and logs progress for every file.
+Run `python f5_ml_pipeline/05_split.py` after features and labels are prepared.
