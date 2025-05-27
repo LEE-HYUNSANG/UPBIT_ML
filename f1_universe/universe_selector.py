@@ -1,10 +1,8 @@
-"""Utility functions for selecting a trading universe.
+"""거래 대상 종목을 선정하기 위한 유틸리티 모음입니다.
 
-The functions in this module retrieve market data from the Upbit REST API and
-apply user defined filters in order to build the final monitoring universe. The
-actual network calls will fail in environments without internet connectivity,
-but the logic is implemented so that real data can be fetched once networking
-is available.
+Upbit REST API에서 데이터를 받아 사용자 설정 필터를 적용하여
+모니터링할 최종 종목 리스트를 구축합니다.
+네트워크가 없으면 실제 호출은 실패하지만, 로직 자체는 그대로 동작합니다.
 """
 
 from __future__ import annotations
@@ -44,24 +42,23 @@ _LOCK = threading.Lock()
 
 
 def load_config(path: str = CONFIG_PATH) -> Dict:
-    """Load universe filter configuration.
+    """Universe 필터 설정을 로드합니다.
 
     Parameters
     ----------
     path : str
-        Path to a JSON configuration file.
+        JSON 설정 파일 경로
 
     Returns
     -------
     dict
-        Dictionary with configuration values.  Reasonable defaults are returned
-        when the file does not exist.
+        설정 값 딕셔너리. 파일이 없으면 기본값을 반환합니다.
     """
     try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
-        # Default values roughly matching the modal window in the template.
+        # 템플릿 모달창 기본값과 유사한 기본 설정값
         return {
             "min_price": 0,
             "max_price": float("inf"),
@@ -80,7 +77,7 @@ def _fetch_json(url: str, params: Dict | None = None) -> list | dict:
         response.raise_for_status()
         return response.json()
     except Exception as exc:  # pragma: no cover - network best effort
-        logging.error(f"[F1][API] Request failed: {url} | params={params} | {exc}")
+        logging.error(f"[F1][API] 요청 실패: {url} | params={params} | {exc}")
         return []
 
 
@@ -140,7 +137,7 @@ def apply_filters(tickers: List[str], config: Dict) -> List[str]:
             f"{BASE_URL}/ticker", {"markets": ",".join(chunk)}
         )
 
-        # Fetch orderbook data once per chunk instead of per ticker
+        # 티커마다 요청하지 않고 묶음 단위로 호가 정보를 조회
         orderbook_data = _fetch_json(
             f"{BASE_URL}/orderbook", {"markets": ",".join(chunk)}
         )
@@ -238,7 +235,7 @@ def update_universe(config: Dict | None = None) -> None:
         with open(UNIVERSE_FILE, "w", encoding="utf-8") as f:
             json.dump(universe, f, ensure_ascii=False, indent=2)
     except Exception as exc:  # pragma: no cover - best effort
-        logging.error(f"Failed to write universe file: {exc}")
+        logging.error(f"Universe 파일 저장 실패: {exc}")
     logging.info(f"Universe updated: {universe}")
 
 
@@ -255,7 +252,7 @@ def load_universe_from_file(path: str = UNIVERSE_FILE) -> List[str]:
     except FileNotFoundError:
         return []
     except Exception as exc:  # pragma: no cover - best effort
-        logging.error(f"Failed to load universe file: {exc}")
+        logging.error(f"Universe 파일 로드 실패: {exc}")
     return []
 
 
@@ -275,7 +272,7 @@ def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) 
             try:
                 update_universe(config)
             except Exception as exc:  # pragma: no cover - best effort
-                logging.error(f"Universe update failed: {exc}")
+                logging.error(f"Universe 갱신 실패: {exc}")
             time.sleep(interval)
 
     thread = threading.Thread(target=_loop, daemon=True)

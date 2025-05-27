@@ -63,13 +63,13 @@ logging.basicConfig(
     ],
 )
 
-# Load common parameters and strategy formulas
+# 공통 파라미터와 전략 공식을 불러옵니다
 with open("config/signal.json", "r", encoding="utf-8") as cfg:
     config = json.load(cfg)
 with open("strategies_master_pruned.json", "r", encoding="utf-8") as sf:
     strategies = json.load(sf)
 
-# Load per-strategy minimum bar requirements
+# 전략별 최소 캔들 수 요구사항을 불러옵니다
 strategy_params_path = os.path.join("config", "strategy_params.json")
 if os.path.exists(strategy_params_path):
     with open(strategy_params_path, "r", encoding="utf-8") as spf:
@@ -77,13 +77,13 @@ if os.path.exists(strategy_params_path):
 else:  # pragma: no cover - default when file missing
     STRATEGY_PARAMS = {}
 
-# Load per-strategy ON/OFF and priority settings synchronized with the UI
+# UI와 연동되는 전략별 ON/OFF 및 우선순위 설정을 불러옵니다
 strategy_settings_path = os.path.join("config", "strategy_settings.json")
 if os.path.exists(strategy_settings_path):
     with open(strategy_settings_path, "r", encoding="utf-8") as ssf:
         _settings = json.load(ssf)
 else:
-    # Default: all strategies on with sequential order
+    # 기본값: 모든 전략을 순차적으로 실행
     _settings = [
         {"short_code": s["short_code"], "on": True, "order": i + 1}
         for i, s in enumerate(strategies)
@@ -94,7 +94,7 @@ STRATEGY_SETTINGS = {s["short_code"]: s for s in _settings}
 
 
 def reload_strategy_settings() -> None:
-    """Reload per-strategy on/off and order settings from disk."""
+    """전략별 ON/OFF 및 우선순위 설정을 파일에서 다시 불러옵니다."""
     global STRATEGY_SETTINGS
     path = os.path.join("config", "strategy_settings.json")
     if os.path.exists(path):
@@ -105,12 +105,12 @@ def reload_strategy_settings() -> None:
             {"short_code": s["short_code"], "on": True, "order": i + 1}
             for i, s in enumerate(strategies)
         ]
-    # Replace the mapping atomically for thread safety
+    # 스레드 안전을 위해 설정 맵을 원자적으로 교체
     STRATEGY_SETTINGS = {s["short_code"]: s for s in settings}
 
 
 def _as_utc(ts):
-    """Return a timezone-aware timestamp in UTC."""
+    """UTC 기준 타임스탬프를 반환합니다."""
     ts = pd.to_datetime(ts)
     if ts.tzinfo is None:
         return ts.tz_localize("UTC")
@@ -122,25 +122,20 @@ def f2_signal(
     symbol: str = "",
     trades: Optional[pd.DataFrame] = None,
 ):
-    """
-    Determine buy/sell signals for a given symbol. Buy conditions are evaluated
-    using the 5-minute data while sell conditions use the 1-minute data.
-    ``df_1m`` and ``df_5m`` must contain columns ['timestamp','open','high','low','close','volume'].
-    Returns a dictionary with the symbol, boolean flags ``buy_signal`` and ``sell_signal``
-    and lists of triggered strategies.
-    """
+    """주어진 종목의 매수/매도 신호를 계산합니다.
+    매수 조건은 5분 봉, 매도 조건은 1분 봉 데이터를 이용합니다.
+    결과는 신호 여부와 발동된 전략 목록을 포함한 딕셔너리를 반환합니다."""
     logging.debug(f"[{symbol}] Starting signal calculation")
-    # Ensure data is sorted by time in ascending order
+    # 데이터가 시간 순서대로 정렬되어 있는지 확인
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
     df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
-    # Handle both naive and timezone-aware input
+    # tz 정보 유무에 관계없이 처리
     df_1m["timestamp"] = df_1m["timestamp"].apply(_as_utc)
     df_5m["timestamp"] = df_5m["timestamp"].apply(_as_utc)
 
-    # Filter out partial candles close to the current time
-    # ``Timestamp.utcnow`` may already return a timezone-aware value depending
-    # on the pandas version.  Use ``Timestamp.now`` with ``tz="UTC"`` to avoid
-    # calling ``tz_localize`` on an aware timestamp.
+    # 현재 시점에 가까운 미완성 캔들 제거
+    # pandas 버전에 따라 `Timestamp.utcnow`가 이미 tz-aware 일 수 있어
+    # `Timestamp.now(tz="UTC")`를 사용함
     now = pd.Timestamp.now(tz="UTC")
     if not df_1m.empty:
         last_1m_ts = _as_utc(df_1m["timestamp"].iloc[-1])
@@ -167,40 +162,40 @@ def f2_signal(
             "sell_triggers": [],
         }
     
-    # Compute technical indicators for 1-minute data
+    # 1분 데이터 기준 기술적 지표 계산
     df1 = df_1m.copy()
-    # EMAs
+    # EMA 계산
     for period in config["EMA"]["periods"]:
         df1[f"EMA_{period}"] = ema(df1["close"], period)
-    # RSI
+    # RSI 계산
     rsi_period = config["RSI"]["period"]
     df1[f"RSI_{rsi_period}"] = rsi(df1["close"], rsi_period)
-    # ATR
+    # ATR 계산
     atr_period = config["ATR"]["period"]
     df1[f"ATR_{atr_period}"] = atr(df1["high"], df1["low"], df1["close"], atr_period)
-    # Bollinger Bands
+    # 볼린저 밴드
     bb_period = config["BollingerBands"]["period"]
     bb_std = config["BollingerBands"]["stddev"]
     bb_mid, bb_upper, bb_lower = bollinger_bands(df1["close"], bb_period, bb_std)
     df1["BB_mid"], df1["BB_upper"], df1["BB_lower"] = bb_mid, bb_upper, bb_lower
-    # Bollinger Bandwidth and its 20-bar minimum (for Band squeeze strategy)
+    # 밴드폭 및 20봉 최소치(밴드 스퀴즈 전략)
     df1["BandWidth20"] = df1["BB_upper"] - df1["BB_lower"]
     df1["BandWidth20_min20"] = df1["BandWidth20"].rolling(window=20, min_periods=20).min()
-    # Volume moving average
+    # 거래량 이동평균
     vol_ma_period = config["Volume"]["ma_period"]
     df1[f"Vol_MA{vol_ma_period}"] = sma(df1["volume"], vol_ma_period)
-    # VWAP (intraday)
+    # 일중 VWAP
     df1["VWAP"] = vwap(df1["high"], df1["low"], df1["close"], df1["volume"])
-    # Strength (execution strength approximation)
-    # Approximate buy vs sell volume using price movement within candle
+    # Strength(체결 강도 근사치)
+    # 캔들 내 가격 움직임을 이용해 매수/매도량 추정
     high = df1["high"]
     low = df1["low"]
     close = df1["close"]
     vol = df1["volume"]
-    # Avoid division by zero in multiplier if high == low
+    # 고가와 저가가 같을 경우 0으로 나눔 방지
     range_ = (high - low).replace(0, np.nan)
     multiplier = (2*close - high - low) / range_
-    # When range is 0, treat multiplier as 0 (neutral)
+    # 범위가 0이면 중립 값 사용
     multiplier = multiplier.fillna(0)
     buy_vol = (multiplier + 1) / 2 * vol
     sell_vol = vol - buy_vol
@@ -297,7 +292,7 @@ def f2_signal(
     else:
         df5["BuyQty_5m"] = np.nan
         df5["SellQty_5m"] = np.nan
-    # Strength for 5m (approx same method)
+    # 5분 봉 기준 Strength 계산
     high5 = df5["high"]; low5 = df5["low"]; close5 = df5["close"]; vol5 = df5["volume"]
     range5 = (high5 - low5).replace(0, np.nan)
     multiplier5 = (2*close5 - high5 - low5) / range5
@@ -341,7 +336,7 @@ def f2_signal(
     df1[f"ATR_{atr_period}_MA20"] = df1[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
     df5[f"ATR_{atr_period}_MA20"] = df5[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
     
-    # Evaluate each strategy's conditions on the latest data
+    # 최신 데이터에서 각 전략 조건 평가
     latest5 = df5.iloc[-1]  # latest completed 5m candle
     sync_ts = latest5["timestamp"]
     matching_1m = df1[df1["timestamp"] == sync_ts]
@@ -359,7 +354,7 @@ def f2_signal(
     latest1 = matching_1m.iloc[-1]
     buy_signal = False
     sell_signal = False
-    # Track strategies that triggered for transparency
+    # 어떤 전략이 발동했는지 기록
     triggered_buys = []
     triggered_sells = []
     for strat in strategies:
@@ -447,10 +442,7 @@ def f2_signal(
     return result
 
 def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code: str = "") -> bool:
-    """
-    Helper function to evaluate a buy/sell formula string on a given data row (Series of indicators).
-    Returns True/False based on the formula conditions.
-    """
+    """주어진 데이터 행에 매수/매도 공식을 적용하여 True/False를 반환합니다."""
     # Replace indicator references in the formula with actual numeric values from data_row
     expr = formula
     # Normalize some function names to match computed column names
