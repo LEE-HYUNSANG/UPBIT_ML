@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pandas as pd
 
-from .strategy_loader import load_strategies
-
 BASE_DIR = Path(__file__).resolve().parent
+# Allow running this script directly from the repository root by making
+# package imports resolvable.
+sys.path.insert(0, str(BASE_DIR.parent))
+
+from f5_ml_pipeline.strategy_loader import load_strategies
 RAW_DIR = BASE_DIR / "ml_data/03_features"
 LABEL_DIR = BASE_DIR / "ml_data/04_labels"
 LABEL_DIR.mkdir(parents=True, exist_ok=True)

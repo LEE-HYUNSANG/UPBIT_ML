@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import ast
 import re
 from pathlib import Path
 from typing import Callable, Dict
@@ -20,11 +21,16 @@ def _shift(col: str, shift_val: str | None) -> str:
     return f"{col}.shift({abs(int(shift_val))})"
 
 
+def _get_col(df: pd.DataFrame, name: str, default: pd.Series) -> pd.Series:
+    """Return existing column or the provided default series."""
+    if name in df.columns:
+        return df[name]
+    return default
+
+
 def _convert(formula: str) -> str:
     """Convert a textual formula to a pandas-friendly expression."""
     expr = formula
-    expr = re.sub(r"\band\b", "&", expr, flags=re.IGNORECASE)
-    expr = re.sub(r"\bor\b", "|", expr, flags=re.IGNORECASE)
 
     patterns = [
         (r"EMA\((\d+)(?:,\s*(-?\d+))?\)", lambda m: _shift(f"df['ema_{m.group(1)}']", m.group(2))),
@@ -70,6 +76,8 @@ def _convert(formula: str) -> str:
         "MaxSpan": "df['maxspan']",
         "BuyQty_5m": "df['buy_qty_5m']",
         "SellQty_5m": "df['sell_qty_5m']",
+        "SpanA": "df['span_a']",
+        "SpanB": "df['span_b']",
         "EntryPrice": "_get_col(df, 'entry_price', df['close'])",
         "Entry": "_get_col(df, 'entry_price', df['close'])",
         "Peak": "_get_col(df, 'peak', df['close'].cummax())",
@@ -87,8 +95,25 @@ def compile_formula(formula: str) -> Callable[[pd.DataFrame], pd.Series]:
     """Return a callable that evaluates the given formula against a DataFrame."""
     expr = _convert(formula)
 
+    tree = ast.parse(expr, mode="eval")
+
+    class BoolToBitwise(ast.NodeTransformer):
+        """Convert boolean operations into bitwise operations for pandas."""
+
+        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:  # type: ignore[override]
+            self.generic_visit(node)
+            op = ast.BitAnd() if isinstance(node.op, ast.And) else ast.BitOr()
+            val = node.values[0]
+            for nxt in node.values[1:]:
+                val = ast.BinOp(left=val, op=op, right=nxt)
+            return ast.copy_location(val, node)
+
+    tree = BoolToBitwise().visit(tree)
+    ast.fix_missing_locations(tree)
+    code = compile(tree, "<formula>", "eval")
+
     def _fn(df: pd.DataFrame) -> pd.Series:
-        return eval(expr)
+        return eval(code, {"df": df, "_get_col": _get_col})
 
     return _fn
 
