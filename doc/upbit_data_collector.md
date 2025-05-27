@@ -16,8 +16,4 @@ The script automatically:
 3. Requests are rate limited (max 10 per second) and retried on `429` or
    server errors.
 
-To collect a specific set of coins, edit `SELECTED_MARKETS` at the top of
-`collector.py` with a list of tickers such as `["KRW-BTC", "KRW-ETH"]`. When
-this list is non-empty, the automatic price filter is skipped.
-
 Logs are written to `upbit_coin_data/collector.log`.
