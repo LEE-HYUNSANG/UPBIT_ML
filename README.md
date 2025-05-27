@@ -107,7 +107,8 @@ available via the API.
 
 - `GET` – return the current strategy list with on/off states and priority.
 - `POST` – save an updated list. Each item should contain `short_code`, `on`
-  and `order` keys.
+  and `order` keys. Saved settings are reloaded immediately so changes take
+  effect without restarting the server.
 
 ## Dashboard data mapping
 

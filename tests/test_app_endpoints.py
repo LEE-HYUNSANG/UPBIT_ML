@@ -19,6 +19,7 @@ def app_client(monkeypatch):
             "sell_triggers": [],
         }
     stub.f2_signal = fake_f2_signal
+    stub.reload_strategy_settings = lambda: None
     monkeypatch.setitem(sys.modules, "f2_signal.signal_engine", stub)
 
     # Provide a dummy pyupbit module
@@ -240,3 +241,32 @@ def test_strategies_endpoint(app_client, tmp_path, monkeypatch):
     data = resp.get_json()
     assert resp.status_code == 200
     assert data["strategies"][0]["name"] == "AAA"
+
+
+def test_strategies_post_reload(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    cfg = tmp_path / "strategies.json"
+    master = tmp_path / "master.json"
+    master.write_text('[{"short_code":"AAA","buy_formula":"f"}]')
+    monkeypatch.setattr(app_mod, "STRATEGY_SETTINGS_FILE", str(cfg))
+    monkeypatch.setattr(app_mod, "STRATEGY_YDAY_FILE", str(tmp_path / "yday.json"))
+    monkeypatch.setattr(app_mod, "STRATEGIES_MASTER_FILE", str(master))
+
+    called = {}
+
+    def fake_reload():
+        called["reloaded"] = True
+
+    monkeypatch.setattr(app_mod, "reload_strategy_settings", fake_reload)
+
+    from flask import request as flask_request
+    flask_request.method = "POST"
+    flask_request.get_json = lambda force=False: [{"short_code": "AAA", "on": False, "order": 1}]
+
+    resp = client.get("/api/strategies")
+    data = resp.get_json()
+    assert resp.status_code == 200
+    assert data["status"] == "ok"
+    assert called.get("reloaded") is True
