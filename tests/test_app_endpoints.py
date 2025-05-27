@@ -201,3 +201,21 @@ def test_events_endpoint(app_client, tmp_path, monkeypatch):
     log.write_text('{"timestamp": "10:00", "message": "test"}\n')
     resp = client.get("/api/events")
     assert resp.get_json()[0]["message"] == "test"
+
+
+def test_strategies_endpoint(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    cfg = tmp_path / "strategies.json"
+    cfg.write_text('[{"short_code":"AAA","on":true,"order":1}]')
+    master = tmp_path / "master.json"
+    master.write_text('[{"short_code":"AAA","buy_formula":"f"}]')
+    monkeypatch.setattr(app_mod, "STRATEGY_SETTINGS_FILE", str(cfg))
+    monkeypatch.setattr(app_mod, "STRATEGY_YDAY_FILE", str(tmp_path / "yday.json"))
+    monkeypatch.setattr(app_mod, "STRATEGIES_MASTER_FILE", str(master))
+
+    resp = client.get("/api/strategies")
+    data = resp.get_json()
+    assert resp.status_code == 200
+    assert data["strategies"][0]["name"] == "AAA"

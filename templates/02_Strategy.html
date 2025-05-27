@@ -166,11 +166,11 @@
         <span class="onoff-slider"></span>
       </label>
       <span style="color:var(--green); font-weight:700;">전체 ON</span>
-      <span class="last-saved ml-6">마지막 저장: 2025. 5. 23. 오후 5:59:58</span>
+      <span class="last-saved ml-6">마지막 저장: -</span>
       <button class="btn-outline ml-4" onclick="openWinrateModal()">승률 데이터</button>
       <button class="btn-outline ml-2" onclick="resetDefaults()">기본값 복원</button>
       <button class="btn-outline ml-2" onclick="restoreYesterday()">어제값 복원</button>
-      <button class="btn ml-2" onclick="alert('설정이 저장되었습니다!')">저장</button>
+      <button class="btn ml-2" onclick="saveToServer(true)">저장</button>
     </div>
     <table>
       <thead>
@@ -217,30 +217,16 @@
 {% endblock %}
 {% block scripts %}
   <script>
-    const strategies = [
-      {name:"M-BREAK", info:"고변동·거래량 급증 시 20봉 최고가 돌파", on:true, order:1, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"P-PULL", info:"상승 추세 중 단기 조정 진입", on:true, order:2, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"T-FLOW", info:"강한 상승 추세 지속 종목 매수", on:true, order:3, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"G-REV", info:"장기 하락 후 저점 부근 반전 매수", on:true, order:4, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"VOL-BRK", info:"거래량 급증, 신고가 부근 상승 포착", on:true, order:5, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"EMA-STACK", info:"EMA 상승 정배열+단기 조정 매수", on:true, order:6, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"VWAP-BNC", info:"VWAP 지지 반등", on:true, order:7, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"B-BAND", info:"볼린저 하단 이탈→재진입 반등", on:true, order:8, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"BB-SQZ", info:"밴드 폭 축소+거래급증 돌파", on:true, order:9, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"T-PULL", info:"추세 중 눌림목 반등 매수", on:true, order:10, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"RSI-BOUNCE", info:"RSI 과매도→반등 매수", on:true, order:11, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"BOLL-B", info:"볼린저 밴드 상단 돌파 매수", on:true, order:12, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"BB-SQZ", info:"밴드 폭 축소+거래급증 돌파", on:true, order:13, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"G-CROSS", info:"EMA 골든크로스+저항 돌파", on:true, order:14, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"ATR-EXPLODE", info:"ATR 급등+추세전환", on:true, order:15, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"MACD-MOM", info:"MACD GC+히스토그램 상승", on:true, order:16, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"STOCH-BOUNCE", info:"Stoch 과매도+GC 반등", on:true, order:17, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"RSI-DIV", info:"RSI 다이버전스+양봉", on:true, order:18, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"I-BREAK", info:"일목균형 구름 돌파", on:true, order:19, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"ADX-TRND", info:"ADX/DMI 상승 추세 진입", on:true, order:20, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"SAR-REV", info:"PSAR 반전 신호 매수", on:true, order:21, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-      {name:"MFI-BOUNCE", info:"MFI 과매도→상승 반전", on:true, order:22, rc:0, rw:"0%", rr:"0%", pc:0, pw:"0%", pr:"0%", data:"기본값"},
-    ];
+    let strategies = [];
+
+    async function loadStrategies(src = 'latest') {
+      const res = await fetch('/api/strategies?source=' + src);
+      const data = await res.json();
+      strategies = data.strategies;
+      const ls = document.querySelector('.last-saved');
+      if (ls) ls.textContent = '마지막 저장: ' + data.updated_at;
+      renderTable();
+    }
 
     function renderTable(){
       let html = "";
@@ -265,11 +251,26 @@
       document.getElementById('tbl-body').innerHTML = html;
     }
 
-    function toggleAll(v){ strategies.forEach(s=>s.on=v); renderTable(); }
-    function toggleOne(i,v){ strategies[i].on = v; }
-    function setOrder(i,v){ strategies[i].order = Number(v); }
-    function resetDefaults(){ strategies.forEach((s,i)=>{s.on=true; s.order=i+1; s.data='기본값';}); renderTable(); }
-    function restoreYesterday(){ alert('어제값 복원 예시'); }
+    function saveToServer(showMsg=false){
+      fetch('/api/strategies', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(strategies.map(s => ({short_code:s.name, on:s.on, order:s.order})))
+      })
+      .then(r => r.json())
+      .then(d => {
+        const ls = document.querySelector('.last-saved');
+        if(ls) ls.textContent = '마지막 저장: ' + d.updated_at;
+        if(showMsg) alert('설정이 저장되었습니다!');
+      })
+      .catch(console.error);
+    }
+
+    function toggleAll(v){ strategies.forEach(s=>s.on=v); renderTable(); saveToServer(); }
+    function toggleOne(i,v){ strategies[i].on = v; saveToServer(); }
+    function setOrder(i,v){ strategies[i].order = Number(v); saveToServer(); }
+    async function resetDefaults(){ await loadStrategies('default'); saveToServer(); }
+    async function restoreYesterday(){ await loadStrategies('yesterday'); saveToServer(); }
     function openWinrateModal(){ document.getElementById('win-modal-bg').style.display=''; document.getElementById('win-modal').style.display=''; }
     function closeWinrateModal(){ document.getElementById('win-modal-bg').style.display='none'; document.getElementById('win-modal').style.display='none'; }
     function showTip(e,idx){
@@ -282,6 +283,6 @@
       let tip = e.target.nextElementSibling;
       tip.style.display='none';
     }
-    renderTable();
+    document.addEventListener('DOMContentLoaded', () => loadStrategies());
   </script>
 {% endblock %}

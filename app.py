@@ -38,6 +38,10 @@ RISK_CONFIG_PATH = LATEST_CFG
 AUTOTRADE_STATUS_FILE = os.path.join("config", "autotrade_status.json")
 EVENTS_LOG = os.path.join("logs", "events.jsonl")
 
+STRATEGY_SETTINGS_FILE = os.path.join("config", "strategy_settings.json")
+STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
+STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
+
 # Runtime state for auto trading thread
 _auto_trade_thread = None
 _auto_trade_stop = None
@@ -87,6 +91,28 @@ def load_recent_events(limit: int = 20) -> list:
         except Exception:
             continue
     return events
+
+
+def load_strategy_master() -> list:
+    with open(STRATEGIES_MASTER_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_strategy_settings(path: str = STRATEGY_SETTINGS_FILE) -> list:
+    if path and os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    master = load_strategy_master()
+    return [
+        {"short_code": s["short_code"], "on": True, "order": i + 1}
+        for i, s in enumerate(master)
+    ]
+
+
+def save_strategy_settings(data: list, path: str = STRATEGY_SETTINGS_FILE) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def start_auto_trade() -> None:
@@ -327,6 +353,55 @@ def events_endpoint() -> Response:
     """Return recent application events."""
     limit = int(request.args.get("limit", 20))
     return jsonify(load_recent_events(limit))
+
+
+@app.route("/api/strategies", methods=["GET", "POST"])
+def strategies_endpoint() -> Response:
+    """Get or update strategy settings."""
+    if request.method == "GET":
+        src = request.args.get("source", "latest")
+        if src == "yesterday":
+            settings = load_strategy_settings(STRATEGY_YDAY_FILE)
+        elif src == "default":
+            settings = load_strategy_settings(None)
+        else:
+            settings = load_strategy_settings(STRATEGY_SETTINGS_FILE)
+        master = {s["short_code"]: s for s in load_strategy_master()}
+        data = []
+        for s in settings:
+            m = master.get(s["short_code"], {})
+            data.append({
+                "name": s["short_code"],
+                "info": m.get("buy_formula", ""),
+                "on": s.get("on", True),
+                "order": s.get("order", 1),
+                "rc": 0, "rw": "0%", "rr": "0%",
+                "pc": 0, "pw": "0%", "pr": "0%",
+                "data": "기본값",
+            })
+        ts = ""
+        if os.path.exists(STRATEGY_SETTINGS_FILE):
+            ts = datetime.datetime.fromtimestamp(os.path.getmtime(STRATEGY_SETTINGS_FILE)).strftime("%Y-%m-%d %H:%M:%S")
+        return jsonify({"strategies": data, "updated_at": ts})
+
+    payload = request.get_json(force=True) or []
+    if isinstance(payload, dict) and "strategies" in payload:
+        payload = payload["strategies"]
+    settings = [
+        {"short_code": s.get("short_code") or s.get("name"),
+         "on": bool(s.get("on", True)),
+         "order": int(s.get("order", 1))}
+        for s in payload
+    ]
+    if os.path.exists(STRATEGY_SETTINGS_FILE):
+        try:
+            prev = load_strategy_settings(STRATEGY_SETTINGS_FILE)
+            save_strategy_settings(prev, STRATEGY_YDAY_FILE)
+        except Exception:
+            pass
+    save_strategy_settings(settings, STRATEGY_SETTINGS_FILE)
+    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return jsonify({"status": "ok", "updated_at": ts})
 
 
 @app.route("/api/risk_events")
