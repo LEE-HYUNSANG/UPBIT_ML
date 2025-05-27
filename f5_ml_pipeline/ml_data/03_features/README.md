@@ -9,7 +9,7 @@
 - `bb_mid_20_2`, `bb_upper_20_2`, `bb_lower_20_2`
 - `stoch_k_14`, `stoch_d_14`
 - `vwap`, `psar`
-- `tenkan_9`, `kijun_26`, `span_a`, `span_b`, `max_span`
+- `tenkan_9`, `kijun_26`, `span_a`, `span_b`, `span_a_26`, `span_b_26`, `max_span`, `maxspan`
 - `ma_vol_20`, `max_high_20`, `min_low_20` 등 각종 rolling 지표
 - `strength` (거래 강도 근사치)
 - `buy_qty_5m`, `sell_qty_5m` (OHLCV만으로 계산 불가 – Collector 필요)
