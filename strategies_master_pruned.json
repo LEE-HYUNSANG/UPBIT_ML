@@ -15,16 +15,6 @@
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
   },
   {
-    "short_code": "G-REV",
-    "buy_formula": "EMA(120,-1) <= EMA(120) and Close <= MinLow120 * 1.05 and RSI(14,-2) < RSI(14) and Close > EMA(20)",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
-    "short_code": "VOL-BRK",
-    "buy_formula": "Vol(0) >= MA(Vol,20) * 4.0 and Close >= MaxHigh120 and EMA(5) > EMA(20) and EMA(20) > EMA(60) and RSI(14) > 60",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
     "short_code": "EMA-STACK",
     "buy_formula": "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close >= EMA(5) and RSI(14) > 60 and Vol(0) >= MA(Vol,20)",
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
@@ -40,11 +30,6 @@
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
   },
   {
-    "short_code": "BB-SQZ",
-    "buy_formula": "BandWidth20 == BandWidth20_min20 and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 4",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
     "short_code": "T-PULL",
     "buy_formula": "EMA(5) > EMA(20) and EMA(20) > EMA(60) and Close < EMA(5) and RSI(14) >= 55 and ATR(14) >= 0.035 and Strength >= 120",
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
@@ -55,44 +40,14 @@
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
   },
   {
-    "short_code": "BOLL-B",
-    "buy_formula": "BandWidth20 == BandWidth20_min20 and Close > BB_upper(20,2) and Vol(0) >= MA(Vol,20) * 3",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
-    "short_code": "G-CROSS",
-    "buy_formula": "EMA(5) > EMA(20) and Close >= MaxHigh60 and Vol(0) >= MA(Vol,20) * 2 and RSI(14) > 55",
-    "sell_formula": "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
-  },
-  {
-    "short_code": "ATR-EXPLODE",
-    "buy_formula": "ATR(14) > 2.5 * MA(ATR(14),20) and EMA(20) < EMA(60) and EMA(5) > EMA(20) and Vol(0) >= MA(Vol,20) * 2",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
-    "short_code": "MACD-MOM",
-    "buy_formula": "MACD_hist(-2) > 0 and MACD_hist(-1) > 0 and MACD_hist(0) > 0 and Close > MaxHigh60 and Vol(0) >= MA(Vol,20) * 1.5",
-    "sell_formula": "EMA(5) < EMA(20) or Close <= EntryPrice * 0.97 or Close >= EntryPrice * 1.05 or Strength <= 90 or Close <= MinLow5"
-  },
-  {
     "short_code": "STOCH-BOUNCE",
     "buy_formula": "StochK(14) < 15 and StochK(14) > StochD(14) and RSI(14) < 40",
-    "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
-  },
-  {
-    "short_code": "RSI-DIV",
-    "buy_formula": "Close < Close(-15) and RSI(14) > RSI(14,-15) and Close >= EMA(20)",
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
   },
   {
     "short_code": "I-BREAK",
     "buy_formula": "Close > SpanA and Close > SpanB and Close(-26) > SpanA(-26) and Close(-26) > SpanB(-26) and Tenkan(9) > Kijun(26) and Kijun(26) > MaxSpan and Vol(0) >= MA(Vol,20) * 2.0 and Strength >= 130 and Close <= MaxSpan * 1.001",
     "sell_formula": "Close < SpanB or Tenkan(9) < Kijun(26) or Strength <= 90 or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
-  },
-  {
-    "short_code": "ADX-TRND",
-    "buy_formula": "EMA(5) > EMA(20) > EMA(60) and ADX(14) >= 35 and DI_plus > DI_minus and ADX(14) > ADX(14,-1) and Close >= MaxHigh20",
-    "sell_formula": "DI_plus < DI_minus or ADX(14) <= 20 or Close < EMA(20) or Close >= EntryPrice * 1.10 or Close <= EntryPrice * 0.95"
   },
   {
     "short_code": "SAR-REV",
