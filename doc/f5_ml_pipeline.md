@@ -71,3 +71,20 @@ parameters and several artefacts are written to `ml_data/06_models/`:
 Execute it from the repository root with `python f5_ml_pipeline/06_optuna_tpe.py`.
 This step depends on the `optuna`, `lightgbm`, `scikit-learn` and `joblib`
 packages which are included in `requirements.txt`.
+
+## 07_train_lgbm.py
+Retrains LightGBM models using the best hyperparameters discovered in the
+previous tuning step. The script loads each `{symbol}_train.parquet`,
+`{symbol}_val.parquet` and `{symbol}_test.parquet` file from
+`ml_data/05_split/` and combines the train and validation sets for final
+training. Parameters are read from `{symbol}_{label}_best_params.json` and the
+resulting model is saved to `ml_data/06_models/` as
+`{symbol}_{label}_model.pkl`.
+
+A small evaluation against the test split is performed using AUC, accuracy and
+F1 metrics. The scores are stored next to the model in a
+`{symbol}_{label}_metrics.json` file together with a CSV of sorted feature
+importances. If the hyperparameter JSON is missing or malformed, the symbol is
+skipped and a warning is printed.
+
+Run it from the repository root with `python f5_ml_pipeline/07_train_lgbm.py`.
