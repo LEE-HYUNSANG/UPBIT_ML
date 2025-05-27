@@ -1,8 +1,8 @@
 {% extends '00_base.html' %}
 {% block title %}AUTO UPBIT 실전 대시보드{% endblock %}
 {% block content %}
-  <!-- 4분할 상단 Row -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+  <!-- 상단 카드 Row -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
       <div class="card-title text-white mb-1">KRW 잔고</div>
       <div class="text-xs text-gray-500 mb-1">계좌 보유 현금</div>
@@ -53,24 +53,6 @@
         </div>
         {% endif %}
       </div>
-    </div>
-    <!-- 자동매매 카드 -->
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-between h-36 min-w-[200px] relative">
-      <div class="flex items-center justify-between mb-3">
-        <span class="card-title text-white">자동매매</span>
-        <label class="toggle-switch ml-2" title="자동매매 실행/중지">
-          <input id="autotrade-toggle" type="checkbox" onchange="toggleStatus(this)">
-          <span class="toggle-slider">
-            <span class="toggle-dot"></span>
-          </span>
-        </label>
-      </div>
-        <span id="run-status"
-              class="w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1">
-          중단 상태
-        </span>
-      <div class="text-xs text-gray-500 mb-1">자동매매 실행 상태</div>
-      <div id="autotrade-updated" class="text-xs text-gray-400 text-right w-full mt-1">업데이트: -</div>
     </div>
   </div>
 
@@ -170,37 +152,6 @@ function updateAccount() {
 updateAccount();
 setInterval(updateAccount, 10000);
 
-function fetchAutoTradeStatus() {
-  fetch('/api/auto_trade_status')
-    .then(r => r.json())
-    .then(d => {
-      const checkbox = document.getElementById('autotrade-toggle');
-      const status = document.getElementById('run-status');
-      const updated = document.getElementById('autotrade-updated');
-      if (checkbox) checkbox.checked = d.enabled;
-      if (status) {
-        if (d.enabled) {
-          status.textContent = '실행중';
-          status.className =
-            'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
-        } else {
-          status.textContent = '중단 상태';
-          status.className =
-            'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
-        }
-      }
-      if (updated) updated.textContent = '업데이트: ' + d.updated_at;
-    })
-    .catch(err => {
-      console.error(err);
-      const status = document.getElementById('run-status');
-      if (status) {
-        status.textContent = '연결 오류';
-        status.className =
-          'w-full px-3 py-1 rounded-full text-sm font-bold bg-red-700 text-red-200 text-center mb-1';
-      }
-    });
-}
 
 function fetchPositions() {
   fetch('/api/open_positions')
@@ -284,10 +235,8 @@ function fetchEvents() {
     .catch(console.error);
 }
 
-fetchAutoTradeStatus();
 fetchPositions();
 fetchEvents();
-setInterval(fetchAutoTradeStatus, 5000);
 setInterval(fetchPositions, 5000);
 setInterval(fetchEvents, 5000);
 </script>
