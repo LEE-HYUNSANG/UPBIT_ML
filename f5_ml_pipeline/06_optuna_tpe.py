@@ -15,10 +15,16 @@ import json
 from pathlib import Path
 from typing import Tuple
 
-import optuna
-import pandas as pd
-from lightgbm import LGBMClassifier
-from sklearn.metrics import roc_auc_score
+try:
+    import optuna
+    import pandas as pd
+    from lightgbm import LGBMClassifier
+    from sklearn.metrics import roc_auc_score
+except ImportError as exc:  # pragma: no cover - runtime import check
+    raise SystemExit(
+        "This script requires optuna, lightgbm and scikit-learn."
+        " Install them via 'pip install -r requirements.txt'."
+    ) from exc
 
 BASE_DIR = Path(__file__).resolve().parent
 SPLIT_DIR = BASE_DIR / "ml_data/05_split"
@@ -63,7 +69,10 @@ def tune_symbol(train_path: Path, val_path: Path) -> None:
 
     label_col = _detect_label_column(train_df)
     if not label_col or label_col not in val_df.columns:
-        print(f"Label column not found for {symbol}")
+        print(
+            f"Label column not found for {symbol}. "
+            "Run 04_label.py and 05_split.py before tuning."
+        )
         return
 
     X_train, y_train = _prepare_xy(train_df, label_col)
