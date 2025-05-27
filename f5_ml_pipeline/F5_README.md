@@ -24,4 +24,9 @@ Tuning results, models and feature importance are written to
 `ml_data/06_models/` with standardized filenames so later steps can load them
 directly.
 
+7. `07_train_lgbm.py` – train final LightGBM models using best parameters
+8. `08_calibrate.py` – calibrate model probabilities and store thresholds
+9. `09_backtest.py` – run a simple backtest on the test split and output KPI
+   summaries to `ml_data/08_metrics/`
+
 Common helper functions live in `F5_utils.py` which currently exposes a `now()` function returning the current epoch timestamp.
