@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import json
+import ast
 import re
 from pathlib import Path
 from typing import Callable, Dict
@@ -77,6 +78,8 @@ def _convert(formula: str) -> str:
         "MaxSpan": "df['maxspan']",
         "BuyQty_5m": "df['buy_qty_5m']",
         "SellQty_5m": "df['sell_qty_5m']",
+        "SpanA": "df['span_a']",
+        "SpanB": "df['span_b']",
         "EntryPrice": "_get_col(df, 'entry_price', df['close'])",
         "Entry": "_get_col(df, 'entry_price', df['close'])",
         "Peak": "_get_col(df, 'peak', df['close'].cummax())",
@@ -94,20 +97,22 @@ def compile_formula(formula: str) -> Callable[[pd.DataFrame], pd.Series]:
     """Return a callable that evaluates the given formula against a DataFrame."""
     expr = _convert(formula)
 
-    parsed = ast.parse(expr, mode="eval")
+    tree = ast.parse(expr, mode="eval")
 
-    class AndOrToBit(ast.NodeTransformer):
-        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:  # pragma: no cover - simple transform
+    class BoolToBitwise(ast.NodeTransformer):
+        """Convert boolean operations into bitwise operations for pandas."""
+
+        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:  # type: ignore[override]
             self.generic_visit(node)
-            op_cls = ast.BitAnd if isinstance(node.op, ast.And) else ast.BitOr
-            result = node.values[0]
-            for value in node.values[1:]:
-                result = ast.BinOp(left=result, op=op_cls(), right=value)
-            return result
+            op = ast.BitAnd() if isinstance(node.op, ast.And) else ast.BitOr()
+            val = node.values[0]
+            for nxt in node.values[1:]:
+                val = ast.BinOp(left=val, op=op, right=nxt)
+            return ast.copy_location(val, node)
 
-    parsed = AndOrToBit().visit(parsed)
-    ast.fix_missing_locations(parsed)
-    code = compile(parsed, "<formula>", "eval")
+    tree = BoolToBitwise().visit(tree)
+    ast.fix_missing_locations(tree)
+    code = compile(tree, "<formula>", "eval")
 
     def _fn(df: pd.DataFrame) -> pd.Series:
         return eval(code, {"df": df, "_get_col": _get_col})
