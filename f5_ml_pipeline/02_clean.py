@@ -6,11 +6,11 @@ RAW_DIR = Path(__file__).resolve().parent / "ml_data/01_raw"
 CLEAN_DIR = Path(__file__).resolve().parent / "ml_data/02_clean"
 
 COLUMN_MAP = {
-    "close": ["close", "종가"],
-    "open": ["open", "시가"],
-    "high": ["high", "고가"],
-    "low": ["low", "저가"],
-    "volume": ["volume", "거래량"],
+    "close": ["close", "종가", "trade_price"],
+    "open": ["open", "시가", "opening_price"],
+    "high": ["high", "고가", "high_price"],
+    "low": ["low", "저가", "low_price"],
+    "volume": ["volume", "거래량", "candle_acc_trade_volume"],
 }
 
 def detect_time_column(df: pd.DataFrame) -> str | None:

@@ -15,8 +15,11 @@ via `pip install -r requirements.txt` and run the script to start collection.
 
 ## 02_clean.py
 Cleans raw market CSVs and outputs Parquet files to `ml_data/02_clean/`.
-This step relies on the `pyarrow` package for Parquet support. Install
-requirements via `pip install -r requirements.txt` before running the script.
+Column names returned by the Upbit API (e.g. `trade_price`, `opening_price`)
+are automatically normalized to the standard `close`, `open`, `high`, `low`
+and `volume` fields. This step relies on the `pyarrow` package for Parquet
+support. Install requirements via `pip install -r requirements.txt` before
+running the script.
 ## 03_features.py
 Generates technical indicator columns from the cleaned OHLCV Parquet files found in `ml_data/02_clean/`.
 The resulting feature sets are saved to `ml_data/03_features/` with the same filenames.

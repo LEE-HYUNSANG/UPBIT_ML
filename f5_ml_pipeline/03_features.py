@@ -46,6 +46,23 @@ from indicators import (
 CLEAN_DIR = BASE_DIR / "ml_data/02_clean"
 FEATURE_DIR = BASE_DIR / "ml_data/03_features"
 
+COLUMN_MAP = {
+    "close": ["close", "종가", "trade_price"],
+    "open": ["open", "시가", "opening_price"],
+    "high": ["high", "고가", "high_price"],
+    "low": ["low", "저가", "low_price"],
+    "volume": ["volume", "거래량", "candle_acc_trade_volume"],
+}
+
+
+def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
+    for std, keys in COLUMN_MAP.items():
+        for key in keys:
+            if key in df.columns:
+                df.rename(columns={key: std}, inplace=True)
+                break
+    return df
+
 
 def _detect_time_column(df: pd.DataFrame) -> str | None:
     candidates = [c for c in df.columns if "time" in c or "date" in c]
@@ -79,6 +96,7 @@ def _calc_strength(df: pd.DataFrame) -> pd.Series:
 
 def compute_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
+    df = _normalize_columns(df)
 
     # === 1. 필수 원본 컬럼명 지정 ===
     time_col = _detect_time_column(df)
