@@ -28,11 +28,6 @@ DATA_DIR = "upbit_coin_data"
 RATE_LIMIT = 10
 PERIOD = 1.0
 
-# Add tickers here to collect specific coins instead of automatic filtering.
-# Example: SELECTED_MARKETS = ["KRW-BTC", "KRW-ETH"]
-SELECTED_MARKETS: List[str] | None = None
-
-
 
 def _setup_logging() -> None:
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -162,13 +157,8 @@ def collect_market(market: str) -> None:
 
 def run() -> None:
     _setup_logging()
-    if SELECTED_MARKETS:
-        markets = list(SELECTED_MARKETS)
-        logging.info("Collecting data for %d user-specified markets", len(markets))
-    else:
-        markets = filter_by_price()
-        logging.info("Collecting data for %d markets", len(markets))
-
+    markets = filter_by_price()
+    logging.info("Collecting data for %d markets", len(markets))
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = {executor.submit(collect_market, m): m for m in markets}
         for fut in as_completed(futures):
