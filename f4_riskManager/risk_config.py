@@ -9,7 +9,7 @@ class RiskConfig:
     def __init__(self, path):
         self.path = path
         self._cache = {}
-        self._mtime = 0
+        self._mtime_ns = 0
         self.reload()
 
     def _load_json(self) -> dict:
@@ -27,10 +27,10 @@ class RiskConfig:
         """Reload ``self.path`` if it has changed. Return True if updated."""
         if not os.path.exists(self.path):
             return False
-        mtime = os.path.getmtime(self.path)
-        if mtime != self._mtime:
+        mtime_ns = os.stat(self.path).st_mtime_ns
+        if mtime_ns != self._mtime_ns:
             self._cache = self._load_json()
-            self._mtime = mtime
+            self._mtime_ns = mtime_ns
             return True
         return False
 
