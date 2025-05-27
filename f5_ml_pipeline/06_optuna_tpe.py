@@ -15,10 +15,18 @@ import json
 from pathlib import Path
 from typing import Tuple
 
-import optuna
+try:
+    import optuna
+    from lightgbm import LGBMClassifier
+    from sklearn.metrics import roc_auc_score
+except ImportError as exc:  # pragma: no cover - only triggered when deps missing
+    raise SystemExit(
+        "Required packages for hyperparameter tuning are missing. "
+        "Run `pip install -r requirements.txt` to install optuna, lightgbm "
+        "and scikit-learn."
+    ) from exc
+
 import pandas as pd
-from lightgbm import LGBMClassifier
-from sklearn.metrics import roc_auc_score
 
 BASE_DIR = Path(__file__).resolve().parent
 SPLIT_DIR = BASE_DIR / "ml_data/05_split"

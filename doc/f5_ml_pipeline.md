@@ -63,3 +63,6 @@ loaded for each symbol. The best parameters are saved to
 study. This step expects at least one column containing the word `label` which
 is treated as the target.
 Execute it from the repository root with `python f5_ml_pipeline/06_optuna_tpe.py`.
+This step depends on the `optuna`, `lightgbm` and `scikit-learn` packages
+which are now included in `requirements.txt`. Install them before running
+the optimisation script.
