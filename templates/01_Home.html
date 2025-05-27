@@ -66,7 +66,7 @@
               class="w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1">
           중단 상태
         </span>
-      <div class="text-xs text-gray-400 text-right w-full mt-1">업데이트: 2024-05-25 14:11:21</div>
+      <div id="autotrade-updated" class="text-xs text-gray-400 text-right w-full mt-1">업데이트: -</div>
     </div>
   </div>
 
@@ -166,71 +166,30 @@ function updateAccount() {
 updateAccount();
 setInterval(updateAccount, 10000);
 
-function formatNum(v) {
-  if (v === undefined || v === null || v === '') return '-';
-  return Number(v).toLocaleString();
-}
-
-function addCell(tr, text, cls) {
-  const td = document.createElement('td');
-  td.className = 'py-2 ' + (cls || '');
-  td.textContent = text;
-  tr.appendChild(td);
-}
-
-function updatePositions() {
-  fetch('/api/open_positions')
+function fetchAutoTradeStatus() {
+  fetch('/api/auto_trade_status')
     .then(r => r.json())
-    .then(list => {
-      const body = document.getElementById('positions-body');
-      if (!body) return;
-      body.innerHTML = '';
-      list.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.className = 'border-b border-gray-700 hover:bg-gray-900 text-center';
-        addCell(tr, (p.symbol || '').replace('KRW-', ''), 'td-coin');
-        addCell(tr, p.strategy || '-', 'td-strategy font-semibold text-green-300');
-        addCell(tr, formatNum(p.entry_price), 'td-price');
-        addCell(tr, formatNum(p.avg_price), 'td-price');
-        addCell(tr, formatNum(p.current_price), 'td-price');
-        addCell(tr, formatNum(p.eval_amount), 'td-price');
-        addCell(tr, '', 'td-graph');
-        addCell(tr, p.pnl_pct ? p.pnl_pct + '%' : '-', 'font-bold td-pnl');
-        addCell(tr, p.pyramid_count ?? '-', 'td-burn');
-        addCell(tr, p.avgdown_count ?? '-', 'td-add');
-        body.appendChild(tr);
-      });
+    .then(d => {
+      const checkbox = document.getElementById('autotrade-toggle');
+      const status = document.getElementById('run-status');
+      const updated = document.getElementById('autotrade-updated');
+      if (checkbox) checkbox.checked = d.enabled;
+      if (status) {
+        if (d.enabled) {
+          status.textContent = '실행중';
+          status.className =
+            'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
+        } else {
+          status.textContent = '중단 상태';
+          status.className =
+            'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
+        }
+      }
+      if (updated) updated.textContent = '업데이트: ' + d.updated_at;
     })
     .catch(console.error);
 }
 
-function updateEvents() {
-  fetch('/api/events')
-    .then(r => r.json())
-    .then(events => {
-      const list = document.getElementById('events-list');
-      if (!list) return;
-      list.innerHTML = '';
-      events.forEach(ev => {
-        const li = document.createElement('li');
-        li.className = 'flex text-sm text-gray-300 border-b border-gray-700 py-2';
-        const ts = document.createElement('span');
-        ts.className = 'text-gray-400 w-28';
-        ts.textContent = ev.timestamp || '';
-        const msg = document.createElement('span');
-        msg.className = 'ml-4 flex-1';
-        msg.textContent = ev.message || '';
-        li.appendChild(ts);
-        li.appendChild(msg);
-        list.appendChild(li);
-      });
-    })
-    .catch(console.error);
-}
-
-updatePositions();
-updateEvents();
-setInterval(updatePositions, 10000);
-setInterval(updateEvents, 10000);
+fetchAutoTradeStatus();
 </script>
 {% endblock %}
