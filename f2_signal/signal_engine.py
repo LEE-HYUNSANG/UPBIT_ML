@@ -351,6 +351,9 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
         logging.info(
             f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
         )
+        logging.info(
+            f"[{symbol}][F2][5분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
+        )
         try:
             buy_cond_1m = eval_formula(buy_formula, latest1, symbol, strat["short_code"])
             buy_cond_5m = eval_formula(buy_formula, latest5, symbol, strat["short_code"])
