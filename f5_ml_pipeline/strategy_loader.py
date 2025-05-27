@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 from pathlib import Path
@@ -19,6 +20,13 @@ def _shift(col: str, shift_val: str | None) -> str:
     if not shift_val or int(shift_val) == 0:
         return col
     return f"{col}.shift({abs(int(shift_val))})"
+
+
+def _get_col(df: pd.DataFrame, name: str, default: pd.Series) -> pd.Series:
+    """Return existing column or the provided default series."""
+    if name in df.columns:
+        return df[name]
+    return default
 
 
 def _convert(formula: str) -> str:
@@ -86,23 +94,23 @@ def compile_formula(formula: str) -> Callable[[pd.DataFrame], pd.Series]:
     """Return a callable that evaluates the given formula against a DataFrame."""
     expr = _convert(formula)
 
-    tree = ast.parse(expr, mode="eval")
+    parsed = ast.parse(expr, mode="eval")
 
-    class BoolTransformer(ast.NodeTransformer):
-        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:
+    class AndOrToBit(ast.NodeTransformer):
+        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:  # pragma: no cover - simple transform
             self.generic_visit(node)
-            op = ast.BitAnd() if isinstance(node.op, ast.And) else ast.BitOr()
+            op_cls = ast.BitAnd if isinstance(node.op, ast.And) else ast.BitOr
             result = node.values[0]
-            for val in node.values[1:]:
-                result = ast.BinOp(left=result, op=op.__class__(), right=val)
+            for value in node.values[1:]:
+                result = ast.BinOp(left=result, op=op_cls(), right=value)
             return result
 
-    tree = BoolTransformer().visit(tree)
-    ast.fix_missing_locations(tree)
-    code = compile(tree, "<formula>", "eval")
+    parsed = AndOrToBit().visit(parsed)
+    ast.fix_missing_locations(parsed)
+    code = compile(parsed, "<formula>", "eval")
 
     def _fn(df: pd.DataFrame) -> pd.Series:
-        return eval(code)
+        return eval(code, {"df": df, "_get_col": _get_col})
 
     return _fn
 
