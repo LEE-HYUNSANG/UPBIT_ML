@@ -57,12 +57,17 @@ Run `python f5_ml_pipeline/05_split.py` after labels are generated with `04_labe
 
 ## 06_optuna_tpe.py
 Performs hyperparameter optimisation of a LightGBM model using Optuna's
-TPE sampler. Training and validation splits under `ml_data/05_split/` are
-loaded for each symbol. The best parameters are saved to
-`ml_data/06_models/{symbol}_best_params.json` along with a short summary of the
-study. This step expects at least one column containing the word `label` which
-is treated as the target.
+TPE sampler. For every symbol and label column the training and validation
+splits under `ml_data/05_split/` are loaded and tuned. After optimisation the
+model is retrained on the combined train and validation data using the best
+parameters and several artefacts are written to `ml_data/06_models/`:
+
+- `{symbol}_{label}_best_params.json` – chosen hyperparameters
+- `{symbol}_{label}_model.pkl` – trained model file
+- `{symbol}_{label}_optuna_study.pkl` – Optuna study for later analysis
+- `{symbol}_{label}_feature_importance.csv` – sorted feature importances
+- `optuna_tuning_summary.csv` – summary table of all tuning runs
+
 Execute it from the repository root with `python f5_ml_pipeline/06_optuna_tpe.py`.
-This step depends on the `optuna`, `lightgbm` and `scikit-learn` packages
-which are now included in `requirements.txt`. Install them before running
-the optimisation script.
+This step depends on the `optuna`, `lightgbm`, `scikit-learn` and `joblib`
+packages which are included in `requirements.txt`.
