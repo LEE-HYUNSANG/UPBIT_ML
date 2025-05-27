@@ -43,7 +43,10 @@ def smart_buy(signal, config, dynamic_params, position_manager=None, parent_logg
     for attempt in range(MAX_RETRY + 1):
         if spread <= SPREAD_TH or attempt == MAX_RETRY:
             res = position_manager.place_order(symbol, "buy", qty, "market", signal.get("price"))
-            log_with_tag(logger, f"Market order executed for {symbol} (spread: {spread}, attempt: {attempt})")
+            if res.get("filled"):
+                log_with_tag(logger, f"Market order executed for {symbol} (spread: {spread}, attempt: {attempt})")
+            else:
+                log_with_tag(logger, f"Market order failed for {symbol} (spread: {spread}, attempt: {attempt})")
             return res
         else:
             res = position_manager.place_order(symbol, "buy", qty, "price", signal.get("price"))
