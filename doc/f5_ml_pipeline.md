@@ -33,3 +33,10 @@ so they can later be merged with collector output.
 You can run this step directly from the repository root using
 `python f5_ml_pipeline/03_features.py`. The script automatically adjusts
 `sys.path` so that imports from `indicators.py` resolve correctly.
+
+## 04_label.py
+Adds buy and sell label columns based on predefined strategy formulas.
+The script reads feature Parquet files from `ml_data/03_features/` and writes
+labeled results to `ml_data/04_labels/` using the same filenames. Run this step
+after generating features with:
+`python f5_ml_pipeline/04_label.py`.
