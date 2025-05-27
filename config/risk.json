@@ -1,27 +1,27 @@
 {
-  "ENTRY_SIZE_INITIAL": 10000,          // 코인별 초기 투자금액(원)
-  "TOTAL_INVEST_LIMIT": 10000,         // 전체 투자금 총 한도
-  "MAX_SYMBOLS": 5,                      // 동시매매 코인 수
+  "ENTRY_SIZE_INITIAL": 10000,
+  "TOTAL_INVEST_LIMIT": 10000,
+  "MAX_SYMBOLS": 5,
 
-  "AVG_SIZE": 5000,                    // 물타기 추가 금액(원)
-  "AVG_MAX_COUNT": 2,                    // 물타기 허용 횟수
-  "AVG_ENABLED": true,                   // 물타기 허용 여부
+  "AVG_SIZE": 5000,
+  "AVG_MAX_COUNT": 2,
+  "AVG_ENABLED": true,
 
-  "PYR_SIZE": 5000,                    // 불타기 추가 금액(원)
-  "PYR_MAX_COUNT": 2,                    // 불타기 허용 횟수
-  "PYR_ENABLED": true,                   // 불타기 허용 여부
+  "PYR_SIZE": 5000,
+  "PYR_MAX_COUNT": 2,
+  "PYR_ENABLED": true,
 
-  "SLIP_MAX": 0.15,                      // 슬리피지 허용(%) - 소수점
-  "ORDER_FAIL_ACTION": "retry",           // 체결 실패시 동작 (retry, wait_and_alert, skip)
+  "SLIP_MAX": 0.15,
+  "ORDER_FAIL_ACTION": "retry",
 
-  "DAILY_LOSS_LIM": 2.5,                 // 일 최대 손실(%) - (음수로 관리할 수도 있음)
-  "MDD_LIM": 7.0,                        // MDD 최대 손실(%)
-  "MONTHLY_MDD_LIM": 10.0,               // 월 MDD 최대 손실(%)
-  "AUTO_STOP_ENABLED": true,             // 자동 정지 옵션(ON/OFF)
+  "DAILY_LOSS_LIM": 2.5,
+  "MDD_LIM": 7.0,
+  "MONTHLY_MDD_LIM": 10.0,
+  "AUTO_STOP_ENABLED": true,
 
-  "SL_PCT": 1.0,                         // 손절 조건(%)
-  "TP_PCT": 1.2,                         // 익절 조건(%)
-  "TRAILING_STOP_ENABLED": true,         // 트레일링스탑 사용 여부
-  "TRAIL_START_PCT": 0.7,                // TS 적용 시작 구간(%)
-  "TRAIL_STEP_PCT": 1.0                  // TS 적용 조건(%)
+  "SL_PCT": 1.0,
+  "TP_PCT": 1.2,
+  "TRAILING_STOP_ENABLED": true,
+  "TRAIL_START_PCT": 0.7,
+  "TRAIL_STEP_PCT": 1.0
 }
