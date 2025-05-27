@@ -77,19 +77,33 @@ class UpbitClient:
                 return json.loads(r.read().decode())
 
     def place_order(self, market: str, side: str, volume: float, price: float | None, ord_type: str):
-        params = {
-            "market": market,
-            "side": side,
-            "ord_type": ord_type,
-        }
-        if ord_type == "market" and side == "bid":
-            params["price"] = str(price)
-        elif ord_type == "market" and side == "ask":
-            params["volume"] = str(volume)
-        else:
-            params["volume"] = str(volume)
-            if price is not None:
-                params["price"] = str(price)
+        """Submit an order via the Upbit REST API."""
+
+        params = {"market": market, "side": side}
+
+        if side == "bid":
+            if ord_type == "market":
+                ord_type = "price"  # Upbit uses ``price`` for market buys
+            if ord_type == "price":
+                invest = volume
+                if price is not None:
+                    try:
+                        invest = float(volume) * float(price)
+                    except Exception:
+                        invest = volume
+                params.update({"ord_type": "price", "price": str(invest)})
+            else:
+                params.update({"ord_type": ord_type, "volume": str(volume)})
+                if price is not None:
+                    params["price"] = str(price)
+        else:  # side == "ask"
+            if ord_type == "market":
+                params.update({"ord_type": "market", "volume": str(volume)})
+            else:
+                params.update({"ord_type": ord_type, "volume": str(volume)})
+                if price is not None:
+                    params["price"] = str(price)
+
         return self.post("/v1/orders", params)
 
     def order_info(self, uuid: str):
