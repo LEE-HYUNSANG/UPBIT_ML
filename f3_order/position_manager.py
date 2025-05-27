@@ -300,7 +300,7 @@ class PositionManager:
         trigger = self.dynamic_params.get("PYR_TRIGGER", 1.0)
         if (cur - position["entry_price"]) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("PYR_SIZE", 0) / cur
-            res = self.place_order(position["symbol"], "buy", qty)
+            res = self.place_order(position["symbol"], "buy", qty, "market", cur)
             if res.get("filled"):
                 position["qty"] += qty
                 position["pyramid_count"] += 1
@@ -316,7 +316,7 @@ class PositionManager:
         trigger = self.dynamic_params.get("AVG_TRIGGER", 1.0)
         if (position["entry_price"] - cur) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("AVG_SIZE", 0) / cur
-            res = self.place_order(position["symbol"], "buy", qty)
+            res = self.place_order(position["symbol"], "buy", qty, "market", cur)
             if res.get("filled"):
                 position["qty"] += qty
                 position["avgdown_count"] += 1
