@@ -101,12 +101,19 @@ available via the API.
 - `GET` – return recent event log entries from `logs/events.jsonl`.
   The optional `limit` query parameter controls how many records are returned.
 
+### `/api/strategies`
+
+- `GET` – return the current strategy list with on/off states and priority.
+- `POST` – save an updated list. Each item should contain `short_code`, `on`
+  and `order` keys.
+
 ## Dashboard data mapping
 
 `templates/01_Home.html` fetches runtime data for the dashboard from the
 new REST API endpoints. The "실시간 포지션 상세" table uses `/api/open_positions`
-and the "실시간 알림/이벤트" list uses `/api/events`. Both are refreshed every
-five seconds:
+and the "실시간 알림/이벤트" list uses `/api/events`. `templates/02_Strategy.html`
+loads and saves strategy settings via `/api/strategies`. All data is refreshed
+every five seconds where applicable:
 
 ```javascript
 function fetchPositions() {
