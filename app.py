@@ -33,6 +33,9 @@ YDAY_CFG = os.path.join(CFG_DIR, "yesterday_config.json")
 
 RISK_CONFIG_PATH = LATEST_CFG
 
+AUTOTRADE_STATUS_FILE = os.path.join("config", "autotrade_status.json")
+EVENTS_LOG = os.path.join("logs", "events.jsonl")
+
 
 def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
     try:
@@ -48,6 +51,34 @@ def save_risk_config(data: dict, path: str = RISK_CONFIG_PATH) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=2, ensure_ascii=False)
+
+
+def load_auto_trade_status() -> dict:
+    try:
+        with open(AUTOTRADE_STATUS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {"enabled": False, "updated_at": ""}
+
+
+def save_auto_trade_status(data: dict) -> None:
+    os.makedirs(os.path.dirname(AUTOTRADE_STATUS_FILE), exist_ok=True)
+    with open(AUTOTRADE_STATUS_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_recent_events(limit: int = 20) -> list:
+    if not os.path.exists(EVENTS_LOG):
+        return []
+    with open(EVENTS_LOG, "r", encoding="utf-8") as f:
+        lines = f.readlines()[-limit:]
+    events = []
+    for line in lines:
+        try:
+            events.append(json.loads(line))
+        except Exception:
+            continue
+    return events
 
 
 def get_config_path(name: str) -> str:
@@ -190,6 +221,41 @@ def risk_config_endpoint() -> Response:
     save_risk_config(data, LATEST_CFG)
     WEB_LOGGER.info(f"Risk config updated: {data}")
     return jsonify({"status": "ok"})
+
+
+@app.route("/api/auto_trade_status", methods=["GET", "POST"])
+def auto_trade_status_endpoint() -> Response:
+    """Get or update the auto trading enabled state."""
+    if request.method == "GET":
+        return jsonify(load_auto_trade_status())
+    data = request.get_json(force=True) or {}
+    enabled = bool(data.get("enabled", False))
+    status = {
+        "enabled": enabled,
+        "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    save_auto_trade_status(status)
+    return jsonify({"success": True, **status})
+
+
+@app.route("/api/open_positions")
+def open_positions_endpoint() -> Response:
+    """Return currently open positions managed by the order executor."""
+    from f3_order.order_executor import _default_executor
+
+    positions = [
+        p
+        for p in _default_executor.position_manager.positions
+        if p.get("status") == "open"
+    ]
+    return jsonify(positions)
+
+
+@app.route("/api/events")
+def events_endpoint() -> Response:
+    """Return recent application events."""
+    limit = int(request.args.get("limit", 20))
+    return jsonify(load_recent_events(limit))
 
 
 @app.route("/api/risk_events")

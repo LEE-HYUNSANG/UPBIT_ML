@@ -171,3 +171,33 @@ def test_universe_config_endpoint(app_client, monkeypatch):
     assert resp.status_code == 200
     assert data["min_price"] == 1
     assert data["volume_rank"] == 10
+
+
+def test_auto_trade_status_and_positions(app_client, tmp_path, monkeypatch):
+    client, order_executor, _ = app_client
+    import app as app_mod
+
+    status_file = tmp_path / "status.json"
+    monkeypatch.setattr(app_mod, "AUTOTRADE_STATUS_FILE", str(status_file))
+
+    resp = client.get("/api/auto_trade_status")
+    data = resp.get_json()
+    assert resp.status_code == 200
+    assert data["enabled"] is False
+
+    order_executor._default_executor.position_manager.positions = [
+        {"symbol": "KRW-BTC", "status": "open", "qty": 1}
+    ]
+    pos_resp = client.get("/api/open_positions")
+    assert pos_resp.get_json()[0]["symbol"] == "KRW-BTC"
+
+
+def test_events_endpoint(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    log = tmp_path / "events.jsonl"
+    monkeypatch.setattr(app_mod, "EVENTS_LOG", str(log))
+    log.write_text('{"timestamp": "10:00", "message": "test"}\n')
+    resp = client.get("/api/events")
+    assert resp.get_json()[0]["message"] == "test"
