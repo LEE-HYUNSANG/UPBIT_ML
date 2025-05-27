@@ -18,6 +18,8 @@ pip install -r requirements.txt
 ```
 
 This ensures modules such as `tqdm` are available when running the pipeline scripts.
+The file also includes machine learning dependencies (`optuna`, `lightgbm` and
+`scikit-learn`) required for `f5_ml_pipeline/06_optuna_tpe.py`.
 ## Universe cache
 
 The latest selected trading universe is saved to `config/current_universe.json`. It is written by `f1_universe.universe_selector.update_universe()` and loaded on startup via `load_universe_from_file()`.
