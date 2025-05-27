@@ -20,7 +20,7 @@ To start the F1/F2 signal loop, run:
 python signal_loop.py
 ```
 
-Logs are written to `logs/F1F2_loop.log`.
+Logs are written to `logs/F1-F2_loop.log`.
 Each log file automatically rotates when it exceeds 100&nbsp;MB. Previous files
 are numbered sequentially as `*.1`, `*.2`, and so on.
 

@@ -122,10 +122,10 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
 if __name__ == "__main__":
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [F1F2] [%(levelname)s] %(message)s",
+        format="%(asctime)s [F1-F2] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
-                "logs/F1F2_loop.log",
+                "logs/F1-F2_loop.log",
                 encoding="utf-8",
                 maxBytes=100_000 * 1024,
                 backupCount=1000,
