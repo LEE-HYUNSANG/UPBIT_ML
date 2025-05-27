@@ -98,3 +98,18 @@ are stored in `ml_data/06_models/` using the filenames
 `{symbol}_{label}_calib.pkl`, `{symbol}_{label}_calib_metrics.json` and
 `{symbol}_{label}_thresh.json`.
 Run it from the repository root with `python f5_ml_pipeline/08_calibrate.py`.
+
+## 09_backtest.py
+Performs a simple backtest using the calibrated models and test splits found in
+`ml_data/05_split/`. For each symbol and strategy pair the script:
+
+- Loads the trained model, calibration object and threshold from
+  `ml_data/06_models/`.
+- Generates probability predictions on the test set and applies the calibration
+  model and threshold to decide entry and exit signals.
+- Simulates long trades where a buy signal opens a position and a sell signal
+  closes it.
+- Writes the trade log as `{symbol}_{strategy}_trades.csv` and a KPI summary as
+  `{symbol}_{strategy}_backtest_summary.json` under `ml_data/08_metrics/`.
+
+Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
