@@ -1,4 +1,4 @@
-"""Split feature datasets into train/validation/test sets in chronological order."""
+"""Split labelled feature datasets into train/validation/test sets in chronological order."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR.parent))
 
-FEATURE_DIR = BASE_DIR / "ml_data/03_features"
+FEATURE_DIR = BASE_DIR / "ml_data/04_labels"
 SPLIT_DIR = BASE_DIR / "ml_data/05_split"
 
 # Default split ratios. Update here to change dataset proportions.
