@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 from pathlib import Path
@@ -20,11 +21,16 @@ def _shift(col: str, shift_val: str | None) -> str:
     return f"{col}.shift({abs(int(shift_val))})"
 
 
+def _get_col(df: pd.DataFrame, name: str, default: pd.Series) -> pd.Series:
+    """Return existing column or the provided default series."""
+    if name in df.columns:
+        return df[name]
+    return default
+
+
 def _convert(formula: str) -> str:
     """Convert a textual formula to a pandas-friendly expression."""
     expr = formula
-    expr = re.sub(r"\band\b", "&", expr, flags=re.IGNORECASE)
-    expr = re.sub(r"\bor\b", "|", expr, flags=re.IGNORECASE)
 
     patterns = [
         (r"EMA\((\d+)(?:,\s*(-?\d+))?\)", lambda m: _shift(f"df['ema_{m.group(1)}']", m.group(2))),
@@ -87,8 +93,23 @@ def compile_formula(formula: str) -> Callable[[pd.DataFrame], pd.Series]:
     """Return a callable that evaluates the given formula against a DataFrame."""
     expr = _convert(formula)
 
+    parsed = ast.parse(expr, mode="eval")
+
+    class AndOrToBit(ast.NodeTransformer):
+        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:  # pragma: no cover - simple transform
+            self.generic_visit(node)
+            op_cls = ast.BitAnd if isinstance(node.op, ast.And) else ast.BitOr
+            result = node.values[0]
+            for value in node.values[1:]:
+                result = ast.BinOp(left=result, op=op_cls(), right=value)
+            return result
+
+    parsed = AndOrToBit().visit(parsed)
+    ast.fix_missing_locations(parsed)
+    code = compile(parsed, "<formula>", "eval")
+
     def _fn(df: pd.DataFrame) -> pd.Series:
-        return eval(expr)
+        return eval(code, {"df": df, "_get_col": _get_col})
 
     return _fn
 
