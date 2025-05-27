@@ -187,7 +187,15 @@ function fetchAutoTradeStatus() {
       }
       if (updated) updated.textContent = '업데이트: ' + d.updated_at;
     })
-    .catch(console.error);
+    .catch(err => {
+      console.error(err);
+      const status = document.getElementById('run-status');
+      if (status) {
+        status.textContent = '연결 오류';
+        status.className =
+          'w-full px-3 py-1 rounded-full text-sm font-bold bg-red-700 text-red-200 text-center mb-1';
+      }
+    });
 }
 
 function fetchPositions() {
@@ -253,6 +261,7 @@ function fetchEvents() {
 fetchAutoTradeStatus();
 fetchPositions();
 fetchEvents();
+setInterval(fetchAutoTradeStatus, 5000);
 setInterval(fetchPositions, 5000);
 setInterval(fetchEvents, 5000);
 </script>

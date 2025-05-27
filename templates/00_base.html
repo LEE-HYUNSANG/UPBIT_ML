@@ -94,7 +94,11 @@
           }
           if (updated) updated.textContent = '업데이트: ' + d.updated_at;
         })
-        .catch(console.error);
+        .catch(err => {
+          console.error(err);
+          checkbox.checked = !checkbox.checked;
+          if (typeof fetchAutoTradeStatus === 'function') fetchAutoTradeStatus();
+        });
     }
     function openMonitorModal() {
       fetch('/api/universe_config')
