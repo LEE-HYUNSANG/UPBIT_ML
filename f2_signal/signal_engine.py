@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import logging
+from logging.handlers import RotatingFileHandler
 import numpy as np
 import os
 import re
@@ -25,7 +26,12 @@ logging.basicConfig(
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler(os.path.join("log", "F2_signal_engine.log"), encoding="utf-8"),
+        RotatingFileHandler(
+            os.path.join("log", "F2_signal_engine.log"),
+            encoding="utf-8",
+            maxBytes=100_000 * 1024,
+            backupCount=1000,
+        ),
     ],
 )
 

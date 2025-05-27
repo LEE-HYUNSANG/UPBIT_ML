@@ -3,6 +3,7 @@
 로그: logs/F3_exception_handler.log
 """
 import logging
+from logging.handlers import RotatingFileHandler
 try:
     import requests
 except Exception:  # pragma: no cover - offline test env
@@ -12,7 +13,12 @@ from urllib.parse import urlencode
 from .utils import log_with_tag, load_env
 
 logger = logging.getLogger("F3_exception_handler")
-fh = logging.FileHandler("logs/F3_exception_handler.log")
+fh = RotatingFileHandler(
+    "logs/F3_exception_handler.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
 formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
