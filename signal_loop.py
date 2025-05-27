@@ -18,13 +18,18 @@ from f2_signal.signal_engine import f2_signal
 
 
 def ensure_kst(timestamp_col):
-    """Return the timestamp(s) converted to Asia/Seoul timezone."""
+    """Return ``timestamp_col`` localized to Asia/Seoul."""
+
     import pandas as pd
 
     ts = pd.to_datetime(timestamp_col)
     if hasattr(ts, "dt"):
-        return ts.dt.tz_localize("Asia/Seoul") if ts.dt.tz is None else ts.dt.tz_convert("Asia/Seoul")
-    return ts.tz_localize("Asia/Seoul") if ts.tzinfo is None else ts.tz_convert("Asia/Seoul")
+        if ts.dt.tz is None:
+            return ts.dt.tz_localize("Asia/Seoul")
+        return ts.dt.tz_convert("Asia/Seoul")
+    if ts.tzinfo is None:
+        return ts.tz_localize("Asia/Seoul")
+    return ts.tz_convert("Asia/Seoul")
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
@@ -39,11 +44,11 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
         df = df.reset_index().rename(columns={"index": "timestamp"})
         try:
             import pandas as pd  # noqa: F401
-
-            if hasattr(df, "columns") and "timestamp" in df.columns:
-                df["timestamp"] = ensure_kst(df["timestamp"])
         except ImportError:
             pass
+        else:
+            if hasattr(df, "columns") and "timestamp" in df.columns:
+                df["timestamp"] = ensure_kst(df["timestamp"])
         return df
     except Exception as exc:  # pragma: no cover - network access
         logging.error(f"[{symbol}] Failed to fetch {interval} data: {exc}")
