@@ -190,6 +190,69 @@ function fetchAutoTradeStatus() {
     .catch(console.error);
 }
 
+function fetchPositions() {
+  fetch('/api/open_positions')
+    .then(r => r.json())
+    .then(data => {
+      const body = document.getElementById('positions-body');
+      if (!body) return;
+      body.innerHTML = '';
+      if (data.length === 0) {
+        const row = document.createElement('tr');
+        row.className = 'text-center';
+        const cell = document.createElement('td');
+        cell.colSpan = 10;
+        cell.textContent = '포지션 없음';
+        row.appendChild(cell);
+        body.appendChild(row);
+        return;
+      }
+      data.forEach(pos => {
+        const row = document.createElement('tr');
+        row.className = 'border-b border-gray-700 text-center';
+        row.innerHTML = `
+          <td class="td-coin">${pos.symbol.replace('KRW-', '')}</td>
+          <td class="td-strategy">${pos.strategy ?? '-'}</td>
+          <td class="td-price">${Number(pos.entry_price ?? 0).toLocaleString()}</td>
+          <td class="td-price">${Number(pos.avg_price ?? 0).toLocaleString()}</td>
+          <td class="td-price">${Number(pos.current_price ?? 0).toLocaleString()}</td>
+          <td class="td-price">${Number(pos.eval_amount ?? 0).toLocaleString()}</td>
+          <td class="td-graph"></td>
+          <td class="td-pnl">${Number(pos.pnl_percent ?? 0).toFixed(2)}%</td>
+          <td class="td-burn">${pos.pyramid_count ?? 0}</td>
+          <td class="td-add">${pos.avgdown_count ?? 0}</td>`;
+        body.appendChild(row);
+      });
+    })
+    .catch(console.error);
+}
+
+function fetchEvents() {
+  fetch('/api/events')
+    .then(r => r.json())
+    .then(data => {
+      const list = document.getElementById('events-list');
+      if (!list) return;
+      list.innerHTML = '';
+      if (data.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = '최근 이벤트 없음';
+        list.appendChild(li);
+        return;
+      }
+      data.forEach(ev => {
+        const li = document.createElement('li');
+        li.textContent = `${ev.timestamp} - ${ev.message}`;
+        list.appendChild(li);
+      });
+    })
+    .catch(console.error);
+}
+
 fetchAutoTradeStatus();
+fetchPositions();
+fetchEvents();
+setInterval(fetchPositions, 5000);
+setInterval(fetchEvents, 5000);
 </script>
 {% endblock %}

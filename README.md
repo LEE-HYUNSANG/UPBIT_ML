@@ -100,3 +100,31 @@ available via the API.
 
 - `GET` – return recent event log entries from `logs/events.jsonl`.
   The optional `limit` query parameter controls how many records are returned.
+
+## Dashboard data mapping
+
+`templates/01_Home.html` fetches runtime data for the dashboard from the
+new REST API endpoints. The "실시간 포지션 상세" table uses `/api/open_positions`
+and the "실시간 알림/이벤트" list uses `/api/events`. Both are refreshed every
+five seconds:
+
+```javascript
+function fetchPositions() {
+  fetch('/api/open_positions')
+    .then(r => r.json())
+    .then(renderPositions);
+}
+
+function fetchEvents() {
+  fetch('/api/events')
+    .then(r => r.json())
+    .then(renderEvents);
+}
+
+setInterval(fetchPositions, 5000);
+setInterval(fetchEvents, 5000);
+```
+
+Each position object contains the keys `symbol`, `strategy`, `entry_price`,
+`avg_price`, `current_price`, `eval_amount`, `pnl_percent`, `pyramid_count` and
+`avgdown_count`. Event objects contain `timestamp` and `message`.
