@@ -6,6 +6,7 @@ import json
 import re
 from pathlib import Path
 from typing import Callable, Dict
+import ast
 
 import pandas as pd
 
@@ -23,8 +24,6 @@ def _shift(col: str, shift_val: str | None) -> str:
 def _convert(formula: str) -> str:
     """Convert a textual formula to a pandas-friendly expression."""
     expr = formula
-    expr = re.sub(r"\band\b", "&", expr, flags=re.IGNORECASE)
-    expr = re.sub(r"\bor\b", "|", expr, flags=re.IGNORECASE)
 
     patterns = [
         (r"EMA\((\d+)(?:,\s*(-?\d+))?\)", lambda m: _shift(f"df['ema_{m.group(1)}']", m.group(2))),
@@ -87,8 +86,23 @@ def compile_formula(formula: str) -> Callable[[pd.DataFrame], pd.Series]:
     """Return a callable that evaluates the given formula against a DataFrame."""
     expr = _convert(formula)
 
+    tree = ast.parse(expr, mode="eval")
+
+    class BoolTransformer(ast.NodeTransformer):
+        def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:
+            self.generic_visit(node)
+            op = ast.BitAnd() if isinstance(node.op, ast.And) else ast.BitOr()
+            result = node.values[0]
+            for val in node.values[1:]:
+                result = ast.BinOp(left=result, op=op.__class__(), right=val)
+            return result
+
+    tree = BoolTransformer().visit(tree)
+    ast.fix_missing_locations(tree)
+    code = compile(tree, "<formula>", "eval")
+
     def _fn(df: pd.DataFrame) -> pd.Series:
-        return eval(expr)
+        return eval(code)
 
     return _fn
 

@@ -41,6 +41,8 @@ runtime so new strategies can be added without modifying the code. Feature
 files from `ml_data/03_features/` are labelled and written to
 `ml_data/04_labels/` using the same filenames. Placeholder columns such as
 `entry_price`, `exit_price` and `peak` are created when missing so backtests can
-reference them immediately. You can run this step directly from the repository
-root using `python f5_ml_pipeline/04_label.py`. The script automatically adjusts
-`sys.path` so that `strategy_loader` is imported correctly.
+reference them immediately. Boolean formulas using `and`/`or` are parsed with
+Python's AST and converted to bitwise operations, preventing precedence errors
+when chaining multiple conditions. You can run this step directly from the
+repository root using `python f5_ml_pipeline/04_label.py`. The script
+automatically adjusts `sys.path` so that `strategy_loader` is imported correctly.
