@@ -99,14 +99,20 @@ def load_strategy_master() -> list:
 
 
 def load_strategy_settings(path: str = STRATEGY_SETTINGS_FILE) -> list:
+    master = load_strategy_master()
+    defaults = {
+        s["short_code"]: {"short_code": s["short_code"], "on": True, "order": i + 1}
+        for i, s in enumerate(master)
+    }
     if path and os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    master = load_strategy_master()
-    return [
-        {"short_code": s["short_code"], "on": True, "order": i + 1}
-        for i, s in enumerate(master)
-    ]
+            settings = json.load(f)
+        existing = {s.get("short_code") for s in settings}
+        for code, val in defaults.items():
+            if code not in existing:
+                settings.append(val)
+        return settings
+    return list(defaults.values())
 
 
 def save_strategy_settings(data: list, path: str = STRATEGY_SETTINGS_FILE) -> None:
