@@ -16,4 +16,9 @@
    python signal_loop.py
    ```
    Logs are written to `logs/` and rotate automatically.
-4. Optional: start `app.py` to access the dashboard and REST APIs.
+4. To download 1-minute OHLCV history in bulk:
+   ```bash
+   python upbit_coin_data/collector.py
+   ```
+   Data files will be saved under `upbit_coin_data/`.
+5. Optional: start `app.py` to access the dashboard and REST APIs.
