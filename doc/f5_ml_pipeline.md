@@ -88,3 +88,13 @@ importances. If the hyperparameter JSON is missing or malformed, the symbol is
 skipped and a warning is printed.
 
 Run it from the repository root with `python f5_ml_pipeline/07_train_lgbm.py`.
+
+## 08_calibrate.py
+Calibrates predicted probabilities of the trained models with isotonic regression.
+Validation and test splits under `ml_data/05_split/` are loaded for each symbol.
+The calibration model is fitted on validation predictions and evaluated on the
+ test set. Metrics before and after calibration along with the chosen threshold
+are stored in `ml_data/06_models/` using the filenames
+`{symbol}_{label}_calib.pkl`, `{symbol}_{label}_calib_metrics.json` and
+`{symbol}_{label}_thresh.json`.
+Run it from the repository root with `python f5_ml_pipeline/08_calibrate.py`.
