@@ -109,6 +109,54 @@ class PositionManager:
                 lines.append("- 5천원 미만: " + ", ".join(ignored) + " → 신규 매수 가능")
             self.exception_handler.send_alert("\n".join(lines), "info")
 
+    def refresh_positions(self) -> None:
+        """Update price and PnL information for all open positions."""
+        open_syms = [p.get("symbol") for p in self.positions if p.get("status") == "open"]
+        if not open_syms:
+            return
+
+        try:
+            accounts = self.client.get_accounts()
+            accounts_ok = True
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to fetch accounts: {exc}")
+            accounts = []
+            accounts_ok = False
+
+        acc_map = {
+            f"{a.get('unit_currency', 'KRW')}-{a.get('currency')}": a
+            for a in accounts
+        }
+
+        try:
+            ticker_data = self.client.ticker(open_syms)
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+            ticker_data = []
+
+        price_map = {t.get("market"): float(t.get("trade_price", 0)) for t in ticker_data}
+
+        for pos in self.positions:
+            if pos.get("status") != "open":
+                continue
+            sym = pos.get("symbol")
+            info = acc_map.get(sym, {})
+            pos["avg_price"] = float(info.get("avg_buy_price", pos.get("entry_price") or 0))
+            qty = float(info.get("balance", pos.get("qty") or 0))
+            pos["qty"] = qty
+            if accounts_ok and qty <= 0:
+                pos["status"] = "closed"
+            if sym in price_map:
+                pos["current_price"] = price_map[sym]
+            if pos.get("current_price") is not None:
+                pos["eval_amount"] = qty * pos["current_price"]
+            if pos.get("avg_price"):
+                cur = pos.get("current_price", pos["avg_price"])
+                pos["pnl_percent"] = (cur - pos["avg_price"]) / pos["avg_price"] * 100
+
+        # Remove positions that were marked closed from the list
+        self.positions = [p for p in self.positions if p.get("status") == "open"]
+
     def hold_loop(self):
         """
         1Hz 루프: 각 포지션별 FSM 관리 (불타기/물타기/익절/손절/트레일/타임스탑 등)

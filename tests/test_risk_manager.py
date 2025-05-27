@@ -14,6 +14,9 @@ class DummyClient:
     def get_accounts(self):
         return []
 
+    def ticker(self, markets):
+        return [{"market": m, "trade_price": 100.0} for m in markets]
+
 
 def make_pm(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
