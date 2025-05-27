@@ -22,9 +22,15 @@
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+# Allow importing modules from the repository root when executed as a script
+sys.path.insert(0, str(BASE_DIR.parent))
+
 import numpy as np
 import pandas as pd
-from pathlib import Path
 from indicators import (
     ema,
     atr,
@@ -37,7 +43,6 @@ from indicators import (
     parabolic_sar,
 )
 
-BASE_DIR = Path(__file__).resolve().parent
 CLEAN_DIR = BASE_DIR / "ml_data/02_clean"
 FEATURE_DIR = BASE_DIR / "ml_data/03_features"
 
