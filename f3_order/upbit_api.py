@@ -104,3 +104,14 @@ class UpbitClient:
     def get_accounts(self):
         """Return account balances via ``/v1/accounts``."""
         return self.get("/v1/accounts")
+
+    def ticker(self, markets: list[str]):
+        """Fetch current price information for ``markets``.
+
+        Each item in ``markets`` should be a market code like ``KRW-BTC``.
+        The method returns the response from ``/v1/ticker`` which is a list
+        of ticker objects.
+        """
+        if not markets:
+            return []
+        return self.get("/v1/ticker", {"markets": ",".join(markets)})

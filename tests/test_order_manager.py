@@ -32,6 +32,9 @@ def make_pm(tmp_path, monkeypatch=None):
             def get_accounts(self):
                 return []
 
+            def ticker(self, markets):
+                return [{"market": m, "trade_price": 100.0} for m in markets]
+
         monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     return PositionManager(cfg, dyn, guard, handler)
 
@@ -89,6 +92,9 @@ def test_place_order_partial_fill(tmp_path, monkeypatch):
 
         def get_accounts(self):
             return []
+
+        def ticker(self, markets):
+            return [{"market": m, "trade_price": 100.0} for m in markets]
 
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: PartialFillClient())
     pm = make_pm(tmp_path)

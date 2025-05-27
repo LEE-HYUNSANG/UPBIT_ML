@@ -343,10 +343,11 @@ def open_positions_endpoint() -> Response:
     being tracked the returned value is ``[]``.
     """
     from f3_order.order_executor import _default_executor
-
+    pm = _default_executor.position_manager
+    pm.refresh_positions()
     positions = [
         p
-        for p in _default_executor.position_manager.positions
+        for p in pm.positions
         if p.get("status") == "open"
     ]
     # Explicitly return an empty array when no open positions exist.

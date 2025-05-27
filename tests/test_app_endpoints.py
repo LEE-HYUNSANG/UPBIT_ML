@@ -98,6 +98,9 @@ def app_client(monkeypatch):
         def get_accounts(self):
             return []
 
+        def ticker(self, markets):
+            return [{"market": m, "trade_price": 100.0} for m in markets]
+
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
 
     # Simplify smart_buy to include qty/price for position opening
