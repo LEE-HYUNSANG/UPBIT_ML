@@ -266,6 +266,18 @@ if __name__ == "__main__":
                 maxBytes=100_000 * 1024,
                 backupCount=1000,
             ),
+            RotatingFileHandler(
+                "logs/F1_signal_engine.log",
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
+            RotatingFileHandler(
+                "logs/F2_signal_engine.log",
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
             logging.StreamHandler(),
         ],
         force=True,
