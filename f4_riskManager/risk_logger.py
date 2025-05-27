@@ -2,6 +2,7 @@
 F4 RiskLogger - 리스크/상태/이벤트 로그 및 알림
 """
 import logging
+from logging.handlers import RotatingFileHandler
 import os
 import sqlite3
 
@@ -9,7 +10,12 @@ class RiskLogger:
     def __init__(self, log_path, db_path="logs/risk_events.db"):
         self.logger = logging.getLogger("F4_risk_manager")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
-        fh = logging.FileHandler(log_path, encoding="utf-8")
+        fh = RotatingFileHandler(
+            log_path,
+            encoding="utf-8",
+            maxBytes=100_000 * 1024,
+            backupCount=1000,
+        )
         formatter = logging.Formatter('%(asctime)s [F4] %(levelname)s %(message)s')
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)

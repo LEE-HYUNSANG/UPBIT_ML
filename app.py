@@ -6,6 +6,8 @@ import uuid
 import jwt
 import requests
 import datetime
+import logging
+from logging.handlers import RotatingFileHandler
 from signal_loop import process_symbol, main_loop
 from f1_universe.universe_selector import (
     select_universe,
@@ -61,12 +63,17 @@ def get_config_path(name: str) -> str:
 
 WEB_LOGGER = None
 if WEB_LOGGER is None:
-    import logging
-
     WEB_LOGGER = logging.getLogger("web")
     os.makedirs("logs", exist_ok=True)
-    handler = logging.FileHandler("logs/web.log", encoding="utf-8")
-    handler.setFormatter(logging.Formatter("%(asctime)s [WEB] %(levelname)s %(message)s"))
+    handler = RotatingFileHandler(
+        "logs/web.log",
+        encoding="utf-8",
+        maxBytes=100_000 * 1024,
+        backupCount=1000,
+    )
+    handler.setFormatter(
+        logging.Formatter("%(asctime)s [WEB] %(levelname)s %(message)s")
+    )
     WEB_LOGGER.addHandler(handler)
     WEB_LOGGER.setLevel(logging.INFO)
 
@@ -247,14 +254,18 @@ def settings():
 if __name__ == "__main__":
     # When running this file directly, also launch the signal processing loop
     # in a background thread so signals continue to be evaluated.
-    import logging
     import threading
 
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [F1F2] [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler("logs/F1F2_loop.log", encoding="utf-8"),
+            RotatingFileHandler(
+                "logs/F1F2_loop.log",
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
             logging.StreamHandler(),
         ],
         force=True,

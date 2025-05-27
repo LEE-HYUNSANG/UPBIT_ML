@@ -3,13 +3,19 @@
 로그: logs/F3_position_manager.log
 """
 import logging
+from logging.handlers import RotatingFileHandler
 import os
 import sqlite3
 from .utils import log_with_tag, now
 from .upbit_api import UpbitClient
 
 logger = logging.getLogger("F3_position_manager")
-fh = logging.FileHandler("logs/F3_position_manager.log")
+fh = RotatingFileHandler(
+    "logs/F3_position_manager.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
 formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)

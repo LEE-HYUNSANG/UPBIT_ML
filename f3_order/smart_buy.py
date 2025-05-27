@@ -3,10 +3,16 @@
 로그: logs/F3_smart_buy.log
 """
 import logging
+from logging.handlers import RotatingFileHandler
 from .utils import log_with_tag
 
 logger = logging.getLogger("F3_smart_buy")
-fh = logging.FileHandler("logs/F3_smart_buy.log")
+fh = RotatingFileHandler(
+    "logs/F3_smart_buy.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
 formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)

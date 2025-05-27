@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import RotatingFileHandler
 import time
 from typing import Optional
 
@@ -114,7 +115,12 @@ if __name__ == "__main__":
         level=logging.INFO,
         format="%(asctime)s [F1F2] [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler("logs/F1F2_loop.log", encoding="utf-8"),
+            RotatingFileHandler(
+                "logs/F1F2_loop.log",
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
             logging.StreamHandler(),
         ],
         force=True,

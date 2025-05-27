@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import RotatingFileHandler
 from .smart_buy import smart_buy
 from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
@@ -6,7 +7,12 @@ from .exception_handler import ExceptionHandler
 from .utils import load_config, now, log_with_tag
 
 logger = logging.getLogger("F3_order_executor")
-fh = logging.FileHandler("logs/F3_order_executor.log")
+fh = RotatingFileHandler(
+    "logs/F3_order_executor.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
 formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
