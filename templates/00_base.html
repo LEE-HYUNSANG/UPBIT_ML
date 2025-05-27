@@ -72,16 +72,29 @@
   </footer>
   <script>
     function toggleStatus(checkbox) {
-      var status = document.getElementById("run-status");
-      if (checkbox.checked) {
-        status.textContent = "실행중";
-        status.className =
-          "w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1";
-      } else {
-        status.textContent = "중단 상태";
-        status.className =
-          "w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1";
-      }
+      fetch('/api/auto_trade_status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enabled: checkbox.checked })
+      })
+        .then(r => r.json())
+        .then(d => {
+          var status = document.getElementById('run-status');
+          var updated = document.getElementById('autotrade-updated');
+          if (status) {
+            if (d.enabled) {
+              status.textContent = '실행중';
+              status.className =
+                'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
+            } else {
+              status.textContent = '중단 상태';
+              status.className =
+                'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
+            }
+          }
+          if (updated) updated.textContent = '업데이트: ' + d.updated_at;
+        })
+        .catch(console.error);
     }
     function openMonitorModal() {
       fetch('/api/universe_config')

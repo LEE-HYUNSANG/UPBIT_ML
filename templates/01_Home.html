@@ -66,7 +66,7 @@
               class="w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1">
           중단 상태
         </span>
-      <div class="text-xs text-gray-400 text-right w-full mt-1">업데이트: 2024-05-25 14:11:21</div>
+      <div id="autotrade-updated" class="text-xs text-gray-400 text-right w-full mt-1">업데이트: -</div>
     </div>
   </div>
 
@@ -245,5 +245,31 @@ function updateAccount() {
 }
 updateAccount();
 setInterval(updateAccount, 10000);
+
+function fetchAutoTradeStatus() {
+  fetch('/api/auto_trade_status')
+    .then(r => r.json())
+    .then(d => {
+      const checkbox = document.getElementById('autotrade-toggle');
+      const status = document.getElementById('run-status');
+      const updated = document.getElementById('autotrade-updated');
+      if (checkbox) checkbox.checked = d.enabled;
+      if (status) {
+        if (d.enabled) {
+          status.textContent = '실행중';
+          status.className =
+            'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
+        } else {
+          status.textContent = '중단 상태';
+          status.className =
+            'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
+        }
+      }
+      if (updated) updated.textContent = '업데이트: ' + d.updated_at;
+    })
+    .catch(console.error);
+}
+
+fetchAutoTradeStatus();
 </script>
 {% endblock %}
