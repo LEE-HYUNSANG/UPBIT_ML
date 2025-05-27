@@ -10,4 +10,5 @@ Retrieves 1 minute OHLCV data for the last 90 days using the Upbit REST API. The
 - Downloads complete candle data via `/v1/candles/minutes/1` respecting rate limits.
 - Saves each market as a CSV file under `f5_ml_pipeline/ml_data/01_raw/`.
 
-Run the script directly to start collection.
+The script depends on the `tqdm` package for progress bars. Install requirements
+via `pip install -r requirements.txt` and run the script to start collection.
