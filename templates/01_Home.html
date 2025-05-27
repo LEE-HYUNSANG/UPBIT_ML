@@ -198,6 +198,7 @@ function fetchPositions() {
       if (!body) return;
       body.innerHTML = '';
       if (data.length === 0) {
+        // Display a single row when there are no open positions
         const row = document.createElement('tr');
         row.className = 'text-center';
         const cell = document.createElement('td');

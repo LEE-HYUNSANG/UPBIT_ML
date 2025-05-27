@@ -89,7 +89,9 @@ available via the API.
 
 ### `/api/open_positions`
 
-- `GET` – list open positions managed by the order executor.
+- `GET` – list open positions managed by the order executor. The response is
+  always a JSON array. When no positions are open it returns an empty array
+  (`[]`).
   ```json
   [
     {"symbol": "KRW-BTC", "qty": 1, "status": "open"}
