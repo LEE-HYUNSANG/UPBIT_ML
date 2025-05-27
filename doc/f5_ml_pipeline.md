@@ -54,3 +54,12 @@ validation and test sets. The default ratios are 70% train, 15% validation and
 plus `_train`, `_val` or `_test` suffixes. The script ensures each dataset
 contains at least one row when possible and logs progress for every file.
 Run `python f5_ml_pipeline/05_split.py` after features and labels are prepared.
+
+## 06_optuna_tpe.py
+Performs hyperparameter optimisation of a LightGBM model using Optuna's
+TPE sampler. Training and validation splits under `ml_data/05_split/` are
+loaded for each symbol. The best parameters are saved to
+`ml_data/06_models/{symbol}_best_params.json` along with a short summary of the
+study. This step expects at least one column containing the word `label` which
+is treated as the target.
+Execute it from the repository root with `python f5_ml_pipeline/06_optuna_tpe.py`.
