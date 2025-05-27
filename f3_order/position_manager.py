@@ -6,6 +6,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 import sqlite3
+import json
 from .utils import log_with_tag, now
 from .upbit_api import UpbitClient
 
@@ -20,6 +21,19 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+
+
+def _now_kst():
+    import datetime
+    tz = datetime.timezone(datetime.timedelta(hours=9))
+    return datetime.datetime.now(tz).isoformat(timespec="seconds")
+
+
+def _log_jsonl(path: str, data: dict) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        f.write("\n")
 
 class PositionManager:
     def __init__(self, config, dynamic_params, kpi_guard, exception_handler, parent_logger=None):
@@ -238,5 +252,27 @@ class PositionManager:
             if pos.get("status") == "open":
                 remaining.append(pos)
         self.positions = remaining
+
+    def close_position(self, symbol: str, reason: str = "") -> None:
+        for pos in list(self.positions):
+            if pos.get("symbol") == symbol and pos.get("status") == "open":
+                self.execute_sell(pos, reason or "universe_exit", pos.get("qty"))
+
+    def sync_with_universe(self, universe) -> None:
+        for pos in list(self.positions):
+            if pos.get("status") != "open":
+                continue
+            if pos.get("symbol") not in universe:
+                self.close_position(pos.get("symbol"), "Universe Excluded")
+                _log_jsonl(
+                    "logs/position_universe_sync.log",
+                    {
+                        "time": _now_kst(),
+                        "event": "Universe Excluded",
+                        "symbol": pos.get("symbol"),
+                        "action": "AutoClose",
+                        "reason": "Universe에서 제외됨",
+                    },
+                )
 
 
