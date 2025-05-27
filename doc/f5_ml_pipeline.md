@@ -36,9 +36,10 @@ You can run this step directly from the repository root using
 
 ## 04_label.py
 Adds buy and sell label columns based on predefined strategy formulas.
-The script reads feature Parquet files from `ml_data/03_features/` and writes
-labeled results to `ml_data/04_labels/` using the same filenames. Missing
-columns such as `entry_price` or `peak` are automatically substituted with the
-current close price or the cumulative high so the step can run on raw feature
-sets. Run this step after generating features with:
+The formulas are defined in `strategies_master_pruned.json` and parsed at
+runtime so new strategies can be added without modifying the code. Feature
+files from `ml_data/03_features/` are labelled and written to
+`ml_data/04_labels/` using the same filenames. Placeholder columns such as
+`entry_price`, `exit_price` and `peak` are created when missing so backtests can
+reference them immediately. Run this step after generating features with:
 `python f5_ml_pipeline/04_label.py`.
