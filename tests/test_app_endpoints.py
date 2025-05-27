@@ -192,6 +192,15 @@ def test_auto_trade_status_and_positions(app_client, tmp_path, monkeypatch):
     assert pos_resp.get_json()[0]["symbol"] == "KRW-BTC"
 
 
+def test_open_positions_empty(app_client):
+    client, order_executor, _ = app_client
+    # Ensure no positions are registered
+    order_executor._default_executor.position_manager.positions = []
+    resp = client.get("/api/open_positions")
+    assert resp.status_code == 200
+    assert resp.get_json() == []
+
+
 def test_events_endpoint(app_client, tmp_path, monkeypatch):
     client, _, _ = app_client
     import app as app_mod

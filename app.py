@@ -311,7 +311,11 @@ def auto_trade_status_endpoint() -> Response:
 
 @app.route("/api/open_positions")
 def open_positions_endpoint() -> Response:
-    """Return currently open positions managed by the order executor."""
+    """Return a list of open positions from the order executor.
+
+    The endpoint always responds with a JSON array. When no positions are
+    being tracked the returned value is ``[]``.
+    """
     from f3_order.order_executor import _default_executor
 
     positions = [
@@ -319,7 +323,8 @@ def open_positions_endpoint() -> Response:
         for p in _default_executor.position_manager.positions
         if p.get("status") == "open"
     ]
-    return jsonify(positions)
+    # Explicitly return an empty array when no open positions exist.
+    return jsonify(positions if positions else [])
 
 
 @app.route("/api/events")
