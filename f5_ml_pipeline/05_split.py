@@ -5,6 +5,9 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(5)
+
 import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -60,11 +63,11 @@ def _split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.D
 
 
 def process_file(path: Path) -> None:
-    print(f"Splitting {path.name}")
+    logger.info(f"Splitting {path.name}")
     try:
         df = pd.read_parquet(path)
     except Exception as err:
-        print(f"Failed to read {path.name}: {err}")
+        logger.info(f"Failed to read {path.name}: {err}")
         return
 
     time_col = _detect_time_column(df)
@@ -84,20 +87,20 @@ def process_file(path: Path) -> None:
         try:
             subset.to_parquet(out_path, index=False, compression="zstd")
         except Exception as err:
-            print(f"Failed to save {out_path.name}: {err}")
+            logger.info(f"Failed to save {out_path.name}: {err}")
             continue
-        print(f"Saved {out_path.name}")
+        logger.info(f"Saved {out_path.name}")
 
 
 def main() -> None:
     SPLIT_DIR.mkdir(parents=True, exist_ok=True)
     if not FEATURE_DIR.exists():
-        print(f"Feature directory {FEATURE_DIR} missing")
+        logger.info(f"Feature directory {FEATURE_DIR} missing")
         return
 
     files = list(FEATURE_DIR.glob("*.parquet"))
     if not files:
-        print("No feature files found")
+        logger.info("No feature files found")
         return
 
     for file in files:

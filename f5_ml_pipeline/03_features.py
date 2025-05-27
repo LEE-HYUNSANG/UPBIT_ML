@@ -25,6 +25,9 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(3)
+
 BASE_DIR = Path(__file__).resolve().parent
 # Allow importing modules from the repository root when executed as a script
 sys.path.insert(0, str(BASE_DIR.parent))
@@ -163,19 +166,19 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
 def main() -> None:
     FEATURE_DIR.mkdir(parents=True, exist_ok=True)
     if not CLEAN_DIR.exists():
-        print(f"Clean directory {CLEAN_DIR} missing")
+        logger.info(f"Clean directory {CLEAN_DIR} missing")
         return
     files = list(CLEAN_DIR.glob("*.parquet"))
     if not files:
-        print("No cleaned parquet files found")
+        logger.info("No cleaned parquet files found")
         return
     for path in files:
-        print(f"Processing {path.name}")
+        logger.info(f"Processing {path.name}")
         df = pd.read_parquet(path)
         feat = compute_features(df)
         out_path = FEATURE_DIR / path.name
         feat.to_parquet(out_path, index=False, compression="zstd")
-        print(f"Saved features to {out_path}")
+        logger.info(f"Saved features to {out_path}")
 
 
 if __name__ == "__main__":

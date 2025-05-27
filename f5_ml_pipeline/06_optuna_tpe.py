@@ -25,6 +25,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(6)
 from typing import List, Tuple
 
 try:
@@ -69,18 +72,18 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
     """Tune all label columns for a single symbol."""
 
     symbol = train_path.stem.replace("_train", "")
-    print(f"Tuning {symbol}")
+    logger.info(f"Tuning {symbol}")
 
     try:
         train_df = pd.read_parquet(train_path)
         val_df = pd.read_parquet(val_path)
     except Exception as err:
-        print(f"Failed to load data for {symbol}: {err}")
+        logger.info(f"Failed to load data for {symbol}: {err}")
         return []
 
     labels = _detect_label_columns(train_df)
     if not labels:
-        print(
+        logger.info(
             f"Label column not found for {symbol}. "
             "Run 04_label.py and 05_split.py before tuning."
         )
@@ -89,7 +92,7 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
     results = []
     for label_col in labels:
         if label_col not in val_df.columns:
-            print(f"Label {label_col} missing in validation set for {symbol}")
+            logger.info(f"Label {label_col} missing in validation set for {symbol}")
             continue
 
         X_train, y_train = _prepare_xy(train_df, label_col)
@@ -123,7 +126,9 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
 
         completed_trials = [t for t in study.trials if t.state == TrialState.COMPLETE]
         if not completed_trials:
-            print(f"Optimization failed for {symbol} [{label_col}], no completed trials")
+            logger.info(
+                f"Optimization failed for {symbol} [{label_col}], no completed trials"
+            )
             continue
 
         params_path = MODEL_DIR / f"{symbol}_{label_col}_best_params.json"
@@ -156,7 +161,9 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
         fi_path = MODEL_DIR / f"{symbol}_{label_col}_feature_importance.csv"
         fi_df.to_csv(fi_path, index=False)
 
-        print(f"Tuning complete for {symbol} [{label_col}]. Model saved to {model_path}")
+        logger.info(
+            f"Tuning complete for {symbol} [{label_col}]. Model saved to {model_path}"
+        )
         results.append(
             {
                 "symbol": symbol,
@@ -172,19 +179,19 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
 
 def main() -> None:
     if not SPLIT_DIR.exists():
-        print(f"Split directory {SPLIT_DIR} missing")
+        logger.info(f"Split directory {SPLIT_DIR} missing")
         return
 
     train_files = list(SPLIT_DIR.glob("*_train.parquet"))
     if not train_files:
-        print(f"No train files found in {SPLIT_DIR}")
+        logger.info(f"No train files found in {SPLIT_DIR}")
         return
 
     results: List[dict] = []
     for train_path in train_files:
         val_path = SPLIT_DIR / f"{train_path.stem.replace('_train', '')}_val.parquet"
         if not val_path.exists():
-            print(f"Validation file missing for {train_path.stem}")
+            logger.info(f"Validation file missing for {train_path.stem}")
             continue
         results.extend(tune_symbol(train_path, val_path))
 
@@ -197,7 +204,7 @@ def main() -> None:
         summary_df = pd.concat([summary_df, pd.DataFrame(results)], ignore_index=True)
         summary_df.drop_duplicates(subset=["symbol", "label"], keep="last", inplace=True)
         summary_df.to_csv(summary_csv, index=False)
-        print(f"Summary written to {summary_csv}")
+        logger.info(f"Summary written to {summary_csv}")
 
 
 if __name__ == "__main__":

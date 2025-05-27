@@ -2,6 +2,9 @@ import sys
 from pathlib import Path
 import pandas as pd
 
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(2)
+
 RAW_DIR = Path(__file__).resolve().parent / "ml_data/01_raw"
 CLEAN_DIR = Path(__file__).resolve().parent / "ml_data/02_clean"
 
@@ -34,7 +37,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def clean_file(path: Path) -> None:
-    print(f"Processing {path.name}")
+    logger.info(f"Processing {path.name}")
     try:
         df = pd.read_csv(path)
         df = normalize_columns(df)
@@ -56,31 +59,31 @@ def clean_file(path: Path) -> None:
             df = df[~(df[num_cols].sum(axis=1) == 0)]
         if time_col:
             df.sort_values(time_col, inplace=True)
-        print(df.info())
-        print(df.describe(include="all"))
+        logger.info(df.info())
+        logger.info(df.describe(include="all"))
         out_path = CLEAN_DIR / path.with_suffix(".parquet").name
         try:
             df.to_parquet(out_path, index=False, compression="zstd")
         except Exception as e:
-            print(f"Failed to write parquet with compression zstd: {e}")
+            logger.info(f"Failed to write parquet with compression zstd: {e}")
             try:
                 df.to_parquet(out_path, index=False)
             except Exception as e2:
-                print(f"Parquet export failed: {e2}. Falling back to CSV")
+                logger.info(f"Parquet export failed: {e2}. Falling back to CSV")
                 df.to_csv(out_path.with_suffix(".csv"), index=False)
                 return
-        print(f"Saved cleaned file to {out_path}")
+        logger.info(f"Saved cleaned file to {out_path}")
     except Exception as err:
-        print(f"Error processing {path.name}: {err}")
+        logger.info(f"Error processing {path.name}: {err}")
 
 def main() -> None:
     CLEAN_DIR.mkdir(parents=True, exist_ok=True)
     if not RAW_DIR.exists():
-        print(f"Raw directory {RAW_DIR} does not exist")
+        logger.info(f"Raw directory {RAW_DIR} does not exist")
         return
     csv_files = list(RAW_DIR.glob("*.csv"))
     if not csv_files:
-        print("No CSV files found in raw directory")
+        logger.info("No CSV files found in raw directory")
         return
     for file_path in csv_files:
         clean_file(file_path)

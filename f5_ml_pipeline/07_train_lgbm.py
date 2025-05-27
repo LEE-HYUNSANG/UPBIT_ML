@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(7)
 from typing import List, Tuple, Dict
 
 try:
@@ -50,36 +53,36 @@ def _evaluate(y_true: pd.Series, preds: List[float]) -> Dict[str, float]:
 def train_symbol(train_path: Path, val_path: Path, test_path: Path) -> None:
     """Train models for all labels of a single symbol."""
     symbol = train_path.stem.replace("_train", "")
-    print(f"Training models for {symbol}")
+    logger.info(f"Training models for {symbol}")
 
     try:
         train_df = pd.read_parquet(train_path)
         val_df = pd.read_parquet(val_path)
         test_df = pd.read_parquet(test_path)
     except Exception as err:
-        print(f"Failed to load data for {symbol}: {err}")
+        logger.info(f"Failed to load data for {symbol}: {err}")
         return
 
     labels = _detect_label_columns(train_df)
     if not labels:
-        print(f"No label columns found for {symbol}")
+        logger.info(f"No label columns found for {symbol}")
         return
 
     for label_col in labels:
         if label_col not in val_df.columns or label_col not in test_df.columns:
-            print(f"Label {label_col} missing in splits for {symbol}")
+            logger.info(f"Label {label_col} missing in splits for {symbol}")
             continue
 
         params_path = MODEL_DIR / f"{symbol}_{label_col}_best_params.json"
         if not params_path.exists():
-            print(f"Best params not found for {symbol} [{label_col}]")
+            logger.info(f"Best params not found for {symbol} [{label_col}]")
             continue
 
         try:
             with params_path.open() as f:
                 best_params = json.load(f)
         except (OSError, json.JSONDecodeError) as err:
-            print(f"Failed to read params for {symbol} [{label_col}]: {err}")
+            logger.info(f"Failed to read params for {symbol} [{label_col}]: {err}")
             continue
 
         train_all = pd.concat([train_df, val_df], ignore_index=True)
@@ -114,19 +117,19 @@ def train_symbol(train_path: Path, val_path: Path, test_path: Path) -> None:
         fi_df.sort_values(by="importance", ascending=False, inplace=True)
         fi_path = MODEL_DIR / f"{symbol}_{label_col}_feature_importance.csv"
         fi_df.to_csv(fi_path, index=False)
-        print(
+        logger.info(
             f"Model for {symbol} [{label_col}] saved to {model_path}. AUC={metrics['auc']:.4f}"
         )
 
 
 def main() -> None:
     if not SPLIT_DIR.exists():
-        print(f"Split directory {SPLIT_DIR} missing")
+        logger.info(f"Split directory {SPLIT_DIR} missing")
         return
 
     train_files = list(SPLIT_DIR.glob("*_train.parquet"))
     if not train_files:
-        print(f"No train files found in {SPLIT_DIR}")
+        logger.info(f"No train files found in {SPLIT_DIR}")
         return
 
     for train_path in train_files:
@@ -134,7 +137,7 @@ def main() -> None:
         val_path = SPLIT_DIR / f"{base}_val.parquet"
         test_path = SPLIT_DIR / f"{base}_test.parquet"
         if not val_path.exists() or not test_path.exists():
-            print(f"Validation or test file missing for {base}")
+            logger.info(f"Validation or test file missing for {base}")
             continue
         train_symbol(train_path, val_path, test_path)
 

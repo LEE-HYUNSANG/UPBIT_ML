@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(8)
 from typing import Dict, List, Tuple
 
 try:
@@ -64,24 +67,24 @@ def _find_best_threshold(y_true: pd.Series, probs: List[float]) -> float:
 def calibrate_symbol(val_path: Path, test_path: Path) -> None:
     """Calibrate all label models for a single symbol."""
     symbol = val_path.stem.replace("_val", "")
-    print(f"Calibrating {symbol}")
+    logger.info(f"Calibrating {symbol}")
 
     model_files = list(MODEL_DIR.glob(f"{symbol}_*_model.pkl"))
     if not model_files:
-        print(f"No trained models found for {symbol}")
+        logger.info(f"No trained models found for {symbol}")
         return
 
     try:
         val_df = pd.read_parquet(val_path)
         test_df = pd.read_parquet(test_path)
     except Exception as err:
-        print(f"Failed to load data for {symbol}: {err}")
+        logger.info(f"Failed to load data for {symbol}: {err}")
         return
 
     for model_file in model_files:
         label_col = model_file.stem.replace(f"{symbol}_", "").replace("_model", "")
         if label_col not in val_df.columns or label_col not in test_df.columns:
-            print(f"Label {label_col} missing in splits for {symbol}")
+            logger.info(f"Label {label_col} missing in splits for {symbol}")
             continue
 
         model = joblib.load(model_file)
@@ -116,7 +119,7 @@ def calibrate_symbol(val_path: Path, test_path: Path) -> None:
         with thresh_path.open("w") as f:
             json.dump({"threshold": thresh}, f, indent=2)
 
-        print(
+        logger.info(
             f"Calibration for {symbol} [{label_col}] saved to {calib_path}. "
             f"AUC(before)={metrics['before']['auc']:.4f} -> "
             f"AUC(after)={metrics['after']['auc']:.4f}"
@@ -125,19 +128,19 @@ def calibrate_symbol(val_path: Path, test_path: Path) -> None:
 
 def main() -> None:
     if not SPLIT_DIR.exists():
-        print(f"Split directory {SPLIT_DIR} missing")
+        logger.info(f"Split directory {SPLIT_DIR} missing")
         return
 
     val_files = list(SPLIT_DIR.glob("*_val.parquet"))
     if not val_files:
-        print(f"No validation files found in {SPLIT_DIR}")
+        logger.info(f"No validation files found in {SPLIT_DIR}")
         return
 
     for val_path in val_files:
         base = val_path.stem.replace("_val", "")
         test_path = SPLIT_DIR / f"{base}_test.parquet"
         if not test_path.exists():
-            print(f"Test file missing for {base}")
+            logger.info(f"Test file missing for {base}")
             continue
         calibrate_symbol(val_path, test_path)
 

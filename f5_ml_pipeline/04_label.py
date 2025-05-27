@@ -5,6 +5,9 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(4)
+
 import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -22,7 +25,7 @@ STRATEGIES = load_strategies()
 
 def label_file(path: Path) -> None:
     """Apply all strategy formulas to a single feature file."""
-    print(f"Processing {path.name}")
+    logger.info(f"Processing {path.name}")
     df = pd.read_parquet(path)
 
     if "entry_price" not in df.columns:
@@ -38,13 +41,13 @@ def label_file(path: Path) -> None:
 
     out_path = LABEL_DIR / path.name
     df.to_parquet(out_path, index=False, compression="zstd")
-    print(f"Saved label to {out_path}")
+    logger.info(f"Saved label to {out_path}")
 
 
 def main() -> None:
     files = list(RAW_DIR.glob("*.parquet"))
     if not files:
-        print("No features files found in", RAW_DIR)
+        logger.info("No features files found in %s", RAW_DIR)
         return
     for file in files:
         label_file(file)
