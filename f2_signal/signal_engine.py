@@ -74,7 +74,10 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     df_5m["timestamp"] = df_5m["timestamp"].apply(_as_utc)
 
     # Filter out partial candles close to the current time
-    now = pd.Timestamp.utcnow().tz_localize("UTC")
+    # ``Timestamp.utcnow`` may already return a timezone-aware value depending
+    # on the pandas version.  Use ``Timestamp.now`` with ``tz="UTC"`` to avoid
+    # calling ``tz_localize`` on an aware timestamp.
+    now = pd.Timestamp.now(tz="UTC")
     if not df_1m.empty:
         last_1m_ts = _as_utc(df_1m["timestamp"].iloc[-1])
         if (now - last_1m_ts).total_seconds() < 60:
