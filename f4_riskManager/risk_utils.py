@@ -10,6 +10,6 @@ class RiskState(Enum):
     DISABLE = 3
     HALT = 4
 
-def now():
-    """현재 epoch timestamp 반환(초)"""
-    return int(time.time())
+def now() -> float:
+    """Return current epoch timestamp in seconds as a float."""
+    return time.time()
