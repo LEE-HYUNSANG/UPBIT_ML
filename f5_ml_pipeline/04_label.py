@@ -32,11 +32,18 @@ BUY_FORMULAS = {
     ),
 }
 
+def _get_col(df: pd.DataFrame, name: str, default: pd.Series) -> pd.Series:
+    """Return existing column or the provided default series."""
+    if name in df.columns:
+        return df[name]
+    return default
+
+
 SELL_FORMULAS = {
     "M_BREAK": lambda df: (
-        (df["close"] >= df["entry_price"] * 1.015)
-        | (df["close"] <= df["peak"] * 0.992)
-        | (df["close"] <= df["entry_price"] * 0.993)
+        (df["close"] >= _get_col(df, "entry_price", df["close"]) * 1.015)
+        | (df["close"] <= _get_col(df, "peak", df["close"].cummax()) * 0.992)
+        | (df["close"] <= _get_col(df, "entry_price", df["close"]) * 0.993)
         | (df["rsi_14"] < 60)
         | (df["ema_5"] < df["ema_20"])
     ),
