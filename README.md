@@ -62,3 +62,11 @@ Risk events are recorded in `logs/risk_events.db` for later review.
 When the risk configuration file is modified (e.g. `config/setting_date/Latest_config.json`) the manager detects the change via `hot_reload()` and applies the new parameters immediately. A notification is also sent.
 
 To recover from a halted state simply restart the application or wait for `periodic()` to transition back to `ACTIVE` when allowed.
+
+## Initial balance sync
+
+When the application starts the `PositionManager` now fetches account balances
+using the Upbit API. Any holding worth at least 5,000 KRW is registered as an
+``imported`` position so that F2/F3 can monitor sell signals for it. Imported
+and ignored balances are logged to ``logs/position_init.log`` and a summary
+notification is sent via ``ExceptionHandler.send_alert``.

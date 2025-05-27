@@ -96,6 +96,12 @@ def main_loop(interval: int = 1) -> None:
         universe = get_universe()
         if not universe:
             universe = select_universe(cfg)
+        imported = [
+            p.get("symbol")
+            for p in executor.position_manager.positions
+            if p.get("status") == "open" and p.get("origin") == "imported"
+        ]
+        universe = list(dict.fromkeys(universe + imported))
         logging.info(f"[Loop] Universe: {universe}")
         executor.position_manager.sync_with_universe(universe)
         # Update risk manager with open positions

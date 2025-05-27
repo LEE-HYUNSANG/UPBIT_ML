@@ -95,6 +95,9 @@ def app_client(monkeypatch):
                 "price": price,
             }
 
+        def get_accounts(self):
+            return []
+
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
 
     # Simplify smart_buy to include qty/price for position opening

@@ -44,9 +44,12 @@ class PositionManager:
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions = []
         self.client = UpbitClient()
+        # Import existing balances from the account so they can be managed
+        # alongside positions opened by this app.
+        self.import_existing_positions()
 
     def open_position(self, order_result):
-        """ 신규 포지션 오픈 (filled 주문 결과 기반) """
+        """신규 포지션 오픈 (filled 주문 결과 또는 잔고 가져오기)"""
         pos = {
             "symbol": order_result["symbol"],
             "entry_time": now(),
@@ -55,9 +58,56 @@ class PositionManager:
             "pyramid_count": 0,
             "avgdown_count": 0,
             "status": "open",
+            "origin": order_result.get("origin", "trade"),
         }
         self.positions.append(pos)
         log_with_tag(logger, f"Open position: {pos}")
+
+    def import_existing_positions(self, threshold: float = 5000.0) -> None:
+        """Scan account balances and register them as open positions."""
+        try:
+            accounts = self.client.get_accounts()
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to fetch accounts: {exc}")
+            return
+
+        imported = []
+        ignored = []
+        for coin in accounts:
+            if coin.get("currency") == "KRW":
+                continue
+            bal = float(coin.get("balance", 0))
+            price = float(coin.get("avg_buy_price", 0))
+            eval_amt = bal * price
+            symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
+            log_data = {
+                "time": _now_kst(),
+                "symbol": symbol,
+                "qty": bal,
+                "entry_price": price,
+                "eval_amt": eval_amt,
+            }
+            if eval_amt >= threshold:
+                self.open_position({
+                    "symbol": symbol,
+                    "price": price,
+                    "qty": bal,
+                    "origin": "imported",
+                })
+                log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
+                imported.append(f"{symbol}({int(eval_amt):,}원)")
+            else:
+                log_data.update({"event": "IgnoreSmallBalance", "action": "매수대상 유지"})
+                ignored.append(f"{symbol}({int(eval_amt):,}원)")
+            _log_jsonl("logs/position_init.log", log_data)
+
+        if self.exception_handler and (imported or ignored):
+            lines = ["[시스템] 시작 시 보유코인 점검 완료."]
+            if imported:
+                lines.append("- 5천원 이상 보유: " + ", ".join(imported) + " → 매도 감시")
+            if ignored:
+                lines.append("- 5천원 미만: " + ", ".join(ignored) + " → 신규 매수 가능")
+            self.exception_handler.send_alert("\n".join(lines), "info")
 
     def hold_loop(self):
         """
@@ -262,7 +312,7 @@ class PositionManager:
         for pos in list(self.positions):
             if pos.get("status") != "open":
                 continue
-            if pos.get("symbol") not in universe:
+            if pos.get("symbol") not in universe and pos.get("origin") != "imported":
                 self.close_position(pos.get("symbol"), "Universe Excluded")
                 _log_jsonl(
                     "logs/position_universe_sync.log",

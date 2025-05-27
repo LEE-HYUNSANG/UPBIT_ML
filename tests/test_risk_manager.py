@@ -11,6 +11,9 @@ class DummyClient:
     def place_order(self, *args, **kwargs):
         return {"uuid": "1", "state": "done", "side": kwargs.get("side"), "volume": kwargs.get("volume", 0)}
 
+    def get_accounts(self):
+        return []
+
 
 def make_pm(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
