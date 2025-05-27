@@ -82,7 +82,7 @@ def process_symbol(symbol: str) -> Optional[dict]:
     return result
 
 
-def main_loop(interval: int = 1) -> None:
+def main_loop(interval: int = 1, stop_event=None) -> None:
     """Main processing loop fetching the universe and evaluating signals."""
     cfg = load_config()
     load_universe_from_file()
@@ -93,6 +93,8 @@ def main_loop(interval: int = 1) -> None:
     risk_manager = RiskManager(order_executor=executor, exception_handler=executor.exception_handler)
     executor.set_risk_manager(risk_manager)
     while True:
+        if stop_event and stop_event.is_set():
+            break
         universe = get_universe()
         if not universe:
             universe = select_universe(cfg)

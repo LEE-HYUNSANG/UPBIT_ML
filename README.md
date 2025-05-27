@@ -83,6 +83,10 @@ Several lightweight REST APIs expose runtime data for the dashboard.
   ```
 - `POST` – update the status by sending `{ "enabled": true }`.
 
+The server resets to `{"enabled": false}` whenever it starts. When disabled,
+the monitoring loop continues to run so open positions and alerts remain
+available via the API.
+
 ### `/api/open_positions`
 
 - `GET` – list open positions managed by the order executor.
