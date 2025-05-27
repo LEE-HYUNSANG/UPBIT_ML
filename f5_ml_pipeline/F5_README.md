@@ -18,5 +18,10 @@ Scripts:
 3. `03_features.py` – add technical indicators to cleaned data
 4. `04_label.py` – generate buy/sell label columns
 5. `05_split.py` – split feature data into train/validation/test sets
+6. `06_optuna_tpe.py` – hyperparameter tuning and model export
+
+Tuning results, models and feature importance are written to
+`ml_data/06_models/` with standardized filenames so later steps can load them
+directly.
 
 Common helper functions live in `F5_utils.py` which currently exposes a `now()` function returning the current epoch timestamp.
