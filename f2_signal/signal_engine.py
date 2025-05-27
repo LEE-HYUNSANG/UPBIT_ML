@@ -100,9 +100,10 @@ def _as_utc(ts):
 
 def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     """
-    Determine buy/sell signals for a given symbol based on 1-minute and 5-minute data.
-    df_1m and df_5m are DataFrames with columns ['timestamp','open','high','low','close','volume'].
-    Returns a dictionary with the symbol, boolean flags 'buy_signal' and 'sell_signal',
+    Determine buy/sell signals for a given symbol. Buy conditions are evaluated
+    using the 5-minute data while sell conditions use the 1-minute data.
+    ``df_1m`` and ``df_5m`` must contain columns ['timestamp','open','high','low','close','volume'].
+    Returns a dictionary with the symbol, boolean flags ``buy_signal`` and ``sell_signal``
     and lists of triggered strategies.
     """
     logging.debug(f"[{symbol}] Starting signal calculation")
@@ -349,19 +350,17 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
             )
             continue
         logging.info(
-            f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
-        )
-        logging.info(
             f"[{symbol}][F2][5분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
         )
+        logging.info(
+            f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Sell: {sell_formula}"
+        )
         try:
-            buy_cond_1m = eval_formula(buy_formula, latest1, symbol, strat["short_code"])
             buy_cond_5m = eval_formula(buy_formula, latest5, symbol, strat["short_code"])
         except Exception as e:
             logging.error(
                 f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
             )
-            buy_cond_1m = False
             buy_cond_5m = False
         try:
             sell_cond_1m = eval_formula(sell_formula, latest1, symbol, strat["short_code"])
@@ -370,14 +369,14 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
                 f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
             )
             sell_cond_1m = False
-        if buy_cond_1m and buy_cond_5m:
+        if buy_cond_5m:
             buy_signal = True
             triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula, "order": settings.get("order", 999)})
         if sell_cond_1m:
             sell_signal = True
             triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
         logging.info(
-            f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_1m: {buy_cond_1m}, Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
+            f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
         )
     if buy_signal:
         # Select the highest priority strategy among triggered ones
