@@ -48,8 +48,7 @@ class ExceptionHandler:
         self.tg_chat_id = env.get("TELEGRAM_CHAT_ID")
 
     def _log_event(self, data: dict) -> None:
-        date = datetime.datetime.now().strftime("%Y%m%d")
-        path = os.path.join("logs", f"events_{date}.jsonl")
+        path = os.path.join("logs", "events.jsonl")
         data["time"] = _now_kst()
         _log_jsonl(path, data)
 
