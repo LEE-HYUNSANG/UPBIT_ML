@@ -4,6 +4,9 @@ import requests
 from datetime import datetime, timedelta
 from typing import List, Dict
 
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(1)
+
 import pandas as pd
 from tqdm import tqdm
 
@@ -20,13 +23,13 @@ def _request_json(url: str, params: Dict[str, str] | None = None) -> List[Dict]:
         try:
             response = requests.get(url, params=params, timeout=10)
             if response.status_code == 429:
-                print("Rate limit hit. Sleeping...")
+                logger.info("Rate limit hit. Sleeping...")
                 time.sleep(1)
                 continue
             response.raise_for_status()
             return response.json()
         except requests.RequestException as exc:
-            print(f"Request error: {exc}. Retrying...")
+            logger.info(f"Request error: {exc}. Retrying...")
             time.sleep(1)
 
 
@@ -35,7 +38,7 @@ def get_krw_markets() -> List[str]:
     url = f"{BASE_URL}/v1/market/all"
     data = _request_json(url, params={"isDetails": "false"})
     markets = [m["market"] for m in data if m["market"].startswith("KRW-")]
-    print(f"Fetched {len(markets)} KRW markets")
+    logger.info(f"Fetched {len(markets)} KRW markets")
     return markets
 
 
@@ -80,7 +83,7 @@ def fetch_minutes(market: str, start_dt: datetime, end_dt: datetime) -> List[Dic
 def save_csv(market: str, rows: List[Dict]):
     """Save rows to CSV in DATA_DIR."""
     if not rows:
-        print(f"No data for {market}")
+        logger.info(f"No data for {market}")
         return
     df = pd.DataFrame(rows)
     df.sort_values("timestamp", inplace=True)
@@ -89,7 +92,7 @@ def save_csv(market: str, rows: List[Dict]):
     filename = f"{market}_{start_str}-{end_str}.csv"
     path = os.path.join(DATA_DIR, filename)
     df.to_csv(path, index=False)
-    print(f"Saved {market} data to {path}")
+    logger.info(f"Saved {market} data to {path}")
 
 
 def main():
@@ -99,13 +102,13 @@ def main():
     markets = get_krw_markets()
     prices = get_current_prices(markets)
     targets = [m for m in markets if 500 <= prices.get(m, 0) <= 25000]
-    print(f"Collecting data for {len(targets)} markets")
+    logger.info(f"Collecting data for {len(targets)} markets")
 
     for market in targets:
         rows = fetch_minutes(market, start_dt, end_dt)
         save_csv(market, rows)
 
-    print("DONE")
+    logger.info("DONE")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+
+from F5_utils import setup_ml_logger
+logger = setup_ml_logger(9)
 from typing import Dict, List
 
 try:
@@ -58,7 +61,7 @@ def _load_model_parts(symbol: str, label: str):
     calib_path = MODEL_DIR / f"{symbol}_{label}_calib.pkl"
     thresh_path = MODEL_DIR / f"{symbol}_{label}_thresh.json"
     if not (model_path.exists() and calib_path.exists() and thresh_path.exists()):
-        print(f"Model artifacts missing for {symbol} {label}")
+        logger.info(f"Model artifacts missing for {symbol} {label}")
         return None, None, None
     model = joblib.load(model_path)
     calib = joblib.load(calib_path)
@@ -156,22 +159,22 @@ def backtest_symbol(test_path: Path) -> None:
     """Backtest all strategy label pairs for a single symbol."""
 
     symbol = test_path.stem.replace("_test", "")
-    print(f"Backtesting {symbol}")
+    logger.info(f"Backtesting {symbol}")
 
     try:
         df = pd.read_parquet(test_path)
     except Exception as err:
-        print(f"Failed to load {test_path.name}: {err}")
+        logger.info(f"Failed to load {test_path.name}: {err}")
         return
 
     time_col = _detect_time_column(df)
     if not time_col or "close" not in df.columns:
-        print(f"Missing required columns in {test_path.name}")
+        logger.info(f"Missing required columns in {test_path.name}")
         return
 
     strategies = _detect_label_pairs(df)
     if not strategies:
-        print(f"No label pairs found for {symbol}")
+        logger.info(f"No label pairs found for {symbol}")
         return
 
     for strat in strategies:
@@ -200,7 +203,7 @@ def backtest_symbol(test_path: Path) -> None:
         with summary_path.open("w") as f:
             json.dump(summary, f, indent=2)
 
-        print(
+        logger.info(
             f"{symbol} {strat}: ROI={summary['ROI']:.2f}% "
             f"Trades={summary['Trades']} WinRate={summary['WinRate']:.2f}%"
         )
@@ -208,12 +211,12 @@ def backtest_symbol(test_path: Path) -> None:
 
 def main() -> None:
     if not SPLIT_DIR.exists():
-        print(f"Split directory {SPLIT_DIR} missing")
+        logger.info(f"Split directory {SPLIT_DIR} missing")
         return
 
     test_files = list(SPLIT_DIR.glob("*_test.parquet"))
     if not test_files:
-        print(f"No test files found in {SPLIT_DIR}")
+        logger.info(f"No test files found in {SPLIT_DIR}")
         return
 
     for test_path in test_files:

@@ -2,6 +2,10 @@
 
 This directory contains scripts and data folders for training and evaluating ML models used by the trading system. Each numbered script corresponds to a pipeline step.
 
+All pipeline logs are written to `f5_ml_pipeline/ml_data/09_logs` as
+`mllog_<YYYYMMDDHHMMSS>.log`. When a log exceeds 1 MB it rotates to a new file.
+Each message includes the step identifier like `[ML_01]` for `01_fetch_market.py`.
+
 ## 01_fetch_market.py
 Retrieves 1 minute OHLCV data for the last 90 days using the Upbit REST API. The script:
 
