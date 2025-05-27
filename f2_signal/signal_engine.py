@@ -410,28 +410,49 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
     # EMA, RSI, ATR, MFI, ADX, etc., with periods and optional offsets
     # We'll assume offset format as in formulas: e.g. "EMA(20)" or "EMA(20,-1)".
     # We handle common indicators:
-    ind_patterns = ["EMA", "RSI", "ATR", "MFI", "ADX", "MACD_line", "MACD_signal", "MACD_hist",
-                    "StochK", "StochD", "BB_upper", "BB_lower", "BB_mid",
-                    "BandWidth20", "Vol_MA20", "ATR_14_MA20", "VWAP", "Strength",
-                    "Tenkan", "Kijun", "SpanA", "SpanB", "Chikou",
-                    "DI_plus", "DI_minus", "PSAR",
-                    "MaxHigh5", "MaxHigh20", "MaxHigh60", "MaxHigh120",
-                    "MinLow5", "MinLow20", "MinLow60", "MinLow120"]
+    ind_patterns = [
+        "EMA",
+        "RSI",
+        "ATR",
+        "MFI",
+        "ADX",
+        "MACD_line",
+        "MACD_signal",
+        "MACD_hist",
+        "StochK",
+        "StochD",
+        "BB_upper",
+        "BB_lower",
+        "BB_mid",
+        "BandWidth20",
+        "BandWidth20_min20",
+        "Vol_MA20",
+        "ATR_14_MA20",
+        "VWAP",
+        "Strength",
+        "Tenkan",
+        "Kijun",
+        "SpanA",
+        "SpanB",
+        "Chikou",
+        "DI_plus",
+        "DI_minus",
+        "PSAR",
+        "MaxHigh5",
+        "MaxHigh20",
+        "MaxHigh60",
+        "MaxHigh120",
+        "MinLow5",
+        "MinLow20",
+        "MinLow60",
+        "MinLow120",
+    ]
     # Replace any known indicator mention with its value. We need to handle offsets like Indicator(period, offset).
     # We'll parse by finding occurrences of pattern names.
     for key in ind_patterns:
         if key in expr:
-            # Determine if expr uses function-like syntax (with parentheses) or plain.
-            # e.g. "EMA(5)" or "EMA(120,-1)" etc.
-            # We'll do a simple replacement for specific cases:
-            # Replace e.g. "EMA(5)" with data_row["EMA_5"], "EMA(5,-1)" means previous bar EMA5, which we can't get from single row.
-            # To handle offsets in single row context: if offset refers to previous data, we cannot evaluate without full series.
-            # For signals on latest row, any condition with offset referring to past can be approximated as False (or user should pass proper previous values).
-            # Here, we assume formula evaluation is done on full series normally; for last row signals, skip offset logic.
-            # We'll handle offset 0 explicitly:
+            # Handle function-like syntax first (e.g. Indicator(period, offset))
             if key + "(" in expr:
-                # Extract content inside parentheses
-                # Example: key="EMA", formula segment "EMA(20)" or "EMA(20,-1)"
                 pattern = rf"{key}\(([^()]*)\)"
                 matches = list(re.finditer(pattern, expr))
                 for m in matches:
@@ -441,32 +462,20 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
                     if key in ["EMA", "RSI", "ATR", "MFI", "ADX"]:
                         col_name = f"{key}_{period_val}"
                     elif key.startswith("Stoch"):
-                        # e.g. StochK(14) -> StochK_14
                         col_name = f"{key}_{period_val}"
                     elif key.startswith("BB_") or key.startswith("BandWidth") or key.startswith("Vol_MA"):
-                        # Already exact column names in DataFrame
                         col_name = key
                     else:
-                        col_name = key  # for single series like Strength, VWAP, etc.
+                        col_name = key
                     value = data_row.get(col_name, None)
-                    # If offset is specified and not 0, we cannot get that from current row alone.
                     if offset_val is not None and offset_val not in ["0", ""]:
-                        # If offset is negative (e.g., -1 for previous), we can't get previous from single row
-                        # Here we assume evaluation on latest row only, so skip or treat as False condition.
-                        # We'll replace with the current value as approximation or raise if needed.
-                        # To be safe, if offset != 0, we assume condition cannot be verified here, return False.
                         value = None
-                    # Replace the function call with the numeric value or a placeholder
-                    if value is None or pd.isna(value):
-                        # Use a value that will not trigger a buy/sell (for numeric comparisons, None will error; use 0 or some neutral)
-                        replacement_val = "0"
-                    else:
-                        replacement_val = f"{float(value)}"
+                    replacement_val = "0" if value is None or pd.isna(value) else f"{float(value)}"
                     expr = re.sub(re.escape(m.group(0)), replacement_val, expr)
-            else:
-                # Plain key mention without parentheses
-                if key in data_row:
-                    expr = expr.replace(key, str(float(data_row[key])) if pd.notna(data_row[key]) else "0")
+            # After handling any function-like occurrences, replace plain mentions
+            if key in data_row:
+                replacement_val = "0" if pd.isna(data_row[key]) else f"{float(data_row[key])}"
+                expr = re.sub(rf"\b{re.escape(key)}\b", replacement_val, expr)
     # Replace basic fields after indicators (to avoid partial replacement issues)
     for name, val in replacements.items():
         expr = expr.replace(name, str(float(val)) if hasattr(val, "__float__") else str(val))
