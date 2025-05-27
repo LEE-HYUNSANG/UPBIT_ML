@@ -19,6 +19,32 @@ from indicators import (
     ichimoku,
     parabolic_sar,
 )
+import datetime
+
+
+def _now_kst():
+    tz = datetime.timezone(datetime.timedelta(hours=9))
+    return datetime.datetime.now(tz).isoformat(timespec="seconds")
+
+
+def _log_jsonl(path: str, data: dict) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        f.write("\n")
+
+
+def _log_insufficient_data(symbol: str, strategy: str, required: int, available: int) -> None:
+    data = {
+        "time": _now_kst(),
+        "symbol": symbol,
+        "strategy": strategy,
+        "required_bars": required,
+        "available_bars": available,
+        "reason": "Insufficient Data",
+        "action": "Signal Skipped",
+    }
+    _log_jsonl("logs/insufficient_data.log", data)
 
 os.makedirs("log", exist_ok=True)
 logging.basicConfig(
@@ -40,6 +66,14 @@ with open("config/signal.json", "r", encoding="utf-8") as cfg:
     config = json.load(cfg)
 with open("strategies_master_pruned.json", "r", encoding="utf-8") as sf:
     strategies = json.load(sf)
+
+# Load per-strategy minimum bar requirements
+strategy_params_path = os.path.join("config", "strategy_params.json")
+if os.path.exists(strategy_params_path):
+    with open(strategy_params_path, "r", encoding="utf-8") as spf:
+        STRATEGY_PARAMS = json.load(spf)
+else:  # pragma: no cover - default when file missing
+    STRATEGY_PARAMS = {}
 
 # Load per-strategy ON/OFF and priority settings synchronized with the UI
 strategy_settings_path = os.path.join("config", "strategy_settings.json")
@@ -288,6 +322,14 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     for strat in strategies:
         settings = STRATEGY_SETTINGS.get(strat["short_code"], {"on": True, "order": 999})
         if not settings.get("on", True):
+            continue
+        min_req = STRATEGY_PARAMS.get(strat["short_code"], {}).get("min_bars", 0)
+        available = min(len(df1), len(df5))
+        if available < min_req:
+            _log_insufficient_data(symbol, strat["short_code"], min_req, available)
+            logging.info(
+                f"[{symbol}][F2][{strat['short_code']}] skipped - insufficient data {available}/{min_req}"
+            )
             continue
         buy_formula = None
         sell_formula = None

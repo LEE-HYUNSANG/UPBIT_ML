@@ -97,6 +97,7 @@ def main_loop(interval: int = 1) -> None:
         if not universe:
             universe = select_universe(cfg)
         logging.info(f"[Loop] Universe: {universe}")
+        executor.position_manager.sync_with_universe(universe)
         # Update risk manager with open positions
         open_syms = [p.get("symbol") for p in executor.position_manager.positions if p.get("status") == "open"]
         risk_manager.update_account(0.0, 0.0, 0.0, open_syms)

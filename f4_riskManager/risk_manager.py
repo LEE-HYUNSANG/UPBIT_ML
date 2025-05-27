@@ -5,7 +5,32 @@ F4 RiskManager - 실시간 리스크 감시, 상태머신, 자동 조치
 from .risk_config import RiskConfig
 from .risk_logger import RiskLogger
 from .risk_utils import RiskState, now
+import json
+import os
+import datetime
 
+
+def _now_kst():
+    tz = datetime.timezone(datetime.timedelta(hours=9))
+    return datetime.datetime.now(tz).isoformat(timespec="seconds")
+
+
+def _log_jsonl(path: str, data: dict) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        f.write("\n")
+
+
+def _log_fsm(from_state: RiskState, to_state: RiskState, reason: str) -> None:
+    data = {
+        "time": _now_kst(),
+        "event": "FSM Transition",
+        "from": from_state.name,
+        "to": to_state.name,
+        "reason": reason,
+    }
+    _log_jsonl("logs/risk_fsm.log", data)
 class RiskManager:
     def __init__(self, config_path="config/setting_date/Latest_config.json", order_executor=None, exception_handler=None):
         self.config = RiskConfig(config_path)
@@ -86,10 +111,14 @@ class RiskManager:
 
     def pause(self, minutes, reason=""):
         """일시중단 상태 진입"""
+        if self.state == RiskState.PAUSE:
+            return
+        prev = self.state
         self.close_all_positions()
         self.state = RiskState.PAUSE
         self.pause_timer = now() + minutes * 60  # 타임스탬프 기준
         self.logger.warn(f"상태전이: PAUSE - {reason}, {minutes}분간 신규진입 중단")
+        _log_fsm(prev, self.state, reason)
         if self.exception_handler:
             self.exception_handler.send_alert(f"PAUSE: {reason}", "warning")
 
@@ -112,9 +141,13 @@ class RiskManager:
 
     def halt(self, reason=""):
         """전체 중단(HALT), 모든 포지션 청산"""
+        if self.state == RiskState.HALT:
+            return
+        prev = self.state
         self.close_all_positions()
         self.state = RiskState.HALT
         self.logger.critical(f"상태전이: HALT - {reason}, 모든 포지션 청산 및 서비스 중단")
+        _log_fsm(prev, self.state, reason)
         if self.exception_handler:
             self.exception_handler.send_alert(f"HALT: {reason}", "critical")
         # 엔진에 전체 청산 명령 및 신규 진입 불가 트리거

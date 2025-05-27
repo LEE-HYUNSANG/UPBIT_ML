@@ -11,6 +11,9 @@ except Exception:  # pragma: no cover - offline test env
     import urllib.request as _urlreq
 from urllib.parse import urlencode
 from .utils import log_with_tag, load_env
+import json
+import os
+import datetime
 
 logger = logging.getLogger("F3_exception_handler")
 fh = RotatingFileHandler(
@@ -24,6 +27,18 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
+
+def _now_kst():
+    tz = datetime.timezone(datetime.timedelta(hours=9))
+    return datetime.datetime.now(tz).isoformat(timespec="seconds")
+
+
+def _log_jsonl(path: str, data: dict) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        f.write("\n")
+
 class ExceptionHandler:
     def __init__(self, config):
         self.config = config
@@ -31,6 +46,12 @@ class ExceptionHandler:
         env = load_env()
         self.tg_token = env.get("TELEGRAM_TOKEN")
         self.tg_chat_id = env.get("TELEGRAM_CHAT_ID")
+
+    def _log_event(self, data: dict) -> None:
+        date = datetime.datetime.now().strftime("%Y%m%d")
+        path = os.path.join("logs", f"events_{date}.jsonl")
+        data["time"] = _now_kst()
+        _log_jsonl(path, data)
 
     def send_alert(self, message: str, severity: str = "info") -> None:
         """Send a Telegram notification if credentials are set."""
@@ -51,6 +72,12 @@ class ExceptionHandler:
     def handle(self, exception, context=""):
         """ 예외 상황 처리 및 로그 """
         log_with_tag(logger, f"Exception in {context}: {exception}")
+        self._log_event({
+            "event": "Exception",
+            "context": context,
+            "type": type(exception).__name__,
+            "message": str(exception),
+        })
         if isinstance(exception, RuntimeError):
             log_with_tag(logger, "Critical runtime error detected. Pausing trading.")
         elif isinstance(exception, ConnectionError):
@@ -65,6 +92,9 @@ class ExceptionHandler:
             if cnt >= limit:
                 msg = f"{symbol} disabled due to repeated slippage ({cnt})"
                 log_with_tag(logger, msg)
+                self._log_event({
+                    "event": "SlippageLimit", "symbol": symbol, "count": cnt
+                })
                 self.send_alert(msg, "warning")
         
     def handle_slippage(self, symbol, order_info):
@@ -75,6 +105,12 @@ class ExceptionHandler:
         self.slippage_count[symbol] = self.slippage_count.get(symbol, 0) + 1
         msg = f"Slippage {slip_pct:.2f}% for {symbol} (count {self.slippage_count[symbol]})"
         log_with_tag(logger, msg)
+        self._log_event({
+            "event": "Slippage",
+            "symbol": symbol,
+            "slippage": slip_pct,
+            "count": self.slippage_count[symbol],
+        })
         if self.slippage_count[symbol] >= self.config.get("SLIP_FAIL_MAX", 5):
             self.send_alert(msg, "warning")
 
