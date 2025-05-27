@@ -29,6 +29,7 @@ from typing import List, Tuple
 
 try:
     import optuna
+    from optuna.trial import TrialState
     import pandas as pd
     import joblib
     from lightgbm import LGBMClassifier
@@ -119,6 +120,11 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
 
         study = optuna.create_study(direction="maximize", sampler=optuna.samplers.TPESampler())
         study.optimize(objective, n_trials=50, show_progress_bar=False)
+
+        completed_trials = [t for t in study.trials if t.state == TrialState.COMPLETE]
+        if not completed_trials:
+            print(f"Optimization failed for {symbol} [{label_col}], no completed trials")
+            continue
 
         params_path = MODEL_DIR / f"{symbol}_{label_col}_best_params.json"
         with params_path.open("w") as f:
