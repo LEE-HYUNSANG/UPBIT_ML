@@ -20,6 +20,7 @@ from f1_universe.universe_selector import (
     load_universe_from_file,
     CONFIG_PATH,
 )
+from f2_signal.signal_engine import reload_strategy_settings
 
 app = Flask(__name__)
 
@@ -412,6 +413,7 @@ def strategies_endpoint() -> Response:
         except Exception:
             pass
     save_strategy_settings(settings, STRATEGY_SETTINGS_FILE)
+    reload_strategy_settings()
     ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return jsonify({"status": "ok", "updated_at": ts})
 

@@ -93,6 +93,22 @@ else:
 STRATEGY_SETTINGS = {s["short_code"]: s for s in _settings}
 
 
+def reload_strategy_settings() -> None:
+    """Reload per-strategy on/off and order settings from disk."""
+    global STRATEGY_SETTINGS
+    path = os.path.join("config", "strategy_settings.json")
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as ssf:
+            settings = json.load(ssf)
+    else:
+        settings = [
+            {"short_code": s["short_code"], "on": True, "order": i + 1}
+            for i, s in enumerate(strategies)
+        ]
+    # Replace the mapping atomically for thread safety
+    STRATEGY_SETTINGS = {s["short_code"]: s for s in settings}
+
+
 def _as_utc(ts):
     """Return a timezone-aware timestamp in UTC."""
     ts = pd.to_datetime(ts)
