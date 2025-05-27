@@ -26,3 +26,7 @@ also generates rolling highs/lows, volume averages, shifted spans
 (`span_a_26`, `span_b_26`) and a combined `maxspan`. Placeholder fields that
 depend on trade history (e.g. `buy_qty_5m`, `sell_qty_5m`) are filled with `NaN`
 so they can later be merged with collector output.
+
+You can run this step directly from the repository root using
+`python f5_ml_pipeline/03_features.py`. The script automatically adjusts
+`sys.path` so that imports from `indicators.py` resolve correctly.
