@@ -70,3 +70,29 @@ using the Upbit API. Any holding worth at least 5,000 KRW is registered as an
 ``imported`` position so that F2/F3 can monitor sell signals for it. Imported
 and ignored balances are logged to ``logs/position_init.log`` and a summary
 notification is sent via ``ExceptionHandler.send_alert``.
+
+## API endpoints
+
+Several lightweight REST APIs expose runtime data for the dashboard.
+
+### `/api/auto_trade_status`
+
+- `GET` – return the current auto trading status.
+  ```json
+  {"enabled": false, "updated_at": "2024-05-27 10:12:11"}
+  ```
+- `POST` – update the status by sending `{ "enabled": true }`.
+
+### `/api/open_positions`
+
+- `GET` – list open positions managed by the order executor.
+  ```json
+  [
+    {"symbol": "KRW-BTC", "qty": 1, "status": "open"}
+  ]
+  ```
+
+### `/api/events`
+
+- `GET` – return recent event log entries from `logs/events.jsonl`.
+  The optional `limit` query parameter controls how many records are returned.
