@@ -69,8 +69,9 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     # Ensure data is sorted by time in ascending order
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
     df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
-    df_1m["timestamp"] = pd.to_datetime(df_1m["timestamp"], utc=True)
-    df_5m["timestamp"] = pd.to_datetime(df_5m["timestamp"], utc=True)
+    # Handle both naive and timezone-aware input
+    df_1m["timestamp"] = df_1m["timestamp"].apply(_as_utc)
+    df_5m["timestamp"] = df_5m["timestamp"].apply(_as_utc)
 
     # Filter out partial candles close to the current time
     now = pd.Timestamp.utcnow().tz_localize("UTC")

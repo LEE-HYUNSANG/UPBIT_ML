@@ -121,3 +121,25 @@ def test_f2_signal_handles_partial_candle(monkeypatch):
     result = f2_signal(df1, df5, symbol="PART")
     assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
 
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_accepts_tzaware():
+    tz_series = pd.date_range("2021-01-01", periods=30, freq="T", tz="Asia/Seoul")
+    df1 = pd.DataFrame({
+        "timestamp": tz_series,
+        "open": np.linspace(1, 30, 30),
+        "high": np.linspace(1.1, 30.1, 30),
+        "low": np.linspace(0.9, 29.9, 30),
+        "close": np.linspace(1, 30, 30),
+        "volume": np.full(30, 100),
+    })
+    df5 = pd.DataFrame({
+        "timestamp": tz_series[::5].reset_index(drop=True),
+        "open": np.linspace(1, 6, 6),
+        "high": np.linspace(1.1, 6.1, 6),
+        "low": np.linspace(0.9, 5.9, 6),
+        "close": np.linspace(1, 6, 6),
+        "volume": np.full(6, 100),
+    })
+    result = f2_signal(df1, df5, symbol="TZAWARE")
+    assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
