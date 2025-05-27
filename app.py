@@ -6,9 +6,11 @@ import uuid
 import jwt
 import requests
 import datetime
+import time
 import logging
 from logging.handlers import RotatingFileHandler
 from signal_loop import process_symbol, main_loop
+import threading
 from f1_universe.universe_selector import (
     select_universe,
     load_config,
@@ -35,6 +37,12 @@ RISK_CONFIG_PATH = LATEST_CFG
 
 AUTOTRADE_STATUS_FILE = os.path.join("config", "autotrade_status.json")
 EVENTS_LOG = os.path.join("logs", "events.jsonl")
+
+# Runtime state for auto trading thread
+_auto_trade_thread = None
+_auto_trade_stop = None
+_monitor_thread = None
+_monitor_stop = None
 
 
 def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
@@ -79,6 +87,65 @@ def load_recent_events(limit: int = 20) -> list:
         except Exception:
             continue
     return events
+
+
+def start_auto_trade() -> None:
+    """Launch the auto trading loop in a background thread."""
+    global _auto_trade_thread, _auto_trade_stop
+    if _auto_trade_thread and _auto_trade_thread.is_alive():
+        return
+    _auto_trade_stop = threading.Event()
+    _auto_trade_thread = threading.Thread(
+        target=main_loop,
+        kwargs={"stop_event": _auto_trade_stop},
+        daemon=True,
+    )
+    _auto_trade_thread.start()
+    stop_monitoring()
+
+
+def stop_auto_trade() -> None:
+    """Stop the background auto trading loop if running."""
+    global _auto_trade_thread, _auto_trade_stop
+    if _auto_trade_stop:
+        _auto_trade_stop.set()
+    _auto_trade_thread = None
+    start_monitoring()
+
+
+def start_monitoring() -> None:
+    """Run risk monitoring loop without generating new entries."""
+    global _monitor_thread, _monitor_stop
+    if _monitor_thread and _monitor_thread.is_alive():
+        return
+    from signal_loop import RiskManager, _default_executor  # lazy import
+    _monitor_stop = threading.Event()
+
+    def monitor_worker():
+        rm = RiskManager(
+            order_executor=_default_executor,
+            exception_handler=_default_executor.exception_handler,
+        )
+        _default_executor.set_risk_manager(rm)
+        while not _monitor_stop.is_set():
+            open_syms = [
+                p.get("symbol")
+                for p in _default_executor.position_manager.positions
+                if p.get("status") == "open"
+            ]
+            rm.update_account(0.0, 0.0, 0.0, open_syms)
+            rm.periodic()
+            time.sleep(1)
+
+    _monitor_thread = threading.Thread(target=monitor_worker, daemon=True)
+    _monitor_thread.start()
+
+
+def stop_monitoring() -> None:
+    global _monitor_thread, _monitor_stop
+    if _monitor_stop:
+        _monitor_stop.set()
+    _monitor_thread = None
 
 
 def get_config_path(name: str) -> str:
@@ -235,6 +302,10 @@ def auto_trade_status_endpoint() -> Response:
         "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
     save_auto_trade_status(status)
+    if enabled:
+        start_auto_trade()
+    else:
+        stop_auto_trade()
     return jsonify({"success": True, **status})
 
 
@@ -315,13 +386,15 @@ def analysis():
 def settings():
     """Render the personal settings page."""
     return render_template("05_pSettings.html")
+# Force auto trading disabled on startup and start monitoring loop
+save_auto_trade_status({
+    "enabled": False,
+    "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+})
+start_monitoring()
 
 
 if __name__ == "__main__":
-    # When running this file directly, also launch the signal processing loop
-    # in a background thread so signals continue to be evaluated.
-    import threading
-
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [F1F2] [%(levelname)s] %(message)s",
@@ -348,9 +421,4 @@ if __name__ == "__main__":
         ],
         force=True,
     )
-
-    thread = threading.Thread(target=main_loop, daemon=True)
-    thread.start()
-
-    # Run the Flask development server. Set host to "0.0.0.0" so the app is reachable via localhost.
     app.run(host="0.0.0.0", port=5000, debug=True)
