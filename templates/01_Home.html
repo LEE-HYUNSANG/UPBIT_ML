@@ -89,94 +89,14 @@
             <th class="py-2 font-semibold">물타기</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="border-b border-gray-700 hover:bg-gray-900 text-center">
-            <td class="py-2 td-coin">BTC</td>
-            <td class="py-2 td-strategy font-semibold text-green-300">
-              M-BREAK<br>
-              <span class="text-xs text-green-400">보수적</span>
-            </td>
-            <td class="py-2 td-price">89,500,000</td>
-            <td class="py-2 td-price">89,700,000</td>
-            <td class="py-2 td-price">90,200,000</td>
-            <td class="py-2 td-price">1,108,446</td>
-            <td class="py-2 td-graph">
-              <div class="relative w-56 h-8 mx-auto flex items-center">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-2 bg-gray-700 rounded-full"></div>
-                <span class="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-                  <span class="w-4 h-4 bg-red-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                  <span class="w-4 h-4 bg-blue-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-                  <span class="w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute top-0" style="left:70%;">
-                  <span class="w-2 h-8 bg-white rounded-md block mx-auto"></span>
-                </span>
-              </div>
-            </td>
-            <td class="py-2 font-bold text-green-400">+1.5%</td>
-            <td class="py-2">
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-500/20 text-orange-400">2</span>
-            </td>
-            <td class="py-2">
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300">1</span>
-            </td>
-          </tr>
-          <tr class="border-b border-gray-700 hover:bg-gray-900 text-center">
-            <td class="py-2 td-coin">ETH</td>
-            <td class="py-2 td-strategy font-semibold text-green-300">
-              T-FLOW<br>
-              <span class="text-xs text-green-400">보수적</span>
-            </td>
-            <td class="py-2 td-price">4,200,000</td>
-            <td class="py-2 td-price">4,150,000</td>
-            <td class="py-2 td-price">4,180,000</td>
-            <td class="py-2 td-price">3,298,200</td>
-            <td class="py-2 td-graph">
-              <div class="relative w-56 h-8 mx-auto flex items-center">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-2 bg-gray-700 rounded-full"></div>
-                <span class="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-                  <span class="w-4 h-4 bg-red-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute" style="left:30%; top:50%; transform:translateY(-50%);">
-                  <span class="w-4 h-4 bg-blue-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-                  <span class="w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></span>
-                </span>
-                <span class="absolute top-0" style="left:10%;">
-                  <span class="w-2 h-8 bg-white rounded-md block mx-auto"></span>
-                </span>
-              </div>
-            </td>
-            <td class="py-2 font-bold text-red-400">-0.5%</td>
-            <td class="py-2">
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-orange-500/20 text-orange-400">1</span>
-            </td>
-            <td class="py-2">
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300">0</span>
-            </td>
-          </tr>
-        </tbody>
+        <tbody id="positions-body"></tbody>
       </table>
     </div>
   </div>
 
   <div class="bg-gray-800 rounded-2xl shadow p-7 mb-10">
     <h2 class="text-xl font-bold mb-4">실시간 알림/이벤트</h2>
-    <ul>
-      <li class="flex text-sm text-gray-300 border-b border-gray-700 py-2">
-        <span class="text-gray-400 w-28">15:04:22</span>
-        <span class="ml-4 flex-1">BTC 진입 체결 (시장가)</span>
-      </li>
-      <li class="flex text-sm text-gray-300 border-b border-gray-700 py-2">
-        <span class="text-gray-400 w-28">15:05:01</span>
-        <span class="ml-4 flex-1">ETH 익절 (+1.8%)</span>
-      </li>
-    </ul>
+    <ul id="events-list"></ul>
   </div>
 
   <!-- 모니터링 코인 조건 팝업(모달) -->
