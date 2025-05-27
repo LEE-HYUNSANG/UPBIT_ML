@@ -104,7 +104,16 @@ def app_client(monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
 
     # Simplify smart_buy to include qty/price for position opening
-    monkeypatch.setattr("f3_order.smart_buy.smart_buy", lambda signal, config, dynamic_params, parent_logger=None: {"filled": True, "symbol": signal["symbol"], "order_type": "market", "qty": 1.0, "price": 100.0})
+    monkeypatch.setattr(
+        "f3_order.smart_buy.smart_buy",
+        lambda signal, config, dynamic_params, pm=None, parent_logger=None: {
+            "filled": True,
+            "symbol": signal["symbol"],
+            "order_type": "market",
+            "qty": 1.0,
+            "price": 100.0,
+        },
+    )
 
     import f3_order.order_executor as order_executor
     importlib.reload(order_executor)

@@ -18,25 +18,39 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
-def smart_buy(signal, config, dynamic_params, parent_logger=None):
+
+def smart_buy(signal, config, dynamic_params, position_manager=None, parent_logger=None):
+    """Execute a real buy order using ``position_manager``.
+
+    ``position_manager`` must provide a ``place_order`` method compatible with
+    :meth:`f3_order.position_manager.PositionManager.place_order`.
+    The function falls back to a market order when IOC attempts fail.
     """
-    Adaptive IOC/시장가 주문 실행 (슬리피지/체결률 관리)
-    - 스프레드 ≤ SPREAD_TH: 시장가 바로 진입
-    - 아니면 ask–Δ틱 IOC 지정가 진입(최대 MAX_RETRY회)
-    - 모두 실패시 시장가 폴백
-    """
+
     symbol = signal["symbol"]
     spread = float(signal.get("spread", 0.0))
     SPREAD_TH = dynamic_params.get("SPREAD_TH", 0.0008)
     MAX_RETRY = config.get("MAX_RETRY", 2)
 
+    if position_manager is None:
+        log_with_tag(logger, "No PositionManager provided to smart_buy")
+        return {"filled": False, "symbol": symbol, "order_type": "market"}
+
+    qty = config.get("ENTRY_SIZE_INITIAL", 1) / max(float(signal.get("price", 1)), 1)
+    qty = max(qty, 0.0001)
+
+    # Try IOC first if spread is wide
     for attempt in range(MAX_RETRY + 1):
         if spread <= SPREAD_TH or attempt == MAX_RETRY:
+            res = position_manager.place_order(symbol, "buy", qty, "market", signal.get("price"))
             log_with_tag(logger, f"Market order executed for {symbol} (spread: {spread}, attempt: {attempt})")
-            return {"filled": True, "symbol": symbol, "order_type": "market"}
+            return res
         else:
+            res = position_manager.place_order(symbol, "buy", qty, "price", signal.get("price"))
             log_with_tag(logger, f"IOC order for {symbol} (attempt {attempt+1})")
-    # 최종 폴백
+            if res.get("filled"):
+                return res
+
     log_with_tag(logger, f"Fallback to market order for {symbol}")
-    return {"filled": True, "symbol": symbol, "order_type": "market"}
+    return position_manager.place_order(symbol, "buy", qty, "market", signal.get("price"))
 

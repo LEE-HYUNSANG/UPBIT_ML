@@ -66,7 +66,7 @@ def system(monkeypatch):
     monkeypatch.setattr("f3_order.order_executor.load_config", lambda p: {})
     monkeypatch.setattr(
         "f3_order.order_executor.smart_buy",
-        lambda signal, config, dyn, logger=None: {
+        lambda signal, config, dyn, pm=None, logger=None: {
             "filled": True,
             "symbol": signal["symbol"],
             "qty": 1,

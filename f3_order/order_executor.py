@@ -41,7 +41,13 @@ class OrderExecutor:
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(signal.get("symbol")):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {signal.get('symbol')}")
                     return
-                order_result = smart_buy(signal, self.config, self.dynamic_params, logger)
+                order_result = smart_buy(
+                    signal,
+                    self.config,
+                    self.dynamic_params,
+                    self.position_manager,
+                    logger,
+                )
                 if order_result.get("filled", False):
                     self.position_manager.open_position(order_result)
                     log_with_tag(logger, f"Buy executed: {order_result}")
