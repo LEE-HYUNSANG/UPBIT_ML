@@ -46,14 +46,14 @@ def _log_insufficient_data(symbol: str, strategy: str, required: int, available:
     }
     _log_jsonl("logs/insufficient_data.log", data)
 
-os.makedirs("log", exist_ok=True)
+os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(),
         RotatingFileHandler(
-            os.path.join("log", "F2_signal_engine.log"),
+            os.path.join("logs", "F2_signal_engine.log"),
             encoding="utf-8",
             maxBytes=100_000 * 1024,
             backupCount=1000,
