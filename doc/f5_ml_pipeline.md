@@ -84,6 +84,7 @@ resulting model is saved to `ml_data/06_models/` as
 A small evaluation against the test split is performed using AUC, accuracy and
 F1 metrics. The scores are stored next to the model in a
 `{symbol}_{label}_metrics.json` file together with a CSV of sorted feature
-importances.
+importances. If the hyperparameter JSON is missing or malformed, the symbol is
+skipped and a warning is printed.
 
 Run it from the repository root with `python f5_ml_pipeline/07_train_lgbm.py`.

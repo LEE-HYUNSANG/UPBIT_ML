@@ -75,8 +75,12 @@ def train_symbol(train_path: Path, val_path: Path, test_path: Path) -> None:
             print(f"Best params not found for {symbol} [{label_col}]")
             continue
 
-        with params_path.open() as f:
-            best_params = json.load(f)
+        try:
+            with params_path.open() as f:
+                best_params = json.load(f)
+        except (OSError, json.JSONDecodeError) as err:
+            print(f"Failed to read params for {symbol} [{label_col}]: {err}")
+            continue
 
         train_all = pd.concat([train_df, val_df], ignore_index=True)
         X_train, y_train = _prepare_xy(train_all, label_col)
