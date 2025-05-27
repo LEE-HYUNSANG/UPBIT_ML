@@ -20,3 +20,9 @@ requirements via `pip install -r requirements.txt` before running the script.
 ## 03_features.py
 Generates technical indicator columns from the cleaned OHLCV Parquet files found in `ml_data/02_clean/`.
 The resulting feature sets are saved to `ml_data/03_features/` with the same filenames.
+The script uses helper functions in `indicators.py` to calculate EMA, ATR, RSI,
+Bollinger Bands, Stochastic, VWAP, MFI, Parabolic SAR and Ichimoku lines. It
+also generates rolling highs/lows, volume averages, shifted spans
+(`span_a_26`, `span_b_26`) and a combined `maxspan`. Placeholder fields that
+depend on trade history (e.g. `buy_qty_5m`, `sell_qty_5m`) are filled with `NaN`
+so they can later be merged with collector output.
