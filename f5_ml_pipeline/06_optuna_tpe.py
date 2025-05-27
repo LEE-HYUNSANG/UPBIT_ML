@@ -122,7 +122,7 @@ def tune_symbol(train_path: Path, val_path: Path) -> List[dict]:
             return score
 
         study = optuna.create_study(direction="maximize", sampler=optuna.samplers.TPESampler())
-        study.optimize(objective, n_trials=50, show_progress_bar=False)
+        study.optimize(objective, n_trials=200, show_progress_bar=False)
 
         completed_trials = [t for t in study.trials if t.state == TrialState.COMPLETE]
         if not completed_trials:
