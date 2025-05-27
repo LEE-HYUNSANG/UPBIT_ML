@@ -17,7 +17,7 @@
       font-weight: 700; min-width: 240px; text-align: center;
       box-shadow: 0 8px 32px #000a;
     }
-    .toggle-switch { position: relative; width: 56px; height: 32px; display: inline-block; }
+    .toggle-switch { position: relative; width: 70px; height: 32px; display: inline-block; }
     .toggle-switch input { display: none; }
     .toggle-slider {
       position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
@@ -34,7 +34,7 @@
       transition: left 0.22s;
     }
     .toggle-switch input:checked + .toggle-slider .toggle-dot {
-      left: 28px; background: #fff;
+      left: 42px; background: #fff;
     }
     th, td { white-space: nowrap; }
     .td-coin { min-width: 64px; }
@@ -64,13 +64,23 @@
         <span class="text-green-400 text-2xl font-black tracking-tight">AUTO<span class="text-white">UPBIT</span></span>
         <span class="ml-2 px-2 py-0.5 rounded-full text-xs bg-green-900/50 text-green-300 font-semibold">실시간</span>
       </div>
-      <nav class="flex gap-6 text-base font-semibold">
-        <a href="{{ url_for('dashboard') }}" class="hover:text-green-400 transition">대시보드</a>
-        <a href="{{ url_for('strategy') }}" class="hover:text-green-400 transition">전략 설정</a>
-        <a href="{{ url_for('risk') }}" class="hover:text-green-400 transition">리스크 셋팅</a>
-        <a href="{{ url_for('analysis') }}" class="hover:text-green-400 transition">데이터 분석</a>
-        <a href="{{ url_for('settings') }}" class="hover:text-green-400 transition">개인 설정</a>
-      </nav>
+      <div class="flex items-center gap-6">
+        <nav class="flex gap-6 text-base font-semibold">
+          <a href="{{ url_for('dashboard') }}" class="hover:text-green-400 transition">대시보드</a>
+          <a href="{{ url_for('strategy') }}" class="hover:text-green-400 transition">전략 설정</a>
+          <a href="{{ url_for('risk') }}" class="hover:text-green-400 transition">리스크 셋팅</a>
+          <a href="{{ url_for('analysis') }}" class="hover:text-green-400 transition">데이터 분석</a>
+          <a href="{{ url_for('settings') }}" class="hover:text-green-400 transition">개인 설정</a>
+        </nav>
+        <div class="flex items-center gap-1">
+          <span id="status-off" class="text-red-500 text-sm font-bold">중단</span>
+          <label class="toggle-switch" title="자동매매 실행/중지">
+            <input id="autotrade-toggle" type="checkbox" onchange="toggleStatus(this)">
+            <span class="toggle-slider"><span class="toggle-dot"></span></span>
+          </label>
+          <span id="status-on" class="text-gray-400 text-sm font-bold">실행중</span>
+        </div>
+      </div>
     </div>
   </header>
   <main class="max-w-7xl mx-auto px-4 py-8">
@@ -91,25 +101,49 @@
       })
         .then(r => r.json())
         .then(d => {
-          var status = document.getElementById('run-status');
-          var updated = document.getElementById('autotrade-updated');
-          if (status) {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
             if (d.enabled) {
-              status.textContent = '실행중';
-              status.className =
-                'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
             } else {
-              status.textContent = '중단 상태';
-              status.className =
-                'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
             }
           }
-          if (updated) updated.textContent = '업데이트: ' + d.updated_at;
         })
         .catch(err => {
           console.error(err);
           checkbox.checked = !checkbox.checked;
           if (typeof fetchAutoTradeStatus === 'function') fetchAutoTradeStatus();
+        });
+    }
+    function fetchAutoTradeStatus() {
+      fetch('/api/auto_trade_status')
+        .then(r => r.json())
+        .then(d => {
+          var checkbox = document.getElementById('autotrade-toggle');
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (checkbox) checkbox.checked = d.enabled;
+          if (off && on) {
+            if (d.enabled) {
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
+            } else {
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
+            }
+          }
+        })
+        .catch(() => {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
+            off.className = 'text-red-500 text-sm font-bold';
+            on.className = 'text-gray-400 text-sm font-bold';
+          }
         });
     }
     function openMonitorModal() {
@@ -169,6 +203,8 @@
         setTimeout(() => { bg.style.display = 'none'; }, 1800);
       }
     }
+    fetchAutoTradeStatus();
+    setInterval(fetchAutoTradeStatus, 5000);
   </script>
   {% block scripts %}{% endblock %}
 </body>
