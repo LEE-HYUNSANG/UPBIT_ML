@@ -44,8 +44,7 @@ class PositionManager:
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions = []
         self.client = UpbitClient()
-        # Import existing balances from the account so they can be managed
-        # alongside positions opened by this app.
+        # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
 
     def open_position(self, order_result):
@@ -159,7 +158,7 @@ class PositionManager:
                 cur = pos.get("current_price", pos["avg_price"])
                 pos["pnl_percent"] = (cur - pos["avg_price"]) / pos["avg_price"] * 100
 
-        # Remove positions that were marked closed from the list
+        # 종료된 포지션은 목록에서 제거
         self.positions = [p for p in self.positions if p.get("status") == "open"]
 
     def hold_loop(self):
@@ -207,7 +206,7 @@ class PositionManager:
                 ord_type=order_type,
             )
 
-            # Determine fill status and executed quantity
+            # 체결 상태와 체결 수량 계산
             executed_qty = float(resp.get("executed_volume", 0))
             if executed_qty == 0 and resp.get("remaining_volume") is not None:
                 try:

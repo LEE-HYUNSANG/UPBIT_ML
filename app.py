@@ -43,7 +43,7 @@ STRATEGY_SETTINGS_FILE = os.path.join("config", "strategy_settings.json")
 STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
 STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 
-# Runtime state for auto trading thread
+# 자동 매매 스레드의 실행 상태 보관용 변수
 _auto_trade_thread = None
 _auto_trade_stop = None
 _monitor_thread = None
@@ -123,7 +123,7 @@ def save_strategy_settings(data: list, path: str = STRATEGY_SETTINGS_FILE) -> No
 
 
 def start_auto_trade() -> None:
-    """Launch the auto trading loop in a background thread."""
+    """백그라운드 스레드에서 자동 매매 루프 시작"""
     global _auto_trade_thread, _auto_trade_stop
     if _auto_trade_thread and _auto_trade_thread.is_alive():
         return
@@ -138,7 +138,7 @@ def start_auto_trade() -> None:
 
 
 def stop_auto_trade() -> None:
-    """Stop the background auto trading loop if running."""
+    """실행 중인 자동 매매 루프 중지"""
     global _auto_trade_thread, _auto_trade_stop
     if _auto_trade_stop:
         _auto_trade_stop.set()
@@ -147,7 +147,7 @@ def stop_auto_trade() -> None:
 
 
 def start_monitoring() -> None:
-    """Run risk monitoring loop without generating new entries."""
+    """신규 진입 없이 위험 모니터링 루프 실행"""
     global _monitor_thread, _monitor_stop
     if _monitor_thread and _monitor_thread.is_alive():
         return
@@ -182,7 +182,7 @@ def stop_monitoring() -> None:
 
 
 def get_config_path(name: str) -> str:
-    """Return full path for a named config set."""
+    """설정 이름에 해당하는 파일 경로 반환"""
     mapping = {
         "latest": LATEST_CFG,
         "default": DEFAULT_CFG,
@@ -214,10 +214,9 @@ from f3_order.upbit_api import UpbitClient
 
 
 def fetch_account_info() -> dict:
-    """Fetch KRW balance and today's PnL from Upbit.
+    """업비트에서 KRW 잔고와 당일 손익을 조회합니다.
 
-    The function uses a JWT token to authenticate with the Upbit API. If the
-    request fails, ``0`` values are returned.
+    JWT 토큰 인증을 사용하며 실패 시 0을 반환합니다.
     """
 
     access_key, secret_key = load_api_keys()
@@ -257,13 +256,13 @@ def fetch_account_info() -> dict:
 
 @app.route("/api/account")
 def api_account() -> Response:
-    """Return account info as JSON."""
+    """계좌 정보를 JSON 형태로 반환"""
     return jsonify(fetch_account_info())
 
 
 @app.route("/api/signals")
 def api_signals() -> Response:
-    """Return F2 signal results for the current universe."""
+    """현재 유니버스에 대한 F2 신호 결과 반환"""
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
@@ -277,7 +276,7 @@ def api_signals() -> Response:
 
 @app.route("/api/universe_config", methods=["GET", "POST"])
 def universe_config_endpoint() -> Response:
-    """Get or update universe filter configuration."""
+    """유니버스 필터 설정 조회 또는 업데이트"""
     if request.method == "GET":
         cfg = load_config()
         return jsonify(
@@ -308,7 +307,7 @@ def universe_config_endpoint() -> Response:
 
 @app.route("/api/risk_config", methods=["GET", "POST"])
 def risk_config_endpoint() -> Response:
-    """Get or update risk management configuration."""
+    """위험 관리 설정을 조회하거나 갱신"""
     if request.method == "GET":
         src = request.args.get("source", "latest")
         path = get_config_path(src)
@@ -325,7 +324,7 @@ def risk_config_endpoint() -> Response:
 
 @app.route("/api/auto_trade_status", methods=["GET", "POST"])
 def auto_trade_status_endpoint() -> Response:
-    """Get or update the auto trading enabled state."""
+    """자동 매매 활성화 상태 조회/변경"""
     if request.method == "GET":
         return jsonify(load_auto_trade_status())
     data = request.get_json(force=True) or {}
@@ -344,10 +343,9 @@ def auto_trade_status_endpoint() -> Response:
 
 @app.route("/api/open_positions")
 def open_positions_endpoint() -> Response:
-    """Return a list of open positions from the order executor.
+    """주문 실행기로부터 열린 포지션 목록을 반환합니다.
 
-    The endpoint always responds with a JSON array. When no positions are
-    being tracked the returned value is ``[]``.
+    항상 JSON 배열을 반환하며, 포지션이 없을 경우 ``[]``를 돌려줍니다.
     """
     from f3_order.order_executor import _default_executor
     pm = _default_executor.position_manager
@@ -357,20 +355,20 @@ def open_positions_endpoint() -> Response:
         for p in pm.positions
         if p.get("status") == "open"
     ]
-    # Explicitly return an empty array when no open positions exist.
+    # 열린 포지션이 없을 때는 빈 배열을 명시적으로 반환
     return jsonify(positions if positions else [])
 
 
 @app.route("/api/events")
 def events_endpoint() -> Response:
-    """Return recent application events."""
+    """최근 애플리케이션 이벤트 조회"""
     limit = int(request.args.get("limit", 20))
     return jsonify(load_recent_events(limit))
 
 
 @app.route("/api/strategies", methods=["GET", "POST"])
 def strategies_endpoint() -> Response:
-    """Get or update strategy settings."""
+    """전략 설정을 조회하거나 업데이트"""
     if request.method == "GET":
         src = request.args.get("source", "latest")
         if src == "yesterday":
@@ -420,7 +418,7 @@ def strategies_endpoint() -> Response:
 
 @app.route("/api/risk_events")
 def risk_events_endpoint() -> Response:
-    """Return recent risk manager events from the SQLite log."""
+    """SQLite 로그에서 최근 리스크 매니저 이벤트 조회"""
     db_path = os.path.join("logs", "risk_events.db")
     if not os.path.exists(db_path):
         return jsonify([])
@@ -437,7 +435,7 @@ def risk_events_endpoint() -> Response:
 
 @app.route("/")
 def home():
-    """Root page showing the current trading universe."""
+    """현재 거래 유니버스를 보여주는 첫 페이지"""
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
@@ -446,7 +444,7 @@ def home():
 
 @app.route("/dashboard")
 def dashboard():
-    """Render the main dashboard page."""
+    """대시보드 메인 페이지 렌더링"""
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
@@ -455,27 +453,27 @@ def dashboard():
 
 @app.route("/strategy")
 def strategy():
-    """Render the strategy configuration page."""
+    """전략 설정 페이지 렌더링"""
     return render_template("02_Strategy.html")
 
 
 @app.route("/risk")
 def risk():
-    """Render the risk management page."""
+    """리스크 관리 페이지 렌더링"""
     return render_template("03_Risk.html")
 
 
 @app.route("/analysis")
 def analysis():
-    """Render the data analysis page."""
+    """데이터 분석 페이지 렌더링"""
     return render_template("04_Analysis.html")
 
 
 @app.route("/settings")
 def settings():
-    """Render the personal settings page."""
+    """개인 설정 페이지 렌더링"""
     return render_template("05_pSettings.html")
-# Force auto trading disabled on startup and start monitoring loop
+# 시작 시 자동 매매를 강제로 끄고 모니터링 루프 시작
 save_auto_trade_status({
     "enabled": False,
     "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),

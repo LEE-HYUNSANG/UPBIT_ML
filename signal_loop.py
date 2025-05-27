@@ -19,7 +19,7 @@ from f2_signal.signal_engine import f2_signal
 
 
 def ensure_kst(timestamp_col):
-    """Return ``timestamp_col`` localized to Asia/Seoul."""
+    """``timestamp_col``을 서울 시간대로 변환"""
 
     import pandas as pd
 
@@ -34,11 +34,10 @@ def ensure_kst(timestamp_col):
 
 
 def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
-    """Fetch OHLCV data for *symbol* using pyupbit.
+    """pyupbit을 이용해 종목의 OHLCV 데이터를 가져옵니다.
 
-    The OHLCV DataFrame returned by ``pyupbit.get_ohlcv`` has its index
-    reset and the index column renamed to ``"timestamp"`` so that
-    ``process_symbol`` supplies the expected columns to ``f2_signal``.
+    반환된 데이터프레임의 인덱스를 ``timestamp`` 컬럼으로 변환하여
+    ``process_symbol``에서 ``f2_signal``에 필요한 형태로 제공합니다.
     """
     try:
         df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
@@ -57,7 +56,7 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
 
 
 def process_symbol(symbol: str) -> Optional[dict]:
-    """Fetch data for a symbol and run f2_signal."""
+    """종목 데이터를 받아 f2_signal 함수 실행"""
     df_1m = fetch_ohlcv(symbol, "minute1")
     df_5m = fetch_ohlcv(symbol, "minute5")
     if df_1m is None or df_5m is None or df_1m.empty or df_5m.empty:
@@ -83,7 +82,7 @@ def process_symbol(symbol: str) -> Optional[dict]:
 
 
 def main_loop(interval: int = 1, stop_event=None) -> None:
-    """Main processing loop fetching the universe and evaluating signals."""
+    """유니버스를 주기적으로 조회해 신호를 계산하는 메인 루프"""
     cfg = load_config()
     load_universe_from_file()
     logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
