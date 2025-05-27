@@ -20,6 +20,7 @@ class RiskManager:
         self.open_symbols = set()
         self.disabled_symbols = set()
         self.pause_timer = None
+        self._last_reload_check = 0
 
         self.logger.info("RiskManager 초기화 완료 (ACTIVE)")
 
@@ -132,6 +133,9 @@ class RiskManager:
             self.logger.info("PAUSE 해제 → ACTIVE 복귀")
             if self.exception_handler:
                 self.exception_handler.send_alert("Trading resumed", "info")
-        self.hot_reload()
+        current = now()
+        if current - self._last_reload_check >= 1:
+            self.hot_reload()
+            self._last_reload_check = current
         self.check_risk()
 

@@ -414,8 +414,8 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
     # Replace any known indicator mention with its value. We need to handle offsets like Indicator(period, offset).
     # We'll parse by finding occurrences of pattern names.
     for key in ind_patterns:
-        if key in formula:
-            # Determine if formula uses function-like syntax (with parentheses) or plain.
+        if key in expr:
+            # Determine if expr uses function-like syntax (with parentheses) or plain.
             # e.g. "EMA(5)" or "EMA(120,-1)" etc.
             # We'll do a simple replacement for specific cases:
             # Replace e.g. "EMA(5)" with data_row["EMA_5"], "EMA(5,-1)" means previous bar EMA5, which we can't get from single row.
@@ -423,14 +423,15 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
             # For signals on latest row, any condition with offset referring to past can be approximated as False (or user should pass proper previous values).
             # Here, we assume formula evaluation is done on full series normally; for last row signals, skip offset logic.
             # We'll handle offset 0 explicitly:
-            if key + "(" in formula:
+            if key + "(" in expr:
                 # Extract content inside parentheses
                 # Example: key="EMA", formula segment "EMA(20)" or "EMA(20,-1)"
-                pattern = rf"{key}\(([0-9]+)(?:,(-?[0-9]+))?\)"
-                matches = re.finditer(pattern, expr)
+                pattern = rf"{key}\(([^()]*)\)"
+                matches = list(re.finditer(pattern, expr))
                 for m in matches:
-                    period_val = m.group(1)
-                    offset_val = m.group(2)
+                    params = [p.strip() for p in m.group(1).split(',') if p.strip()]
+                    period_val = params[0] if params else ""
+                    offset_val = params[-1] if len(params) > 2 else None
                     if key in ["EMA", "RSI", "ATR", "MFI", "ADX"]:
                         col_name = f"{key}_{period_val}"
                     elif key.startswith("Stoch"):
