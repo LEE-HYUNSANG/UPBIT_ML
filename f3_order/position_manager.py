@@ -50,11 +50,16 @@ class PositionManager:
 
     def open_position(self, order_result):
         """신규 포지션 오픈 (filled 주문 결과 또는 잔고 가져오기)"""
+        price = order_result.get("price")
+        qty = order_result.get("qty")
+        if price is None or qty is None:
+            log_with_tag(logger, f"Invalid order result, skipping position: {order_result}")
+            return
         pos = {
             "symbol": order_result["symbol"],
             "entry_time": now(),
-            "entry_price": order_result.get("price", None),
-            "qty": order_result.get("qty", None),
+            "entry_price": price,
+            "qty": qty,
             "pyramid_count": 0,
             "avgdown_count": 0,
             "status": "open",
