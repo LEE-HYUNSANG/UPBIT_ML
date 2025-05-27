@@ -33,6 +33,7 @@ PERIOD = 1.0
 SELECTED_MARKETS: List[str] | None = None
 
 
+
 def _setup_logging() -> None:
     os.makedirs(DATA_DIR, exist_ok=True)
     logging.basicConfig(
@@ -167,6 +168,7 @@ def run() -> None:
     else:
         markets = filter_by_price()
         logging.info("Collecting data for %d markets", len(markets))
+
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = {executor.submit(collect_market, m): m for m in markets}
         for fut in as_completed(futures):
