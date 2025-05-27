@@ -19,6 +19,7 @@ from f2_signal.signal_engine import f2_signal
 
 def ensure_kst(timestamp_col):
     """Return ``timestamp_col`` localized to Asia/Seoul."""
+
     import pandas as pd
 
     ts = pd.to_datetime(timestamp_col)
