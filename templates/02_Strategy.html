@@ -133,7 +133,8 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      background: #1f2937;
+      background: #fff;
+      color: #111;
       border-radius: 17px;
       box-shadow: 0 8px 32px #000a;
       width: 600px;
@@ -142,12 +143,12 @@
     .modal-title {
       font-size: 1.2rem;
       font-weight: 700;
-      color: #fff;
+      color: #111;
       margin: 24px 0 12px 0;
       text-align: center;
     }
     .modal-table { width:100%; margin:20px 0; }
-    .modal-table th { background:#334155; font-weight:600; padding:8px; }
+    .modal-table th { background:#f3f3f3; color:#111; font-weight:600; padding:8px; }
     .modal-table td { padding:8px; text-align:center; }
     .modal-actions { text-align:center; margin-bottom:20px; }
     @media (max-width:1050px) { .main-wrap { max-width: 99vw; padding: 10px 2vw;}
@@ -261,7 +262,7 @@
       .then(d => {
         const ls = document.querySelector('.last-saved');
         if(ls) ls.textContent = '마지막 저장: ' + d.updated_at;
-        if(showMsg) alert('설정이 저장되었습니다!');
+        if(showMsg) showAlert('설정이 저장되었습니다');
       })
       .catch(console.error);
     }
