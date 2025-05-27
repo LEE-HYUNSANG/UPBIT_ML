@@ -85,7 +85,6 @@ def vwap(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series) -
     return vwap_series
 
 def mfi(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series, period: int = 14) -> pd.Series:
-def mfi(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series, period: int = 14) -> pd.Series:
     """주어진 기간의 MFI(자금 흐름 지수)를 계산합니다."""
     typical_price = (high + low + close) / 3.0
     money_flow = typical_price * volume
@@ -102,7 +101,6 @@ def mfi(high: pd.Series, low: pd.Series, close: pd.Series, volume: pd.Series, pe
     mfi = 100 - (100 / (1 + money_flow_ratio))
     return mfi
 
-def adx(high: pd.Series, low: pd.Series, close: pd.Series, period: int = 14):
 def adx(high: pd.Series, low: pd.Series, close: pd.Series, period: int = 14):
     """ADX와 +DI, -DI 값을 계산하여 반환합니다."""
     # TR과 방향성 지표 계산
@@ -134,8 +132,6 @@ def adx(high: pd.Series, low: pd.Series, close: pd.Series, period: int = 14):
 
 def ichimoku(high: pd.Series, low: pd.Series, close: pd.Series,
              tenkan_period: int = 9, kijun_period: int = 26, span_b_period: int = 52):
-def ichimoku(high: pd.Series, low: pd.Series, close: pd.Series,
-             tenkan_period: int = 9, kijun_period: int = 26, span_b_period: int = 52):
     """일목균형표 지표를 계산하여 각 선을 딕셔너리로 반환합니다."""
     # 전환선: 9일 최고가와 최저가의 중간값
     tenkan = (high.rolling(window=tenkan_period, min_periods=tenkan_period).max() + 
@@ -158,7 +154,6 @@ def ichimoku(high: pd.Series, low: pd.Series, close: pd.Series,
         'chikou': chikou
     }
 
-def parabolic_sar(high: pd.Series, low: pd.Series, step: float = 0.02, max_step: float = 0.2) -> pd.Series:
 def parabolic_sar(high: pd.Series, low: pd.Series, step: float = 0.02, max_step: float = 0.2) -> pd.Series:
     """주어진 고가/저가 시리즈로 파라볼릭 SAR을 계산합니다."""
     length = len(high)
@@ -208,7 +203,6 @@ def parabolic_sar(high: pd.Series, low: pd.Series, step: float = 0.02, max_step:
     return sar
 
 
-def calc_buy_sell_qty_5m(trades: pd.DataFrame, window: str = "5min") -> pd.DataFrame:
 def calc_buy_sell_qty_5m(trades: pd.DataFrame, window: str = "5min") -> pd.DataFrame:
     """최근 5분간 매수/매도 수량을 계산하여 컬럼을 추가합니다."""
 
