@@ -29,6 +29,9 @@ def make_pm(tmp_path, monkeypatch=None):
                     "volume": kwargs.get("volume"),
                 }
 
+            def get_accounts(self):
+                return []
+
         monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     return PositionManager(cfg, dyn, guard, handler)
 
@@ -83,6 +86,9 @@ def test_place_order_partial_fill(tmp_path, monkeypatch):
                 "executed_volume": "1.0",
                 "price": kwargs.get("price"),
             }
+
+        def get_accounts(self):
+            return []
 
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: PartialFillClient())
     pm = make_pm(tmp_path)

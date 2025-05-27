@@ -100,3 +100,7 @@ class UpbitClient:
 
     def order_chance(self, market: str):
         return self.get("/v1/order_chance", {"market": market})
+
+    def get_accounts(self):
+        """Return account balances via ``/v1/accounts``."""
+        return self.get("/v1/accounts")
