@@ -5,6 +5,7 @@ from logging.handlers import RotatingFileHandler
 import numpy as np
 import os
 import re
+from typing import Optional
 from indicators import (
     ema,
     sma,
@@ -18,6 +19,7 @@ from indicators import (
     adx,
     ichimoku,
     parabolic_sar,
+    calc_buy_sell_qty_5m,
 )
 import datetime
 
@@ -98,7 +100,12 @@ def _as_utc(ts):
         return ts.tz_localize("UTC")
     return ts.tz_convert("UTC")
 
-def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
+def f2_signal(
+    df_1m: pd.DataFrame,
+    df_5m: pd.DataFrame,
+    symbol: str = "",
+    trades: Optional[pd.DataFrame] = None,
+):
     """
     Determine buy/sell signals for a given symbol. Buy conditions are evaluated
     using the 5-minute data while sell conditions use the 1-minute data.
@@ -255,6 +262,25 @@ def f2_signal(df_1m: pd.DataFrame, df_5m: pd.DataFrame, symbol: str = ""):
     df5["BandWidth20_min20"] = df5["BandWidth20"].rolling(window=20, min_periods=20).min()
     df5[f"Vol_MA{vol_ma_period}"] = sma(df5["volume"], vol_ma_period)
     df5["VWAP"] = vwap(df5["high"], df5["low"], df5["close"], df5["volume"])
+    if trades is not None and not trades.empty:
+        tdf = trades.copy()
+        if "timestamp" in tdf.columns:
+            tdf = tdf.sort_values("timestamp").set_index("timestamp")
+        else:
+            tdf = tdf.sort_index()
+        tdf = calc_buy_sell_qty_5m(tdf)
+        aligned = pd.merge_asof(
+            df5[["timestamp"]],
+            tdf[["BuyQty_5m", "SellQty_5m"]],
+            left_on="timestamp",
+            right_index=True,
+            direction="backward",
+        )
+        df5["BuyQty_5m"] = aligned["BuyQty_5m"]
+        df5["SellQty_5m"] = aligned["SellQty_5m"]
+    else:
+        df5["BuyQty_5m"] = np.nan
+        df5["SellQty_5m"] = np.nan
     # Strength for 5m (approx same method)
     high5 = df5["high"]; low5 = df5["low"]; close5 = df5["close"]; vol5 = df5["volume"]
     range5 = (high5 - low5).replace(0, np.nan)
@@ -472,6 +498,8 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
         "BandWidth20_min20",
         "Vol_MA20",
         "ATR_14_MA20",
+        "BuyQty_5m",
+        "SellQty_5m",
         "VWAP",
         "Strength",
         "Tenkan",

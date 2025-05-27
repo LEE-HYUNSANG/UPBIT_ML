@@ -242,3 +242,32 @@ def parabolic_sar(high: pd.Series, low: pd.Series, step: float = 0.02, max_step:
                     af = min(af + step, max_step)
         sar.iloc[i] = sar_val
     return sar
+
+
+def calc_buy_sell_qty_5m(trades: pd.DataFrame, window: str = "5min") -> pd.DataFrame:
+    """Calculate rolling 5 minute buy/sell quantities.
+
+    Parameters
+    ----------
+    trades : pandas.DataFrame
+        Trade data with ``trade_volume`` and ``is_buyer_maker`` columns and a
+        ``DatetimeIndex``.
+    window : str, default "5min"
+        Rolling aggregation window.  The default computes 5 minute sums.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Original ``trades`` with ``BuyQty_5m`` and ``SellQty_5m`` columns
+        added representing the cumulative buy and sell quantities over the
+        rolling window.
+    """
+
+    df = trades.copy()
+    df["BuyQty_5m"] = (
+        df["trade_volume"].where(df["is_buyer_maker"] == False, 0).rolling(window).sum()
+    )
+    df["SellQty_5m"] = (
+        df["trade_volume"].where(df["is_buyer_maker"] == True, 0).rolling(window).sum()
+    )
+    return df

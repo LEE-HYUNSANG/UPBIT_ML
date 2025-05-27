@@ -63,5 +63,10 @@
     "short_code": "MFI-BOUNCE",
     "buy_formula": "MFI(14,-1) < 10 and MFI(14) > 10 and Vol(0) <= MA(Vol,20) * 0.5 and Strength >= 120 and Close > EMA(20)",
     "sell_formula": "Close >= Entry * 1.015 or Close <= Peak * 0.992 or Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+  },
+  {
+    "short_code": "HYUN",
+    "buy_formula": "EMA(5) > EMA(20) and EMA(20) > EMA(60) and (EMA(20) - EMA(20,-1)) / EMA(20,-1) > 0 and ATR(14) / Close * 100 >= 1.5 and Vol(0) >= MA(Vol,20) * 1.5 and BuyQty_5m / SellQty_5m * 100 >= 110 and RSI(14) > 40 and RSI(14) < 75",
+    "sell_formula": "Close >= Entry * 1.007 or Close <= Entry * 0.993 or EMA(5) < EMA(20) or RSI(14) < 60"
   }
 ]
