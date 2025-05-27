@@ -17,7 +17,7 @@
       font-weight: 700; min-width: 240px; text-align: center;
       box-shadow: 0 8px 32px #000a;
     }
-    .toggle-switch { position: relative; width: 56px; height: 32px; display: inline-block; }
+    .toggle-switch { position: relative; width: 70px; height: 32px; display: inline-block; }
     .toggle-switch input { display: none; }
     .toggle-slider {
       position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
@@ -34,7 +34,7 @@
       transition: left 0.22s;
     }
     .toggle-switch input:checked + .toggle-slider .toggle-dot {
-      left: 28px; background: #fff;
+      left: 42px; background: #fff;
     }
     th, td { white-space: nowrap; }
     .td-coin { min-width: 64px; }
@@ -72,13 +72,14 @@
           <a href="{{ url_for('analysis') }}" class="hover:text-green-400 transition">데이터 분석</a>
           <a href="{{ url_for('settings') }}" class="hover:text-green-400 transition">개인 설정</a>
         </nav>
-        <div class="flex flex-col items-end">
+        <div class="flex items-center gap-1">
+          <span id="status-off" class="text-red-500 text-sm font-bold">중단</span>
+
           <label class="toggle-switch" title="자동매매 실행/중지">
             <input id="autotrade-toggle" type="checkbox" onchange="toggleStatus(this)">
             <span class="toggle-slider"><span class="toggle-dot"></span></span>
           </label>
-          <span id="run-status" class="w-full px-2 py-0.5 rounded-full text-xs font-bold bg-gray-700 text-gray-300 text-center mt-1">중단 상태</span>
-          <span id="autotrade-updated" class="text-[10px] text-gray-400 mt-0.5">업데이트: -</span>
+          <span id="status-on" class="text-gray-400 text-sm font-bold">실행중</span>
         </div>
       </div>
     </div>
@@ -101,20 +102,17 @@
       })
         .then(r => r.json())
         .then(d => {
-          var status = document.getElementById('run-status');
-          var updated = document.getElementById('autotrade-updated');
-          if (status) {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
             if (d.enabled) {
-              status.textContent = '실행중';
-              status.className =
-                'w-full px-3 py-1 rounded-full text-sm font-bold bg-green-700 text-green-200 text-center mb-1';
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
             } else {
-              status.textContent = '중단 상태';
-              status.className =
-                'w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1';
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
             }
           }
-          if (updated) updated.textContent = '업데이트: ' + d.updated_at;
         })
         .catch(err => {
           console.error(err);
@@ -149,6 +147,33 @@
             status.textContent = '연결 오류';
             status.className =
               'w-full px-2 py-0.5 rounded-full text-xs font-bold bg-red-700 text-red-200 text-center mt-1';
+          }
+        });
+    }
+    function fetchAutoTradeStatus() {
+      fetch('/api/auto_trade_status')
+        .then(r => r.json())
+        .then(d => {
+          var checkbox = document.getElementById('autotrade-toggle');
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (checkbox) checkbox.checked = d.enabled;
+          if (off && on) {
+            if (d.enabled) {
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
+            } else {
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
+            }
+          }
+        })
+        .catch(() => {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
+            off.className = 'text-red-500 text-sm font-bold';
+            on.className = 'text-gray-400 text-sm font-bold';
           }
         });
     }

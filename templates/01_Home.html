@@ -2,13 +2,13 @@
 {% block title %}AUTO UPBIT 실전 대시보드{% endblock %}
 {% block content %}
   <!-- 상단 카드 Row -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-10">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px] col-span-1">
       <div class="card-title text-white mb-1">KRW 잔고</div>
       <div class="text-xs text-gray-500 mb-1">계좌 보유 현금</div>
       <div id="krw-balance" class="text-3xl font-extrabold tracking-tight">0</div>
     </div>
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px] col-span-1">
       <div class="card-title text-white mb-1">오늘 손익(PnL)</div>
       <div class="text-xs text-gray-500 mb-1">금일 실현 손익</div>
       <div class="flex items-baseline">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <!-- 모니터링 코인 카드 -->
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col h-36 relative">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col h-36 relative col-span-3">
       <div class="flex items-center justify-between mb-2">
         <span class="card-title text-white">모니터링 코인</span>
         <button onclick="openMonitorModal()"
