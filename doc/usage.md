@@ -20,5 +20,6 @@
    ```bash
    python upbit_coin_data/collector.py
    ```
-   Data files will be saved under `upbit_coin_data/`.
+   Data files will be saved under `upbit_coin_data/`. To limit the download
+   to specific coins, set `SELECTED_MARKETS` in `collector.py`.
 5. Optional: start `app.py` to access the dashboard and REST APIs.
