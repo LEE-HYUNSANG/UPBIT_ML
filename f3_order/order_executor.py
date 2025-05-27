@@ -70,5 +70,5 @@ class OrderExecutor:
 _default_executor = OrderExecutor()
 
 def entry(signal):
-    """Backward compatible entry point using a default executor."""
+    """기본 실행기를 사용하는 하위 호환 엔트리 포인트"""
     _default_executor.entry(signal)
