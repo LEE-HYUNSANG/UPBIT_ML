@@ -12,3 +12,8 @@ Retrieves 1 minute OHLCV data for the last 90 days using the Upbit REST API. The
 
 The script depends on the `tqdm` package for progress bars. Install requirements
 via `pip install -r requirements.txt` and run the script to start collection.
+
+## 02_clean.py
+Cleans raw market CSVs and outputs Parquet files to `ml_data/02_clean/`.
+This step relies on the `pyarrow` package for Parquet support. Install
+requirements via `pip install -r requirements.txt` before running the script.
