@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 from urllib.parse import urlencode
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -66,3 +67,16 @@ def test_slippage_triggers_alert(monkeypatch):
         assert calls[0]["data"] == urlencode({"chat_id": "CHAT", "text": f"[WARNING] {expected_msg}"}).encode()
         assert calls[0]["timeout"] == 5
     assert handler.slippage_count["KRW-BTC"] == 2
+
+
+def test_log_event_writes_to_default_file(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(eh, "load_env", lambda: {})
+    handler = ExceptionHandler({})
+    handler._log_event({"event": "Test"})
+
+    log_path = tmp_path / "logs" / "events.jsonl"
+    assert log_path.exists()
+    with log_path.open("r", encoding="utf-8") as f:
+        data = json.loads(f.readline())
+    assert data["event"] == "Test"
