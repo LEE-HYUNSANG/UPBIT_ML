@@ -459,6 +459,8 @@ def eval_formula(
     symbol: str = "",
     strat_code: str = "",
     data_df: Optional[pd.DataFrame] = None,
+    entry: Optional[float] = None,
+    peak: Optional[float] = None,
 ) -> bool:
     """주어진 데이터 행에 매수/매도 공식을 적용하여 True/False를 반환합니다.
 
@@ -474,6 +476,10 @@ def eval_formula(
         로깅용 전략 코드.
     data_df : pd.DataFrame, optional
         전체 데이터프레임. 오프셋이 포함된 지표 평가 시 사용된다.
+    entry : float, optional
+        포지션 진입가. 수식에서 ``Entry`` 또는 ``EntryPrice``를 사용할 때 지정한다.
+    peak : float, optional
+        포지션 최고가. ``Peak`` 변수를 사용할 때 지정한다.
     """
     # Replace indicator references in the formula with actual numeric values from data_row
     expr = formula
@@ -517,11 +523,13 @@ def eval_formula(
         "Low": data_row["low"],
         "Vol": data_row["volume"],  # shorthand for current volume
     }
-    # Also replace 'EntryPrice', 'Entry', 'Peak' if present (if no position, these may not apply; assume False conditions if referenced)
+    # Also replace 'EntryPrice', 'Entry', 'Peak' when provided
     if "Entry" in formula or "EntryPrice" in formula:
-        # For signal generation without position context, treat any Entry/Peak condition as False if no position.
-        # (Alternatively, these could be handled externally when a position exists.)
-        replacements["EntryPrice"] = replacements["Entry"] = replacements["Peak"] = 0  # placeholder
+        replacements["EntryPrice"] = replacements["Entry"] = (
+            entry if entry is not None else 0
+        )
+    if "Peak" in formula:
+        replacements["Peak"] = peak if peak is not None else 0
     # Prepare indicator patterns:
     # EMA, RSI, ATR, MFI, ADX, etc., with periods and optional offsets
     # We'll assume offset format as in formulas: e.g. "EMA(20)" or "EMA(20,-1)".

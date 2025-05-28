@@ -151,3 +151,23 @@ def test_f2_signal_accepts_tzaware():
     })
     result = f2_signal(df1, df5, symbol="TZAWARE")
     assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_eval_formula_with_entry_and_peak():
+    row = pd.Series({
+        "close": 110,
+        "open": 110,
+        "high": 110,
+        "low": 110,
+        "volume": 1,
+        "EMA_5": 100,
+        "EMA_20": 90,
+        "RSI_14": 70,
+    })
+    formula = (
+        "Close >= Entry * 1.015 or Close <= Peak * 0.992 or "
+        "Close <= Entry * 0.993 or RSI(14) < 60 or EMA(5) < EMA(20)"
+    )
+    res = eval_formula(formula, row, entry=100, peak=110)
+    assert res

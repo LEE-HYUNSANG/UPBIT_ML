@@ -37,3 +37,9 @@ Whenever a new trade is opened the current list of holdings is written to
 `config/coin_positions.json`. Each entry contains the symbol, entry price,
 quantity and strategy information. This file can be inspected to see which
 coins are being monitored even after restarting the application.
+
+Each position stores the strategy code used on entry. The system now checks
+the corresponding `sell_formula` from `strategies_master_pruned.json` on every
+update. When that expression evaluates to `True` using the latest 1-minute
+candle along with the position's entry and peak prices the coin is automatically
+sold via the order executor.
