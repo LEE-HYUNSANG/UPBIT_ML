@@ -22,3 +22,11 @@ those APIs.
 
 For detailed information about the REST interface see [`api_endpoints.md`](api_endpoints.md).
 Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
+
+## Sell Monitoring Bar
+
+The dashboard's "매도 모니터링" table displays a horizontal bar for each open
+position. The left edge represents the stop-loss percentage while the right
+edge marks the take-profit target. A small vertical indicator shows the current
+price relative to the entry. Values are taken from the latest risk
+configuration so changes apply automatically.
