@@ -49,8 +49,18 @@ class OrderExecutor:
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
             if signal["buy_signal"]:
-                if self.risk_manager and self.risk_manager.is_symbol_disabled(signal.get("symbol")):
-                    log_with_tag(logger, f"Entry blocked by RiskManager for {signal.get('symbol')}")
+                symbol = signal.get("symbol")
+                if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
+                    log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
+                    return
+                if (
+                    hasattr(self.position_manager, "positions")
+                    and any(
+                        p.get("symbol") == symbol and p.get("status") == "open"
+                        for p in self.position_manager.positions
+                    )
+                ):
+                    log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
                 order_result = smart_buy(
                     signal,
