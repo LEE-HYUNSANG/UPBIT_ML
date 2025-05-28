@@ -16,7 +16,8 @@ class DummyPositionManager:
     def __init__(self, *_, **__):
         self.positions = []
 
-    def open_position(self, order_result):
+    def open_position(self, order_result, status="open"):
+        order_result["status"] = status
         self.positions.append(order_result)
 
     def close_all_positions(self):

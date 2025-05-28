@@ -11,18 +11,6 @@ logger = logging.getLogger("F3_utils")
 fh = RotatingFileHandler(
     "logs/F3_utils.log",
     encoding="utf-8",
-    maxBytes=100_000,
-    backupCount=10,
-)
-formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
-fh.setFormatter(formatter)
-logger.addHandler(fh)
-logger.setLevel(logging.INFO)
-
-logger = logging.getLogger("F3_utils")
-fh = RotatingFileHandler(
-    "logs/F3_utils.log",
-    encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,
 )

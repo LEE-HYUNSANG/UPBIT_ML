@@ -53,6 +53,15 @@ coins are being monitored even after restarting the application. The
 `PositionManager` reloads this file at startup so any open positions continue
 to be tracked across restarts.
 
+Position data is now refreshed every second. The latest quantity, price and
+PnL information are persisted back to `coin_positions.json` on each update so
+external tools always see up-to-date values.
+
+Buy orders that are submitted but not immediately filled are saved with the
+status `"pending"`. While a position is pending any further buy signals for the
+same symbol are ignored. Once the balance updates to a non-zero quantity the
+status automatically switches to `"open"` on the next refresh.
+
 Positions detected in the exchange account when the application boots are
 registered with the origin value `"imported"` so they can be distinguished from
 positions opened by automated signals.
