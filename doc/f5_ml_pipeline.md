@@ -20,3 +20,6 @@
 
 필요 패키지는 `f5_ml_pipeline/requirements.txt`를 통해 설치합니다.
 각 스크립트는 독립적으로 실행할 수 있으며, 설정은 `train_config.yaml`을 참고합니다.
+
+각 단계의 상세 설명은 `doc/` 폴더의 개별 문서를 참고합니다. 특히 데이터 정제 절차는
+[doc/data_cleaning.md](data_cleaning.md)에서 다룹니다.
