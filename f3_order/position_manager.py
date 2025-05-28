@@ -290,6 +290,12 @@ class PositionManager:
             position["status"] = "closed"
         self._persist_positions()
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
+        if self.exception_handler:
+            msg = (
+                f"SELL {position['symbol']} {qty} via {exit_type}"
+                f" @ {order.get('price')}"
+            )
+            self.exception_handler.send_alert(msg, "info")
         return order
 
     def manage_trailing_stop(self, position):

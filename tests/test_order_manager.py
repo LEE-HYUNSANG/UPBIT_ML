@@ -41,6 +41,8 @@ def make_pm(tmp_path, monkeypatch=None):
 
 def test_execute_sell_closes_position(tmp_path, monkeypatch):
     pm = make_pm(tmp_path, monkeypatch)
+    calls = []
+    pm.exception_handler.send_alert = lambda m, s="info": calls.append((m, s))
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
     pm.open_position(order)
     pm.positions[0]["current_price"] = 101.0
@@ -51,6 +53,7 @@ def test_execute_sell_closes_position(tmp_path, monkeypatch):
     cur.execute("SELECT COUNT(*) FROM orders")
     assert cur.fetchone()[0] == 1
     conn.close()
+    assert calls and "KRW-BTC" in calls[0][0]
 
 
 def test_slippage_handling(tmp_path, monkeypatch):
