@@ -38,12 +38,23 @@ def test_hot_reload_updates_config(tmp_path, monkeypatch):
     cfg = os.path.join(tmp_path, "risk.json")
     with open(cfg, "w", encoding="utf-8") as f:
         f.write("{\"DAILY_LOSS_LIM\": 2}")
-    rm = RiskManager(config_path=cfg)
+    class StubExecutor:
+        def __init__(self):
+            self.config = {}
+            self.rm = None
+
+        def update_from_risk_config(self):
+            self.config["ENTRY_SIZE_INITIAL"] = self.rm.config.get("ENTRY_SIZE_INITIAL")
+
+    stub = StubExecutor()
+    rm = RiskManager(config_path=cfg, order_executor=stub)
+    stub.rm = rm
     assert rm.config.get("DAILY_LOSS_LIM") == 2
     with open(cfg, "w", encoding="utf-8") as f:
-        f.write("{\"DAILY_LOSS_LIM\": 1}")
+        f.write("{\"DAILY_LOSS_LIM\": 1, \"ENTRY_SIZE_INITIAL\": 3}")
     rm.hot_reload()
     assert rm.config.get("DAILY_LOSS_LIM") == 1
+    assert stub.config.get("ENTRY_SIZE_INITIAL") == 3
 
 
 def test_disable_symbol_blocks_entry(tmp_path, monkeypatch):
