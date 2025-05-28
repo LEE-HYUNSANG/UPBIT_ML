@@ -65,7 +65,6 @@
           <tr class="text-gray-400 border-b border-gray-700 text-center">
             <th class="py-2 font-semibold">코인</th>
             <th class="py-2 font-semibold td-strategy">전략</th>
-            <th class="py-2 font-semibold">진입가</th>
             <th class="py-2 font-semibold">매수평균가</th>
             <th class="py-2 font-semibold">현재가</th>
             <th class="py-2 font-semibold">평가금액</th>
@@ -152,6 +151,14 @@ function updateAccount() {
 updateAccount();
 setInterval(updateAccount, 10000);
 
+let riskCfg = { SL_PCT: 1, TP_PCT: 1 };
+function fetchRiskConfig() {
+  fetch('/api/risk_config')
+    .then(r => r.json())
+    .then(cfg => { riskCfg = cfg; })
+    .catch(console.error);
+}
+fetchRiskConfig();
 
 function fetchPositions() {
   fetch('/api/open_positions')
@@ -165,7 +172,7 @@ function fetchPositions() {
         const row = document.createElement('tr');
         row.className = 'text-center';
         const cell = document.createElement('td');
-        cell.colSpan = 10;
+        cell.colSpan = 9;
         cell.textContent = '포지션 없음';
         row.appendChild(cell);
         body.appendChild(row);
@@ -177,7 +184,6 @@ function fetchPositions() {
         row.innerHTML = `
           <td class="td-coin">${pos.symbol.replace('KRW-', '')}</td>
           <td class="td-strategy">${pos.strategy ?? '-'}</td>
-          <td class="td-price">${Number(pos.entry_price ?? 0).toLocaleString()}</td>
           <td class="td-price">${Number(pos.avg_price ?? 0).toLocaleString()}</td>
           <td class="td-price">${Number(pos.current_price ?? 0).toLocaleString()}</td>
           <td class="td-price">${Number(pos.eval_amount ?? 0).toLocaleString()}</td>
@@ -185,6 +191,27 @@ function fetchPositions() {
           <td class="td-pnl">${Number(pos.pnl_percent ?? 0).toFixed(2)}%</td>
           <td class="td-burn">${pos.pyramid_count ?? 0}</td>
           <td class="td-add">${pos.avgdown_count ?? 0}</td>`;
+        const g = row.querySelector('.td-graph');
+        if (g) {
+          const sl = Number(riskCfg.SL_PCT || 1);
+          const tp = Number(riskCfg.TP_PCT || 1);
+          const total = sl + tp;
+          const curPct = Number(pos.pnl_percent || 0);
+          let posX = ((curPct + sl) / total) * 100;
+          posX = Math.max(0, Math.min(100, posX));
+          g.innerHTML = `
+            <div class="relative h-1.5 bg-gray-700 rounded">
+              <div class="absolute inset-y-0 left-0 w-px bg-red-500"></div>
+              <div class="absolute inset-y-0 left-1/2 w-px bg-gray-300"></div>
+              <div class="absolute inset-y-0 right-0 w-px bg-green-500"></div>
+              <div class="absolute inset-y-0 w-1 bg-blue-400" style="left:${posX}%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] mt-0.5">
+              <span class="text-red-400">-${sl}%</span>
+              <span>평균가</span>
+              <span class="text-green-400">+${tp}%</span>
+            </div>`;
+        }
         body.appendChild(row);
       });
     })

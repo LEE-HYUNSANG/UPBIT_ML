@@ -64,6 +64,8 @@ class PositionManager:
             "status": "open",
             "origin": order_result.get("origin", "trade"),
         }
+        if "strategy" in order_result:
+            pos["strategy"] = order_result["strategy"]
         self.positions.append(pos)
         log_with_tag(logger, f"Open position: {pos}")
 
