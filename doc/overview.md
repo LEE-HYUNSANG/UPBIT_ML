@@ -61,10 +61,7 @@ Positions detected in the exchange account when the application boots are
 registered with the origin value `"imported"` so they can be distinguished from
 positions opened by automated signals.
 
-These imported entries do not contain a valid strategy code. The signal loop
-therefore evaluates **all** sell formulas when monitoring them so that exits are
-still detected.
-
+Imported positions are monitored using all sell formulas because the placeholder strategy code is ignored.
 Each position stores the strategy code used on entry. During the signal loop
 only buy rules are evaluated for symbols from `current_universe.json`. Once a
 position is opened its associated `sell_formula` from
