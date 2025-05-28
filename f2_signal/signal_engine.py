@@ -48,6 +48,19 @@ def _log_insufficient_data(symbol: str, strategy: str, required: int, available:
     }
     _log_jsonl("logs/insufficient_data.log", data)
 
+
+def _log_monitoring(symbol: str, category: str, results: list[tuple[str, bool]], triggered: list[str]) -> None:
+    true_codes = [c for c, r in results if r]
+    false_codes = [c for c, r in results if not r]
+    logging.info(f">>>>>>{category} ({symbol}) >>>>>>>>")
+    if true_codes:
+        logging.info("\u25CF True: " + ", ".join(true_codes))
+    if false_codes:
+        logging.info("\u25A1 False: " + ", ".join(false_codes))
+    if triggered:
+        logging.info(f"{category.split()[0]} Signal: {triggered[0]}")
+        logging.info(f"{category.split()[0].upper()} SIGNAL TRIGGER: [{symbol}] [{triggered[0]}]")
+
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.DEBUG,
@@ -373,9 +386,10 @@ def f2_signal(
     latest1 = matching_1m.iloc[-1]
     buy_signal = False
     sell_signal = False
-    # 어떤 전략이 발동했는지 기록
     triggered_buys = []
     triggered_sells = []
+    buy_results: list[tuple[str, bool]] = []
+    sell_results: list[tuple[str, bool]] = []
     for strat in strategies:
         if strategy_codes and strat["short_code"] not in strategy_codes:
             continue
@@ -446,9 +460,11 @@ def f2_signal(
         if buy_cond_5m:
             buy_signal = True
             triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula, "order": settings.get("order", 999)})
+        buy_results.append((strat["short_code"], bool(buy_cond_5m)))
         if sell_cond_1m:
             sell_signal = True
             triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
+        sell_results.append((strat["short_code"], bool(sell_cond_1m)))
         logging.info(
             f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
         )
@@ -467,6 +483,14 @@ def f2_signal(
         logging.warning(
             f"[{symbol}][F2] SELL SIGNAL TRIGGERED - 전략: {triggered_sell_codes}"
         )
+    
+    else:
+        triggered_sell_codes = []
+
+    if calc_buy:
+        _log_monitoring(symbol, "매수 모니터링", buy_results, triggered_buys_codes)
+    if calc_sell:
+        _log_monitoring(symbol, "매도 모니터링", sell_results, triggered_sell_codes)
 
     result = {
         "symbol": symbol,
