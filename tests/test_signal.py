@@ -81,6 +81,7 @@ def test_f2_signal_disable_all():
     result = f2_signal(df, df, symbol="NONE", calc_buy=False, calc_sell=False)
     assert not result["buy_signal"] and not result["sell_signal"]
 
+
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_eval_formula_numeric_comparison():
     row = pd.Series({"close": 10, "EMA_5": 9})
