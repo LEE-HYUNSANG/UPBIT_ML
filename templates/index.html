@@ -1,0 +1,10 @@
+{% extends '00_base.html' %}
+{% block title %}Universe Selection{% endblock %}
+{% block content %}
+<h1 class="text-xl font-bold mb-4">Selected Universe</h1>
+<ul class="list-disc pl-5">
+  {% for ticker in universe %}
+  <li>{{ ticker.replace('KRW-', '') }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

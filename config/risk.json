@@ -1,0 +1,28 @@
+{
+  "ENTRY_SIZE_INITIAL": 10000,
+  "TOTAL_INVEST_LIMIT": 10000,
+  "MAX_SYMBOLS": 5,
+
+  "AVG_SIZE": 5000,
+  "AVG_MAX_COUNT": 2,
+  "AVG_ENABLED": true,
+
+  "PYR_SIZE": 5000,
+  "PYR_MAX_COUNT": 2,
+  "PYR_ENABLED": true,
+
+  "SLIP_MAX": 0.15,
+  "ORDER_FAIL_ACTION": "retry",
+
+  "DAILY_LOSS_LIM": 2.5,
+  "MDD_LIM": 7.0,
+  "MONTHLY_MDD_LIM": 10.0,
+  "AUTO_STOP_ENABLED": true,
+
+  "SL_PCT": 1.0,
+  "TP_PCT": 1.2,
+  "TRAILING_STOP_ENABLED": true,
+  "TRAIL_START_PCT": 0.7,
+  "TRAIL_STEP_PCT": 1.0
+  ,"HOLD_SECS": 0
+}

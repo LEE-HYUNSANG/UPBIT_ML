@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}AUTO UPBIT 실전 대시보드{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card-title { font-weight: 700; font-size: 1.1rem; }
+    .main-bg { background: linear-gradient(135deg,#0a0a0a 65%,#111 100%); }
+    .alert-bg {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); display:none;
+      align-items: center; justify-content: center; z-index: 1000;
+    }
+    .alert-box {
+      background: #fff; color: #111; padding: 1.5rem 2rem; border-radius: 0.75rem;
+      font-weight: 700; min-width: 240px; text-align: center;
+      box-shadow: 0 8px 32px #000a;
+    }
+    .toggle-switch { position: relative; width: 70px; height: 32px; display: inline-block; }
+    .toggle-switch input { display: none; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: #334155; border-radius: 32px; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 7px;
+      font-weight: bold; font-size: 15px; color: #b1c1db;
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background: #22c55e; color: #fff;
+    }
+    .toggle-slider .toggle-dot {
+      position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 100%;
+      background: #fff; box-shadow: 0 2px 10px #0f172a2a;
+      transition: left 0.22s;
+    }
+    .toggle-switch input:checked + .toggle-slider .toggle-dot {
+      left: 42px; background: #fff;
+    }
+    th, td { white-space: nowrap; }
+    .td-coin { min-width: 64px; }
+    .td-strategy { min-width: 110px; text-align: center; }
+    .td-price { min-width: 100px; text-align: right; }
+    .td-graph { min-width: 220px; padding: 0 10px; }
+    .td-pnl { min-width: 75px; text-align: right; }
+    .td-burn, .td-add { min-width: 48px; text-align: center; }
+    ::-webkit-scrollbar { height:6px; width:6px; background:#2d3748; }
+    ::-webkit-scrollbar-thumb { background: #475569; border-radius:3px; }
+    .tooltip { position: relative; display: inline-block; cursor: pointer; }
+    .tooltip .tooltiptext {
+      visibility: hidden; width: max-content; min-width: 110px; background: #374151;
+      color: #fff; text-align: center; border-radius: 7px; padding: 6px 10px; position: absolute; z-index: 20;
+      bottom: 130%; left: 50%; transform: translateX(-50%);
+      opacity: 0; transition: opacity 0.18s; font-size: 0.93rem; pointer-events: none;
+      box-shadow: 0 6px 22px #1119;
+    }
+    .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+  </style>
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="main-bg text-white min-h-screen font-sans">
+  <header class="bg-gray-950 border-b border-green-500/20 shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+      <div class="flex items-center gap-3">
+        <span class="text-green-400 text-2xl font-black tracking-tight">AUTO<span class="text-white">UPBIT</span></span>
+        <span class="ml-2 px-2 py-0.5 rounded-full text-xs bg-green-900/50 text-green-300 font-semibold">실시간</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <nav class="flex gap-6 text-base font-semibold">
+          <a href="{{ url_for('dashboard') }}" class="hover:text-green-400 transition">대시보드</a>
+          <a href="{{ url_for('strategy') }}" class="hover:text-green-400 transition">전략 설정</a>
+          <a href="{{ url_for('risk') }}" class="hover:text-green-400 transition">리스크 셋팅</a>
+          <a href="{{ url_for('analysis') }}" class="hover:text-green-400 transition">데이터 분석</a>
+          <a href="{{ url_for('settings') }}" class="hover:text-green-400 transition">개인 설정</a>
+        </nav>
+        <div class="flex items-center gap-1">
+          <span id="status-off" class="text-red-500 text-sm font-bold">중단</span>
+
+          <label class="toggle-switch" title="자동매매 실행/중지">
+            <input id="autotrade-toggle" type="checkbox" onchange="toggleStatus(this)">
+            <span class="toggle-slider"><span class="toggle-dot"></span></span>
+          </label>
+          <span id="status-on" class="text-gray-400 text-sm font-bold">실행중</span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    {% block content %}{% endblock %}
+  </main>
+  <div id="alertContainer" class="alert-bg">
+    <div id="alertBox" class="alert-box">알림</div>
+  </div>
+  <footer class="text-center text-gray-500 text-sm py-8 mt-10 border-t border-green-900/30 bg-gray-950">
+    &copy; 2025 <span class="text-green-400 font-semibold">AUTO UPBIT</span>. All rights reserved.
+  </footer>
+  <script>
+    function toggleStatus(checkbox) {
+      fetch('/api/auto_trade_status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enabled: checkbox.checked })
+      })
+        .then(r => r.json())
+        .then(d => {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
+            if (d.enabled) {
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
+            } else {
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
+            }
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          checkbox.checked = !checkbox.checked;
+        if (typeof fetchAutoTradeStatus === 'function') fetchAutoTradeStatus();
+      });
+    }
+    function fetchAutoTradeStatus() {
+      fetch('/api/auto_trade_status')
+        .then(r => r.json())
+        .then(d => {
+          var checkbox = document.getElementById('autotrade-toggle');
+          var status = document.getElementById('run-status');
+          var updated = document.getElementById('autotrade-updated');
+          if (checkbox) checkbox.checked = d.enabled;
+          if (status) {
+            if (d.enabled) {
+              status.textContent = '실행중';
+              status.className =
+                'w-full px-2 py-0.5 rounded-full text-xs font-bold bg-green-700 text-green-200 text-center mt-1';
+            } else {
+              status.textContent = '중단 상태';
+              status.className =
+                'w-full px-2 py-0.5 rounded-full text-xs font-bold bg-gray-700 text-gray-300 text-center mt-1';
+            }
+          }
+          if (updated) updated.textContent = '업데이트: ' + d.updated_at;
+        })
+        .catch(() => {
+          var status = document.getElementById('run-status');
+          if (status) {
+            status.textContent = '연결 오류';
+            status.className =
+              'w-full px-2 py-0.5 rounded-full text-xs font-bold bg-red-700 text-red-200 text-center mt-1';
+          }
+        });
+    }
+    function fetchAutoTradeStatus() {
+      fetch('/api/auto_trade_status')
+        .then(r => r.json())
+        .then(d => {
+          var checkbox = document.getElementById('autotrade-toggle');
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (checkbox) checkbox.checked = d.enabled;
+          if (off && on) {
+            if (d.enabled) {
+              off.className = 'text-gray-400 text-sm font-bold';
+              on.className = 'text-green-400 text-sm font-bold';
+            } else {
+              off.className = 'text-red-500 text-sm font-bold';
+              on.className = 'text-gray-400 text-sm font-bold';
+            }
+          }
+        })
+        .catch(() => {
+          var off = document.getElementById('status-off');
+          var on = document.getElementById('status-on');
+          if (off && on) {
+            off.className = 'text-red-500 text-sm font-bold';
+            on.className = 'text-gray-400 text-sm font-bold';
+          }
+        });
+    }
+    function openMonitorModal() {
+      fetch('/api/universe_config')
+        .then(r => r.json())
+        .then(cfg => {
+          document.getElementById('minPrice').value = cfg.min_price;
+          document.getElementById('maxPrice').value = cfg.max_price;
+          document.getElementById('minVolatility').value = cfg.min_volatility;
+          document.getElementById('volumeRank').value = cfg.volume_rank;
+          document.getElementById("monitorModal").classList.remove("hidden");
+        })
+        .catch(() => {
+          document.getElementById("monitorModal").classList.remove("hidden");
+        });
+    }
+    function closeMonitorModal() {
+      document.getElementById("monitorModal").classList.add("hidden");
+    }
+    function saveMonitorCondition() {
+      var minPrice = parseFloat(document.getElementById("minPrice").value);
+      var maxPrice = parseFloat(document.getElementById("maxPrice").value);
+      var minVolatility = parseFloat(document.getElementById("minVolatility").value);
+      var volumeRank = parseInt(document.getElementById("volumeRank").value);
+      fetch('/api/universe_config', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          min_price: minPrice,
+          max_price: maxPrice,
+          min_volatility: minVolatility,
+          volume_rank: volumeRank
+        })
+      })
+        .then(r => r.json())
+        .then(() => {
+          closeMonitorModal();
+          showAlert('저장되었습니다');
+          setTimeout(() => location.reload(), 800);
+        })
+        .catch(err => {
+          console.error(err);
+          closeMonitorModal();
+          showAlert('처리 중 오류 발생');
+        });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeMonitorModal();
+    });
+
+    function showAlert(msg){
+      var bg = document.getElementById('alertContainer');
+      var box = document.getElementById('alertBox');
+      if(box) box.textContent = msg;
+      if(bg){
+        bg.style.display = 'flex';
+        setTimeout(() => { bg.style.display = 'none'; }, 1800);
+      }
+    }
+    fetchAutoTradeStatus();
+    setInterval(fetchAutoTradeStatus, 5000);
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

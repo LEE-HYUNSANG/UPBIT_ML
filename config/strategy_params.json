@@ -1,0 +1,6 @@
+{
+  "M-BREAK": {"min_bars": 20},
+  "P-PULL": {"min_bars": 20},
+  "T-FLOW": {"min_bars": 20},
+  "G-REV": {"min_bars": 20}
+}

@@ -1,0 +1,649 @@
+{% extends '00_base.html' %}
+{% block title %}AUTO UPBIT - 리스크/투자 설정{% endblock %}
+{% block head_extra %}
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <style>
+    html, body {
+      width: 100vw;
+      height: 100vh;
+    }
+    body {
+      overflow-x: auto;
+    }
+    .main-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-card {
+      background: #1f2937;
+      border-radius: 18px;
+      box-shadow: 0 1px 4px #0006;
+      padding: 2rem;
+      margin-bottom: 44px;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+    }
+    .input-label {
+      font-size: 1rem;
+      color: #cbd5e1;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .input-desc {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-top: -4px;
+      margin-bottom: 8px;
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px 32px;
+      margin-bottom: 24px;
+    }
+    .risk-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .input-xl,
+    .select-xl {
+      background: #0f172a;
+      border: 2px solid #374151;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 10px;
+      width: 100%;
+      font-family: inherit;
+      box-sizing: border-box;
+      padding: 14px 16px;
+      height: 48px; /* select 높이 통일 */
+      outline: none;
+      transition: border 0.15s;
+      line-height: 1.25;
+      vertical-align: middle;
+    }
+    .input-xl:focus,
+    .select-xl:focus {
+      border: 2px solid #22c55e;
+    }
+    .comma {
+      text-align: right;
+    }
+    .select-xl {
+      text-align-last: center;
+      appearance: none;
+      overflow: visible;
+    }
+    .card-bottom-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 13px;
+      margin-top: 12px;
+    }
+    .btn-save {
+      background: #22c55e;
+      color: #15212b;
+      font-weight: 700;
+    }
+    .btn-save:hover {
+      background: #4ade80;
+    }
+    .btn-ml {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-ml:hover {
+      background: #2563eb;
+    }
+    .btn-restore {
+      background: #475569;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-restore:hover {
+      background: #334155;
+    }
+    .btn-reset {
+      background: #374151;
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-reset:hover {
+      background: #1e293b;
+    }
+    .save-status {
+      color: #22c55e;
+      font-size: 1rem;
+      margin-left: 24px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .modal-bg {
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 16, 20, 0.65);
+    }
+    .modal {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      color: #111;
+      border-radius: 17px;
+      box-shadow: 0 8px 32px #000a;
+      width: 460px;
+      max-width: 98vw;
+    }
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #111;
+      margin: 24px 0 12px 0;
+      text-align: center;
+    }
+    .modal-content {
+      color: #111;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .modal-table {
+      width: 100%;
+      margin: 20px 0 26px 0;
+      border-radius: 8px;
+    }
+    .modal-table td {
+      padding: 9px 14px;
+      font-size: 1rem;
+    }
+    .modal-table th {
+      background: #f3f3f3;
+      color: #111;
+      font-weight: 600;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 38px;
+      margin-bottom: 28px;
+    }
+    .modal-actions button {
+      font-size: 1rem;
+      border-radius: 10px;
+      padding: 9px 32px;
+    }
+    @media (max-width: 1700px) {
+      .main-wrap {
+        max-width: 100vw;
+      }
+      .section-card {
+        padding: 2rem 1rem;
+      }
+      .modal {
+        width: 97vw;
+      }
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="main-wrap py-16">
+
+    <!-- 투자금/동시매매 한도 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">투자금/동시매매 한도</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">투자 규모와 보유 코인 수를 제한합니다.</p>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">코인 초기 투자금액(원)</div>
+          <div class="input-desc">첫 구매 시 투입할 금액을 설정합니다.</div>
+          <input id="invest-1" type="text" value="100,000" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">전체 투자금 총 한도</div>
+          <div class="input-desc">모든 거래에 사용할 최대 투자금입니다.</div>
+          <input id="invest-2" type="text" value="1,000,000" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">동시매매 코인 수</div>
+          <div class="input-desc">동시에 보유 가능한 코인 수를 제한합니다.</div>
+          <input id="invest-3" type="text" value="5" class="input-xl comma">
+        </div>
+        <div></div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('invest', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('invest', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
+        <button onclick="triggerModal('invest', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('invest', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-invest" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 물/불타기 카드: 최대 4열 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">물타기 · 불타기 설정</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">추가 매수/매입 전략을 조정합니다.</p>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">물타기 추가 금액</div>
+          <div class="input-desc">가격 하락 시 추가 매수에 사용할 금액.</div>
+          <input id="add-1" type="text" value="100,000" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">물타기 허용 횟수</div>
+          <div class="input-desc">물타기 가능한 최대 횟수.</div>
+          <input id="add-2" type="text" value="2" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">물타기 허용 여부</div>
+          <div class="input-desc">물타기 기능 사용 여부.</div>
+          <select id="add-3" class="select-xl">
+            <option value="예" selected>예</option>
+            <option value="아니오">아니오</option>
+          </select>
+        </div>
+        <div></div>
+        <div>
+          <div class="input-label">불타기 추가 금액</div>
+          <div class="input-desc">가격 상승 시 추가 매수에 사용할 금액.</div>
+          <input id="add-4" type="text" value="100,000" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">불타기 허용 횟수</div>
+          <div class="input-desc">불타기 가능한 최대 횟수.</div>
+          <input id="add-5" type="text" value="2" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">불타기 허용 여부</div>
+          <div class="input-desc">불타기 기능 사용 여부.</div>
+          <select id="add-6" class="select-xl">
+            <option value="예" selected>예</option>
+            <option value="아니오">아니오</option>
+          </select>
+        </div>
+        <div></div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('add', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('add', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
+        <button onclick="triggerModal('add', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('add', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-add" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 체결/슬리피지 카드: 2열~3열 자동 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">체결/슬리피지 설정</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">주문 체결 실패 시 동작을 지정합니다.</p>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(2,1fr);">
+        <div>
+          <div class="input-label">슬리피지 허용(%)</div>
+          <div class="input-desc">주문과 체결 가격 차이를 허용하는 범위.</div>
+          <input id="slip-1" type="text" value="0.15" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">체결 실패시 동작</div>
+          <div class="input-desc">주문 실패 시 실행할 동작을 선택합니다.</div>
+          <select id="slip-2" class="select-xl">
+            <option value="재시도" selected>재시도</option>
+            <option value="알림 및 대기">알림 및 대기</option>
+            <option value="포기/스킵">포기/스킵</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('slip', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('slip', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
+        <button onclick="triggerModal('slip', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('slip', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-slip" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 리스크 한도/자동 정지 카드: 최대 4열 지원 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">리스크 한도 · 자동 정지</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">손실 한도 도달 시 자동 중지 기준을 설정합니다.</p>
+      <div class="risk-grid">
+        <div>
+          <div class="input-label">일 최대 손실(%)</div>
+          <div class="input-desc">하루 동안 허용되는 최대 손실 비율.</div>
+          <input id="risk-1" type="text" value="2.5" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">MDD 최대 손실(%)</div>
+          <div class="input-desc">최대 낙폭을 제한하는 손실 비율.</div>
+          <input id="risk-2" type="text" value="7.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">월 MDD 최대 손실(%)</div>
+          <div class="input-desc">월간 최대 낙폭을 제한하는 손실 비율.</div>
+          <input id="risk-3" type="text" value="10.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">자동 정지 옵션</div>
+          <div class="input-desc">설정된 손실 한도 도달 시 자동 중지 여부.</div>
+          <select id="risk-4" class="select-xl">
+            <option value="ON" selected>ON</option>
+            <option value="OFF">OFF</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('risk', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('risk', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
+        <button onclick="triggerModal('risk', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('risk', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-risk" class="save-status"></span>
+      </div>
+    </div>
+
+    <!-- 손절/익절/TS 조건 카드: 2행(2+3열) 구조 -->
+    <div class="section-card">
+      <div class="flex items-center mb-8">
+        <span class="card-title text-white">손절/익절/TS 조건</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">수익/손실 기준과 추적 스탑을 설정합니다.</p>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(1,1fr); margin-bottom:16px;">
+        <div>
+          <div class="input-label">보유 기간(초)</div>
+          <div class="input-desc">이 시간이 지나면 기본 매도 로직을 우선 적용합니다.</div>
+          <input id="ts-0" type="text" value="0" class="input-xl comma">
+        </div>
+      </div>
+      <div class="risk-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:0;">
+        <div>
+          <div class="input-label">손절 조건(%)</div>
+          <div class="input-desc">설정 손실률 도달 시 포지션을 종료합니다.</div>
+          <input id="ts-1" type="text" value="2.5" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">익절 조건(%)</div>
+          <div class="input-desc">설정 수익률 도달 시 포지션을 정리합니다.</div>
+          <input id="ts-2" type="text" value="4.5" class="input-xl comma">
+        </div>
+      </div>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(3,1fr); margin-top:16px;">
+        <div>
+          <div class="input-label">TS(트레일링스탑) 사용 여부</div>
+          <div class="input-desc">트레일링 스탑 기능 사용 여부를 선택합니다.</div>
+          <select id="ts-3" class="select-xl">
+            <option value="사용" selected>사용</option>
+            <option value="미사용">미사용</option>
+          </select>
+        </div>
+        <div>
+          <div class="input-label">TS 적용 시작 구간(%)</div>
+          <div class="input-desc">트레일링 스탑이 시작되는 수익 구간.</div>
+          <input id="ts-4" type="text" value="4.0" class="input-xl comma">
+        </div>
+        <div>
+          <div class="input-label">TS 적용 조건(%)</div>
+          <div class="input-desc">최대 수익 대비 허용 손실 비율.</div>
+          <input id="ts-5" type="text" value="1.0" class="input-xl comma">
+        </div>
+      </div>
+      <div class="card-bottom-btns">
+        <button onclick="triggerModal('ts', '수동 변경')" class="btn-save px-7 py-3 rounded-xl">수동 변경</button>
+        <button onclick="triggerModal('ts', 'ML 파일 변경')" class="btn-ml px-7 py-3 rounded-xl">ML 파일 변경</button>
+        <button onclick="triggerModal('ts', '원복')" class="btn-restore px-7 py-3 rounded-xl">어제 데이터로 원복</button>
+        <button onclick="triggerModal('ts', '초기화')" class="btn-reset px-7 py-3 rounded-xl">초기화</button>
+        <span id="status-ts" class="save-status"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 모달: 변경 확인용 -->
+  <div id="modal-bg" class="modal-bg" style="display:none;"></div>
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-title" id="modal-title">설정값 변경 확인</div>
+    <div class="modal-content" id="modal-content"></div>
+    <div class="modal-actions">
+      <button id="modal-confirm" class="bg-green-600 hover:bg-green-700 font-bold">저장</button>
+      <button onclick="closeModal()" class="bg-gray-700 hover:bg-gray-600">취소</button>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    // 콤마 자동 처리 (콤마 넣고, 숫자만 입력되게)
+    document.querySelectorAll('.comma').forEach(function (input) {
+      input.addEventListener('input', function () {
+        let n = this.value.replace(/[^0-9.]/g, '');
+        n = n.replace(/(\..*)\./g, '$1');
+        if (n.length === 0) {
+          this.value = '';
+        } else if (n.includes('.')) {
+          let parts = n.split('.');
+          parts[0] = Number(parts[0]).toLocaleString('ko-KR');
+          this.value = parts[0] + '.' + parts[1].slice(0, 2);
+        } else {
+          this.value = Number(n).toLocaleString('ko-KR');
+        }
+      });
+    });
+
+    let values = {};
+    let yday = {};
+    let init = {};
+    let ml = {};
+
+    function cfgToValues(cfg) {
+      return {
+        invest: [
+          Number(cfg.ENTRY_SIZE_INITIAL).toLocaleString('ko-KR'),
+          Number(cfg.TOTAL_INVEST_LIMIT).toLocaleString('ko-KR'),
+          String(cfg.MAX_SYMBOLS),
+        ],
+        add: [
+          Number(cfg.AVG_SIZE).toLocaleString('ko-KR'),
+          String(cfg.AVG_MAX_COUNT),
+          cfg.AVG_ENABLED ? '예' : '아니오',
+          Number(cfg.PYR_SIZE).toLocaleString('ko-KR'),
+          String(cfg.PYR_MAX_COUNT),
+          cfg.PYR_ENABLED ? '예' : '아니오',
+        ],
+        slip: [String(cfg.SLIP_MAX), cfg.ORDER_FAIL_ACTION],
+        risk: [
+          String(cfg.DAILY_LOSS_LIM),
+          String(cfg.MDD_LIM),
+          String(cfg.MONTHLY_MDD_LIM),
+          cfg.AUTO_STOP_ENABLED ? 'ON' : 'OFF',
+        ],
+        ts: [
+          String(cfg.HOLD_SECS),
+          String(cfg.SL_PCT),
+          String(cfg.TP_PCT),
+          cfg.TRAILING_STOP_ENABLED ? '사용' : '미사용',
+          String(cfg.TRAIL_START_PCT),
+          String(cfg.TRAIL_STEP_PCT),
+        ],
+      };
+    }
+
+    function setCardValues(cardVals) {
+      const idMap = {
+        invest: ['invest-1', 'invest-2', 'invest-3'],
+        add: ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'],
+        slip: ['slip-1', 'slip-2'],
+        risk: ['risk-1', 'risk-2', 'risk-3', 'risk-4'],
+        ts: ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'],
+      };
+      Object.keys(cardVals).forEach((card) => {
+        const ids = idMap[card];
+        ids.forEach((id, i) => {
+          const el = document.getElementById(id);
+          const val = cardVals[card][i];
+          if (el.tagName === 'INPUT') {
+            el.value = val;
+          } else {
+            for (let j = 0; j < el.options.length; j++) {
+              if (el.options[j].text === val || el.options[j].value === val) {
+                el.selectedIndex = j;
+              }
+            }
+          }
+        });
+      });
+    }
+
+    async function loadConfigs() {
+      const latest = await fetch('/api/risk_config?source=latest').then(r => r.json());
+      const defaultCfg = await fetch('/api/risk_config?source=default').then(r => r.json());
+      const mlCfg = await fetch('/api/risk_config?source=ml').then(r => r.json());
+      const ydayCfg = await fetch('/api/risk_config?source=yesterday').then(r => r.json());
+      values = cfgToValues(latest);
+      init = cfgToValues(defaultCfg);
+      ml = cfgToValues(mlCfg);
+      yday = cfgToValues(ydayCfg);
+      setCardValues(values);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadConfigs);
+    const labels = {
+      invest: ['코인 초기 투자금액(원)', '전체 투자금 총 한도', '동시매매 코인 수'],
+      add: [
+        '물타기 추가 금액',
+        '물타기 허용 횟수',
+        '물타기 허용 여부',
+        '불타기 추가 금액',
+        '불타기 허용 횟수',
+        '불타기 허용 여부',
+      ],
+      slip: ['슬리피지 허용(%)', '체결 실패시 동작'],
+      risk: ['일 최대 손실(%)', 'MDD 최대 손실(%)', '월 MDD 최대 손실(%)', '자동 정지 옵션'],
+      ts: [
+        '보유 기간(초)',
+        '손절 조건(%)',
+        '익절 조건(%)',
+        'TS(트레일링스탑) 사용 여부',
+        'TS 적용 시작 구간(%)',
+        'TS 적용 조건(%)',
+      ],
+    };
+
+    let targetCard;
+    let targetMode;
+    function triggerModal(card, mode) {
+      targetCard = card;
+      targetMode = mode;
+      let ids = [];
+      if (card === 'invest') ids = ['invest-1', 'invest-2', 'invest-3'];
+      if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
+      if (card === 'slip') ids = ['slip-1', 'slip-2'];
+      if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
+      if (card === 'ts') ids = ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      let before = values[card].slice();
+      let current = ids.map((id) => {
+        let el = document.getElementById(id);
+        return el.tagName === 'INPUT' ? el.value : el.options[el.selectedIndex].text;
+      });
+      let after = [];
+      if (mode === '수동 변경') after = current.slice();
+      else if (mode === '원복') after = yday[card];
+      else if (mode === '초기화') after = init[card];
+      else if (mode === 'ML 파일 변경') after = ml[card];
+      let content = `<table class="modal-table mx-auto">
+        <tr style="background:#334155;">
+          <th>항목</th><th>이전값</th><th>변경될 값</th>
+        </tr>`;
+      for (let i = 0; i < ids.length; i++) {
+        content += `<tr><td>${labels[card][i]}</td><td>${before[i]}</td><td>${after[i]}</td></tr>`;
+      }
+      content += `</table>
+      <div class="mt-1 mb-2 text-green-400 font-bold">${mode}을(를) 적용하시겠습니까?</div>`;
+      document.getElementById('modal-content').innerHTML = content;
+      document.getElementById('modal-bg').style.display = '';
+      document.getElementById('modal').style.display = '';
+      document.getElementById('modal-confirm').onclick = function () {
+        ids.forEach((id, i) => {
+          let el = document.getElementById(id);
+          if (el.tagName === 'INPUT') {
+            el.value = after[i];
+          } else {
+            for (let j = 0; j < el.options.length; j++) {
+              if (el.options[j].text === after[i]) el.selectedIndex = j;
+            }
+          }
+        });
+        values[card] = after.slice();
+        saveRiskConfig(getCardConfig(card));
+        document.getElementById('status-' + card).innerText = '✅ ' + mode + ' 적용됨';
+        setTimeout(() => {
+          document.getElementById('status-' + card).innerText = '';
+        }, 2000);
+        closeModal();
+      };
+    }
+    function closeModal() {
+      document.getElementById('modal-bg').style.display = 'none';
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    const keyMap = {
+      invest: ['ENTRY_SIZE_INITIAL','TOTAL_INVEST_LIMIT','MAX_SYMBOLS'],
+      add: ['AVG_SIZE','AVG_MAX_COUNT','AVG_ENABLED','PYR_SIZE','PYR_MAX_COUNT','PYR_ENABLED'],
+      slip: ['SLIP_MAX','ORDER_FAIL_ACTION'],
+      risk: ['DAILY_LOSS_LIM','MDD_LIM','MONTHLY_MDD_LIM','AUTO_STOP_ENABLED'],
+      ts: ['HOLD_SECS','SL_PCT','TP_PCT','TRAILING_STOP_ENABLED','TRAIL_START_PCT','TRAIL_STEP_PCT']
+    };
+
+    function getCardConfig(card) {
+      let ids = [];
+      if (card === 'invest') ids = ['invest-1', 'invest-2', 'invest-3'];
+      if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
+      if (card === 'slip') ids = ['slip-1', 'slip-2'];
+      if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
+      if (card === 'ts') ids = ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      const keys = keyMap[card];
+      let cfg = {};
+      ids.forEach((id, i) => {
+        let el = document.getElementById(id);
+        let val = el.tagName === 'INPUT' ? el.value : el.value;
+        val = val.replace(/,/g, '');
+        if (val === '예' || val === '사용' || val === 'ON') val = true;
+        else if (val === '아니오' || val === '미사용' || val === 'OFF') val = false;
+        else if (!isNaN(parseFloat(val))) val = parseFloat(val);
+        cfg[keys[i]] = val;
+      });
+      return cfg;
+    }
+
+    function saveRiskConfig(data) {
+      fetch('/api/risk_config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(() => showAlert('저장되었습니다'))
+        .catch(err => {
+          console.error(err);
+          showAlert('처리 중 오류 발생');
+        });
+    }
+
+    // 캐시된 페이지로 돌아올 때 최신 데이터를 표시하기 위해 새로고침
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) window.location.reload();
+    });
+  </script>
+{% endblock %}

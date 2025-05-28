@@ -1,0 +1,289 @@
+{% extends '00_base.html' %}
+{% block title %}AUTO UPBIT 전략 설정{% endblock %}
+{% block head_extra %}
+  <style>
+    :root {
+      /* Use the same palette as the home page */
+      --main-bg: #222831;
+      --card-bg: #1f2937;
+      --header-bg: #334155;
+      --table-bg: #1f2937;
+      --input-bg: #0f172a;
+      --input-border: #374151;
+      --green: #22c55e;
+      --green-light: #86efac;
+      --white: #e5e7eb;
+      --muted: #64748b;
+      --muted2: #334155;
+      --shadow: 0 2px 20px #0005;
+      --radius: 18px;
+    }
+    /* Use the base template's body styles for consistency */
+    .main-wrap {
+      max-width: 1160px;
+      margin: 32px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 4px #0006;
+      padding: 32px;
+      border: 1px solid var(--header-bg);
+    }
+    .title-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .title-icon {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .toggle-all { margin-right: 14px; }
+    .last-saved { color: var(--muted); font-size: 0.96rem; margin-left: 10px;}
+    .btn {
+      background: var(--green);
+      color: #1a2e1a; font-weight: 800; border-radius: 7px;
+      font-size: 0.98rem; padding: 8px 26px; border: none;
+      transition: box-shadow .13s, background .13s;
+      box-shadow: 0 1px 7px #22c55e32;
+    }
+    .btn:hover { background: var(--green-light);}
+    .btn-outline {
+      background: var(--table-bg);
+      color: var(--green); border: 1.5px solid var(--green);
+      font-weight: 700; border-radius: 7px;
+      font-size: 0.96rem; padding: 8px 24px;
+    }
+    .btn-outline:hover { background: var(--header-bg);}
+    table {
+      width: 100%; border-collapse: separate; border-spacing: 0 7px;
+      margin-top: 10px;
+    }
+    th, td { padding: 10px 8px; text-align: center; }
+    th {
+      background: var(--header-bg);
+      color: var(--green-light); font-size: 1rem; font-weight: 900;
+      border-bottom: 1.5px solid #33415580; letter-spacing: -0.5px;
+      border-radius: 7px;
+    }
+    tr {
+      background: var(--table-bg);
+      border-radius: 8px; transition: background 0.13s;
+      border-bottom: 1.3px solid #242c38;
+    }
+    tr:hover { background: var(--header-bg);}
+    .onoff-switch { cursor: pointer; }
+    .onoff-switch input { display: none; }
+    .onoff-slider {
+      background: var(--muted2); border-radius: 15px; width: 44px; height: 24px;
+      position: relative; display: inline-block; vertical-align: middle; transition: .14s;
+      border: 1.2px solid var(--header-bg);
+    }
+    .onoff-slider:before {
+      content: ""; position: absolute; left: 3px; top: 3px;
+      width: 16px; height: 16px; background: var(--input-bg);
+      border-radius: 50%; transition: .14s;
+      border: 1px solid #334155;
+    }
+    .onoff-switch input:checked + .onoff-slider { background: var(--green);}
+    .onoff-switch input:checked + .onoff-slider:before { left: 22px; background: #fff;}
+    .dropdown {
+      width: 114px; border-radius: 8px; border: 1.5px solid var(--input-border);
+      background: var(--input-bg); color: var(--green-light);
+      font-size: 0.95rem; font-weight: 700; padding: 6px 8px;
+      box-shadow: 0 1px 4px #1115;
+    }
+    .dropdown:focus { outline: none; border-color: var(--green);}
+    .order-inp {
+      width: 54px; border-radius: 7px; border: 1.3px solid var(--input-border);
+      background: var(--input-bg); color: var(--green-light); padding: 8px 5px;
+      font-size: 0.95rem; text-align: center; font-weight:700;
+    }
+    .order-inp:focus { outline: none; border-color: var(--green);}
+    .info-btn {
+      background: var(--input-bg); color: var(--green);
+      border-radius: 7px; border: none;
+      font-size: 0.95rem; width: 28px; height: 28px; cursor: pointer;
+      box-shadow: 0 1px 6px #22c55e38; transition: background .16s;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 5px;
+    }
+    .info-btn:hover { background: var(--green); color: #111c17;}
+    .tooltip {
+      display: none; position: absolute; background: var(--header-bg);
+      color: var(--green-light); padding: 12px 19px; border-radius: 8px;
+      box-shadow: 0 7px 24px #10192088; font-size: 0.95rem; z-index: 20;
+      left: -35px; top: 32px; border: 1.5px solid #33415599;
+      min-width: 140px; max-width: 320px; text-align: left;
+    }
+    tr:hover .tooltip { display: block; }
+    .modal-bg {
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 16, 20, 0.65);
+    }
+    .modal {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      color: #111;
+      border-radius: 17px;
+      box-shadow: 0 8px 32px #000a;
+      width: 600px;
+      max-width: 98vw;
+    }
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #111;
+      margin: 24px 0 12px 0;
+      text-align: center;
+    }
+    .modal-table { width:100%; margin:20px 0; }
+    .modal-table th { background:#f3f3f3; color:#111; font-weight:600; padding:8px; }
+    .modal-table td { padding:8px; text-align:center; }
+    .modal-actions { text-align:center; margin-bottom:20px; }
+    @media (max-width:1050px) { .main-wrap { max-width: 99vw; padding: 10px 2vw;}
+      th, td { font-size: 0.98rem; }
+      .dropdown, .order-inp { width: 78px; font-size: 0.97rem; }
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="main-wrap">
+    <!-- 상단 전체 옵션/저장바 -->
+    <div class="title-bar flex flex-wrap gap-2 items-center">
+      <span class="title-icon">전략 설정</span>
+      <label class="onoff-switch toggle-all">
+        <input type="checkbox" id="all-onoff" checked onchange="toggleAll(this.checked)">
+        <span class="onoff-slider"></span>
+      </label>
+      <span style="color:var(--green); font-weight:700;">전체 ON</span>
+      <span class="last-saved ml-6">마지막 저장: -</span>
+      <button class="btn-outline ml-4" onclick="openWinrateModal()">승률 데이터</button>
+      <button class="btn-outline ml-2" onclick="resetDefaults()">기본값 복원</button>
+      <button class="btn-outline ml-2" onclick="restoreYesterday()">어제값 복원</button>
+      <button class="btn ml-2" onclick="saveToServer(true)">저장</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2">ON/OFF</th>
+          <th rowspan="2">전략명</th>
+          <th rowspan="2">우선순위</th>
+          <th colspan="3">24시간 (실거래)</th>
+          <th colspan="3">분석 예상 결과</th>
+          <th rowspan="2">데이터 적용 값</th>
+        </tr>
+        <tr>
+          <th>거래 건수</th><th>승률</th><th>수익률</th>
+          <th>거래 건수</th><th>승률</th><th>수익률</th>
+        </tr>
+      </thead>
+      <tbody id="tbl-body"></tbody>
+      </table>
+      <div id="win-modal-bg" class="modal-bg" style="display:none;"></div>
+      <div id="win-modal" class="modal" style="display:none;">
+        <div class="modal-title">승률 데이터</div>
+        <table class="modal-table mx-auto">
+          <tr>
+            <th colspan="3">YYYYMMDD-ML Best#1</th>
+            <th colspan="3">YYYYMMDD-ML Best#2</th>
+            <th colspan="3">YYYYMMDD-ML Best#3</th>
+          </tr>
+          <tr>
+            <th>전략명</th><th>거래건수</th><th>승률</th>
+            <th>전략명</th><th>거래건수</th><th>승률</th>
+            <th>전략명</th><th>거래건수</th><th>승률</th>
+          </tr>
+          <tr>
+            <td>M-BREAK</td><td>0</td><td>0%</td>
+            <td>M-BREAK</td><td>0</td><td>0%</td>
+            <td>M-BREAK</td><td>0</td><td>0%</td>
+          </tr>
+        </table>
+        <div class="modal-actions">
+          <button class="btn-outline" onclick="closeWinrateModal()">닫기</button>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    let strategies = [];
+
+    async function loadStrategies(src = 'latest') {
+      const res = await fetch('/api/strategies?source=' + src);
+      const data = await res.json();
+      strategies = data.strategies;
+      const ls = document.querySelector('.last-saved');
+      if (ls) ls.textContent = '마지막 저장: ' + data.updated_at;
+      renderTable();
+    }
+
+    function renderTable(){
+      let html = "";
+      strategies.forEach((s,i)=>{
+        html += `<tr>
+          <td>
+            <label class="onoff-switch">
+              <input type="checkbox" ${s.on?"checked":""} onchange="toggleOne(${i},this.checked)">
+              <span class="onoff-slider"></span>
+            </label>
+          </td>
+          <td style="font-weight:900; color:var(--green); letter-spacing:-0.5px;">${s.name}</td>
+          <td><input class="order-inp" type="number" min="1" max="22" value="${s.order}" onchange="setOrder(${i},this.value)"></td>
+          <td>${s.rc}</td><td>${s.rw}</td><td>${s.rr}</td>
+          <td>${s.pc}</td><td>${s.pw}</td><td>${s.pr}</td>
+          <td style="position:relative;">${s.data}
+            <button class="info-btn" onmouseover="showTip(event,${i})" onmouseout="hideTip(event)">i</button>
+            <div class="tooltip">${s.info}</div>
+          </td>
+        </tr>`;
+      });
+      document.getElementById('tbl-body').innerHTML = html;
+    }
+
+    function saveToServer(showMsg=false){
+      fetch('/api/strategies', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(strategies.map(s => ({short_code:s.name, on:s.on, order:s.order})))
+      })
+      .then(r => r.json())
+      .then(d => {
+        const ls = document.querySelector('.last-saved');
+        if(ls) ls.textContent = '마지막 저장: ' + d.updated_at;
+        if(showMsg) showAlert('설정이 저장되었습니다');
+      })
+      .catch(console.error);
+    }
+
+    function toggleAll(v){ strategies.forEach(s=>s.on=v); renderTable(); saveToServer(); }
+    function toggleOne(i,v){ strategies[i].on = v; saveToServer(); }
+    function setOrder(i,v){ strategies[i].order = Number(v); saveToServer(); }
+    async function resetDefaults(){ await loadStrategies('default'); saveToServer(); }
+    async function restoreYesterday(){ await loadStrategies('yesterday'); saveToServer(); }
+    function openWinrateModal(){ document.getElementById('win-modal-bg').style.display=''; document.getElementById('win-modal').style.display=''; }
+    function closeWinrateModal(){ document.getElementById('win-modal-bg').style.display='none'; document.getElementById('win-modal').style.display='none'; }
+    function showTip(e,idx){
+      let tip = e.target.nextElementSibling;
+      tip.style.display='block';
+      tip.style.left=(e.target.offsetLeft-35)+'px';
+      tip.style.top=(e.target.offsetTop+32)+'px';
+    }
+    function hideTip(e){
+      let tip = e.target.nextElementSibling;
+      tip.style.display='none';
+    }
+    document.addEventListener('DOMContentLoaded', () => loadStrategies());
+  </script>
+{% endblock %}

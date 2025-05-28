@@ -1,0 +1,197 @@
+{% extends '00_base.html' %}
+{% block title %}개인설정 - AUTO UPBIT{% endblock %}
+{% block head_extra %}
+  <style>
+    .box {
+      background:#1f2937;
+      border-radius:18px;
+      box-shadow:0 1px 4px #0006;
+      padding:2rem;
+      margin-bottom:34px;
+      max-width:780px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .box-title { font-weight:700; font-size:1.25rem; margin-bottom:20px; color:#fff; }
+    .label { font-size:1.1rem; color:#cbd5e1; font-weight:500; margin-bottom:7px; }
+    .input {
+      background:#0f172a;
+      border:2px solid #374151;
+      color:#fff;
+      font-size:1rem;
+      border-radius:10px;
+      width:100%;
+      padding:14px 16px;
+      margin-bottom:14px;
+    }
+    .input:focus { border-color:#22c55e; }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:36px 32px; }
+    .box-btns { text-align:right; margin-top: 6px; }
+    .btn-main {
+      background:#22c55e;
+      color:#15212b;
+      font-weight:700;
+      border-radius:11px;
+      padding:10px 32px;
+      margin-left:7px;
+    }
+    .btn-main:hover { background:#4ade80; }
+    .alarm-row { display:grid; grid-template-columns:1fr 1fr; gap:20px 22px; }
+    .switch { position: relative; display: inline-block; width: 48px; height: 28px; }
+    .switch input { opacity:0; width:0; height:0; }
+    .slider {
+      position:absolute;
+      cursor:pointer;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:#374151;
+      transition:.3s;
+      border-radius:28px;
+    }
+    .slider:before {
+      position:absolute;
+      content:"";
+      height:20px;
+      width:20px;
+      left:4px;
+      bottom:4px;
+      background:#fff;
+      transition:.3s;
+      border-radius:50%;
+    }
+    .switch input:checked + .slider { background:#22c55e; }
+    .switch input:checked + .slider:before { transform:translateX(20px); }
+    .desc { color:#6ee7b7; font-size:0.98rem; margin-bottom:12px; }
+    .timepicker-wrap { display:flex; align-items:center; gap:6px; margin-bottom:0; }
+    .timepicker-box {
+      background:#0f172a;
+      border:2px solid #374151;
+      color:#fff;
+      border-radius:10px;
+      font-size:1rem;
+      height:45px;
+      min-width:70px;
+      text-align:center;
+      margin-right:6px;
+      padding:0 5px;
+    }
+    .timepicker-box:focus { border-color:#22c55e; }
+    .tip { color:#a3a3a3; font-size:0.98rem; margin-top:8px; }
+    @media (max-width:1000px) { .row, .alarm-row { grid-template-columns:1fr; } }
+  </style>
+{% endblock %}
+{% block content %}
+
+  <!-- 박스 1: API 정보 -->
+  <div class="box">
+    <div class="box-title">API 정보</div>
+    <div class="desc">업비트·텔레그램 자동매매/알림 연동을 위한 키를 입력하세요.</div>
+    <div class="row">
+      <div>
+        <div class="label">업비트 Access Key</div>
+        <input class="input" type="text" placeholder="Upbit Access Key">
+      </div>
+      <div>
+        <div class="label">업비트 Secret Key</div>
+        <input class="input" type="password" placeholder="Upbit Secret Key">
+      </div>
+      <div>
+        <div class="label">텔레그램 Bot Token</div>
+        <input class="input" type="text" placeholder="Telegram Bot Token">
+      </div>
+      <div>
+        <div class="label">텔레그램 Chat ID</div>
+        <input class="input" type="text" placeholder="Telegram Chat ID">
+      </div>
+    </div>
+    <div class="box-btns">
+      <button class="btn-main">API 저장</button>
+    </div>
+  </div>
+
+  <!-- 박스 2: 텔레그램 알림 설정 -->
+  <div class="box">
+    <div class="box-title">텔레그램 알림 설정</div>
+    <div class="desc">카테고리별 알림 수신 여부 및 시간대를 설정할 수 있습니다.</div>
+    <div class="alarm-row mb-3">
+      <div>
+        <div class="label">주문 체결/실패</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div>
+        <div class="label">자동정지/리스크(손실·MDD)</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div>
+        <div class="label">시스템 장애/오류</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div>
+        <div class="label">전략/설정 변경</div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div>
+        <div class="label">운영/서비스 이벤트</div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div>
+        <div class="label">백테스트/리포트 알림</div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+    </div>
+    <div class="flex gap-4 items-center mt-2 mb-3">
+      <span class="label" style="margin-bottom:0;">알림 수신 시간대</span>
+      <div class="timepicker-wrap">
+        <select id="from-hour" class="timepicker-box"></select>
+        <span>:</span>
+        <select id="from-min" class="timepicker-box"></select>
+        <span>~</span>
+        <select id="to-hour" class="timepicker-box"></select>
+        <span>:</span>
+        <select id="to-min" class="timepicker-box"></select>
+      </div>
+      <span class="desc ml-4" id="time-display"></span>
+    </div>
+    <div class="tip">
+      ※ <b>00:00 ~ 00:00</b>으로 설정하면 24시간 항상 알림을 받습니다.
+    </div>
+    <div class="box-btns">
+      <button class="btn-main">알림 저장</button>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script>
+    // 시, 분 옵션 자동 생성 (24시간제)
+    function fillTimeOptions() {
+      let hourSel = [document.getElementById('from-hour'), document.getElementById('to-hour')];
+      let minSel = [document.getElementById('from-min'), document.getElementById('to-min')];
+      for (let i = 0; i <= 23; i++) {
+        let h = i < 10 ? "0" + i : i;
+        hourSel[0].innerHTML += `<option value="${h}">${h}</option>`;
+        hourSel[1].innerHTML += `<option value="${h}">${h}</option>`;
+      }
+      for (let i = 0; i <= 59; i += 5) {
+        let m = i < 10 ? "0" + i : i;
+        minSel[0].innerHTML += `<option value="${m}">${m}</option>`;
+        minSel[1].innerHTML += `<option value="${m}">${m}</option>`;
+      }
+    }
+    fillTimeOptions();
+
+    // 실시간 시간대 표기 (24시간 변환)
+    function updateTimeDisplay() {
+      let from = `${document.getElementById('from-hour').value}:${document.getElementById('from-min').value}`;
+      let to = `${document.getElementById('to-hour').value}:${document.getElementById('to-min').value}`;
+      let text = `${from} ~ ${to}`;
+      document.getElementById('time-display').innerText = text;
+    }
+    // 이벤트 바인딩
+    ['from-hour', 'from-min', 'to-hour', 'to-min'].forEach(id => {
+      document.getElementById(id).onchange = updateTimeDisplay;
+    });
+    updateTimeDisplay();
+  </script>
+{% endblock %}

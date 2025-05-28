@@ -1,0 +1,52 @@
+{
+  "EMA": {
+    "periods": [5, 20, 60, 120]
+  },
+  "RSI": {
+    "period": 14
+  },
+  "ATR": {
+    "period": 14
+  },
+  "BollingerBands": {
+    "period": 20,
+    "stddev": 2
+  },
+  "VWAP": {
+    "reset_interval": "1D"
+  },
+  "Volume": {
+    "ma_period": 20
+  },
+  "Strength": {
+    "baseline": 100,
+    "strong_threshold": 130,
+    "weak_threshold": 90
+  },
+  "MACD": {
+    "fast_period": 12,
+    "slow_period": 26,
+    "signal_period": 9
+  },
+  "MFI": {
+    "period": 14
+  },
+  "Stochastic": {
+    "k_period": 14,
+    "d_period": 3,
+    "smooth_period": 3
+  },
+  "Ichimoku": {
+    "tenkan_period": 9,
+    "kijun_period": 26,
+    "senkou_span_b_period": 52,
+    "displacement": 26
+  },
+  "ADX": {
+    "period": 14
+  },
+  "SAR": {
+    "step": 0.02,
+    "max_step": 0.2
+  }
+}
