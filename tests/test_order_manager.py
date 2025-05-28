@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import json
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from f3_order.position_manager import PositionManager
@@ -106,4 +107,14 @@ def test_place_order_partial_fill(tmp_path, monkeypatch):
     pm.place_order("KRW-BTC", "sell", 2.0, "market", 100.0)
     assert pm.positions[0]["qty"] == 1.0
     assert pm.positions[0]["status"] == "open"
+
+
+def test_open_position_stores_strategy(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
+    pm.positions_file = os.path.join(tmp_path, "pos.json")
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0, "strategy": "TEST"}
+    pm.open_position(order)
+    with open(pm.positions_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data and data[0]["strategy"] == "TEST"
 
