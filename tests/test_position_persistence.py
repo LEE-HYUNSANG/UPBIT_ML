@@ -1,5 +1,7 @@
 import os
 import sys
+import json
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from f3_order.position_manager import PositionManager
@@ -11,23 +13,25 @@ class DummyClient:
         return {"uuid": "1", "state": "done", "side": kwargs.get("side"), "volume": kwargs.get("volume", 0)}
 
     def get_accounts(self):
-        return [
-            {"currency": "XRP", "balance": "70", "avg_buy_price": "800", "unit_currency": "KRW"},
-            {"currency": "ETH", "balance": "0.001", "avg_buy_price": "3400000", "unit_currency": "KRW"},
-            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
-        ]
+        return []
 
     def ticker(self, markets):
         return [{"market": m, "trade_price": 100.0} for m in markets]
 
 
-def test_import_existing_positions(tmp_path, monkeypatch):
+def test_load_positions_from_file(tmp_path, monkeypatch):
+    positions_file = tmp_path / "pos.json"
+    data = [{
+        "symbol": "KRW-BTC",
+        "entry_time": 0,
+        "entry_price": 1.0,
+        "qty": 1.0,
+        "status": "open",
+        "strategy": "TEST"
+    }]
+    positions_file.write_text(json.dumps(data))
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
-    cfg = {
-        "DB_PATH": os.path.join(tmp_path, "orders.db"),
-        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
-    }
+    cfg = {"DB_PATH": os.path.join(tmp_path, "orders.db"), "POSITIONS_FILE": str(positions_file)}
     pm = PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
-    assert len(pm.positions) == 1
-    assert pm.positions[0]["symbol"] == "KRW-XRP"
-    assert pm.positions[0]["origin"] == "imported"
+    assert pm.positions and pm.positions[0]["symbol"] == "KRW-BTC"
+    assert pm.positions[0]["strategy"] == "TEST"

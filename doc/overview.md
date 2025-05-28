@@ -46,7 +46,9 @@ configuration so changes apply automatically.
 Whenever a new trade is opened the current list of holdings is written to
 `config/coin_positions.json`. Each entry contains the symbol, entry price,
 quantity and strategy information. This file can be inspected to see which
-coins are being monitored even after restarting the application.
+coins are being monitored even after restarting the application. The
+`PositionManager` reloads this file at startup so any open positions continue
+to be tracked across restarts.
 
 Each position stores the strategy code used on entry. During the signal loop
 only buy rules are evaluated for symbols from `current_universe.json`. Once a
