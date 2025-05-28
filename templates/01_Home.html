@@ -11,8 +11,8 @@
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px] col-span-1">
       <div class="card-title text-white mb-1">오늘 손익(PnL)</div>
       <div class="text-xs text-gray-500 mb-1">금일 실현 손익</div>
-      <div class="flex items-baseline">
-        <span id="pnl-amount" class="text-3xl font-extrabold tracking-tight mr-2">0</span>
+      <div class="flex items-baseline w-full">
+        <span id="pnl-amount" class="text-3xl font-extrabold tracking-tight text-right w-full">0</span>
       </div>
     </div>
     <!-- 모니터링 코인 카드 -->
@@ -144,7 +144,7 @@ function updateAccount() {
       const krw = document.getElementById('krw-balance');
       if (krw) krw.textContent = Math.floor(Number(d.krw_balance)).toLocaleString();
       const pnl = document.getElementById('pnl-amount');
-      if (pnl) pnl.textContent = Number(d.pnl).toLocaleString();
+      if (pnl) pnl.textContent = Math.floor(Number(d.pnl)).toLocaleString();
     })
     .catch(console.error);
 }
@@ -201,7 +201,7 @@ function fetchPositions() {
           let posX = ((curPct + sl) / total) * 100;
           posX = Math.max(0, Math.min(100, posX));
           g.innerHTML = `
-            <div class="relative h-1.5 bg-gray-700 rounded">
+            <div class="relative h-3 bg-gray-700 rounded">
               <div class="absolute inset-y-0 left-0 w-px bg-red-500"></div>
               <div class="absolute inset-y-0 w-px bg-gray-300" style="left:${mid}%"></div>
               <div class="absolute inset-y-0 right-0 w-px bg-green-500"></div>
