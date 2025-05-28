@@ -42,18 +42,19 @@ def smart_buy(signal, config, dynamic_params, position_manager=None, parent_logg
     # Try IOC first if spread is wide
     for attempt in range(MAX_RETRY + 1):
         if spread <= SPREAD_TH or attempt == MAX_RETRY:
-            res = position_manager.place_order(symbol, "buy", qty, "market", signal.get("price"))
+            # Upbit uses "bid" for buy orders
+            res = position_manager.place_order(symbol, "bid", qty, "market", signal.get("price"))
             if res.get("filled"):
                 log_with_tag(logger, f"Market order executed for {symbol} (spread: {spread}, attempt: {attempt})")
             else:
                 log_with_tag(logger, f"Market order failed for {symbol} (spread: {spread}, attempt: {attempt})")
             return res
         else:
-            res = position_manager.place_order(symbol, "buy", qty, "price", signal.get("price"))
+            res = position_manager.place_order(symbol, "bid", qty, "price", signal.get("price"))
             log_with_tag(logger, f"IOC order for {symbol} (attempt {attempt+1})")
             if res.get("filled"):
                 return res
 
     log_with_tag(logger, f"Fallback to market order for {symbol}")
-    return position_manager.place_order(symbol, "buy", qty, "market", signal.get("price"))
+    return position_manager.place_order(symbol, "bid", qty, "market", signal.get("price"))
 
