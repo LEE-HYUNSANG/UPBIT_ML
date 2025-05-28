@@ -634,7 +634,12 @@ def eval_formula(
                     expr = re.sub(re.escape(m.group(0)), replacement_val, expr)
             # After handling any function-like occurrences, replace plain mentions
             if key in data_row:
-                replacement_val = "0" if pd.isna(data_row[key]) else f"{float(data_row[key])}"
+                if key == "SellQty_5m":
+                    val = data_row[key]
+                    val = 0 if pd.isna(val) else float(val)
+                    replacement_val = f"({val} if {val} != 0 else 1e-8)"
+                else:
+                    replacement_val = "0" if pd.isna(data_row[key]) else f"{float(data_row[key])}"
                 expr = re.sub(rf"\b{re.escape(key)}\b", replacement_val, expr)
     # Replace basic fields after indicators (to avoid partial replacement issues)
     for name, val in replacements.items():
