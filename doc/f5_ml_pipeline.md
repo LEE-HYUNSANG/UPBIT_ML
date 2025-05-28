@@ -125,6 +125,7 @@ Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
 
 ## 폴더 구성
 
+- `00_Before_Coin.py` 가격/거래대금 기준으로 코인 데이터를 수집
 - `01_data_collect.py` 데이터 수집
 - `02_data_cleaning.py` 데이터 전처리
 - `03_feature_engineering.py` 지표 계산
