@@ -48,3 +48,8 @@ position is opened its associated `sell_formula` from
 `strategies_master_pruned.json` is checked on every iteration using the latest
 1-minute candle. When that expression becomes `True` the coin is sold through
 the order executor.
+
+The risk configuration also defines a `HOLD_SECS` value. When a position has
+been open for this many seconds the generic stop-loss, take-profit and
+trailing stop rules from the "손절/익절/TS 조건" card take precedence over the
+strategy-specific formula. This helps prevent very long holds.

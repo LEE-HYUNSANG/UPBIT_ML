@@ -197,14 +197,20 @@ class PositionManager:
             pos["min_price"] = min(pos.get("min_price", cur_price), cur_price)
             change_pct = (cur_price - entry) / entry * 100
 
+            hold_secs = self.config.get("HOLD_SECS", 0)
+            held_too_long = hold_secs and now() - pos.get("entry_time", 0) >= hold_secs
+
             if change_pct >= self.config.get("TP_PCT", 1.2):
                 self.execute_sell(pos, "take_profit")
             elif change_pct <= -abs(self.config.get("SL_PCT", 1.0)):
                 self.execute_sell(pos, "stop_loss")
             else:
-                self.process_pyramiding(pos)
-                self.process_averaging_down(pos)
-                self.manage_trailing_stop(pos)
+                if held_too_long:
+                    self.manage_trailing_stop(pos)
+                else:
+                    self.process_pyramiding(pos)
+                    self.process_averaging_down(pos)
+                    self.manage_trailing_stop(pos)
 
             if pos.get("status") == "open":
                 remaining.append(pos)

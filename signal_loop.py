@@ -70,8 +70,16 @@ def process_symbol(symbol: str) -> Optional[dict]:
     )
 
     pm = _default_executor.position_manager
-    has_pos = any(p.get("symbol") == symbol and p.get("status") == "open" for p in pm.positions)
-    result = f2_signal(df_1m, df_5m, symbol, calc_buy=not has_pos, calc_sell=False)
+    open_pos = [p for p in pm.positions if p.get("symbol") == symbol and p.get("status") == "open"]
+    strat_codes = [p.get("strategy") for p in open_pos if p.get("strategy")]
+    result = f2_signal(
+        df_1m,
+        df_5m,
+        symbol,
+        calc_buy=not open_pos,
+        calc_sell=bool(open_pos),
+        strategy_codes=strat_codes or None,
+    )
     logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
@@ -86,9 +94,9 @@ def process_symbol(symbol: str) -> Optional[dict]:
     except Exception as exc:  # pragma: no cover - best effort
         logging.error(f"[{symbol}] Failed to send signal to F3: {exc}")
 
-    if result.get("sell_signal") and open_positions:
+    if result.get("sell_signal") and open_pos:
         for strat_code in result.get("sell_triggers", []):
-            for pos in list(open_positions):
+            for pos in list(open_pos):
                 if pos.get("strategy") == strat_code:
                     pm.execute_sell(pos, "strategy_exit")
 
