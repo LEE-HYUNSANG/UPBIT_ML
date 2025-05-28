@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from f3_order.position_manager import PositionManager
@@ -31,3 +32,7 @@ def test_import_existing_positions(tmp_path, monkeypatch):
     assert len(pm.positions) == 1
     assert pm.positions[0]["symbol"] == "KRW-XRP"
     assert pm.positions[0]["origin"] == "imported"
+    assert pm.positions[0]["strategy"] == "imported"
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data and data[0]["strategy"] == "imported"
