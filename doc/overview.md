@@ -51,8 +51,8 @@ coins are being monitored even after restarting the application. The
 to be tracked across restarts.
 
 Positions detected in the exchange account when the application boots are
-registered with the strategy value `"imported"` so they can be distinguished
-from positions opened by automated signals.
+registered with the origin value `"imported"` so they can be distinguished from
+positions opened by automated signals.
 
 Each position stores the strategy code used on entry. During the signal loop
 only buy rules are evaluated for symbols from `current_universe.json`. Once a
