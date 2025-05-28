@@ -26,6 +26,7 @@ those APIs.
 
 For detailed information about the REST interface see [`api_endpoints.md`](api_endpoints.md).
 Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
+Startup messages about credential loading are written to `logs/F3_utils.log`.
 
 ## Sell Monitoring Bar
 
