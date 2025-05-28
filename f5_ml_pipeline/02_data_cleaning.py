@@ -55,7 +55,13 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     df.columns = [c.lower() for c in df.columns]
 
     if "timestamp" in df.columns:
-        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+        ts_col = df["timestamp"]
+
+        if pd.api.types.is_numeric_dtype(ts_col):
+            df["timestamp"] = pd.to_datetime(ts_col, unit="ms", errors="coerce")
+        else:
+            df["timestamp"] = pd.to_datetime(ts_col, errors="coerce")
+
         if df["timestamp"].dt.tz is None:
             df["timestamp"] = df["timestamp"].dt.tz_localize("Asia/Seoul")
         else:
@@ -101,9 +107,10 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     if "timestamp" in df.columns:
         df = df.set_index("timestamp")
         prev_len = len(df)
-        df = df.asfreq("1min")
+        df = (
+            df.resample("1min").ffill().bfill()
+        )
         added = len(df) - prev_len
-        df = df.ffill().bfill()
         df = df.reset_index()
         print("연속성 확보로 추가된 row:", added)
         logger.info("연속성 확보로 추가된 row: %d", added)
