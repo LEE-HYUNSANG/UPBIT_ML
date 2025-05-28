@@ -129,7 +129,7 @@ Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
 - `02_data_cleaning.py` 데이터 전처리
 - `03_feature_engineering.py` 지표 계산
 - `04_labeling.py` 라벨 생성
-- `05_split.py` 학습/검증/테스트 분할
+- `05_split.py` 학습/검증/테스트 분할([사용법](05_split.md))
 - `06_train.py` 모델 학습
 - `07_eval.py` 모델 평가
 - `08_predict.py` 예측 수행
@@ -152,4 +152,8 @@ Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
 =======
 [doc/data_cleaning.md](data_cleaning.md)에서 다룹니다. 지표 계산 방법은
 [doc/feature_engineering.md](feature_engineering.md) 문서를 참고하세요.
+<<<<<<< HEAD
 >>>>>>> 8378524fd2bb84a9a30ad7c4b655936b304d5eff
+=======
+[doc/labeling.md](labeling.md)에서 라벨 생성 규칙을 확인할 수 있습니다.
+>>>>>>> aa46528b5c93175d76b0aca68ae71a61be615dc9
