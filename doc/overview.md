@@ -40,8 +40,9 @@ Whenever a new trade is opened the current list of holdings is written to
 quantity and strategy information. This file can be inspected to see which
 coins are being monitored even after restarting the application.
 
-Each position stores the strategy code used on entry. The system now checks
-the corresponding `sell_formula` from `strategies_master_pruned.json` on every
-update. When that expression evaluates to `True` using the latest 1-minute
-candle along with the position's entry and peak prices the coin is automatically
-sold via the order executor.
+Each position stores the strategy code used on entry. During the signal loop
+only buy rules are evaluated for symbols from `current_universe.json`. Once a
+position is opened its associated `sell_formula` from
+`strategies_master_pruned.json` is checked on every iteration using the latest
+1-minute candle. When that expression becomes `True` the coin is sold through
+the order executor.

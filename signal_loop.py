@@ -55,36 +55,6 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
         return None
 
 
-def evaluate_strategy_sell(df_1m, symbol: str) -> None:
-    """Check sell formulas for open positions and exit if triggered."""
-    if df_1m is None or df_1m.empty:
-        return
-    from f2_signal.signal_engine import eval_formula, strategies
-
-    latest = df_1m.sort_values("timestamp").iloc[-1]
-    pm = _default_executor.position_manager
-    for pos in list(pm.positions):
-        if pos.get("symbol") != symbol or pos.get("status") != "open":
-            continue
-        strat_code = pos.get("strategy")
-        if not strat_code:
-            continue
-        strat = next((s for s in strategies if s["short_code"] == strat_code), None)
-        if not strat or "sell_formula" not in strat:
-            continue
-        entry_price = pos.get("entry_price")
-        peak_price = pos.get("max_price", entry_price)
-        if eval_formula(
-            strat["sell_formula"],
-            latest,
-            symbol,
-            strat_code,
-            data_df=df_1m,
-            entry=entry_price,
-            peak=peak_price,
-        ):
-            logging.warning(f"[{symbol}] SELL SIGNAL TRIGGERED - 전략: [{strat_code}]")
-            pm.execute_sell(pos, "strategy_exit")
 
 
 def process_symbol(symbol: str) -> Optional[dict]:
@@ -100,8 +70,19 @@ def process_symbol(symbol: str) -> Optional[dict]:
     )
 
     pm = _default_executor.position_manager
-    has_pos = any(p.get("symbol") == symbol and p.get("status") == "open" for p in pm.positions)
-    result = f2_signal(df_1m, df_5m, symbol, calc_buy=not has_pos, calc_sell=False)
+    open_positions = [p for p in pm.positions if p.get("symbol") == symbol and p.get("status") == "open"]
+    if open_positions:
+        strategies = [p.get("strategy") for p in open_positions if p.get("strategy")]
+        result = f2_signal(
+            df_1m,
+            df_5m,
+            symbol,
+            calc_buy=False,
+            calc_sell=True,
+            strategy_codes=strategies,
+        )
+    else:
+        result = f2_signal(df_1m, df_5m, symbol, calc_buy=True, calc_sell=False)
     logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
@@ -116,10 +97,11 @@ def process_symbol(symbol: str) -> Optional[dict]:
     except Exception as exc:  # pragma: no cover - best effort
         logging.error(f"[{symbol}] Failed to send signal to F3: {exc}")
 
-    try:
-        evaluate_strategy_sell(df_1m, symbol)
-    except Exception as exc:  # pragma: no cover - best effort
-        logging.error(f"[{symbol}] Failed to evaluate sell strategy: {exc}")
+    if result.get("sell_signal") and open_positions:
+        for strat_code in result.get("sell_triggers", []):
+            for pos in list(open_positions):
+                if pos.get("strategy") == strat_code:
+                    pm.execute_sell(pos, "strategy_exit")
 
     return result
 
