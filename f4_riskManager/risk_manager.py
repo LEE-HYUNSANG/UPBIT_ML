@@ -153,7 +153,12 @@ class RiskManager:
         # 엔진에 전체 청산 명령 및 신규 진입 불가 트리거
 
     def hot_reload(self):
-        """config/risk.json 등 변경시 5초 이내 핫리로드"""
+        """Reload risk config when ``config/setting_date/Latest_config.json`` changes.
+
+        ``periodic()`` checks for updates every second. When a modification is detected
+        the new parameters are applied immediately, the ``OrderExecutor`` refreshes
+        trade sizing and a notification is sent.
+        """
         if self.config.reload():
             self.logger.info("리스크 파라미터 핫리로드 적용")
             if self.order_executor:
