@@ -9,7 +9,7 @@
 - `03_feature_engineering.py` 지표 계산
 - `04_labeling.py` 라벨 생성
 - `05_split.py` 학습/검증/테스트 분할([사용법](05_split.md))
-- `06_train.py` 모델 학습
+- `06_train.py` 모델 학습([사용법](06_train.md))
 - `07_eval.py` 모델 평가
 - `08_predict.py` 예측 수행
 - `ml_data/` 단계별 데이터 저장 폴더
