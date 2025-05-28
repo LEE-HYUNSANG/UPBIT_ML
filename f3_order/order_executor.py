@@ -84,6 +84,7 @@ class OrderExecutor:
 
     def manage_positions(self):
         """1Hz 루프: 포지션 관리 FSM (불타기, 물타기, 익절, 손절 등)"""
+        self.position_manager.refresh_positions()
         self.position_manager.hold_loop()
 
     def check_quality(self):
