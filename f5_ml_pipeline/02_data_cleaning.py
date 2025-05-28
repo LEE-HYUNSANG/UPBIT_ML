@@ -62,7 +62,11 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     }
 
     df = df.rename(columns=col_map)
+
     df.columns = [c.lower() for c in df.columns]
+    if df.columns.duplicated().any():
+        logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
+        df = df.loc[:, ~df.columns.duplicated()]
 
     if "timestamp" in df.columns:
         df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
