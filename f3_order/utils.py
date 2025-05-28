@@ -4,7 +4,20 @@
 import json
 import datetime
 import logging
+from logging.handlers import RotatingFileHandler
 import os
+
+logger = logging.getLogger("F3_utils")
+fh = RotatingFileHandler(
+    "logs/F3_utils.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
+formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+logger.setLevel(logging.INFO)
 
 
 def load_env(path: str = ".env.json") -> dict:
@@ -16,19 +29,26 @@ def load_env(path: str = ".env.json") -> dict:
     """
     env = dict(os.environ)
     if not os.path.exists(path):
+        logger.info(f"{path} not found. Using environment variables only.")
         return env
     try:
         with open(path, "r", encoding="utf-8") as f:
             file_env = json.load(f)
             env.update(file_env)
-    except Exception:
-        pass
+    except Exception as exc:  # pragma: no cover - invalid json
+        logger.warning(f"Failed to load {path}: {exc}")
     return env
 
 
 def load_api_keys(path: str = ".env.json") -> tuple[str, str]:
     env = load_env(path)
-    return env.get("UPBIT_KEY", ""), env.get("UPBIT_SECRET", "")
+    key = env.get("UPBIT_KEY", "")
+    secret = env.get("UPBIT_SECRET", "")
+    if key and secret:
+        logger.info("Upbit API credentials loaded")
+    else:
+        logger.warning("UPBIT_KEY or UPBIT_SECRET missing. Check .env.json or environment variables.")
+    return key, secret
 
 def load_config(path):
     """ config JSON 파일 로드 """
