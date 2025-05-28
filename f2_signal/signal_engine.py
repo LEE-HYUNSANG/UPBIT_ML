@@ -607,12 +607,11 @@ def eval_formula(
                 pattern = rf"{key}\(([^()]*)\)"
                 matches = list(re.finditer(pattern, expr))
                 for m in matches:
-                    params = [p.strip() for p in m.group(1).split(',') if p.strip()]
-                    offset_val = 0
-                    if params and re.fullmatch(r"-?\d+", params[-1]):
-                        offset_val = int(params[-1])
-                        params = params[:-1]
+                    params = [p.strip() for p in m.group(1).split(',')]
                     period_val = params[0] if params else ""
+                    offset_val = 0
+                    if len(params) >= 2 and re.fullmatch(r"-?\d+", params[1]):
+                        offset_val = int(params[1])
                     if key in ["EMA", "RSI", "ATR", "MFI", "ADX"]:
                         col_name = f"{key}_{period_val}"
                     elif key.startswith("Stoch"):
