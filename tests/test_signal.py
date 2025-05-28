@@ -95,6 +95,7 @@ def test_f2_signal_strategy_filter():
     res = f2_signal(df, df, symbol="FIL", strategy_codes=["M-BREAK"], calc_sell=False)
     assert set(res["buy_triggers"]).issubset({"M-BREAK"})
 
+
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_eval_formula_numeric_comparison():
     row = pd.Series({"close": 10, "EMA_5": 9})
