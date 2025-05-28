@@ -11,7 +11,7 @@
 - `05_split.py` 학습/검증/테스트 분할([사용법](05_split.md))
 - `06_train.py` 모델 학습([사용법](06_train.md))
 - `07_eval.py` 모델 평가([ROI와 Sharpe 설명](roi_sharpe.md))
-- `08_predict.py` 예측 수행
+- `08_predict.py` 예측 수행([사용법](08_predict.md))
 - `ml_data/` 단계별 데이터 저장 폴더
 - `config/train_config.yaml` 학습 설정 파일
 - `utils.py` 공통 함수
