@@ -36,7 +36,12 @@ def load_env(path: str = ".env.json") -> dict:
             file_env = json.load(f)
             env.update(file_env)
     except Exception as exc:  # pragma: no cover - invalid json
-        logger.warning(f"Failed to load {path}: {exc}")
+        logger.warning(f"Failed to load {path}: {exc}. Using environment variables only.")
+        return env
+
+    missing = [k for k in ("UPBIT_KEY", "UPBIT_SECRET") if k not in env]
+    if missing:
+        logger.info(f"{path} loaded but missing keys: {', '.join(missing)}")
     return env
 
 
