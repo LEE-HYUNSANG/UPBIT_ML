@@ -91,6 +91,12 @@ def test_eval_formula_numeric_comparison():
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_eval_formula_single_param():
+    row = pd.Series({"close": 1, "EMA_5": 10})
+    assert not eval_formula("Close > EMA(5)", row)
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_eval_formula_with_offset():
     df = pd.DataFrame({"close": [1, 2, 3], "open": [1, 1, 1]})
     row = df.iloc[2]
