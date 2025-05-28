@@ -1,14 +1,19 @@
-import logging
 import os
 import sys
+from pathlib import Path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from f3_order.utils import load_env
+from f3_order import utils
 
 
-def test_invalid_env_logs_warning(tmp_path, caplog):
-    env_path = tmp_path / ".env.json"
-    env_path.write_text("{invalid")
-    with caplog.at_level(logging.WARNING, logger="F3_utils"):
-        load_env(str(env_path))
-    assert any("Failed to load" in m for m in caplog.messages)
+def test_invalid_env_logs(tmp_path, monkeypatch):
+    env = tmp_path / ".env.json"
+    env.write_text("{ invalid")
+    key, secret = utils.load_api_keys(str(env))
+    assert key == ""
+    assert secret == ""
+    log_path = Path("logs") / "F3_utils.log"
+    assert log_path.exists()
+    with log_path.open("r", encoding="utf-8") as f:
+        data = f.read()
+    assert "Failed to load" in data

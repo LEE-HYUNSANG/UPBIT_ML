@@ -65,6 +65,8 @@ file or set the following environment variables:
 Place the file next to `app.py` and ensure it is ignored by Git using
 `.gitignore`.
 
+Any issues loading credentials are recorded in `logs/F3_utils.log`.
+
 When credentials are set, brief buy/sell notifications are sent through
 Telegram whenever orders are executed. See
 [doc/telegram_notifications.md](doc/telegram_notifications.md).

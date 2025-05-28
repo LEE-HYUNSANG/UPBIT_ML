@@ -32,6 +32,13 @@ class RiskConfig:
             self._cache = self._load_json()
             self._mtime_ns = mtime_ns
             return True
+        try:
+            new_data = self._load_json()
+        except Exception:
+            return False
+        if new_data != self._cache:
+            self._cache = new_data
+            return True
         return False
 
     def get(self, key, default=None):

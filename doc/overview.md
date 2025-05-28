@@ -30,6 +30,8 @@ For detailed information about the REST interface see [`api_endpoints.md`](api_e
 Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
 Startup messages about credential loading are written to `logs/F3_utils.log`.
 
+Credential loading diagnostics are written to `logs/F3_utils.log` whenever `.env.json` is missing or malformed.
+
 ## Sell Monitoring Bar
 
 The dashboard's "매도 모니터링" table displays a horizontal bar for each open
@@ -56,4 +58,3 @@ The risk configuration also defines a `HOLD_SECS` value. When a position has
 been open for this many seconds the generic stop-loss, take-profit and
 trailing stop rules from the "손절/익절/TS 조건" card take precedence over the
 strategy-specific formula. This helps prevent very long holds.
-Positions now store their entry time as a numeric epoch timestamp rather than an ISO string.

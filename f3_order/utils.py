@@ -2,10 +2,22 @@
 [F3] 공용 유틸리티 (config 로더, 시간 등)
 """
 import json
-import time
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import time
+
+logger = logging.getLogger("F3_utils")
+fh = RotatingFileHandler(
+    "logs/F3_utils.log",
+    encoding="utf-8",
+    maxBytes=100_000,
+    backupCount=10,
+)
+formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+logger.setLevel(logging.INFO)
 
 logger = logging.getLogger("F3_utils")
 fh = RotatingFileHandler(
@@ -29,30 +41,26 @@ def load_env(path: str = ".env.json") -> dict:
     """
     env = dict(os.environ)
     if not os.path.exists(path):
-        logger.info(f"{path} not found. Using environment variables only.")
+        log_with_tag(logger, f"{path} not found; using environment only")
         return env
     try:
         with open(path, "r", encoding="utf-8") as f:
             file_env = json.load(f)
             env.update(file_env)
-    except Exception as exc:  # pragma: no cover - invalid json
-        logger.warning(f"Failed to load {path}: {exc}. Using environment variables only.")
+    except Exception as exc:
+        log_with_tag(logger, f"Failed to load {path}: {exc}")
         return env
-
-    missing = [k for k in ("UPBIT_KEY", "UPBIT_SECRET") if k not in env]
-    if missing:
-        logger.info(f"{path} loaded but missing keys: {', '.join(missing)}")
+    log_with_tag(logger, "Loaded credentials from env.json")
     return env
 
 
 def load_api_keys(path: str = ".env.json") -> tuple[str, str]:
     env = load_env(path)
-    key = env.get("UPBIT_KEY", "")
-    secret = env.get("UPBIT_SECRET", "")
+    key, secret = env.get("UPBIT_KEY", ""), env.get("UPBIT_SECRET", "")
     if key and secret:
-        logger.info("Upbit API credentials loaded")
+        log_with_tag(logger, "Upbit credentials loaded")
     else:
-        logger.warning("UPBIT_KEY or UPBIT_SECRET missing. Check .env.json or environment variables.")
+        log_with_tag(logger, "UPBIT_KEY or UPBIT_SECRET missing")
     return key, secret
 
 def load_config(path):
@@ -64,8 +72,8 @@ def load_config(path):
         print(f"Config load error: {e}")
         return {}
 
-def now():
-    """Return current epoch timestamp as a floating point number."""
+def now() -> float:
+    """Return current epoch timestamp in seconds as a float."""
     return time.time()
 
 def log_with_tag(logger, msg):
