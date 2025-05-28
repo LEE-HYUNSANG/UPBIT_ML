@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "symbol": "KRW-BTC",
+    "status": "open",
+    "qty": 1.0,
+    "avg_price": 0.0,
+    "current_price": 100.0,
+    "eval_amount": 100.0
+  }
+]
