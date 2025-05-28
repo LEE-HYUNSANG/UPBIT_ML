@@ -41,6 +41,15 @@ def _save_json(path: str, data) -> None:
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def _load_json(path: str):
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # pragma: no cover - best effort
+        return []
+
 class PositionManager:
     def __init__(self, config, dynamic_params, kpi_guard, exception_handler, parent_logger=None):
         self.config = config
@@ -49,7 +58,7 @@ class PositionManager:
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions_file = self.config.get("POSITIONS_FILE", "config/coin_positions.json")
-        self.positions = []
+        self.positions = _load_json(self.positions_file)
         self.client = UpbitClient()
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
@@ -108,12 +117,17 @@ class PositionManager:
                 "eval_amt": eval_amt,
             }
             if eval_amt >= threshold:
-                self.open_position({
-                    "symbol": symbol,
-                    "price": price,
-                    "qty": bal,
-                    "origin": "imported",
-                })
+                exists = any(
+                    p.get("symbol") == symbol and p.get("status") == "open"
+                    for p in self.positions
+                )
+                if not exists:
+                    self.open_position({
+                        "symbol": symbol,
+                        "price": price,
+                        "qty": bal,
+                        "origin": "imported",
+                    })
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
                 imported.append(f"{symbol}({int(eval_amt):,}원)")
             else:
