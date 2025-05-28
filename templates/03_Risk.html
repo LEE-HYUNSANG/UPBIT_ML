@@ -363,6 +363,13 @@
         <span class="card-title text-white">손절/익절/TS 조건</span>
       </div>
       <p class="text-gray-400 text-sm mb-6">수익/손실 기준과 추적 스탑을 설정합니다.</p>
+      <div class="risk-grid risk-grid-2" style="grid-template-columns:repeat(1,1fr); margin-bottom:16px;">
+        <div>
+          <div class="input-label">보유 기간(초)</div>
+          <div class="input-desc">이 시간이 지나면 기본 매도 로직을 우선 적용합니다.</div>
+          <input id="ts-0" type="text" value="0" class="input-xl comma">
+        </div>
+      </div>
       <div class="risk-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:0;">
         <div>
           <div class="input-label">손절 조건(%)</div>
@@ -463,6 +470,7 @@
           cfg.AUTO_STOP_ENABLED ? 'ON' : 'OFF',
         ],
         ts: [
+          String(cfg.HOLD_SECS),
           String(cfg.SL_PCT),
           String(cfg.TP_PCT),
           cfg.TRAILING_STOP_ENABLED ? '사용' : '미사용',
@@ -478,7 +486,7 @@
         add: ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'],
         slip: ['slip-1', 'slip-2'],
         risk: ['risk-1', 'risk-2', 'risk-3', 'risk-4'],
-        ts: ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'],
+        ts: ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'],
       };
       Object.keys(cardVals).forEach((card) => {
         const ids = idMap[card];
@@ -524,6 +532,7 @@
       slip: ['슬리피지 허용(%)', '체결 실패시 동작'],
       risk: ['일 최대 손실(%)', 'MDD 최대 손실(%)', '월 MDD 최대 손실(%)', '자동 정지 옵션'],
       ts: [
+        '보유 기간(초)',
         '손절 조건(%)',
         '익절 조건(%)',
         'TS(트레일링스탑) 사용 여부',
@@ -542,7 +551,7 @@
       if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
       if (card === 'slip') ids = ['slip-1', 'slip-2'];
       if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
-      if (card === 'ts') ids = ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      if (card === 'ts') ids = ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
       let before = values[card].slice();
       let current = ids.map((id) => {
         let el = document.getElementById(id);
@@ -595,7 +604,7 @@
       add: ['AVG_SIZE','AVG_MAX_COUNT','AVG_ENABLED','PYR_SIZE','PYR_MAX_COUNT','PYR_ENABLED'],
       slip: ['SLIP_MAX','ORDER_FAIL_ACTION'],
       risk: ['DAILY_LOSS_LIM','MDD_LIM','MONTHLY_MDD_LIM','AUTO_STOP_ENABLED'],
-      ts: ['SL_PCT','TP_PCT','TRAILING_STOP_ENABLED','TRAIL_START_PCT','TRAIL_STEP_PCT']
+      ts: ['HOLD_SECS','SL_PCT','TP_PCT','TRAILING_STOP_ENABLED','TRAIL_START_PCT','TRAIL_STEP_PCT']
     };
 
     function getCardConfig(card) {
@@ -604,7 +613,7 @@
       if (card === 'add') ids = ['add-1', 'add-2', 'add-3', 'add-4', 'add-5', 'add-6'];
       if (card === 'slip') ids = ['slip-1', 'slip-2'];
       if (card === 'risk') ids = ['risk-1', 'risk-2', 'risk-3', 'risk-4'];
-      if (card === 'ts') ids = ['ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
+      if (card === 'ts') ids = ['ts-0', 'ts-1', 'ts-2', 'ts-3', 'ts-4', 'ts-5'];
       const keys = keyMap[card];
       let cfg = {};
       ids.forEach((id, i) => {
