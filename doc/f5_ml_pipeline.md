@@ -146,5 +146,10 @@ Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
 =======
 
 각 단계의 상세 설명은 `doc/` 폴더의 개별 문서를 참고합니다. 특히 데이터 정제 절차는
+<<<<<<< HEAD
 [doc/data_cleaning.md](data_cleaning.md)에서 다룹니다.
 >>>>>>> e8827e4da2cbf43d18ac333be2400c738301490d
+=======
+[doc/data_cleaning.md](data_cleaning.md)에서 다룹니다. 지표 계산 방법은
+[doc/feature_engineering.md](feature_engineering.md) 문서를 참고하세요.
+>>>>>>> 8378524fd2bb84a9a30ad7c4b655936b304d5eff
