@@ -277,3 +277,73 @@ def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) 
 
     thread = threading.Thread(target=_loop, daemon=True)
     thread.start()
+
+
+POSITIONS_FILE = "config/coin_positions.json"
+
+
+def init_coin_positions(threshold: float = 5000.0, path: str = POSITIONS_FILE) -> None:
+    """Fetch account balances and store holdings above ``threshold``.
+
+    Parameters
+    ----------
+    threshold : float
+        Minimum evaluation amount in KRW to register a coin as a position.
+    path : str
+        File path to write the positions JSON list.
+    """
+
+    from f3_order.upbit_api import UpbitClient
+
+    client = UpbitClient()
+    try:
+        accounts = client.get_accounts()
+    except Exception as exc:  # pragma: no cover - network best effort
+        logging.error(f"[F1][INIT] 계좌 조회 실패: {exc}")
+        return
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            existing = json.load(f)
+    except FileNotFoundError:
+        existing = []
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"[F1][INIT] 포지션 파일 로드 실패: {exc}")
+        existing = []
+
+    open_syms = {p.get("symbol") for p in existing if p.get("status") == "open"}
+    new_positions = []
+
+    for coin in accounts:
+        if coin.get("currency") == "KRW":
+            continue
+        bal = float(coin.get("balance", 0))
+        price = float(coin.get("avg_buy_price", 0))
+        eval_amt = bal * price
+        if eval_amt < threshold:
+            continue
+        symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
+        if symbol in open_syms:
+            continue
+        pos = {
+            "symbol": symbol,
+            "entry_time": time.time(),
+            "entry_price": price,
+            "qty": bal,
+            "pyramid_count": 0,
+            "avgdown_count": 0,
+            "status": "open",
+            "origin": "imported",
+            "strategy": "imported",
+        }
+        logging.info(f"[F1][INIT] Import position {symbol} Eval={int(eval_amt):,}")
+        new_positions.append(pos)
+
+    if new_positions:
+        existing.extend(new_positions)
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(existing, f, ensure_ascii=False, indent=2)
+        except Exception as exc:  # pragma: no cover - best effort
+            logging.error(f"[F1][INIT] 포지션 저장 실패: {exc}")
