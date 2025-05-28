@@ -56,7 +56,10 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     for col in df.columns:
         if col != "timestamp" and col not in ["open", "high", "low", "close", "volume"]:
-            df[col] = pd.to_numeric(df[col], errors="ignore")
+            try:
+                df[col] = pd.to_numeric(df[col])
+            except Exception:  # pragma: no cover - best effort
+                continue
             if pd.api.types.is_numeric_dtype(df[col]):
                 df[col] = df[col].astype("float32")
 
