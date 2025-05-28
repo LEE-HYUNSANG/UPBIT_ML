@@ -60,6 +60,9 @@ external tools always see up-to-date values.
 Positions detected in the exchange account when the application boots are
 registered with the origin value `"imported"` so they can be distinguished from
 positions opened by automated signals.
+The universe selector also writes these holdings to `config/coin_positions.json`
+when it initializes so any coin worth at least 5,000 KRW is tracked from the
+very first cycle.
 
 Each position stores the strategy code used on entry. During the signal loop
 only buy rules are evaluated for symbols from `current_universe.json`. Once a

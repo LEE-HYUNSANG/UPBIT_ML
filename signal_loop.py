@@ -14,6 +14,7 @@ from f1_universe.universe_selector import (
     select_universe,
     schedule_universe_updates,
     load_universe_from_file,
+    init_coin_positions,
 )
 from f2_signal.signal_engine import f2_signal
 
@@ -112,6 +113,7 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
     """유니버스를 주기적으로 조회해 신호를 계산하는 메인 루프"""
     cfg = load_config()
     load_universe_from_file()
+    init_coin_positions(5000.0)
     logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
     schedule_universe_updates(1800, cfg)
 
