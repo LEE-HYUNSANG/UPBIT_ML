@@ -1,4 +1,4 @@
-"""05_split 단계 스크립트."""
+"""06_train 단계 스크립트."""
 from pathlib import Path
 from utils import ensure_dir
 
