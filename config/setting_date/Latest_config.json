@@ -19,4 +19,5 @@
   "TRAILING_STOP_ENABLED": true,
   "TRAIL_START_PCT": 4.0,
   "TRAIL_STEP_PCT": 1.0
+  ,"HOLD_SECS": 0
 }
