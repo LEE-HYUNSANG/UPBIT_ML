@@ -191,6 +191,7 @@ class PositionManager:
 
         # 종료된 포지션은 목록에서 제거
         self.positions = [p for p in self.positions if p.get("status") == "open"]
+        self._persist_positions()
 
     def hold_loop(self):
         """

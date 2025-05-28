@@ -75,8 +75,16 @@ def process_symbol(symbol: str) -> Optional[dict]:
     )
 
     pm = _default_executor.position_manager
-    open_pos = [p for p in pm.positions if p.get("symbol") == symbol and p.get("status") == "open"]
-    strat_codes = [p.get("strategy") for p in open_pos if p.get("strategy")]
+    open_pos = [
+        p
+        for p in pm.positions
+        if p.get("symbol") == symbol and p.get("status") == "open"
+    ]
+    strat_codes = [
+        s
+        for s in (p.get("strategy") for p in open_pos)
+        if s and s != "imported"
+    ]
     result = f2_signal(
         df_1m,
         df_5m,
