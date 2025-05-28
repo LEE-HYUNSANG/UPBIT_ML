@@ -35,6 +35,12 @@ def _log_jsonl(path: str, data: dict) -> None:
         json.dump(data, f, ensure_ascii=False)
         f.write("\n")
 
+
+def _save_json(path: str, data) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
 class PositionManager:
     def __init__(self, config, dynamic_params, kpi_guard, exception_handler, parent_logger=None):
         self.config = config
@@ -42,10 +48,17 @@ class PositionManager:
         self.kpi_guard = kpi_guard
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
+        self.positions_file = self.config.get("POSITIONS_FILE", "config/coin_positions.json")
         self.positions = []
         self.client = UpbitClient()
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
+
+    def _persist_positions(self) -> None:
+        try:
+            _save_json(self.positions_file, self.positions)
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to persist positions: {exc}")
 
     def open_position(self, order_result):
         """신규 포지션 오픈 (filled 주문 결과 또는 잔고 가져오기)"""
@@ -67,6 +80,7 @@ class PositionManager:
         if "strategy" in order_result:
             pos["strategy"] = order_result["strategy"]
         self.positions.append(pos)
+        self._persist_positions()
         log_with_tag(logger, f"Open position: {pos}")
 
     def import_existing_positions(self, threshold: float = 5000.0) -> None:
@@ -274,6 +288,7 @@ class PositionManager:
         position["qty"] -= qty
         if position["qty"] <= 0:
             position["status"] = "closed"
+        self._persist_positions()
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         return order
 
@@ -358,11 +373,13 @@ class PositionManager:
             if pos.get("status") == "open":
                 remaining.append(pos)
         self.positions = remaining
+        self._persist_positions()
 
     def close_position(self, symbol: str, reason: str = "") -> None:
         for pos in list(self.positions):
             if pos.get("symbol") == symbol and pos.get("status") == "open":
                 self.execute_sell(pos, reason or "universe_exit", pos.get("qty"))
+        self._persist_positions()
 
     def sync_with_universe(self, universe) -> None:
         for pos in list(self.positions):

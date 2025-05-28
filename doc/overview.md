@@ -30,3 +30,10 @@ position. The left edge represents the stop-loss percentage while the right
 edge marks the take-profit target. A small vertical indicator shows the current
 price relative to the entry. Values are taken from the latest risk
 configuration so changes apply automatically.
+
+## Position Tracking
+
+Whenever a new trade is opened the current list of holdings is written to
+`config/coin_positions.json`. Each entry contains the symbol, entry price,
+quantity and strategy information. This file can be inspected to see which
+coins are being monitored even after restarting the application.
