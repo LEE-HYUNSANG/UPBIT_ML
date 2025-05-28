@@ -9,6 +9,8 @@ This repository implements a four stage trading system built around the Upbit ex
   engine. Symbols from `current_universe.json` are treated as buy candidates only –
   their sell conditions are ignored until a position is opened. Sell rules are
   evaluated exclusively for coins listed in `coin_positions.json`.
+  The `f2_signal` function accepts a `strategy_codes` parameter to evaluate only
+  a subset of strategies when needed.
 - **F3 Order Executor** – receives signals and places orders using the Upbit API.
   It maintains open positions, handles slippage and keeps a SQLite order log. When
   linked to the Risk Manager the executor mirrors updated sizing parameters like

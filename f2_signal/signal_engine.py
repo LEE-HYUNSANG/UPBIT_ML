@@ -142,7 +142,7 @@ def f2_signal(
     calc_sell : bool, optional
         매도 조건을 계산할지 여부.
     strategy_codes : list[str], optional
-        특정 전략(short_code)만 평가하고 싶을 때 지정합니다.
+        평가할 전략 코드 목록. ``None``이면 모든 전략을 평가한다.
     """
     logging.debug(f"[{symbol}] Starting signal calculation")
     # 데이터가 시간 순서대로 정렬되어 있는지 확인
@@ -376,11 +376,9 @@ def f2_signal(
     # 어떤 전략이 발동했는지 기록
     triggered_buys = []
     triggered_sells = []
-    selected = strategies
-    if strategy_codes:
-        selected = [s for s in strategies if s.get("short_code") in strategy_codes]
-
-    for strat in selected:
+    for strat in strategies:
+        if strategy_codes and strat["short_code"] not in strategy_codes:
+            continue
         settings = STRATEGY_SETTINGS.get(strat["short_code"], {"on": True, "order": 999})
         if not settings.get("on", True):
             continue
