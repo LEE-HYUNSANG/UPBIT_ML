@@ -53,6 +53,10 @@ coins are being monitored even after restarting the application. The
 `PositionManager` reloads this file at startup so any open positions continue
 to be tracked across restarts.
 
+Position data is now refreshed every second. The latest quantity, price and
+PnL information are persisted back to `coin_positions.json` on each update so
+external tools always see up-to-date values.
+
 Positions detected in the exchange account when the application boots are
 registered with the origin value `"imported"` so they can be distinguished from
 positions opened by automated signals.
