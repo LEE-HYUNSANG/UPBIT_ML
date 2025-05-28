@@ -42,6 +42,11 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
     try:
         df = pyupbit.get_ohlcv(symbol, interval=interval, count=count)
         df = df.reset_index().rename(columns={"index": "timestamp"})
+        if hasattr(df, "iloc") and not df.empty:
+            sample = df.iloc[-1].to_dict()
+            logging.info(
+                f"[{symbol}] {interval} sample row: {sample}"
+            )
         try:
             import pandas as pd  # noqa: F401
         except ImportError:

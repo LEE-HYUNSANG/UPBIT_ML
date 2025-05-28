@@ -11,6 +11,7 @@ This repository implements a four stage trading system built around the Upbit ex
   evaluated exclusively for coins listed in `coin_positions.json`.
   The `f2_signal` function accepts a `strategy_codes` parameter to evaluate only
   a subset of strategies when needed.
+  Each OHLCV request logs a sample row so you can verify Upbit data integrity when troubleshooting.
 - **F3 Order Executor** – receives signals and places orders using the Upbit API.
   It maintains open positions, handles slippage and keeps a SQLite order log. When
   linked to the Risk Manager the executor mirrors updated sizing parameters like
