@@ -197,6 +197,8 @@ class PositionManager:
 
     def place_order(self, symbol, side, qty, order_type="market", price=None):
         """Submit an order through the Upbit API and return the response."""
+        # Translate legacy side values
+        side = {"buy": "bid", "sell": "ask"}.get(side, side)
         try:
             resp = self.client.place_order(
                 market=symbol,
@@ -260,7 +262,7 @@ class PositionManager:
         """Execute a sell order for a position."""
         if qty is None:
             qty = position.get("qty", 0)
-        order = self.place_order(position["symbol"], "sell", qty, "market", position.get("current_price"))
+        order = self.place_order(position["symbol"], "ask", qty, "market", position.get("current_price"))
         slip = 0.0
         if position.get("current_price") and position.get("entry_price"):
             slip = abs(position["current_price"] - position["entry_price"]) / position["entry_price"] * 100
@@ -299,7 +301,7 @@ class PositionManager:
         trigger = self.dynamic_params.get("PYR_TRIGGER", 1.0)
         if (cur - position["entry_price"]) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("PYR_SIZE", 0) / cur
-            res = self.place_order(position["symbol"], "buy", qty, "market", cur)
+            res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
                 position["qty"] += qty
                 position["pyramid_count"] += 1
@@ -315,7 +317,7 @@ class PositionManager:
         trigger = self.dynamic_params.get("AVG_TRIGGER", 1.0)
         if (position["entry_price"] - cur) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("AVG_SIZE", 0) / cur
-            res = self.place_order(position["symbol"], "buy", qty, "market", cur)
+            res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
                 position["qty"] += qty
                 position["avgdown_count"] += 1
