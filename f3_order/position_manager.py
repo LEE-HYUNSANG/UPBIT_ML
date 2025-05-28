@@ -148,6 +148,9 @@ class PositionManager:
         """Update price and PnL information for all open positions."""
         open_syms = [p.get("symbol") for p in self.positions if p.get("status") == "open"]
         if not open_syms:
+            # Remove any closed positions and persist an empty list
+            self.positions = [p for p in self.positions if p.get("status") == "open"]
+            self._persist_positions()
             return
 
         try:
