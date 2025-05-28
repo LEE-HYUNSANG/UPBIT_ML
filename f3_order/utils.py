@@ -2,7 +2,7 @@
 [F3] 공용 유틸리티 (config 로더, 시간 등)
 """
 import json
-import datetime
+import time
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -60,8 +60,8 @@ def load_config(path):
         return {}
 
 def now():
-    """ 현재 UTC+9(한국) 타임스탬프 반환 (isoformat) """
-    return (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).isoformat()
+    """Return current epoch timestamp as a floating point number."""
+    return time.time()
 
 def log_with_tag(logger, msg):
     """ [F3] 태그 붙여 로그 기록 """

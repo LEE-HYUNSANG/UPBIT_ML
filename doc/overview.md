@@ -53,3 +53,4 @@ The risk configuration also defines a `HOLD_SECS` value. When a position has
 been open for this many seconds the generic stop-loss, take-profit and
 trailing stop rules from the "손절/익절/TS 조건" card take precedence over the
 strategy-specific formula. This helps prevent very long holds.
+Positions now store their entry time as a numeric epoch timestamp rather than an ISO string.
