@@ -137,6 +137,7 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
                 process_symbol(symbol)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error(f"[{symbol}] Processing error: {exc}")
+        executor.manage_positions()
         time.sleep(interval)
 
 
