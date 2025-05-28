@@ -32,6 +32,7 @@ def test_main_loop_invokes_hold_loop(monkeypatch):
     monkeypatch.setattr(signal_loop._default_executor.position_manager, "sync_with_universe", lambda u: None)
     monkeypatch.setattr(signal_loop._default_executor.position_manager, "hold_loop", lambda: calls.append("h"))
     monkeypatch.setattr(signal_loop, "RiskManager", lambda *a, **k: dummy_risk_manager())
+    monkeypatch.setattr(signal_loop, "init_coin_positions", lambda *a, **k: None)
     monkeypatch.setattr(signal_loop, "load_config", lambda: {})
     monkeypatch.setattr(signal_loop, "select_universe", lambda cfg: [])
     monkeypatch.setattr(signal_loop, "get_universe", lambda: [])
@@ -63,6 +64,7 @@ def test_monitor_worker_invokes_hold_loop(monkeypatch):
     monkeypatch.setattr(signal_loop._default_executor, "update_from_risk_config", lambda: None)
     monkeypatch.setattr(signal_loop._default_executor.position_manager, "hold_loop", lambda: calls.append("h"))
     monkeypatch.setattr(signal_loop, "RiskManager", lambda *a, **k: dummy_risk_manager())
+    monkeypatch.setattr(signal_loop, "init_coin_positions", lambda *a, **k: None)
 
     class DummyThread:
         def __init__(self, target=None, daemon=None):

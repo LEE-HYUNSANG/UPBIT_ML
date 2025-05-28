@@ -58,7 +58,6 @@ def test_refresh_persists_positions(tmp_path, monkeypatch):
         persisted = json.load(f)
     assert persisted and persisted[0]["symbol"] == "KRW-XRP"
 
-
 def test_refresh_clears_closed_positions(tmp_path, monkeypatch):
     positions_file = tmp_path / "pos.json"
     data = [
