@@ -3,12 +3,39 @@ import time
 import requests
 from datetime import datetime, timedelta
 from typing import List, Dict
+import logging
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
-from F5_utils import setup_ml_logger
-logger = setup_ml_logger(1)
-
+from utils import ensure_dir
 import pandas as pd
 from tqdm import tqdm
+
+
+LOG_PATH = Path("logs/before_coin.log")
+
+
+def setup_logger() -> logging.Logger:
+    """Configure rotating file logger."""
+    ensure_dir(LOG_PATH.parent)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            RotatingFileHandler(
+                LOG_PATH,
+                encoding="utf-8",
+                maxBytes=50_000 * 1024,
+                backupCount=5,
+            ),
+            logging.StreamHandler(),
+        ],
+        force=True,
+    )
+    return logging.getLogger(__name__)
+
+
+logger = setup_logger()
 
 # Configuration
 BASE_URL = "https://api.upbit.com"
