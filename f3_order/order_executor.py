@@ -4,7 +4,7 @@ from .smart_buy import smart_buy
 from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
-from .utils import load_config, now, log_with_tag
+from .utils import load_config, log_with_tag
 
 logger = logging.getLogger("F3_order_executor")
 fh = RotatingFileHandler(
@@ -29,10 +29,21 @@ class OrderExecutor:
         self.position_manager = PositionManager(
             self.config, self.dynamic_params, self.kpi_guard, self.exception_handler, logger
         )
+        if self.risk_manager:
+            self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
 
     def set_risk_manager(self, rm):
         self.risk_manager = rm
+        self.update_from_risk_config()
+
+    def update_from_risk_config(self):
+        """Mirror relevant values from the associated RiskManager."""
+        if not self.risk_manager:
+            return
+        entry_size = self.risk_manager.config.get("ENTRY_SIZE_INITIAL")
+        if entry_size is not None:
+            self.config["ENTRY_SIZE_INITIAL"] = entry_size
 
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""

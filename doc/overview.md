@@ -8,7 +8,9 @@ This repository implements a four stage trading system built around the Upbit ex
   signals. The `signal_loop.py` script orchestrates data collection and executes this
   engine.
 - **F3 Order Executor** – receives signals and places orders using the Upbit API.
-  It maintains open positions, handles slippage and keeps a SQLite order log.
+  It maintains open positions, handles slippage and keeps a SQLite order log. When
+  linked to the Risk Manager the executor mirrors updated sizing parameters like
+  `ENTRY_SIZE_INITIAL` whenever the risk configuration reloads.
 - **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
   or halt trading when risk thresholds are breached.
 - **F5 Machine Learning Pipeline** – trains and evaluates ML models used for

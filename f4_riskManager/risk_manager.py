@@ -156,6 +156,8 @@ class RiskManager:
         """config/risk.json 등 변경시 5초 이내 핫리로드"""
         if self.config.reload():
             self.logger.info("리스크 파라미터 핫리로드 적용")
+            if self.order_executor:
+                self.order_executor.update_from_risk_config()
             if self.exception_handler:
                 self.exception_handler.send_alert("Risk parameters reloaded", "info")
 
