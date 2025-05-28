@@ -156,3 +156,5 @@ setInterval(fetchEvents, 5000);
 Each position object contains the keys `symbol`, `strategy`, `entry_price`,
 `avg_price`, `current_price`, `eval_amount`, `pnl_percent`, `pyramid_count` and
 `avgdown_count`. Event objects contain `timestamp` and `message`.
+The `strategy` field records the name of the buy strategy used when the
+position was opened.
