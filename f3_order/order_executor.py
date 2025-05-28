@@ -56,7 +56,8 @@ class OrderExecutor:
                 if (
                     hasattr(self.position_manager, "positions")
                     and any(
-                        p.get("symbol") == symbol and p.get("status") == "open"
+                        p.get("symbol") == symbol
+                        and p.get("status") in ("open", "pending")
                         for p in self.position_manager.positions
                     )
                 ):
@@ -79,6 +80,11 @@ class OrderExecutor:
                         f" @ {order_result.get('price')}"
                     )
                     self.exception_handler.send_alert(msg, "info")
+                else:
+                    if signal.get("buy_triggers"):
+                        order_result["strategy"] = signal["buy_triggers"][0]
+                    self.position_manager.open_position(order_result, status="pending")
+                    log_with_tag(logger, f"Pending buy recorded: {order_result}")
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
 

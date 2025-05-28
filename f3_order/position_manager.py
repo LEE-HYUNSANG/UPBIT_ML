@@ -69,8 +69,17 @@ class PositionManager:
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to persist positions: {exc}")
 
-    def open_position(self, order_result):
-        """신규 포지션 오픈 (filled 주문 결과 또는 잔고 가져오기)"""
+    def open_position(self, order_result, status: str = "open"):
+        """신규 포지션 오픈 (주문 결과 또는 잔고 가져오기)
+
+        Parameters
+        ----------
+        order_result : dict
+            주문 결과 또는 잔고 정보.
+        status : str, optional
+            초기 포지션 상태. 기본값은 ``"open"`` 이며 미체결 주문을
+            추적할 때는 ``"pending"`` 을 사용할 수 있다.
+        """
         price = order_result.get("price")
         qty = order_result.get("qty")
         if price is None or qty is None:
@@ -83,7 +92,7 @@ class PositionManager:
             "qty": qty,
             "pyramid_count": 0,
             "avgdown_count": 0,
-            "status": "open",
+            "status": status,
             "origin": order_result.get("origin", "trade"),
         }
         if "strategy" in order_result:
@@ -146,7 +155,7 @@ class PositionManager:
 
     def refresh_positions(self) -> None:
         """Update price and PnL information for all open positions."""
-        open_syms = [p.get("symbol") for p in self.positions if p.get("status") == "open"]
+        open_syms = [p.get("symbol") for p in self.positions if p.get("status") in ("open", "pending")]
         if not open_syms:
             # Remove any closed positions and persist an empty list
             self.positions = [p for p in self.positions if p.get("status") == "open"]
@@ -175,14 +184,16 @@ class PositionManager:
         price_map = {t.get("market"): float(t.get("trade_price", 0)) for t in ticker_data}
 
         for pos in self.positions:
-            if pos.get("status") != "open":
+            if pos.get("status") not in ("open", "pending"):
                 continue
             sym = pos.get("symbol")
             info = acc_map.get(sym, {})
             pos["avg_price"] = float(info.get("avg_buy_price", pos.get("entry_price") or 0))
             qty = float(info.get("balance", pos.get("qty") or 0))
             pos["qty"] = qty
-            if accounts_ok and qty <= 0:
+            if pos.get("status") == "pending" and qty > 0:
+                pos["status"] = "open"
+            elif accounts_ok and qty <= 0 and pos.get("status") == "open":
                 pos["status"] = "closed"
             if sym in price_map:
                 pos["current_price"] = price_map[sym]
@@ -192,8 +203,11 @@ class PositionManager:
                 cur = pos.get("current_price", pos["avg_price"])
                 pos["pnl_percent"] = (cur - pos["avg_price"]) / pos["avg_price"] * 100
 
-        # 종료된 포지션은 목록에서 제거
-        self.positions = [p for p in self.positions if p.get("status") == "open"]
+        # 종료된 포지션은 목록에서 제거하되, 미체결 주문은 남겨 둔다
+        self.positions = [
+            p for p in self.positions if p.get("status") in ("open", "pending")
+        ]
+
         self._persist_positions()
 
     def hold_loop(self):
