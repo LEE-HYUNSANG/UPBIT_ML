@@ -24,3 +24,4 @@
 각 단계의 상세 설명은 `doc/` 폴더의 개별 문서를 참고합니다. 특히 데이터 정제 절차는
 [doc/data_cleaning.md](data_cleaning.md)에서 다룹니다. 지표 계산 방법은
 [doc/feature_engineering.md](feature_engineering.md) 문서를 참고하세요.
+[doc/labeling.md](labeling.md)에서 라벨 생성 규칙을 확인할 수 있습니다.
