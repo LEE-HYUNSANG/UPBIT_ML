@@ -52,20 +52,26 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     logger.info("원본 rows: %d", raw_rows)
     print("로드 row:", raw_rows)
 
+    col_map = {
+        "opening_price": "open",
+        "high_price": "high",
+        "low_price": "low",
+        "trade_price": "close",
+        "candle_acc_trade_volume": "volume",
+        "candle_date_time_utc": "timestamp",
+    }
+
+    df = df.rename(columns=col_map)
     df.columns = [c.lower() for c in df.columns]
 
     if "timestamp" in df.columns:
-        ts_col = df["timestamp"]
+        df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
 
-        if pd.api.types.is_numeric_dtype(ts_col):
-            df["timestamp"] = pd.to_datetime(ts_col, unit="ms", errors="coerce")
-        else:
-            df["timestamp"] = pd.to_datetime(ts_col, errors="coerce")
-
-        if df["timestamp"].dt.tz is None:
-            df["timestamp"] = df["timestamp"].dt.tz_localize("Asia/Seoul")
-        else:
-            df["timestamp"] = df["timestamp"].dt.tz_convert("Asia/Seoul")
+    required = ["timestamp", "open", "high", "low", "close", "volume"]
+    for col in required:
+        if col not in df.columns:
+            df[col] = 0
+    df = df[required + [c for c in df.columns if c not in required]]
 
     for col in ["open", "high", "low", "close", "volume"]:
         if col in df.columns:
