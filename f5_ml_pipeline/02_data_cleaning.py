@@ -67,7 +67,10 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
         df = df.ffill().bfill()
         df = df.reset_index()
 
-    df = df[~((df.get("open") == 0) & (df.get("high") == 0) & (df.get("low") == 0) & (df.get("close") == 0))]
+    zero_cols = [c for c in ["open", "high", "low", "close"] if c in df.columns]
+    if zero_cols:
+        zero_rows = (df[zero_cols] == 0).all(axis=1)
+        df = df[~zero_rows]
     if "volume" in df.columns:
         df = df[df["volume"] > 0]
 
