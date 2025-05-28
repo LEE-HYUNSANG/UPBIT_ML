@@ -1,4 +1,4 @@
-"""05_split 단계 스크립트."""
+"""02_data_cleaning 단계 스크립트."""
 from pathlib import Path
 from utils import ensure_dir
 
