@@ -93,7 +93,7 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     if "timestamp" in df.columns:
         df = df.set_index("timestamp")
         prev_len = len(df)
-        df = df.asfreq("1T")
+        df = df.asfreq("1min")
         added = len(df) - prev_len
         df = df.ffill().bfill()
         df = df.reset_index()
@@ -131,7 +131,7 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     df = df.sort_values("timestamp").reset_index(drop=True)
 
-    cols = ["timestamp", "open", "high", "low", "close", "volume"]
+    cols = [c for c in ["timestamp", "open", "high", "low", "close", "volume"] if c in df.columns]
     df = df[cols + [c for c in df.columns if c not in cols]]
 
     print("클린 완료 row:", len(df))
