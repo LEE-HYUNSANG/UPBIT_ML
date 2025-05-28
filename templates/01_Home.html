@@ -6,7 +6,7 @@
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px] col-span-1">
       <div class="card-title text-white mb-1">KRW 잔고</div>
       <div class="text-xs text-gray-500 mb-1">계좌 보유 현금</div>
-      <div id="krw-balance" class="text-3xl font-extrabold tracking-tight">0</div>
+      <div id="krw-balance" class="text-3xl font-extrabold tracking-tight text-right w-full">0</div>
     </div>
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px] col-span-1">
       <div class="card-title text-white mb-1">오늘 손익(PnL)</div>
@@ -143,7 +143,7 @@ function updateAccount() {
     .then(r => r.json())
     .then(d => {
       const krw = document.getElementById('krw-balance');
-      if (krw) krw.textContent = Number(d.krw_balance).toLocaleString();
+      if (krw) krw.textContent = Math.floor(Number(d.krw_balance)).toLocaleString();
       const pnl = document.getElementById('pnl-amount');
       if (pnl) pnl.textContent = Number(d.pnl).toLocaleString();
     })
