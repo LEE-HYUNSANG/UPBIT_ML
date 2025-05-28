@@ -18,6 +18,9 @@ This repository implements a four stage trading system built around the Upbit ex
   `ENTRY_SIZE_INITIAL` whenever the risk configuration reloads. The executor's
   `manage_positions()` routine (internally running `hold_loop`) is invoked on every
   cycle of the signal loop and also when the application runs in monitoring mode.
+  Before sending a buy order the executor verifies that the symbol is not already
+  held and skips the entry if it is. Averaging down or pyramiding remains
+  controlled by the risk configuration.
 - **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
   or halt trading when risk thresholds are breached.
 - **F5 Machine Learning Pipeline** – trains and evaluates ML models used for
