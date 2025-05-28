@@ -83,6 +83,14 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     df = df.sort_values("timestamp").reset_index(drop=True)
 
+    # Drop duplicates before resampling to avoid asfreq errors
+    n_before = len(df)
+    df = df.drop_duplicates("timestamp", keep="last")
+    removed = n_before - len(df)
+    if removed:
+        print("중복 timestamp 제거:", removed)
+        logger.info("중복 timestamp 제거: %d", removed)
+
     ohlc_cols = [c for c in ["open", "high", "low", "close"] if c in df.columns]
     if ohlc_cols:
         df[ohlc_cols] = df[ohlc_cols].ffill().bfill()
