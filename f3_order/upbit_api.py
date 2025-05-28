@@ -53,7 +53,11 @@ class UpbitClient:
         headers = self._headers(params)
         if requests:
             resp = requests.get(url, params=params, headers=headers, timeout=10)
-            resp.raise_for_status()
+            try:
+                resp.raise_for_status()
+            except Exception as e:  # pragma: no cover - network error path
+                msg = f"{e} - {resp.text}"
+                raise type(e)(msg) from None
             return resp.json()
         else:
             if params:
@@ -68,7 +72,11 @@ class UpbitClient:
         headers = self._headers(params)
         if requests:
             resp = requests.post(url, params=params, headers=headers, timeout=10)
-            resp.raise_for_status()
+            try:
+                resp.raise_for_status()
+            except Exception as e:  # pragma: no cover - network error path
+                msg = f"{e} - {resp.text}"
+                raise type(e)(msg) from None
             return resp.json()
         else:
             data = urlencode(params or {}).encode()
