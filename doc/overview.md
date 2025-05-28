@@ -14,7 +14,9 @@ This repository implements a four stage trading system built around the Upbit ex
 - **F3 Order Executor** – receives signals and places orders using the Upbit API.
   It maintains open positions, handles slippage and keeps a SQLite order log. When
   linked to the Risk Manager the executor mirrors updated sizing parameters like
-  `ENTRY_SIZE_INITIAL` whenever the risk configuration reloads.
+  `ENTRY_SIZE_INITIAL` whenever the risk configuration reloads. The executor's
+  `manage_positions()` routine (internally running `hold_loop`) is invoked on every
+  cycle of the signal loop and also when the application runs in monitoring mode.
 - **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
   or halt trading when risk thresholds are breached.
 - **F5 Machine Learning Pipeline** – trains and evaluates ML models used for
@@ -26,6 +28,7 @@ those APIs.
 
 For detailed information about the REST interface see [`api_endpoints.md`](api_endpoints.md).
 Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
+Startup messages about credential loading are written to `logs/F3_utils.log`.
 
 Credential loading diagnostics are written to `logs/F3_utils.log` whenever `.env.json` is missing or malformed.
 

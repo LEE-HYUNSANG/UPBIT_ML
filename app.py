@@ -168,6 +168,7 @@ def start_monitoring() -> None:
             ]
             rm.update_account(0.0, 0.0, 0.0, open_syms)
             rm.periodic()
+            _default_executor.manage_positions()
             time.sleep(1)
 
     _monitor_thread = threading.Thread(target=monitor_worker, daemon=True)

@@ -19,6 +19,18 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
+logger = logging.getLogger("F3_utils")
+fh = RotatingFileHandler(
+    "logs/F3_utils.log",
+    encoding="utf-8",
+    maxBytes=100_000 * 1024,
+    backupCount=1000,
+)
+formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+logger.setLevel(logging.INFO)
+
 
 def load_env(path: str = ".env.json") -> dict:
     """Load API keys and tokens from environment variables or ``path``.
