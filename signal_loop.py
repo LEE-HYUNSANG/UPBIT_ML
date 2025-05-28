@@ -82,9 +82,9 @@ def process_symbol(symbol: str) -> Optional[dict]:
         if p.get("symbol") == symbol and p.get("status") == "open"
     ]
     strat_codes = [
-        s
-        for s in (p.get("strategy") for p in open_pos)
-        if s and s != "imported"
+        p.get("strategy")
+        for p in open_pos
+        if p.get("strategy") and p.get("strategy") != "imported"
     ]
     result = f2_signal(
         df_1m,
