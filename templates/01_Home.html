@@ -184,9 +184,9 @@ function fetchPositions() {
         row.innerHTML = `
           <td class="td-coin">${pos.symbol.replace('KRW-', '')}</td>
           <td class="td-strategy">${pos.strategy ?? '-'}</td>
-          <td class="td-price">${Number(pos.avg_price ?? 0).toLocaleString()}</td>
-          <td class="td-price">${Number(pos.current_price ?? 0).toLocaleString()}</td>
-          <td class="td-price">${Number(pos.eval_amount ?? 0).toLocaleString()}</td>
+          <td class="td-price">${Math.floor(Number(pos.avg_price ?? 0)).toLocaleString()}</td>
+          <td class="td-price">${Math.floor(Number(pos.current_price ?? 0)).toLocaleString()}</td>
+          <td class="td-price">${Math.floor(Number(pos.eval_amount ?? 0)).toLocaleString()}</td>
           <td class="td-graph"></td>
           <td class="td-pnl">${Number(pos.pnl_percent ?? 0).toFixed(2)}%</td>
           <td class="td-burn">${pos.pyramid_count ?? 0}</td>
@@ -197,12 +197,13 @@ function fetchPositions() {
           const tp = Number(riskCfg.TP_PCT || 1);
           const total = sl + tp;
           const curPct = Number(pos.pnl_percent || 0);
+          const mid = (sl / total) * 100;
           let posX = ((curPct + sl) / total) * 100;
           posX = Math.max(0, Math.min(100, posX));
           g.innerHTML = `
             <div class="relative h-1.5 bg-gray-700 rounded">
               <div class="absolute inset-y-0 left-0 w-px bg-red-500"></div>
-              <div class="absolute inset-y-0 left-1/2 w-px bg-gray-300"></div>
+              <div class="absolute inset-y-0 w-px bg-gray-300" style="left:${mid}%"></div>
               <div class="absolute inset-y-0 right-0 w-px bg-green-500"></div>
               <div class="absolute inset-y-0 w-1 bg-blue-400" style="left:${posX}%"></div>
             </div>
