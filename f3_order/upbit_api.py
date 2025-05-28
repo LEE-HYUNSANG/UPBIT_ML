@@ -30,6 +30,7 @@ class UpbitClient:
     """Minimal Upbit REST API client."""
 
     BASE_URL = "https://api.upbit.com"
+    MIN_KRW_BUY = 5000.0
 
     def __init__(self, access_key: str = None, secret_key: str = None):
         if not access_key or not secret_key:
@@ -91,6 +92,10 @@ class UpbitClient:
                         invest = float(volume) * float(price)
                     except Exception:
                         invest = volume
+                if invest < self.MIN_KRW_BUY:
+                    raise ValueError(
+                        f"Buy amount {invest} below minimum {self.MIN_KRW_BUY}"
+                    )
                 params.update({"ord_type": "price", "price": str(invest)})
             else:
                 params.update({"ord_type": ord_type, "volume": str(volume)})

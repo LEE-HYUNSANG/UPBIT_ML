@@ -19,3 +19,4 @@ and control. The templates under `templates/` form a simple dashboard that consu
 those APIs.
 
 For detailed information about the REST interface see [`api_endpoints.md`](api_endpoints.md).
+Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
