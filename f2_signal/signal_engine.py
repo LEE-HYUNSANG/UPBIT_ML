@@ -121,10 +121,26 @@ def f2_signal(
     df_5m: pd.DataFrame,
     symbol: str = "",
     trades: Optional[pd.DataFrame] = None,
+    calc_buy: bool = True,
+    calc_sell: bool = True,
 ):
     """주어진 종목의 매수/매도 신호를 계산합니다.
     매수 조건은 5분 봉, 매도 조건은 1분 봉 데이터를 이용합니다.
-    결과는 신호 여부와 발동된 전략 목록을 포함한 딕셔너리를 반환합니다."""
+    결과는 신호 여부와 발동된 전략 목록을 포함한 딕셔너리를 반환합니다.
+
+    Parameters
+    ----------
+    df_1m, df_5m : pd.DataFrame
+        1분 및 5분 봉 데이터.
+    symbol : str, optional
+        로깅용 심볼 문자열.
+    trades : pd.DataFrame, optional
+        체결 내역 데이터.
+    calc_buy : bool, optional
+        매수 조건을 계산할지 여부.
+    calc_sell : bool, optional
+        매도 조건을 계산할지 여부.
+    """
     logging.debug(f"[{symbol}] Starting signal calculation")
     # 데이터가 시간 순서대로 정렬되어 있는지 확인
     df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
@@ -386,38 +402,42 @@ def f2_signal(
                 f"[{symbol}][F2][{strat.get('short_code','UNKNOWN')}] 전략 포뮬러가 없습니다"
             )
             continue
-        logging.info(
-            f"[{symbol}][F2][5분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula} | Sell: {sell_formula}"
-        )
-        logging.info(
-            f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Sell: {sell_formula}"
-        )
-        try:
-            buy_cond_5m = eval_formula(
-                buy_formula,
-                latest5,
-                symbol,
-                strat["short_code"],
-                data_df=df5,
+        if calc_buy:
+            logging.info(
+                f"[{symbol}][F2][5분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula}"
             )
-        except Exception as e:
-            logging.error(
-                f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
+        if calc_sell:
+            logging.info(
+                f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Sell: {sell_formula}"
             )
-            buy_cond_5m = False
-        try:
-            sell_cond_1m = eval_formula(
-                sell_formula,
-                latest1,
-                symbol,
-                strat["short_code"],
-                data_df=df1,
-            )
-        except Exception as e:
-            logging.error(
-                f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
-            )
-            sell_cond_1m = False
+        buy_cond_5m = False
+        sell_cond_1m = False
+        if calc_buy:
+            try:
+                buy_cond_5m = eval_formula(
+                    buy_formula,
+                    latest5,
+                    symbol,
+                    strat["short_code"],
+                    data_df=df5,
+                )
+            except Exception as e:
+                logging.error(
+                    f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
+                )
+        if calc_sell:
+            try:
+                sell_cond_1m = eval_formula(
+                    sell_formula,
+                    latest1,
+                    symbol,
+                    strat["short_code"],
+                    data_df=df1,
+                )
+            except Exception as e:
+                logging.error(
+                    f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
+                )
         if buy_cond_5m:
             buy_signal = True
             triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula, "order": settings.get("order", 999)})

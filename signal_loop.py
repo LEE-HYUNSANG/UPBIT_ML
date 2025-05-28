@@ -94,8 +94,14 @@ def process_symbol(symbol: str) -> Optional[dict]:
     if df_1m is None or df_5m is None or df_1m.empty or df_5m.empty:
         logging.warning(f"[{symbol}] No OHLCV data available")
         return None
-    logging.info(f"[F1-F2] process_symbol() \uc774 OHLCV \ub370\uc774\ud130\ub97c \uac00\uc838\uc654\uc2b5\ub2c8\ub2e4: {symbol}")
-    result = f2_signal(df_1m, df_5m, symbol)
+
+    logging.info(
+        f"[F1-F2] process_symbol() \uc774 OHLCV \ub370\uc774\ud130\ub97c \uac00\uc838\uc654\uc2b5\ub2c8\ub2e4: {symbol}"
+    )
+
+    pm = _default_executor.position_manager
+    has_pos = any(p.get("symbol") == symbol and p.get("status") == "open" for p in pm.positions)
+    result = f2_signal(df_1m, df_5m, symbol, calc_buy=not has_pos, calc_sell=False)
     logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
