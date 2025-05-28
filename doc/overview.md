@@ -50,6 +50,10 @@ coins are being monitored even after restarting the application. The
 `PositionManager` reloads this file at startup so any open positions continue
 to be tracked across restarts.
 
+Positions detected in the exchange account when the application boots are
+registered with the origin value `"imported"` so they can be distinguished from
+positions opened by automated signals.
+
 Each position stores the strategy code used on entry. During the signal loop
 only buy rules are evaluated for symbols from `current_universe.json`. Once a
 position is opened its associated `sell_formula` from
