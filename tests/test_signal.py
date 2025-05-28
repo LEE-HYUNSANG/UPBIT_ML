@@ -99,6 +99,33 @@ def test_eval_formula_with_offset():
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_eval_formula_hyun_zero_division():
+    hyun_formula = (
+        "((EMA(5) > EMA(20) and EMA(20) > EMA(60) and (EMA(20) - EMA(20,-1)) / EMA(20,-1) > 0) * 25 + "
+        "(ATR(14) / Close * 100 >= 5) * 15 + "
+        "((ATR(14) / Close * 100 >= 1 and ATR(14) / Close * 100 < 5)) * 10 + "
+        "(Vol(0) >= MA(Vol,20) * 2) * 15 + "
+        "(Vol(0) >= MA(Vol,20) * 1.1) * 10 + "
+        "(BuyQty_5m / SellQty_5m * 100 >= 120) * 15 + "
+        "(BuyQty_5m / SellQty_5m * 100 >= 105) * 10 + "
+        "((EMA(5,-1) < EMA(20,-1)) and (EMA(5) > EMA(20))) * 5 + "
+        "(RSI(14) < 30) * 5 + "
+        "((RSI(14) >= 30 and RSI(14) < 40)) * 3) >= 45"
+    )
+    row = pd.Series({
+        "close": 10,
+        "open": 10,
+        "high": 10,
+        "low": 10,
+        "volume": 100,
+        "BuyQty_5m": 50,
+        "SellQty_5m": 0.0,
+    })
+    result = eval_formula(hyun_formula, row)
+    assert isinstance(result, bool)
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_f2_signal_requires_synced_candles():
     df1 = pd.DataFrame({
         "timestamp": pd.date_range("2021-01-01 00:00", periods=25, freq="T"),
