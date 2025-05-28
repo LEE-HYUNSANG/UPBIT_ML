@@ -6,7 +6,9 @@ This repository implements a four stage trading system built around the Upbit ex
   filters such as volume and price. Results are stored in `config/current_universe.json`.
 - **F2 Signal Engine** – evaluates OHLCV data for each symbol and produces buy/sell
   signals. The `signal_loop.py` script orchestrates data collection and executes this
-  engine.
+  engine. Symbols from `current_universe.json` are treated as buy candidates only –
+  their sell conditions are ignored until a position is opened. Sell rules are
+  evaluated exclusively for coins listed in `coin_positions.json`.
 - **F3 Order Executor** – receives signals and places orders using the Upbit API.
   It maintains open positions, handles slippage and keeps a SQLite order log. When
   linked to the Risk Manager the executor mirrors updated sizing parameters like
@@ -38,8 +40,9 @@ Whenever a new trade is opened the current list of holdings is written to
 quantity and strategy information. This file can be inspected to see which
 coins are being monitored even after restarting the application.
 
-Each position stores the strategy code used on entry. The system now checks
-the corresponding `sell_formula` from `strategies_master_pruned.json` on every
-update. When that expression evaluates to `True` using the latest 1-minute
-candle along with the position's entry and peak prices the coin is automatically
-sold via the order executor.
+Each position stores the strategy code used on entry. During the signal loop
+only buy rules are evaluated for symbols from `current_universe.json`. Once a
+position is opened its associated `sell_formula` from
+`strategies_master_pruned.json` is checked on every iteration using the latest
+1-minute candle. When that expression becomes `True` the coin is sold through
+the order executor.

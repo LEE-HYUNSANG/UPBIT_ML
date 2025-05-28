@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 def app_client(monkeypatch):
     # Stub f2_signal module to avoid pandas dependency
     stub = types.ModuleType("signal_engine")
-    def fake_f2_signal(df1, df5, symbol=""):
+    def fake_f2_signal(df1, df5, symbol="", **_kw):
         return {
             "symbol": symbol,
             "buy_signal": True,

@@ -67,6 +67,34 @@ def test_f2_signal_buy_trigger():
     )
     assert "buy_signal" in result
 
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_disable_all():
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=30, freq="T"),
+        "open": np.linspace(1, 30, 30),
+        "high": np.linspace(1.1, 30.1, 30),
+        "low": np.linspace(0.9, 29.9, 30),
+        "close": np.linspace(1, 30, 30),
+        "volume": np.full(30, 100),
+    })
+    result = f2_signal(df, df, symbol="NONE", calc_buy=False, calc_sell=False)
+    assert not result["buy_signal"] and not result["sell_signal"]
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_strategy_filter():
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=30, freq="T"),
+        "open": np.linspace(1, 30, 30),
+        "high": np.linspace(1.1, 30.1, 30),
+        "low": np.linspace(0.9, 29.9, 30),
+        "close": np.linspace(1, 30, 30),
+        "volume": np.full(30, 100),
+    })
+    res = f2_signal(df, df, symbol="FIL", strategy_codes=["M-BREAK"], calc_sell=False)
+    assert set(res["buy_triggers"]).issubset({"M-BREAK"})
+
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_eval_formula_numeric_comparison():
     row = pd.Series({"close": 10, "EMA_5": 9})
