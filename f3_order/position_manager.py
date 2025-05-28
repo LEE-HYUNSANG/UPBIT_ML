@@ -127,6 +127,7 @@ class PositionManager:
                         "price": price,
                         "qty": bal,
                         "origin": "imported",
+                        "strategy": "imported",
                     })
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
                 imported.append(f"{symbol}({int(eval_amt):,}원)")
