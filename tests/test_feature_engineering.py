@@ -35,3 +35,13 @@ def test_add_features_basic():
     for col in ["ema5", "ema20", "rsi14", "atr14", "vol_ratio", "stoch_k"]:
         assert col in result.columns
     assert "ma_vol20" not in result.columns
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_add_features_missing_column():
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=5, freq="1min"),
+        "price": range(5),
+    })
+    with pytest.raises(ValueError):
+        feature_engineering.add_features(df)

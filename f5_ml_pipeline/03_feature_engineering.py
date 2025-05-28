@@ -36,6 +36,12 @@ def setup_logger() -> None:
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
     """정제된 데이터프레임에 각종 지표 컬럼을 추가."""
     df = df.copy()
+    df.columns = [c.lower() for c in df.columns]
+
+    required = {"open", "high", "low", "close", "volume"}
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
 
     # EMA
     df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
