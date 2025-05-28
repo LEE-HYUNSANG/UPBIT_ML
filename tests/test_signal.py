@@ -67,6 +67,20 @@ def test_f2_signal_buy_trigger():
     )
     assert "buy_signal" in result
 
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_disable_all():
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=30, freq="T"),
+        "open": np.linspace(1, 30, 30),
+        "high": np.linspace(1.1, 30.1, 30),
+        "low": np.linspace(0.9, 29.9, 30),
+        "close": np.linspace(1, 30, 30),
+        "volume": np.full(30, 100),
+    })
+    result = f2_signal(df, df, symbol="NONE", calc_buy=False, calc_sell=False)
+    assert not result["buy_signal"] and not result["sell_signal"]
+
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_eval_formula_numeric_comparison():
     row = pd.Series({"close": 10, "EMA_5": 9})
@@ -171,3 +185,22 @@ def test_eval_formula_with_entry_and_peak():
     )
     res = eval_formula(formula, row, entry=100, peak=110)
     assert res
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_f2_signal_strategy_filter(monkeypatch):
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=30, freq="T"),
+        "open": np.linspace(1, 30, 30),
+        "high": np.linspace(1.1, 30.1, 30),
+        "low": np.linspace(0.9, 29.9, 30),
+        "close": np.linspace(1, 30, 30),
+        "volume": np.full(30, 100),
+    })
+    fake_strats = [
+        {"short_code": "A", "buy_formula": "Close > 0", "sell_formula": "Close < 0"},
+        {"short_code": "B", "buy_formula": "Close > 0", "sell_formula": "Close < 0"},
+    ]
+    monkeypatch.setattr("f2_signal.signal_engine.strategies", fake_strats)
+    result = f2_signal(df, df, symbol="FILTER", strategy_codes=["B"])
+    assert result["buy_triggers"] == ["B"]
