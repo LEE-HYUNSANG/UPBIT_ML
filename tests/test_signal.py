@@ -76,6 +76,14 @@ def test_eval_formula_numeric_comparison():
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_eval_formula_with_offset():
+    df = pd.DataFrame({"close": [1, 2, 3], "open": [1, 1, 1]})
+    row = df.iloc[2]
+    res = eval_formula("Close > Close(-1)", row, data_df=df)
+    assert res
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_f2_signal_requires_synced_candles():
     df1 = pd.DataFrame({
         "timestamp": pd.date_range("2021-01-01 00:00", periods=25, freq="T"),
