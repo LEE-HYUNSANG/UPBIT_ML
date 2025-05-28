@@ -645,6 +645,9 @@ def eval_formula(
     logging.debug(
         f"[{symbol}][F2][{strat_code}] 공식 치환: {formula} → {expr}"
     )
+    logging.info(
+        f"[{symbol}][F2][{strat_code}] EvalExpr: {expr}"
+    )
     # Evaluate the expression safely
     try:
         result = eval(expr)
@@ -652,6 +655,9 @@ def eval_formula(
             result = bool(result)
         logging.debug(
             f"[{symbol}][F2][{strat_code}] 평가값: {result}"
+        )
+        logging.info(
+            f"[{symbol}][F2][{strat_code}] EvalResult: {result}"
         )
         return bool(result)
     except Exception as e:
