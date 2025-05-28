@@ -64,6 +64,11 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result)
                     log_with_tag(logger, f"Buy executed: {order_result}")
+                    msg = (
+                        f"BUY {order_result['symbol']} {order_result.get('qty')}"
+                        f" @ {order_result.get('price')}"
+                    )
+                    self.exception_handler.send_alert(msg, "info")
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
 

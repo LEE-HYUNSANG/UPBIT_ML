@@ -46,6 +46,10 @@ class ExceptionHandler:
         env = load_env()
         self.tg_token = env.get("TELEGRAM_TOKEN")
         self.tg_chat_id = env.get("TELEGRAM_CHAT_ID")
+        if self.tg_token and str(self.tg_token).startswith("YOUR_"):
+            self.tg_token = None
+        if self.tg_chat_id and str(self.tg_chat_id).startswith("YOUR_"):
+            self.tg_chat_id = None
 
     def _log_event(self, data: dict) -> None:
         path = os.path.join("logs", "events.jsonl")
