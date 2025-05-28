@@ -393,14 +393,26 @@ def f2_signal(
             f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Sell: {sell_formula}"
         )
         try:
-            buy_cond_5m = eval_formula(buy_formula, latest5, symbol, strat["short_code"])
+            buy_cond_5m = eval_formula(
+                buy_formula,
+                latest5,
+                symbol,
+                strat["short_code"],
+                data_df=df5,
+            )
         except Exception as e:
             logging.error(
                 f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
             )
             buy_cond_5m = False
         try:
-            sell_cond_1m = eval_formula(sell_formula, latest1, symbol, strat["short_code"])
+            sell_cond_1m = eval_formula(
+                sell_formula,
+                latest1,
+                symbol,
+                strat["short_code"],
+                data_df=df1,
+            )
         except Exception as e:
             logging.error(
                 f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
@@ -441,8 +453,28 @@ def f2_signal(
     logging.debug(f"[{symbol}][F2] Result: {result}")
     return result
 
-def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code: str = "") -> bool:
-    """주어진 데이터 행에 매수/매도 공식을 적용하여 True/False를 반환합니다."""
+def eval_formula(
+    formula: str,
+    data_row: pd.Series,
+    symbol: str = "",
+    strat_code: str = "",
+    data_df: Optional[pd.DataFrame] = None,
+) -> bool:
+    """주어진 데이터 행에 매수/매도 공식을 적용하여 True/False를 반환합니다.
+
+    Parameters
+    ----------
+    formula : str
+        평가할 수식 문자열.
+    data_row : pd.Series
+        현재 시점의 데이터 행.
+    symbol : str, optional
+        로깅용 심볼 문자열.
+    strat_code : str, optional
+        로깅용 전략 코드.
+    data_df : pd.DataFrame, optional
+        전체 데이터프레임. 오프셋이 포함된 지표 평가 시 사용된다.
+    """
     # Replace indicator references in the formula with actual numeric values from data_row
     expr = formula
     # Normalize some function names to match computed column names
@@ -460,9 +492,15 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
     for fld, col in base_fields.items():
         pattern = rf"{fld}\((-?[0-9]+)\)"
         def _repl(m):
-            off = m.group(1)
-            if off in ("0", "+0", ""):
+            off = int(m.group(1))
+            if off == 0:
                 val = data_row.get(col, 0)
+            elif data_df is not None:
+                idx = data_row.name + off
+                if 0 <= idx < len(data_df):
+                    val = data_df.iloc[idx].get(col, 0)
+                else:
+                    val = 0
             else:
                 val = 0
             return str(float(val))
@@ -537,8 +575,11 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
                 matches = list(re.finditer(pattern, expr))
                 for m in matches:
                     params = [p.strip() for p in m.group(1).split(',') if p.strip()]
+                    offset_val = 0
+                    if params and re.fullmatch(r"-?\d+", params[-1]):
+                        offset_val = int(params[-1])
+                        params = params[:-1]
                     period_val = params[0] if params else ""
-                    offset_val = params[-1] if len(params) > 2 else None
                     if key in ["EMA", "RSI", "ATR", "MFI", "ADX"]:
                         col_name = f"{key}_{period_val}"
                     elif key.startswith("Stoch"):
@@ -547,8 +588,15 @@ def eval_formula(formula: str, data_row: pd.Series, symbol: str = "", strat_code
                         col_name = key
                     else:
                         col_name = key
-                    value = data_row.get(col_name, None)
-                    if offset_val is not None and offset_val not in ["0", ""]:
+                    if offset_val == 0:
+                        value = data_row.get(col_name, None)
+                    elif data_df is not None:
+                        idx = data_row.name + offset_val
+                        if 0 <= idx < len(data_df):
+                            value = data_df.iloc[idx].get(col_name, None)
+                        else:
+                            value = None
+                    else:
                         value = None
                     replacement_val = "0" if value is None or pd.isna(value) else f"{float(value)}"
                     expr = re.sub(re.escape(m.group(0)), replacement_val, expr)
