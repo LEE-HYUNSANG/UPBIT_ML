@@ -72,7 +72,7 @@ f5_ml_pipeline/
 | 전략 선정 | `ml_data/10_selected/selected_strategies.json` |
 
 ### 설정 및 공통 함수
-모델 파라미터는 `config/train_config.yaml`에서 관리합니다.
+모델 파라미터는 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
 모든 스크립트는 해당 파일을 읽어 동일한 설정을 사용합니다.
 자주 사용하는 함수는 `utils.py`에 모아 두었으니 필요한 단계에서 불러와 사용합니다.
 

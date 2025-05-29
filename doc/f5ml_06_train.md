@@ -12,3 +12,7 @@ LightGBM 분류 모델을 학습하고 `ml_data/06_models/`에 저장합니다.
 ```bash
 python f5_ml_pipeline/06_train.py
 ```
+
+모델 학습 파라미터는 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
+`n_estimators`와 `early_stopping_rounds` 등 값을 수정해 실험할 수 있으며
+코드에는 하이퍼파라미터를 직접 입력하지 않습니다.
