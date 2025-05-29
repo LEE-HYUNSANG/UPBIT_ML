@@ -79,8 +79,12 @@ def evaluate(symbol: str) -> None:
         y_true,
         y_pred,
         output_dict=True,
+        zero_division=0,
     )
-    metrics["auc"] = roc_auc_score(y_true, y_prob)
+    try:
+        metrics["auc"] = roc_auc_score(y_true, y_prob)
+    except ValueError:
+        metrics["auc"] = 0.0
     metrics["brier"] = brier_score_loss(y_true, y_prob)
     metrics["pr_auc"] = average_precision_score(y_true, y_prob)
 
