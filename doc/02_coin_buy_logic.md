@@ -11,17 +11,17 @@
 ## 주요 함수와 변수
 
 ### `f2_signal(df_1m, df_5m, symbol="", trades=None, calc_buy=True, calc_sell=True, strategy_codes=None)`
-`f2_signal`은 5분 봉 데이터를 이용해 매수 조건을 평가하고, 1분 봉 데이터로 매도 조건을 확인합니다. 반환값은 다음과 같은 딕셔너리입니다.
+`f2_signal`은 머신러닝 모델을 이용해 1분 봉 데이터에서 매수 신호를 계산합니다. 기존의 전략 공식은 사용하지 않으며 반환 값의 형식은 다음과 같습니다.
 ```python
 {
     "symbol": symbol,
     "buy_signal": bool,    # 매수 가능 여부
     "sell_signal": bool,   # 매도 가능 여부
-    "buy_triggers": ["전략코드"],
-    "sell_triggers": ["전략코드"]
+    "buy_triggers": [],
+    "sell_triggers": []
 }
 ```
-매수 조건이 충족되면 `buy_signal`이 `True`가 되며 `buy_triggers`에 발동된 전략 코드가 들어갑니다.【F:f2_signal/signal_engine.py†L132-L199】
+매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상 코인을 기록합니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L67-L88】
 
 ### `OrderExecutor.entry(signal)`
 `OrderExecutor.entry`는 위 결과를 받아 실제 매수 주문을 수행합니다. RiskManager에서 특정 심볼이 차단되었는지 확인한 후 `smart_buy`를 호출하여 주문을 시도합니다. 체결되면 `PositionManager.open_position`으로 포지션이 저장됩니다.

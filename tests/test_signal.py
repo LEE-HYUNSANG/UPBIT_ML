@@ -132,72 +132,45 @@ def test_eval_formula_hyun_zero_division():
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
-def test_f2_signal_requires_synced_candles():
-    df1 = pd.DataFrame({
-        "timestamp": pd.date_range("2021-01-01 00:00", periods=25, freq="T"),
-        "open": np.linspace(1, 25, 25),
-        "high": np.linspace(1.1, 25.1, 25),
-        "low": np.linspace(0.9, 24.9, 25),
-        "close": np.linspace(1, 25, 25),
-        "volume": np.full(25, 100),
+def test_f2_signal_requires_min_rows():
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01", periods=10, freq="T"),
+        "open": np.linspace(1, 10, 10),
+        "high": np.linspace(1, 10, 10),
+        "low": np.linspace(1, 10, 10),
+        "close": np.linspace(1, 10, 10),
+        "volume": np.full(10, 100),
     })
-    df5 = pd.DataFrame({
-        "timestamp": pd.date_range("2021-01-01 00:00", periods=6, freq="5T"),
-        "open": np.linspace(1, 6, 6),
-        "high": np.linspace(1.1, 6.1, 6),
-        "low": np.linspace(0.9, 5.9, 6),
-        "close": np.linspace(1, 6, 6),
-        "volume": np.full(6, 100),
-    })
-    result = f2_signal(df1, df5, symbol="SYNC_FAIL")
-    assert not result["buy_signal"] and not result["sell_signal"]
+    result = f2_signal(df, df, symbol="SYNC_FAIL")
+    assert not result["buy_signal"]
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
-def test_f2_signal_handles_partial_candle(monkeypatch):
-    now = pd.Timestamp("2021-01-01 00:25:30")
-    monkeypatch.setattr(pd.Timestamp, "utcnow", staticmethod(lambda: now))
-
-    df1 = pd.DataFrame({
-        "timestamp": pd.date_range("2021-01-01 00:00", periods=27, freq="T"),
-        "open": np.linspace(1, 27, 27),
-        "high": np.linspace(1.1, 27.1, 27),
-        "low": np.linspace(0.9, 26.9, 27),
-        "close": np.linspace(1, 27, 27),
-        "volume": np.full(27, 100),
+def test_f2_signal_handles_basic_df(monkeypatch):
+    df = pd.DataFrame({
+        "timestamp": pd.date_range("2021-01-01 00:00", periods=35, freq="T"),
+        "open": np.linspace(1, 35, 35),
+        "high": np.linspace(1.1, 35.1, 35),
+        "low": np.linspace(0.9, 34.9, 35),
+        "close": np.linspace(1, 35, 35),
+        "volume": np.full(35, 100),
     })
-    df5 = pd.DataFrame({
-        "timestamp": pd.date_range("2021-01-01 00:00", periods=6, freq="5T"),
-        "open": np.linspace(1, 6, 6),
-        "high": np.linspace(1.1, 6.1, 6),
-        "low": np.linspace(0.9, 5.9, 6),
-        "close": np.linspace(1, 6, 6),
-        "volume": np.full(6, 100),
-    })
-    result = f2_signal(df1, df5, symbol="PART")
+    result = f2_signal(df, df, symbol="PART")
     assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
 def test_f2_signal_accepts_tzaware():
-    tz_series = pd.date_range("2021-01-01", periods=30, freq="T", tz="Asia/Seoul")
-    df1 = pd.DataFrame({
+    tz_series = pd.date_range("2021-01-01", periods=35, freq="T", tz="Asia/Seoul")
+    df = pd.DataFrame({
         "timestamp": tz_series,
-        "open": np.linspace(1, 30, 30),
-        "high": np.linspace(1.1, 30.1, 30),
-        "low": np.linspace(0.9, 29.9, 30),
-        "close": np.linspace(1, 30, 30),
-        "volume": np.full(30, 100),
+        "open": np.linspace(1, 35, 35),
+        "high": np.linspace(1.1, 35.1, 35),
+        "low": np.linspace(0.9, 34.9, 35),
+        "close": np.linspace(1, 35, 35),
+        "volume": np.full(35, 100),
     })
-    df5 = pd.DataFrame({
-        "timestamp": tz_series[::5].reset_index(drop=True),
-        "open": np.linspace(1, 6, 6),
-        "high": np.linspace(1.1, 6.1, 6),
-        "low": np.linspace(0.9, 5.9, 6),
-        "close": np.linspace(1, 6, 6),
-        "volume": np.full(6, 100),
-    })
-    result = f2_signal(df1, df5, symbol="TZAWARE")
+    result = f2_signal(df, df, symbol="TZAWARE")
     assert {"symbol", "buy_signal", "sell_signal"} <= result.keys()
 
 
@@ -222,19 +195,14 @@ def test_eval_formula_with_entry_and_peak():
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
-def test_f2_signal_strategy_filter(monkeypatch):
+def test_f2_signal_strategy_codes_ignored():
     df = pd.DataFrame({
-        "timestamp": pd.date_range("2021-01-01", periods=30, freq="T"),
-        "open": np.linspace(1, 30, 30),
-        "high": np.linspace(1.1, 30.1, 30),
-        "low": np.linspace(0.9, 29.9, 30),
-        "close": np.linspace(1, 30, 30),
-        "volume": np.full(30, 100),
+        "timestamp": pd.date_range("2021-01-01", periods=35, freq="T"),
+        "open": np.linspace(1, 35, 35),
+        "high": np.linspace(1.1, 35.1, 35),
+        "low": np.linspace(0.9, 34.9, 35),
+        "close": np.linspace(1, 35, 35),
+        "volume": np.full(35, 100),
     })
-    fake_strats = [
-        {"short_code": "A", "buy_formula": "Close > 0", "sell_formula": "Close < 0"},
-        {"short_code": "B", "buy_formula": "Close > 0", "sell_formula": "Close < 0"},
-    ]
-    monkeypatch.setattr("f2_signal.signal_engine.strategies", fake_strats)
     result = f2_signal(df, df, symbol="FILTER", strategy_codes=["B"])
-    assert result["buy_triggers"] == ["B"]
+    assert "buy_signal" in result
