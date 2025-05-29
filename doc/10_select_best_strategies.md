@@ -1,4 +1,4 @@
-# 10_select_best_strategies.py 사용법
+# F5ML_10_select_best_strategies.py 사용법
 
 `ml_data/09_backtest/`에 저장된 `{symbol}_summary.json` 파일을 읽어
 승률, 평균 수익률, Sharpe 지수, 최대 낙폭(MDD) 등 기준을 만족하는 전략만 선별합니다.

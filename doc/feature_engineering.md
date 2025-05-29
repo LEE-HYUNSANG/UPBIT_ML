@@ -1,4 +1,4 @@
-# 03_feature_engineering.py 사용법
+# F5ML_03_feature_engineering.py 사용법
 
 `ml_data/02_clean/` 폴더의 정제 데이터를 읽어 주요 지표를 계산한 후
 `ml_data/03_feature/`에 저장합니다.

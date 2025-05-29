@@ -1,4 +1,4 @@
-# 02_data_cleaning.py 사용법
+# F5ML_02_data_cleaning.py 사용법
 
 `ml_data/01_raw/` 폴더에 있는 업비트 1분봉 원본 CSV(XLSX) 파일을
 머신러닝에 적합한 형식으로 정제하여 `ml_data/02_clean/` 하위에 저장합니다.

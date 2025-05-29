@@ -1,4 +1,4 @@
-# 09_backtest.py 사용법
+# F5ML_09_backtest.py 사용법
 
 `08_predict.py` 결과와 `04_label`에서 추출한 가격 데이터를 사용해
 매수 신호(`buy_signal==1`)가 발생하면 포지션을 잡고 TP/SL/TS 중 하나가
