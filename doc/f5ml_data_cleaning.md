@@ -1,10 +1,15 @@
 # F5ML_02_data_cleaning.py 사용법
 
-`ml_data/01_raw/` 폴더에 있는 업비트 1분봉 원본 CSV(XLSX) 파일을
+`ml_data/01_raw/` 폴더(및 하위 디렉터리)에 있는 업비트 원본 데이터를
 머신러닝에 적합한 형식으로 정제하여 `ml_data/02_clean/` 하위에 저장합니다.
+`ohlcv`, `ticker`, `trades`, `orderbook` 등 타입별 폴더 구조를 인식하며,
+같은 심볼의 여러 파일이 있을 경우 자동 병합 후 하나의 결과 파일을 생성합니다.
 
 ## 주요 기능
-- 폴더 내 모든 CSV/XLSX 파일을 자동 탐색해 처리합니다.
+- 폴더와 하위 폴더의 모든 CSV/XLSX/Parquet 파일을 자동 탐색합니다.
+- 동일 심볼의 여러 파일이 존재하면 하나로 병합해 저장합니다.
+- `ohlcv`를 기준으로 `ticker`/`trades`/`orderbook` 데이터를
+  타임스탬프가 1초 이내인 행과 병합합니다.
 - 파일명에서 심볼을 추출해 `{symbol}_clean.parquet` 형식으로 저장합니다.
 - 업비트 원본 컬럼(`opening_price`, `high_price`, `low_price`, `trade_price`,
   `candle_acc_trade_volume`, `candle_date_time_utc`)을 각각 `open`, `high`, `low`,
