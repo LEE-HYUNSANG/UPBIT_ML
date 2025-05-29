@@ -4,6 +4,10 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
+from typing import List
+
+RAW_EXTS = {".csv", ".xlsx", ".xls", ".parquet"}
+
 
 from utils import ensure_dir
 
@@ -31,23 +35,35 @@ def setup_logger() -> None:
     )
 
 
-def clean_one_file(input_path: Path, output_path: Path) -> None:
-    """Clean a single raw OHLCV file and save it as parquet."""
+def _load_raw_file(path: Path) -> pd.DataFrame | None:
+    """Load CSV, Excel or Parquet file as DataFrame."""
     logger = logging.getLogger(__name__)
-
     try:
-        if input_path.suffix.lower() == ".csv":
-            df = pd.read_csv(input_path)
-        elif input_path.suffix.lower() in [".xlsx", ".xls"]:
-            df = pd.read_excel(input_path)
-        else:
-            logger.info("SKIP: %s", input_path.name)
-            return
+        ext = path.suffix.lower()
+        if ext == ".csv":
+            return pd.read_csv(path)
+        if ext in {".xlsx", ".xls"}:
+            return pd.read_excel(path)
+        if ext == ".parquet":
+            return pd.read_parquet(path)
+        logger.info("SKIP: %s", path.name)
     except Exception as exc:  # pragma: no cover - best effort
-        logger.warning("%s 로드 실패: %s", input_path.name, exc)
-        return
+        logger.warning("%s 로드 실패: %s", path.name, exc)
+    return None
 
-    print(f"\n=== {input_path.name} ===")
+
+def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool) -> pd.DataFrame:
+    """Return cleaned DataFrame using the standard rules.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Raw dataframe to clean.
+    logger : logging.Logger
+        Logger for debug messages.
+    ohlcv : bool
+        Whether the input contains OHLCV fields. Non-OHLCV data skips price specific logic.
+    """
     raw_rows = len(df)
     logger.info("원본 rows: %d", raw_rows)
     print("로드 row:", raw_rows)
@@ -62,28 +78,30 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     }
 
     df = df.rename(columns=col_map)
-
     df.columns = [c.lower() for c in df.columns]
     if df.columns.duplicated().any():
         logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
+        for col in df.columns[df.columns.duplicated()].unique():
+            dup_cols = [c for c in df.columns if c == col]
+            df[col] = df[dup_cols].bfill(axis=1).iloc[:, 0]
         df = df.loc[:, ~df.columns.duplicated()]
 
     if "timestamp" in df.columns:
-        df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce", utc=True)
+        df["timestamp"] = df["timestamp"].dt.round("1s")
 
-    required = ["timestamp", "open", "high", "low", "close", "volume"]
+    required = ["timestamp"] + (["open", "high", "low", "close", "volume"] if ohlcv else [])
     for col in required:
         if col not in df.columns:
-            df[col] = 0
+            df[col] = 0 if ohlcv and col != "timestamp" else pd.NA
     df = df[required + [c for c in df.columns if c not in required]]
 
-    for col in ["open", "high", "low", "close", "volume"]:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce").astype("float32")
+    numeric_cols = [c for c in ["open", "high", "low", "close", "volume"] if c in df.columns] if ohlcv else []
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").astype("float32")
 
-    # 기타 숫자형 컬럼은 가능하면 float32로 변환
     for col in df.columns:
-        if col not in ["timestamp", "open", "high", "low", "close", "volume"]:
+        if col not in required:
             try:
                 df[col] = pd.to_numeric(df[col])
             except Exception:  # pragma: no cover - best effort
@@ -91,7 +109,6 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
             if pd.api.types.is_numeric_dtype(df[col]):
                 df[col] = df[col].astype("float32")
 
-    # === 결측/이상치 처리 ===
     n_before = len(df)
     df = df.dropna(subset=["timestamp"])
     print("timestamp 결측 row 제거:", n_before - len(df))
@@ -99,7 +116,6 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     df = df.sort_values("timestamp").reset_index(drop=True)
 
-    # Drop duplicates before resampling to avoid asfreq errors
     n_before = len(df)
     df = df.drop_duplicates("timestamp", keep="last")
     removed = n_before - len(df)
@@ -113,20 +129,16 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     if "volume" in df.columns:
         df["volume"] = df["volume"].fillna(0)
 
-    # === 시계열 연속성 보장 ===
-    if "timestamp" in df.columns:
+    if ohlcv and "timestamp" in df.columns:
         df = df.set_index("timestamp")
         prev_len = len(df)
-        df = (
-            df.resample("1min").ffill().bfill()
-        )
+        df = df.resample("1min").ffill().bfill()
         added = len(df) - prev_len
         df = df.reset_index()
         print("연속성 확보로 추가된 row:", added)
         logger.info("연속성 확보로 추가된 row: %d", added)
 
-    # === 0-range/비정상값 처리 ===
-    if ohlc_cols and "volume" in df.columns:
+    if ohlcv and ohlc_cols and "volume" in df.columns:
         n_before = len(df)
         cond = (
             (df["open"] == 0)
@@ -139,15 +151,15 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
         print("0-range row 제거:", n_before - len(df))
         logger.info("0-range row 제거: %d", n_before - len(df))
 
-    # === 음수/중복/timestamp 정렬 ===
-    for col in ["open", "high", "low", "close", "volume"]:
-        if col in df.columns:
-            n_before = len(df)
-            df = df[df[col] >= 0]
-            removed = n_before - len(df)
-            if removed:
-                print(f"{col} 음수 row 제거:", removed)
-                logger.info("%s 음수 row 제거: %d", col, removed)
+    if ohlcv:
+        for col in ["open", "high", "low", "close", "volume"]:
+            if col in df.columns:
+                n_before = len(df)
+                df = df[df[col] >= 0]
+                removed = n_before - len(df)
+                if removed:
+                    print(f"{col} 음수 row 제거:", removed)
+                    logger.info("%s 음수 row 제거: %d", col, removed)
 
     n_before = len(df)
     df = df.drop_duplicates("timestamp", keep="last")
@@ -156,7 +168,7 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     df = df.sort_values("timestamp").reset_index(drop=True)
 
-    cols = [c for c in ["timestamp", "open", "high", "low", "close", "volume"] if c in df.columns]
+    cols = [c for c in required if c in df.columns]
     df = df[cols + [c for c in df.columns if c not in cols]]
 
     print("클린 완료 row:", len(df))
@@ -165,6 +177,44 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
     if raw_rows and len(df) <= raw_rows * 0.1:
         logger.warning("데이터가 거의 사라짐: %d -> %d", raw_rows, len(df))
         print("경고: 데이터가 거의 사라졌습니다")
+
+    return df
+
+
+def clean_one_file(input_path: Path, output_path: Path, ohlcv: bool) -> None:
+    """Clean a single raw data file and save it as parquet."""
+    logger = logging.getLogger(__name__)
+    df = _load_raw_file(input_path)
+    if df is None:
+        return
+
+    print(f"\n=== {input_path.name} ===")
+    df = _clean_df(df, logger, ohlcv)
+
+    try:
+        df.to_parquet(output_path, index=False)
+        logger.info("Saved %s", output_path.name)
+    except Exception as exc:  # pragma: no cover - best effort
+        csv_fallback = output_path.with_suffix(".csv")
+        df.to_csv(csv_fallback, index=False)
+        logger.warning("Parquet 저장 실패 (%s), CSV 저장: %s", exc, csv_fallback.name)
+
+
+def clean_merge(files: List[Path], output_path: Path, ohlcv: bool) -> None:
+    """Load multiple raw files, merge and clean them to ``output_path``."""
+    logger = logging.getLogger(__name__)
+    dfs = []
+    for f in files:
+        df = _load_raw_file(f)
+        if df is not None:
+            dfs.append(df)
+
+    if not dfs:
+        return
+
+    print(f"\n=== Merge {len(files)} files into {output_path.name} ===")
+    df = pd.concat(dfs, ignore_index=True)
+    df = _clean_df(df, logger, ohlcv)
 
     try:
         df.to_parquet(output_path, index=False)
@@ -181,12 +231,24 @@ def main() -> None:
     ensure_dir(CLEAN_DIR)
     setup_logger()
 
-    for file in RAW_DIR.glob("*"):
-        if file.suffix.lower() not in [".csv", ".xlsx", ".xls"]:
+    file_map: dict[tuple[str, str], List[Path]] = {}
+    for file in RAW_DIR.rglob("*"):
+        if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
             continue
-        symbol = file.name.split("_")[0]
-        output_path = CLEAN_DIR / f"{symbol}_clean.parquet"
-        clean_one_file(file, output_path)
+        rel = file.relative_to(RAW_DIR)
+        data_type = rel.parts[0] if len(rel.parts) > 1 else "ohlcv"
+        symbol = file.stem.split("_")[0]
+        file_map.setdefault((data_type, symbol), []).append(file)
+
+    for (data_type, symbol), files in file_map.items():
+        out_dir = CLEAN_DIR / data_type
+        ensure_dir(out_dir)
+        output_path = out_dir / f"{symbol}_clean.parquet"
+        is_ohlcv = data_type == "ohlcv"
+        if len(files) == 1:
+            clean_one_file(files[0], output_path, is_ohlcv)
+        else:
+            clean_merge(sorted(files), output_path, is_ohlcv)
 
 
 if __name__ == "__main__":
