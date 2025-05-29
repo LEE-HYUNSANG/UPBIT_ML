@@ -45,7 +45,8 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
     ts_start = params.get("trail_start_pct", 0)
     ts_down = params.get("trail_down_pct", 0)
 
-    entry = df.iloc[start_idx]["close"]
+    entry = df.iloc[start_idx].get("close", df.iloc[start_idx].get("close_pred"))
+
     tp_price = entry * (1 + tp_pct)
     sl_price = entry * (1 - sl_pct)
 
@@ -54,9 +55,9 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
 
     for i in range(start_idx + 1, len(df)):
         row = df.iloc[i]
-        high = row.get("high", row["close"])
-        low = row.get("low", row["close"])
-        close = row["close"]
+        close = row.get("close", row.get("close_pred"))
+        high = row.get("high", close)
+        low = row.get("low", close)
 
         if high >= tp_price:
             return i, tp_price, "TP"
@@ -74,7 +75,8 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
             if (close - highest) / highest <= -ts_down:
                 return i, close, "TS"
 
-    return len(df) - 1, df.iloc[-1]["close"], "FORCE"
+    final_close = df.iloc[-1].get("close", df.iloc[-1].get("close_pred"))
+    return len(df) - 1, final_close, "FORCE"
 
 
 def summarize(rois: pd.Series) -> tuple[float, float]:
@@ -115,7 +117,18 @@ def process_symbol(symbol: str) -> None:
     else:
         label_cols = ["timestamp", "label"]
     price_cols = [c for c in ["open", "high", "low", "close"] if c in label_df.columns]
-    df = pd.merge(pred_df, label_df[label_cols + price_cols], on="timestamp", how="inner")
+    df = pd.merge(
+        pred_df,
+        label_df[label_cols + price_cols],
+        on="timestamp",
+        how="inner",
+        suffixes=("_pred", ""),
+    )
+    for col in ["open", "high", "low", "close"]:
+        pred_col = f"{col}_pred"
+        if col not in df.columns and pred_col in df.columns:
+            df.rename(columns={pred_col: col}, inplace=True)
+
     if df.empty:
         logging.warning("%s 정합성 문제: 병합 결과 0 rows", symbol)
         return
