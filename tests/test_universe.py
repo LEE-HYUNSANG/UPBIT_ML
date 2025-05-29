@@ -17,3 +17,18 @@ def test_load_selected_universe_extracts_symbols(tmp_path):
     f.write_text(json.dumps(data, ensure_ascii=False))
     result = us.load_selected_universe(str(f))
     assert result == ["KRW-BTC", "KRW-ETH"]
+
+
+def test_load_monitoring_coins(tmp_path):
+    coins = ["KRW-BTC", "KRW-ETH"]
+    f = tmp_path / "mon.json"
+    f.write_text(json.dumps(coins, ensure_ascii=False))
+    result = us.load_monitoring_coins(str(f))
+    assert result == coins
+
+
+def test_select_universe_prefers_monitoring(monkeypatch):
+    monkeypatch.setattr(us, "load_monitoring_coins", lambda path=None: ["KRW-BTC"])
+    monkeypatch.setattr(us, "load_selected_universe", lambda path=None: ["KRW-ETH"])
+    monkeypatch.setattr(us, "load_universe_from_file", lambda path=None: ["KRW-XRP"])
+    assert us.select_universe() == ["KRW-BTC"]

@@ -42,19 +42,15 @@
    - `03_feature_engineering.py`에서 기술적 지표 계산에 사용됩니다.
    - `04_labeling.py`에서 매매 신호 라벨을 생성할 때 참조합니다.
 
-## 5. 제안하는 설정 파일 구조
+## 5. 설정 파일 구조
 
-- `config/universe.json` – 기본 필터 기준을 저장합니다.
-- `config/current_universe.json` – 최신 모니터링 코인 목록을 캐시합니다.
-- `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` – ML에서 추린 후보
-  목록을 보관합니다.
-- (선택) `config/data_collection_filters.json` – 웹에서 입력받은 데이터 수집 조건을
-  저장하도록 설계하면 관리가 편해집니다.
+- `config/coin_list_monitoring.json` – 웹에서 허용으로 지정한 모니터링 대상 코인 리스트
+- `config/coin_list_data_collection.json` – 데이터 수집에 사용할 코인 리스트
+- `config/filter_coin_data_collection.json` – 데이터 수집 조건 값
+- `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` – ML에서 추린 후보 목록
 
-## 전문가 조언
+## 추가
 
-- 데이터 수집 스케줄은 코인 수에 따라 네트워크 부하가 커질 수 있으니 1분 간격의
-  작업이 겹치지 않도록 스레드 풀 또는 비동기 방식을 고려하세요.
-- 웹 대시보드는 허용 여부만 단순 토글할 수 있게 하고, 실제 저장 형식은 JSON 파일을
-  사용하면 버전 관리와 연동이 쉽습니다.
-- 파일 경로와 이름은 미리 정형화해 두면 파이프라인 자동화에 도움이 됩니다.
+- 데이터 수집 스케줄은 코인 수가 많아질수록 부하가 커지므로 1분 간격 작업이 겹치지 않게 스레드 풀이나 비동기 방식을 고려합니다.
+- 웹 대시보드는 단순 토글만 제공하고 실제 저장은 JSON 파일로 관리하면 버전 관리가 용이합니다.
+
