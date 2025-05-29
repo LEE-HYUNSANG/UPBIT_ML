@@ -247,8 +247,9 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df["minute"] = dt.dt.minute
         df["dayofweek"] = dt.dt.dayofweek
 
-    # 결측치/이상치 대체
-    df = df.replace([float('inf'), float('-inf')], pd.NA)
+    # 결측치/이상치 대체 - 숫자형 컬럼에 한해 inf 값 치환
+    num_cols = df.select_dtypes(include="number").columns
+    df[num_cols] = df[num_cols].replace([float("inf"), float("-inf")], pd.NA)
     df = df.ffill().bfill()
 
     # 필요 없는 컬럼 삭제(중간계산용)
@@ -261,6 +262,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 def process_file(file: Path) -> None:
     """단일 파케이 파일에 피처를 추가해 저장."""
     symbol = file.name.split("_")[0]
+    output_path = FEATURE_DIR / f"{symbol}_feature.parquet"
     try:
         df = pd.read_parquet(file)
     except Exception as exc:
@@ -269,9 +271,13 @@ def process_file(file: Path) -> None:
 
     try:
         df = add_features(df)
-        output_path = FEATURE_DIR / f"{symbol}_feature.parquet"
         df.to_parquet(output_path, index=False)
-        logging.info("[FEATURE] %s → %s, shape=%s", file.name, output_path.name, df.shape)
+        logging.info(
+            "[FEATURE] %s → %s, shape=%s",
+            file.name,
+            output_path.name,
+            df.shape,
+        )
     except Exception as exc:
         logging.warning("%s 저장 실패: %s", output_path.name, exc)
 
