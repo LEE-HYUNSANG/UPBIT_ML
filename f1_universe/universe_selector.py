@@ -36,6 +36,7 @@ logging.basicConfig(
 BASE_URL = "https://api.upbit.com/v1"
 CONFIG_PATH = "config/universe.json"
 UNIVERSE_FILE = "config/current_universe.json"
+SELECTED_STRATEGIES_FILE = "f5_ml_pipeline/ml_data/10_selected/selected_strategies.json"
 
 _UNIVERSE: List[str] = []
 _LOCK = threading.Lock()
@@ -239,6 +240,20 @@ def update_universe(config: Dict | None = None) -> None:
     logging.info(f"Universe updated: {universe}")
 
 
+def load_selected_universe(path: str = SELECTED_STRATEGIES_FILE) -> List[str]:
+    """Load symbols from the ML-selected strategies file."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            return [s.get("symbol") for s in data if s.get("symbol")]
+    except FileNotFoundError:
+        return []
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Selected strategies 파일 로드 실패: {exc}")
+    return []
+
+
 def load_universe_from_file(path: str = UNIVERSE_FILE) -> List[str]:
     """Load the cached universe from ``path`` and populate the global list."""
     try:
@@ -258,6 +273,9 @@ def load_universe_from_file(path: str = UNIVERSE_FILE) -> List[str]:
 
 def get_universe() -> List[str]:
     """Return the last cached universe."""
+    selected = load_selected_universe()
+    if selected:
+        return selected
     with _LOCK:
         if _UNIVERSE:
             return list(_UNIVERSE)
