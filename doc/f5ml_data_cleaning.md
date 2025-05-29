@@ -16,11 +16,12 @@
 - 결측 타임스탬프 행 제거, 시계열 정렬 및 중복 제거 후 필요한 경우 1분 단위로 보간합니다.
 - 삭제 및 보정 전후의 행 수가 `logs/ml_clean.log`에 기록됩니다.
 - 파케이 저장이 불가능한 환경에서는 같은 이름의 CSV로 대체 저장합니다.
+- 동일한 이름의 컬럼이 여러 개 존재하면 값이 있는 컬럼을 우선하여 병합합니다.
 
 ## 실행 방법
 ```bash
 python f5_ml_pipeline/02_data_cleaning.py
 ```
 
-실행 후 `ml_data/02_clean/` 폴더에 `{symbol}_clean.parquet` 파일이 생성됩니다.
+실행 후 `ml_data/02_clean/<type>/` 폴더에 `{symbol}_clean.parquet` 파일이 생성됩니다.
 데이터가 크게 줄어든 경우 경고가 표시됩니다.

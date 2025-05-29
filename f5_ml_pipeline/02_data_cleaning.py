@@ -72,10 +72,14 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool = True) -> p
     df.columns = [c.lower() for c in df.columns]
     if df.columns.duplicated().any():
         logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
+        for col in df.columns[df.columns.duplicated()].unique():
+            dup_cols = [c for c in df.columns if c == col]
+            df[col] = df[dup_cols].bfill(axis=1).iloc[:, 0]
         df = df.loc[:, ~df.columns.duplicated()]
 
     if "timestamp" in df.columns:
-        df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce", utc=True)
+        df["timestamp"] = df["timestamp"].dt.round("1s")
 
     if ohlcv:
         required = ["timestamp", "open", "high", "low", "close", "volume"]
@@ -89,7 +93,7 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool = True) -> p
                 df[col] = pd.to_numeric(df[col], errors="coerce").astype("float32")
 
     for col in df.columns:
-        if col not in ["timestamp", "open", "high", "low", "close", "volume"]:
+        if col not in required:
             try:
                 df[col] = pd.to_numeric(df[col])
             except Exception:  # pragma: no cover - best effort
@@ -139,6 +143,7 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool = True) -> p
             df = df[~cond]
             print("0-range row 제거:", n_before - len(df))
             logger.info("0-range row 제거: %d", n_before - len(df))
+
 
         for col in ["open", "high", "low", "close", "volume"]:
             if col in df.columns:
