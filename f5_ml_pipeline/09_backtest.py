@@ -76,8 +76,10 @@ def process_symbol(symbol: str) -> None:
             params = json.load(f)
         if "timestamp" in pred_df.columns:
             pred_df["timestamp"] = pd.to_datetime(pred_df["timestamp"], utc=True)
+            pred_df["timestamp"] = pred_df["timestamp"].dt.tz_localize(None)
         if "timestamp" in label_df.columns:
             label_df["timestamp"] = pd.to_datetime(label_df["timestamp"], utc=True)
+            label_df["timestamp"] = label_df["timestamp"].dt.tz_localize(None)
     except Exception as exc:  # pragma: no cover - best effort
         logging.warning("%s 로드 실패: %s", symbol, exc)
         return
