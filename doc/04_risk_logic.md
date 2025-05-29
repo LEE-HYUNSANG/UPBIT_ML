@@ -23,7 +23,17 @@
 심각한 손실이나 장애가 발생했을 때 모든 포지션을 청산하고 상태를 `HALT`로 전환합니다. 이후 매매가 중지됩니다.【F:f4_riskManager/risk_manager.py†L148-L167】
 
 ### `RiskManager.hot_reload()`
+
 설정 파일(`Latest_config.json`)이 변경되었는지 감지하여 실시간으로 파라미터를 갱신합니다. 갱신 시 `OrderExecutor`의 거래 금액 등도 동기화됩니다.【F:f4_riskManager/risk_manager.py†L170-L183】
+### `RiskManager.on_slippage(symbol)`
+슬리피지 한도를 초과한 주문이 발생하면 횟수를 기록하고 일정 횟수 이상이면 `disable_symbol`을 호출합니다.【F:f4_riskManager/risk_manager.py†L77-L87】
+
+### `RiskManager.disable_symbol(symbol)`
+특정 심볼의 신규 진입을 막고 보유 포지션을 강제 청산합니다.【F:f4_riskManager/risk_manager.py†L125-L136】
+
+### `RiskManager.periodic()`
+1초 주기로 호출되어 일시정지 해제, 설정 파일 변경 감지 및 `check_risk` 실행을 처리합니다.【F:f4_riskManager/risk_manager.py†L169-L180】
+
 
 ### 주요 설정 값
 `config/setting_date/Latest_config.json` 파일에서 다음과 같은 리스크 파라미터를 관리합니다.
