@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from indicators import macd, mfi, adx
+from indicators import macd, mfi, adx, sma, vwap
 
 from utils import ensure_dir
 
@@ -56,6 +56,10 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
     df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
 
+    # SMA
+    df["sma5"] = df["close"].rolling(window=5).mean()
+    df["sma20"] = df["close"].rolling(window=20).mean()
+
     # EMA 차이
     df["ema5_ema20_diff"] = df["ema5"] - df["ema20"]
     df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
@@ -100,7 +104,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         low_w = df["low"].rolling(w).min()
         high_w = df["high"].rolling(w).max()
         stoch_k = 100 * (df["close"] - low_w) / (high_w - low_w + 1e-8)
-        df[f"stoch_k{w}"] = stoch_k.rolling(3).mean()
+        df[f"stoch_k{w}"] = stoch_k
+        df[f"stoch_d{w}"] = stoch_k.rolling(3).mean()
+
+    # 일반화된 %K, %D(14)
+    df["stoch_k"] = df["stoch_k14"]
+    df["stoch_d"] = df["stoch_d14"]
 
     # === 추가 파생 피처/캔들/변동률/볼린저 ===
 
@@ -116,6 +125,14 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["oc_range"] = (df["open"] - df["close"]).abs()
     df["body_to_range"] = df["body_size"] / (df["hl_range"] + 1e-8)
 
+    # 간단한 캔들패턴
+    upper_shadow = df["high"] - df[["open", "close"]].max(axis=1)
+    lower_shadow = df[["open", "close"]].min(axis=1) - df["low"]
+    df["is_doji"] = (df["body_size"] <= df["hl_range"] * 0.1).astype(int)
+    df["long_bull"] = ((df["close"] > df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
+    df["long_bear"] = ((df["close"] < df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
+    df["is_hammer"] = ((lower_shadow >= 2 * df["body_size"]) & (upper_shadow <= df["body_size"])).astype(int)
+
     # 전봉 대비 변화/패턴
     df["close_change"] = df["close"].diff()
     df["high_break"] = (df["high"] > df["high"].shift(1)).astype(int)
@@ -126,6 +143,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     # 볼린저밴드(20, 표준 2배수)
     ma20 = df["close"].rolling(20).mean()
     std20 = df["close"].rolling(20).std()
+    df["bb_mid"] = ma20
     df["bb_upper"] = ma20 + 2 * std20
     df["bb_lower"] = ma20 - 2 * std20
     df["bb_width"] = (df["bb_upper"] - df["bb_lower"]) / (ma20 + 1e-8)
@@ -142,6 +160,85 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
     df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
 
+    # MOM/ROC(10)
+    df["mom10"] = df["close"] - df["close"].shift(10)
+    df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
+
+    # CCI(14)
+    tp = (df["high"] + df["low"] + df["close"]) / 3
+    sma_tp = tp.rolling(14).mean()
+    mean_dev = (tp - sma_tp).abs().rolling(14).mean()
+    df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
+
+    # VWAP
+    try:
+        df["vwap"] = vwap(df["high"], df["low"], df["close"], df["volume"])
+    except Exception:
+        df["vwap"] = pd.NA
+
+    # OBV
+    direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
+    df["obv"] = direction.cumsum().fillna(0)
+
+    # 변동성 지표 및 이상값 탐지
+    df["return"] = df["close"].pct_change()
+    df["volatility14"] = df["return"].rolling(14).std()
+    df["anomaly"] = (df["return"].abs() > 3 * df["volatility14"]).astype(int)
+
+    # 5분/일봉 변환
+    if "timestamp" in df.columns:
+        ts = pd.to_datetime(df["timestamp"])
+        tmp = df.set_index(ts)
+        res5 = tmp.resample("5min").agg({
+            "open": "first",
+            "high": "max",
+            "low": "min",
+            "close": "last",
+            "volume": "sum",
+        })
+        res5 = res5.reindex(ts, method="ffill").add_prefix("m5_")
+        df = pd.concat([df.reset_index(drop=True), res5.reset_index(drop=True)], axis=1)
+
+        day_close = tmp["close"].resample("1D").last().reindex(ts, method="ffill")
+        df["d_close"] = day_close.values
+
+    # 거래대금/체결/호가 관련 피처(데이터 없을 시 NA)
+    if {"candle_acc_trade_price", "market_cap"}.issubset(df.columns):
+        df["turnover"] = df["candle_acc_trade_price"] / df["market_cap"]
+    else:
+        df["turnover"] = pd.NA
+
+    if {"ask_size", "bid_size"}.issubset(df.columns):
+        total = df["ask_size"] + df["bid_size"]
+        df["orderbook_ratio"] = df["bid_size"] / total.replace(0, pd.NA)
+    else:
+        df["orderbook_ratio"] = pd.NA
+
+    if "acc_trade_price_24h" in df.columns:
+        df["acc_trade_price_24h"] = df["acc_trade_price_24h"]
+    else:
+        df["acc_trade_price_24h"] = pd.NA
+
+    if "acc_trade_volume_24h" in df.columns:
+        df["acc_trade_volume_24h"] = df["acc_trade_volume_24h"]
+    else:
+        df["acc_trade_volume_24h"] = pd.NA
+
+    if "signed_change_rate" in df.columns:
+        df["change_rate"] = df["signed_change_rate"]
+    else:
+        df["change_rate"] = pd.NA
+
+    for col in [
+        "trade_strength",
+        "large_trade",
+        "trade_freq",
+        "trade_dominance",
+        "spread",
+    ]:
+        if col not in df.columns:
+            df[col] = pd.NA
+
     # === 시간 피처 (단타/ML 특화) ===
     # Datetime 인덱스가 없는 경우, candle_date_time_kst 등에서 추출 권장
     if "candle_date_time_kst" in df.columns:
@@ -156,6 +253,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # 필요 없는 컬럼 삭제(중간계산용)
     df = df.drop(columns=["ma_vol5", "ma_vol20"], errors="ignore")
+    df = df.drop(columns=["return"], errors="ignore")
 
     return df
 

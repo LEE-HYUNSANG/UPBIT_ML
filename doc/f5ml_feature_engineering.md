@@ -10,12 +10,20 @@
 ## 추가되는 지표
 - `ema5`: 5분 지수이동평균
 - `ema20`: 20분 지수이동평균
+- `sma5`, `sma20`: 단순 이동평균
 - `rsi14`: 14분 상대강도지수
 - `atr14`: 14분 평균진폭
 - `vol_ratio`: 최근 거래량 대비 비율
-- `stoch_k`: 스토캐스틱 %K (14, 3)
+- `stoch_k`, `stoch_d`: 스토캐스틱(14,3)
 - `macd`, `macd_signal`, `macd_hist`: MACD(12,26,9)
 - `mfi14`: 14분 자금 흐름 지수
 - `adx14`: 14분 ADX 추세 강도
+- `bb_mid`, `bb_upper`, `bb_lower`: 볼린저 밴드
+- `mom10`, `roc10`: 모멘텀/ROC
+- `cci14`: 상품 채널 지수
+- `vwap`: 거래량 가중 평균가
+- `obv`: 온밸런스 볼륨
+- `volatility14`: 14분 표준편차
+- `anomaly`: 급등락 탐지 플래그
 
 실행 후 각 심볼별 `{symbol}_feature.parquet` 파일이 생성됩니다.
