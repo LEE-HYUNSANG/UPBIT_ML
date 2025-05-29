@@ -69,8 +69,15 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger) -> pd.DataFrame:
     df = df.rename(columns=col_map)
     df.columns = [c.lower() for c in df.columns]
     if df.columns.duplicated().any():
-        logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
-        df = df.loc[:, ~df.columns.duplicated()]
+        dup_names = list(dict.fromkeys(df.columns[df.columns.duplicated()].tolist()))
+        logger.warning("중복 컬럼 존재: %s", dup_names)
+        for name in dup_names:
+            cols = [c for c in df.columns if c == name]
+            base = df[cols[0]].copy()
+            for c in cols[1:]:
+                base = base.fillna(df[c])
+            df[name] = base
+            df = df.drop(columns=cols[1:])
 
     if "timestamp" in df.columns:
         df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
@@ -117,7 +124,7 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger) -> pd.DataFrame:
     if "timestamp" in df.columns:
         df = df.set_index("timestamp")
         prev_len = len(df)
-        df = df.resample("1min").ffill().bfill()
+        df = df.resample("1min").ffill().bfill().infer_objects(copy=False)
         added = len(df) - prev_len
         df = df.reset_index()
         print("연속성 확보로 추가된 row:", added)
