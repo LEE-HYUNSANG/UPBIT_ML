@@ -6,21 +6,19 @@ import json
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
-import yaml
 
 import joblib
 import lightgbm as lgb
 import pandas as pd
 from sklearn.metrics import classification_report, roc_auc_score
 
-from utils import ensure_dir
+from utils import ensure_dir, load_yaml_config
 
 SPLIT_DIR = Path("ml_data/05_split")
 MODEL_DIR = Path("ml_data/06_models")
 LOG_PATH = Path("logs/ml_train.log")
 CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
-with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-    CONFIG = yaml.safe_load(f)
+CONFIG = load_yaml_config(CONFIG_PATH)
 
 # 학습 시 사용할 피처 목록은 데이터에 존재하는 컬럼에서 자동 추출한다.
 IGNORE_COLS = {"timestamp", "label"}

@@ -16,5 +16,5 @@ python f5_ml_pipeline/06_train.py
 ```
 
 모델 학습 파라미터는 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
-`n_estimators`와 `early_stopping_rounds` 등 값을 수정해 실험할 수 있으며
-코드에는 하이퍼파라미터를 직접 입력하지 않습니다.
+외부 패키지 없이 간단한 YAML 파서를 내장해 의존성을 최소화했으며
+`n_estimators`와 `early_stopping_rounds` 값 등을 바꿔 자유롭게 실험할 수 있습니다.
