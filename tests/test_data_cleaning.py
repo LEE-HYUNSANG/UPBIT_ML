@@ -26,5 +26,5 @@ def test_clean_missing_ohlc(tmp_path):
     src = tmp_path / "src.csv"
     df.to_csv(src, index=False)
     dst = tmp_path / "out.parquet"
-    data_cleaning.clean_one_file(src, dst)
+    data_cleaning.clean_one_file(src, dst, True)
     assert dst.exists() or dst.with_suffix(".csv").exists()

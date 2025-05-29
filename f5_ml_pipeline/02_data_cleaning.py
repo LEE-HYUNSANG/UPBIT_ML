@@ -72,6 +72,7 @@ def _clean_df(
     prefix:
         Optional prefix to apply to column names (except ``timestamp``).
     """
+
     raw_rows = len(df)
     logger.info("원본 rows: %d", raw_rows)
     print("로드 row:", raw_rows)
@@ -89,6 +90,9 @@ def _clean_df(
     df.columns = [c.lower() for c in df.columns]
     if df.columns.duplicated().any():
         logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
+        for col in df.columns[df.columns.duplicated()].unique():
+            dup_cols = [c for c in df.columns if c == col]
+            df[col] = df[dup_cols].bfill(axis=1).iloc[:, 0]
         df = df.loc[:, ~df.columns.duplicated()]
 
     if "timestamp" in df.columns:
@@ -237,7 +241,6 @@ def clean_one_file(input_path: Path, output_path: Path) -> None:
 
     print(f"\n=== {input_path.name} ===")
     df = _clean_df(df, logger)
-
     try:
         df.to_parquet(output_path, index=False)
         logger.info("Saved %s", output_path.name)
@@ -276,6 +279,7 @@ def clean_symbol(files_by_type: dict[str, List[Path]], output_dir: Path) -> None
     """Clean and merge data for a single symbol."""
     symbol = Path(next(iter(files_by_type.values()))[0]).stem.split("_")[0]
     output_path = output_dir / f"{symbol}_clean.parquet"
+
     logger = logging.getLogger(__name__)
 
     ohlcv_df = _load_concat(files_by_type.get("ohlcv", []), True)
@@ -297,7 +301,6 @@ def clean_symbol(files_by_type: dict[str, List[Path]], output_dir: Path) -> None
         merged.to_csv(csv_fallback, index=False)
         logger.warning("Parquet 저장 실패 (%s), CSV 저장: %s", exc, csv_fallback.name)
 
-
 def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(RAW_DIR)
@@ -310,6 +313,7 @@ def main() -> None:
         if not t_dir.exists():
             continue
         for file in t_dir.rglob("*"):
+
             if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
                 continue
             symbol = file.stem.split("_")[0]
