@@ -42,6 +42,16 @@ Logs are written to `logs/F1-F2_loop.log`.
 Each log file automatically rotates when it exceeds 100&nbsp;MB. Previous files
 are numbered sequentially as `*.1`, `*.2`, and so on.
 
+## Running the web dashboard
+
+Launch the Flask application with:
+
+```bash
+python app.py
+```
+
+The server listens on port 3000 so you can visit `http://localhost:3000` in your browser.
+
 
 ## Credentials
 
