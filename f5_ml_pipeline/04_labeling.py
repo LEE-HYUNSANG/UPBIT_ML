@@ -230,5 +230,11 @@ def main() -> None:
     for file in FEATURE_DIR.glob("*.parquet"):
         process_file(file)
 
+# ``tests/test_labeling.py`` expects a ``make_labels`` function.  The
+# simplified labeling logic in this project only provides
+# ``make_labels_trailing``.  Expose it under the expected name for
+# compatibility with the tests and any external callers.
+make_labels = make_labels_trailing
+
 if __name__ == "__main__":
     main()
