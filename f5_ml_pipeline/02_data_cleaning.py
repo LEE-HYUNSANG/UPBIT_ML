@@ -124,9 +124,8 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool) -> pd.DataF
         logger.info("중복 timestamp 제거: %d", removed)
 
     ohlc_cols = [c for c in ["open", "high", "low", "close"] if c in df.columns]
-    if ohlc_cols:
+    if has_ohlc and ohlcv:
         df[ohlc_cols] = df[ohlc_cols].ffill().bfill()
-    if "volume" in df.columns:
         df["volume"] = df["volume"].fillna(0)
 
     if ohlcv and "timestamp" in df.columns:
