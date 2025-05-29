@@ -105,19 +105,17 @@ are stored in `ml_data/06_models/` using the filenames
 Run it from the repository root with `python f5_ml_pipeline/08_calibrate.py`.
 
 ## 09_backtest.py
-Performs a simple backtest using the calibrated models and test splits found in
-`ml_data/05_split/`. For each symbol and strategy pair the script:
+Uses the prediction CSV files produced by `08_predict.py` together with the
+label data under `ml_data/04_label/` to evaluate trading performance. Only rows
+where `buy_signal` equals `1` open a virtual position. The corresponding
+`label` column determines whether the trade is counted as a take profit (`1`),
+trailing stop (`2`), stop loss (`-1`) or hold (`0`).
 
-- Loads the trained model, calibration object and threshold from
-  `ml_data/06_models/`.
-- Generates probability predictions on the test set and applies the calibration
-  model and threshold to decide entry and exit signals.
-- Simulates long trades where a buy signal opens a position and a sell signal
-  closes it.
-- Writes the trade log as `{symbol}_{strategy}_trades.csv` and a KPI summary as
-  `{symbol}_{strategy}_backtest_summary.json` under `ml_data/08_metrics/`.
+For each symbol a detailed trade log `{symbol}_trades.csv` and a KPI summary
+`{symbol}_summary.json` are written under `ml_data/09_backtest/`. Metrics
+include win rate, average ROI, Sharpe ratio and maximum drawdown.
 
-Invoke the step with `python f5_ml_pipeline/09_backtest.py`.
+Run the script with `python f5_ml_pipeline/09_backtest.py`.
 =======
 # f5_ml_pipeline 구조
 
