@@ -14,7 +14,23 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-from indicators import ema, sma, rsi
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJECT_ROOT))
+
+from indicators import ema, sma, rsi  # type: ignore
+CONFIG_DIR = PROJECT_ROOT / "config"
+LOG_PATH = PROJECT_ROOT / "logs" / "f2_ml_buy_signal.log"
+
+
+def setup_logger() -> None:
+    """Configure basic logger."""
+    LOG_PATH.parent.mkdir(exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [F2] [%(levelname)s] %(message)s",
+        handlers=[logging.StreamHandler(), logging.FileHandler(LOG_PATH)],
+        force=True,
+    )
 
 LOG_PATH = Path("logs/f2_ml_buy_signal.log")
 
@@ -114,7 +130,7 @@ def check_buy_signal_df(df: pd.DataFrame) -> bool:
 def run() -> List[str]:
     setup_logger()
     try:
-        with open("config/coin_list_monitoring.json", "r", encoding="utf-8") as f:
+        with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
     except Exception:
         coins = []
@@ -126,7 +142,7 @@ def run() -> List[str]:
         if buy:
             results.append(sym)
 
-    with open("config/coin_realtime_buy_list.json", "w", encoding="utf-8") as f:
+    with open(CONFIG_DIR / "coin_realtime_buy_list.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
     return results
