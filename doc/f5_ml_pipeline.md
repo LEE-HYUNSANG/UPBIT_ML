@@ -105,11 +105,10 @@ are stored in `ml_data/06_models/` using the filenames
 Run it from the repository root with `python f5_ml_pipeline/08_calibrate.py`.
 
 ## 09_backtest.py
-Uses the prediction CSV files produced by `08_predict.py` together with the
-label data under `ml_data/04_label/` to evaluate trading performance. Only rows
-where `buy_signal` equals `1` open a virtual position. The corresponding
-`label` column determines whether the trade is counted as a take profit (`1`),
-trailing stop (`2`), stop loss (`-1`) or hold (`0`).
+Uses the prediction CSV files from `08_predict.py` along with price data in
+`ml_data/04_label/` to evaluate trading performance. When `buy_signal` equals
+`1` a position is opened and held until one of the take profit, stop loss or
+trailing stop levels is reached.
 
 For each symbol a detailed trade log `{symbol}_trades.csv` and a KPI summary
 `{symbol}_summary.json` are written under `ml_data/09_backtest/`. Metrics
