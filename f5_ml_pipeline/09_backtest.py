@@ -38,17 +38,44 @@ def setup_logger() -> None:
     )
 
 
-def calc_exit_price(entry: float, label: int, params: dict) -> float:
-    """라벨과 파라미터로 청산가 계산."""
-    if label == 1:
-        return entry * (1 + params.get("thresh_pct", 0))
-    if label == -1:
-        return entry * (1 - params.get("loss_pct", 0))
-    if label == 2:
-        start = params.get("trail_start_pct", 0)
-        down = params.get("trail_down_pct", 0)
-        return entry * (1 + start - down)
-    return entry
+def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, float, str]:
+    """TP/SL/TS 중 먼저 충족되는 시점과 가격을 반환."""
+    tp_pct = params.get("thresh_pct", 0)
+    sl_pct = params.get("loss_pct", 0)
+    ts_start = params.get("trail_start_pct", 0)
+    ts_down = params.get("trail_down_pct", 0)
+
+    entry = df.iloc[start_idx].get("close", df.iloc[start_idx].get("close_pred"))
+    tp_price = entry * (1 + tp_pct)
+    sl_price = entry * (1 - sl_pct)
+
+    trail_active = False
+    highest = entry
+
+    for i in range(start_idx + 1, len(df)):
+        row = df.iloc[i]
+        close = row.get("close", row.get("close_pred"))
+        high = row.get("high", close)
+        low = row.get("low", close)
+
+        if high >= tp_price:
+            return i, tp_price, "TP"
+
+        if low <= sl_price:
+            return i, sl_price, "SL"
+
+        roi = (close - entry) / entry
+        if not trail_active and roi >= ts_start:
+            trail_active = True
+            highest = close
+        elif trail_active:
+            if close > highest:
+                highest = close
+            if (close - highest) / highest <= -ts_down:
+                return i, close, "TS"
+
+    final_close = df.iloc[-1].get("close", df.iloc[-1].get("close_pred"))
+    return len(df) - 1, final_close, "FORCE"
 
 
 def summarize(rois: pd.Series) -> tuple[float, float]:
@@ -84,37 +111,58 @@ def process_symbol(symbol: str) -> None:
         logging.warning("%s 로드 실패: %s", symbol, exc)
         return
 
-    df = pd.merge(pred_df, label_df[["timestamp", "label"]], on="timestamp", how="inner")
+    if "label" not in label_df.columns:
+        label_cols = ["timestamp"]
+    else:
+        label_cols = ["timestamp", "label"]
+    price_cols = [c for c in ["open", "high", "low", "close"] if c in label_df.columns]
+    df = pd.merge(
+        pred_df,
+        label_df[label_cols + price_cols],
+        on="timestamp",
+        how="inner",
+        suffixes=("_pred", ""),
+    )
+    for col in ["open", "high", "low", "close"]:
+        pred_col = f"{col}_pred"
+        if col not in df.columns and pred_col in df.columns:
+            df.rename(columns={pred_col: col}, inplace=True)
     if df.empty:
         logging.warning("%s 정합성 문제: 병합 결과 0 rows", symbol)
         return
 
     trades = []
-    for _, row in df.iterrows():
+    i = 0
+    while i < len(df):
+        row = df.iloc[i]
         if row.get("buy_signal") == 1:
+            exit_idx, exit_price, result = simulate_exit(df, i, params)
             entry_price = row["close"]
-            lbl = int(row["label"])
-            exit_price = calc_exit_price(entry_price, lbl, params)
             gross = exit_price / entry_price - 1
             net = gross - COMMISSION
             trades.append({
                 "timestamp": row["timestamp"],
                 "entry_price": entry_price,
-                "label": lbl,
+                "result": result,
+                "exit_time": df.iloc[exit_idx]["timestamp"],
                 "exit_price": exit_price,
                 "gross_roi": gross,
                 "net_roi": net,
             })
+            i = exit_idx + 1
+        else:
+            i += 1
 
     if not trades:
         logging.info("[BACKTEST] %s 매매 없음", symbol)
         return
 
     trades_df = pd.DataFrame(trades)
-    tp = (trades_df["label"] == 1).sum()
-    trail = (trades_df["label"] == 2).sum()
-    sl = (trades_df["label"] == -1).sum()
-    hold = (trades_df["label"] == 0).sum()
+    tp = (trades_df["result"] == "TP").sum()
+    trail = (trades_df["result"] == "TS").sum()
+    sl = (trades_df["result"] == "SL").sum()
+    hold = 0
+    force = (trades_df["result"] == "FORCE").sum()
     win = tp + trail
     total = len(trades_df)
 
@@ -126,6 +174,7 @@ def process_symbol(symbol: str) -> None:
         "trail_count": int(trail),
         "sl_count": int(sl),
         "hold_count": int(hold),
+        "force_count": int(force),
         "win_rate": float(win / total) if total else 0.0,
         "loss_rate": float(sl / total) if total else 0.0,
         "avg_roi": float(trades_df["net_roi"].mean()),
