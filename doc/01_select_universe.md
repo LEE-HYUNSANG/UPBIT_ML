@@ -49,6 +49,18 @@
 - `config/filter_coin_data_collection.json` – 데이터 수집 조건 값
 - `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` – ML에서 추린 후보 목록
 
+### 예시 JSON 구조
+
+두 코인 리스트 파일은 아래와 같이 심볼 문자열 배열을 저장합니다.
+
+```json
+[
+    "KRW-BTC",
+    "KRW-ETH",
+    "KRW-XRP"
+]
+```
+
 ## 추가
 
 - 데이터 수집 스케줄은 코인 수가 많아질수록 부하가 커지므로 1분 간격 작업이 겹치지 않게 스레드 풀이나 비동기 방식을 고려합니다.
