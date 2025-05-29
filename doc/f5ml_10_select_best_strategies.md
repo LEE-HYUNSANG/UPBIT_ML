@@ -5,6 +5,21 @@
 상위 전략들은 `ml_data/10_selected/selected_strategies.json`에 저장되며
 실전 매수 모니터링 단계에서 이 파일을 로드하여 사용합니다.
 
+스크립트가 완료되면 선택된 코인 심볼만 추출하여
+`config/coin_list_monitoring.json`에도 저장됩니다.
+파일 구조는 다음과 같습니다.
+
+```json
+[
+    "KRW-BTC",
+    "KRW-ETH",
+    "KRW-XRP"
+]
+```
+
+변경 사항은 `logs/select_best_strategies.log` 파일에도 기록되어
+모니터링 목록 갱신 여부를 확인할 수 있습니다.
+
 ## 실행 방법
 ```bash
 python f5_ml_pipeline/10_select_best_strategies.py

@@ -9,6 +9,8 @@ import time
 from pathlib import Path
 from typing import List
 
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
@@ -18,6 +20,19 @@ sys.path.append(str(PROJECT_ROOT))
 from indicators import ema, sma, rsi  # type: ignore
 CONFIG_DIR = PROJECT_ROOT / "config"
 LOG_PATH = PROJECT_ROOT / "logs" / "f2_ml_buy_signal.log"
+
+
+def setup_logger() -> None:
+    """Configure basic logger."""
+    LOG_PATH.parent.mkdir(exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [F2] [%(levelname)s] %(message)s",
+        handlers=[logging.StreamHandler(), logging.FileHandler(LOG_PATH)],
+        force=True,
+    )
+
+LOG_PATH = Path("logs/f2_ml_buy_signal.log")
 
 
 def setup_logger() -> None:
