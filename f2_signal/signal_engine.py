@@ -1,69 +1,16 @@
-import pandas as pd
-import json
 import logging
-from logging.handlers import RotatingFileHandler
-import numpy as np
 import os
 import re
+from logging.handlers import RotatingFileHandler
 from typing import Optional
-from indicators import (
-    ema,
-    sma,
-    rsi,
-    atr,
-    macd,
-    stochastic,
-    bollinger_bands,
-    vwap,
-    mfi,
-    adx,
-    ichimoku,
-    parabolic_sar,
-    calc_buy_sell_qty_5m,
-)
-import datetime
 
+import pandas as pd
 
-def _now_kst():
-    tz = datetime.timezone(datetime.timedelta(hours=9))
-    return datetime.datetime.now(tz).isoformat(timespec="seconds")
-
-
-def _log_jsonl(path: str, data: dict) -> None:
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "a", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False)
-        f.write("\n")
-
-
-def _log_insufficient_data(symbol: str, strategy: str, required: int, available: int) -> None:
-    data = {
-        "time": _now_kst(),
-        "symbol": symbol,
-        "strategy": strategy,
-        "required_bars": required,
-        "available_bars": available,
-        "reason": "Insufficient Data",
-        "action": "Signal Skipped",
-    }
-    _log_jsonl("logs/insufficient_data.log", data)
-
-
-def _log_monitoring(symbol: str, category: str, results: list[tuple[str, bool]], triggered: list[str]) -> None:
-    true_codes = [c for c, r in results if r]
-    false_codes = [c for c, r in results if not r]
-    logging.info(f">>>>>>{category} ({symbol}) >>>>>>>>")
-    if true_codes:
-        logging.info("\u25CF True: " + ", ".join(true_codes))
-    if false_codes:
-        logging.info("\u25A1 False: " + ", ".join(false_codes))
-    if triggered:
-        logging.info(f"{category.split()[0]} Signal: {triggered[0]}")
-        logging.info(f"{category.split()[0].upper()} SIGNAL TRIGGER: [{symbol}] [{triggered[0]}]")
+from f2_ml_buy_signal.f2_ml_buy_signal import check_buy_signal_df
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(),
@@ -76,58 +23,11 @@ logging.basicConfig(
     ],
 )
 
-# 공통 파라미터와 전략 공식을 불러옵니다
-with open("config/signal.json", "r", encoding="utf-8") as cfg:
-    config = json.load(cfg)
-with open("strategies_master_pruned.json", "r", encoding="utf-8") as sf:
-    strategies = json.load(sf)
-
-# 전략별 최소 캔들 수 요구사항을 불러옵니다
-strategy_params_path = os.path.join("config", "strategy_params.json")
-if os.path.exists(strategy_params_path):
-    with open(strategy_params_path, "r", encoding="utf-8") as spf:
-        STRATEGY_PARAMS = json.load(spf)
-else:  # pragma: no cover - default when file missing
-    STRATEGY_PARAMS = {}
-
-# UI와 연동되는 전략별 ON/OFF 및 우선순위 설정을 불러옵니다
-strategy_settings_path = os.path.join("config", "strategy_settings.json")
-if os.path.exists(strategy_settings_path):
-    with open(strategy_settings_path, "r", encoding="utf-8") as ssf:
-        _settings = json.load(ssf)
-else:
-    # 기본값: 모든 전략을 순차적으로 실행
-    _settings = [
-        {"short_code": s["short_code"], "on": True, "order": i + 1}
-        for i, s in enumerate(strategies)
-    ]
-
-# Map short_code -> settings
-STRATEGY_SETTINGS = {s["short_code"]: s for s in _settings}
-
 
 def reload_strategy_settings() -> None:
-    """전략별 ON/OFF 및 우선순위 설정을 파일에서 다시 불러옵니다."""
-    global STRATEGY_SETTINGS
-    path = os.path.join("config", "strategy_settings.json")
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as ssf:
-            settings = json.load(ssf)
-    else:
-        settings = [
-            {"short_code": s["short_code"], "on": True, "order": i + 1}
-            for i, s in enumerate(strategies)
-        ]
-    # 스레드 안전을 위해 설정 맵을 원자적으로 교체
-    STRATEGY_SETTINGS = {s["short_code"]: s for s in settings}
+    """Placeholder for backward compatibility."""
+    return None
 
-
-def _as_utc(ts):
-    """UTC 기준 타임스탬프를 반환합니다."""
-    ts = pd.to_datetime(ts)
-    if ts.tzinfo is None:
-        return ts.tz_localize("UTC")
-    return ts.tz_convert("UTC")
 
 def f2_signal(
     df_1m: pd.DataFrame,
@@ -137,370 +37,20 @@ def f2_signal(
     calc_buy: bool = True,
     calc_sell: bool = True,
     strategy_codes: Optional[list[str]] = None,
-):
-    """주어진 종목의 매수/매도 신호를 계산합니다.
-    매수 조건은 5분 봉, 매도 조건은 1분 봉 데이터를 이용합니다.
-    결과는 신호 여부와 발동된 전략 목록을 포함한 딕셔너리를 반환합니다.
-
-    Parameters
-    ----------
-    df_1m, df_5m : pd.DataFrame
-        1분 및 5분 봉 데이터.
-    symbol : str, optional
-        로깅용 심볼 문자열.
-    trades : pd.DataFrame, optional
-        체결 내역 데이터.
-    calc_buy : bool, optional
-        매수 조건을 계산할지 여부.
-    calc_sell : bool, optional
-        매도 조건을 계산할지 여부.
-    strategy_codes : list[str], optional
-        평가할 전략 코드 목록. ``None``이면 모든 전략을 평가한다.
-    """
-    logging.debug(f"[{symbol}] Starting signal calculation")
-    # 데이터가 시간 순서대로 정렬되어 있는지 확인
-    df_1m = df_1m.sort_values(by="timestamp").reset_index(drop=True)
-    df_5m = df_5m.sort_values(by="timestamp").reset_index(drop=True)
-    # tz 정보 유무에 관계없이 처리
-    df_1m["timestamp"] = df_1m["timestamp"].apply(_as_utc)
-    df_5m["timestamp"] = df_5m["timestamp"].apply(_as_utc)
-
-    # 현재 시점에 가까운 미완성 캔들 제거
-    # pandas 버전에 따라 `Timestamp.utcnow`가 이미 tz-aware 일 수 있어
-    # `Timestamp.now(tz="UTC")`를 사용함
-    now = pd.Timestamp.now(tz="UTC")
-    if not df_1m.empty:
-        last_1m_ts = _as_utc(df_1m["timestamp"].iloc[-1])
-        if (now - last_1m_ts).total_seconds() < 60:
-            logging.info(
-                f"[{symbol}] Dropping partial 1m candle at {last_1m_ts}"
-            )
-            df_1m = df_1m.iloc[:-1]
-    if not df_5m.empty:
-        last_5m_ts = _as_utc(df_5m["timestamp"].iloc[-1])
-        if (now - last_5m_ts).total_seconds() < 300:
-            logging.info(
-                f"[{symbol}] Dropping partial 5m candle at {last_5m_ts}"
-            )
-            df_5m = df_5m.iloc[:-1]
-
-    if df_1m.empty or df_5m.empty:
-        logging.warning(f"[{symbol}] Insufficient data after filtering partial candles")
-        return {
-            "symbol": symbol,
-            "buy_signal": False,
-            "sell_signal": False,
-            "buy_triggers": [],
-            "sell_triggers": [],
-        }
-    
-    # 1분 데이터 기준 기술적 지표 계산
-    df1 = df_1m.copy()
-    # EMA 계산
-    for period in config["EMA"]["periods"]:
-        df1[f"EMA_{period}"] = ema(df1["close"], period)
-    # RSI 계산
-    rsi_period = config["RSI"]["period"]
-    df1[f"RSI_{rsi_period}"] = rsi(df1["close"], rsi_period)
-    # ATR 계산
-    atr_period = config["ATR"]["period"]
-    df1[f"ATR_{atr_period}"] = atr(df1["high"], df1["low"], df1["close"], atr_period)
-    # 볼린저 밴드
-    bb_period = config["BollingerBands"]["period"]
-    bb_std = config["BollingerBands"]["stddev"]
-    bb_mid, bb_upper, bb_lower = bollinger_bands(df1["close"], bb_period, bb_std)
-    df1["BB_mid"], df1["BB_upper"], df1["BB_lower"] = bb_mid, bb_upper, bb_lower
-    # 밴드폭 및 20봉 최소치(밴드 스퀴즈 전략)
-    df1["BandWidth20"] = df1["BB_upper"] - df1["BB_lower"]
-    df1["BandWidth20_min20"] = df1["BandWidth20"].rolling(window=20, min_periods=20).min()
-    # 거래량 이동평균
-    vol_ma_period = config["Volume"]["ma_period"]
-    df1[f"Vol_MA{vol_ma_period}"] = sma(df1["volume"], vol_ma_period)
-    # 일중 VWAP
-    df1["VWAP"] = vwap(df1["high"], df1["low"], df1["close"], df1["volume"])
-    # Strength(체결 강도 근사치)
-    # 캔들 내 가격 움직임을 이용해 매수/매도량 추정
-    high = df1["high"]
-    low = df1["low"]
-    close = df1["close"]
-    vol = df1["volume"]
-    # 고가와 저가가 같을 경우 0으로 나눔 방지
-    range_ = (high - low).replace(0, np.nan)
-    multiplier = (2*close - high - low) / range_
-    # 범위가 0이면 중립 값 사용
-    multiplier = multiplier.fillna(0)
-    buy_vol = (multiplier + 1) / 2 * vol
-    sell_vol = vol - buy_vol
-    # Calculate strength as (buy_vol/sell_vol)*100, capping extreme values
-    strength = pd.Series(index=df1.index, dtype=float)
-    strength[:] = 100  # default
-    strength[sell_vol > 1e-8] = (buy_vol[sell_vol > 1e-8] / sell_vol[sell_vol > 1e-8]) * 100
-    strength[sell_vol <= 1e-8] = 1000.0  # if no selling volume, set very high strength
-    df1["Strength"] = strength
-    # MACD
-    fast = config["MACD"]["fast_period"]
-    slow = config["MACD"]["slow_period"]
-    sig = config["MACD"]["signal_period"]
-    macd_line, signal_line, hist = macd(df1["close"], fast, slow, sig)
-    df1["MACD_line"] = macd_line
-    df1["MACD_signal"] = signal_line
-    df1["MACD_hist"] = hist
-    # MFI
-    mfi_period = config["MFI"]["period"]
-    df1[f"MFI_{mfi_period}"] = mfi(df1["high"], df1["low"], df1["close"], df1["volume"], mfi_period)
-    # Stochastic
-    stoch_k_period = config["Stochastic"]["k_period"]
-    stoch_d_period = config["Stochastic"]["d_period"]
-    stoch_smooth = config["Stochastic"]["smooth_period"]
-    stoch_k, stoch_d = stochastic(df1["high"], df1["low"], df1["close"], stoch_k_period, stoch_d_period, stoch_smooth)
-    df1[f"StochK_{stoch_k_period}"] = stoch_k
-    df1[f"StochD_{stoch_k_period}"] = stoch_d
-    # Ichimoku (Tenkan, Kijun, SpanA, SpanB, Chikou)
-    ichi_cfg = config["Ichimoku"]
-    ichi_vals = ichimoku(df1["high"], df1["low"], df1["close"],
-                         tenkan_period=ichi_cfg["tenkan_period"],
-                         kijun_period=ichi_cfg["kijun_period"],
-                         span_b_period=ichi_cfg["senkou_span_b_period"])
-    df1["Tenkan"] = ichi_vals["tenkan"]
-    df1["Kijun"] = ichi_vals["kijun"]
-    df1["SpanA"] = ichi_vals["span_a"]
-    df1["SpanB"] = ichi_vals["span_b"]
-    df1["Chikou"] = ichi_vals["chikou"]
-    # ADX and DI
-    adx_period = config["ADX"]["period"]
-    adx_series, di_plus, di_minus = adx(df1["high"], df1["low"], df1["close"], adx_period)
-    df1[f"ADX_{adx_period}"] = adx_series
-    df1["DI_plus"] = di_plus
-    df1["DI_minus"] = di_minus
-    # Parabolic SAR
-    sar_step = config["SAR"]["step"]
-    sar_max = config["SAR"]["max_step"]
-    df1["PSAR"] = parabolic_sar(df1["high"], df1["low"], sar_step, sar_max)
-    # Rolling max/min for various lookback windows (5,20,60,120) needed in formulas
-    for window in [5, 20, 60, 120]:
-        if window <= len(df1):
-            df1[f"MaxHigh{window}"] = df1["high"].rolling(window=window, min_periods=window).max()
-            df1[f"MinLow{window}"] = df1["low"].rolling(window=window, min_periods=window).min()
-        else:
-            # If not enough data for full window, still define columns (will be NaN for latest if window not reached)
-            df1[f"MaxHigh{window}"] = df1["high"].rolling(window=window).max()
-            df1[f"MinLow{window}"] = df1["low"].rolling(window=window).min()
-
-    logging.debug(
-        f"[{symbol}][F2][1분봉] 지표 계산 - EMA_5: {df1['EMA_5'].iloc[-1]}, EMA_20: {df1['EMA_20'].iloc[-1]}, RSI_14: {df1['RSI_14'].iloc[-1]}, ATR_14: {df1['ATR_14'].iloc[-1]}"
-    )
-    
-    # Compute technical indicators for 5-minute data (similar to 1m, but to save time, compute only needed ones)
-    df5 = df_5m.copy()
-    df5 = df5.sort_values(by="timestamp").reset_index(drop=True)
-    for period in config["EMA"]["periods"]:
-        df5[f"EMA_{period}"] = ema(df5["close"], period)
-    rsi_period = config["RSI"]["period"]
-    df5[f"RSI_{rsi_period}"] = rsi(df5["close"], rsi_period)
-    atr_period = config["ATR"]["period"]
-    df5[f"ATR_{atr_period}"] = atr(df5["high"], df5["low"], df5["close"], atr_period)
-    bb_mid, bb_upper, bb_lower = bollinger_bands(df5["close"], bb_period, bb_std)
-    df5["BB_mid"], df5["BB_upper"], df5["BB_lower"] = bb_mid, bb_upper, bb_lower
-    df5["BandWidth20"] = df5["BB_upper"] - df5["BB_lower"]
-    df5["BandWidth20_min20"] = df5["BandWidth20"].rolling(window=20, min_periods=20).min()
-    df5[f"Vol_MA{vol_ma_period}"] = sma(df5["volume"], vol_ma_period)
-    df5["VWAP"] = vwap(df5["high"], df5["low"], df5["close"], df5["volume"])
-    if trades is not None and not trades.empty:
-        tdf = trades.copy()
-        if "timestamp" in tdf.columns:
-            tdf = tdf.sort_values("timestamp").set_index("timestamp")
-        else:
-            tdf = tdf.sort_index()
-        tdf = calc_buy_sell_qty_5m(tdf)
-        aligned = pd.merge_asof(
-            df5[["timestamp"]],
-            tdf[["BuyQty_5m", "SellQty_5m"]],
-            left_on="timestamp",
-            right_index=True,
-            direction="backward",
-        )
-        df5["BuyQty_5m"] = aligned["BuyQty_5m"]
-        df5["SellQty_5m"] = aligned["SellQty_5m"]
-    else:
-        df5["BuyQty_5m"] = np.nan
-        df5["SellQty_5m"] = np.nan
-    # 5분 봉 기준 Strength 계산
-    high5 = df5["high"]; low5 = df5["low"]; close5 = df5["close"]; vol5 = df5["volume"]
-    range5 = (high5 - low5).replace(0, np.nan)
-    multiplier5 = (2*close5 - high5 - low5) / range5
-    multiplier5 = multiplier5.fillna(0)
-    buy_vol5 = (multiplier5 + 1) / 2 * vol5
-    sell_vol5 = vol5 - buy_vol5
-    strength5 = pd.Series(index=df5.index, dtype=float)
-    strength5[:] = 100
-    strength5[sell_vol5 > 1e-8] = (buy_vol5[sell_vol5 > 1e-8] / sell_vol5[sell_vol5 > 1e-8]) * 100
-    strength5[sell_vol5 <= 1e-8] = 1000.0
-    df5["Strength"] = strength5
-    fast = config["MACD"]["fast_period"]; slow = config["MACD"]["slow_period"]; sig = config["MACD"]["signal_period"]
-    macd_line5, signal_line5, hist5 = macd(df5["close"], fast, slow, sig)
-    df5["MACD_line"] = macd_line5; df5["MACD_signal"] = signal_line5; df5["MACD_hist"] = hist5
-    mfi_period = config["MFI"]["period"]
-    df5[f"MFI_{mfi_period}"] = mfi(df5["high"], df5["low"], df5["close"], df5["volume"], mfi_period)
-    stoch_k5, stoch_d5 = stochastic(df5["high"], df5["low"], df5["close"], stoch_k_period, stoch_d_period, stoch_smooth)
-    df5[f"StochK_{stoch_k_period}"] = stoch_k5; df5[f"StochD_{stoch_k_period}"] = stoch_d5
-    ichi_vals5 = ichimoku(df5["high"], df5["low"], df5["close"],
-                          tenkan_period=ichi_cfg["tenkan_period"],
-                          kijun_period=ichi_cfg["kijun_period"],
-                          span_b_period=ichi_cfg["senkou_span_b_period"])
-    df5["Tenkan"] = ichi_vals5["tenkan"]; df5["Kijun"] = ichi_vals5["kijun"]
-    df5["SpanA"] = ichi_vals5["span_a"]; df5["SpanB"] = ichi_vals5["span_b"]; df5["Chikou"] = ichi_vals5["chikou"]
-    adx_series5, di_plus5, di_minus5 = adx(df5["high"], df5["low"], df5["close"], adx_period)
-    df5[f"ADX_{adx_period}"] = adx_series5; df5["DI_plus"] = di_plus5; df5["DI_minus"] = di_minus5
-    df5["PSAR"] = parabolic_sar(df5["high"], df5["low"], sar_step, sar_max)
-    for window in [5, 20, 60, 120]:
-        if window <= len(df5):
-            df5[f"MaxHigh{window}"] = df5["high"].rolling(window=window, min_periods=window).max()
-            df5[f"MinLow{window}"] = df5["low"].rolling(window=window, min_periods=window).min()
-        else:
-            df5[f"MaxHigh{window}"] = df5["high"].rolling(window=window).max()
-            df5[f"MinLow{window}"] = df5["low"].rolling(window=window).min()
-
-    logging.debug(
-        f"[{symbol}][F2][5분봉] 지표 계산 - EMA_5: {df5['EMA_5'].iloc[-1]}, EMA_20: {df5['EMA_20'].iloc[-1]}, RSI_14: {df5['RSI_14'].iloc[-1]}, ATR_14: {df5['ATR_14'].iloc[-1]}"
-    )
-
-    # ATR moving average used by some strategies
-    df1[f"ATR_{atr_period}_MA20"] = df1[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
-    df5[f"ATR_{atr_period}_MA20"] = df5[f"ATR_{atr_period}"].rolling(window=20, min_periods=20).mean()
-    
-    # 최신 데이터에서 각 전략 조건 평가
-    latest5 = df5.iloc[-1]  # latest completed 5m candle
-    sync_ts = latest5["timestamp"]
-    matching_1m = df1[df1["timestamp"] == sync_ts]
-    if matching_1m.empty:
-        logging.warning(
-            f"[{symbol}] No matching 1m candle for 5m timestamp {sync_ts}. Skipping signal evaluation."
-        )
-        return {
-            "symbol": symbol,
-            "buy_signal": False,
-            "sell_signal": False,
-            "buy_triggers": [],
-            "sell_triggers": [],
-        }
-    latest1 = matching_1m.iloc[-1]
-    buy_signal = False
-    sell_signal = False
-    triggered_buys = []
-    triggered_sells = []
-    buy_results: list[tuple[str, bool]] = []
-    sell_results: list[tuple[str, bool]] = []
-    for strat in strategies:
-        if strategy_codes and strat["short_code"] not in strategy_codes:
-            continue
-        settings = STRATEGY_SETTINGS.get(strat["short_code"], {"on": True, "order": 999})
-        if not settings.get("on", True):
-            continue
-        min_req = STRATEGY_PARAMS.get(strat["short_code"], {}).get("min_bars", 0)
-        available = min(len(df1), len(df5))
-        if available < min_req:
-            _log_insufficient_data(symbol, strat["short_code"], min_req, available)
-            logging.info(
-                f"[{symbol}][F2][{strat['short_code']}] skipped - insufficient data {available}/{min_req}"
-            )
-            continue
-        buy_formula = None
-        sell_formula = None
-        if "buy_formula_levels" in strat:
-            buy_formula = strat["buy_formula_levels"][0]
-        elif "buy_formula" in strat:
-            buy_formula = strat["buy_formula"]
-
-        if "sell_formula_levels" in strat:
-            sell_formula = strat["sell_formula_levels"][0]
-        elif "sell_formula" in strat:
-            sell_formula = strat["sell_formula"]
-
-        if buy_formula is None or sell_formula is None:
-            logging.error(
-                f"[{symbol}][F2][{strat.get('short_code','UNKNOWN')}] 전략 포뮬러가 없습니다"
-            )
-            continue
-        if calc_buy:
-            logging.info(
-                f"[{symbol}][F2][5분봉][{strat['short_code']}] 공식 평가 시작 - Buy: {buy_formula}"
-            )
-        if calc_sell:
-            logging.info(
-                f"[{symbol}][F2][1분봉][{strat['short_code']}] 공식 평가 시작 - Sell: {sell_formula}"
-            )
-        buy_cond_5m = False
-        sell_cond_1m = False
-        if calc_buy:
-            try:
-                buy_cond_5m = eval_formula(
-                    buy_formula,
-                    latest5,
-                    symbol,
-                    strat["short_code"],
-                    data_df=df5,
-                )
-            except Exception as e:
-                logging.error(
-                    f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {buy_formula} | 예외: {str(e)}"
-                )
-        if calc_sell:
-            try:
-                sell_cond_1m = eval_formula(
-                    sell_formula,
-                    latest1,
-                    symbol,
-                    strat["short_code"],
-                    data_df=df1,
-                )
-            except Exception as e:
-                logging.error(
-                    f"[{symbol}][F2][{strat['short_code']}] 공식 평가 오류: {sell_formula} | 예외: {str(e)}"
-                )
-        if buy_cond_5m:
-            buy_signal = True
-            triggered_buys.append({"strategy": strat["short_code"], "formula": buy_formula, "order": settings.get("order", 999)})
-        buy_results.append((strat["short_code"], bool(buy_cond_5m)))
-        if sell_cond_1m:
-            sell_signal = True
-            triggered_sells.append({"strategy": strat["short_code"], "formula": sell_formula})
-        sell_results.append((strat["short_code"], bool(sell_cond_1m)))
-        logging.info(
-            f"[{symbol}][F2][{strat['short_code']}] 평가 결과 - Buy_5m: {buy_cond_5m}, Sell_1m: {sell_cond_1m}"
-        )
-    if buy_signal:
-        # Select the highest priority strategy among triggered ones
-        triggered_buys.sort(key=lambda x: x.get("order", 999))
-        top_strategy = triggered_buys[0]["strategy"]
-        triggered_buys_codes = [top_strategy]
-        logging.warning(
-            f"[{symbol}][F2] BUY SIGNAL TRIGGERED - 전략: {triggered_buys_codes}"
-        )
-    else:
-        triggered_buys_codes = []
-    if sell_signal:
-        triggered_sell_codes = [s['strategy'] for s in triggered_sells]
-        logging.warning(
-            f"[{symbol}][F2] SELL SIGNAL TRIGGERED - 전략: {triggered_sell_codes}"
-        )
-    
-    else:
-        triggered_sell_codes = []
-
-    if calc_buy:
-        _log_monitoring(symbol, "매수 모니터링", buy_results, triggered_buys_codes)
-    if calc_sell:
-        _log_monitoring(symbol, "매도 모니터링", sell_results, triggered_sell_codes)
-
+) -> dict:
+    """Return buy signal using lightweight ML model."""
+    df_1m = df_1m.sort_values("timestamp").reset_index(drop=True)
+    buy_signal = check_buy_signal_df(df_1m) if calc_buy else False
     result = {
         "symbol": symbol,
-        "buy_signal": buy_signal,
-        "sell_signal": sell_signal,
-        "buy_triggers": triggered_buys_codes,
-        "sell_triggers": [s["strategy"] for s in triggered_sells],
+        "buy_signal": bool(buy_signal),
+        "sell_signal": False,
+        "buy_triggers": [],
+        "sell_triggers": [],
     }
-    logging.debug(f"[{symbol}][F2] Result: {result}")
+    logging.debug("[%s] result=%s", symbol, result)
     return result
+
 
 def eval_formula(
     formula: str,
@@ -511,32 +61,11 @@ def eval_formula(
     entry: Optional[float] = None,
     peak: Optional[float] = None,
 ) -> bool:
-    """주어진 데이터 행에 매수/매도 공식을 적용하여 True/False를 반환합니다.
-
-    Parameters
-    ----------
-    formula : str
-        평가할 수식 문자열.
-    data_row : pd.Series
-        현재 시점의 데이터 행.
-    symbol : str, optional
-        로깅용 심볼 문자열.
-    strat_code : str, optional
-        로깅용 전략 코드.
-    data_df : pd.DataFrame, optional
-        전체 데이터프레임. 오프셋이 포함된 지표 평가 시 사용된다.
-    entry : float, optional
-        포지션 진입가. 수식에서 ``Entry`` 또는 ``EntryPrice``를 사용할 때 지정한다.
-    peak : float, optional
-        포지션 최고가. ``Peak`` 변수를 사용할 때 지정한다.
-    """
-    # Replace indicator references in the formula with actual numeric values from data_row
+    """Evaluate old strategy formulas for compatibility."""
     expr = formula
-    # Normalize some function names to match computed column names
     expr = expr.replace("MA(Vol,20)", "Vol_MA20")
     expr = expr.replace("MA(ATR(14),20)", "ATR_14_MA20")
 
-    # Handle basic OHLCV fields with optional offsets like Close(-1)
     base_fields = {
         "Close": "close",
         "Open": "open",
@@ -546,6 +75,7 @@ def eval_formula(
     }
     for fld, col in base_fields.items():
         pattern = rf"{fld}\((-?[0-9]+)\)"
+
         def _repl(m):
             off = int(m.group(1))
             if off == 0:
@@ -559,30 +89,21 @@ def eval_formula(
             else:
                 val = 0
             return str(float(val))
+
         expr = re.sub(pattern, _repl, expr)
-    # Handle indicators and fields present in data_row (like EMA(5), RSI(14), Close, etc.)
-    # We will replace each known pattern with its value from data_row.
-    # Note: It's important that longer names are replaced before shorter ones to avoid partial replacements.
-    # For simplicity, replace in a careful order:
-    # Replace literal 'Close', 'Open', 'High', 'Low', 'Vol' (volume) with respective values
+
     replacements = {
         "Close": data_row["close"],
         "Open": data_row["open"],
         "High": data_row["high"],
         "Low": data_row["low"],
-        "Vol": data_row["volume"],  # shorthand for current volume
+        "Vol": data_row["volume"],
     }
-    # Also replace 'EntryPrice', 'Entry', 'Peak' when provided
     if "Entry" in formula or "EntryPrice" in formula:
-        replacements["EntryPrice"] = replacements["Entry"] = (
-            entry if entry is not None else 0
-        )
+        replacements["EntryPrice"] = replacements["Entry"] = entry if entry is not None else 0
     if "Peak" in formula:
         replacements["Peak"] = peak if peak is not None else 0
-    # Prepare indicator patterns:
-    # EMA, RSI, ATR, MFI, ADX, etc., with periods and optional offsets
-    # We'll assume offset format as in formulas: e.g. "EMA(20)" or "EMA(20,-1)".
-    # We handle common indicators:
+
     ind_patterns = [
         "EMA",
         "RSI",
@@ -622,11 +143,8 @@ def eval_formula(
         "MinLow60",
         "MinLow120",
     ]
-    # Replace any known indicator mention with its value. We need to handle offsets like Indicator(period, offset).
-    # We'll parse by finding occurrences of pattern names.
     for key in ind_patterns:
         if key in expr:
-            # Handle function-like syntax first (e.g. Indicator(period, offset))
             if key + "(" in expr:
                 pattern = rf"{key}\(([^()]*)\)"
                 matches = list(re.finditer(pattern, expr))
@@ -656,7 +174,6 @@ def eval_formula(
                         value = None
                     replacement_val = "0" if value is None or pd.isna(value) else f"{float(value)}"
                     expr = re.sub(re.escape(m.group(0)), replacement_val, expr)
-            # After handling any function-like occurrences, replace plain mentions
             if key in data_row:
                 if key == "SellQty_5m":
                     val = data_row[key]
@@ -665,31 +182,14 @@ def eval_formula(
                 else:
                     replacement_val = "0" if pd.isna(data_row[key]) else f"{float(data_row[key])}"
                 expr = re.sub(rf"\b{re.escape(key)}\b", replacement_val, expr)
-    # Replace basic fields after indicators (to avoid partial replacement issues)
+
     for name, val in replacements.items():
         expr = expr.replace(name, str(float(val)) if hasattr(val, "__float__") else str(val))
-    # Replace mathematical symbols that might use '×' or '≤','≥' in the formula string with Python equivalents
     expr = expr.replace("×", "*").replace("≤", "<=").replace("≥", ">=")
-    logging.debug(
-        f"[{symbol}][F2][{strat_code}] 공식 치환: {formula} → {expr}"
-    )
-    logging.info(
-        f"[{symbol}][F2][{strat_code}] EvalExpr: {expr}"
-    )
-    # Evaluate the expression safely
     try:
         result = eval(expr)
         if isinstance(result, (int, float)):
             result = bool(result)
-        logging.debug(
-            f"[{symbol}][F2][{strat_code}] 평가값: {result}"
-        )
-        logging.info(
-            f"[{symbol}][F2][{strat_code}] EvalResult: {result}"
-        )
         return bool(result)
-    except Exception as e:
-        logging.error(
-            f"[{symbol}][F2][{strat_code}] 공식 평가 오류: {formula} | 예외: {str(e)}"
-        )
+    except Exception:
         return False
