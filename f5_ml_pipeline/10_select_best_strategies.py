@@ -18,7 +18,7 @@ LOG_PATH = Path("logs/select_best_strategies.log")
 
 # ----- 확장 포인트: 성과 기준과 정렬 기준 -----
 MIN_WIN_RATE = 0.55
-MIN_AVG_ROI = 0.002
+MIN_AVG_ROI = 0.001
 MIN_SHARPE = 1.0
 MAX_MDD = 0.10  # 절대값 기준
 MIN_ENTRIES = 50
