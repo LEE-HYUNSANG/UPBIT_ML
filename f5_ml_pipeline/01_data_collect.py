@@ -2,7 +2,7 @@
 
 이 스크립트는 ``coin_list_data_collection.json``에 지정된 코인에 대해 매 1분
 단위로 OHLCV, 호가, 체결, 시세 데이터를 수집합니다. 수집된 데이터는
-``ml_data/realtime/<type>/`` 폴더 아래에 코인별 Parquet 파일로 저장됩니다.
+``ml_data/01_raw/<type>/`` 폴더 아래에 코인별 Parquet 파일로 저장됩니다.
 """
 
 from __future__ import annotations
@@ -21,7 +21,8 @@ import requests
 from utils import ensure_dir
 
 BASE_URL = "https://api.upbit.com"
-DATA_ROOT = Path("ml_data/realtime")
+# Store output under the pipeline data directory regardless of CWD
+DATA_ROOT = Path(__file__).resolve().parent / "ml_data" / "01_raw"
 
 # Use absolute path so the script works regardless of the current
 # working directory.
