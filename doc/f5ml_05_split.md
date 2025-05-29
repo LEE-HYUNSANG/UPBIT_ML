@@ -1,4 +1,4 @@
-# 05_split.py 사용법
+# F5ML_05_split.py 사용법
 
 `ml_data/04_label/` 폴더의 라벨 데이터를 읽어 시간순으로 학습, 검증, 테스트 세트로 분할합니다.
 결과는 `ml_data/05_split/`에 `{symbol}_train.parquet`, `{symbol}_valid.parquet`, `{symbol}_test.parquet` 형식으로 저장됩니다.

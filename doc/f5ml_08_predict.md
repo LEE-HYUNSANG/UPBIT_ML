@@ -1,4 +1,4 @@
-# 08_predict.py 사용법
+# F5ML_08_predict.py 사용법
 
 `ml_data/06_models/`에 저장된 학습된 모델을 이용해 새로운 피처 데이터에 대한 매수 신호를 예측합니다.
 예측 결과는 `ml_data/08_pred/` 폴더에 `{symbol}_pred.csv` 형식으로 저장됩니다.

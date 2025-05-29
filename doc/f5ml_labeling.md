@@ -1,4 +1,4 @@
-# 04_labeling.py 사용법
+# F5ML_04_labeling.py 사용법
 
 `ml_data/03_feature/` 폴더의 피처 파일을 읽어 초단타 매매용 라벨을 생성합니다. 결과는
 `ml_data/04_label/` 폴더에 `{symbol}_label.parquet` 형식으로 저장됩니다.

@@ -1,0 +1,29 @@
+# F5ML_머신러닝 파이프라인
+
+이 문서는 1분봉 초단타 매매 모델을 학습하기 위한 **F5ML 파이프라인**의 전체 흐름을 요약합니다. 각 단계는 독립 실행이 가능하며 결과는 `f5_ml_pipeline/ml_data/` 하위 폴더에 순차적으로 저장됩니다.
+
+## 단계별 스크립트
+
+1. `00_Before_Coin.py` 코인 필터링 및 원시 데이터 수집 → `ml_data/00_back_raw/`
+2. `01_data_collect.py` OHLCV 다운로드 → `ml_data/01_raw/`
+3. `02_data_cleaning.py` 데이터 정제 → `ml_data/02_clean/`
+4. `03_feature_engineering.py` 지표 계산 → `ml_data/03_feature/`
+5. `04_labeling.py` 라벨 생성 → `ml_data/04_label/`
+6. `05_split.py` 학습·검증·테스트 분할 → `ml_data/05_split/`
+7. `06_train.py` 모델 학습 → `ml_data/06_models/`
+8. `07_eval.py` 모델 평가 → `ml_data/07_eval/`
+9. `08_predict.py` 예측 수행 → `ml_data/08_pred/`
+10. `09_backtest.py` 백테스트 → `ml_data/09_backtest/`
+11. `10_select_best_strategies.py` 전략 선별 → `ml_data/10_selected/`
+
+로그는 `ml_data/09_logs/`에 `mllog_<YYYYMMDDHHMMSS>.log` 형식으로 기록되며, 1MB를 초과하면 자동으로 새 파일로 교체됩니다.
+
+## 사용 방법
+
+필요 패키지는 `f5_ml_pipeline/requirements.txt`에서 설치합니다. 각 스크립트는 다음과 같이 실행할 수 있습니다.
+
+```bash
+python f5_ml_pipeline/<스크립트명>.py
+```
+
+설정 값은 `config/train_config.yaml`에서 관리합니다. 세부 동작은 `doc/` 폴더의 각 문서를 참고해 주세요.

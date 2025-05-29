@@ -1,4 +1,4 @@
-# 06_train.py 사용법
+# F5ML_06_train.py 사용법
 
 `ml_data/05_split/`에 저장된 학습/검증 데이터를 읽어
 LightGBM 분류 모델을 학습하고 `ml_data/06_models/`에 저장합니다.
