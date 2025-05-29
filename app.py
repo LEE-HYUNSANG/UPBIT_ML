@@ -23,6 +23,7 @@ from f1_universe.universe_selector import (
 from f2_signal.signal_engine import reload_strategy_settings
 
 app = Flask(__name__)
+PORT = int(os.environ.get("PORT", 3000))
 
 CONFIG = load_config()
 load_universe_from_file()
@@ -509,4 +510,4 @@ if __name__ == "__main__":
         ],
         force=True,
     )
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=True)
