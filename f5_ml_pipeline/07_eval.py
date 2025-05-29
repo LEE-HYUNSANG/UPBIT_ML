@@ -66,6 +66,12 @@ def evaluate(symbol: str) -> None:
     for f in features:
         if f not in test_df.columns:
             test_df[f] = 0
+
+    for col in test_df.columns:
+        if test_df[col].dtype == "object":
+            converted = pd.to_numeric(test_df[col], errors="coerce")
+            if pd.api.types.is_numeric_dtype(converted):
+                test_df[col] = converted
     test_df.fillna(0, inplace=True)
 
     X_test = test_df[features]
