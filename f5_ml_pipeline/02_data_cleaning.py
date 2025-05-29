@@ -69,8 +69,15 @@ def _clean_df(df: pd.DataFrame, logger: logging.Logger, ohlcv: bool) -> pd.DataF
     df = df.rename(columns=col_map)
     df.columns = [c.lower() for c in df.columns]
     if df.columns.duplicated().any():
-        logger.warning("중복 컬럼 존재: %s", df.columns[df.columns.duplicated()].tolist())
-        df = df.loc[:, ~df.columns.duplicated()]
+        dup_names = list(dict.fromkeys(df.columns[df.columns.duplicated()].tolist()))
+        logger.warning("중복 컬럼 존재: %s", dup_names)
+        for name in dup_names:
+            cols = [c for c in df.columns if c == name]
+            base = df[cols[0]].copy()
+            for c in cols[1:]:
+                base = base.fillna(df[c])
+            df[name] = base
+            df = df.drop(columns=cols[1:])
 
     if "timestamp" not in df.columns:
         for col in [c for c in df.columns if "timestamp" in c]:
@@ -176,7 +183,6 @@ def clean_one_file(input_path: Path, output_path: Path, ohlcv: bool = True) -> N
 
     print(f"\n=== {input_path.name} ===")
     df = _clean_df(df, logger, ohlcv)
-
     try:
         df.to_parquet(output_path, index=False)
         logger.info("Saved %s", output_path.name)
