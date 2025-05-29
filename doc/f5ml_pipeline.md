@@ -27,3 +27,11 @@ python f5_ml_pipeline/<스크립트명>.py
 ```
 
 설정 값은 `config/train_config.yaml`에서 관리합니다. 세부 동작은 `doc/` 폴더의 각 문서를 참고해 주세요.
+
+### \uc77c\uac80 \uc2e4\ud589
+
+04\ub2e8\uacc4 \uc774\ud6c4 \ubb38\uc11c \uc2e4\ud589\uc744 \uc21c\ucc28\uc801\uc73c\ub85c \uc218\ud589\ud558\ub824\uba74 `run_pipeline.py` \uc2a4\ud06c\ub9bd\ud2b8\ub97c \uc0ac\uc6a9\ud569\ub2c8\ub2e4. `03_feature_engineering.py` \uae4c\uc9c0 \uc644\ub8cc\ub41c \uc0c1\ud0dc\uc5d0\uc11c \uc544\ub798 \uba85\ub839\uc744 \uc2e4\ud589\ud558\uba74 `04_labeling.py`\ubd80\ud130 `10_select_best_strategies.py`\uae4c\uc9c0 \uc790\ub3d9\uc73c\ub85c \ucc98\ub9ac\ub429\ub2c8\ub2e4.
+
+```bash
+python f5_ml_pipeline/run_pipeline.py
+```
