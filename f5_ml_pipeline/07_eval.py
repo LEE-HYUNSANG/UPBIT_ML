@@ -87,12 +87,17 @@ def evaluate(symbol: str) -> None:
         output_dict=True,
         zero_division=0,
     )
-    try:
-        metrics["auc"] = roc_auc_score(y_true, y_prob)
-    except ValueError:
+
+    if len(np.unique(y_true)) < 2:
         metrics["auc"] = 0.0
+        metrics["pr_auc"] = 0.0
+    else:
+        try:
+            metrics["auc"] = roc_auc_score(y_true, y_prob)
+        except ValueError:  # pragma: no cover - safety net
+            metrics["auc"] = 0.0
+        metrics["pr_auc"] = average_precision_score(y_true, y_prob)
     metrics["brier"] = brier_score_loss(y_true, y_prob)
-    metrics["pr_auc"] = average_precision_score(y_true, y_prob)
 
     preds = y_pred == 1
     # ✅ label==1 또는 label==2로 매매 성공 인정
