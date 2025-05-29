@@ -33,10 +33,54 @@ logging.basicConfig(
 
 CONFIG_PATH = "config/universe.json"
 UNIVERSE_FILE = "config/current_universe.json"
-SELECTED_STRATEGIES_FILE = "f5_ml_pipeline/ml_data/10_selected/selected_strategies.json"
+SELECTED_STRATEGIES_FILE = (
+    "f5_ml_pipeline/ml_data/10_selected/selected_strategies.json"
+)
+MONITORING_LIST_FILE = "config/coin_list_monitoring.json"
+DATA_COLLECTION_LIST_FILE = "config/coin_list_data_collection.json"
+DATA_COLLECTION_FILTER_FILE = "config/filter_coin_data_collection.json"
 
 _UNIVERSE: List[str] = []
 _LOCK = threading.Lock()
+
+
+def load_monitoring_coins(path: str = MONITORING_LIST_FILE) -> List[str]:
+    """Return the list of user approved monitoring coins."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return [str(x) for x in data] if isinstance(data, list) else []
+    except FileNotFoundError:
+        return []
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Monitoring coin list 로드 실패: {exc}")
+    return []
+
+
+def load_data_collection_coins(path: str = DATA_COLLECTION_LIST_FILE) -> List[str]:
+    """Load coin list used for data collection."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return [str(x) for x in data] if isinstance(data, list) else []
+    except FileNotFoundError:
+        return []
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Data collection coin list 로드 실패: {exc}")
+    return []
+
+
+def load_data_collection_filters(path: str = DATA_COLLECTION_FILTER_FILE) -> Dict:
+    """Load filter conditions for data collection."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except FileNotFoundError:
+        return {}
+    except Exception as exc:  # pragma: no cover - best effort
+        logging.error(f"Data collection filter 로드 실패: {exc}")
+    return {}
 
 
 def load_config(path: str = CONFIG_PATH) -> Dict:
@@ -73,10 +117,16 @@ def select_universe(config: Dict | None = None) -> List[str]:
     list[str]
         Final list of ticker symbols.
     """
+    allowed = load_monitoring_coins()
+    if allowed:
+        logging.info(f"모니터링 코인 리스트 로드: {allowed}")
+        return allowed
+
     selected = load_selected_universe()
     if selected:
         logging.info(f"ML 파일에서 로드한 Universe: {selected}")
         return selected
+
     cached = load_universe_from_file()
     logging.info(f"캐시된 Universe 사용: {cached}")
     return cached
@@ -129,6 +179,9 @@ def load_universe_from_file(path: str = UNIVERSE_FILE) -> List[str]:
 
 def get_universe() -> List[str]:
     """Return the last cached universe."""
+    allowed = load_monitoring_coins()
+    if allowed:
+        return allowed
     selected = load_selected_universe()
     if selected:
         return selected
