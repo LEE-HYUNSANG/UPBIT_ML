@@ -74,6 +74,10 @@ def process_symbol(symbol: str) -> None:
         label_df = pd.read_parquet(label_path)
         with open(params_path, "r", encoding="utf-8") as f:
             params = json.load(f)
+        if "timestamp" in pred_df.columns:
+            pred_df["timestamp"] = pd.to_datetime(pred_df["timestamp"], utc=True)
+        if "timestamp" in label_df.columns:
+            label_df["timestamp"] = pd.to_datetime(label_df["timestamp"], utc=True)
     except Exception as exc:  # pragma: no cover - best effort
         logging.warning("%s 로드 실패: %s", symbol, exc)
         return
