@@ -23,6 +23,7 @@
 ```
 매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상 코인을 기록합니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L67-L88】
 
+
 ### `OrderExecutor.entry(signal)`
 `OrderExecutor.entry`는 위 결과를 받아 실제 매수 주문을 수행합니다. RiskManager에서 특정 심볼이 차단되었는지 확인한 후 `smart_buy`를 호출하여 주문을 시도합니다. 체결되면 `PositionManager.open_position`으로 포지션이 저장됩니다.
 【F:f3_order/order_executor.py†L48-L96】
