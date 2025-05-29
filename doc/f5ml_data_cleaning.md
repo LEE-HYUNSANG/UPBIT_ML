@@ -8,8 +8,9 @@
 ## 주요 기능
 - 폴더와 하위 폴더의 모든 CSV/XLSX/Parquet 파일을 자동 탐색합니다.
 - 동일 심볼의 여러 파일이 존재하면 하나로 병합해 저장합니다.
-- `ohlcv`를 기준으로 `ticker`/`trades`/`orderbook` 데이터를
-  타임스탬프가 1초 이내인 행과 병합합니다.
+- `ohlcv`를 기준으로 `ticker`와 `orderbook`은 가장 가까운 시각의 데이터를
+  선택해 병합합니다.
+- `trades` 데이터는 1분 단위로 가격 평균과 거래량 합계를 집계한 후 병합합니다.
 - 파일명에서 심볼을 추출해 `{symbol}_clean.parquet` 형식으로 저장합니다.
 - 업비트 원본 컬럼(`opening_price`, `high_price`, `low_price`, `trade_price`,
   `candle_acc_trade_volume`, `candle_date_time_utc`)을 각각 `open`, `high`, `low`,
