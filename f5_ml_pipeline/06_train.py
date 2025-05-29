@@ -76,11 +76,16 @@ def train_and_eval(symbol: str) -> None:
         n_estimators=params["n_estimators"],
         random_state=42,
     )
+    callbacks: list[lgb.callback.Callback] = []
+    early_stopping_rounds = params.get("early_stopping_rounds")
+    if early_stopping_rounds:
+        callbacks.append(lgb.early_stopping(early_stopping_rounds))
+
     model.fit(
         X_train,
         y_train,
         eval_set=[(X_valid, y_valid)],
-        early_stopping_rounds=params.get("early_stopping_rounds"),
+        callbacks=callbacks or None,
     )
 
     y_pred = model.predict(X_valid)
