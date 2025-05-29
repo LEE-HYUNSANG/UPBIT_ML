@@ -22,18 +22,8 @@ CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
     CONFIG = yaml.safe_load(f)
 
-# 최신 피처 리스트, 03_feature_engineering.py와 1:1로 일치해야 함
-FEATURES = [
-    "ema5", "ema8", "ema13", "ema20", "ema21", "ema5_ema20_diff", "ema8_ema21_diff",
-    "rsi7", "rsi14", "rsi21",
-    "atr7", "atr14",
-    "vol_ratio", "vol_ratio_5",
-    "stoch_k7", "stoch_k14",
-    "pct_change_1m", "pct_change_5m", "pct_change_10m",
-    "is_bull", "body_size", "body_pct", "hl_range", "oc_range",
-    "bb_upper", "bb_lower", "bb_width", "bb_dist",
-    "macd", "macd_signal", "macd_hist", "mfi14", "adx14"
-]
+# 학습 시 사용할 피처 목록은 데이터에 존재하는 컬럼에서 자동 추출한다.
+IGNORE_COLS = {"timestamp", "label"}
 
 def setup_logger() -> None:
     """로그 설정."""
@@ -65,18 +55,20 @@ def train_and_eval(symbol: str) -> None:
         logging.warning("%s 데이터 로드 실패: %s", symbol, exc)
         return
 
-    # 결측 피처 자동 보정 (새 컬럼 추가되었을 때 오류 방지)
-    for f in FEATURES:
-        for df in (train_df, valid_df):
+    # 학습 피처 자동 추출
+    features = [c for c in train_df.columns if c not in IGNORE_COLS]
+    for df in (train_df, valid_df):
+        for f in features:
             if f not in df.columns:
                 df[f] = 0
+        df.fillna(0, inplace=True)
 
     # ✅ 익절(1), 트레일링스탑(2)을 모두 성공(label=1)로 간주
     y_train = train_df["label"].isin([1, 2]).astype(int)
     y_valid = valid_df["label"].isin([1, 2]).astype(int)
 
-    X_train = train_df[FEATURES]
-    X_valid = valid_df[FEATURES]
+    X_train = train_df[features]
+    X_valid = valid_df[features]
 
     params = CONFIG["model"]
     model = lgb.LGBMClassifier(
