@@ -343,10 +343,13 @@ class PositionManager:
         cur = position.get("current_price")
         if cur is None:
             return
+        entry = position.get("entry_price")
+        if entry is None:
+            return
         max_price = position.get("max_price", cur)
         start_pct = self.config.get("TRAIL_START_PCT", 0.7)
         step_pct = self.config.get("TRAIL_STEP_PCT", 1.0)
-        gain_pct = (max_price - position["entry_price"]) / position["entry_price"] * 100
+        gain_pct = (max_price - entry) / entry * 100
         if gain_pct >= start_pct:
             drop = (max_price - cur) / max_price * 100
             if drop >= step_pct:
