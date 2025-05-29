@@ -8,6 +8,7 @@ from itertools import product
 
 import numpy as np
 import pandas as pd
+from numpy.lib.stride_tricks import sliding_window_view
 
 from utils import ensure_dir
 
@@ -50,24 +51,27 @@ def make_labels_basic(
         loss_pct = thresh_pct
 
     df = df.copy()
-    labels: list[int] = []
-    close = df["close"].values
-    high = df["high"].values
-    low = df["low"].values
+    close = df["close"].to_numpy()
+    high = df["high"].to_numpy()
+    low = df["low"].to_numpy()
+    n = len(df)
 
-    for i in range(len(df) - horizon):
-        entry = close[i]
-        max_high = high[i + 1 : i + 1 + horizon].max()
-        min_low = low[i + 1 : i + 1 + horizon].min()
-        if max_high >= entry * (1 + thresh_pct):
-            labels.append(1)
-        elif min_low <= entry * (1 - loss_pct):
-            labels.append(-1)
-        else:
-            labels.append(0)
-    labels.extend([0] * horizon)
+    labels = np.zeros(n, dtype=int)
+    if n <= horizon:
+        df["label"] = labels.tolist()
+        return df
 
-    df["label"] = labels
+    windows_high = sliding_window_view(high, horizon + 1)[:, 1:]
+    windows_low = sliding_window_view(low, horizon + 1)[:, 1:]
+    future_max_high = windows_high.max(axis=1)
+    future_min_low = windows_low.min(axis=1)
+
+    entry = close[:-horizon]
+    tp = future_max_high >= entry * (1 + thresh_pct)
+    sl = future_min_low <= entry * (1 - loss_pct)
+    labels[:-horizon] = np.where(tp, 1, np.where(sl, -1, 0))
+
+    df["label"] = labels.tolist()
     return df
 
 def make_labels_trailing(
@@ -81,45 +85,48 @@ def make_labels_trailing(
     """트레일링스탑 포함 초단타 라벨 생성 (익절=1, 손절=-1, 트레일=2, 관망=0)."""
     if trail_start_pct is None or trail_down_pct is None:
         return make_labels_basic(df, horizon, thresh_pct, loss_pct)
+
     df = df.copy()
-    labels: list[int] = []
-    close = df["close"].values
-    high = df["high"].values
-    low = df["low"].values
+    close = df["close"].to_numpy()
+    high = df["high"].to_numpy()
+    low = df["low"].to_numpy()
+    n = len(df)
 
-    for i in range(len(df) - horizon):
-        entry = close[i]
-        max_high = high[i + 1 : i + 1 + horizon].max()
-        min_low = low[i + 1 : i + 1 + horizon].min()
-        # (1) 익절
-        if max_high >= entry * (1 + thresh_pct):
-            labels.append(1)
-        # (2) 손절
-        elif min_low <= entry * (1 - loss_pct):
-            labels.append(-1)
-        else:
-            # (3) 트레일링스탑: 수익구간 진입 뒤 최고점 대비 하락
-            prices = close[i + 1 : i + 1 + horizon]
-            pct = (prices - entry) / entry
-            trail_trigger = np.where(pct >= trail_start_pct)[0]
-            if len(trail_trigger) > 0:
-                trail_idx = trail_trigger[0]
-                max_price = prices[trail_idx]
-                for j in range(trail_idx + 1, len(prices)):
-                    if prices[j] > max_price:
-                        max_price = prices[j]
-                    drawdown = (prices[j] - max_price) / max_price
-                    if drawdown <= -trail_down_pct:
-                        labels.append(2)  # ✅ 트레일링스탑은 2로 마킹!
-                        break
-                else:
-                    labels.append(0)  # 수익구간 진입했지만 트레일 미충족: 관망
-            else:
-                labels.append(0)      # 수익구간 미진입: 관망
-    for _ in range(horizon):
-        labels.append(0)
+    labels = np.zeros(n, dtype=int)
+    if n <= horizon:
+        df["label"] = labels.tolist()
+        return df
 
-    df["label"] = labels
+    win_high = sliding_window_view(high, horizon + 1)[:, 1:]
+    win_low = sliding_window_view(low, horizon + 1)[:, 1:]
+    future_high = win_high.max(axis=1)
+    future_low = win_low.min(axis=1)
+    win_close = sliding_window_view(close, horizon + 1)[:, 1:]
+    entry = close[:-horizon]
+
+    tp_mask = future_high >= entry * (1 + thresh_pct)
+    sl_mask = future_low <= entry * (1 - loss_pct)
+    labels[:-horizon][tp_mask] = 1
+    labels[:-horizon][~tp_mask & sl_mask] = -1
+
+    undecided = np.where(~tp_mask & ~sl_mask)[0]
+    for idx in undecided:
+        prices = win_close[idx]
+        ent = entry[idx]
+        pct = (prices - ent) / ent
+        trigger = np.where(pct >= trail_start_pct)[0]
+        if trigger.size:
+            t_idx = trigger[0]
+            max_price = prices[t_idx]
+            for p in prices[t_idx + 1 :]:
+                if p > max_price:
+                    max_price = p
+                drawdown = (p - max_price) / max_price
+                if drawdown <= -trail_down_pct:
+                    labels[idx] = 2
+                    break
+
+    df["label"] = labels.tolist()
     return df
 
 def to_py_types(obj):
