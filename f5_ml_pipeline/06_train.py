@@ -73,6 +73,14 @@ def train_and_eval(symbol: str) -> None:
     y_train = train_df["label"].isin([1, 2]).astype(int)
     y_valid = valid_df["label"].isin([1, 2]).astype(int)
 
+    if not features:
+        logging.warning("%s 학습 스킵: 사용 가능한 피처가 없습니다.", symbol)
+        return
+
+    if y_train.nunique() < 2:
+        logging.warning("%s 학습 스킵: 라벨이 한 종류뿐입니다.", symbol)
+        return
+
     X_train = train_df[features]
     X_valid = valid_df[features]
 

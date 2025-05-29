@@ -18,3 +18,6 @@ python f5_ml_pipeline/06_train.py
 모델 학습 파라미터는 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
 외부 패키지 없이 간단한 YAML 파서를 내장해 의존성을 최소화했으며
 `n_estimators`와 `early_stopping_rounds` 값 등을 바꿔 자유롭게 실험할 수 있습니다.
+
+학습 데이터가 한 종류의 라벨만 포함하거나 사용 가능한 피처가 없는 경우에는
+경고 메시지를 남기고 해당 심볼의 학습을 건너뜁니다.
