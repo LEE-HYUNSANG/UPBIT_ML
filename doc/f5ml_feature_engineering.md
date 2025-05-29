@@ -4,7 +4,7 @@
 `ml_data/03_feature/`에 저장합니다.
 
 데이터는 `open`, `high`, `low`, `close`, `volume`, `timestamp` 컬럼이 존재하는
-형태여야 합니다. 컬럼 표준화는 [02_data_cleaning.py](data_cleaning.md)에서
+형태여야 합니다. 컬럼 표준화는 [02_data_cleaning.py](f5ml_data_cleaning.md)에서
 처리됩니다.
 
 ## 추가되는 지표
