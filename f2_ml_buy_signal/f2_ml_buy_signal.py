@@ -32,19 +32,6 @@ def setup_logger() -> None:
         force=True,
     )
 
-LOG_PATH = Path("logs/f2_ml_buy_signal.log")
-
-
-def setup_logger() -> None:
-    """Configure basic logger."""
-    LOG_PATH.parent.mkdir(exist_ok=True)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F2] [%(levelname)s] %(message)s",
-        handlers=[logging.StreamHandler(), logging.FileHandler(LOG_PATH)],
-        force=True,
-    )
-
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
     """Fetch recent OHLCV data with retries."""
@@ -97,9 +84,9 @@ def _train_predict(df: pd.DataFrame) -> bool:
         return False
     X = train_df[features]
     y = train_df["label"]
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=200, solver="liblinear")
     model.fit(X, y)
-    last_row = df.iloc[-1][features].values.reshape(1, -1)
+    last_row = df.iloc[[-1]][features]
     prob = model.predict_proba(last_row)[0][1]
     return prob > 0.5
 
