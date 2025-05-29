@@ -14,5 +14,8 @@
 - `atr14`: 14분 평균진폭
 - `vol_ratio`: 최근 거래량 대비 비율
 - `stoch_k`: 스토캐스틱 %K (14, 3)
+- `macd`, `macd_signal`, `macd_hist`: MACD(12,26,9)
+- `mfi14`: 14분 자금 흐름 지수
+- `adx14`: 14분 ADX 추세 강도
 
 실행 후 각 심볼별 `{symbol}_feature.parquet` 파일이 생성됩니다.

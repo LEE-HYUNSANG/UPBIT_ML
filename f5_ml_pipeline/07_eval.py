@@ -33,7 +33,8 @@ FEATURES = [
     "stoch_k7", "stoch_k14",
     "pct_change_1m", "pct_change_5m", "pct_change_10m",
     "is_bull", "body_size", "body_pct", "hl_range", "oc_range",
-    "bb_upper", "bb_lower", "bb_width", "bb_dist"
+    "bb_upper", "bb_lower", "bb_width", "bb_dist",
+    "macd", "macd_signal", "macd_hist", "mfi14", "adx14"
 ]
 
 def setup_logger() -> None:

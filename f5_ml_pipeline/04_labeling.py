@@ -15,11 +15,11 @@ FEATURE_DIR = Path("ml_data/03_feature")
 LABEL_DIR = Path("ml_data/04_label")
 LOG_PATH = Path("logs/ml_label.log")
 
-THRESH_LIST      = [0.005, 0.006, 0.007, 0.008, 0.009, 0.01]    # 익절(%)
-LOSS_LIST        = [0.005, 0.006, 0.007, 0.008, 0.009, 0.01]    # 손절(%)
-HORIZON_LIST     = [3, 5, 7, 10]                                # 구간
-TRAIL_START_LIST = [None, 0.004, 0.005, 0.006, 0.007]           # 트레일링 시작(%)
-TRAIL_DOWN_LIST  = [None, 0.002, 0.003, 0.004, 0.005]           # 트레일링 하락(%)
+THRESH_LIST      = [0.005, 0.006, 0.007]    # 익절(%)
+LOSS_LIST        = [0.005, 0.006, 0.007]    # 손절(%)
+TRAIL_START_LIST = [None, 0.004]           # 트레일링 시작(%)
+TRAIL_DOWN_LIST  = [None, 0.002]           # 트레일링 하락(%)
+HORIZON          = 5                       # 구간 고정
 
 def setup_logger() -> None:
     """로그 설정."""
@@ -134,10 +134,10 @@ def to_py_types(obj):
 def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
     """트레일링 포함 파라미터 그리드 전체 실험, 최적 조합 자동 선정."""
     results = []
-    for thresh, loss, horizon, trail_start, trail_down in product(
-        THRESH_LIST, LOSS_LIST, HORIZON_LIST, TRAIL_START_LIST, TRAIL_DOWN_LIST
+    for thresh, loss, trail_start, trail_down in product(
+        THRESH_LIST, LOSS_LIST, TRAIL_START_LIST, TRAIL_DOWN_LIST
     ):
-        df_labeled = make_labels_trailing(df, horizon, thresh, loss, trail_start, trail_down)
+        df_labeled = make_labels_trailing(df, HORIZON, thresh, loss, trail_start, trail_down)
         n = len(df_labeled)
         n1 = (df_labeled["label"] == 1).sum()
         n2 = (df_labeled["label"] == 2).sum()
@@ -151,7 +151,6 @@ def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
             "symbol": symbol,
             "thresh_pct": thresh,
             "loss_pct": loss,
-            "horizon": horizon,
             "trail_start_pct": trail_start,
             "trail_down_pct": trail_down,
             "support": ratio_1,
@@ -165,12 +164,11 @@ def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
         ts_start = "None" if trail_start is None else f"{trail_start*100:.2f}%"
         ts_down = "None" if trail_down is None else f"{trail_down*100:.2f}%"
         logging.info(
-            "symbol=%s, TP=%.2f%%, SL=%.2f%%, H=%d, TRAIL=%s/%s | "
+            "symbol=%s, TP=%.2f%%, SL=%.2f%%, TRAIL=%s/%s | "
             "익절=%.2f%%(%d), 트레일=%.2f%%(%d), 손절=%.2f%%(%d), 관망=%.2f%%(%d), 전체row=%d",
             symbol,
             thresh * 100,
             loss * 100,
-            horizon,
             ts_start,
             ts_down,
             ratio_1 * 100,
@@ -204,7 +202,7 @@ def process_file(file: Path) -> None:
     best_params = optimize_labeling_trailing(df, symbol)
     df_best = make_labels_trailing(
         df,
-        horizon=best_params["horizon"],
+        horizon=HORIZON,
         thresh_pct=best_params["thresh_pct"],
         loss_pct=best_params["loss_pct"],
         trail_start_pct=best_params["trail_start_pct"],
