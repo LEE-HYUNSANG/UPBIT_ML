@@ -53,13 +53,21 @@ def train_and_eval(symbol: str) -> None:
         logging.warning("%s 데이터 로드 실패: %s", symbol, exc)
         return
 
-    # 학습 피처 자동 추출
-    features = [c for c in train_df.columns if c not in IGNORE_COLS]
+    # 학습 피처 자동 추출 - 숫자형 컬럼만 사용하도록 변환/필터링
+    for df in (train_df, valid_df):
+        for col in df.columns:
+            if df[col].dtype == "object":
+                converted = pd.to_numeric(df[col], errors="coerce")
+                if pd.api.types.is_numeric_dtype(converted):
+                    df[col] = converted
+        df.fillna(0, inplace=True)
+
+    numeric_cols = train_df.select_dtypes(include=["number", "bool"]).columns
+    features = [c for c in numeric_cols if c not in IGNORE_COLS]
     for df in (train_df, valid_df):
         for f in features:
             if f not in df.columns:
                 df[f] = 0
-        df.fillna(0, inplace=True)
 
     # ✅ 익절(1), 트레일링스탑(2)을 모두 성공(label=1)로 간주
     y_train = train_df["label"].isin([1, 2]).astype(int)
