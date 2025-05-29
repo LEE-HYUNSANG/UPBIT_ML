@@ -50,3 +50,36 @@ def test_select_strategies(tmp_path):
     assert len(strategies) == 1
     assert strategies[0]["symbol"] == "AAA"
     assert strategies[0]["params"] == {"p": 1}
+
+
+def test_main_writes_monitoring(tmp_path):
+    summary_dir = tmp_path / "09_backtest"
+    param_dir = tmp_path / "04_label"
+    out_dir = tmp_path / "10_selected"
+    conf_dir = tmp_path / "config"
+    summary_dir.mkdir()
+    param_dir.mkdir()
+    out_dir.mkdir()
+    conf_dir.mkdir()
+
+    sample_summary = {
+        "win_rate": 0.6,
+        "avg_roi": 0.003,
+        "sharpe": 1.3,
+        "mdd": -0.05,
+        "total_entries": 60,
+    }
+    (summary_dir / "AAA_summary.json").write_text(json.dumps(sample_summary))
+    (param_dir / "AAA_best_params.json").write_text(json.dumps({"p": 1}))
+
+    select_best.SUMMARY_DIR = summary_dir
+    select_best.PARAM_DIR = param_dir
+    select_best.OUT_DIR = out_dir
+    select_best.OUT_FILE = out_dir / "selected_strategies.json"
+    select_best.MONITORING_LIST_FILE = conf_dir / "coin_list_monitoring.json"
+    select_best.TOP_N = 1
+
+    select_best.main()
+
+    data = json.loads((conf_dir / "coin_list_monitoring.json").read_text())
+    assert data == ["AAA"]
