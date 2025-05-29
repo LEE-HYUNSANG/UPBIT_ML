@@ -30,6 +30,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "coin_list_data_collection.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
 LOG_PATH = Path("logs/data_collect.log")
+START_DELAY = 5  # seconds after each minute boundary
 
 
 def setup_logger() -> None:
@@ -191,10 +192,16 @@ def main() -> None:
 
     logging.info("Start data collection for %s", markets)
 
+    # Wait until 5 seconds after the next minute boundary
+    first_start = next_minute() + timedelta(seconds=START_DELAY)
+    wait = (first_start - datetime.utcnow()).total_seconds()
+    if wait > 0:
+        time.sleep(wait)
+
     while True:
         start = datetime.utcnow()
         collect_once(markets)
-        sleep_until = next_minute(start)
+        sleep_until = next_minute(start) + timedelta(seconds=START_DELAY)
         remaining = (sleep_until - datetime.utcnow()).total_seconds()
         if remaining > 0:
             time.sleep(remaining)
