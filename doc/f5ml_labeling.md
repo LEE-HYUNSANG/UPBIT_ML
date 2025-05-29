@@ -24,3 +24,7 @@ python f5_ml_pipeline/04_labeling.py
 ```
 
 실행 후 심볼별 `{symbol}_label.parquet` 파일이 생성됩니다.
+
+## 변경 사항
+버전 업데이트로 라벨 생성 로직이 NumPy의 `sliding_window_view`를 사용하도록 개선되어
+대량 데이터 처리 속도가 향상되었습니다.
