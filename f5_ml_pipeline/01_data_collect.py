@@ -22,7 +22,11 @@ from utils import ensure_dir
 
 BASE_URL = "https://api.upbit.com"
 DATA_ROOT = Path("ml_data/realtime")
-COIN_LIST_FILE = "config/coin_list_data_collection.json"
+
+# Use absolute path so the script works regardless of the current
+# working directory.
+ROOT_DIR = Path(__file__).resolve().parent.parent
+COIN_LIST_FILE = ROOT_DIR / "config" / "coin_list_data_collection.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
 LOG_PATH = Path("logs/data_collect.log")
 

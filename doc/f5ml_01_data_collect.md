@@ -14,3 +14,5 @@ OHLCV, 호가, 체결, 시세 데이터를 수집합니다. 결과 Parquet 파�
 ```bash
 python f5_ml_pipeline/01_data_collect.py
 ```
+스크립트는 파일 위치를 기준으로 코인 리스트를 찾으므로 실행 디렉터리에 상관없이
+동일하게 동작합니다.
