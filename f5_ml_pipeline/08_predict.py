@@ -53,9 +53,16 @@ def predict_signal(symbol: str) -> None:
     if features is None:
         features = [c for c in df.columns if c not in IGNORE_COLS]
 
+
     for f in features:
         if f not in df.columns:
             df[f] = 0
+
+    for col in df.columns:
+        if df[col].dtype == "object":
+            converted = pd.to_numeric(df[col], errors="coerce")
+            if pd.api.types.is_numeric_dtype(converted):
+                df[col] = converted
     df.fillna(0, inplace=True)
 
     X = df[features]
