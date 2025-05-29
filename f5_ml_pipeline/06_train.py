@@ -6,6 +6,7 @@ import json
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+import yaml
 
 import joblib
 import lightgbm as lgb
@@ -17,6 +18,9 @@ from utils import ensure_dir
 SPLIT_DIR = Path("ml_data/05_split")
 MODEL_DIR = Path("ml_data/06_models")
 LOG_PATH = Path("logs/ml_train.log")
+CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
+with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+    CONFIG = yaml.safe_load(f)
 
 # 학습 시 사용할 피처 목록은 데이터에 존재하는 컬럼에서 자동 추출한다.
 IGNORE_COLS = {"timestamp", "label"}
@@ -66,10 +70,20 @@ def train_and_eval(symbol: str) -> None:
     X_train = train_df[features]
     X_valid = valid_df[features]
 
-    model = lgb.LGBMClassifier(class_weight="balanced", n_estimators=200, random_state=42)
-    model.fit(X_train, y_train)
-    # 피처 목록을 모델에 저장해 평가/예측 단계에서 재사용
-    model.feature_names_in_ = features
+    params = CONFIG["model"]
+    model = lgb.LGBMClassifier(
+        class_weight="balanced",
+        learning_rate=params["learning_rate"],
+        num_leaves=params["num_leaves"],
+        n_estimators=params["n_estimators"],
+        random_state=42,
+    )
+    model.fit(
+        X_train,
+        y_train,
+        eval_set=[(X_valid, y_valid)],
+        early_stopping_rounds=params.get("early_stopping_rounds"),
+    )
 
     y_pred = model.predict(X_valid)
     y_prob = model.predict_proba(X_valid)[:, 1]
