@@ -24,18 +24,9 @@ MODEL_DIR = Path("ml_data/06_models")
 EVAL_DIR = Path("ml_data/07_eval")
 LOG_PATH = Path("logs/ml_eval.log")
 
-# 최신 확장 피처리스트 (03/06과 100% 동일)
-FEATURES = [
-    "ema5", "ema8", "ema13", "ema20", "ema21", "ema5_ema20_diff", "ema8_ema21_diff",
-    "rsi7", "rsi14", "rsi21",
-    "atr7", "atr14",
-    "vol_ratio", "vol_ratio_5",
-    "stoch_k7", "stoch_k14",
-    "pct_change_1m", "pct_change_5m", "pct_change_10m",
-    "is_bull", "body_size", "body_pct", "hl_range", "oc_range",
-    "bb_upper", "bb_lower", "bb_width", "bb_dist",
-    "macd", "macd_signal", "macd_hist", "mfi14", "adx14"
-]
+
+# 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.
+IGNORE_COLS = {"timestamp", "label"}
 
 def setup_logger() -> None:
     """로그 설정."""
@@ -67,12 +58,17 @@ def evaluate(symbol: str) -> None:
         logging.warning("%s 평가 로드 실패: %s", symbol, exc)
         return
 
-    # 결측 피처 자동 보정
-    for f in FEATURES:
+    # 모델이 학습에 사용한 피처 목록을 우선 사용하고, 없으면 데이터에서 추출
+    features = getattr(model, "feature_names_in_", None)
+    if features is None:
+        features = [c for c in test_df.columns if c not in IGNORE_COLS]
+
+    for f in features:
         if f not in test_df.columns:
             test_df[f] = 0
+    test_df.fillna(0, inplace=True)
 
-    X_test = test_df[FEATURES]
+    X_test = test_df[features]
     # ✅ label==1(익절) or label==2(트레일) 모두 성공(1)로 간주
     y_true = test_df["label"].isin([1, 2]).astype(int)
 
