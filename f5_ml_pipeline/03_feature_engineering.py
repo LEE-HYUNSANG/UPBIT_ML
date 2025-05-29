@@ -5,6 +5,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
+from indicators import macd, mfi, adx
 
 from utils import ensure_dir
 
@@ -106,6 +107,16 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["bb_lower"] = ma20 - 2 * std20
     df["bb_width"] = (df["bb_upper"] - df["bb_lower"]) / ma20
     df["bb_dist"] = (df["close"] - ma20) / std20
+
+    # MACD (12, 26, 9)
+    macd_line, macd_signal, macd_hist = macd(df["close"])
+    df["macd"] = macd_line
+    df["macd_signal"] = macd_signal
+    df["macd_hist"] = macd_hist
+
+    # MFI와 ADX
+    df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
+    df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
 
     # 결측치/이상치 대체
     df = df.drop(columns=["ma_vol5", "ma_vol20"], errors="ignore")
