@@ -5,6 +5,8 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
+import sys
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from indicators import macd, mfi, adx
 
 from utils import ensure_dir
