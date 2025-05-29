@@ -4,9 +4,12 @@ from __future__ import annotations
 
 import json
 import logging
+import sys
 import time
 from pathlib import Path
 from typing import List
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
