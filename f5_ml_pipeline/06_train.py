@@ -112,8 +112,12 @@ def train_and_eval(symbol: str) -> None:
         y_valid,
         y_pred,
         output_dict=True,
+        zero_division=0,
     )
-    metrics["auc"] = roc_auc_score(y_valid, y_prob)
+    try:
+        metrics["auc"] = roc_auc_score(y_valid, y_prob)
+    except ValueError:
+        metrics["auc"] = 0.0
     metrics["label_2_support"] = int((valid_df["label"] == 2).sum())
     metrics["label_1_support"] = int((valid_df["label"] == 1).sum())
     metrics["label_-1_support"] = int((valid_df["label"] == -1).sum())
