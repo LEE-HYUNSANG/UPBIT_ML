@@ -46,6 +46,7 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
     ts_down = params.get("trail_down_pct", 0)
 
     entry = df.iloc[start_idx].get("close", df.iloc[start_idx].get("close_pred"))
+
     tp_price = entry * (1 + tp_pct)
     sl_price = entry * (1 - sl_pct)
 
@@ -127,6 +128,7 @@ def process_symbol(symbol: str) -> None:
         pred_col = f"{col}_pred"
         if col not in df.columns and pred_col in df.columns:
             df.rename(columns={pred_col: col}, inplace=True)
+
     if df.empty:
         logging.warning("%s 정합성 문제: 병합 결과 0 rows", symbol)
         return
