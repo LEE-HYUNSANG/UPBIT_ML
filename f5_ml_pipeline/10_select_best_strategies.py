@@ -10,12 +10,14 @@ from pathlib import Path
 from utils import ensure_dir
 
 # 기본 경로 설정
-SUMMARY_DIR = Path("ml_data/09_backtest")
-PARAM_DIR = Path("ml_data/04_label")
-OUT_DIR = Path("ml_data/10_selected")
+ROOT_DIR = Path(__file__).resolve().parents[1]
+SUMMARY_DIR = ROOT_DIR / "ml_data/09_backtest"
+PARAM_DIR = ROOT_DIR / "ml_data/04_label"
+OUT_DIR = ROOT_DIR / "ml_data/10_selected"
 OUT_FILE = OUT_DIR / "selected_strategies.json"
-LOG_PATH = Path("logs/select_best_strategies.log")
-MONITORING_LIST_FILE = Path("config/coin_list_monitoring.json")
+LOG_PATH = ROOT_DIR / "logs/select_best_strategies.log"
+MONITORING_LIST_FILE = ROOT_DIR / "config/coin_list_monitoring.json"
+
 
 # ----- 확장 포인트: 성과 기준과 정렬 기준 -----
 MIN_WIN_RATE = 0.55      # 승률 55% 이상
@@ -99,6 +101,7 @@ def save_monitoring_list(symbols: list[str]) -> None:
     try:
         with open(MONITORING_LIST_FILE, "w", encoding="utf-8") as f:
             json.dump(symbols, f, ensure_ascii=False, indent=2)
+        logging.info("[SELECT] monitoring list updated: %s", MONITORING_LIST_FILE)
     except Exception as exc:  # pragma: no cover - best effort
         logging.error("monitoring list 저장 실패: %s", exc)
 

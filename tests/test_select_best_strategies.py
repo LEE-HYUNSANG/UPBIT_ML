@@ -77,9 +77,13 @@ def test_main_writes_monitoring(tmp_path):
     select_best.OUT_DIR = out_dir
     select_best.OUT_FILE = out_dir / "selected_strategies.json"
     select_best.MONITORING_LIST_FILE = conf_dir / "coin_list_monitoring.json"
+    select_best.LOG_PATH = tmp_path / "select.log"
     select_best.TOP_N = 1
 
     select_best.main()
 
     data = json.loads((conf_dir / "coin_list_monitoring.json").read_text())
     assert data == ["AAA"]
+
+    log_text = (tmp_path / "select.log").read_text()
+    assert "monitoring list updated" in log_text
