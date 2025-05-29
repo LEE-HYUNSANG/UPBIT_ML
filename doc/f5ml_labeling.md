@@ -10,6 +10,9 @@
 
 기본값은 `horizon=30`, `thresh_pct=0.003`(0.3%)입니다.
 
+트레일링 스탑을 비활성화하려면 `trail_start_pct` 또는 `trail_down_pct` 값을
+`None`으로 설정합니다. 이 경우 라벨링과 백테스트는 단순 TP/SL 규칙만 사용합니다.
+
 ## 실행 방법
 ```bash
 python f5_ml_pipeline/04_labeling.py

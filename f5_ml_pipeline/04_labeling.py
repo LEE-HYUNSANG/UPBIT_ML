@@ -18,8 +18,8 @@ LOG_PATH = Path("logs/ml_label.log")
 THRESH_LIST      = [0.005, 0.006, 0.007, 0.008, 0.009, 0.01]    # 익절(%)
 LOSS_LIST        = [0.005, 0.006, 0.007, 0.008, 0.009, 0.01]    # 손절(%)
 HORIZON_LIST     = [3, 5, 7, 10]                                # 구간
-TRAIL_START_LIST = [0.004, 0.005, 0.006, 0.007]                 # 트레일링 시작(%)
-TRAIL_DOWN_LIST  = [0.002, 0.003, 0.004, 0.005]                 # 트레일링 하락(%)
+TRAIL_START_LIST = [None, 0.004, 0.005, 0.006, 0.007]           # 트레일링 시작(%)
+TRAIL_DOWN_LIST  = [None, 0.002, 0.003, 0.004, 0.005]           # 트레일링 하락(%)
 
 def setup_logger() -> None:
     """로그 설정."""
@@ -39,6 +39,37 @@ def setup_logger() -> None:
         force=True,
     )
 
+def make_labels_basic(
+    df: pd.DataFrame,
+    horizon: int,
+    thresh_pct: float,
+    loss_pct: float | None = None,
+) -> pd.DataFrame:
+    """TP/SL만 고려한 라벨 생성 (익절=1, 손절=-1, 관망=0)."""
+    if loss_pct is None:
+        loss_pct = thresh_pct
+
+    df = df.copy()
+    labels: list[int] = []
+    close = df["close"].values
+    high = df["high"].values
+    low = df["low"].values
+
+    for i in range(len(df) - horizon):
+        entry = close[i]
+        max_high = high[i + 1 : i + 1 + horizon].max()
+        min_low = low[i + 1 : i + 1 + horizon].min()
+        if max_high >= entry * (1 + thresh_pct):
+            labels.append(1)
+        elif min_low <= entry * (1 - loss_pct):
+            labels.append(-1)
+        else:
+            labels.append(0)
+    labels.extend([0] * horizon)
+
+    df["label"] = labels
+    return df
+
 def make_labels_trailing(
     df: pd.DataFrame,
     horizon: int,
@@ -48,6 +79,8 @@ def make_labels_trailing(
     trail_down_pct: float,
 ) -> pd.DataFrame:
     """트레일링스탑 포함 초단타 라벨 생성 (익절=1, 손절=-1, 트레일=2, 관망=0)."""
+    if trail_start_pct is None or trail_down_pct is None:
+        return make_labels_basic(df, horizon, thresh_pct, loss_pct)
     df = df.copy()
     labels: list[int] = []
     close = df["close"].values
@@ -129,10 +162,26 @@ def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
             "label0_count": n0
         }
         # ✅ 익절/트레일/손절/관망 비율과 row 수 모두 로그 출력
+        ts_start = "None" if trail_start is None else f"{trail_start*100:.2f}%"
+        ts_down = "None" if trail_down is None else f"{trail_down*100:.2f}%"
         logging.info(
-            "symbol=%s, TP=%.2f%%, SL=%.2f%%, H=%d, TRAIL=%.2f/%.2f%% | 익절=%.2f%%(%d), 트레일=%.2f%%(%d), 손절=%.2f%%(%d), 관망=%.2f%%(%d), 전체row=%d",
-            symbol, thresh*100, loss*100, horizon, trail_start*100, trail_down*100,
-            ratio_1*100, n1, ratio_2*100, n2, ratio_m1*100, n_1, ratio_0*100, n0, n
+            "symbol=%s, TP=%.2f%%, SL=%.2f%%, H=%d, TRAIL=%s/%s | "
+            "익절=%.2f%%(%d), 트레일=%.2f%%(%d), 손절=%.2f%%(%d), 관망=%.2f%%(%d), 전체row=%d",
+            symbol,
+            thresh * 100,
+            loss * 100,
+            horizon,
+            ts_start,
+            ts_down,
+            ratio_1 * 100,
+            n1,
+            ratio_2 * 100,
+            n2,
+            ratio_m1 * 100,
+            n_1,
+            ratio_0 * 100,
+            n0,
+            n,
         )
         results.append(result)
     # 0.10~0.20 내에서 0.15에 가장 가까운 조합

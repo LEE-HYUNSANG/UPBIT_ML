@@ -42,8 +42,8 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
     """TP/SL/TS 중 먼저 충족되는 시점과 가격을 반환."""
     tp_pct = params.get("thresh_pct", 0)
     sl_pct = params.get("loss_pct", 0)
-    ts_start = params.get("trail_start_pct", 0)
-    ts_down = params.get("trail_down_pct", 0)
+    ts_start = params.get("trail_start_pct")
+    ts_down = params.get("trail_down_pct")
 
     entry = df.iloc[start_idx].get("close", df.iloc[start_idx].get("close_pred"))
 
@@ -65,15 +65,16 @@ def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, 
         if low <= sl_price:
             return i, sl_price, "SL"
 
-        roi = (close - entry) / entry
-        if not trail_active and roi >= ts_start:
-            trail_active = True
-            highest = close
-        elif trail_active:
-            if close > highest:
+        if ts_start is not None and ts_down is not None:
+            roi = (close - entry) / entry
+            if not trail_active and roi >= ts_start:
+                trail_active = True
                 highest = close
-            if (close - highest) / highest <= -ts_down:
-                return i, close, "TS"
+            elif trail_active:
+                if close > highest:
+                    highest = close
+                if (close - highest) / highest <= -ts_down:
+                    return i, close, "TS"
 
     final_close = df.iloc[-1].get("close", df.iloc[-1].get("close_pred"))
     return len(df) - 1, final_close, "FORCE"

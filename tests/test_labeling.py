@@ -32,5 +32,29 @@ def test_make_labels_basic():
             "volume": [1] * 6,
         }
     )
-    result = labeling.make_labels(df, horizon=2, thresh_pct=0.003)
+    result = labeling.make_labels_basic(df, horizon=2, thresh_pct=0.003)
     assert list(result["label"]) == [1, -1, 0, 0, 0, 0]
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_trailing_none_uses_basic():
+    df = pd.DataFrame(
+        {
+            "timestamp": pd.date_range("2021-01-01", periods=6, freq="T"),
+            "open": [100] * 6,
+            "high": [100.2, 100.2, 100.4, 100.1, 100.1, 100.1],
+            "low": [100, 99, 99.8, 99.9, 99.9, 99.9],
+            "close": [100] * 6,
+            "volume": [1] * 6,
+        }
+    )
+    res_trail = labeling.make_labels_trailing(
+        df,
+        horizon=2,
+        thresh_pct=0.003,
+        loss_pct=0.003,
+        trail_start_pct=None,
+        trail_down_pct=None,
+    )
+    res_basic = labeling.make_labels_basic(df, horizon=2, thresh_pct=0.003)
+    assert list(res_trail["label"]) == list(res_basic["label"])
