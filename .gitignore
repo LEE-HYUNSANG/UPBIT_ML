@@ -1,3 +1,9 @@
 __pycache__/
 logs/
 config/autotrade_status.json
+
+# Local credentials
+.env.json
+
+# Machine learning data
+f5_ml_pipeline/ml_data/
