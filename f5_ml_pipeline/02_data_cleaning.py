@@ -6,6 +6,27 @@ from pathlib import Path
 import pandas as pd
 from typing import List
 
+
+def _aggregate_trades(df: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate trade data by 1 minute using mean price and sum volume."""
+    if df.empty:
+        return df
+
+    df = df.copy()
+    df = df.sort_values("timestamp")
+    df = df.set_index("timestamp")
+
+    agg_map = {}
+    for col in df.columns:
+        if "price" in col:
+            agg_map[col] = "mean"
+        elif "volume" in col:
+            agg_map[col] = "sum"
+        else:
+            agg_map[col] = "last"
+
+    return df.resample("1min").agg(agg_map).reset_index()
+
 RAW_EXTS = {".csv", ".xlsx", ".xls", ".parquet"}
 
 from utils import ensure_dir
@@ -216,31 +237,57 @@ def _load_concat(files: List[Path], ohlcv: bool, prefix: str | None = None) -> p
     return _clean_df(df, logger, ohlcv=ohlcv, prefix=prefix)
 
 
-def _merge_data(base: pd.DataFrame, others: list[pd.DataFrame]) -> pd.DataFrame:
-    """Merge ``others`` into ``base`` on timestamp with 1 second tolerance."""
-    merged = base.sort_values("timestamp")
-    for df in others:
-        if df.empty:
+def _merge_data(
+    ohlcv_df: pd.DataFrame,
+    ticker_df: pd.DataFrame | None,
+    order_df: pd.DataFrame | None,
+    trades_df: pd.DataFrame | None,
+) -> pd.DataFrame:
+    """Merge ticker/orderbook with nearest timestamp and join aggregated trades."""
+
+    merged = ohlcv_df.sort_values("timestamp").reset_index(drop=True)
+
+    for df in [order_df, ticker_df]:
+        if df is None or df.empty:
             continue
         merged = pd.merge_asof(
             merged,
             df.sort_values("timestamp"),
             on="timestamp",
             direction="nearest",
-            tolerance=pd.Timedelta(seconds=1),
+            tolerance=pd.Timedelta(minutes=1),
         )
+
+    if trades_df is not None and not trades_df.empty:
+        merged = pd.merge(
+            merged,
+            trades_df.sort_values("timestamp"),
+            on="timestamp",
+            how="left",
+        )
+
     return merged
 
 
-def clean_one_file(input_path: Path, output_path: Path) -> None:
-    """Clean a single raw OHLCV file and save it as parquet."""
+def clean_one_file(input_path: Path, output_path: Path, ohlcv: bool = True) -> None:
+    """Clean a single raw file and save it as parquet.
+
+    Parameters
+    ----------
+    input_path:
+        Source file path.
+    output_path:
+        Destination parquet path.
+    ohlcv:
+        Whether the file contains OHLCV data. Non-OHLCV files skip resampling.
+    """
     logger = logging.getLogger(__name__)
     df = _load_raw_file(input_path)
     if df is None:
         return
 
     print(f"\n=== {input_path.name} ===")
-    df = _clean_df(df, logger)
+    df = _clean_df(df, logger, ohlcv=ohlcv)
     try:
         df.to_parquet(output_path, index=False)
         logger.info("Saved %s", output_path.name)
@@ -288,10 +335,11 @@ def clean_symbol(files_by_type: dict[str, List[Path]], output_dir: Path) -> None
         return
 
     ticker_df = _load_concat(files_by_type.get("ticker", []), False, "ticker")
-    trades_df = _load_concat(files_by_type.get("trades", []), False, "trade")
     order_df = _load_concat(files_by_type.get("orderbook", []), False, "orderbook")
+    trades_df = _load_concat(files_by_type.get("trades", []), False, "trade")
+    trades_df = _aggregate_trades(trades_df)
 
-    merged = _merge_data(ohlcv_df, [ticker_df, trades_df, order_df])
+    merged = _merge_data(ohlcv_df, ticker_df, order_df, trades_df)
 
     try:
         merged.to_parquet(output_path, index=False)
