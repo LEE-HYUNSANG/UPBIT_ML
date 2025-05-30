@@ -31,7 +31,7 @@ RAW_EXTS = {".csv", ".xlsx", ".xls", ".parquet"}
 
 from utils import ensure_dir
 
-TYPES = ["ohlcv", "ticker", "trades", "orderbook"]
+# Raw data now contains only OHLCV files directly under ``01_raw``
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 RAW_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
@@ -314,31 +314,27 @@ def clean_merge(files: List[Path], output_path: Path) -> None:
         logger.warning("Parquet 저장 실패 (%s), CSV 저장: %s", exc, csv_fallback.name)
 
 
-def clean_symbol(files_by_type: dict[str, List[Path]], output_dir: Path) -> None:
-    """Clean and merge data for a single symbol."""
-    symbol = Path(next(iter(files_by_type.values()))[0]).stem.split("_")[0]
+def clean_symbol(files: List[Path], output_dir: Path) -> None:
+    """Clean OHLCV files for a single symbol."""
+    if not files:
+        return
+
+    symbol = Path(files[0]).stem.split("_")[0]
     output_path = output_dir / f"{symbol}_clean.parquet"
 
     logger = logging.getLogger(__name__)
 
-    ohlcv_df = _load_concat(files_by_type.get("ohlcv", []), True)
+    ohlcv_df = _load_concat(files, True)
     if ohlcv_df.empty:
         logger.warning("%s: OHLCV 파일 없음", symbol)
         return
 
-    ticker_df = _load_concat(files_by_type.get("ticker", []), False, "ticker")
-    order_df = _load_concat(files_by_type.get("orderbook", []), False, "orderbook")
-    trades_df = _load_concat(files_by_type.get("trades", []), False, "trade")
-    trades_df = _aggregate_trades(trades_df)
-
-    merged = _merge_data(ohlcv_df, ticker_df, order_df, trades_df)
-
     try:
-        merged.to_parquet(output_path, index=False)
+        ohlcv_df.to_parquet(output_path, index=False)
         logger.info("Saved %s", output_path.name)
     except Exception as exc:  # pragma: no cover - best effort
         csv_fallback = output_path.with_suffix(".csv")
-        merged.to_csv(csv_fallback, index=False)
+        ohlcv_df.to_csv(csv_fallback, index=False)
         logger.warning("Parquet 저장 실패 (%s), CSV 저장: %s", exc, csv_fallback.name)
 
 def main() -> None:
@@ -347,20 +343,15 @@ def main() -> None:
     ensure_dir(CLEAN_DIR)
     setup_logger()
 
-    file_map: dict[str, dict[str, List[Path]]] = {}
-    for t in TYPES:
-        t_dir = RAW_DIR / t
-        if not t_dir.exists():
+    file_map: dict[str, List[Path]] = {}
+    for file in RAW_DIR.rglob("*"):
+        if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
             continue
-        for file in t_dir.rglob("*"):
+        symbol = file.stem.split("_")[0]
+        file_map.setdefault(symbol, []).append(file)
 
-            if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
-                continue
-            symbol = file.stem.split("_")[0]
-            file_map.setdefault(symbol, {}).setdefault(t, []).append(file)
-
-    for files_by_type in file_map.values():
-        clean_symbol(files_by_type, CLEAN_DIR)
+    for files in file_map.values():
+        clean_symbol(files, CLEAN_DIR)
 
 
 if __name__ == "__main__":

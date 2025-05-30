@@ -1,8 +1,8 @@
 """Real-time Upbit data collector.
 
 이 스크립트는 ``f1_f5_data_collection_list.json``에 지정된 코인에 대해 매 1분
-단위로 OHLCV, 호가, 체결, 시세 데이터를 수집합니다. 수집된 데이터는
-``ml_data/01_raw/<type>/`` 폴더 아래에 코인별 Parquet 파일로 저장됩니다.
+단위로 **OHLCV** 데이터만 수집합니다. 결과 파일은
+``ml_data/01_raw/`` 폴더에 코인별 Parquet 형식으로 저장됩니다.
 """
 
 from __future__ import annotations
@@ -90,22 +90,8 @@ def get_ohlcv(market: str) -> List[Dict]:
     return _request_json(url, params={"market": market, "count": 1})
 
 
-def get_orderbook(market: str) -> List[Dict]:
-    """Fetch current orderbook."""
-    url = f"{BASE_URL}/v1/orderbook"
-    return _request_json(url, params={"markets": market})
-
-
-def get_trades(market: str) -> List[Dict]:
-    """Fetch latest trades."""
-    url = f"{BASE_URL}/v1/trades/ticks"
-    return _request_json(url, params={"market": market, "count": 50})
-
-
-def get_ticker(market: str) -> List[Dict]:
-    """Fetch current ticker info."""
-    url = f"{BASE_URL}/v1/ticker"
-    return _request_json(url, params={"markets": market})
+# Only OHLCV is collected. The helper functions for orderbook, trades and ticker
+# have been removed to keep the collector focused on minute candles.
 
 
 def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
@@ -122,10 +108,10 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
     return None
 
 
-def save_data(df: pd.DataFrame, data_type: str, market: str, ts: datetime) -> None:
-    """Append ``df`` to Parquet file under ``data_type`` directory."""
+def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
+    """Append ``df`` to ``DATA_ROOT`` directory."""
     date_str = ts.strftime("%Y%m%d")
-    dir_path = ensure_dir(DATA_ROOT / data_type)
+    dir_path = ensure_dir(DATA_ROOT)
     file_path = dir_path / f"{market}_{date_str}.parquet"
 
     if file_path.exists():
@@ -156,22 +142,7 @@ def collect_once(markets: Iterable[str]) -> None:
         try:
             ohlcv = get_ohlcv(market)
             if ohlcv:
-                save_data(pd.DataFrame(ohlcv), "ohlcv", market, ts)
-            time.sleep(REQUEST_DELAY)
-
-            orderbook = get_orderbook(market)
-            if orderbook:
-                save_data(pd.DataFrame(orderbook), "orderbook", market, ts)
-            time.sleep(REQUEST_DELAY)
-
-            trades = get_trades(market)
-            if trades:
-                save_data(pd.DataFrame(trades), "trades", market, ts)
-            time.sleep(REQUEST_DELAY)
-
-            ticker = get_ticker(market)
-            if ticker:
-                save_data(pd.DataFrame(ticker), "ticker", market, ts)
+                save_data(pd.DataFrame(ohlcv), market, ts)
             time.sleep(REQUEST_DELAY)
         except Exception as exc:  # pragma: no cover - best effort
             logging.error("Collect error %s: %s", market, exc)

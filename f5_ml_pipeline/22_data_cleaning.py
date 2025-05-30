@@ -36,8 +36,7 @@ RAW_EXTS = {".csv", ".xlsx", ".xls", ".parquet"}
 
 from utils import ensure_dir
 
-# Only handle OHLCV files for comparison with the full pipeline
-TYPES = ["ohlcv"]
+# Raw files are stored directly under ``01_raw`` and contain only OHLCV data.
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 RAW_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
@@ -320,9 +319,8 @@ def clean_merge(files: List[Path], output_path: Path) -> None:
         logger.warning("Parquet 저장 실패 (%s), CSV 저장: %s", exc, csv_fallback.name)
 
 
-def clean_symbol(files_by_type: dict[str, List[Path]], output_dir: Path) -> None:
+def clean_symbol(files: List[Path], output_dir: Path) -> None:
     """Clean OHLCV files for a single symbol."""
-    files = files_by_type.get("ohlcv", [])
     if not files:
         return
 
@@ -350,20 +348,15 @@ def main() -> None:
     ensure_dir(CLEAN_DIR)
     setup_logger()
 
-    file_map: dict[str, dict[str, List[Path]]] = {}
-    for t in TYPES:
-        t_dir = RAW_DIR / t
-        if not t_dir.exists():
+    file_map: dict[str, List[Path]] = {}
+    for file in RAW_DIR.rglob("*"):
+        if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
             continue
-        for file in t_dir.rglob("*"):
+        symbol = file.stem.split("_")[0]
+        file_map.setdefault(symbol, []).append(file)
 
-            if not file.is_file() or file.suffix.lower() not in RAW_EXTS:
-                continue
-            symbol = file.stem.split("_")[0]
-            file_map.setdefault(symbol, {}).setdefault(t, []).append(file)
-
-    for files_by_type in file_map.values():
-        clean_symbol(files_by_type, CLEAN_DIR)
+    for files in file_map.values():
+        clean_symbol(files, CLEAN_DIR)
 
 
 if __name__ == "__main__":
