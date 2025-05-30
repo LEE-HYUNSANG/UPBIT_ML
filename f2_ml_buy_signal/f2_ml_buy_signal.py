@@ -41,6 +41,7 @@ CONFIG_DIR = PROJECT_ROOT / "config"
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
     """Fetch recent OHLCV data with retries."""
+    logging.info("[FETCH] %s count=%d", symbol, count)
     try:
         import pyupbit  # type: ignore
     except Exception:
@@ -51,9 +52,11 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
             df = pyupbit.get_ohlcv(symbol, interval="minute1", count=count)
             if df is not None:
                 df = df.reset_index().rename(columns={"index": "timestamp"})
+                logging.info("[FETCH] %s rows=%d", symbol, len(df))
                 return df
         except Exception:
             time.sleep(0.2)
+    logging.warning("[FETCH] %s failed", symbol)
     return pd.DataFrame()
 
 
@@ -94,39 +97,46 @@ def _train_predict(df: pd.DataFrame) -> bool:
     model.fit(X, y)
     last_row = df.iloc[[-1]][features]
     prob = model.predict_proba(last_row)[0][1]
+    logging.info("[PREDICT] prob=%.4f", prob)
     return prob > 0.5
 
 
 def check_buy_signal(symbol: str) -> bool:
     df = fetch_ohlcv(symbol)
     if df.empty or len(df) < 30:
+        logging.info("[CHECK] %s insufficient data", symbol)
         return False
     df = _clean_df(df)
     df = _add_features(df)
     df = _label(df)
     if df.empty:
+        logging.info("[CHECK] %s no labeled rows", symbol)
         return False
     return _train_predict(df)
 
 
 def check_buy_signal_df(df: pd.DataFrame) -> bool:
     if df.empty or len(df) < 30:
+        logging.info("[CHECK_DF] insufficient rows")
         return False
     df = _clean_df(df)
     df = _add_features(df)
     df = _label(df)
     if df.empty:
+        logging.info("[CHECK_DF] no labeled rows")
         return False
     return _train_predict(df)
 
 
 def run() -> List[str]:
+    logging.info("[RUN] starting buy signal scan")
     try:
         with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
     except Exception:
         coins = []
-
+    
+    logging.info("[RUN] coins=%s", coins)
     results = []
     for sym in coins:
         buy = check_buy_signal(sym)
@@ -137,6 +147,7 @@ def run() -> List[str]:
     with open(CONFIG_DIR / "coin_realtime_buy_list.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
+    logging.info("[RUN] finished. %d coins to buy", len(results))
     return results
 
 
