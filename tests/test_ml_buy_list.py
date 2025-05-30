@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 class Dummy:
     def __init__(self, result):
         self.result = result
+
     def __call__(self, symbol):
         return self.result
 
@@ -22,15 +23,7 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
             {"symbol": "KRW-BBB", "thresh_pct": 0.01, "loss_pct": 0.02},
         ])
     )
-    (cfg / "f2_f2_realtime_buy_list.json").write_text(json.dumps({"KRW-AAA": 1}))
-    (cfg / "f2_f2_realtime_sell_list.json").write_text(json.dumps({"KRW-AAA": {"SL_PCT": 1}}))
-    (cfg / "f4_f2_risk_settings.json").write_text(json.dumps({
-        "SL_PCT": 1.0,
-        "TP_PCT": 2.0,
-        "TRAILING_STOP_ENABLED": True,
-        "TRAIL_START_PCT": 0.5,
-        "TRAIL_STEP_PCT": 1.0
-    }))
+    (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
 
     # Stub optional dependencies before importing module
     pandas_stub = types.ModuleType("pandas")
@@ -55,14 +48,12 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     from f2_ml_buy_signal import f2_ml_buy_signal as ml
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
-    monkeypatch.setattr(ml, "check_buy_signal", Dummy(True))
+    monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
 
     result = ml.run()
     buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
-    sell = json.loads((cfg / "f2_f2_realtime_sell_list.json").read_text())
 
-    assert "KRW-BBB" in buy and buy["KRW-BBB"] == 0
-    assert "KRW-BBB" in sell
+    assert any(b["symbol"] == "KRW-BBB" for b in buy)
     assert result == ["KRW-AAA", "KRW-BBB"]
 
 

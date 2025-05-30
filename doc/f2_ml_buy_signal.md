@@ -18,13 +18,21 @@ OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실�
 
 ### `run()`
 1. 파일에서 심볼 목록을 읽어 `check_buy_signal()`을 순회합니다.
-2. 매수 후보가 발견되면 `config/f2_f2_realtime_buy_list.json`과 `config/f2_f2_realtime_sell_list.json`을 갱신합니다.
+2. 매수 후보가 발견되면 다음과 같은 구조의 리스트를 `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+
+   ```json
+   [
+       {"symbol": "KRW-BTC", "buy_signal": 1, "rsi_sel": 1, "trend_sel": 1,
+        "thresh_pct": 0.003, "loss_pct": 0.003}
+   ]
+   ```
+
 3. 결과와 과정을 모두 `logs/f2_ml_buy_signal.log`에 기록합니다.
 
 ### `check_buy_signal(symbol)`
-1. `pyupbit`을 이용해 최근 60개 1분봉을 가져옵니다. 요청 실패 시 0.2초 간격으로 3회 재시도합니다.
-2. 데이터를 정제하고 지표를 계산해 라벨링을 수행합니다.
-3. 간단한 로지스틱 회귀 모델을 학습해 바로 예측을 수행하며 확률이 0.5 이상이면 `True`를 반환합니다.
+1. F5 파이프라인의 `01_data_collect.py`부터 `06_train.py`까지를 순차 실행해 최신 데이터를 학습합니다.
+2. `08_predict.py`로 가장 최근 1분봉의 예측 결과를 얻습니다.
+3. 예측 값이 1이고 `f2_buy_indicator`의 RSI/추세 조건을 만족하면 `(True, True, True)`를 반환합니다.
 
 ## 동작 순서
 
