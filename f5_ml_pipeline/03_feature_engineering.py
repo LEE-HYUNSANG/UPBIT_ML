@@ -50,26 +50,26 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # EMA 및 장기선
     df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
-    ##df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
-    ##df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
+    df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
+    df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
     df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
-    ##df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
-    ##df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
-    ##df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
+    df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
+    df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
+    df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
 
     # SMA
     df["sma5"] = df["close"].rolling(window=5).mean()
-    ##df["sma20"] = df["close"].rolling(window=20).mean()
+    df["sma20"] = df["close"].rolling(window=20).mean()
 
     # EMA 차이
     df["ema5_ema20_diff"] = df["ema5"] - df["ema20"]
-    ##df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
-    ##df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
-    ##df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
+    df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
+    df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
+    df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
 
     # EMA 골든/데드크로스 flag
     df["ema_gc"] = ((df["ema5"].shift(1) < df["ema20"].shift(1)) & (df["ema5"] > df["ema20"])).astype(int)
-    ##df["ema_dc"] = ((df["ema5"].shift(1) > df["ema20"].shift(1)) & (df["ema5"] < df["ema20"])).astype(int)
+    df["ema_dc"] = ((df["ema5"].shift(1) > df["ema20"].shift(1)) & (df["ema5"] < df["ema20"])).astype(int)
 
     # RSI
     for w in [7, 14, 21]:
@@ -96,7 +96,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["ma_vol5"] = df["volume"].rolling(5).mean()
     df["ma_vol20"] = df["volume"].rolling(20).mean()
     df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
-    ## df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
+    df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
     df["vol_chg"] = df["volume"].pct_change().fillna(0)
 
     # 스토캐스틱
@@ -157,18 +157,18 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["macd_hist"] = macd_hist
 
     # MFI와 ADX
-    ##df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
-    ##df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
+    df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
+    df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
 
     # MOM/ROC(10)
-    ##df["mom10"] = df["close"] - df["close"].shift(10)
-    ##df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
+    df["mom10"] = df["close"] - df["close"].shift(10)
+    df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
 
     # CCI(14)
-    ##tp = (df["high"] + df["low"] + df["close"]) / 3
-    ##sma_tp = tp.rolling(14).mean()
-    ##mean_dev = (tp - sma_tp).abs().rolling(14).mean()
-    ##df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
+    tp = (df["high"] + df["low"] + df["close"]) / 3
+    sma_tp = tp.rolling(14).mean()
+    mean_dev = (tp - sma_tp).abs().rolling(14).mean()
+    df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
 
     # VWAP
     try:
@@ -177,8 +177,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df["vwap"] = pd.NA
 
     # OBV
-    ##direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
-    ##df["obv"] = direction.cumsum().fillna(0)
+    direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
+    df["obv"] = direction.cumsum().fillna(0)
 
     # 변동성 지표 및 이상값 탐지
     df["return"] = df["close"].pct_change()
@@ -202,42 +202,42 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         day_close = tmp["close"].resample("1D").last().reindex(ts, method="ffill")
         df["d_close"] = day_close.values
 
-    # 거래대금/체결/호가 관련 피처(데이터 없을 시 NA)
-    if {"candle_acc_trade_price", "market_cap"}.issubset(df.columns):
-        df["turnover"] = df["candle_acc_trade_price"] / df["market_cap"]
-    else:
-        df["turnover"] = pd.NA
+    # 거래대금/체결/호가 관련 피처(1분봉 데이터만으로 계산 불가)
+    # if {"candle_acc_trade_price", "market_cap"}.issubset(df.columns):
+    #     df["turnover"] = df["candle_acc_trade_price"] / df["market_cap"]
+    # else:
+    #     df["turnover"] = pd.NA
 
-    if {"ask_size", "bid_size"}.issubset(df.columns):
-        total = df["ask_size"] + df["bid_size"]
-        df["orderbook_ratio"] = df["bid_size"] / total.replace(0, pd.NA)
-    else:
-        df["orderbook_ratio"] = pd.NA
+    # if {"ask_size", "bid_size"}.issubset(df.columns):
+    #     total = df["ask_size"] + df["bid_size"]
+    #     df["orderbook_ratio"] = df["bid_size"] / total.replace(0, pd.NA)
+    # else:
+    #     df["orderbook_ratio"] = pd.NA
 
-    if "acc_trade_price_24h" in df.columns:
-        df["acc_trade_price_24h"] = df["acc_trade_price_24h"]
-    else:
-        df["acc_trade_price_24h"] = pd.NA
+    # if "acc_trade_price_24h" in df.columns:
+    #     df["acc_trade_price_24h"] = df["acc_trade_price_24h"]
+    # else:
+    #     df["acc_trade_price_24h"] = pd.NA
 
-    if "acc_trade_volume_24h" in df.columns:
-        df["acc_trade_volume_24h"] = df["acc_trade_volume_24h"]
-    else:
-        df["acc_trade_volume_24h"] = pd.NA
+    # if "acc_trade_volume_24h" in df.columns:
+    #     df["acc_trade_volume_24h"] = df["acc_trade_volume_24h"]
+    # else:
+    #     df["acc_trade_volume_24h"] = pd.NA
 
-    if "signed_change_rate" in df.columns:
-        df["change_rate"] = df["signed_change_rate"]
-    else:
-        df["change_rate"] = pd.NA
+    # if "signed_change_rate" in df.columns:
+    #     df["change_rate"] = df["signed_change_rate"]
+    # else:
+    #     df["change_rate"] = pd.NA
 
-    for col in [
-        "trade_strength",
-        "large_trade",
-        "trade_freq",
-        "trade_dominance",
-        "spread",
-    ]:
-        if col not in df.columns:
-            df[col] = pd.NA
+    # for col in [
+    #     "trade_strength",
+    #     "large_trade",
+    #     "trade_freq",
+    #     "trade_dominance",
+    #     "spread",
+    # ]:
+    #     if col not in df.columns:
+    #         df[col] = pd.NA
 
     # === 시간 피처 (단타/ML 특화) ===
     # Datetime 인덱스가 없는 경우, candle_date_time_kst 등에서 추출 권장
