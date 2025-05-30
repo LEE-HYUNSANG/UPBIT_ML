@@ -27,6 +27,8 @@ OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실�
    ]
    ```
 
+   실행 결과가 없더라도 파일은 매 실행마다 덮어쓰기 때문에,
+   신호가 없으면 빈 배열이 저장됩니다.
 3. 결과와 과정을 모두 `logs/f2_ml_buy_signal.log`에 기록합니다.
 
 ### `check_buy_signal(symbol)`
@@ -38,7 +40,8 @@ OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실�
 
 1. `signal_loop.py` 혹은 상위 스케줄러가 1분봉 종료 시 `run_if_monitoring_list_exists()`를 호출합니다.
 2. 스크립트는 `f5_f1_monitoring_list.json`이 존재할 때만 각 코인의 매수 신호를 판별합니다.
-3. 매수 신호가 `True`로 판단되면 해당 코인이 실시간 매수 리스트에 추가되고, 매도 기준은 `f4_f2_risk_settings.json`에서 가져와 `f2_f2_realtime_sell_list.json`에 함께 기록됩니다.
+3. 매수 신호가 `True`로 판단되면 해당 코인이 실시간 매수 리스트에 추가됩니다. 이때 `thresh_pct`와 `loss_pct` 값은
+   `f5_f1_monitoring_list.json`에서 불러온 값을 그대로 기록합니다.
 4. 모든 로그와 저장 위치는 `logs/f2_ml_buy_signal.log` 파일에서 확인할 수 있습니다.
 
 `f2_ml_buy_signal.py`를 통해 실시간으로 간단한 모델 학습과 예측을 반복하므로, 별도의 대용량 데이터 없이도 빠르게 매수 후보를 판단할 수 있습니다.

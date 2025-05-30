@@ -32,8 +32,8 @@ conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
 Stores stop-loss and take-profit settings for each symbol detected by **F2**.
 
 ## f4_f2_risk_settings.json
-Simplified risk parameters (stop percentages, trailing stop etc.) referenced by **F2**
-when generating the real‑time sell list.
+Legacy risk parameters (stop percentages, trailing stop etc.). F2는 이제 `f5_f1_monitoring_list.json`에서
+`thresh_pct`와 `loss_pct` 값을 읽어 오므로 이 파일은 참고용으로만 유지됩니다.
 
 ## f3_f3_order_config.json
 Order execution defaults such as retry counts and quantity settings. Used only by **F3**.

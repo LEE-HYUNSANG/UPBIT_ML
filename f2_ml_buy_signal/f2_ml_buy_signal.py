@@ -332,11 +332,11 @@ def run() -> List[str]:
                 "loss_pct": loss,
             })
 
+    _save_json(buy_list_path, updated)
     if updated:
-        _save_json(buy_list_path, updated)
         logging.info("[RUN] saved buy_list=%s", updated)
     else:
-        logging.info("[RUN] no buy candidates")
+        logging.info("[RUN] cleared buy_list")
     logging.info("[RUN] finished. %d coins to buy", len(results))
     return results
 
