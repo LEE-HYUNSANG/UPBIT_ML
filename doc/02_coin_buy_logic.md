@@ -21,7 +21,7 @@
     "sell_triggers": []
 }
 ```
-매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상 코인을 기록합니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L117-L135】
+매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상을 `{심볼: 0}` 형식으로 추가합니다. 동일 심볼이 이미 존재하면 값은 유지됩니다. 아울러 손절/익절/트레일링 스탑 설정은 `coin_realtime_sell_list.json`에 함께 저장됩니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L221-L259】
 
 
 ### `OrderExecutor.entry(signal)`
