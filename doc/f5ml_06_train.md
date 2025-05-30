@@ -15,6 +15,10 @@ LightGBM 분류 모델을 학습하고 `ml_data/06_models/`에 저장합니다.
 python f5_ml_pipeline/06_train.py
 ```
 
+모델과 로그 파일 위치는 스크립트 기준으로 결정되므로, 어디서 실행하더라도
+`ml_data/05_split/`에서 학습 데이터를 읽고 `ml_data/06_models/`에 결과를 저장합
+니다.
+
 모델 학습 파라미터는 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
 외부 패키지 없이 간단한 YAML 파서를 내장해 의존성을 최소화했으며
 `n_estimators`와 `early_stopping_rounds` 값 등을 바꿔 자유롭게 실험할 수 있습니다.

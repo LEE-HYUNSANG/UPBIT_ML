@@ -220,6 +220,8 @@ def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
 
 def run() -> List[str]:
     logging.info("[RUN] starting buy signal scan")
+    logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
+    logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
     try:
         with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)

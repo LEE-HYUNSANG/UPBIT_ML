@@ -9,3 +9,6 @@
 ```bash
 python f5_ml_pipeline/05_split.py
 ```
+
+경로는 스크립트 위치를 기준으로 계산되므로 현재 작업 디렉터리와 상관없이
+동일한 폴더 구조(`ml_data/04_label/`, `ml_data/05_split/`)에 결과가 저장됩니다.
