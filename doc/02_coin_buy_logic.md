@@ -61,3 +61,17 @@
 
 위 절차를 통해 시스템은 모니터링 목록에 있는 코인을 실시간으로 살펴보고
 매수 조건이 충족되면 자동으로 주문을 진행합니다.
+
+## 실시간 매수 리스트 활용
+
+`f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`을 그대로
+사용해 주문을 실행하려면 `f2_signal.buy_list_executor.execute_buy_list()` 함수를
+호출하면 됩니다. 이 함수는 리스트에서 `"buy_signal": 1`인 항목을 골라 현재
+가격을 조회한 뒤 `OrderExecutor.entry()`로 전달합니다.
+
+```python
+from f2_signal.buy_list_executor import execute_buy_list
+execute_buy_list()
+```
+
+모듈을 스크립트로 실행하면 자동으로 위 과정을 수행합니다.
