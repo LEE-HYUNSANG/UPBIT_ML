@@ -5,6 +5,8 @@ from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag
+import json
+from pathlib import Path
 
 logger = logging.getLogger("F3_order_executor")
 fh = RotatingFileHandler(
@@ -45,6 +47,50 @@ class OrderExecutor:
         if entry_size is not None:
             self.config["ENTRY_SIZE_INITIAL"] = entry_size
 
+    def _update_realtime_sell_list(self, symbol: str) -> None:
+        """Add TP/SL info for *symbol* to the realtime sell list."""
+        sell_path = Path("config") / "f2_f2_realtime_sell_list.json"
+        mon_path = Path("config") / "f5_f1_monitoring_list.json"
+
+        try:
+            with open(sell_path, "r", encoding="utf-8") as f:
+                sell_data = json.load(f)
+            if not isinstance(sell_data, dict):
+                sell_data = {}
+        except Exception:
+            sell_data = {}
+
+        if symbol in sell_data:
+            return
+
+        try:
+            with open(mon_path, "r", encoding="utf-8") as f:
+                mon_list = json.load(f)
+        except Exception:
+            return
+
+        thresh = None
+        loss = None
+        if isinstance(mon_list, list):
+            for item in mon_list:
+                if isinstance(item, dict) and item.get("symbol") == symbol:
+                    thresh = item.get("thresh_pct")
+                    loss = item.get("loss_pct")
+                    break
+        if thresh is None or loss is None:
+            return
+
+        sell_data[symbol] = {
+            "TP_PCT": float(thresh) * 100,
+            "SL_PCT": float(loss) * 100,
+        }
+
+        try:
+            with open(sell_path, "w", encoding="utf-8") as f:
+                json.dump(sell_data, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
@@ -74,6 +120,7 @@ class OrderExecutor:
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result)
+                    self._update_realtime_sell_list(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
                     msg = (
                         f"BUY {order_result['symbol']} {order_result.get('qty')}"
