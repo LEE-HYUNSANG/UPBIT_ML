@@ -16,7 +16,12 @@ class Dummy:
 
 def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     cfg = tmp_path
-    (cfg / "f5_f1_monitoring_list.json").write_text(json.dumps(["KRW-AAA", "KRW-BBB"]))
+    (cfg / "f5_f1_monitoring_list.json").write_text(
+        json.dumps([
+            {"symbol": "KRW-AAA", "thresh_pct": 0.01, "loss_pct": 0.02},
+            {"symbol": "KRW-BBB", "thresh_pct": 0.01, "loss_pct": 0.02},
+        ])
+    )
     (cfg / "f2_f2_realtime_buy_list.json").write_text(json.dumps({"KRW-AAA": 1}))
     (cfg / "f2_f2_realtime_sell_list.json").write_text(json.dumps({"KRW-AAA": {"SL_PCT": 1}}))
     (cfg / "f4_f2_risk_settings.json").write_text(json.dumps({

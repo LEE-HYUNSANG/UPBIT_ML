@@ -8,7 +8,8 @@ The descriptions below are written for planners who may be new to the project.
 Basic price and volume filters used by the **F1** module when selecting tradable coins.
 
 ## f5_f1_monitoring_list.json
-List of coins selected by the **F5** machine learning pipeline. The **F1** and **F2** modules
+List of coins selected by the **F5** machine learning pipeline. Each entry includes
+`symbol`, `thresh_pct` and `loss_pct`. The **F1** and **F2** modules
 load this file to know which coins should be monitored in real time.
 
 ## f1_f5_data_collection_list.json

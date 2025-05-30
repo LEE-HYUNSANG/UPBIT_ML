@@ -224,7 +224,18 @@ def run() -> List[str]:
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
     try:
         with open(CONFIG_DIR / "f5_f1_monitoring_list.json", "r", encoding="utf-8") as f:
-            coins = json.load(f)
+            data = json.load(f)
+        if isinstance(data, list):
+            coins = []
+            for item in data:
+                if isinstance(item, dict):
+                    sym = item.get("symbol")
+                else:
+                    sym = item
+                if sym:
+                    coins.append(sym)
+        else:
+            coins = []
         logging.info("[RUN] loaded f5_f1_monitoring_list.json: %s", coins)
     except Exception:
         coins = []

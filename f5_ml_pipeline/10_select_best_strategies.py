@@ -132,12 +132,22 @@ def select_strategies() -> list[dict]:
     return strategies[:TOP_N]
 
 
-def save_monitoring_list(symbols: list[str]) -> None:
-    """Save selected symbols for monitoring."""
+def save_monitoring_list(records: list[dict]) -> None:
+    """Save selected strategies in monitoring list format."""
     ensure_dir(MONITORING_LIST_FILE.parent)
+    data = []
+    for rec in records:
+        symbol = rec.get("symbol")
+        params = rec.get("params", {})
+        if symbol:
+            data.append({
+                "symbol": symbol,
+                "thresh_pct": float(params.get("thresh_pct", 0)),
+                "loss_pct": float(params.get("loss_pct", 0)),
+            })
     try:
         with open(MONITORING_LIST_FILE, "w", encoding="utf-8") as f:
-            json.dump(symbols, f, ensure_ascii=False, indent=2)
+            json.dump(data, f, ensure_ascii=False, indent=2)
         logging.info("[SELECT] monitoring list updated: %s", MONITORING_LIST_FILE)
     except Exception as exc:  # pragma: no cover - best effort
         logging.error("monitoring list 저장 실패: %s", exc)
@@ -167,8 +177,8 @@ def main() -> None:
     selected = select_strategies()
     write_json(OUT_FILE, selected)
 
+    save_monitoring_list(selected)
     symbols = [s.get("symbol") for s in selected if s.get("symbol")]
-    save_monitoring_list(symbols)
 
     logging.info("[SELECT] %d strategies saved", len(selected))
     if selected:
