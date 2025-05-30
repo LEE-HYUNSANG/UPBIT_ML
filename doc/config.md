@@ -22,7 +22,8 @@ and continuously updated by the **F3** order executor.
 ## f2_f2_realtime_buy_list.json
 List of dictionaries produced by **F2** when a coin meets the ML and indicator
 conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
-and `buy_count`.
+and `buy_count`. The ``buy_count`` field remains unchanged across runs and is
+set to ``1`` when a buy order is successfully filled.
 
 ## f2_f2_realtime_sell_list.json
 Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.

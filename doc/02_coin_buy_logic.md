@@ -33,6 +33,7 @@
 2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count]`
    정보를 `f2_f2_realtime_buy_list.json`에 저장합니다. 매도 설정 리스트는
    실제 매수가 완료된 뒤 별도의 과정에서 갱신됩니다.
+   이미 존재하던 항목이 있으면 `buy_count` 값은 그대로 유지됩니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`

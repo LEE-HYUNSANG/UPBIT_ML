@@ -347,6 +347,10 @@ def run() -> List[str]:
     buy_list = _load_json(buy_list_path)
     if not isinstance(buy_list, list):
         buy_list = []
+    counts = {}
+    for b in buy_list:
+        if isinstance(b, dict) and b.get("symbol"):
+            counts[b["symbol"]] = b.get("buy_count", 0)
     logging.info("[RUN] existing buy_list=%s", buy_list)
 
     sell_list_path = CONFIG_DIR / "f2_f2_realtime_sell_list.json"
@@ -377,17 +381,10 @@ def run() -> List[str]:
             "rsi_sel": int(rsi_flag),
             "trend_sel": int(trend_flag),
             "buy_signal": final,
-            "buy_count": 0,
+            "buy_count": counts.get(sym, 0),
         })
         if final:
             results.append(sym)
-            updated.append({
-                "symbol": sym,
-                "buy_signal": 1,
-                "rsi_sel": int(rsi_flag),
-                "trend_sel": int(trend_flag),
-                "buy_count": 0,
-            })
 
     _save_json(buy_list_path, updated)
     if updated:

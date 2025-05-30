@@ -50,6 +50,18 @@ def _load_json(path: str):
     except Exception:  # pragma: no cover - best effort
         return []
 
+def _load_json_dict(path: str) -> dict:
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
+    return {}
+
 class PositionManager:
     def __init__(self, config, dynamic_params, kpi_guard, exception_handler, parent_logger=None):
         self.config = config
@@ -58,6 +70,9 @@ class PositionManager:
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions_file = self.config.get("POSITIONS_FILE", "config/f1_f3_coin_positions.json")
+        self.sell_config_path = self.config.get(
+            "SELL_LIST_PATH", "config/f2_f2_realtime_sell_list.json"
+        )
         self.positions = _load_json(self.positions_file)
         self.client = UpbitClient()
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
@@ -216,6 +231,7 @@ class PositionManager:
         ※ 조건/산식은 config와 dynamic_params 기준. (실제 시세 연동 필요)
         """
         remaining = []
+        sell_cfg = _load_json_dict(self.sell_config_path)
         for pos in self.positions:
             if pos.get("status") != "open":
                 continue
@@ -233,9 +249,11 @@ class PositionManager:
             hold_secs = self.config.get("HOLD_SECS", 0)
             held_too_long = hold_secs and now() - pos.get("entry_time", 0) >= hold_secs
 
-            if change_pct >= self.config.get("TP_PCT", 1.2):
+            tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
+            sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
+            if change_pct >= tp:
                 self.execute_sell(pos, "take_profit")
-            elif change_pct <= -abs(self.config.get("SL_PCT", 1.0)):
+            elif change_pct <= -abs(sl):
                 self.execute_sell(pos, "stop_loss")
             else:
                 if held_too_long:
