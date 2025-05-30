@@ -26,6 +26,8 @@ This repository implements a four stage trading system built around the Upbit ex
 - **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
   or halt trading when risk thresholds are breached.
 - **F5ML 머신러닝 파이프라인** – 매매 의사결정에 사용되는 모델을 학습하고 평가합니다. 스크립트는 `f5_ml_pipeline/`에 있습니다.
+- **F9ML Pipeline Backup** – `f9_ml_pipeline_backup/`은 기존 `f5_ml_pipeline`의 전체 사본으로,
+  참고 용도로만 남겨둔 폴더입니다. 이 디렉터리의 파일은 수정하거나 실행하지 않습니다.
 
 모든 파이프라인 스크립트는 자신의 위치를 기준으로 절대 경로를 계산하므로 실행 디렉터리에 상관없이 `f5_ml_pipeline/ml_data/`에 데이터를 저장합니다.
 A lightweight Flask application in `app.py` exposes REST API endpoints for monitoring
