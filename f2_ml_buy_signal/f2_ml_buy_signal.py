@@ -49,6 +49,21 @@ SPLIT_DIR = DATA_ROOT / "05_data"
 MODEL_DIR = DATA_ROOT / "06_data"
 
 
+def _load_json(path: Path):
+    if not path.exists():
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _save_json(path: Path, data) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
     """Fetch recent OHLCV data with retries."""
     logging.info("[FETCH] %s count=%d", symbol, count)
@@ -208,20 +223,46 @@ def run() -> List[str]:
     try:
         with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
+        logging.info("[RUN] loaded coin_list_monitoring.json: %s", coins)
     except Exception:
         coins = []
-    
-    logging.info("[RUN] coins=%s", coins)
+        logging.warning("[RUN] coin_list_monitoring.json missing or invalid")
+
+    buy_list_path = CONFIG_DIR / "coin_realtime_buy_list.json"
+    sell_list_path = CONFIG_DIR / "coin_realtime_sell_list.json"
+    buy_dict = _load_json(buy_list_path)
+    sell_dict = _load_json(sell_list_path)
+    risk_cfg = _load_json(CONFIG_DIR / "risk.json")
+    logging.info("[RUN] existing buy_list=%s", buy_dict)
+    logging.info("[RUN] existing sell_list=%s", sell_dict)
+    logging.info("[RUN] risk settings=%s", risk_cfg)
+
     results = []
     for sym in coins:
         buy = check_buy_signal(sym)
         logging.info("[%s] buy_signal=%s", sym, int(buy))
         if buy:
             results.append(sym)
+            if sym not in buy_dict:
+                logging.info("[%s] added to buy list with 0", sym)
+                buy_dict[sym] = 0
+                sell_dict.setdefault(
+                    sym,
+                    {
+                        "SL_PCT": risk_cfg.get("SL_PCT"),
+                        "TP_PCT": risk_cfg.get("TP_PCT"),
+                        "TRAILING_STOP_ENABLED": risk_cfg.get("TRAILING_STOP_ENABLED"),
+                        "TRAIL_START_PCT": risk_cfg.get("TRAIL_START_PCT"),
+                        "TRAIL_STEP_PCT": risk_cfg.get("TRAIL_STEP_PCT"),
+                    },
+                )
+            else:
+                logging.info("[%s] already in buy list: %s", sym, buy_dict[sym])
 
-    with open(CONFIG_DIR / "coin_realtime_buy_list.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
-
+    _save_json(buy_list_path, buy_dict)
+    _save_json(sell_list_path, sell_dict)
+    logging.info("[RUN] saved buy_list=%s", buy_dict)
+    logging.info("[RUN] saved sell_list=%s", sell_dict)
     logging.info("[RUN] finished. %d coins to buy", len(results))
     return results
 

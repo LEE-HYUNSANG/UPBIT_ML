@@ -21,7 +21,7 @@
     "sell_triggers": []
 }
 ```
-매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상 코인을 기록합니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L117-L135】
+매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상을 `{심볼: 0}` 형식으로 추가합니다. 동일 심볼이 이미 존재하면 값은 유지됩니다. 아울러 손절/익절/트레일링 스탑 설정은 `coin_realtime_sell_list.json`에 함께 저장됩니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L221-L259】
 
 
 ### `OrderExecutor.entry(signal)`
@@ -41,6 +41,20 @@
 필수 패키지가 없으면 해당 오류 메시지도 이 파일에 남습니다.
 최근 업데이트로 실행 시작과 종료, 데이터 수집, 예측 확률 등 세부 정보가 모두 로그에
 표시되므로 문제 발생 시 원인을 쉽게 추적할 수 있습니다.
+로그 항목은 다음 예시와 비슷한 형태를 가집니다.
+
+```
+2024-01-01 00:00:00 [F2] [INFO] [RUN] starting buy signal scan
+2024-01-01 00:00:00 [F2] [INFO] [RUN] loaded coin_list_monitoring.json: ['KRW-ETH']
+2024-01-01 00:00:00 [F2] [INFO] [RUN] existing buy_list={}
+2024-01-01 00:00:00 [F2] [INFO] [ETH] buy_signal=1
+2024-01-01 00:00:00 [F2] [INFO] [ETH] added to buy list with 0
+2024-01-01 00:00:00 [F2] [INFO] [RUN] saved buy_list={'KRW-ETH': 0}
+2024-01-01 00:00:00 [F2] [INFO] [RUN] finished. 1 coins to buy
+```
+
+각 메시지는 `[RUN]` 단계, 개별 종목 처리 결과, 파일 저장 여부 등을 모두 남기므로
+어떤 과정을 거쳐 매수 대상이 결정됐는지 한눈에 확인할 수 있습니다.
 
 추가로 각 단계별 중간 데이터를 `f2_ml_buy_signal/f2_data` 폴더에 저장해 검증할 수
 있습니다.
