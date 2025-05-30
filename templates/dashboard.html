@@ -122,14 +122,19 @@ fetchPositions();
 setInterval(fetchPositions,5000);
 
 function fetchSignals(){
-    fetch('/api/signals').then(r=>r.json()).then(data=>{
+    fetch('/api/buy_monitoring').then(r=>r.json()).then(list=>{
         const body=document.getElementById('buy-body');
         body.innerHTML='';
-        Object.keys(data).forEach(k=>{
+        list.forEach(it=>{
+            const win=it.win_rate!==undefined?`${(it.win_rate*100).toFixed(0)}%`:'-';
+            const roi=it.avg_roi!==undefined?`${(it.avg_roi*100).toFixed(1)}%`:'-';
+            const ver=it.version||'-';
             const tr=document.createElement('tr');
-            const v=data[k];
-            tr.innerHTML=`<td>${k.replace('KRW-','')}</td><td>${v.buy_signal?'O':'X'}</td>`+
-                `<td>-</td><td>-</td><td>v1</td><td>60%</td><td>3%</td>`;
+            tr.innerHTML=`<td>${it.symbol.replace('KRW-','')}</td>`+
+                `<td>${it.ml_signal?'O':'X'}</td>`+
+                `<td>${it.trend_sel?'O':'X'}</td>`+
+                `<td>${it.rsi_sel?'O':'X'}</td>`+
+                `<td>${ver}</td><td>${win}</td><td>${roi}</td>`;
             body.appendChild(tr);
         });
     });

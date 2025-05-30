@@ -362,6 +362,64 @@ def api_signals() -> Response:
     return jsonify(results)
 
 
+@app.route("/api/buy_monitoring")
+def api_buy_monitoring() -> Response:
+    """Return buy monitoring list with F2 metrics."""
+    buy_path = os.path.join("config", "f2_f2_realtime_buy_list.json")
+    try:
+        with open(buy_path, "r", encoding="utf-8") as f:
+            buy_list = json.load(f)
+        if not isinstance(buy_list, list):
+            buy_list = []
+    except Exception:  # pragma: no cover - missing file
+        buy_list = []
+
+    metrics_path = os.path.join(
+        "f5_ml_pipeline", "ml_data", "10_selected", "selected_strategies.json"
+    )
+    metrics = {}
+    try:
+        with open(metrics_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            for rec in data:
+                sym = rec.get("symbol")
+                if sym:
+                    metrics[sym] = {
+                        "win_rate": float(rec.get("win_rate", 0.0)),
+                        "avg_roi": float(rec.get("avg_roi", 0.0)),
+                    }
+    except Exception:  # pragma: no cover - optional file
+        metrics = {}
+
+    version = ""
+    try:
+        mtime = os.path.getmtime(metrics_path)
+        version = datetime.datetime.fromtimestamp(mtime).strftime("%m%d_%H%M")
+    except Exception:  # pragma: no cover - missing file
+        version = ""
+
+    rows = []
+    for item in buy_list:
+        if not isinstance(item, dict):
+            continue
+        sym = item.get("symbol")
+        m = metrics.get(sym, {})
+        rows.append(
+            {
+                "symbol": sym,
+                "ml_signal": item.get("buy_signal"),
+                "trend_sel": item.get("trend_sel"),
+                "rsi_sel": item.get("rsi_sel"),
+                "version": version,
+                "win_rate": m.get("win_rate"),
+                "avg_roi": m.get("avg_roi"),
+            }
+        )
+
+    return jsonify(rows)
+
+
 @app.route("/api/universe_config", methods=["GET", "POST"])
 def universe_config_endpoint() -> Response:
     """유니버스 필터 설정 조회 또는 업데이트"""

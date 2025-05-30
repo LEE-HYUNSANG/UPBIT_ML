@@ -270,3 +270,43 @@ def test_strategies_post_reload(app_client, tmp_path, monkeypatch):
     assert resp.status_code == 200
     assert data["status"] == "ok"
     assert called.get("reloaded") is True
+
+
+def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    buy_file = tmp_path / "f2_f2_realtime_buy_list.json"
+    buy_file.write_text(
+        '[{"symbol":"KRW-AAA","buy_signal":1,"trend_sel":1,"rsi_sel":1}]'
+    )
+    metrics_file = tmp_path / "selected_strategies.json"
+    metrics_file.write_text(
+        '[{"symbol":"KRW-AAA","win_rate":0.8,"avg_roi":0.01}]'
+    )
+
+    real_join = app_mod.os.path.join
+
+    def fake_join(*parts):
+        if parts == (
+            "config",
+            "f2_f2_realtime_buy_list.json",
+        ):
+            return str(buy_file)
+        if parts == (
+            "f5_ml_pipeline",
+            "ml_data",
+            "10_selected",
+            "selected_strategies.json",
+        ):
+            return str(metrics_file)
+        return real_join(*parts)
+
+    monkeypatch.setattr(app_mod.os.path, "join", fake_join)
+    monkeypatch.setattr(app_mod.os.path, "getmtime", lambda p: 0)
+
+    res = client.get("/api/buy_monitoring")
+    data = res.get_json()
+    assert res.status_code == 200
+    assert data[0]["symbol"] == "KRW-AAA"
+    assert data[0]["win_rate"] == 0.8
