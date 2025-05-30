@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}대시보드 - AUTO UPBIT{% endblock %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-gray-800 rounded-xl p-4 shadow">
+        <div class="flex justify-between items-center mb-2">
+            <h2 class="font-bold">계좌 잔고 현황</h2>
+            <button id="reload-account" class="text-sm text-green-400">리로드</button>
+        </div>
+        <div id="account-balance" class="text-2xl font-bold">0</div>
+    </div>
+    <div class="bg-gray-800 rounded-xl p-4 shadow">
+        <div class="flex justify-between mb-2 items-center">
+            <h2 class="font-bold">매도 모니터링</h2>
+            <button onclick="openExclude()" class="text-sm text-green-400">감시 제외</button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center">
+                <thead>
+                    <tr class="text-gray-400">
+                        <th>코인</th><th>수량</th><th>현재가</th><th>평가금액</th><th>수익률</th>
+                    </tr>
+                </thead>
+                <tbody id="sell-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-gray-800 rounded-xl p-4 shadow">
+        <h2 class="font-bold mb-2">매수 모니터링</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center">
+                <thead>
+                    <tr class="text-gray-400">
+                        <th>코인</th><th>ML</th><th>추세</th><th>RSI</th><th>Ver.</th><th>예상 승률</th><th>예상 수익률</th>
+                    </tr>
+                </thead>
+                <tbody id="buy-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-xl p-4 shadow">
+        <div class="flex justify-between items-center mb-2">
+            <h2 class="font-bold">알람 상태</h2>
+            <button onclick="clearAlerts()" class="text-sm text-green-400">전체 삭제</button>
+        </div>
+        <div class="max-h-40 overflow-y-auto pr-1">
+            <table class="w-full text-sm text-left">
+                <thead>
+                    <tr class="text-gray-400">
+                        <th class="w-32">시간</th>
+                        <th class="w-24">구분</th>
+                        <th>내용</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="alert-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="exclude-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
+    <div class="bg-gray-800 p-6 rounded-xl w-80">
+        <div class="flex justify-between mb-2">
+            <h3 class="font-bold">감시 제외</h3>
+            <button onclick="closeExclude()" class="text-xl">&times;</button>
+        </div>
+        <table class="w-full text-sm text-center">
+            <thead>
+                <tr class="text-gray-400"><th>코인</th><th>삭제</th></tr>
+            </thead>
+            <tbody id="exclude-body"></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function updateAccount(){
+    fetch('/api/account').then(r=>r.json()).then(d=>{
+        const bal=document.getElementById('account-balance');
+        if(bal) bal.textContent=Math.floor(d.krw_balance||0).toLocaleString();
+    });
+}
+updateAccount();
+setInterval(updateAccount,5000);
+document.getElementById('reload-account').onclick=updateAccount;
+
+function fetchPositions(){
+    fetch('/api/open_positions').then(r=>r.json()).then(list=>{
+        const body=document.getElementById('sell-body');
+        body.innerHTML='';
+        list.forEach(p=>{
+            const tr=document.createElement('tr');
+            tr.innerHTML=`<td>${p.symbol.replace('KRW-','')}</td><td>${p.qty||0}</td>`+
+                `<td>${Math.floor(p.current_price||0)}</td><td>${Math.floor(p.eval_amount||0)}</td>`+
+                `<td>${Number(p.pnl_percent||0).toFixed(2)}%</td>`;
+            body.appendChild(tr);
+        });
+    });
+}
+fetchPositions();
+setInterval(fetchPositions,5000);
+
+function fetchSignals(){
+    fetch('/api/signals').then(r=>r.json()).then(data=>{
+        const body=document.getElementById('buy-body');
+        body.innerHTML='';
+        Object.keys(data).forEach(k=>{
+            const tr=document.createElement('tr');
+            const v=data[k];
+            tr.innerHTML=`<td>${k.replace('KRW-','')}</td><td>${v.buy_signal?'O':'X'}</td>`+
+                `<td>-</td><td>-</td><td>v1</td><td>60%</td><td>3%</td>`;
+            body.appendChild(tr);
+        });
+    });
+}
+fetchSignals();
+setInterval(fetchSignals,5000);
+
+function fetchAlerts(){
+    fetch('/api/events?limit=3').then(r=>r.json()).then(list=>{
+        const body=document.getElementById('alert-body');
+        body.innerHTML='';
+        list.reverse().forEach(ev=>{
+            const tr=document.createElement('tr');
+            const time=new Date(ev.timestamp||ev.time||Date.now());
+            const ts=time instanceof Date&&!isNaN(time)?time.toISOString().replace('T',' ').substring(0,19):'';
+            tr.innerHTML=`<td>${ts}</td><td>${ev.type||'시스템'}</td><td>${ev.message}</td>`+
+                `<td class='text-right'><button onclick='this.parentElement.parentElement.remove()'>삭제</button></td>`;
+            body.prepend(tr);
+        });
+    });
+}
+fetchAlerts();
+setInterval(fetchAlerts,5000);
+
+function clearAlerts(){
+    document.getElementById('alert-body').innerHTML='';
+}
+
+function openExclude(){
+    document.getElementById('exclude-modal').classList.remove('hidden');
+}
+function closeExclude(){
+    document.getElementById('exclude-modal').classList.add('hidden');
+}
+</script>
+{% endblock %}
