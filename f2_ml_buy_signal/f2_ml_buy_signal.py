@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 from typing import List, Tuple
+import shutil
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
@@ -73,6 +74,16 @@ FEATURE_DIR = DATA_ROOT / "03_data"
 LABEL_DIR = DATA_ROOT / "04_data"
 SPLIT_DIR = DATA_ROOT / "05_data"
 MODEL_DIR = DATA_ROOT / "06_data"
+
+
+def cleanup_data_dir() -> None:
+    """Remove temporary data directory created during checks."""
+    if DATA_ROOT.exists():
+        try:
+            shutil.rmtree(DATA_ROOT)
+            logging.info("[CLEANUP] removed %s", DATA_ROOT)
+        except Exception:
+            logging.warning("[CLEANUP] failed to remove %s", DATA_ROOT)
 
 
 def _load_json(path: Path):
@@ -274,7 +285,9 @@ def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
     if df.empty:
         logging.info("[CHECK_DF] no labeled rows")
         return False
-    return _train_predict(df, symbol)
+    result = _train_predict(df, symbol)
+    cleanup_data_dir()
+    return result
 
 
 def run() -> List[str]:
@@ -338,6 +351,7 @@ def run() -> List[str]:
     else:
         logging.info("[RUN] cleared buy_list")
     logging.info("[RUN] finished. %d coins to buy", len(results))
+    cleanup_data_dir()
     return results
 
 
