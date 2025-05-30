@@ -63,6 +63,12 @@ python app.py
 
 The server listens on port 3000 so you can visit `http://localhost:3000` in your browser.
 
+When the server starts three background tasks are launched:
+
+- `f5_ml_pipeline/01_data_collect.py` continuously fetches 1‑minute OHLCV data.
+- `f2_ml_buy_signal/02_ml_buy_signal.py` runs after each minute candle to update the real‑time buy list.
+- `f5_ml_pipeline/run_pipeline.py` executes every five minutes to retrain and evaluate models.
+
 
 ## Credentials
 
