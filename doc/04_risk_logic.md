@@ -9,6 +9,8 @@
 - `f4_riskManager/risk_logger.py` – 상태 변화 및 이벤트를 DB와 로그 파일에 기록
 - `f4_riskManager/risk_utils.py` – 공용 유틸과 상태 정의
 
+로그 파일은 `logs/F4_risk_manager.log`와 `logs/risk_fsm.log`에 저장됩니다.
+
 ## 주요 함수와 변수
 
 ### `RiskManager.update_account(account_pnl, mdd, monthly_mdd, open_symbols)`
@@ -53,5 +55,6 @@
 2. `RiskManager.periodic()`이 호출되어 설정 파일 변경 여부를 체크하고 `check_risk`를 실행합니다.
 3. 손실 한도 초과 또는 슬리피지 이벤트가 발생하면 `pause` 또는 `disable_symbol`을 통해 신규 진입을 막고 필요 시 포지션을 강제 청산합니다.
 4. 치명적인 손실이 발생하거나 MDD 한도가 초과되면 `halt`가 호출되어 모든 매매가 중단됩니다.
+5. 상태 전이는 `risk_fsm.log`에 기록되며 주요 이벤트는 `RiskLogger`를 통해 로그 파일과 Telegram 알림으로 전송됩니다.
 
 `RiskManager`를 통해 시스템은 예상치 못한 손실을 빠르게 제한하고 안정적으로 운용될 수 있습니다.
