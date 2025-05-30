@@ -1,68 +1,58 @@
-# 유니버스 선정 개편안
+# 유니버스 결정 절차
 
-이 문서는 새롭게 구성될 **F1 모듈**의 코인 필터링 과정을 정리한 초안입니다. 앞으로 웹
-대시보드와 연계해 모니터링 대상 코인과 머신러닝 학습용 코인을 쉽게 관리하려는 목적이
-있습니다.
+이 문서는 F1 모듈이 어떤 방식으로 매매 대상 코인 목록(유니버스)을
+결정하는지 단계별로 설명합니다. 초보 기획자가 읽어도 이해할 수 있도록
+관련 파일과 동작 흐름을 간단하게 정리했습니다.
 
-## 1. 모니터링 대상 코인 선택
+## 핵심 역할
 
-1. ML 파이프라인의 결과물인 `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json`
-   파일에 `symbol` 목록이 존재하면 이를 우선 사용합니다.
-2. 사용자는 웹 화면에서 각 코인을 **허용** 또는 **미허용**으로 지정할 수 있습니다.
-   - 메뉴 예시: "매수대상 코인선정".
-3. 허용된 코인만 실제 모니터링 대상(유니버스)으로 채택됩니다.
+- **모니터링 대상**을 정해 F2/F3가 실시간으로 다룰 코인을 제한합니다.
+- **데이터 수집 대상**을 정해 F5 머신러닝 학습을 위한 데이터를 모읍니다.
 
-## 2. 데이터 수집용 코인 필터링
+주요 코드는 `f1_universe/universe_selector.py`에 있으며 주기적으로
+`config/current_universe.json`에 결과를 저장합니다.
 
-웹 메뉴 "데이터 수집 코인선정"에서 다음 조건을 입력받습니다.
+## 사용되는 파일
 
-```json
-{
-  "min_price": 700.0,
-  "max_price": 23000.0,
-  "volume_rank": 30,
-  "min_24h_trade_price": 1000000000.0
-}
-```
+| 파일 | 설명 |
+| ---- | ---- |
+| `config/coin_list_monitoring.json` | 실전 모니터링에 사용할 코인 목록. 빈 배열이면 다른 데이터로 대체됩니다. |
+| `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` | ML 백테스트에서 선정된 코인 목록. 모니터링 리스트가 비어 있을 때 사용됩니다. |
+| `config/universe.json` | 가격, 거래량 등 기본 필터 조건. |
+| `config/coin_list_data_collection.json` | 학습용 데이터를 수집할 코인 목록. |
+| `config/filter_coin_data_collection.json` | 데이터 수집 시 적용할 가격·거래량 조건. |
+| `config/current_universe.json` | 마지막으로 선택된 유니버스가 기록되는 파일. |
 
-이 조건에 맞는 모든 코인에 대해 1분 주기로 데이터를 수집합니다.
+로그는 `logs/F1_signal_engine.log`와 `logs/F1-F2_loop.log`에 저장됩니다.
 
-## 3. 수집 데이터 종류
+## 주요 함수
 
-- **1분봉(OHLCV)**: 시장, UTC/KST 시각, 시가, 고가, 저가, 종가, 누적 거래대금 등
-- **호가(Orderbook)**: 매수/매도 호가 15단계와 잔량 정보
-- **체결(Trades)**: 체결 시각, 가격, 수량, 체결 ID 등
-- **시세(Ticker)**: 실시간 가격, 변동률, 24시간 거래량 등
+- `load_monitoring_coins()` – 모니터링 목록을 읽어 리스트로 반환합니다.
+- `load_selected_universe()` – ML 파이프라인에서 선별한 목록을 읽어옵니다.
+- `select_universe()` – 위 두 목록을 순서대로 확인한 뒤 없으면
+  `load_universe_from_file()` 결과를 사용합니다.
+- `update_universe()` – 선택된 유니버스를 메모리와 `current_universe.json`에 갱신합니다.
+- `schedule_universe_updates()` – 주기적으로 `update_universe()`를 호출하는 백그라운드 스레드를 시작합니다.
 
-## 4. 활용 목적
+## 동작 흐름
 
-1. **모니터링용 데이터**
-   - `selected_strategies.json`에서 선택된 코인에 한해 매수/매도 모니터링에 활용합니다.
-2. **머신러닝 학습 데이터**
-   - `03_feature_engineering.py`에서 기술적 지표 계산에 사용됩니다.
-   - `04_labeling.py`에서 매매 신호 라벨을 생성할 때 참조합니다.
+1. **전략 선별(F5 모듈)**
+   - `f5_ml_pipeline/10_select_best_strategies.py`가 백테스트 결과를 평가하여
+     좋은 심볼을 `config/coin_list_monitoring.json`에 저장합니다.
+2. **유니버스 로드**
+  - `signal_loop.py` 실행 시 `schedule_universe_updates()`가 동작하여
+    30분마다 `select_universe()`를 호출합니다.
+  - `select_universe()`는 `coin_list_monitoring.json` → `selected_strategies.json`
+    → `current_universe.json` 순으로 확인해 첫 번째로 발견된 리스트를 사용합니다.
+  - `coin_list_monitoring.json`이 채워져 있으면 F2 모듈의
+    `run_if_monitoring_list_exists()`가 즉시 이 목록을 활용해 매수 신호 탐색을 시작합니다.
+3. **파일 갱신**
+   - 결정된 유니버스는 `config/current_universe.json`에 기록되어
+     다른 모듈이 동일한 목록을 참조할 수 있게 합니다.
+4. **데이터 수집**
+   - 별도로 실행되는 `f5_ml_pipeline/01_data_collect.py`는
+     `coin_list_data_collection.json`과 `filter_coin_data_collection.json`을 읽어
+     학습용 데이터를 수집합니다.
 
-## 5. 설정 파일 구조
-
-- `config/coin_list_monitoring.json` – 웹에서 허용으로 지정한 모니터링 대상 코인 리스트
-- `config/coin_list_data_collection.json` – 데이터 수집에 사용할 코인 리스트
-- `config/filter_coin_data_collection.json` – 데이터 수집 조건 값
-- `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` – ML에서 추린 후보 목록
-
-### 예시 JSON 구조
-
-두 코인 리스트 파일은 아래와 같이 심볼 문자열 배열을 저장합니다.
-
-```json
-[
-    "KRW-BTC",
-    "KRW-ETH",
-    "KRW-XRP"
-]
-```
-
-## 추가
-
-- 데이터 수집 스케줄은 코인 수가 많아질수록 부하가 커지므로 1분 간격 작업이 겹치지 않게 스레드 풀이나 비동기 방식을 고려합니다.
-- 웹 대시보드는 단순 토글만 제공하고 실제 저장은 JSON 파일로 관리하면 버전 관리가 용이합니다.
-
+이 구조를 통해 모니터링 대상과 학습용 대상이 분리되며,
+웹 대시보드나 ML 파이프라인 결과에 따라 유니버스가 자동으로 업데이트됩니다.

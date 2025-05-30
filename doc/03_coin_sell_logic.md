@@ -1,34 +1,48 @@
-# 코인 매도 모니터링 로직
+# 코인 매도 로직
 
-이 문서는 보유 중인 코인을 언제 매도할지 판단하는 과정과 매도 주문 처리를 설명합니다. 매도 조건은 F2 모듈의 `f2_signal`과 F3 모듈의 `PositionManager`에서 관리하는 FSM(상태머신)에 의해 결정됩니다.
+이 문서는 보유 중인 코인을 언제 정리할지 결정하는 과정을 설명합니다.
+매도 신호는 F2 모듈에서 계산하고, 실제 주문과 포지션 관리는
+F3 모듈과 F4 리스크 매니저가 담당합니다.
 
 ## 관련 파일
-- `f2_signal/signal_engine.py` – 매도 조건을 계산하는 `f2_signal` 함수
-- `f3_order/position_manager.py` – 포지션 상태를 갱신하고 매도 주문을 실행하는 주요 로직 포함
-- `f3_order/order_executor.py` – `manage_positions` 메서드에서 `PositionManager.hold_loop` 호출
 
-## 주요 함수와 변수
+| 경로 | 설명 |
+| --- | --- |
+| `f2_signal/signal_engine.py` | `f2_signal()` 함수가 매도 공식을 평가합니다. |
+| `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
+| `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
+| `f4_riskManager/risk_manager.py` | 손실 한도 초과 시 `pause()`나 `halt()`를 통해 강제 청산을 수행합니다. |
+| `config/setting_date/Latest_config.json` | 손절·익절 비율 등 리스크 파라미터가 저장된 파일입니다. |
 
-### `f2_signal`의 매도 신호
-`f2_signal`에서 1분 봉 데이터를 기반으로 매도 공식을 평가합니다. 매도 조건을 충족하면 반환 딕셔너리의 `sell_signal`이 `True`가 되고 `sell_triggers`에 전략 코드가 기록됩니다.【F:f2_signal/signal_engine.py†L380-L520】
+로그는 `logs/F3_position_manager.log`와 `logs/F4_risk_manager.log` 등에 기록됩니다.
+
+## 주요 함수
+
+### `f2_signal(..., calc_sell=True)`
+1분 봉 데이터를 기반으로 매도 조건을 계산합니다.
+조건을 충족하면 반환 값의 `sell_signal`이 `True`가 되며
+`sell_triggers`에 사용된 전략 코드가 남습니다.
 
 ### `PositionManager.hold_loop()`
-1Hz 주기로 실행되며 각 포지션의 현재 가격을 갱신하고 손익을 계산합니다. 설정된 손절(`SL_PCT`), 익절(`TP_PCT`), 트레일링 스탑(`TRAIL_*`) 조건에 따라 `execute_sell`을 호출해 포지션을 정리합니다.【F:f3_order/position_manager.py†L221-L292】【F:f3_order/position_manager.py†L312-L355】
+초당 실행되며 각 포지션의 현재가를 가져와 손익률을 계산합니다.
+손절(`SL_PCT`), 익절(`TP_PCT`), 트레일링 스탑(`TRAIL_*`) 기준을 만족하면
+`execute_sell()`을 호출합니다.
 
 ### `PositionManager.execute_sell(position, exit_type, qty=None)`
-주어진 포지션을 시장가로 매도합니다. 주문 후 남은 수량이 없으면 포지션 상태가 `closed`로 변경됩니다. 슬리피지 계산 결과는 `ExceptionHandler`로 전달됩니다.【F:f3_order/position_manager.py†L316-L337】
+지정된 포지션을 시장가로 매도합니다.
+모두 청산되면 상태가 `closed`로 바뀌고 결과가 `coin_positions.json`에 저장됩니다.
 
-### 주요 설정 값
-- `SL_PCT` – 손절 기준 퍼센트
-- `TP_PCT` – 익절 기준 퍼센트
-- `TRAILING_STOP_ENABLED` – 트레일링 스탑 사용 여부
-- `TRAIL_START_PCT`, `TRAIL_STEP_PCT` – 트레일링 스탑 시작/발동 기준
-
-이 값들은 `config/setting_date/Latest_config.json`에서 관리됩니다.【F:config/setting_date/Latest_config.json†L1-L23】
+### `RiskManager.check_risk()`
+계좌 손실이나 MDD 한도가 넘으면 `pause()` 또는 `halt()`로 진입을 차단하고
+기존 포지션을 청산합니다.
 
 ## 동작 흐름
-1. `signal_loop.py`가 오픈 포지션을 가진 심볼에 대해 `f2_signal(calc_sell=True)`을 실행합니다.
-2. `sell_signal`이 `True`로 돌아오면 해당 포지션의 전략 코드와 매칭하여 `PositionManager.execute_sell`이 호출됩니다.
-3. 동시에 `hold_loop`는 매초 포지션의 손익률을 계산해 손절, 익절, 트레일링 스탑 조건을 점검하고 필요 시 자동 매도합니다.
 
-이렇게 매도 로직은 신호 기반 매도와 포지션 상태 기반 매도로 구성되어 있어 다양한 상황에서 손실을 최소화하고 이익을 확정할 수 있습니다.
+1. `signal_loop.py`는 보유 중인 각 코인에 대해 `f2_signal(calc_sell=True)`을 호출합니다.
+2. `sell_signal`이 `True`이면 `PositionManager.execute_sell()`이 실행되어 시장가 주문을 보냅니다.
+3. 동시에 `hold_loop()`는 매초 손익을 계산하여 손절/익절/트레일링 스탑 기준을 만족하면 자동으로 매도합니다.
+4. 리스크 매니저가 손실 한도 초과를 감지하면 모든 포지션을 강제 정리하고
+   상태를 `PAUSE` 또는 `HALT`로 변경합니다.
+
+이렇게 신호 기반 매도와 위험 관리 로직이 결합되어
+예상치 못한 손실을 최소화하고 이익 실현을 돕습니다.
