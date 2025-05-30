@@ -117,6 +117,7 @@ def write_json(path: Path, data: list[dict]) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+
 def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(SUMMARY_DIR)
