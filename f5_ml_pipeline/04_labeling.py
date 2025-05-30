@@ -19,9 +19,6 @@ LOG_PATH = PIPELINE_ROOT / "logs" / "ml_label.log"
 
 THRESH_LIST      = [0.005, 0.006, 0.007]    # 익절(%)
 LOSS_LIST        = [0.005, 0.006, 0.007]    # 손절(%)
-TRAIL_START_LIST = [None, 0.004]           # 트레일링 시작(%)
-TRAIL_DOWN_LIST  = [None, 0.002]           # 트레일링 하락(%)
-HORIZON          = 5                       # 구간 고정
 
 def setup_logger() -> None:
     """로그 설정."""
@@ -139,13 +136,23 @@ def to_py_types(obj):
         return float(obj)
     return obj
 
-def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
+def optimize_labeling_trailing(
+    df: pd.DataFrame,
+    symbol: str,
+    horizon: int = 5,
+) -> dict:
     """트레일링 포함 파라미터 그리드 전체 실험, 최적 조합 자동 선정."""
     results = []
-    for thresh, loss, trail_start, trail_down in product(
-        THRESH_LIST, LOSS_LIST, TRAIL_START_LIST, TRAIL_DOWN_LIST
-    ):
-        df_labeled = make_labels_trailing(df, HORIZON, thresh, loss, trail_start, trail_down)
+    for thresh, loss in product(THRESH_LIST, LOSS_LIST):
+        trail_start, trail_down = None, None
+        df_labeled = make_labels_trailing(
+            df,
+            horizon,
+            thresh,
+            loss,
+            trail_start,
+            trail_down,
+        )
         n = len(df_labeled)
         n1 = (df_labeled["label"] == 1).sum()
         n2 = (df_labeled["label"] == 2).sum()
@@ -199,7 +206,7 @@ def optimize_labeling_trailing(df: pd.DataFrame, symbol: str) -> dict:
         logging.warning("⚠️ 10%% 미만 support만 나옴! symbol=%s, best=%s", symbol, best)
     return best
 
-def process_file(file: Path) -> None:
+def process_file(file: Path, horizon: int = 5) -> None:
     symbol = file.name.split("_")[0]
     try:
         df = pd.read_parquet(file)
@@ -207,10 +214,10 @@ def process_file(file: Path) -> None:
         logging.warning("%s 로드 실패: %s", file.name, exc)
         return
 
-    best_params = optimize_labeling_trailing(df, symbol)
+    best_params = optimize_labeling_trailing(df, symbol, horizon)
     df_best = make_labels_trailing(
         df,
-        horizon=HORIZON,
+        horizon=horizon,
         thresh_pct=best_params["thresh_pct"],
         loss_pct=best_params["loss_pct"],
         trail_start_pct=best_params["trail_start_pct"],
