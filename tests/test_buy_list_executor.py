@@ -29,9 +29,9 @@ def test_execute_buy_list(tmp_path, monkeypatch):
     pandas_stub.Series = object
     pandas_stub.DataFrame = object
     monkeypatch.setitem(sys.modules, "pandas", pandas_stub)
-    monkeypatch.setitem(sys.modules, "f2_signal.signal_engine", types.ModuleType("f2_signal.signal_engine"))
+    monkeypatch.setitem(sys.modules, "f2_ml_buy_signal.03_buy_signal_engine.signal_engine", types.ModuleType("f2_ml_buy_signal.03_buy_signal_engine.signal_engine"))
 
-    ble = importlib.import_module("f2_signal.buy_list_executor")
+    ble = importlib.import_module("f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor")
 
     data = [{"symbol": "KRW-BTC", "buy_signal": 1, "buy_count": 0}]
     (tmp_path / "f2_f2_realtime_buy_list.json").write_text(json.dumps(data))
