@@ -22,10 +22,12 @@ and continuously updated by the **F3** order executor.
 ## f2_f2_realtime_buy_list.json
 List of dictionaries produced by **F2** when a coin meets the ML and indicator
 conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
-`thresh_pct` and `loss_pct`.
+and `buy_count`.
 
 ## f2_f2_realtime_sell_list.json
-Stores stop-loss and take-profit settings for each symbol detected by **F2**.
+Stores `thresh_pct` and `loss_pct` for each symbol detected by **F2**. These
+values come from `f5_f1_monitoring_list.json` and are used when placing
+sell orders.
 
 ## f4_f2_risk_settings.json
 Legacy risk parameters (stop percentages, trailing stop etc.). F2는 이제 `f5_f1_monitoring_list.json`에서
