@@ -1,6 +1,6 @@
 __pycache__/
 logs/
-config/autotrade_status.json
+config/web_autotrade_status.json
 
 # Local credentials
 .env.json

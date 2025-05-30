@@ -37,7 +37,7 @@ YDAY_CFG = os.path.join(CFG_DIR, "f4_f3_yesterday_config.json")
 
 RISK_CONFIG_PATH = LATEST_CFG
 
-AUTOTRADE_STATUS_FILE = os.path.join("config", "autotrade_status.json")
+AUTOTRADE_STATUS_FILE = os.path.join("config", "web_autotrade_status.json")
 EVENTS_LOG = os.path.join("logs", "events.jsonl")
 
 STRATEGY_SETTINGS_FILE = os.path.join("config", "app_f2_strategy_settings.json")
