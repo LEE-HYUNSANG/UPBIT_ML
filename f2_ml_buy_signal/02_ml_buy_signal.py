@@ -353,20 +353,6 @@ def run() -> List[str]:
     sell_list = _load_json(sell_list_path)
     if not isinstance(sell_list, dict):
         sell_list = {}
-    else:
-        for sym, info in list(sell_list.items()):
-            if not isinstance(info, dict):
-                del sell_list[sym]
-                continue
-            cleaned = {
-                k: info[k]
-                for k in ("thresh_pct", "loss_pct")
-                if k in info
-            }
-            if cleaned:
-                sell_list[sym] = cleaned
-            else:
-                del sell_list[sym]
     logging.info("[RUN] existing sell_list=%s", sell_list)
 
     results = []
@@ -402,14 +388,8 @@ def run() -> List[str]:
                 "trend_sel": int(trend_flag),
                 "buy_count": 0,
             })
-            if thresh is not None and loss is not None:
-                sell_list[sym] = {
-                    "thresh_pct": thresh,
-                    "loss_pct": loss,
-                }
 
     _save_json(buy_list_path, updated)
-    _save_json(sell_list_path, sell_list)
     if updated:
         logging.info("[RUN] saved buy_list=%s", updated)
     else:
