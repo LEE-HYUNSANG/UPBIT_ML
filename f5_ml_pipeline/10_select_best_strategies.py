@@ -54,15 +54,27 @@ def load_json(path: Path) -> dict:
         return json.load(f)
 
 
+def _to_float(value: object, default: float = 0.0) -> float:
+    """Convert a value to float, returning default on failure."""
+    try:
+        return float(value)
+    except (TypeError, ValueError):  # pragma: no cover - best effort
+        return default
+
+
 def passes_criteria(summary: dict) -> bool:
     """주어진 성과가 필터 조건을 통과하는지 확인."""
-    mdd = abs(summary.get("mdd", summary.get("max_drawdown", 0)))
+    win_rate = _to_float(summary.get("win_rate"))
+    avg_roi = _to_float(summary.get("avg_roi"))
+    sharpe = _to_float(summary.get("sharpe"))
+    mdd = abs(_to_float(summary.get("mdd", summary.get("max_drawdown", 0))))
+    entries = int(_to_float(summary.get("total_entries")))
     return (
-        summary.get("win_rate", 0) >= MIN_WIN_RATE
-        and summary.get("avg_roi", 0) >= MIN_AVG_ROI
-        and summary.get("sharpe", 0) >= MIN_SHARPE
+        win_rate >= MIN_WIN_RATE
+        and avg_roi >= MIN_AVG_ROI
+        and sharpe >= MIN_SHARPE
         and mdd <= MAX_MDD
-        and summary.get("total_entries", 0) >= MIN_ENTRIES
+        and entries >= MIN_ENTRIES
     )
 
 
@@ -106,6 +118,13 @@ def save_monitoring_list(symbols: list[str]) -> None:
         logging.error("monitoring list 저장 실패: %s", exc)
 
 
+def write_json(path: Path, data: list[dict]) -> None:
+    """Write data to JSON file, clearing existing contents."""
+    ensure_dir(path.parent)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
 def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(SUMMARY_DIR)
@@ -114,13 +133,14 @@ def main() -> None:
     setup_logger()
 
     selected = select_strategies()
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(selected, f, indent=2)
+    write_json(OUT_FILE, selected)
 
     symbols = [s.get("symbol") for s in selected if s.get("symbol")]
     save_monitoring_list(symbols)
 
     logging.info("[SELECT] %d strategies saved", len(selected))
+    if not selected:
+        logging.info("[SELECT] no strategies met criteria; files cleared")
 
 
 if __name__ == "__main__":
