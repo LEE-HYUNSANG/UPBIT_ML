@@ -21,3 +21,10 @@ python f5_ml_pipeline/06_train.py
 
 학습 데이터가 한 종류의 라벨만 포함하거나 사용 가능한 피처가 없는 경우에는
 경고 메시지를 남기고 해당 심볼의 학습을 건너뜁니다.
+
+## Troubleshooting
+
+모델 학습 중 `No further splits with positive gain` 경고가 나타날 수 있습니다. 이는
+피처에 예측력이 부족하거나 라벨 분포가 지나치게 한쪽으로 치우친 경우 발생합니다.
+이런 상황에서는 성능 향상이 어렵기 때문에 `train_config.yaml`의
+`early_stopping_rounds` 설정에 따라 개선이 없으면 조기에 학습이 종료됩니다.
