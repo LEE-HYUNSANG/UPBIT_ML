@@ -8,7 +8,8 @@
 
 | 경로 | 용도 |
 | --- | --- |
-| `f2_ml_buy_signal/f2_ml_buy_signal.py` | 실시간 매수 신호를 계산하는 스크립트입니다. 자세한 내용은 `f2_ml_buy_signal.md`에서 확인할 수 있습니다. |
+| `f2_ml_buy_signal/f2_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
+| `f2_ml_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치 |
 | `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
