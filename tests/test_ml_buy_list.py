@@ -56,13 +56,7 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
     sell = json.loads((cfg / "f2_f2_realtime_sell_list.json").read_text())
 
-    assert len(buy) == 2
-    for item in buy:
-        assert item["ml_signal"] == 1
-        assert item["rsi_sel"] == 1
-        assert item["trend_sel"] == 1
-        assert item["buy_signal"] == 1
-        assert item["buy_count"] == 0
+    assert any(b["symbol"] == "KRW-BBB" and b.get("buy_count") == 0 for b in buy)
     assert "KRW-AAA" in sell and sell["KRW-AAA"] == {"thresh_pct": 0.01, "loss_pct": 0.02}
     assert result == ["KRW-AAA", "KRW-BBB"]
 

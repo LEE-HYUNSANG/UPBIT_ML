@@ -30,10 +30,10 @@
 
 ### `run()`
 1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
-2. 모니터링하는 모든 코인의 상태를 `[symbol, ml_signal, rsi_sel, trend_sel,
-   buy_signal, buy_count]` 형식으로
-   `f2_f2_realtime_buy_list.json`에 저장합니다. `buy_signal`이 `1`일 때만
-   실제 매수 대상으로 간주합니다.
+2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count]`
+   정보를 `f2_f2_realtime_buy_list.json`에 저장하고,
+   동시에 해당 코인의 `thresh_pct`, `loss_pct` 값을
+   `f2_f2_realtime_sell_list.json`에 기록합니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`

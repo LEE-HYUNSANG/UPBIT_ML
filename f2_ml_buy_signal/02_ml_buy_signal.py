@@ -381,6 +381,13 @@ def run() -> List[str]:
         })
         if final:
             results.append(sym)
+            updated.append({
+                "symbol": sym,
+                "buy_signal": 1,
+                "rsi_sel": int(rsi_flag),
+                "trend_sel": int(trend_flag),
+                "buy_count": 0,
+            })
             if thresh is not None and loss is not None:
                 sell_list[sym] = {
                     "thresh_pct": thresh,

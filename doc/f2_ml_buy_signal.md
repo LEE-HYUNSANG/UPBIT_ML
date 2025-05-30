@@ -23,8 +23,8 @@
 
    ```json
    [
-        {"symbol": "KRW-BTC", "ml_signal": 1, "rsi_sel": 1, "trend_sel": 1,
-         "buy_signal": 1, "buy_count": 0}
+       {"symbol": "KRW-BTC", "buy_signal": 1, "rsi_sel": 1, "trend_sel": 1,
+        "buy_count": 0}
    ]
    ```
 
