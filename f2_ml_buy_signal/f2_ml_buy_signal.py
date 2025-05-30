@@ -269,5 +269,14 @@ def run() -> List[str]:
     return results
 
 
+def run_if_monitoring_list_exists() -> List[str]:
+    """Run :func:`run` only when monitoring list is present."""
+    path = CONFIG_DIR / "coin_list_monitoring.json"
+    if path.exists():
+        return run()
+    logging.info("[RUN_IF] coin_list_monitoring.json not found; skipping")
+    return []
+
+
 if __name__ == "__main__":
-    run()
+    run_if_monitoring_list_exists()

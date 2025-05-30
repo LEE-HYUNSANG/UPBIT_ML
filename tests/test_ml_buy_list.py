@@ -60,3 +60,38 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     assert "KRW-BBB" in sell
     assert result == ["KRW-AAA", "KRW-BBB"]
 
+
+def test_run_if_monitoring_skips_when_missing(tmp_path, monkeypatch):
+    from f2_ml_buy_signal import f2_ml_buy_signal as ml
+
+    monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
+    called = {"cnt": 0}
+
+    def fake_run():
+        called["cnt"] += 1
+        return ["OK"]
+
+    monkeypatch.setattr(ml, "run", fake_run)
+
+    result = ml.run_if_monitoring_list_exists()
+    assert result == []
+    assert called["cnt"] == 0
+
+
+def test_run_if_monitoring_executes(tmp_path, monkeypatch):
+    from f2_ml_buy_signal import f2_ml_buy_signal as ml
+
+    monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
+    (tmp_path / "coin_list_monitoring.json").write_text("[]")
+    called = {"cnt": 0}
+
+    def fake_run():
+        called["cnt"] += 1
+        return ["OK"]
+
+    monkeypatch.setattr(ml, "run", fake_run)
+
+    result = ml.run_if_monitoring_list_exists()
+    assert result == ["OK"]
+    assert called["cnt"] == 1
+
