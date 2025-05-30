@@ -26,7 +26,7 @@ and `buy_count`. Only items where `buy_signal` is 1 and `buy_count` is 0 are
 considered for new orders. Once a buy is filled the count changes to 1 to
 prevent duplicate entries.
 
-## f2_f2_realtime_sell_list.json
+## f3_f3_realtime_sell_list.json
 Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.
 The values originate from `f5_f1_monitoring_list.json` and are consulted when
 placing sell orders.
