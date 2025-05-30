@@ -25,11 +25,15 @@ def _load_buy_list(path: Path) -> list:
 
 
 def execute_buy_list() -> list[str]:
-    """Read buy list and execute orders for entries with ``buy_signal`` == 1."""
+    """Execute buys when ``buy_signal`` is 1 and ``buy_count`` is 0."""
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
     buy_list = _load_buy_list(buy_path)
 
-    targets = [b["symbol"] for b in buy_list if b.get("buy_signal") == 1]
+    targets = [
+        b["symbol"]
+        for b in buy_list
+        if b.get("buy_signal") == 1 and b.get("buy_count", 0) == 0
+    ]
     if not targets:
         log_with_tag(logger, "No buy candidates found")
         return []
@@ -64,6 +68,16 @@ def execute_buy_list() -> list[str]:
         }
         oe.entry(signal)
         executed.append(symbol)
+        for it in buy_list:
+            if it.get("symbol") == symbol:
+                it["buy_count"] = 1
+                break
+
+    try:
+        with open(buy_path, "w", encoding="utf-8") as f:
+            json.dump(buy_list, f, ensure_ascii=False, indent=2)
+    except Exception as exc:  # pragma: no cover - best effort
+        log_with_tag(logger, f"Failed to save buy list: {exc}")
     return executed
 
 

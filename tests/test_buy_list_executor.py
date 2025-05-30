@@ -33,7 +33,7 @@ def test_execute_buy_list(tmp_path, monkeypatch):
 
     ble = importlib.import_module("f2_signal.buy_list_executor")
 
-    data = [{"symbol": "KRW-BTC", "buy_signal": 1}]
+    data = [{"symbol": "KRW-BTC", "buy_signal": 1, "buy_count": 0}]
     (tmp_path / "f2_f2_realtime_buy_list.json").write_text(json.dumps(data))
 
     monkeypatch.setattr(ble, "CONFIG_DIR", Path(tmp_path))
@@ -46,3 +46,5 @@ def test_execute_buy_list(tmp_path, monkeypatch):
     assert result == ["KRW-BTC"]
     assert executor.called
     assert executor.called[0]["price"] == 100.0
+    after = json.loads((tmp_path / "f2_f2_realtime_buy_list.json").read_text())
+    assert after[0]["buy_count"] == 1

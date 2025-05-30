@@ -47,6 +47,31 @@ class OrderExecutor:
         if entry_size is not None:
             self.config["ENTRY_SIZE_INITIAL"] = entry_size
 
+    def _mark_buy_filled(self, symbol: str) -> None:
+        """Set ``buy_count`` to 1 for the given symbol in the buy list."""
+        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                return
+        except Exception:
+            return
+
+        changed = False
+        for item in data:
+            if item.get("symbol") == symbol:
+                if item.get("buy_count", 0) != 1:
+                    item["buy_count"] = 1
+                    changed = True
+                break
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
     def _update_realtime_sell_list(self, symbol: str) -> None:
         """Add TP/SL info for *symbol* to the realtime sell list."""
         sell_path = Path("config") / "f2_f2_realtime_sell_list.json"
@@ -121,6 +146,7 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result)
                     self._update_realtime_sell_list(symbol)
+                    self._mark_buy_filled(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
                     msg = (
                         f"BUY {order_result['symbol']} {order_result.get('qty')}"
