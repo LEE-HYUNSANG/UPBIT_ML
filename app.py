@@ -21,6 +21,7 @@ from f1_universe.universe_selector import (
     CONFIG_PATH,
 )
 from importlib import import_module
+import importlib.util
 
 _se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
 reload_strategy_settings = _se.reload_strategy_settings
@@ -52,6 +53,11 @@ _auto_trade_thread = None
 _auto_trade_stop = None
 _monitor_thread = None
 _monitor_stop = None
+_data_collect_thread = None
+_buy_signal_thread = None
+_pipeline_thread = None
+_buy_signal_stop = None
+_pipeline_stop = None
 
 
 def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
@@ -184,6 +190,83 @@ def stop_monitoring() -> None:
     if _monitor_stop:
         _monitor_stop.set()
     _monitor_thread = None
+
+
+def _import_from_path(path: str, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def start_data_collection() -> None:
+    """Start the continuous data collector in a background thread."""
+    global _data_collect_thread
+    if _data_collect_thread and _data_collect_thread.is_alive():
+        return
+    module = _import_from_path(os.path.join("f5_ml_pipeline", "01_data_collect.py"), "f5_data_collect")
+    _data_collect_thread = threading.Thread(target=module.main, daemon=True)
+    _data_collect_thread.start()
+
+
+def start_buy_signal_scheduler() -> None:
+    """Run the ML buy signal script every minute."""
+    global _buy_signal_thread, _buy_signal_stop
+    if _buy_signal_thread and _buy_signal_thread.is_alive():
+        return
+    module = _import_from_path(os.path.join("f2_ml_buy_signal", "02_ml_buy_signal.py"), "f2_ml_buy")
+    _buy_signal_stop = threading.Event()
+
+    def worker():
+        while not _buy_signal_stop.is_set():
+            try:
+                module.run_if_monitoring_list_exists()
+            except Exception as exc:
+                WEB_LOGGER.error("buy signal error: %s", exc)
+            now = datetime.datetime.utcnow()
+            next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1, seconds=15)
+            wait = (next_run - datetime.datetime.utcnow()).total_seconds()
+            if wait > 0:
+                _buy_signal_stop.wait(wait)
+
+    _buy_signal_thread = threading.Thread(target=worker, daemon=True)
+    _buy_signal_thread.start()
+
+
+def stop_buy_signal_scheduler() -> None:
+    global _buy_signal_thread, _buy_signal_stop
+    if _buy_signal_stop:
+        _buy_signal_stop.set()
+    _buy_signal_thread = None
+
+
+def start_pipeline_scheduler() -> None:
+    """Run the full ML pipeline every five minutes."""
+    global _pipeline_thread, _pipeline_stop
+    if _pipeline_thread and _pipeline_thread.is_alive():
+        return
+    module = _import_from_path(os.path.join("f5_ml_pipeline", "run_pipeline.py"), "run_pipeline")
+    _pipeline_stop = threading.Event()
+
+    def worker():
+        while not _pipeline_stop.is_set():
+            try:
+                module.main()
+            except Exception as exc:
+                WEB_LOGGER.error("pipeline error: %s", exc)
+            if _pipeline_stop.wait(300):
+                break
+
+    _pipeline_thread = threading.Thread(target=worker, daemon=True)
+    _pipeline_thread.start()
+
+
+def stop_pipeline_scheduler() -> None:
+    global _pipeline_thread, _pipeline_stop
+    if _pipeline_stop:
+        _pipeline_stop.set()
+    _pipeline_thread = None
 
 
 def get_config_path(name: str) -> str:
@@ -497,4 +580,7 @@ if __name__ == "__main__":
         ],
         force=True,
     )
+    start_data_collection()
+    start_buy_signal_scheduler()
+    start_pipeline_scheduler()
     app.run(host="0.0.0.0", port=PORT, debug=True)
