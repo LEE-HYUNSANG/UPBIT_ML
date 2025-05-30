@@ -24,6 +24,7 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
         ])
     )
     (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg / "f2_f2_realtime_sell_list.json").write_text("{}")
 
     # Stub optional dependencies before importing module
     pandas_stub = types.ModuleType("pandas")
@@ -53,8 +54,10 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
 
     result = ml.run()
     buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    sell = json.loads((cfg / "f2_f2_realtime_sell_list.json").read_text())
 
-    assert any(b["symbol"] == "KRW-BBB" for b in buy)
+    assert any(b["symbol"] == "KRW-BBB" and b.get("buy_count") == 0 for b in buy)
+    assert "KRW-AAA" in sell and sell["KRW-AAA"] == {"thresh_pct": 0.01, "loss_pct": 0.02}
     assert result == ["KRW-AAA", "KRW-BBB"]
 
 
