@@ -49,27 +49,27 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     # === 표준 피처 ===
 
     # EMA 및 장기선
-    df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
-    df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
-    df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
-    df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
-    df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
-    df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
-    df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
+    ##df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
+    ##df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
+    ##df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
+    ##df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
+    ##df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
+    ##df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
+    ##df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
 
     # SMA
     df["sma5"] = df["close"].rolling(window=5).mean()
-    df["sma20"] = df["close"].rolling(window=20).mean()
+    ##df["sma20"] = df["close"].rolling(window=20).mean()
 
     # EMA 차이
     df["ema5_ema20_diff"] = df["ema5"] - df["ema20"]
-    df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
-    df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
-    df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
+    ##df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
+    ##df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
+    ##df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
 
     # EMA 골든/데드크로스 flag
     df["ema_gc"] = ((df["ema5"].shift(1) < df["ema20"].shift(1)) & (df["ema5"] > df["ema20"])).astype(int)
-    df["ema_dc"] = ((df["ema5"].shift(1) > df["ema20"].shift(1)) & (df["ema5"] < df["ema20"])).astype(int)
+    ##df["ema_dc"] = ((df["ema5"].shift(1) > df["ema20"].shift(1)) & (df["ema5"] < df["ema20"])).astype(int)
 
     # RSI
     for w in [7, 14, 21]:
@@ -94,11 +94,11 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df[f"atr{w}"] = tr.rolling(window=w).mean()
 
     # 볼륨 평균/비율/증감
-    df["ma_vol5"] = df["volume"].rolling(5).mean()
-    df["ma_vol20"] = df["volume"].rolling(20).mean()
-    df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
-    df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
-    df["vol_chg"] = df["volume"].pct_change().fillna(0)
+    ## df["ma_vol5"] = df["volume"].rolling(5).mean()
+    ## df["ma_vol20"] = df["volume"].rolling(20).mean()
+    ## df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
+    ## df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
+    ## df["vol_chg"] = df["volume"].pct_change().fillna(0)
 
     # 스토캐스틱
     for w in [7, 14]:
@@ -128,7 +128,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # 간단한 캔들패턴
     upper_shadow = df["high"] - df[["open", "close"]].max(axis=1)
-    lower_shadow = df[["open", "close"]].min(axis=1) - df["low"]
+    ##lower_shadow = df[["open", "close"]].min(axis=1) - df["low"]
     df["is_doji"] = (df["body_size"] <= df["hl_range"] * 0.1).astype(int)
     df["long_bull"] = ((df["close"] > df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
     df["long_bear"] = ((df["close"] < df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
@@ -166,10 +166,10 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
 
     # CCI(14)
-    tp = (df["high"] + df["low"] + df["close"]) / 3
-    sma_tp = tp.rolling(14).mean()
-    mean_dev = (tp - sma_tp).abs().rolling(14).mean()
-    df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
+    ##tp = (df["high"] + df["low"] + df["close"]) / 3
+    ##sma_tp = tp.rolling(14).mean()
+    ##mean_dev = (tp - sma_tp).abs().rolling(14).mean()
+    ##df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
 
     # VWAP
     try:
