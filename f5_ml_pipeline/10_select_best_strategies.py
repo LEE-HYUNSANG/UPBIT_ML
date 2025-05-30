@@ -107,10 +107,15 @@ def save_monitoring_list(symbols: list[str]) -> None:
 
 
 def write_json(path: Path, data: list[dict]) -> None:
-    """Write data to JSON file, clearing existing contents."""
+    """Write data to JSON file, ensuring old contents are removed."""
     ensure_dir(path.parent)
+    try:
+        path.unlink()
+    except FileNotFoundError:
+        pass
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
 
 
 def main() -> None:
