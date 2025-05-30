@@ -255,32 +255,52 @@ def run_pipeline_for_symbol(symbol: str) -> None:
         logging.exception("[PIPELINE] predict failed for %s", symbol)
 
 
+def _load_model(symbol: str):
+    model_path = PIPELINE_ROOT / "ml_data" / "06_models" / f"{symbol}_model.pkl"
+    try:
+        return joblib.load(model_path)
+    except Exception:
+        logging.warning("[CHECK] model not found for %s", symbol)
+        return None
+
+
 def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
     """Return ML buy signal and indicator flags for ``symbol``."""
     _ensure_pipeline_modules()
-    run_pipeline_for_symbol(symbol)
 
-    pred_file = P08.PRED_DIR / f"{symbol}_pred.csv"
-    feature_file = P03.FEATURE_DIR / f"{symbol}_feature.parquet"
-    if not pred_file.exists() or not feature_file.exists():
-        logging.info("[CHECK] %s missing data", symbol)
+    model = _load_model(symbol)
+    if model is None:
         return False, False, False
 
+    df = fetch_ohlcv(symbol, 60)
+    if df.empty:
+        return False, False, False
+
+    df = _clean_df(df)
     try:
-        pred_df = pd.read_csv(pred_file)
-        feat_df = pd.read_parquet(feature_file)
+        df = P03.add_features(df)
     except Exception:
-        logging.exception("[CHECK] %s failed to load data", symbol)
+        logging.exception("[CHECK] feature engineering failed for %s", symbol)
         return False, False, False
 
-    if pred_df.empty or feat_df.empty:
-        logging.info("[CHECK] %s empty dataframe", symbol)
-        return False, False, False
+    features = getattr(model, "feature_names_in_", None)
+    if features is None:
+        features = [c for c in df.columns if c != "timestamp"]
+    for f in features:
+        if f not in df.columns:
+            df[f] = 0
+    for col in df.columns:
+        if df[col].dtype == "object":
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+    df.fillna(0, inplace=True)
 
-    buy = bool(int(pred_df.iloc[-1]["buy_signal"]))
-    indicators = f2_buy_indicator.add_basic_indicators(feat_df)
-    rsi_mask = (indicators["rsi14"] > 40) & (indicators["rsi14"] < 60)
-    rsi_flag = bool(rsi_mask.iloc[-1])
+    last_row = df.iloc[[-1]][list(features)]
+    prob = model.predict_proba(last_row)[0][1]
+    logging.info("[CHECK] %s prob=%.4f", symbol, prob)
+    buy = prob > 0.5
+
+    indicators = f2_buy_indicator.add_basic_indicators(df)
+    rsi_flag = bool((indicators["rsi14"].iloc[-1] > 40) & (indicators["rsi14"].iloc[-1] < 60))
     trend_flag = bool(indicators["ema5"].iloc[-1] > indicators["ema20"].iloc[-1])
     return buy, rsi_flag, trend_flag
 
