@@ -23,7 +23,10 @@ def run_step(step: str, index: int, total: int) -> None:
     """Execute a single pipeline step and print progress."""
     script_path = PIPELINE_DIR / step
     print(f"[{index}/{total}] Running {step} ...", flush=True)
-    result = subprocess.run([sys.executable, str(script_path)])
+    # Run each step with ``PIPELINE_DIR`` as the working directory so
+    # relative paths inside the step scripts resolve correctly even if this
+    # launcher is invoked from another directory.
+    result = subprocess.run([sys.executable, str(script_path)], cwd=PIPELINE_DIR)
     if result.returncode != 0:
         print(f"{step} failed with exit code {result.returncode}", flush=True)
         sys.exit(result.returncode)
