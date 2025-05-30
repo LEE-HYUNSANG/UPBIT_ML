@@ -42,6 +42,16 @@
 최근 업데이트로 실행 시작과 종료, 데이터 수집, 예측 확률 등 세부 정보가 모두 로그에
 표시되므로 문제 발생 시 원인을 쉽게 추적할 수 있습니다.
 
+추가로 각 단계별 중간 데이터를 `f2_ml_buy_signal/f2_data` 폴더에 저장해 검증할 수
+있습니다.
+
+- `01_data` – 원시 OHLCV
+- `02_clean_data` – 정제된 데이터
+- `03_data` – 피처 엔지니어링 결과
+- `04_data` – 라벨링 결과
+- `05_data` – 학습/검증/테스트 분할
+- `06_data` – 학습된 모델
+
 ## 동작 흐름
 1. `signal_loop.py`의 `process_symbol`에서 각 심볼의 OHLCV 데이터를 받아 `f2_signal`을 호출합니다.
 2. 반환된 딕셔너리에서 `buy_signal`이 `True`이면 `OrderExecutor.entry`가 실행됩니다.
