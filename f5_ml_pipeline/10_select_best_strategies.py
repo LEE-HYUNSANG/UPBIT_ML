@@ -22,19 +22,19 @@ MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "coin_list_monitoring.json"
 
 # ----- 확장 포인트: 성과 기준과 정렬 기준 -----
 # 테스트 용
-# MIN_WIN_RATE = 0.35      # 승률 35% 이상
-# MIN_AVG_ROI = -0.001     # 진입 1회당 -0.1% 이상
-# MIN_SHARPE = 0.1         # 샤프비 0.1 이상
-# MAX_MDD = 0.50           # 최대 낙폭 50% 이하
-# MIN_ENTRIES = 1          # 최소 1회 진입
-# TOP_N = 10               # 상위 10개 전략만 채택
+MIN_WIN_RATE = 0.35      # 승률 35% 이상
+MIN_AVG_ROI = -0.001     # 진입 1회당 -0.1% 이상
+MIN_SHARPE = 0.1         # 샤프비 0.1 이상
+MAX_MDD = 0.50           # 최대 낙폭 50% 이하
+MIN_ENTRIES = 1          # 최소 1회 진입
+TOP_N = 1               # 상위 10개 전략만 채택
 # 상용 기본값
-MIN_WIN_RATE = 0.55      # 승률 55% 이상
-MIN_AVG_ROI = 0.001      # 진입 1회당 0.1% 이상
-MIN_SHARPE = 1.0         # 샤프비 1.0 이상
-MAX_MDD = 0.10           # 최대 낙폭 10% 이하
-MIN_ENTRIES = 20         # 최소 50회 진입
-TOP_N = 10               # 상위 10개 전략만 채택
+# MIN_WIN_RATE = 0.55      # 승률 55% 이상
+# MIN_AVG_ROI = 0.001      # 진입 1회당 0.1% 이상
+# MIN_SHARPE = 1.0         # 샤프비 1.0 이상
+# MAX_MDD = 0.10           # 최대 낙폭 10% 이하
+# MIN_ENTRIES = 20         # 최소 50회 진입
+# TOP_N = 10               # 상위 10개 전략만 채택
 # -------------------------------------------------
 
 
