@@ -8,7 +8,7 @@
 
 | 경로 | 용도 |
 | --- | --- |
-| `f2_ml_buy_signal/f2_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
+| `f2_ml_buy_signal/02_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
 | `f2_ml_buy_signal/f2_buy_indicator.py` | 1분 봉에서 RSI와 EMA 조건을 이용한 간단한 매수 필터 함수가 있습니다. |
 | `f2_ml_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치. 신호 계산 후 폴더 전체가 삭제됩니다. |
 | `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |

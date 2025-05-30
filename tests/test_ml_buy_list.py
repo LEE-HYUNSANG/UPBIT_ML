@@ -45,7 +45,8 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
         "pyupbit": types.ModuleType("pyupbit"),
     })
 
-    from f2_ml_buy_signal import f2_ml_buy_signal as ml
+    from importlib import import_module
+    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
@@ -58,7 +59,8 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
 
 
 def test_run_if_monitoring_skips_when_missing(tmp_path, monkeypatch):
-    from f2_ml_buy_signal import f2_ml_buy_signal as ml
+    from importlib import import_module
+    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
     called = {"cnt": 0}
@@ -75,7 +77,8 @@ def test_run_if_monitoring_skips_when_missing(tmp_path, monkeypatch):
 
 
 def test_run_if_monitoring_executes(tmp_path, monkeypatch):
-    from f2_ml_buy_signal import f2_ml_buy_signal as ml
+    from importlib import import_module
+    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
     (tmp_path / "f5_f1_monitoring_list.json").write_text("[]")

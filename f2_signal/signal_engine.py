@@ -6,7 +6,9 @@ from typing import Optional
 
 import pandas as pd
 
-from f2_ml_buy_signal.f2_ml_buy_signal import check_buy_signal_df
+from importlib import import_module
+
+check_buy_signal_df = import_module("f2_ml_buy_signal.02_ml_buy_signal").check_buy_signal_df
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
