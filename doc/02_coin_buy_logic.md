@@ -37,6 +37,7 @@
 - `SPREAD_TH` – 스프레드 임계값. 이보다 좁으면 바로 시장가 주문
 
 위 값들은 `config/setting_date/Latest_config.json` 또는 기타 설정 파일에서 관리됩니다.【F:config/setting_date/Latest_config.json†L1-L23】
+매수 신호 계산 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ## 동작 흐름
 1. `signal_loop.py`의 `process_symbol`에서 각 심볼의 OHLCV 데이터를 받아 `f2_signal`을 호출합니다.
