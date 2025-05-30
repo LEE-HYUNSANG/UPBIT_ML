@@ -23,7 +23,8 @@ PIPELINE_ROOT = Path(__file__).resolve().parent
 SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
 MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
 EVAL_DIR = PIPELINE_ROOT / "ml_data" / "07_eval"
-LOG_PATH = PIPELINE_ROOT / "logs" / "ml_eval.log"
+ROOT_DIR = PIPELINE_ROOT.parent
+LOG_PATH = ROOT_DIR / "logs" / "F5_ml_eval.log"
 
 
 # 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.
@@ -34,15 +35,14 @@ def setup_logger() -> None:
     ensure_dir(LOG_PATH.parent)
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
+        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
                 LOG_PATH,
                 encoding="utf-8",
                 maxBytes=50_000 * 1024,
                 backupCount=5,
-            ),
-            logging.StreamHandler(),
+            )
         ],
         force=True,
     )

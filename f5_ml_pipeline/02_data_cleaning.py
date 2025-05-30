@@ -36,7 +36,8 @@ from utils import ensure_dir
 PIPELINE_ROOT = Path(__file__).resolve().parent
 RAW_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
 CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
-LOG_PATH = PIPELINE_ROOT / "logs" / "ml_clean.log"
+ROOT_DIR = PIPELINE_ROOT.parent
+LOG_PATH = ROOT_DIR / "logs" / "F5_ml_clean.log"
 
 
 def setup_logger() -> None:
@@ -44,15 +45,14 @@ def setup_logger() -> None:
     ensure_dir(LOG_PATH.parent)
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
+        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
                 LOG_PATH,
                 encoding="utf-8",
                 maxBytes=50_000 * 1024,
                 backupCount=5,
-            ),
-            logging.StreamHandler(),
+            )
         ],
         force=True,
     )

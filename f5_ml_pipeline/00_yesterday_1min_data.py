@@ -21,7 +21,7 @@ DATA_ROOT = PIPELINE_ROOT / "ml_data" / "00_24ago_data"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
-LOG_PATH = PIPELINE_ROOT / "logs" / "yesterday_collect.log"
+LOG_PATH = ROOT_DIR / "logs" / "F5_yesterday_collect.log"
 CANDLE_LIMIT = 1440
 
 
@@ -30,15 +30,14 @@ def setup_logger() -> None:
     ensure_dir(LOG_PATH.parent)
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
+        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
                 LOG_PATH,
                 encoding="utf-8",
                 maxBytes=50_000 * 1024,
                 backupCount=5,
-            ),
-            logging.StreamHandler(),
+            )
         ],
         force=True,
     )
