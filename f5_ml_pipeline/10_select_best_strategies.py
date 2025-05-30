@@ -82,7 +82,10 @@ def select_strategies() -> list[dict]:
     """요건을 만족하는 전략을 정렬 후 반환."""
     logging.info("[SELECT] scanning summaries in %s", SUMMARY_DIR)
     strategies = []
-    for file in SUMMARY_DIR.glob("*_summary.json"):
+    files = list(SUMMARY_DIR.glob("*_summary.json"))
+    if not files:
+        logging.info("[SELECT] no summary files found")
+    for file in files:
         symbol = file.stem.split("_")[0]
         logging.info("[SELECT] processing %s", symbol)
         try:
@@ -97,7 +100,7 @@ def select_strategies() -> list[dict]:
             params = load_json(PARAM_DIR / f"{symbol}_best_params.json")
         except Exception:  # pragma: no cover - optional file
             params = {}
-        strategies.append({
+        record = {
             "symbol": symbol,
             "win_rate": summary.get("win_rate", 0.0),
             "avg_roi": summary.get("avg_roi", 0.0),
@@ -105,7 +108,16 @@ def select_strategies() -> list[dict]:
             "max_drawdown": abs(summary.get("mdd", summary.get("max_drawdown", 0))),
             "total_entries": summary.get("total_entries", 0),
             "params": params,
-        })
+        }
+        strategies.append(record)
+        logging.info(
+            "[SELECT] added %s wr=%.2f roi=%.4f sharpe=%.2f entries=%s",
+            symbol,
+            record["win_rate"],
+            record["avg_roi"],
+            record["sharpe"],
+            record["total_entries"],
+        )
     strategies.sort(key=lambda x: x.get("sharpe", 0), reverse=True)
     logging.info("[SELECT] %d candidates", len(strategies))
     return strategies[:TOP_N]
@@ -127,7 +139,11 @@ def write_json(path: Path, data: list[dict]) -> None:
     ensure_dir(path.parent)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
-    logging.info("[SELECT] wrote %s", path)
+    if data:
+        symbols = [s.get("symbol") for s in data if s.get("symbol")]
+        logging.info("[SELECT] wrote %s with %d entries: %s", path, len(data), symbols)
+    else:
+        logging.info("[SELECT] wrote %s (empty)", path)
 
 
 def main() -> None:
@@ -146,6 +162,8 @@ def main() -> None:
     save_monitoring_list(symbols)
 
     logging.info("[SELECT] %d strategies saved", len(selected))
+    if selected:
+        logging.info("[SELECT] symbols: %s", symbols)
     if not selected:
         logging.info("[SELECT] no strategies met criteria; files cleared")
 
