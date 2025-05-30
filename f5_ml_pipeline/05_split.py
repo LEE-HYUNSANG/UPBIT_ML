@@ -10,10 +10,12 @@ import pandas as pd
 
 from utils import ensure_dir
 
-
-LABEL_DIR = Path("ml_data/04_label")
-SPLIT_DIR = Path("ml_data/05_split")
-LOG_PATH = Path("logs/ml_split.log")
+# Absolute paths relative to this file so the script behaves the same
+# regardless of the current working directory.
+ROOT_DIR = Path(__file__).resolve().parent
+LABEL_DIR = ROOT_DIR / "ml_data" / "04_label"
+SPLIT_DIR = ROOT_DIR / "ml_data" / "05_split"
+LOG_PATH = ROOT_DIR / "logs" / "ml_split.log"
 
 
 def setup_logger() -> None:
@@ -84,6 +86,8 @@ def main(train_ratio: float = 0.7, valid_ratio: float = 0.2) -> None:
     ensure_dir(LABEL_DIR)
     ensure_dir(SPLIT_DIR)
     setup_logger()
+    logging.info("[SETUP] LABEL_DIR=%s", LABEL_DIR)
+    logging.info("[SETUP] SPLIT_DIR=%s", SPLIT_DIR)
 
     for file in LABEL_DIR.glob("*.parquet"):
         process_file(file, train_ratio, valid_ratio)

@@ -14,9 +14,12 @@ from sklearn.metrics import classification_report, roc_auc_score
 
 from utils import ensure_dir, load_yaml_config
 
-SPLIT_DIR = Path("ml_data/05_split")
-MODEL_DIR = Path("ml_data/06_models")
-LOG_PATH = Path("logs/ml_train.log")
+# Use absolute paths relative to this file so execution works regardless of
+# the current working directory.
+ROOT_DIR = Path(__file__).resolve().parent
+SPLIT_DIR = ROOT_DIR / "ml_data" / "05_split"
+MODEL_DIR = ROOT_DIR / "ml_data" / "06_models"
+LOG_PATH = ROOT_DIR / "logs" / "ml_train.log"
 CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
 CONFIG = load_yaml_config(CONFIG_PATH)
 
@@ -141,7 +144,9 @@ def main() -> None:
     ensure_dir(SPLIT_DIR)
     ensure_dir(MODEL_DIR)
     setup_logger()
-
+    logging.info("[SETUP] SPLIT_DIR=%s", SPLIT_DIR)
+    logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
+    
     for file in SPLIT_DIR.glob("*_train.parquet"):
         symbol = file.stem.split("_")[0]
         train_and_eval(symbol)
