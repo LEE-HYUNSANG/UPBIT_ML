@@ -1,8 +1,8 @@
 # F5ML_10_select_best_strategies.py 사용법
 
-`ml_data/09_backtest/`에 저장된 `{symbol}_summary.json` 파일을 읽어
+`f5_ml_pipeline/ml_data/09_backtest/`에 저장된 `{symbol}_summary.json` 파일을 읽어
 승률, 평균 수익률, Sharpe 지수, 최대 낙폭(MDD) 등 기준을 만족하는 전략만 선별합니다.
-상위 전략들은 `ml_data/10_selected/selected_strategies.json`에 저장되며
+상위 전략들은 `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json`에 저장되며
 실전 매수 모니터링 단계에서 이 파일을 로드하여 사용합니다.
 
 스크립트가 완료되면 선택된 코인 심볼만 추출하여
@@ -41,3 +41,4 @@ python f5_ml_pipeline/10_select_best_strategies.py
 - `TOP_N`: 10
 
 이 값들은 `f5_ml_pipeline/10_select_best_strategies.py`를 편집하여 자유롭게 조정할 수 있습니다.
+스크립트는 항상 자신의 디렉터리 기준으로 절대 경로를 계산하므로 실행 위치와 관계없이 `f5_ml_pipeline/ml_data/` 하위에서 입출력이 이루어집니다.

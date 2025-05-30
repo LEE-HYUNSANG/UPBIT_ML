@@ -14,3 +14,4 @@
 ```bash
 python f5_ml_pipeline/00_Before_Coin.py
 ```
+해당 스크립트 역시 실행 위치와 관계없이 자신의 폴더를 기준으로 절대 경로를 사용하므로 모든 결과는 `f5_ml_pipeline/ml_data/` 아래에 저장됩니다.

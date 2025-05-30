@@ -5,9 +5,9 @@
 충족될 때까지 무한 보유하는 방식의 백테스트를 수행합니다.
 
 ## 입력 파일
-- `ml_data/08_pred/{symbol}_pred.csv`
-- `ml_data/04_label/{symbol}_label.parquet`
-- `ml_data/04_label/{symbol}_best_params.json`
+- `f5_ml_pipeline/ml_data/08_pred/{symbol}_pred.csv`
+- `f5_ml_pipeline/ml_data/04_label/{symbol}_label.parquet`
+- `f5_ml_pipeline/ml_data/04_label/{symbol}_best_params.json`
 
 ## 주요 기능
 - 트레일링 스탑을 포함한 TP/SL/TS 규칙 중 가장 먼저 충족되는 조건에서 즉시 청산합니다.
@@ -16,10 +16,11 @@
 - 각 트레이드는 CSV 파일로 기록합니다.
 
 ## 출력
-- `ml_data/09_backtest/{symbol}_trades.csv`
-- `ml_data/09_backtest/{symbol}_summary.json`
+- `f5_ml_pipeline/ml_data/09_backtest/{symbol}_trades.csv`
+- `f5_ml_pipeline/ml_data/09_backtest/{symbol}_summary.json`
 
 ## 실행 방법
 ```bash
 python f5_ml_pipeline/09_backtest.py
 ```
+모든 스크립트는 자신의 폴더 기준으로 절대 경로를 사용하기 때문에 어디서 실행해도 `f5_ml_pipeline/ml_data/` 하위에 백테스트 결과가 저장됩니다.

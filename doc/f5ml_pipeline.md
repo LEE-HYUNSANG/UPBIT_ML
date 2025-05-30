@@ -8,19 +8,19 @@
 
 ## 단계별 스크립트
 
-1. `00_Before_Coin.py` 코인 필터링 및 원시 데이터 수집 → `ml_data/00_back_raw/`
-2. `01_data_collect.py` OHLCV 다운로드 → `ml_data/01_raw/`
-3. `02_data_cleaning.py` 데이터 정제 → `ml_data/02_clean/`
-4. `03_feature_engineering.py` 지표 계산 → `ml_data/03_feature/`
-5. `04_labeling.py` 라벨 생성 → `ml_data/04_label/`
-6. `05_split.py` 학습·검증·테스트 분할 → `ml_data/05_split/`
-7. `06_train.py` 모델 학습 → `ml_data/06_models/`
-8. `07_eval.py` 모델 평가 → `ml_data/07_eval/`
-9. `08_predict.py` 예측 수행 → `ml_data/08_pred/`
-10. `09_backtest.py` 백테스트 → `ml_data/09_backtest/`
-11. `10_select_best_strategies.py` 전략 선별 → `ml_data/10_selected/`
+1. `00_Before_Coin.py` 코인 필터링 및 원시 데이터 수집 → `f5_ml_pipeline/ml_data/00_back_raw/`
+2. `01_data_collect.py` OHLCV 다운로드 → `f5_ml_pipeline/ml_data/01_raw/`
+3. `02_data_cleaning.py` 데이터 정제 → `f5_ml_pipeline/ml_data/02_clean/`
+4. `03_feature_engineering.py` 지표 계산 → `f5_ml_pipeline/ml_data/03_feature/`
+5. `04_labeling.py` 라벨 생성 → `f5_ml_pipeline/ml_data/04_label/`
+6. `05_split.py` 학습·검증·테스트 분할 → `f5_ml_pipeline/ml_data/05_split/`
+7. `06_train.py` 모델 학습 → `f5_ml_pipeline/ml_data/06_models/`
+8. `07_eval.py` 모델 평가 → `f5_ml_pipeline/ml_data/07_eval/`
+9. `08_predict.py` 예측 수행 → `f5_ml_pipeline/ml_data/08_pred/`
+10. `09_backtest.py` 백테스트 → `f5_ml_pipeline/ml_data/09_backtest/`
+11. `10_select_best_strategies.py` 전략 선별 → `f5_ml_pipeline/ml_data/10_selected/`
 
-로그는 `ml_data/09_logs/`에 `mllog_<YYYYMMDDHHMMSS>.log` 형식으로 기록되며, 1MB를 초과하면 자동으로 새 파일로 교체됩니다.
+로그는 `f5_ml_pipeline/ml_data/09_logs/`에 `mllog_<YYYYMMDDHHMMSS>.log` 형식으로 기록되며, 1MB를 초과하면 자동으로 새 파일로 교체됩니다.
 
 ## 사용 방법
 
@@ -41,3 +41,4 @@ python f5_ml_pipeline/<스크립트명>.py
 ```bash
 python f5_ml_pipeline/run_pipeline.py
 ```
+모든 스크립트는 자신의 디렉터리 기준으로 절대 경로를 계산하여 실행 위치에 상관없이 `f5_ml_pipeline/ml_data/` 하위 폴더에 데이터를 저장합니다.
