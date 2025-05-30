@@ -9,16 +9,9 @@ import time
 from pathlib import Path
 from typing import List
 
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-
-import pandas as pd
-from sklearn.linear_model import LogisticRegression
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
-from indicators import ema, sma, rsi  # type: ignore
-CONFIG_DIR = PROJECT_ROOT / "config"
 LOG_PATH = PROJECT_ROOT / "logs" / "f2_ml_buy_signal.log"
 
 
@@ -31,6 +24,19 @@ def setup_logger() -> None:
         handlers=[logging.StreamHandler(), logging.FileHandler(LOG_PATH)],
         force=True,
     )
+
+
+setup_logger()
+
+try:
+    import pandas as pd
+    from sklearn.linear_model import LogisticRegression
+except ImportError as exc:  # pragma: no cover - dependency missing at runtime
+    logging.exception("Required dependency missing: %s", exc)
+    sys.exit(1)
+
+from indicators import ema, sma, rsi  # type: ignore
+CONFIG_DIR = PROJECT_ROOT / "config"
 
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
@@ -115,7 +121,6 @@ def check_buy_signal_df(df: pd.DataFrame) -> bool:
 
 
 def run() -> List[str]:
-    setup_logger()
     try:
         with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
