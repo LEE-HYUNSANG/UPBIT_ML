@@ -40,7 +40,13 @@ except ImportError as exc:  # pragma: no cover - dependency missing at runtime
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
-from f2_ml_buy_signal import f2_buy_indicator
+try:
+    if __package__:
+        from . import f2_buy_indicator
+    else:  # pragma: no cover - direct script execution
+        import f2_buy_indicator
+except Exception:  # pragma: no cover - handle missing module
+    f2_buy_indicator = None  # type: ignore
 
 PIPELINE_ROOT = PROJECT_ROOT / "f5_ml_pipeline"
 
