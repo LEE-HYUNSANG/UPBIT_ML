@@ -80,15 +80,18 @@ def passes_criteria(summary: dict) -> bool:
 
 def select_strategies() -> list[dict]:
     """요건을 만족하는 전략을 정렬 후 반환."""
+    logging.info("[SELECT] scanning summaries in %s", SUMMARY_DIR)
     strategies = []
     for file in SUMMARY_DIR.glob("*_summary.json"):
         symbol = file.stem.split("_")[0]
+        logging.info("[SELECT] processing %s", symbol)
         try:
             summary = load_json(file)
         except Exception as exc:  # pragma: no cover - best effort
             logging.warning("%s 로드 실패: %s", file, exc)
             continue
         if not passes_criteria(summary):
+            logging.info("[SELECT] %s skipped", symbol)
             continue
         try:
             params = load_json(PARAM_DIR / f"{symbol}_best_params.json")
@@ -104,6 +107,7 @@ def select_strategies() -> list[dict]:
             "params": params,
         })
     strategies.sort(key=lambda x: x.get("sharpe", 0), reverse=True)
+    logging.info("[SELECT] %d candidates", len(strategies))
     return strategies[:TOP_N]
 
 
@@ -123,6 +127,7 @@ def write_json(path: Path, data: list[dict]) -> None:
     ensure_dir(path.parent)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
+    logging.info("[SELECT] wrote %s", path)
 
 
 def main() -> None:
@@ -131,6 +136,8 @@ def main() -> None:
     ensure_dir(PARAM_DIR)
     ensure_dir(OUT_DIR)
     setup_logger()
+
+    logging.info("[SELECT] start")
 
     selected = select_strategies()
     write_json(OUT_FILE, selected)
@@ -141,6 +148,8 @@ def main() -> None:
     logging.info("[SELECT] %d strategies saved", len(selected))
     if not selected:
         logging.info("[SELECT] no strategies met criteria; files cleared")
+
+    logging.info("[SELECT] done")
 
 
 if __name__ == "__main__":
