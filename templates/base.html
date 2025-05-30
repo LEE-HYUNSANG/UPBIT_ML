@@ -2,30 +2,63 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}AUTO UPBIT{% endblock %}</title>
+    <title>{% block title %}AUTO UPBIT 실전 대시보드{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-title { font-weight: 700; font-size: 1.1rem; }
+        .main-bg { background: linear-gradient(135deg,#222831 65%,#1a232e 100%); }
+        .toggle-switch { position: relative; width: 56px; height: 32px; display: inline-block; }
+        .toggle-switch input { display: none; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background: #334155; border-radius: 32px; transition: background 0.2s;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 7px;
+            font-weight: bold; font-size: 15px; color: #b1c1db;
+        }
+        .toggle-slider .icon { font-size: 17px; }
+        .toggle-switch input:checked + .toggle-slider {
+            background: #22c55e; color: #fff;
+        }
+        .toggle-slider .toggle-dot {
+            position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 100%;
+            background: #fff; box-shadow: 0 2px 10px #0f172a2a;
+            transition: left 0.22s;
+        }
+        .toggle-switch input:checked + .toggle-slider .toggle-dot { left: 28px; background: #fff; }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-<header class="bg-gray-950 border-b border-gray-700">
-    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-        <nav class="flex gap-6 font-semibold">
-            <a href="{{ url_for('dashboard') }}" class="hover:text-green-400">대시보드</a>
-            <a href="{{ url_for('settings') }}" class="hover:text-green-400">알림 설정</a>
-        </nav>
+<body class="main-bg text-white min-h-screen font-sans">
+<header class="bg-gray-950 border-b border-green-500/20 shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         <div class="flex items-center gap-3">
+            <span class="text-green-400 text-2xl font-black tracking-tight">
+                <a href="{{ url_for('dashboard') }}">AUTO<span class="text-white">UPBIT</span></a>
+            </span>
+        </div>
+        <nav class="flex gap-6 text-base font-semibold">
+            <a href="{{ url_for('dashboard') }}" class="hover:text-green-400 transition">트레이딩</a>
+            <a href="{{ url_for('settings') }}" class="hover:text-green-400 transition">환경설정</a>
+        </nav>
+        <div class="flex items-center gap-2">
             <span id="server-status" class="text-sm text-red-500 font-bold">오프라인</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" id="autotrade-toggle" class="sr-only peer" onchange="toggleAutoTrade(this)">
-                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-green-500 transition"></div>
-                <span class="absolute left-1 top-0.5 w-5 h-5 bg-white rounded-full peer-checked:translate-x-full transition"></span>
+            <label class="toggle-switch ml-2" title="자동매매 실행/중지">
+                <input type="checkbox" id="autotrade-toggle" onchange="toggleAutoTrade(this)">
+                <span class="toggle-slider">
+                    <span class="icon" id="toggle-play">&#9654;</span>
+                    <span class="icon" id="toggle-stop" style="display:none;">&#9632;</span>
+                    <span class="toggle-dot"></span>
+                </span>
             </label>
         </div>
     </div>
 </header>
-<main class="max-w-6xl mx-auto p-4">
+<main class="max-w-7xl mx-auto px-4 py-8">
     {% block content %}{% endblock %}
 </main>
+<footer class="text-center text-gray-500 text-sm py-8 mt-10 border-t border-green-900/30 bg-gray-950">
+    &copy; 2025 <span class="text-green-400 font-semibold">AUTO UPBIT</span>. All rights reserved.
+</footer>
 <script>
 function toggleAutoTrade(cb){
     fetch('/api/auto_trade_status', {
