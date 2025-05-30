@@ -20,6 +20,9 @@
 변경 사항은 `logs/select_best_strategies.log` 파일에도 기록되어
 모니터링 목록 갱신 여부를 확인할 수 있습니다.
 
+조건을 만족하는 전략이 하나도 없으면 두 파일을 먼저 삭제한 후
+빈 리스트 `[]`를 새로 기록해 이전 결과가 남지 않도록 합니다.
+
 ## 실행 방법
 ```bash
 python f5_ml_pipeline/10_select_best_strategies.py
