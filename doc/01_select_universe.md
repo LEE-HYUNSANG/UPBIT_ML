@@ -18,9 +18,7 @@
 | ---- | ---- |
 | `config/f5_f1_monitoring_list.json` | 실전 모니터링에 사용할 코인 목록. 빈 배열이면 다른 데이터로 대체됩니다. |
 | `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` | ML 백테스트에서 선정된 코인 목록. 모니터링 리스트가 비어 있을 때 사용됩니다. |
-| `config/f1_f1_universe_filters.json` | 가격, 거래량 등 기본 필터 조건. |
 | `config/f1_f5_data_collection_list.json` | 학습용 데이터를 수집할 코인 목록. |
-| `config/f1_f5_data_collection_filter.json` | 데이터 수집 시 적용할 가격·거래량 조건. |
 | `config/current_universe.json` | 마지막으로 선택된 유니버스가 기록되는 파일. |
 
 로그는 `logs/F1_signal_engine.log`와 `logs/F1-F2_loop.log`에 저장됩니다.
@@ -51,8 +49,7 @@
      다른 모듈이 동일한 목록을 참조할 수 있게 합니다.
 4. **데이터 수집**
   - 별도로 실행되는 `f5_ml_pipeline/01_data_collect.py`는
-    `f1_f5_data_collection_list.json`과 `f1_f5_data_collection_filter.json`을 읽어
-     학습용 데이터를 수집합니다.
+    `f1_f5_data_collection_list.json`을 읽어 학습용 데이터를 수집합니다.
 
 이 구조를 통해 모니터링 대상과 학습용 대상이 분리되며,
 웹 대시보드나 ML 파이프라인 결과에 따라 유니버스가 자동으로 업데이트됩니다.
