@@ -128,6 +128,25 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
         if removed:
             logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
+    # Keep only the last 24 hours of data
+    cutoff = ts - timedelta(hours=24)
+    ts_col = None
+    if "timestamp" in df.columns:
+        ts_col = "timestamp"
+    elif "candle_date_time_utc" in df.columns:
+        ts_col = "candle_date_time_utc"
+    if ts_col:
+        series = df[ts_col]
+        if pd.api.types.is_numeric_dtype(series):
+            dt = pd.to_datetime(series, unit="ms", utc=True)
+        else:
+            dt = pd.to_datetime(series, utc=True, errors="coerce")
+        before = len(df)
+        df = df[dt >= cutoff]
+        removed = before - len(df)
+        if removed:
+            logging.info("Remove >24h rows %s - %d rows", file_path.name, removed)
+
     try:
         df.to_parquet(file_path, index=False)
     except Exception as exc:  # pragma: no cover - best effort
