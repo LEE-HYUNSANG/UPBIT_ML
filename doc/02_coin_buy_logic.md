@@ -16,7 +16,7 @@
 | `config/coin_list_monitoring.json` | 모니터링할 코인 목록. F5 단계에서 생성됩니다. |
 | `config/coin_realtime_buy_list.json` | 매수 대상이 발견되면 `{심볼: 0}` 형식으로 기록됩니다. |
 | `config/coin_realtime_sell_list.json` | 손절·익절·트레일링 스탑 설정을 저장합니다. |
-| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값 |
+| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값. |
 
 로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
 `logs/F3_order_executor.log` 등에 남습니다.
