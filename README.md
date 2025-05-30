@@ -47,7 +47,7 @@ are numbered sequentially as `*.1`, `*.2`, and so on.
 To run the standalone ML buy signal routine execute the module from the project
 root:
 ```bash
-python -m f2_ml_buy_signal.f2_ml_buy_signal
+python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
 Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.

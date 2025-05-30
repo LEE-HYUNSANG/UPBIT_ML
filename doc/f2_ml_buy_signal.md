@@ -1,6 +1,6 @@
 # F2 경량 ML 매수 신호
 
-`f2_ml_buy_signal/f2_ml_buy_signal.py`는 실시간 매수를 위한 간소화된 머신러닝 파이프라인을 한 번에 수행합니다.
+`f2_ml_buy_signal/02_ml_buy_signal.py`는 실시간 매수를 위한 간소화된 머신러닝 파이프라인을 한 번에 수행합니다.
 OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실행하며 최종으로 **매수 신호 여부**만 반환합니다.
 
 ## 주요 경로
@@ -44,12 +44,12 @@ OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실�
    `f5_f1_monitoring_list.json`에서 불러온 값을 그대로 기록합니다.
 4. 모든 로그와 저장 위치는 `logs/f2_ml_buy_signal.log` 파일에서 확인할 수 있습니다.
 
-`f2_ml_buy_signal.py`를 통해 실시간으로 간단한 모델 학습과 예측을 반복하므로, 별도의 대용량 데이터 없이도 빠르게 매수 후보를 판단할 수 있습니다.
+`02_ml_buy_signal.py`를 통해 실시간으로 간단한 모델 학습과 예측을 반복하므로, 별도의 대용량 데이터 없이도 빠르게 매수 후보를 판단할 수 있습니다.
 
 ## 실행 방법
 
 레포지터리 루트에서 모듈 형태로 실행하면 import 오류 없이 동작합니다.
 
 ```bash
-python -m f2_ml_buy_signal.f2_ml_buy_signal
+python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
