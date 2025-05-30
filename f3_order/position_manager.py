@@ -71,7 +71,7 @@ class PositionManager:
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
         self.positions_file = self.config.get("POSITIONS_FILE", "config/f1_f3_coin_positions.json")
         self.sell_config_path = self.config.get(
-            "SELL_LIST_PATH", "config/f2_f2_realtime_sell_list.json"
+            "SELL_LIST_PATH", "config/f3_f3_realtime_sell_list.json"
         )
         self.positions = _load_json(self.positions_file)
         self.client = UpbitClient()

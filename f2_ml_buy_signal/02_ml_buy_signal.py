@@ -349,7 +349,7 @@ def run() -> List[str]:
         buy_list = []
     logging.info("[RUN] existing buy_list=%s", buy_list)
 
-    sell_list_path = CONFIG_DIR / "f2_f2_realtime_sell_list.json"
+    sell_list_path = CONFIG_DIR / "f3_f3_realtime_sell_list.json"
     sell_list = _load_json(sell_list_path)
     if not isinstance(sell_list, dict):
         sell_list = {}

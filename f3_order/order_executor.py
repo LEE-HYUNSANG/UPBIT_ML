@@ -74,7 +74,7 @@ class OrderExecutor:
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
         """Add TP/SL info for *symbol* to the realtime sell list."""
-        sell_path = Path("config") / "f2_f2_realtime_sell_list.json"
+        sell_path = Path("config") / "f3_f3_realtime_sell_list.json"
         mon_path = Path("config") / "f5_f1_monitoring_list.json"
 
         try:

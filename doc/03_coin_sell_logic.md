@@ -40,7 +40,7 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 
 1. `signal_loop.py`는 보유 중인 각 코인에 대해 `f2_signal(calc_sell=True)`을 호출합니다.
 2. `sell_signal`이 `True`이면 `PositionManager.execute_sell()`이 실행되어 시장가 주문을 보냅니다.
-3. 매수 주문이 체결되면 `OrderExecutor`가 `config/f2_f2_realtime_sell_list.json`에
+3. 매수 주문이 체결되면 `OrderExecutor`가 `config/f3_f3_realtime_sell_list.json`에
    해당 코인의 익절(`TP_PCT`)과 손절(`SL_PCT`) 값을 기록합니다.
 4. 동시에 `hold_loop()`는 매초 손익을 계산하여 손절/익절 조건을 만족하면 자동으로 매도합니다.
 5. 리스크 매니저가 손실 한도 초과를 감지하면 모든 포지션을 강제 정리하고
