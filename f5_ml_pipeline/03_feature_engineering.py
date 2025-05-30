@@ -86,12 +86,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
             df["rsi_overbought"] = (df[f"rsi{w}"] > 70).astype(int)
 
     # ATR
-    for w in [7, 14]:
-        high_low = df["high"] - df["low"]
-        high_close = (df["high"] - df["close"].shift()).abs()
-        low_close = (df["low"] - df["close"].shift()).abs()
-        tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
-        df[f"atr{w}"] = tr.rolling(window=w).mean()
+    ##for w in [7, 14]:
+    ##    high_low = df["high"] - df["low"]
+    ##    high_close = (df["high"] - df["close"].shift()).abs()
+    ##    low_close = (df["low"] - df["close"].shift()).abs()
+    ##    tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
+    ##    df[f"atr{w}"] = tr.rolling(window=w).mean()
 
     # 볼륨 평균/비율/증감
     ## df["ma_vol5"] = df["volume"].rolling(5).mean()
@@ -109,8 +109,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df[f"stoch_d{w}"] = stoch_k.rolling(3).mean()
 
     # 일반화된 %K, %D(14)
-    df["stoch_k"] = df["stoch_k14"]
-    df["stoch_d"] = df["stoch_d14"]
+    ##df["stoch_k"] = df["stoch_k14"]
+    ##df["stoch_d"] = df["stoch_d14"]
 
     # === 추가 파생 피처/캔들/변동률/볼린저 ===
 
@@ -158,12 +158,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["macd_hist"] = macd_hist
 
     # MFI와 ADX
-    df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
-    df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
+    ##df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
+    ##df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
 
     # MOM/ROC(10)
-    df["mom10"] = df["close"] - df["close"].shift(10)
-    df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
+    ##df["mom10"] = df["close"] - df["close"].shift(10)
+    ##df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
 
     # CCI(14)
     ##tp = (df["high"] + df["low"] + df["close"]) / 3
@@ -178,8 +178,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df["vwap"] = pd.NA
 
     # OBV
-    direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
-    df["obv"] = direction.cumsum().fillna(0)
+    ##direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
+    ##df["obv"] = direction.cumsum().fillna(0)
 
     # 변동성 지표 및 이상값 탐지
     df["return"] = df["close"].pct_change()
