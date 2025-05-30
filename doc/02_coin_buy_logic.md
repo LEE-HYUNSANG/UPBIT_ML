@@ -21,15 +21,28 @@
     "sell_triggers": []
 }
 ```
-매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다. 별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을 순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상을 `{심볼: 0}` 형식으로 추가합니다. 동일 심볼이 이미 존재하면 값은 유지됩니다. 아울러 손절/익절/트레일링 스탑 설정은 `coin_realtime_sell_list.json`에 함께 저장됩니다.【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L221-L259】
+매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다.
+별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을
+순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상을
+`{심볼: 0}` 형식으로 추가합니다.
+동일 심볼이 이미 존재하면 값은 유지됩니다.
+아울러 손절/익절/트레일링 스탑 설정은 `coin_realtime_sell_list.json`에 함께 저장됩니다.
+【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L221-L259】
+`run_if_monitoring_list_exists()`를 사용하면 모니터링 리스트 파일이 존재할 때만
+자동으로 이 루틴이 실행됩니다. 파일이 없으면 빈 리스트를 반환하고 아무 작업도 하지
+않습니다.
 
 
 ### `OrderExecutor.entry(signal)`
-`OrderExecutor.entry`는 위 결과를 받아 실제 매수 주문을 수행합니다. RiskManager에서 특정 심볼이 차단되었는지 확인한 후 `smart_buy`를 호출하여 주문을 시도합니다. 체결되면 `PositionManager.open_position`으로 포지션이 저장됩니다.
+`OrderExecutor.entry`는 위 결과를 받아 실제 매수 주문을 수행합니다.
+RiskManager에서 특정 심볼이 차단되었는지 확인한 후 `smart_buy`를 호출하여 주문을
+시도합니다. 체결되면 `PositionManager.open_position`으로 포지션이 저장됩니다.
 【F:f3_order/order_executor.py†L48-L96】
 
 ### `smart_buy(signal, config, dynamic_params, position_manager, parent_logger=None)`
-`smart_buy`는 스프레드가 넓을 경우 IOC 주문을 우선 시도하고 실패 시 시장가 주문으로 넘어갑니다. 주문 수량은 `config["ENTRY_SIZE_INITIAL"]`을 사용해 계산하며 최소 수량은 0.0001로 제한됩니다.【F:f3_order/smart_buy.py†L20-L53】
+`smart_buy`는 스프레드가 넓을 경우 IOC 주문을 우선 시도하고 실패 시 시장가 주문으로
+넘어갑니다. 주문 수량은 `config["ENTRY_SIZE_INITIAL"]`을 사용해 계산하며 최소 수량은
+0.0001로 제한됩니다.【F:f3_order/smart_buy.py†L20-L53】
 
 ### 주요 설정 값
 - `ENTRY_SIZE_INITIAL` – 첫 매수 시 투입하는 원화 금액
