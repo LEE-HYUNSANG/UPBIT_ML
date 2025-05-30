@@ -28,3 +28,7 @@ python f5_ml_pipeline/02_data_cleaning.py
 실행 후 `f5_ml_pipeline/ml_data/02_clean/<type>/` 폴더에 `{symbol}_clean.parquet` 파일이 생성됩니다.
 데이터가 크게 줄어든 경우 경고가 표시됩니다.
 모든 스크립트는 자신의 폴더를 기준으로 절대 경로를 계산하므로 어느 위치에서 실행해도 `f5_ml_pipeline/ml_data/` 아래에 결과가 저장됩니다.
+
+## 간단 버전: 22_data_cleaning.py
+``22_data_cleaning.py`` 스크립트는 위 기능 중 OHLCV 파일 정제만 수행합니다.
+동일한 출력 폴더(`ml_data/02_clean/`)를 사용하므로 결과 비교에 활용할 수 있습니다.
