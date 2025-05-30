@@ -106,6 +106,13 @@ def save_monitoring_list(symbols: list[str]) -> None:
         logging.error("monitoring list 저장 실패: %s", exc)
 
 
+def write_json(path: Path, data: list[dict]) -> None:
+    """Write data to JSON file, clearing existing contents."""
+    ensure_dir(path.parent)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
 def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(SUMMARY_DIR)
@@ -114,13 +121,14 @@ def main() -> None:
     setup_logger()
 
     selected = select_strategies()
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(selected, f, indent=2)
+    write_json(OUT_FILE, selected)
 
     symbols = [s.get("symbol") for s in selected if s.get("symbol")]
     save_monitoring_list(symbols)
 
     logging.info("[SELECT] %d strategies saved", len(selected))
+    if not selected:
+        logging.info("[SELECT] no strategies met criteria; files cleared")
 
 
 if __name__ == "__main__":
