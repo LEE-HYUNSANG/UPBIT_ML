@@ -1,0 +1,72 @@
+import json
+import logging
+from pathlib import Path
+
+from f3_order.order_executor import OrderExecutor
+from f3_order.upbit_api import UpbitClient
+from f3_order.utils import log_with_tag
+
+CONFIG_DIR = Path("config")
+
+logger = logging.getLogger("buy_list_executor")
+
+
+def _load_buy_list(path: Path) -> list:
+    if not path.exists():
+        return []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            return data
+    except Exception as exc:  # pragma: no cover - best effort
+        log_with_tag(logger, f"Failed to load buy list: {exc}")
+    return []
+
+
+def execute_buy_list() -> list[str]:
+    """Read buy list and execute orders for entries with ``buy_signal`` == 1."""
+    buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
+    buy_list = _load_buy_list(buy_path)
+
+    targets = [b["symbol"] for b in buy_list if b.get("buy_signal") == 1]
+    if not targets:
+        log_with_tag(logger, "No buy candidates found")
+        return []
+
+    client = UpbitClient()
+    oe = OrderExecutor()
+
+    prices = {}
+    try:
+        ticker_info = client.ticker(targets)
+        prices = {t["market"]: float(t.get("trade_price", 0)) for t in ticker_info}
+    except Exception as exc:  # pragma: no cover - network issues
+        log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+
+    executed = []
+    for item in buy_list:
+        if item.get("buy_signal") != 1:
+            continue
+        symbol = item.get("symbol")
+        price = prices.get(symbol)
+        if price is None:
+            log_with_tag(logger, f"Price missing for {symbol}, skipping")
+            continue
+        signal = {
+            "symbol": symbol,
+            "buy_signal": True,
+            "sell_signal": False,
+            "price": price,
+            "spread": 0.0,
+            "buy_triggers": [],
+            "sell_triggers": [],
+        }
+        oe.entry(signal)
+        executed.append(symbol)
+    return executed
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    execute_buy_list()
