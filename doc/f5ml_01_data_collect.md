@@ -1,6 +1,6 @@
 # F5ML_01_data_collect.py 사용법
 
-`coin_list_data_collection.json`에 명시된 코인들을 매 분마다 호출하여
+`f1_f5_data_collection_list.json`에 명시된 코인들을 매 분마다 호출하여
 OHLCV, 호가, 체결, 시세 데이터를 수집합니다.
 수집된 데이터는 `f5_ml_pipeline/ml_data/01_raw/<데이터종류>/` 폴더에
 Parquet 형식으로 저장됩니다.
@@ -11,7 +11,7 @@ Parquet 형식으로 저장됩니다.
 - `save_data()`가 기존 파일을 불러와 중복을 제거한 뒤 누적 저장합니다.
 - 모든 과정은 `logs/data_collect.log`에 기록되어 누락 여부를 확인할 수 있습니다.
 
-모니터링할 코인 목록은 `config/coin_list_data_collection.json`에 저장되며,
+모니터링할 코인 목록은 `config/f1_f5_data_collection_list.json`에 저장되며,
 로그 파일은 `f5_ml_pipeline/logs/data_collect.log`로 분리되어 보관됩니다.
 
 ### 코드 구조

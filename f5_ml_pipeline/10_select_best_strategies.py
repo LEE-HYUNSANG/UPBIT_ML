@@ -17,7 +17,7 @@ PARAM_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 OUT_DIR = PIPELINE_ROOT / "ml_data" / "10_selected"
 OUT_FILE = OUT_DIR / "selected_strategies.json"
 LOG_PATH = PIPELINE_ROOT / "logs" / "select_best_strategies.log"
-MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "coin_list_monitoring.json"
+MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "f5_f1_monitoring_list.json"
 
 
 # ----- 확장 포인트: 성과 기준과 정렬 기준 -----

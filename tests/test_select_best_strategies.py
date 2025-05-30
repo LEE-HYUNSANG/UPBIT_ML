@@ -87,13 +87,13 @@ def test_main_writes_monitoring(tmp_path):
     select_best.PARAM_DIR = param_dir
     select_best.OUT_DIR = out_dir
     select_best.OUT_FILE = out_dir / "selected_strategies.json"
-    select_best.MONITORING_LIST_FILE = conf_dir / "coin_list_monitoring.json"
+    select_best.MONITORING_LIST_FILE = conf_dir / "f5_f1_monitoring_list.json"
     select_best.LOG_PATH = tmp_path / "select.log"
     select_best.TOP_N = 1
 
     select_best.main()
 
-    data = json.loads((conf_dir / "coin_list_monitoring.json").read_text())
+    data = json.loads((conf_dir / "f5_f1_monitoring_list.json").read_text())
     assert data == ["AAA"]
 
     log_text = (tmp_path / "select.log").read_text()
@@ -114,12 +114,12 @@ def test_main_clears_files_when_empty(tmp_path):
     select_best.PARAM_DIR = param_dir
     select_best.OUT_DIR = out_dir
     select_best.OUT_FILE = out_dir / "selected_strategies.json"
-    select_best.MONITORING_LIST_FILE = conf_dir / "coin_list_monitoring.json"
+    select_best.MONITORING_LIST_FILE = conf_dir / "f5_f1_monitoring_list.json"
     select_best.LOG_PATH = tmp_path / "select.log"
 
     select_best.main()
 
     out_data = json.loads((out_dir / "selected_strategies.json").read_text())
-    mon_data = json.loads((conf_dir / "coin_list_monitoring.json").read_text())
+    mon_data = json.loads((conf_dir / "f5_f1_monitoring_list.json").read_text())
     assert out_data == []
     assert mon_data == []

@@ -31,14 +31,14 @@ logging.basicConfig(
     ],
 )
 
-CONFIG_PATH = "config/universe.json"
+CONFIG_PATH = "config/f1_f1_universe_filters.json"
 UNIVERSE_FILE = "config/current_universe.json"
 SELECTED_STRATEGIES_FILE = (
     "f5_ml_pipeline/ml_data/10_selected/selected_strategies.json"
 )
-MONITORING_LIST_FILE = "config/coin_list_monitoring.json"
-DATA_COLLECTION_LIST_FILE = "config/coin_list_data_collection.json"
-DATA_COLLECTION_FILTER_FILE = "config/filter_coin_data_collection.json"
+MONITORING_LIST_FILE = "config/f5_f1_monitoring_list.json"
+DATA_COLLECTION_LIST_FILE = "config/f1_f5_data_collection_list.json"
+DATA_COLLECTION_FILTER_FILE = "config/f1_f5_data_collection_filter.json"
 
 _UNIVERSE: List[str] = []
 _LOCK = threading.Lock()
@@ -206,7 +206,7 @@ def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) 
     thread.start()
 
 
-POSITIONS_FILE = "config/coin_positions.json"
+POSITIONS_FILE = "config/f1_f3_coin_positions.json"
 
 
 def init_coin_positions(threshold: float = 5000.0, path: str = POSITIONS_FILE) -> None:
