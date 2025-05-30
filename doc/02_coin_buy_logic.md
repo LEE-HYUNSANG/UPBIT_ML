@@ -31,8 +31,10 @@
 ### `run()`
 1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
 2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count]`
-   정보를 `f2_f2_realtime_buy_list.json`에 저장합니다. 매도 설정 리스트는
-   실제 매수가 완료된 뒤 별도의 과정에서 갱신됩니다.
+   정보를 `f2_f2_realtime_buy_list.json`에 저장합니다. 여기서 ``buy_count``
+   값이 0인 항목만이 매수 후보가 되며, 체결되면 값이 1로 갱신되어 중복
+   매수를 방지합니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의
+   과정에서 갱신됩니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`

@@ -21,7 +21,7 @@
 
   "SL_PCT": 1.0,
   "TP_PCT": 1.2,
-  "TRAILING_STOP_ENABLED": true,
+  "TRAILING_STOP_ENABLED": false,
   "TRAIL_START_PCT": 0.7,
   "TRAIL_STEP_PCT": 1.0
   ,"HOLD_SECS": 0
