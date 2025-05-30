@@ -41,6 +41,20 @@
 필수 패키지가 없으면 해당 오류 메시지도 이 파일에 남습니다.
 최근 업데이트로 실행 시작과 종료, 데이터 수집, 예측 확률 등 세부 정보가 모두 로그에
 표시되므로 문제 발생 시 원인을 쉽게 추적할 수 있습니다.
+로그 항목은 다음 예시와 비슷한 형태를 가집니다.
+
+```
+2024-01-01 00:00:00 [F2] [INFO] [RUN] starting buy signal scan
+2024-01-01 00:00:00 [F2] [INFO] [RUN] loaded coin_list_monitoring.json: ['KRW-ETH']
+2024-01-01 00:00:00 [F2] [INFO] [RUN] existing buy_list={}
+2024-01-01 00:00:00 [F2] [INFO] [ETH] buy_signal=1
+2024-01-01 00:00:00 [F2] [INFO] [ETH] added to buy list with 0
+2024-01-01 00:00:00 [F2] [INFO] [RUN] saved buy_list={'KRW-ETH': 0}
+2024-01-01 00:00:00 [F2] [INFO] [RUN] finished. 1 coins to buy
+```
+
+각 메시지는 `[RUN]` 단계, 개별 종목 처리 결과, 파일 저장 여부 등을 모두 남기므로
+어떤 과정을 거쳐 매수 대상이 결정됐는지 한눈에 확인할 수 있습니다.
 
 추가로 각 단계별 중간 데이터를 `f2_ml_buy_signal/f2_data` 폴더에 저장해 검증할 수
 있습니다.

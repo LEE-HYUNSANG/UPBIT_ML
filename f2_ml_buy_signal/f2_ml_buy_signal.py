@@ -223,15 +223,19 @@ def run() -> List[str]:
     try:
         with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
+        logging.info("[RUN] loaded coin_list_monitoring.json: %s", coins)
     except Exception:
         coins = []
+        logging.warning("[RUN] coin_list_monitoring.json missing or invalid")
 
-    logging.info("[RUN] coins=%s", coins)
     buy_list_path = CONFIG_DIR / "coin_realtime_buy_list.json"
     sell_list_path = CONFIG_DIR / "coin_realtime_sell_list.json"
     buy_dict = _load_json(buy_list_path)
     sell_dict = _load_json(sell_list_path)
     risk_cfg = _load_json(CONFIG_DIR / "risk.json")
+    logging.info("[RUN] existing buy_list=%s", buy_dict)
+    logging.info("[RUN] existing sell_list=%s", sell_dict)
+    logging.info("[RUN] risk settings=%s", risk_cfg)
 
     results = []
     for sym in coins:
@@ -240,6 +244,7 @@ def run() -> List[str]:
         if buy:
             results.append(sym)
             if sym not in buy_dict:
+                logging.info("[%s] added to buy list with 0", sym)
                 buy_dict[sym] = 0
                 sell_dict.setdefault(
                     sym,
@@ -251,10 +256,13 @@ def run() -> List[str]:
                         "TRAIL_STEP_PCT": risk_cfg.get("TRAIL_STEP_PCT"),
                     },
                 )
+            else:
+                logging.info("[%s] already in buy list: %s", sym, buy_dict[sym])
 
     _save_json(buy_list_path, buy_dict)
     _save_json(sell_list_path, sell_dict)
-
+    logging.info("[RUN] saved buy_list=%s", buy_dict)
+    logging.info("[RUN] saved sell_list=%s", sell_dict)
     logging.info("[RUN] finished. %d coins to buy", len(results))
     return results
 
