@@ -3,7 +3,7 @@
 This repository implements a four stage trading system built around the Upbit exchange.
 
 - **F1 Universe Selector** – builds a list of tradable tickers based on configurable
-  filters such as volume and price. If `ml_data/10_selected/selected_strategies.json`
+  filters such as volume and price. If `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json`
   exists the `symbol` entries from that file define the monitoring universe.
   Otherwise the results are stored in `config/current_universe.json`.
 - **F2 Signal Engine** – evaluates OHLCV data for each symbol and produces buy/sell
@@ -27,6 +27,7 @@ This repository implements a four stage trading system built around the Upbit ex
   or halt trading when risk thresholds are breached.
 - **F5ML 머신러닝 파이프라인** – 매매 의사결정에 사용되는 모델을 학습하고 평가합니다. 스크립트는 `f5_ml_pipeline/`에 있습니다.
 
+모든 파이프라인 스크립트는 자신의 위치를 기준으로 절대 경로를 계산하므로 실행 디렉터리에 상관없이 `f5_ml_pipeline/ml_data/`에 데이터를 저장합니다.
 A lightweight Flask application in `app.py` exposes REST API endpoints for monitoring
 and control. The templates under `templates/` form a simple dashboard that consumes
 those APIs.

@@ -1,7 +1,7 @@
 # F5ML_02_data_cleaning.py 사용법
 
-`ml_data/01_raw/` 폴더(및 하위 디렉터리)에 있는 업비트 원본 데이터를
-머신러닝에 적합한 형식으로 정제하여 `ml_data/02_clean/` 하위에 저장합니다.
+`f5_ml_pipeline/ml_data/01_raw/` 폴더(및 하위 디렉터리)에 있는 업비트 원본 데이터를
+머신러닝에 적합한 형식으로 정제하여 `f5_ml_pipeline/ml_data/02_clean/` 하위에 저장합니다.
 `ohlcv`, `ticker`, `trades`, `orderbook` 등 타입별 폴더 구조를 인식하며,
 같은 심볼의 여러 파일이 있을 경우 자동 병합 후 하나의 결과 파일을 생성합니다.
 
@@ -25,5 +25,6 @@
 python f5_ml_pipeline/02_data_cleaning.py
 ```
 
-실행 후 `ml_data/02_clean/<type>/` 폴더에 `{symbol}_clean.parquet` 파일이 생성됩니다.
+실행 후 `f5_ml_pipeline/ml_data/02_clean/<type>/` 폴더에 `{symbol}_clean.parquet` 파일이 생성됩니다.
 데이터가 크게 줄어든 경우 경고가 표시됩니다.
+모든 스크립트는 자신의 폴더를 기준으로 절대 경로를 계산하므로 어느 위치에서 실행해도 `f5_ml_pipeline/ml_data/` 아래에 결과가 저장됩니다.

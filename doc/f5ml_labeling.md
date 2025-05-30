@@ -1,7 +1,7 @@
 # F5ML_04_labeling.py 사용법
 
-`ml_data/03_feature/` 폴더의 피처 파일을 읽어 초단타 매매용 라벨을 생성합니다. 결과는
-`ml_data/04_label/` 폴더에 `{symbol}_label.parquet` 형식으로 저장됩니다.
+`f5_ml_pipeline/ml_data/03_feature/` 폴더의 피처 파일을 읽어 초단타 매매용 라벨을 생성합니다. 결과는
+`f5_ml_pipeline/ml_data/04_label/` 폴더에 `{symbol}_label.parquet` 형식으로 저장됩니다.
 
 ## 라벨 기준
 - **1 (익절)**: 미래 `horizon` 구간에서 고가가 진입가의 `(1 + thresh_pct)` 이상이면 1
@@ -23,6 +23,7 @@
 python f5_ml_pipeline/04_labeling.py
 ```
 
+모든 스크립트는 자신의 디렉터리를 기준으로 절대 경로를 계산하므로 어느 위치에서 실행해도 `f5_ml_pipeline/ml_data/` 아래에 결과가 저장됩니다.
 실행 후 심볼별 `{symbol}_label.parquet` 파일이 생성됩니다.
 
 ## 변경 사항
