@@ -18,7 +18,8 @@
 
 ### `run()`
 1. 파일에서 심볼 목록을 읽어 `check_buy_signal()`을 순회합니다.
-2. 매수 후보가 발견되면 다음과 같은 구조의 리스트를 `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+2. 모니터링하는 각 코인에 대해 다음과 같은 구조의 리스트를
+   `config/f2_f2_realtime_buy_list.json`에 저장합니다.
 
    ```json
    [
@@ -27,8 +28,8 @@
    ]
    ```
 
-   실행 결과가 없더라도 파일은 매 실행마다 덮어쓰기 때문에,
-   신호가 없으면 빈 배열이 저장됩니다.
+    모든 코인의 상태가 매 실행마다 덮어쓰기 되며,
+    `buy_signal` 값이 `1`인 항목만이 실제 매수 후보가 됩니다.
 3. 결과와 과정을 모두 `logs/f2_ml_buy_signal.log`에 기록합니다.
 
 ### `check_buy_signal(symbol)`

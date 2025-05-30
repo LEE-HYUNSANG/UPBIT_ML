@@ -370,7 +370,16 @@ def run() -> List[str]:
             continue
         buy, rsi_flag, trend_flag = check_buy_signal(sym)
         logging.info("[%s] buy=%s rsi=%s trend=%s", sym, buy, rsi_flag, trend_flag)
-        if buy and rsi_flag and trend_flag:
+        final = int(buy and rsi_flag and trend_flag)
+        updated.append({
+            "symbol": sym,
+            "ml_signal": int(buy),
+            "rsi_sel": int(rsi_flag),
+            "trend_sel": int(trend_flag),
+            "buy_signal": final,
+            "buy_count": 0,
+        })
+        if final:
             results.append(sym)
             updated.append({
                 "symbol": sym,
