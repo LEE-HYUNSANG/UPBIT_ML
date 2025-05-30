@@ -1,88 +1,60 @@
-# 코인 매수 모니터링 로직
+# 코인 매수 로직
 
-이 문서는 F2 모듈에서 매수 신호를 감지하고 F3 모듈에서 실제 매수 주문을 실행하는 과정을 설명합니다. 코드 흐름과 사용되는 주요 함수, 변수들을 초보 기획자도 이해하기 쉽게 정리했습니다.
+이 문서는 F2 모듈에서 매수 신호를 계산하고 F3 모듈이 실제 주문을
+어떻게 수행하는지 설명합니다. 초보 기획자를 위해 관련 파일과
+함수를 한눈에 볼 수 있게 정리했습니다.
 
 ## 관련 파일
-- `f2_signal/signal_engine.py` – 매수/매도 조건 계산 함수 `f2_signal` 정의
-- `f3_order/order_executor.py` – 신호를 받아 주문을 처리하는 `OrderExecutor` 클래스
-- `f3_order/smart_buy.py` – 시장가와 IOC 주문을 조합한 `smart_buy` 함수
-- `f3_order/position_manager.py` – 포지션 정보를 저장하고 갱신하는 `PositionManager`
 
-## 주요 함수와 변수
+| 경로 | 용도 |
+| --- | --- |
+| `f2_ml_buy_signal/f2_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
+| `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
+| `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
+| `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
+| `config/coin_list_monitoring.json` | 모니터링할 코인 목록. F5 단계에서 생성됩니다. |
+| `config/coin_realtime_buy_list.json` | 매수 대상이 발견되면 `{심볼: 0}` 형식으로 기록됩니다. |
+| `config/coin_realtime_sell_list.json` | 손절·익절·트레일링 스탑 설정을 저장합니다. |
+| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값. |
 
-### `f2_signal(df_1m, df_5m, symbol="", trades=None, calc_buy=True, calc_sell=True, strategy_codes=None)`
-`f2_signal`은 머신러닝 모델을 이용해 1분 봉 데이터에서 매수 신호를 계산합니다. 기존의 전략 공식은 사용하지 않으며 반환 값의 형식은 다음과 같습니다.
-```python
-{
-    "symbol": symbol,
-    "buy_signal": bool,    # 매수 가능 여부
-    "sell_signal": bool,   # 매도 가능 여부
-    "buy_triggers": [],
-    "sell_triggers": []
-}
-```
-매수 조건이 충족되면 `buy_signal`이 `True`가 됩니다.
-별도의 `f2_ml_buy_signal.run()` 함수가 `coin_list_monitoring.json`에 있는 종목을
-순회하면서 이 값을 확인하고, `config/coin_realtime_buy_list.json`에 매수 대상을
-`{심볼: 0}` 형식으로 추가합니다.
-동일 심볼이 이미 존재하면 값은 유지됩니다.
-아울러 손절/익절/트레일링 스탑 설정은 `coin_realtime_sell_list.json`에 함께 저장됩니다.
-【F:f2_ml_buy_signal/f2_ml_buy_signal.py†L221-L259】
-`run_if_monitoring_list_exists()`를 사용하면 모니터링 리스트 파일이 존재할 때만
-자동으로 이 루틴이 실행됩니다. 파일이 없으면 빈 리스트를 반환하고 아무 작업도 하지
-않습니다.
+로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
+`logs/F3_order_executor.log` 등에 남습니다.
 
+## 주요 함수
+
+### `run_if_monitoring_list_exists()`
+`config/coin_list_monitoring.json` 파일이 존재할 때만 `run()`을 호출합니다.
+파일이 없으면 아무 작업도 하지 않습니다.
+
+### `run()`
+1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
+2. 신호가 `True`이면 `coin_realtime_buy_list.json`과
+   `coin_realtime_sell_list.json`을 갱신합니다.
+3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
+
+### `f2_signal(df_1m, df_5m, symbol="", ...)`
+`signal_loop.py`에서 호출되어 실제 매매 루프를 돌 때 사용됩니다.
+`check_buy_signal_df()`를 이용해 1분 봉 데이터에서 바로 신호를 계산하며
+매수 가능 여부를 `buy_signal` 필드로 반환합니다.
 
 ### `OrderExecutor.entry(signal)`
-`OrderExecutor.entry`는 위 결과를 받아 실제 매수 주문을 수행합니다.
-RiskManager에서 특정 심볼이 차단되었는지 확인한 후 `smart_buy`를 호출하여 주문을
-시도합니다. 체결되면 `PositionManager.open_position`으로 포지션이 저장됩니다.
-【F:f3_order/order_executor.py†L48-L96】
-
-### `smart_buy(signal, config, dynamic_params, position_manager, parent_logger=None)`
-`smart_buy`는 스프레드가 넓을 경우 IOC 주문을 우선 시도하고 실패 시 시장가 주문으로
-넘어갑니다. 주문 수량은 `config["ENTRY_SIZE_INITIAL"]`을 사용해 계산하며 최소 수량은
-0.0001로 제한됩니다.【F:f3_order/smart_buy.py†L20-L53】
-
-### 주요 설정 값
-- `ENTRY_SIZE_INITIAL` – 첫 매수 시 투입하는 원화 금액
-- `MAX_RETRY` – IOC 주문 재시도 횟수 (기본 2회)
-- `SPREAD_TH` – 스프레드 임계값. 이보다 좁으면 바로 시장가 주문
-
-위 값들은 `config/setting_date/Latest_config.json` 또는 기타 설정 파일에서 관리됩니다.【F:config/setting_date/Latest_config.json†L1-L23】
-매수 신호 계산 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
-필수 패키지가 없으면 해당 오류 메시지도 이 파일에 남습니다.
-최근 업데이트로 실행 시작과 종료, 데이터 수집, 예측 확률 등 세부 정보가 모두 로그에
-표시되므로 문제 발생 시 원인을 쉽게 추적할 수 있습니다.
-로그 항목은 다음 예시와 비슷한 형태를 가집니다.
-
-```
-2024-01-01 00:00:00 [F2] [INFO] [RUN] starting buy signal scan
-2024-01-01 00:00:00 [F2] [INFO] [RUN] loaded coin_list_monitoring.json: ['KRW-ETH']
-2024-01-01 00:00:00 [F2] [INFO] [RUN] existing buy_list={}
-2024-01-01 00:00:00 [F2] [INFO] [ETH] buy_signal=1
-2024-01-01 00:00:00 [F2] [INFO] [ETH] added to buy list with 0
-2024-01-01 00:00:00 [F2] [INFO] [RUN] saved buy_list={'KRW-ETH': 0}
-2024-01-01 00:00:00 [F2] [INFO] [RUN] finished. 1 coins to buy
-```
-
-각 메시지는 `[RUN]` 단계, 개별 종목 처리 결과, 파일 저장 여부 등을 모두 남기므로
-어떤 과정을 거쳐 매수 대상이 결정됐는지 한눈에 확인할 수 있습니다.
-
-추가로 각 단계별 중간 데이터를 `f2_ml_buy_signal/f2_data` 폴더에 저장해 검증할 수
-있습니다.
-
-- `01_data` – 원시 OHLCV
-- `02_clean_data` – 정제된 데이터
-- `03_data` – 피처 엔지니어링 결과
-- `04_data` – 라벨링 결과
-- `05_data` – 학습/검증/테스트 분할
-- `06_data` – 학습된 모델
+매수 신호가 `True`일 때 호출되어 실거래를 시도합니다.
+수량 계산, 슬리피지 체크, 포지션 등록 등을 모두 처리하며
+실패 시 재시도나 오류 로그가 남습니다.
 
 ## 동작 흐름
-1. `signal_loop.py`의 `process_symbol`에서 각 심볼의 OHLCV 데이터를 받아 `f2_signal`을 호출합니다.
-2. 반환된 딕셔너리에서 `buy_signal`이 `True`이면 `OrderExecutor.entry`가 실행됩니다.
-3. `entry` 내부에서 동일 심볼의 기존 포지션을 확인하고, 없을 경우 `smart_buy`로 주문을 시도합니다.
-4. 주문이 체결되면 `PositionManager.open_position`을 통해 포지션 목록에 추가되고, 텔레그램 알림이 전송됩니다.
 
-이 과정을 통해 시스템은 지속적으로 코인을 모니터링하며 매수 조건이 충족될 때 자동으로 주문을 실행합니다.
+1. **전략 선별** – `f5_ml_pipeline/10_select_best_strategies.py`가
+   우수 전략을 추려 `coin_list_monitoring.json`을 갱신합니다.
+2. **모니터링** – `signal_loop.py`에서 주기적으로 `f2_signal`을 호출해
+   각 코인의 1분 봉 데이터를 분석합니다.
+3. **ML 신호 판단** – `run_if_monitoring_list_exists()`가 실행되면
+   별도의 경량 ML 모델이 최근 데이터를 학습한 뒤 바로 예측을 수행합니다.
+   확률이 0.5 이상이면 매수 대상으로 판단합니다.
+4. **주문 실행** – `OrderExecutor.entry()`가 `smart_buy()`를 호출해
+   시장가 혹은 IOC 주문을 보내고, 체결되면 `PositionManager`에
+   포지션이 저장됩니다.
+5. **로그 기록** – 모든 과정은 `logs` 폴더에 남아 나중에 분석할 수 있습니다.
+
+위 절차를 통해 시스템은 모니터링 목록에 있는 코인을 실시간으로 살펴보고
+매수 조건이 충족되면 자동으로 주문을 진행합니다.
