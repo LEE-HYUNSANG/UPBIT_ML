@@ -7,7 +7,7 @@ import logging
 import sys
 import time
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
@@ -31,12 +31,22 @@ setup_logger()
 try:
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
+    import joblib
 except ImportError as exc:  # pragma: no cover - dependency missing at runtime
     logging.exception("Required dependency missing: %s", exc)
     sys.exit(1)
 
 from indicators import ema, sma, rsi  # type: ignore
+from f5_ml_pipeline.utils import ensure_dir
 CONFIG_DIR = PROJECT_ROOT / "config"
+
+DATA_ROOT = PROJECT_ROOT / "f2_ml_buy_signal" / "f2_data"
+RAW_DIR = DATA_ROOT / "01_data"
+CLEAN_DIR = DATA_ROOT / "02_clean_data"
+FEATURE_DIR = DATA_ROOT / "03_data"
+LABEL_DIR = DATA_ROOT / "04_data"
+SPLIT_DIR = DATA_ROOT / "05_data"
+MODEL_DIR = DATA_ROOT / "06_data"
 
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
@@ -53,6 +63,13 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
             if df is not None:
                 df = df.reset_index().rename(columns={"index": "timestamp"})
                 logging.info("[FETCH] %s rows=%d", symbol, len(df))
+                ensure_dir(RAW_DIR)
+                out_path = RAW_DIR / f"{symbol}.parquet"
+                try:
+                    df.to_parquet(out_path, index=False)
+                    logging.info("[FETCH] saved %s", out_path.name)
+                except Exception:
+                    logging.warning("[FETCH] save failed %s", out_path.name)
                 return df
         except Exception:
             time.sleep(0.2)
@@ -86,15 +103,47 @@ def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
     return df
 
 
-def _train_predict(df: pd.DataFrame) -> bool:
+def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
+              valid_ratio: float = 0.2) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    n = len(df)
+    n_train = int(n * train_ratio)
+    n_valid = int(n * valid_ratio)
+    train = df.iloc[:n_train]
+    valid = df.iloc[n_train:n_train + n_valid]
+    test = df.iloc[n_train + n_valid:]
+    return train, valid, test
+
+
+def _train_predict(df: pd.DataFrame, symbol: str) -> bool:
     features = ["return", "rsi", "ema_diff", "vol_ratio"]
-    train_df = df.iloc[:-1]
+    train_df, valid_df, test_df = _split_df(df)
+
+    ensure_dir(SPLIT_DIR)
+    for part, data in {"train": train_df, "valid": valid_df, "test": test_df}.items():
+        out = SPLIT_DIR / f"{symbol}_{part}.parquet"
+        try:
+            data.to_parquet(out, index=False)
+            logging.info("[SPLIT] saved %s", out.name)
+        except Exception:
+            logging.warning("[SPLIT] save failed %s", out.name)
+
     if train_df.empty or train_df["label"].nunique() < 2:
+        logging.info("[TRAIN] %s skipped due to insufficient data", symbol)
         return False
+
     X = train_df[features]
     y = train_df["label"]
     model = LogisticRegression(max_iter=200, solver="liblinear")
     model.fit(X, y)
+
+    ensure_dir(MODEL_DIR)
+    model_path = MODEL_DIR / f"{symbol}_model.pkl"
+    try:
+        joblib.dump(model, model_path)
+        logging.info("[TRAIN] saved model %s", model_path.name)
+    except Exception:
+        logging.warning("[TRAIN] save failed %s", model_path.name)
+
     last_row = df.iloc[[-1]][features]
     prob = model.predict_proba(last_row)[0][1]
     logging.info("[PREDICT] prob=%.4f", prob)
@@ -106,16 +155,42 @@ def check_buy_signal(symbol: str) -> bool:
     if df.empty or len(df) < 30:
         logging.info("[CHECK] %s insufficient data", symbol)
         return False
+
     df = _clean_df(df)
+    ensure_dir(CLEAN_DIR)
+    clean_path = CLEAN_DIR / f"{symbol}.parquet"
+    try:
+        df.to_parquet(clean_path, index=False)
+        logging.info("[CLEAN] saved %s", clean_path.name)
+    except Exception:
+        logging.warning("[CLEAN] save failed %s", clean_path.name)
+
     df = _add_features(df)
+    ensure_dir(FEATURE_DIR)
+    feat_path = FEATURE_DIR / f"{symbol}.parquet"
+    try:
+        df.to_parquet(feat_path, index=False)
+        logging.info("[FEATURE] saved %s", feat_path.name)
+    except Exception:
+        logging.warning("[FEATURE] save failed %s", feat_path.name)
+
     df = _label(df)
     if df.empty:
         logging.info("[CHECK] %s no labeled rows", symbol)
         return False
-    return _train_predict(df)
+
+    ensure_dir(LABEL_DIR)
+    label_path = LABEL_DIR / f"{symbol}.parquet"
+    try:
+        df.to_parquet(label_path, index=False)
+        logging.info("[LABEL] saved %s", label_path.name)
+    except Exception:
+        logging.warning("[LABEL] save failed %s", label_path.name)
+
+    return _train_predict(df, symbol)
 
 
-def check_buy_signal_df(df: pd.DataFrame) -> bool:
+def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
     if df.empty or len(df) < 30:
         logging.info("[CHECK_DF] insufficient rows")
         return False
@@ -125,7 +200,7 @@ def check_buy_signal_df(df: pd.DataFrame) -> bool:
     if df.empty:
         logging.info("[CHECK_DF] no labeled rows")
         return False
-    return _train_predict(df)
+    return _train_predict(df, symbol)
 
 
 def run() -> List[str]:
