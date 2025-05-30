@@ -5,6 +5,7 @@ from typing import Optional
 
 from f3_order.order_executor import entry as f3_entry, _default_executor
 from f4_riskManager import RiskManager
+from f4_setting.telegram_control import read_status
 
 import pyupbit
 
@@ -121,6 +122,13 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
     risk_manager = RiskManager(order_executor=executor, exception_handler=executor.exception_handler)
     executor.set_risk_manager(risk_manager)
     while True:
+        if read_status().upper() != "ON":
+            logging.info("[Loop] Waiting for ON status...")
+            executor.manage_positions()
+            time.sleep(5)
+            if stop_event and stop_event.is_set():
+                break
+            continue
         if stop_event and stop_event.is_set():
             break
         universe = get_universe()
