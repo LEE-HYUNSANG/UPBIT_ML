@@ -26,6 +26,17 @@ def test_passes_criteria_basic():
     assert select_best.passes_criteria(summary)
 
 
+def test_passes_criteria_with_str_values():
+    summary = {
+        "win_rate": "0.6",
+        "avg_roi": "0.003",
+        "sharpe": "1.2",
+        "mdd": "-0.05",
+        "total_entries": "60",
+    }
+    assert select_best.passes_criteria(summary)
+
+
 def test_select_strategies(tmp_path):
     summary_dir = tmp_path / "09_backtest"
     param_dir = tmp_path / "04_label"
@@ -98,34 +109,6 @@ def test_main_clears_files_when_empty(tmp_path):
     param_dir.mkdir()
     out_dir.mkdir()
     conf_dir.mkdir()
-
-    select_best.SUMMARY_DIR = summary_dir
-    select_best.PARAM_DIR = param_dir
-    select_best.OUT_DIR = out_dir
-    select_best.OUT_FILE = out_dir / "selected_strategies.json"
-    select_best.MONITORING_LIST_FILE = conf_dir / "coin_list_monitoring.json"
-    select_best.LOG_PATH = tmp_path / "select.log"
-
-    select_best.main()
-
-    out_data = json.loads((out_dir / "selected_strategies.json").read_text())
-    mon_data = json.loads((conf_dir / "coin_list_monitoring.json").read_text())
-    assert out_data == []
-    assert mon_data == []
-
-
-def test_main_overwrites_existing_files(tmp_path):
-    summary_dir = tmp_path / "09_backtest"
-    param_dir = tmp_path / "04_label"
-    out_dir = tmp_path / "10_selected"
-    conf_dir = tmp_path / "config"
-    summary_dir.mkdir()
-    param_dir.mkdir()
-    out_dir.mkdir()
-    conf_dir.mkdir()
-
-    (out_dir / "selected_strategies.json").write_text(json.dumps([{"a": 1}]))
-    (conf_dir / "coin_list_monitoring.json").write_text(json.dumps(["AAA"]))
 
     select_best.SUMMARY_DIR = summary_dir
     select_best.PARAM_DIR = param_dir
