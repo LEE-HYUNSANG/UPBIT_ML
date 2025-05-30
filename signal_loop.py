@@ -16,7 +16,10 @@ from f1_universe.universe_selector import (
     load_universe_from_file,
     init_coin_positions,
 )
-from f2_signal.signal_engine import f2_signal
+from importlib import import_module
+
+_se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
+f2_signal = _se.f2_signal
 
 
 def ensure_kst(timestamp_col):

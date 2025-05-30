@@ -11,7 +11,7 @@
 | `f2_ml_buy_signal/02_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
 | `f2_ml_buy_signal/01_buy_indicator.py` | 1분 봉에서 RSI와 EMA 조건을 이용한 간단한 매수 필터 함수가 있습니다. |
 | `f2_ml_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치. 신호 계산 후 폴더 전체가 삭제됩니다. |
-| `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
+| `f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
 | `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록(`symbol`, `thresh_pct`, `loss_pct`). F5 단계에서 생성됩니다. |
@@ -67,12 +67,12 @@
 ## 실시간 매수 리스트 활용
 
 `f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`을 그대로
-사용해 주문을 실행하려면 `f2_signal.buy_list_executor.execute_buy_list()` 함수를
+사용해 주문을 실행하려면 `f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor.execute_buy_list()` 함수를
 호출하면 됩니다. 이 함수는 리스트에서 `"buy_signal": 1`인 항목을 골라 현재
 가격을 조회한 뒤 `OrderExecutor.entry()`로 전달합니다.
 
 ```python
-from f2_signal.buy_list_executor import execute_buy_list
+from f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor import execute_buy_list
 execute_buy_list()
 ```
 

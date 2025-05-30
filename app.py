@@ -20,7 +20,10 @@ from f1_universe.universe_selector import (
     load_universe_from_file,
     CONFIG_PATH,
 )
-from f2_signal.signal_engine import reload_strategy_settings
+from importlib import import_module
+
+_se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
+reload_strategy_settings = _se.reload_strategy_settings
 
 app = Flask(__name__)
 PORT = int(os.environ.get("PORT", 3000))
