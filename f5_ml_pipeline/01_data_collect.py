@@ -21,15 +21,17 @@ import requests
 from utils import ensure_dir
 
 BASE_URL = "https://api.upbit.com"
+# Base directory of this pipeline
+PIPELINE_ROOT = Path(__file__).resolve().parent
 # Store output under the pipeline data directory regardless of CWD
-DATA_ROOT = Path(__file__).resolve().parent / "ml_data" / "01_raw"
+DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
 
 # Use absolute path so the script works regardless of the current
 # working directory.
-ROOT_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "coin_list_data_collection.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
-LOG_PATH = Path("logs/data_collect.log")
+LOG_PATH = PIPELINE_ROOT / "logs" / "data_collect.log"
 START_DELAY = 5  # seconds after each minute boundary
 
 

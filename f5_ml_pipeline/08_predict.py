@@ -11,10 +11,11 @@ import pandas as pd
 
 from utils import ensure_dir
 
-MODEL_DIR = Path("ml_data/06_models")
-FEATURE_DIR = Path("ml_data/03_feature")
-PRED_DIR = Path("ml_data/08_pred")
-LOG_PATH = Path("logs/ml_predict.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
+FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
+PRED_DIR = PIPELINE_ROOT / "ml_data" / "08_pred"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_predict.log"
 
 # 모델 저장 시 포함된 피처 목록을 우선 사용한다.
 IGNORE_COLS = {"timestamp"}

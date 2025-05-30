@@ -12,9 +12,10 @@ from numpy.lib.stride_tricks import sliding_window_view
 
 from utils import ensure_dir
 
-FEATURE_DIR = Path("ml_data/03_feature")
-LABEL_DIR = Path("ml_data/04_label")
-LOG_PATH = Path("logs/ml_label.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
+LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_label.log"
 
 THRESH_LIST      = [0.005, 0.006, 0.007]    # 익절(%)
 LOSS_LIST        = [0.005, 0.006, 0.007]    # 손절(%)

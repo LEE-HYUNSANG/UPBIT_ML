@@ -12,10 +12,11 @@ import pandas as pd
 
 from utils import ensure_dir
 
-PRED_DIR = Path("ml_data/08_pred")
-LABEL_DIR = Path("ml_data/04_label")
-OUT_DIR = Path("ml_data/09_backtest")
-LOG_PATH = Path("logs/ml_backtest.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+PRED_DIR = PIPELINE_ROOT / "ml_data" / "08_pred"
+LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
+OUT_DIR = PIPELINE_ROOT / "ml_data" / "09_backtest"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_backtest.log"
 COMMISSION = 0.001  # 0.1% upbit round trip
 
 

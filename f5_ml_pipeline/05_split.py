@@ -12,10 +12,10 @@ from utils import ensure_dir
 
 # Absolute paths relative to this file so the script behaves the same
 # regardless of the current working directory.
-ROOT_DIR = Path(__file__).resolve().parent
-LABEL_DIR = ROOT_DIR / "ml_data" / "04_label"
-SPLIT_DIR = ROOT_DIR / "ml_data" / "05_split"
-LOG_PATH = ROOT_DIR / "logs" / "ml_split.log"
+PIPELINE_ROOT = Path(__file__).resolve().parent
+LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
+SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_split.log"
 
 
 def setup_logger() -> None:

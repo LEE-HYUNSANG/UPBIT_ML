@@ -19,10 +19,11 @@ from sklearn.metrics import (
 
 from utils import ensure_dir
 
-SPLIT_DIR = Path("ml_data/05_split")
-MODEL_DIR = Path("ml_data/06_models")
-EVAL_DIR = Path("ml_data/07_eval")
-LOG_PATH = Path("logs/ml_eval.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
+MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
+EVAL_DIR = PIPELINE_ROOT / "ml_data" / "07_eval"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_eval.log"
 
 
 # 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.
