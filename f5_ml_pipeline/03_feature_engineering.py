@@ -49,10 +49,10 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     # === 표준 피처 ===
 
     # EMA 및 장기선
-    ##df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
+    df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
     ##df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
     ##df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
-    ##df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
+    df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
     ##df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
     ##df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
     ##df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
@@ -86,19 +86,18 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
             df["rsi_overbought"] = (df[f"rsi{w}"] > 70).astype(int)
 
     # ATR
-    ##for w in [7, 14]:
-    ##    high_low = df["high"] - df["low"]
-    ##    high_close = (df["high"] - df["close"].shift()).abs()
-    ##    low_close = (df["low"] - df["close"].shift()).abs()
-    ##    tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
-    ##    df[f"atr{w}"] = tr.rolling(window=w).mean()
+    high_low = df["high"] - df["low"]
+    high_close = (df["high"] - df["close"].shift()).abs()
+    low_close = (df["low"] - df["close"].shift()).abs()
+    tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
+    df["atr14"] = tr.rolling(window=14).mean()
 
     # 볼륨 평균/비율/증감
-    ## df["ma_vol5"] = df["volume"].rolling(5).mean()
-    ## df["ma_vol20"] = df["volume"].rolling(20).mean()
-    ## df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
+    df["ma_vol5"] = df["volume"].rolling(5).mean()
+    df["ma_vol20"] = df["volume"].rolling(20).mean()
+    df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
     ## df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
-    ## df["vol_chg"] = df["volume"].pct_change().fillna(0)
+    df["vol_chg"] = df["volume"].pct_change().fillna(0)
 
     # 스토캐스틱
     for w in [7, 14]:
@@ -109,8 +108,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         df[f"stoch_d{w}"] = stoch_k.rolling(3).mean()
 
     # 일반화된 %K, %D(14)
-    ##df["stoch_k"] = df["stoch_k14"]
-    ##df["stoch_d"] = df["stoch_d14"]
+    df["stoch_k"] = df["stoch_k14"]
+    df["stoch_d"] = df["stoch_d14"]
 
     # === 추가 파생 피처/캔들/변동률/볼린저 ===
 
