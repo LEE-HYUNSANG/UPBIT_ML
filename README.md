@@ -91,6 +91,8 @@ Any issues loading credentials are recorded in `logs/F3_utils.log`.
 When credentials are set, brief buy/sell notifications are sent through
 Telegram whenever orders are executed. See
 [doc/telegram_notifications.md](doc/telegram_notifications.md).
+Remote start/stop commands are documented in
+[doc/telegram_remote_control.md](doc/telegram_remote_control.md).
 
 Startup messages about credential loading are written to `logs/F3_utils.log`.
 Check this file if account queries fail to verify that API keys were detected.
