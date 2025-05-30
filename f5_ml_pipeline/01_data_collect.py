@@ -110,9 +110,8 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
 
 def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
     """Append ``df`` to ``DATA_ROOT`` directory."""
-    date_str = ts.strftime("%Y%m%d")
     dir_path = ensure_dir(DATA_ROOT)
-    file_path = dir_path / f"{market}_{date_str}.parquet"
+    file_path = dir_path / f"{market}_rawdata.parquet"
 
     if file_path.exists():
         try:

@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Dict, Iterable, List
@@ -116,9 +116,8 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
 
 def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
     """Save ``df`` under ``DATA_ROOT`` directory."""
-    date_str = (ts - timedelta(days=1)).strftime("%Y%m%d")
     dir_path = ensure_dir(DATA_ROOT)
-    file_path = dir_path / f"{market}_{date_str}.parquet"
+    file_path = dir_path / f"{market}_rawdata.parquet"
 
     if file_path.exists():
         try:
