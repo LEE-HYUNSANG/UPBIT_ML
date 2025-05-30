@@ -16,10 +16,10 @@ from utils import ensure_dir, load_yaml_config
 
 # Use absolute paths relative to this file so execution works regardless of
 # the current working directory.
-ROOT_DIR = Path(__file__).resolve().parent
-SPLIT_DIR = ROOT_DIR / "ml_data" / "05_split"
-MODEL_DIR = ROOT_DIR / "ml_data" / "06_models"
-LOG_PATH = ROOT_DIR / "logs" / "ml_train.log"
+PIPELINE_ROOT = Path(__file__).resolve().parent
+SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
+MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_train.log"
 CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
 CONFIG = load_yaml_config(CONFIG_PATH)
 

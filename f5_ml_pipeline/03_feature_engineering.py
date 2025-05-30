@@ -11,9 +11,10 @@ from indicators import macd, mfi, adx, sma, vwap
 
 from utils import ensure_dir
 
-CLEAN_DIR = Path("ml_data/02_clean")
-FEATURE_DIR = Path("ml_data/03_feature")
-LOG_PATH = Path("logs/ml_feature.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
+FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_feature.log"
 
 
 def setup_logger() -> None:

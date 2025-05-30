@@ -33,9 +33,10 @@ from utils import ensure_dir
 
 TYPES = ["ohlcv", "ticker", "trades", "orderbook"]
 
-RAW_DIR = Path("ml_data/01_raw")
-CLEAN_DIR = Path("ml_data/02_clean")
-LOG_PATH = Path("logs/ml_clean.log")
+PIPELINE_ROOT = Path(__file__).resolve().parent
+RAW_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
+CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
+LOG_PATH = PIPELINE_ROOT / "logs" / "ml_clean.log"
 
 
 def setup_logger() -> None:
