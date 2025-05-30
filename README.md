@@ -17,6 +17,9 @@ Install the required Python packages with:
 pip install -r requirements.txt
 ```
 
+This installs dependencies such as `pandas` and `scikit-learn` that are needed
+for the ML buy signal script.
+
 This ensures modules such as `tqdm` are available when running the pipeline scripts.
 The file also includes machine learning dependencies (`optuna`, `lightgbm` and
 `scikit-learn`) required for `f5_ml_pipeline/06_optuna_tpe.py`.
@@ -46,6 +49,7 @@ To run the standalone ML buy signal routine:
 python f2_ml_buy_signal/f2_ml_buy_signal.py
 ```
 Results are logged to `logs/f2_ml_buy_signal.log`.
+If a required package is missing, the error is also written to this log file.
 
 
 ## Running the web dashboard
