@@ -51,6 +51,8 @@ except Exception:  # pragma: no cover - handle missing module
     f2_buy_indicator = None  # type: ignore
 
 PIPELINE_ROOT = PROJECT_ROOT / "f5_ml_pipeline"
+if str(PIPELINE_ROOT) not in sys.path:
+    sys.path.append(str(PIPELINE_ROOT))
 
 def _load_module(filename: str, name: str):
     path = PIPELINE_ROOT / filename
