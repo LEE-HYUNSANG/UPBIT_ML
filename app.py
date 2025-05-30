@@ -440,44 +440,28 @@ def risk_events_endpoint() -> Response:
 
 @app.route("/")
 def home():
-    """현재 거래 유니버스를 보여주는 첫 페이지"""
+    """Dashboard landing page"""
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
-    return render_template("index.html", universe=universe)
+    return render_template("dashboard.html", universe=universe, config=CONFIG)
 
 
 @app.route("/dashboard")
 def dashboard():
-    """대시보드 메인 페이지 렌더링"""
+    """Dashboard page"""
     universe = get_universe()
     if not universe:
         universe = select_universe(CONFIG)
-    return render_template("01_Home.html", universe=universe, config=CONFIG)
+    return render_template("dashboard.html", universe=universe, config=CONFIG)
 
 
-@app.route("/strategy")
-def strategy():
-    """전략 설정 페이지 렌더링"""
-    return render_template("02_Strategy.html")
-
-
-@app.route("/risk")
-def risk():
-    """리스크 관리 페이지 렌더링"""
-    return render_template("03_Risk.html")
-
-
-@app.route("/analysis")
-def analysis():
-    """데이터 분석 페이지 렌더링"""
-    return render_template("04_Analysis.html")
 
 
 @app.route("/settings")
 def settings():
-    """개인 설정 페이지 렌더링"""
-    return render_template("05_pSettings.html")
+    """Notification settings page"""
+    return render_template("settings.html")
 # 시작 시 자동 매매를 강제로 끄고 모니터링 루프 시작
 save_auto_trade_status({
     "enabled": False,
