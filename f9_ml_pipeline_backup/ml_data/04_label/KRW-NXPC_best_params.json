@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-NXPC",
+  "thresh_pct": 0.004,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.15434985968194576,
+  "row_count": 1069,
+  "label1_count": 165,
+  "label2_count": 0,
+  "label-1_count": 279,
+  "label0_count": 625
+}

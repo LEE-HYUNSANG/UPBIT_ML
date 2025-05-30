@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-THETA",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.14656771799628943,
+  "row_count": 1078,
+  "label1_count": 158,
+  "label2_count": 0,
+  "label-1_count": 175,
+  "label0_count": 745
+}

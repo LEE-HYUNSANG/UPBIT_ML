@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-JUP",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.1580916744621141,
+  "row_count": 1069,
+  "label1_count": 169,
+  "label2_count": 0,
+  "label-1_count": 199,
+  "label0_count": 701
+}

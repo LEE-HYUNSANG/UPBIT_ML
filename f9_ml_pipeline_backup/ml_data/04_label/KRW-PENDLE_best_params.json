@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-PENDLE",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.14285714285714285,
+  "row_count": 1078,
+  "label1_count": 154,
+  "label2_count": 0,
+  "label-1_count": 180,
+  "label0_count": 744
+}

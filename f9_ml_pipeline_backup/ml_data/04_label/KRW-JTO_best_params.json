@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-JTO",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.11473880597014925,
+  "row_count": 1072,
+  "label1_count": 123,
+  "label2_count": 0,
+  "label-1_count": 165,
+  "label0_count": 784
+}

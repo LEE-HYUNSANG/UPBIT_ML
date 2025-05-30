@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-AGLD",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.1348314606741573,
+  "row_count": 1068,
+  "label1_count": 144,
+  "label2_count": 0,
+  "label-1_count": 165,
+  "label0_count": 759
+}

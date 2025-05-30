@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-VIRTUAL",
+  "thresh_pct": 0.005,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.13376987839101964,
+  "row_count": 1069,
+  "label1_count": 143,
+  "label2_count": 0,
+  "label-1_count": 328,
+  "label0_count": 598
+}

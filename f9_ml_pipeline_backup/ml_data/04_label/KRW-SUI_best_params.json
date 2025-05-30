@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-SUI",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.15528531337698784,
+  "row_count": 1069,
+  "label1_count": 166,
+  "label2_count": 0,
+  "label-1_count": 172,
+  "label0_count": 731
+}

@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-APT",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.16168327796234774,
+  "row_count": 903,
+  "label1_count": 146,
+  "label2_count": 0,
+  "label-1_count": 128,
+  "label0_count": 629
+}

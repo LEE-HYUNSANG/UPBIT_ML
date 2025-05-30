@@ -1,0 +1,26 @@
+{
+  "0": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 213.0
+  },
+  "accuracy": 1.0,
+  "macro avg": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 213.0
+  },
+  "weighted avg": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 213.0
+  },
+  "auc": NaN,
+  "label_2_support": 0,
+  "label_1_support": 0,
+  "label_-1_support": 0,
+  "label_0_support": 213
+}

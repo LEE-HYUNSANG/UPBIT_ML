@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-ARKM",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.14990689013035383,
+  "row_count": 1074,
+  "label1_count": 161,
+  "label2_count": 0,
+  "label-1_count": 203,
+  "label0_count": 710
+}

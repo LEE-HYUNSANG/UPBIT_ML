@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-ATOM",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.003,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.10028116213683223,
+  "row_count": 1067,
+  "label1_count": 107,
+  "label2_count": 0,
+  "label-1_count": 117,
+  "label0_count": 843
+}
