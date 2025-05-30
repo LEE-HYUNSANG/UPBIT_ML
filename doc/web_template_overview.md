@@ -10,3 +10,7 @@ It contains two main pages:
 
 Both pages share a dark themed layout with an auto trade toggle and server
 status indicator in the header.
+
+The dashboard now displays four cards at the top showing KRW balance, daily
+profit and loss, monitored coins, and the current auto trade status for better
+readability.
