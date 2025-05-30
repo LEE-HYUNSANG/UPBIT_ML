@@ -10,7 +10,7 @@ from pathlib import Path
 from utils import ensure_dir
 
 # 기본 경로 설정
-PIPELINE_ROOT = Path(__file__).resolve().parents[1]
+PIPELINE_ROOT = Path(__file__).resolve().parent
 SUMMARY_DIR = PIPELINE_ROOT / "ml_data" / "09_backtest"
 PARAM_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 OUT_DIR = PIPELINE_ROOT / "ml_data" / "10_selected"
