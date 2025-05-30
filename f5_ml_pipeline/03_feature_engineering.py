@@ -128,7 +128,7 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # 간단한 캔들패턴
     upper_shadow = df["high"] - df[["open", "close"]].max(axis=1)
-    ##lower_shadow = df[["open", "close"]].min(axis=1) - df["low"]
+    lower_shadow = df[["open", "close"]].min(axis=1) - df["low"]
     df["is_doji"] = (df["body_size"] <= df["hl_range"] * 0.1).astype(int)
     df["long_bull"] = ((df["close"] > df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
     df["long_bear"] = ((df["close"] < df["open"]) & (df["body_size"] >= df["hl_range"] * 0.7)).astype(int)
