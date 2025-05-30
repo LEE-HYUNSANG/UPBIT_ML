@@ -33,11 +33,11 @@ python f5_ml_pipeline/10_select_best_strategies.py
 기본 필터링 조건과 정렬 기준은 스크립트 상단의 상수를 수정해 손쉽게 변경할 수 있습니다.
 
 ### 기본 임계치
-- `MIN_WIN_RATE`: 0.35
-- `MIN_AVG_ROI`: -0.001
-- `MIN_SHARPE`: 0.1
-- `MAX_MDD`: 0.50
-- `MIN_ENTRIES`: 1
+- `MIN_WIN_RATE`: 0.55
+- `MIN_AVG_ROI`: 0.002
+- `MIN_SHARPE`: 1.0
+- `MAX_MDD`: 0.10
+- `MIN_ENTRIES`: 50
 - `TOP_N`: 10
 
 이 값들은 `f5_ml_pipeline/10_select_best_strategies.py`를 편집하여 자유롭게 조정할 수 있습니다.
