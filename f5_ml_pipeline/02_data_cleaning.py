@@ -96,7 +96,6 @@ def _clean_df(
 
     raw_rows = len(df)
     logger.info("원본 rows: %d", raw_rows)
-    print("로드 row:", raw_rows)
 
     col_map = {
         "opening_price": "open",
@@ -144,7 +143,6 @@ def _clean_df(
 
     n_before = len(df)
     df = df.dropna(subset=["timestamp"])
-    print("timestamp 결측 row 제거:", n_before - len(df))
     logger.info("timestamp 결측 row 제거: %d", n_before - len(df))
 
     df = df.sort_values("timestamp").reset_index(drop=True)
@@ -153,7 +151,6 @@ def _clean_df(
     df = df.drop_duplicates("timestamp", keep="last")
     removed = n_before - len(df)
     if removed:
-        print("중복 timestamp 제거:", removed)
         logger.info("중복 timestamp 제거: %d", removed)
 
     if ohlcv:
@@ -169,7 +166,6 @@ def _clean_df(
             df = df.resample("1min").ffill().bfill()
             added = len(df) - prev_len
             df = df.reset_index()
-            print("연속성 확보로 추가된 row:", added)
             logger.info("연속성 확보로 추가된 row: %d", added)
 
         if ohlc_cols and "volume" in df.columns:
@@ -182,7 +178,6 @@ def _clean_df(
                 & (df["volume"] == 0)
             )
             df = df[~cond]
-            print("0-range row 제거:", n_before - len(df))
             logger.info("0-range row 제거: %d", n_before - len(df))
 
         for col in ["open", "high", "low", "close", "volume"]:
@@ -191,7 +186,6 @@ def _clean_df(
                 df = df[df[col] >= 0]
                 removed = n_before - len(df)
                 if removed:
-                    print(f"{col} 음수 row 제거:", removed)
                     logger.info("%s 음수 row 제거: %d", col, removed)
 
     else:
@@ -201,7 +195,6 @@ def _clean_df(
 
     n_before = len(df)
     df = df.drop_duplicates("timestamp", keep="last")
-    print("중복 timestamp 제거:", n_before - len(df))
     logger.info("중복 timestamp 제거: %d", n_before - len(df))
 
     df = df.sort_values("timestamp").reset_index(drop=True)
@@ -213,12 +206,10 @@ def _clean_df(
     if prefix:
         df = df.rename(columns={c: f"{prefix}_{c}" for c in df.columns if c != "timestamp"})
 
-    print("클린 완료 row:", len(df))
     logger.info("클린 완료 row: %d", len(df))
 
     if raw_rows and len(df) <= raw_rows * 0.1:
         logger.warning("데이터가 거의 사라짐: %d -> %d", raw_rows, len(df))
-        print("경고: 데이터가 거의 사라졌습니다")
 
     return df
 
@@ -286,7 +277,7 @@ def clean_one_file(input_path: Path, output_path: Path, ohlcv: bool = True) -> N
     if df is None:
         return
 
-    print(f"\n=== {input_path.name} ===")
+    logger.info("=== %s ===", input_path.name)
     df = _clean_df(df, logger, ohlcv=ohlcv)
     try:
         df.to_parquet(output_path, index=False)
@@ -309,7 +300,7 @@ def clean_merge(files: List[Path], output_path: Path) -> None:
     if not dfs:
         return
 
-    print(f"\n=== Merge {len(files)} files into {output_path.name} ===")
+    logger.info("=== Merge %d files into %s ===", len(files), output_path.name)
     df = pd.concat(dfs, ignore_index=True)
     df = _clean_df(df, logger)
 
