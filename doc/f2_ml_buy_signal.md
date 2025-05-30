@@ -34,7 +34,7 @@ OHLCV 수집, 클리닝, 피처 생성, 라벨링, 학습, 예측을 모두 실�
 ### `check_buy_signal(symbol)`
 1. F5 파이프라인의 `01_data_collect.py`부터 `06_train.py`까지를 순차 실행해 최신 데이터를 학습합니다.
 2. `08_predict.py`로 가장 최근 1분봉의 예측 결과를 얻습니다.
-3. 예측 값이 1이고 `f2_buy_indicator`의 RSI/추세 조건을 만족하면 `(True, True, True)`를 반환합니다.
+3. 예측 값이 1이고 `01_buy_indicator`의 RSI/추세 조건을 만족하면 `(True, True, True)`를 반환합니다.
 
 ## 동작 순서
 

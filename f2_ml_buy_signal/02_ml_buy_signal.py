@@ -41,10 +41,12 @@ except ImportError as exc:  # pragma: no cover - dependency missing at runtime
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
 try:
-    if __package__:
-        from . import f2_buy_indicator
-    else:  # pragma: no cover - direct script execution
-        import f2_buy_indicator
+    spec = importlib.util.spec_from_file_location(
+        "buy_indicator", Path(__file__).with_name("01_buy_indicator.py")
+    )
+    f2_buy_indicator = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(f2_buy_indicator)
 except Exception:  # pragma: no cover - handle missing module
     f2_buy_indicator = None  # type: ignore
 
