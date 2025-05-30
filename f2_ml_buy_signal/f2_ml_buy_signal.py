@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import logging
 import sys
@@ -38,6 +39,31 @@ except ImportError as exc:  # pragma: no cover - dependency missing at runtime
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
+from f2_ml_buy_signal import f2_buy_indicator
+
+PIPELINE_ROOT = PROJECT_ROOT / "f5_ml_pipeline"
+
+def _load_module(filename: str, name: str):
+    path = PIPELINE_ROOT / filename
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+P01 = P02 = P03 = P04 = P05 = P06 = P08 = None
+
+def _ensure_pipeline_modules() -> None:
+    """Load pipeline modules on demand."""
+    global P01, P02, P03, P04, P05, P06, P08
+    if P01 is None:
+        P01 = _load_module("01_data_collect.py", "p01")
+        P02 = _load_module("02_data_cleaning.py", "p02")
+        P03 = _load_module("03_feature_engineering.py", "p03")
+        P04 = _load_module("04_labeling.py", "p04")
+        P05 = _load_module("05_split.py", "p05")
+        P06 = _load_module("06_train.py", "p06")
+        P08 = _load_module("08_predict.py", "p08")
 CONFIG_DIR = PROJECT_ROOT / "config"
 
 DATA_ROOT = PROJECT_ROOT / "f2_ml_buy_signal" / "f2_data"
@@ -165,44 +191,77 @@ def _train_predict(df: pd.DataFrame, symbol: str) -> bool:
     return prob > 0.5
 
 
-def check_buy_signal(symbol: str) -> bool:
-    df = fetch_ohlcv(symbol)
-    if df.empty or len(df) < 30:
-        logging.info("[CHECK] %s insufficient data", symbol)
-        return False
-
-    df = _clean_df(df)
-    ensure_dir(CLEAN_DIR)
-    clean_path = CLEAN_DIR / f"{symbol}.parquet"
+def run_pipeline_for_symbol(symbol: str) -> None:
+    """Execute the F5 ML pipeline for ``symbol`` once."""
+    _ensure_pipeline_modules()
     try:
-        df.to_parquet(clean_path, index=False)
-        logging.info("[CLEAN] saved %s", clean_path.name)
+        P01.collect_once([symbol])
     except Exception:
-        logging.warning("[CLEAN] save failed %s", clean_path.name)
+        logging.exception("[PIPELINE] data_collect failed for %s", symbol)
 
-    df = _add_features(df)
-    ensure_dir(FEATURE_DIR)
-    feat_path = FEATURE_DIR / f"{symbol}.parquet"
+    raw_file = P01.DATA_ROOT / f"{symbol}_rawdata.parquet"
     try:
-        df.to_parquet(feat_path, index=False)
-        logging.info("[FEATURE] saved %s", feat_path.name)
+        P02.clean_symbol([raw_file], P02.CLEAN_DIR)
     except Exception:
-        logging.warning("[FEATURE] save failed %s", feat_path.name)
+        logging.exception("[PIPELINE] data_cleaning failed for %s", symbol)
 
-    df = _label(df)
-    if df.empty:
-        logging.info("[CHECK] %s no labeled rows", symbol)
-        return False
-
-    ensure_dir(LABEL_DIR)
-    label_path = LABEL_DIR / f"{symbol}.parquet"
+    clean_file = P02.CLEAN_DIR / f"{symbol}_clean.parquet"
     try:
-        df.to_parquet(label_path, index=False)
-        logging.info("[LABEL] saved %s", label_path.name)
+        P03.process_file(clean_file)
     except Exception:
-        logging.warning("[LABEL] save failed %s", label_path.name)
+        logging.exception("[PIPELINE] feature_engineering failed for %s", symbol)
 
-    return _train_predict(df, symbol)
+    feature_file = P03.FEATURE_DIR / f"{symbol}_feature.parquet"
+    try:
+        P04.process_file(feature_file)
+    except Exception:
+        logging.exception("[PIPELINE] labeling failed for %s", symbol)
+
+    label_file = P04.LABEL_DIR / f"{symbol}_label.parquet"
+    try:
+        P05.process_file(label_file, 0.7, 0.2)
+    except Exception:
+        logging.exception("[PIPELINE] split failed for %s", symbol)
+
+    try:
+        P06.train_and_eval(symbol)
+    except Exception:
+        logging.exception("[PIPELINE] train failed for %s", symbol)
+
+    try:
+        P08.predict_signal(symbol)
+    except Exception:
+        logging.exception("[PIPELINE] predict failed for %s", symbol)
+
+
+def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
+    """Return ML buy signal and indicator flags for ``symbol``."""
+    _ensure_pipeline_modules()
+    run_pipeline_for_symbol(symbol)
+
+    pred_file = P08.PRED_DIR / f"{symbol}_pred.csv"
+    feature_file = P03.FEATURE_DIR / f"{symbol}_feature.parquet"
+    if not pred_file.exists() or not feature_file.exists():
+        logging.info("[CHECK] %s missing data", symbol)
+        return False, False, False
+
+    try:
+        pred_df = pd.read_csv(pred_file)
+        feat_df = pd.read_parquet(feature_file)
+    except Exception:
+        logging.exception("[CHECK] %s failed to load data", symbol)
+        return False, False, False
+
+    if pred_df.empty or feat_df.empty:
+        logging.info("[CHECK] %s empty dataframe", symbol)
+        return False, False, False
+
+    buy = bool(int(pred_df.iloc[-1]["buy_signal"]))
+    indicators = f2_buy_indicator.add_basic_indicators(feat_df)
+    rsi_mask = (indicators["rsi14"] > 40) & (indicators["rsi14"] < 60)
+    rsi_flag = bool(rsi_mask.iloc[-1])
+    trend_flag = bool(indicators["ema5"].iloc[-1] > indicators["ema20"].iloc[-1])
+    return buy, rsi_flag, trend_flag
 
 
 def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
@@ -242,40 +301,42 @@ def run() -> List[str]:
         logging.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
     buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    sell_list_path = CONFIG_DIR / "f2_f2_realtime_sell_list.json"
-    buy_dict = _load_json(buy_list_path)
-    sell_dict = _load_json(sell_list_path)
-    risk_cfg = _load_json(CONFIG_DIR / "f4_f2_risk_settings.json")
-    logging.info("[RUN] existing buy_list=%s", buy_dict)
-    logging.info("[RUN] existing sell_list=%s", sell_dict)
-    logging.info("[RUN] risk settings=%s", risk_cfg)
+    buy_list = _load_json(buy_list_path)
+    if not isinstance(buy_list, list):
+        buy_list = []
+    logging.info("[RUN] existing buy_list=%s", buy_list)
 
     results = []
-    for sym in coins:
-        buy = check_buy_signal(sym)
-        logging.info("[%s] buy_signal=%s", sym, int(buy))
-        if buy:
+    updated: List[dict] = []
+    for item in data if isinstance(data, list) else []:
+        if isinstance(item, dict):
+            sym = item.get("symbol")
+            thresh = item.get("thresh_pct")
+            loss = item.get("loss_pct")
+        else:
+            sym = str(item)
+            thresh = None
+            loss = None
+        if not sym:
+            continue
+        buy, rsi_flag, trend_flag = check_buy_signal(sym)
+        logging.info("[%s] buy=%s rsi=%s trend=%s", sym, buy, rsi_flag, trend_flag)
+        if buy and rsi_flag and trend_flag:
             results.append(sym)
-            if sym not in buy_dict:
-                logging.info("[%s] added to buy list with 0", sym)
-                buy_dict[sym] = 0
-                sell_dict.setdefault(
-                    sym,
-                    {
-                        "SL_PCT": risk_cfg.get("SL_PCT"),
-                        "TP_PCT": risk_cfg.get("TP_PCT"),
-                        "TRAILING_STOP_ENABLED": risk_cfg.get("TRAILING_STOP_ENABLED"),
-                        "TRAIL_START_PCT": risk_cfg.get("TRAIL_START_PCT"),
-                        "TRAIL_STEP_PCT": risk_cfg.get("TRAIL_STEP_PCT"),
-                    },
-                )
-            else:
-                logging.info("[%s] already in buy list: %s", sym, buy_dict[sym])
+            updated.append({
+                "symbol": sym,
+                "buy_signal": 1,
+                "rsi_sel": int(rsi_flag),
+                "trend_sel": int(trend_flag),
+                "thresh_pct": thresh,
+                "loss_pct": loss,
+            })
 
-    _save_json(buy_list_path, buy_dict)
-    _save_json(sell_list_path, sell_dict)
-    logging.info("[RUN] saved buy_list=%s", buy_dict)
-    logging.info("[RUN] saved sell_list=%s", sell_dict)
+    if updated:
+        _save_json(buy_list_path, updated)
+        logging.info("[RUN] saved buy_list=%s", updated)
+    else:
+        logging.info("[RUN] no buy candidates")
     logging.info("[RUN] finished. %d coins to buy", len(results))
     return results
 
