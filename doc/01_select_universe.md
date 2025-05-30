@@ -16,11 +16,11 @@
 
 | 파일 | 설명 |
 | ---- | ---- |
-| `config/coin_list_monitoring.json` | 실전 모니터링에 사용할 코인 목록. 빈 배열이면 다른 데이터로 대체됩니다. |
+| `config/f5_f1_monitoring_list.json` | 실전 모니터링에 사용할 코인 목록. 빈 배열이면 다른 데이터로 대체됩니다. |
 | `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` | ML 백테스트에서 선정된 코인 목록. 모니터링 리스트가 비어 있을 때 사용됩니다. |
-| `config/universe.json` | 가격, 거래량 등 기본 필터 조건. |
-| `config/coin_list_data_collection.json` | 학습용 데이터를 수집할 코인 목록. |
-| `config/filter_coin_data_collection.json` | 데이터 수집 시 적용할 가격·거래량 조건. |
+| `config/f1_f1_universe_filters.json` | 가격, 거래량 등 기본 필터 조건. |
+| `config/f1_f5_data_collection_list.json` | 학습용 데이터를 수집할 코인 목록. |
+| `config/f1_f5_data_collection_filter.json` | 데이터 수집 시 적용할 가격·거래량 조건. |
 | `config/current_universe.json` | 마지막으로 선택된 유니버스가 기록되는 파일. |
 
 로그는 `logs/F1_signal_engine.log`와 `logs/F1-F2_loop.log`에 저장됩니다.
@@ -37,21 +37,21 @@
 ## 동작 흐름
 
 1. **전략 선별(F5 모듈)**
-   - `f5_ml_pipeline/10_select_best_strategies.py`가 백테스트 결과를 평가하여
-     좋은 심볼을 `config/coin_list_monitoring.json`에 저장합니다.
+  - `f5_ml_pipeline/10_select_best_strategies.py`가 백테스트 결과를 평가하여
+    좋은 심볼을 `config/f5_f1_monitoring_list.json`에 저장합니다.
 2. **유니버스 로드**
   - `signal_loop.py` 실행 시 `schedule_universe_updates()`가 동작하여
     30분마다 `select_universe()`를 호출합니다.
-  - `select_universe()`는 `coin_list_monitoring.json` → `selected_strategies.json`
+  - `select_universe()`는 `f5_f1_monitoring_list.json` → `selected_strategies.json`
     → `current_universe.json` 순으로 확인해 첫 번째로 발견된 리스트를 사용합니다.
-  - `coin_list_monitoring.json`이 채워져 있으면 F2 모듈의
+  - `f5_f1_monitoring_list.json`이 채워져 있으면 F2 모듈의
     `run_if_monitoring_list_exists()`가 즉시 이 목록을 활용해 매수 신호 탐색을 시작합니다.
 3. **파일 갱신**
    - 결정된 유니버스는 `config/current_universe.json`에 기록되어
      다른 모듈이 동일한 목록을 참조할 수 있게 합니다.
 4. **데이터 수집**
-   - 별도로 실행되는 `f5_ml_pipeline/01_data_collect.py`는
-     `coin_list_data_collection.json`과 `filter_coin_data_collection.json`을 읽어
+  - 별도로 실행되는 `f5_ml_pipeline/01_data_collect.py`는
+    `f1_f5_data_collection_list.json`과 `f1_f5_data_collection_filter.json`을 읽어
      학습용 데이터를 수집합니다.
 
 이 구조를 통해 모니터링 대상과 학습용 대상이 분리되며,

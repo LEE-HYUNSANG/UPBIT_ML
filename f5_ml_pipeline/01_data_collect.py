@@ -1,6 +1,6 @@
 """Real-time Upbit data collector.
 
-이 스크립트는 ``coin_list_data_collection.json``에 지정된 코인에 대해 매 1분
+이 스크립트는 ``f1_f5_data_collection_list.json``에 지정된 코인에 대해 매 1분
 단위로 OHLCV, 호가, 체결, 시세 데이터를 수집합니다. 수집된 데이터는
 ``ml_data/01_raw/<type>/`` 폴더 아래에 코인별 Parquet 파일로 저장됩니다.
 """
@@ -29,7 +29,7 @@ DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
 # Use absolute path so the script works regardless of the current
 # working directory.
 ROOT_DIR = PIPELINE_ROOT.parent
-COIN_LIST_FILE = ROOT_DIR / "config" / "coin_list_data_collection.json"
+COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
 LOG_PATH = PIPELINE_ROOT / "logs" / "data_collect.log"
 START_DELAY = 5  # seconds after each minute boundary

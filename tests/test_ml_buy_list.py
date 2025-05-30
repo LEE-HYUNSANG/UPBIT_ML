@@ -16,10 +16,10 @@ class Dummy:
 
 def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     cfg = tmp_path
-    (cfg / "coin_list_monitoring.json").write_text(json.dumps(["KRW-AAA", "KRW-BBB"]))
-    (cfg / "coin_realtime_buy_list.json").write_text(json.dumps({"KRW-AAA": 1}))
-    (cfg / "coin_realtime_sell_list.json").write_text(json.dumps({"KRW-AAA": {"SL_PCT": 1}}))
-    (cfg / "risk.json").write_text(json.dumps({
+    (cfg / "f5_f1_monitoring_list.json").write_text(json.dumps(["KRW-AAA", "KRW-BBB"]))
+    (cfg / "f2_f2_realtime_buy_list.json").write_text(json.dumps({"KRW-AAA": 1}))
+    (cfg / "f2_f2_realtime_sell_list.json").write_text(json.dumps({"KRW-AAA": {"SL_PCT": 1}}))
+    (cfg / "f4_f2_risk_settings.json").write_text(json.dumps({
         "SL_PCT": 1.0,
         "TP_PCT": 2.0,
         "TRAILING_STOP_ENABLED": True,
@@ -53,8 +53,8 @@ def test_run_updates_buy_and_sell_lists(tmp_path, monkeypatch):
     monkeypatch.setattr(ml, "check_buy_signal", Dummy(True))
 
     result = ml.run()
-    buy = json.loads((cfg / "coin_realtime_buy_list.json").read_text())
-    sell = json.loads((cfg / "coin_realtime_sell_list.json").read_text())
+    buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    sell = json.loads((cfg / "f2_f2_realtime_sell_list.json").read_text())
 
     assert "KRW-BBB" in buy and buy["KRW-BBB"] == 0
     assert "KRW-BBB" in sell
@@ -82,7 +82,7 @@ def test_run_if_monitoring_executes(tmp_path, monkeypatch):
     from f2_ml_buy_signal import f2_ml_buy_signal as ml
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
-    (tmp_path / "coin_list_monitoring.json").write_text("[]")
+    (tmp_path / "f5_f1_monitoring_list.json").write_text("[]")
     called = {"cnt": 0}
 
     def fake_run():

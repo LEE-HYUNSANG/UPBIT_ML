@@ -20,7 +20,7 @@ logger.setLevel(logging.INFO)
 
 
 class OrderExecutor:
-    def __init__(self, config_path="config/order.json", dyn_param_path="config/dynamic_params.json", risk_manager=None):
+    def __init__(self, config_path="config/f3_f3_order_config.json", dyn_param_path="config/f3_f3_dynamic_params.json", risk_manager=None):
         self.config = load_config(config_path)
         self.dynamic_params = load_config(dyn_param_path)
         self.kpi_guard = KPIGuard(self.config)

@@ -40,7 +40,7 @@ def test_halt_closes_all_positions(tmp_path, monkeypatch):
 
 
 def test_hot_reload_updates_config(tmp_path, monkeypatch):
-    cfg = os.path.join(tmp_path, "risk.json")
+    cfg = os.path.join(tmp_path, "f4_f2_risk_settings.json")
     with open(cfg, "w", encoding="utf-8") as f:
         f.write("{\"DAILY_LOSS_LIM\": 2}")
     class StubExecutor:

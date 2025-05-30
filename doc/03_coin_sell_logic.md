@@ -12,7 +12,7 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 | `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
 | `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
 | `f4_riskManager/risk_manager.py` | 손실 한도 초과 시 `pause()`나 `halt()`를 통해 강제 청산을 수행합니다. |
-| `config/setting_date/Latest_config.json` | 손절·익절 비율 등 리스크 파라미터가 저장된 파일입니다. |
+| `config/setting_date/f4_f3_latest_config.json` | 손절·익절 비율 등 리스크 파라미터가 저장된 파일입니다. |
 
 로그는 `logs/F3_position_manager.log`와 `logs/F4_risk_manager.log` 등에 기록됩니다.
 
@@ -30,7 +30,7 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 
 ### `PositionManager.execute_sell(position, exit_type, qty=None)`
 지정된 포지션을 시장가로 매도합니다.
-모두 청산되면 상태가 `closed`로 바뀌고 결과가 `coin_positions.json`에 저장됩니다.
+모두 청산되면 상태가 `closed`로 바뀌고 결과가 `f1_f3_coin_positions.json`에 저장됩니다.
 
 ### `RiskManager.check_risk()`
 계좌 손실이나 MDD 한도가 넘으면 `pause()` 또는 `halt()`로 진입을 차단하고

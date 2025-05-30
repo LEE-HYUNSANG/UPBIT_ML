@@ -223,18 +223,18 @@ def run() -> List[str]:
     logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
     try:
-        with open(CONFIG_DIR / "coin_list_monitoring.json", "r", encoding="utf-8") as f:
+        with open(CONFIG_DIR / "f5_f1_monitoring_list.json", "r", encoding="utf-8") as f:
             coins = json.load(f)
-        logging.info("[RUN] loaded coin_list_monitoring.json: %s", coins)
+        logging.info("[RUN] loaded f5_f1_monitoring_list.json: %s", coins)
     except Exception:
         coins = []
-        logging.warning("[RUN] coin_list_monitoring.json missing or invalid")
+        logging.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
-    buy_list_path = CONFIG_DIR / "coin_realtime_buy_list.json"
-    sell_list_path = CONFIG_DIR / "coin_realtime_sell_list.json"
+    buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
+    sell_list_path = CONFIG_DIR / "f2_f2_realtime_sell_list.json"
     buy_dict = _load_json(buy_list_path)
     sell_dict = _load_json(sell_list_path)
-    risk_cfg = _load_json(CONFIG_DIR / "risk.json")
+    risk_cfg = _load_json(CONFIG_DIR / "f4_f2_risk_settings.json")
     logging.info("[RUN] existing buy_list=%s", buy_dict)
     logging.info("[RUN] existing sell_list=%s", sell_dict)
     logging.info("[RUN] risk settings=%s", risk_cfg)
@@ -271,10 +271,10 @@ def run() -> List[str]:
 
 def run_if_monitoring_list_exists() -> List[str]:
     """Run :func:`run` only when monitoring list is present."""
-    path = CONFIG_DIR / "coin_list_monitoring.json"
+    path = CONFIG_DIR / "f5_f1_monitoring_list.json"
     if path.exists():
         return run()
-    logging.info("[RUN_IF] coin_list_monitoring.json not found; skipping")
+    logging.info("[RUN_IF] f5_f1_monitoring_list.json not found; skipping")
     return []
 
 

@@ -10,7 +10,7 @@ This repository implements a four stage trading system built around the Upbit ex
   signals. The `signal_loop.py` script orchestrates data collection and executes this
   engine. Symbols from `current_universe.json` are treated as buy candidates only –
   their sell conditions are ignored until a position is opened. Sell rules are
-  evaluated exclusively for coins listed in `coin_positions.json`.
+  evaluated exclusively for coins listed in `f1_f3_coin_positions.json`.
   The `f2_signal` function accepts a `strategy_codes` parameter to evaluate only
   a subset of strategies when needed.
   Each OHLCV request logs a sample row so you can verify Upbit data integrity when troubleshooting.
@@ -49,14 +49,14 @@ configuration so changes apply automatically.
 ## Position Tracking
 
 Whenever a new trade is opened the current list of holdings is written to
-`config/coin_positions.json`. Each entry contains the symbol, entry price,
+`config/f1_f3_coin_positions.json`. Each entry contains the symbol, entry price,
 quantity and strategy information. This file can be inspected to see which
 coins are being monitored even after restarting the application. The
 `PositionManager` reloads this file at startup so any open positions continue
 to be tracked across restarts.
 
 Position data is now refreshed every second. The latest quantity, price and
-PnL information are persisted back to `coin_positions.json` on each update so
+PnL information are persisted back to `f1_f3_coin_positions.json` on each update so
 external tools always see up-to-date values.
 
 Buy orders that are submitted but not immediately filled are saved with the
