@@ -17,10 +17,11 @@
 | 파일 | 설명 |
 | ---- | ---- |
 | `config/coin_list_monitoring.json` | 실전 모니터링에 사용할 코인 목록. 빈 배열이면 다른 데이터로 대체됩니다. |
-| `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` | ML 백테스트 결과로 뽑힌 우수 코인 목록. `coin_list_monitoring.json`이 비어 있을 때 우선 사용됩니다. |
+| `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` | 백테스트에서 선별된 코인 목록 |
 | `config/universe.json` | 가격, 거래량 등 기본 필터 조건. |
 | `config/coin_list_data_collection.json` | 학습용 데이터를 수집할 코인 목록. |
 | `config/filter_coin_data_collection.json` | 데이터 수집 시 적용할 가격·거래량 조건. |
+> `coin_list_monitoring.json`이 비어 있으면 위 전략 목록을 우선 사용합니다.
 | `config/current_universe.json` | 마지막으로 선택된 유니버스가 기록되는 파일. |
 
 로그는 `logs/F1_signal_engine.log`와 `logs/F1-F2_loop.log`에 저장됩니다.

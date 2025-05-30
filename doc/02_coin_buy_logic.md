@@ -9,13 +9,14 @@
 | 경로 | 용도 |
 | --- | --- |
 | `f2_ml_buy_signal/f2_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
+| `f2_ml_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치 |
 | `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
 | `config/coin_list_monitoring.json` | 모니터링할 코인 목록. F5 단계에서 생성됩니다. |
 | `config/coin_realtime_buy_list.json` | 매수 대상이 발견되면 `{심볼: 0}` 형식으로 기록됩니다. |
 | `config/coin_realtime_sell_list.json` | 손절·익절·트레일링 스탑 설정을 저장합니다. |
-| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값. |
+| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값 |
 
 로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
 `logs/F3_order_executor.log` 등에 남습니다.

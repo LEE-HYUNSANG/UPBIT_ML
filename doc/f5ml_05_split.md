@@ -1,7 +1,7 @@
 # F5ML_05_split.py 사용법
 
 `f5_ml_pipeline/ml_data/04_label/` 폴더의 라벨 데이터를 읽어 시간순으로 학습, 검증, 테스트 세트로 분할합니다.
-결과는 `f5_ml_pipeline/ml_data/05_split/`에 `{symbol}_train.parquet`, `{symbol}_valid.parquet`, `{symbol}_test.parquet` 형식으로 저장됩니다.
+결과는 `f5_ml_pipeline/ml_data/05_split/` 폴더에 저장되며 파일 이름은 `{symbol}_train.parquet` 등입니다.
 
 기본 분할 비율은 학습 70%, 검증 20%, 테스트 10%이며 필요에 따라 인자를 조정할 수 있습니다.
 
