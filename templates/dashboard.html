@@ -1,18 +1,38 @@
 {% extends 'base.html' %}
 {% block title %}대시보드 - AUTO UPBIT{% endblock %}
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-    <div class="bg-gray-800 rounded-xl p-4 shadow">
-        <div class="flex justify-between items-center mb-2">
-            <h2 class="font-bold">계좌 잔고 현황</h2>
-            <button id="reload-account" class="text-sm text-green-400">리로드</button>
-        </div>
-        <div id="account-balance" class="text-2xl font-bold">0</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+        <div class="text-xs text-gray-400 mb-1">KRW 잔고</div>
+        <div id="account-balance" class="text-3xl font-extrabold tracking-tight mt-1">0</div>
+        <button id="reload-account" class="text-xs text-green-400 mt-2">리로드</button>
     </div>
-    <div class="bg-gray-800 rounded-xl p-4 shadow">
-        <div class="flex justify-between mb-2 items-center">
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
+        <div class="text-xs text-gray-400 mb-1">오늘 손익(PnL)</div>
+        <div class="flex items-baseline mt-1">
+            <span id="daily-pnl" class="text-3xl font-extrabold tracking-tight mr-2">0</span>
+            <span id="daily-pnl-percent" class="text-xl font-bold text-green-400 align-middle">0%</span>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col h-36 min-w-[240px]">
+        <div class="flex items-center justify-between mb-2">
+            <span class="card-title text-white">모니터링 코인</span>
+            <button onclick="openExclude()" class="text-gray-400 hover:text-green-400 p-1 rounded-full transition" title="감시 제외">
+                ⚙
+            </button>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-2 mb-1" id="monitor-coins"></div>
+    </div>
+    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-between h-36 min-w-[200px]">
+        <span class="card-title text-white mb-2">자동매매</span>
+        <span id="run-status" class="w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1">정지됨</span>
+        <div class="text-xs text-gray-400 text-right w-full mt-1">상태는 상단 토글과 연동됩니다</div>
+    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-gray-800 rounded-2xl p-7 shadow">
+        <div class="flex justify-between items-center mb-2">
             <h2 class="font-bold">매도 모니터링</h2>
-            <button onclick="openExclude()" class="text-sm text-green-400">감시 제외</button>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-center">
@@ -25,9 +45,7 @@
             </table>
         </div>
     </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-gray-800 rounded-xl p-4 shadow">
+    <div class="bg-gray-800 rounded-2xl p-7 shadow">
         <h2 class="font-bold mb-2">매수 모니터링</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-center">
@@ -40,24 +58,24 @@
             </table>
         </div>
     </div>
-    <div class="bg-gray-800 rounded-xl p-4 shadow">
-        <div class="flex justify-between items-center mb-2">
-            <h2 class="font-bold">알람 상태</h2>
-            <button onclick="clearAlerts()" class="text-sm text-green-400">전체 삭제</button>
-        </div>
-        <div class="max-h-40 overflow-y-auto pr-1">
-            <table class="w-full text-sm text-left">
-                <thead>
-                    <tr class="text-gray-400">
-                        <th class="w-32">시간</th>
-                        <th class="w-24">구분</th>
-                        <th>내용</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="alert-body"></tbody>
-            </table>
-        </div>
+</div>
+<div class="bg-gray-800 rounded-2xl p-7 shadow mt-6">
+    <div class="flex justify-between items-center mb-2">
+        <h2 class="font-bold">알림 기록</h2>
+        <button onclick="clearAlerts()" class="text-sm text-green-400">전체 삭제</button>
+    </div>
+    <div class="max-h-40 overflow-y-auto pr-1">
+        <table class="w-full text-sm text-left">
+            <thead>
+                <tr class="text-gray-400">
+                    <th class="w-32">시간</th>
+                    <th class="w-24">구분</th>
+                    <th>내용</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="alert-body"></tbody>
+        </table>
     </div>
 </div>
 <div id="exclude-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
@@ -139,6 +157,19 @@ setInterval(fetchAlerts,5000);
 function clearAlerts(){
     document.getElementById('alert-body').innerHTML='';
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const coins = {{ universe|tojson }} || [];
+    const cont = document.getElementById('monitor-coins');
+    if (cont) {
+        coins.slice(0, 6).forEach(c => {
+            const el = document.createElement('span');
+            el.className = 'inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold';
+            el.textContent = c.replace('KRW-', '');
+            cont.appendChild(el);
+        });
+    }
+});
 
 function openExclude(){
     document.getElementById('exclude-modal').classList.remove('hidden');
