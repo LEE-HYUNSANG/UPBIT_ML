@@ -20,7 +20,7 @@
 10. `09_backtest.py` 백테스트 → `f5_ml_pipeline/ml_data/09_backtest/`
 11. `10_select_best_strategies.py` 전략 선별 → `f5_ml_pipeline/ml_data/10_selected/`
 
-로그는 `f5_ml_pipeline/ml_data/09_logs/`에 `mllog_<YYYYMMDDHHMMSS>.log` 형식으로 기록되며, 1MB를 초과하면 자동으로 새 파일로 교체됩니다.
+로그는 프로젝트 루트의 `logs/` 폴더에 `F5_<step>.log` 형식으로 저장되며 터미널에 출력되지 않습니다.
 
 ## 사용 방법
 

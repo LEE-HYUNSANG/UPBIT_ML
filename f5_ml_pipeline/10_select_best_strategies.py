@@ -16,7 +16,8 @@ SUMMARY_DIR = PIPELINE_ROOT / "ml_data" / "09_backtest"
 PARAM_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 OUT_DIR = PIPELINE_ROOT / "ml_data" / "10_selected"
 OUT_FILE = OUT_DIR / "selected_strategies.json"
-LOG_PATH = PIPELINE_ROOT / "logs" / "select_best_strategies.log"
+ROOT_DIR = PIPELINE_ROOT.parent
+LOG_PATH = ROOT_DIR / "logs" / "F5_select_best_strategies.log"
 MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "f5_f1_monitoring_list.json"
 
 
@@ -43,15 +44,14 @@ def setup_logger() -> None:
     ensure_dir(LOG_PATH.parent)
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
+        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
                 LOG_PATH,
                 encoding="utf-8",
                 maxBytes=50_000 * 1024,
                 backupCount=5,
-            ),
-            logging.StreamHandler(),
+            )
         ],
         force=True,
     )
