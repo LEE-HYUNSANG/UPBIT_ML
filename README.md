@@ -44,12 +44,13 @@ python signal_loop.py
 Logs are written to `logs/F1-F2_loop.log`.
 Each log file automatically rotates when it exceeds 100&nbsp;MB. Previous files
 are numbered sequentially as `*.1`, `*.2`, and so on.
-To run the standalone ML buy signal routine:
+To run the standalone ML buy signal routine execute the module from the project
+root:
 ```bash
-python f2_ml_buy_signal/f2_ml_buy_signal.py
+python -m f2_ml_buy_signal.f2_ml_buy_signal
 ```
-Results are logged to `logs/f2_ml_buy_signal.log`.
-If a required package is missing, the error is also written to this log file.
+Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
+missing the error is also written to this log file.
 
 
 ## Running the web dashboard
