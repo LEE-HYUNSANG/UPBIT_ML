@@ -13,12 +13,14 @@ status indicator in the header.
 
 The dashboard shows a compact header with KRW balance and today's PnL on the
 left. A sell monitoring table now occupies the right side of the first row for
-quick access to open positions.
+quick access to open positions. Card titles use small icons for quick
+recognition and share a unified font style.
 
 ## Buy Monitoring
 
 The "매수 모니터링" table is populated from `config/f2_f2_realtime_buy_list.json`.
 Whenever this file is updated the page reflects the new entries. The table spans
 the entire second row of the dashboard. Expected win rate and average ROI are
-displayed with one decimal place when F2 provides them. The version column shows
-the completion time of the last F5 pipeline run in `MMDD_HHMM` format.
+displayed with one decimal place when F2 provides them, and subtle horizontal
+lines improve readability. The version column shows the completion time of the
+last F5 pipeline run in `MMDD_HHMM` format.
