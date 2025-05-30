@@ -3,7 +3,7 @@
 `f1_f5_data_collection_list.json`에 명시된 코인들을 매 분마다 호출하여
 **OHLCV** 데이터만 수집합니다.
 수집된 파일은 `f5_ml_pipeline/ml_data/01_raw/` 폴더에
-Parquet 형식으로 저장됩니다.
+`<코인ID>_rawdata.parquet` 이름으로 누적 저장됩니다.
 
 ## 주요 기능
 - `load_coin_list()` 함수가 모니터링 목록을 읽어 리스트를 반환합니다.
