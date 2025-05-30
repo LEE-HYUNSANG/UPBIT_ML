@@ -5,6 +5,8 @@ import sys
 from pathlib import Path
 
 PIPELINE_STEPS = [
+    "02_data_cleaning.py",
+    "03_feature_engineering.py",
     "04_labeling.py",
     "05_split.py",
     "06_train.py",
