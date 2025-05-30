@@ -349,6 +349,12 @@ def run() -> List[str]:
         buy_list = []
     logging.info("[RUN] existing buy_list=%s", buy_list)
 
+    sell_list_path = CONFIG_DIR / "f2_f2_realtime_sell_list.json"
+    sell_list = _load_json(sell_list_path)
+    if not isinstance(sell_list, dict):
+        sell_list = {}
+    logging.info("[RUN] existing sell_list=%s", sell_list)
+
     results = []
     updated: List[dict] = []
     for item in data if isinstance(data, list) else []:
@@ -364,18 +370,25 @@ def run() -> List[str]:
             continue
         buy, rsi_flag, trend_flag = check_buy_signal(sym)
         logging.info("[%s] buy=%s rsi=%s trend=%s", sym, buy, rsi_flag, trend_flag)
-        if buy and rsi_flag and trend_flag:
+        final = int(buy and rsi_flag and trend_flag)
+        updated.append({
+            "symbol": sym,
+            "ml_signal": int(buy),
+            "rsi_sel": int(rsi_flag),
+            "trend_sel": int(trend_flag),
+            "buy_signal": final,
+            "buy_count": 0,
+        })
+        if final:
             results.append(sym)
-            updated.append({
-                "symbol": sym,
-                "buy_signal": 1,
-                "rsi_sel": int(rsi_flag),
-                "trend_sel": int(trend_flag),
-                "thresh_pct": thresh,
-                "loss_pct": loss,
-            })
+            if thresh is not None and loss is not None:
+                sell_list[sym] = {
+                    "thresh_pct": thresh,
+                    "loss_pct": loss,
+                }
 
     _save_json(buy_list_path, updated)
+    _save_json(sell_list_path, sell_list)
     if updated:
         logging.info("[RUN] saved buy_list=%s", updated)
     else:
