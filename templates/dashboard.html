@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}대시보드 - AUTO UPBIT{% endblock %}
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
     <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-center items-start h-36 min-w-[180px]">
         <div class="text-xs text-gray-400 mb-1">KRW 잔고</div>
         <div id="account-balance" class="text-3xl font-extrabold tracking-tight mt-1">0</div>
@@ -14,27 +14,11 @@
             <span id="daily-pnl-percent" class="text-xl font-bold text-green-400 align-middle">0%</span>
         </div>
     </div>
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col h-36 min-w-[240px]">
-        <div class="flex items-center justify-between mb-2">
-            <span class="card-title text-white">모니터링 코인</span>
-            <button onclick="openExclude()" class="text-gray-400 hover:text-green-400 p-1 rounded-full transition" title="감시 제외">
-                ⚙
-            </button>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-2 mb-1" id="monitor-coins"></div>
-    </div>
-    <div class="bg-gray-800 rounded-2xl shadow p-6 flex flex-col justify-between h-36 min-w-[200px]">
-        <span class="card-title text-white mb-2">자동매매</span>
-        <span id="run-status" class="w-full px-3 py-1 rounded-full text-sm font-bold bg-gray-700 text-gray-300 text-center mb-1">정지됨</span>
-        <div class="text-xs text-gray-400 text-right w-full mt-1">상태는 상단 토글과 연동됩니다</div>
-    </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-gray-800 rounded-2xl p-7 shadow">
+    <div class="bg-gray-800 rounded-2xl p-7 shadow lg:col-span-1 lg:row-span-2">
         <div class="flex justify-between items-center mb-2">
-            <h2 class="font-bold">매도 모니터링</h2>
+            <h2 class="font-bold"><span class="mr-1">📉</span>매도 모니터링</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto max-h-40">
             <table class="w-full text-sm text-center">
                 <thead>
                     <tr class="text-gray-400">
@@ -45,9 +29,10 @@
             </table>
         </div>
     </div>
-    <div class="bg-gray-800 rounded-2xl p-7 shadow">
-        <h2 class="font-bold mb-2">매수 모니터링</h2>
-        <div class="overflow-x-auto">
+</div>
+<div class="bg-gray-800 rounded-2xl p-7 shadow mb-6">
+    <h2 class="font-bold mb-2"><span class="mr-1">📈</span>매수 모니터링</h2>
+    <div class="overflow-x-auto">
             <table class="w-full text-sm text-center">
                 <thead>
                     <tr class="text-gray-400">
@@ -57,7 +42,6 @@
                 <tbody id="buy-body"></tbody>
             </table>
         </div>
-    </div>
 </div>
 <div class="bg-gray-800 rounded-2xl p-7 shadow mt-6">
     <div class="flex justify-between items-center mb-2">
@@ -75,20 +59,6 @@
                 </tr>
             </thead>
             <tbody id="alert-body"></tbody>
-        </table>
-    </div>
-</div>
-<div id="exclude-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
-    <div class="bg-gray-800 p-6 rounded-xl w-80">
-        <div class="flex justify-between mb-2">
-            <h3 class="font-bold">감시 제외</h3>
-            <button onclick="closeExclude()" class="text-xl">&times;</button>
-        </div>
-        <table class="w-full text-sm text-center">
-            <thead>
-                <tr class="text-gray-400"><th>코인</th><th>삭제</th></tr>
-            </thead>
-            <tbody id="exclude-body"></tbody>
         </table>
     </div>
 </div>
@@ -126,7 +96,7 @@ function fetchSignals(){
         const body=document.getElementById('buy-body');
         body.innerHTML='';
         list.forEach(it=>{
-            const win=it.win_rate!==undefined?`${(it.win_rate*100).toFixed(0)}%`:'-';
+            const win=it.win_rate!==undefined?`${(it.win_rate*100).toFixed(1)}%`:'-';
             const roi=it.avg_roi!==undefined?`${(it.avg_roi*100).toFixed(1)}%`:'-';
             const ver=it.version||'-';
             const tr=document.createElement('tr');
@@ -163,24 +133,5 @@ function clearAlerts(){
     document.getElementById('alert-body').innerHTML='';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const coins = {{ universe|tojson }} || [];
-    const cont = document.getElementById('monitor-coins');
-    if (cont) {
-        coins.slice(0, 6).forEach(c => {
-            const el = document.createElement('span');
-            el.className = 'inline-block w-8 h-8 rounded-full bg-green-400 text-xs flex items-center justify-center font-bold';
-            el.textContent = c.replace('KRW-', '');
-            cont.appendChild(el);
-        });
-    }
-});
-
-function openExclude(){
-    document.getElementById('exclude-modal').classList.remove('hidden');
-}
-function closeExclude(){
-    document.getElementById('exclude-modal').classList.add('hidden');
-}
 </script>
 {% endblock %}
