@@ -25,9 +25,9 @@ conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
 and `buy_count`.
 
 ## f2_f2_realtime_sell_list.json
-Stores `thresh_pct` and `loss_pct` for each symbol detected by **F2**. These
-values come from `f5_f1_monitoring_list.json` and are used when placing
-sell orders.
+Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.
+The values originate from `f5_f1_monitoring_list.json` and are consulted when
+placing sell orders.
 
 ## f4_f2_risk_settings.json
 Legacy risk parameters (stop percentages, trailing stop etc.). F2는 이제 `f5_f1_monitoring_list.json`에서
