@@ -129,7 +129,7 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
             logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
     # Keep only the last 24 hours of data
-    cutoff = ts - timedelta(hours=24)
+    cutoff = pd.Timestamp(ts, tz="UTC") - pd.Timedelta(hours=24)
     ts_col = None
     if "timestamp" in df.columns:
         ts_col = "timestamp"
