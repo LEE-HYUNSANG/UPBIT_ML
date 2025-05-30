@@ -32,8 +32,7 @@ The values originate from `f5_f1_monitoring_list.json` and are consulted when
 placing sell orders.
 
 ## f4_f2_risk_settings.json
-Legacy risk parameters (stop percentages, trailing stop etc.). F2는 이제 `f5_f1_monitoring_list.json`에서
-`thresh_pct`와 `loss_pct` 값을 읽어 오므로 이 파일은 참고용으로만 유지됩니다.
+This file has been removed. It previously stored legacy risk parameters such as stop percentages and trailing stop settings.
 
 ## f3_f3_order_config.json
 Order execution defaults such as retry counts and quantity settings. Used only by **F3**.
