@@ -57,7 +57,7 @@ class PositionManager:
         self.kpi_guard = kpi_guard
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
-        self.positions_file = self.config.get("POSITIONS_FILE", "config/coin_positions.json")
+        self.positions_file = self.config.get("POSITIONS_FILE", "config/f1_f3_coin_positions.json")
         self.positions = _load_json(self.positions_file)
         self.client = UpbitClient()
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리

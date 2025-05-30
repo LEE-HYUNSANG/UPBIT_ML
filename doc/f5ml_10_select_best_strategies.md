@@ -6,7 +6,7 @@
 실전 매수 모니터링 단계에서 이 파일을 로드하여 사용합니다.
 
 스크립트가 완료되면 선택된 코인 심볼만 추출하여
-프로젝트의 `config/coin_list_monitoring.json`에도 저장됩니다.
+프로젝트의 `config/f5_f1_monitoring_list.json`에도 저장됩니다.
 파일 구조는 다음과 같습니다.
 
 ```json

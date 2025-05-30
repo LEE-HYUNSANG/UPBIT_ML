@@ -13,10 +13,10 @@
 | `f2_signal/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
-| `config/coin_list_monitoring.json` | 모니터링할 코인 목록. F5 단계에서 생성됩니다. |
-| `config/coin_realtime_buy_list.json` | 매수 대상이 발견되면 `{심볼: 0}` 형식으로 기록됩니다. |
-| `config/coin_realtime_sell_list.json` | 손절·익절·트레일링 스탑 설정을 저장합니다. |
-| `config/risk.json` | 매매 금액과 손절 비율 등 위험 관리 값. |
+| `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록. F5 단계에서 생성됩니다. |
+| `config/f2_f2_realtime_buy_list.json` | 매수 대상이 발견되면 `{심볼: 0}` 형식으로 기록됩니다. |
+| `config/f2_f2_realtime_sell_list.json` | 손절·익절·트레일링 스탑 설정을 저장합니다. |
+| `config/f4_f2_risk_settings.json` | 매매 금액과 손절 비율 등 위험 관리 값. |
 
 로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
 `logs/F3_order_executor.log` 등에 남습니다.
@@ -24,13 +24,13 @@
 ## 주요 함수
 
 ### `run_if_monitoring_list_exists()`
-`config/coin_list_monitoring.json` 파일이 존재할 때만 `run()`을 호출합니다.
+`config/f5_f1_monitoring_list.json` 파일이 존재할 때만 `run()`을 호출합니다.
 파일이 없으면 아무 작업도 하지 않습니다.
 
 ### `run()`
 1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
-2. 신호가 `True`이면 `coin_realtime_buy_list.json`과
-   `coin_realtime_sell_list.json`을 갱신합니다.
+2. 신호가 `True`이면 `f2_f2_realtime_buy_list.json`과
+   `f2_f2_realtime_sell_list.json`을 갱신합니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`
@@ -46,7 +46,7 @@
 ## 동작 흐름
 
 1. **전략 선별** – `f5_ml_pipeline/10_select_best_strategies.py`가
-   우수 전략을 추려 `coin_list_monitoring.json`을 갱신합니다.
+   우수 전략을 추려 `f5_f1_monitoring_list.json`을 갱신합니다.
 2. **모니터링** – `signal_loop.py`에서 주기적으로 `f2_signal`을 호출해
    각 코인의 1분 봉 데이터를 분석합니다.
 3. **ML 신호 판단** – `run_if_monitoring_list_exists()`가 실행되면

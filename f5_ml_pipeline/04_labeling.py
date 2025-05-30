@@ -17,8 +17,8 @@ FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 LOG_PATH = PIPELINE_ROOT / "logs" / "ml_label.log"
 
-THRESH_LIST      = [0.005, 0.006, 0.007]    # 익절(%)
-LOSS_LIST        = [0.005, 0.006, 0.007]    # 손절(%)
+THRESH_LIST      = [0.003, 0.004, 0.005]    # 익절(%)
+LOSS_LIST        = [0.003, 0.004, 0.005]    # 손절(%)
 
 def setup_logger() -> None:
     """로그 설정."""

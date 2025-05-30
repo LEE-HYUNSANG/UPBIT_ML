@@ -30,17 +30,17 @@ load_universe_from_file()
 schedule_universe_updates(1800, CONFIG)
 
 CFG_DIR = "config/setting_date"
-LATEST_CFG = os.path.join(CFG_DIR, "Latest_config.json")
-DEFAULT_CFG = os.path.join(CFG_DIR, "default_config.json")
-ML_CFG = os.path.join(CFG_DIR, "ML_config.json")
-YDAY_CFG = os.path.join(CFG_DIR, "yesterday_config.json")
+LATEST_CFG = os.path.join(CFG_DIR, "f4_f3_latest_config.json")
+DEFAULT_CFG = os.path.join(CFG_DIR, "f4_f3_default_config.json")
+ML_CFG = os.path.join(CFG_DIR, "f4_f3_ml_config.json")
+YDAY_CFG = os.path.join(CFG_DIR, "f4_f3_yesterday_config.json")
 
 RISK_CONFIG_PATH = LATEST_CFG
 
 AUTOTRADE_STATUS_FILE = os.path.join("config", "autotrade_status.json")
 EVENTS_LOG = os.path.join("logs", "events.jsonl")
 
-STRATEGY_SETTINGS_FILE = os.path.join("config", "strategy_settings.json")
+STRATEGY_SETTINGS_FILE = os.path.join("config", "app_f2_strategy_settings.json")
 STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
 STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 
