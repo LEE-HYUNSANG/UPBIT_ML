@@ -12,8 +12,6 @@
 
 - `THRESH_LIST = [0.005, 0.006, 0.007]`
 - `LOSS_LIST = [0.005, 0.006, 0.007]`
-- `TRAIL_START_LIST = [None, 0.004]`
-- `TRAIL_DOWN_LIST = [None, 0.002]`
 
 트레일링 스탑을 비활성화하려면 `trail_start_pct` 또는 `trail_down_pct` 값을
 `None`으로 설정합니다. 이 경우 라벨링과 백테스트는 단순 TP/SL 규칙만 사용합니다.
