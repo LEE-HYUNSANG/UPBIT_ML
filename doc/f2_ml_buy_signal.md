@@ -43,7 +43,7 @@
 2. 스크립트는 `f5_f1_monitoring_list.json`이 존재할 때만 각 코인의 매수 신호를 판별합니다.
 3. 매수 신호가 `True`로 판단되면 해당 코인이 실시간 매수 리스트와 매도 설정 리스트에 추가됩니다. `thresh_pct`와 `loss_pct` 값은
    `f5_f1_monitoring_list.json`에서 불러온 뒤 `f2_f2_realtime_sell_list.json`에 저장됩니다. 이때 기존 항목에 남아 있던
-   `SL_PCT`나 `TP_PCT` 같은 위험 관련 필드는 자동으로 제거됩니다.
+   `SL_PCT`나 `TP_PCT` 같은 위험 관련 필드는 자동으로 제거되며, 값이 남지 않는 항목은 목록에서 사라집니다.
 4. 모든 로그와 저장 위치는 `logs/f2_ml_buy_signal.log` 파일에서 확인할 수 있습니다.
 
 `02_ml_buy_signal.py`는 학습된 모델을 활용해 최신 데이터를 즉시 예측하므로, 별도의 대용량 데이터 없이도 빠르게 매수 후보를 판별할 수 있습니다.

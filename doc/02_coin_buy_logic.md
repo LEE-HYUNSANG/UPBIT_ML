@@ -32,9 +32,9 @@
 1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
 2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count]`
    정보를 `f2_f2_realtime_buy_list.json`에 저장하고,
-   동시에 해당 코인의 `thresh_pct`, `loss_pct` 값을
-   `f2_f2_realtime_sell_list.json`에 기록합니다. 이 과정에서 기존 항목에 남아 있던
-   `SL_PCT` 등의 필드는 자동으로 제거됩니다.
+  동시에 해당 코인의 `thresh_pct`, `loss_pct` 값을
+  `f2_f2_realtime_sell_list.json`에 기록합니다. 이 과정에서 기존 항목에 남아 있던
+  `SL_PCT` 등의 필드는 자동으로 제거되며, 값이 남지 않는 항목은 삭제됩니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`

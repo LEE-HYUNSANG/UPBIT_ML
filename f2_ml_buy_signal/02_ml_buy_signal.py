@@ -355,12 +355,16 @@ def run() -> List[str]:
         sell_list = {}
     else:
         for sym, info in list(sell_list.items()):
-            if isinstance(info, dict):
-                sell_list[sym] = {
-                    k: info[k]
-                    for k in ("thresh_pct", "loss_pct")
-                    if k in info
-                }
+            if not isinstance(info, dict):
+                del sell_list[sym]
+                continue
+            cleaned = {
+                k: info[k]
+                for k in ("thresh_pct", "loss_pct")
+                if k in info
+            }
+            if cleaned:
+                sell_list[sym] = cleaned
             else:
                 del sell_list[sym]
     logging.info("[RUN] existing sell_list=%s", sell_list)
