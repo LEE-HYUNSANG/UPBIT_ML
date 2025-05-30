@@ -24,6 +24,11 @@ history of actions from the dashboard.
 - **POST** – update the list. Each item should contain the keys `short_code`,
   `on` and `order`.
 
+## `/api/buy_monitoring`
+- **GET** – return the contents of `config/f2_f2_realtime_buy_list.json`.
+  The response includes expected win rate and average ROI if available as well
+  as the last F5 completion time in `MMDD_HHMM` format.
+
 ## Using the API
 
 The examples below use `curl` to interact with the server running locally on
