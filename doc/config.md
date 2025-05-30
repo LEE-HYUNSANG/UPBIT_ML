@@ -47,9 +47,6 @@ by the **F2** signal engine.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
-## f2_f2_signal_config.json
-Indicator periods and other signal calculation settings for the legacy signal engine.
-
 ## f4_f3_latest_config.json
 Primary risk management configuration loaded by **F4**. Updated values are mirrored to
 **F3** in real time.
