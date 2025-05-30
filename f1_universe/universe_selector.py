@@ -49,7 +49,17 @@ def load_monitoring_coins(path: str = MONITORING_LIST_FILE) -> List[str]:
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        return [str(x) for x in data] if isinstance(data, list) else []
+        if isinstance(data, list):
+            coins = []
+            for item in data:
+                if isinstance(item, dict):
+                    sym = item.get("symbol")
+                else:
+                    sym = item
+                if sym:
+                    coins.append(str(sym))
+            return coins
+        return []
     except FileNotFoundError:
         return []
     except Exception as exc:  # pragma: no cover - best effort

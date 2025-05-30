@@ -20,11 +20,14 @@ def test_load_selected_universe_extracts_symbols(tmp_path):
 
 
 def test_load_monitoring_coins(tmp_path):
-    coins = ["KRW-BTC", "KRW-ETH"]
+    coins = [
+        {"symbol": "KRW-BTC", "thresh_pct": 0.01, "loss_pct": 0.02},
+        {"symbol": "KRW-ETH", "thresh_pct": 0.01, "loss_pct": 0.02},
+    ]
     f = tmp_path / "mon.json"
     f.write_text(json.dumps(coins, ensure_ascii=False))
     result = us.load_monitoring_coins(str(f))
-    assert result == coins
+    assert result == ["KRW-BTC", "KRW-ETH"]
 
 
 def test_select_universe_prefers_monitoring(monkeypatch):

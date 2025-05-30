@@ -7,13 +7,12 @@
 
 스크립트가 완료되면 선택된 코인 심볼만 추출하여
 프로젝트의 `config/f5_f1_monitoring_list.json`에도 저장됩니다.
-파일 구조는 다음과 같습니다.
+각 항목은 코인 ID와 익절/손절 비율을 포함한 객체 형태입니다.
 
 ```json
 [
-    "KRW-BTC",
-    "KRW-ETH",
-    "KRW-XRP"
+  {"symbol": "KRW-BTC", "thresh_pct": 0.01, "loss_pct": 0.01},
+  {"symbol": "KRW-ETH", "thresh_pct": 0.01, "loss_pct": 0.01}
 ]
 ```
 

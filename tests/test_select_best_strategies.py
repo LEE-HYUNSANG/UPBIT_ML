@@ -51,7 +51,9 @@ def test_select_strategies(tmp_path):
         "total_entries": 60,
     }
     (summary_dir / "AAA_summary.json").write_text(json.dumps(sample_summary))
-    (param_dir / "AAA_best_params.json").write_text(json.dumps({"p": 1}))
+    (param_dir / "AAA_best_params.json").write_text(
+        json.dumps({"p": 1, "thresh_pct": 0.01, "loss_pct": 0.02})
+    )
 
     select_best.SUMMARY_DIR = summary_dir
     select_best.PARAM_DIR = param_dir
@@ -60,7 +62,7 @@ def test_select_strategies(tmp_path):
     strategies = select_best.select_strategies()
     assert len(strategies) == 1
     assert strategies[0]["symbol"] == "AAA"
-    assert strategies[0]["params"] == {"p": 1}
+    assert strategies[0]["params"] == {"p": 1, "thresh_pct": 0.01, "loss_pct": 0.02}
 
 
 def test_main_writes_monitoring(tmp_path):
@@ -81,7 +83,9 @@ def test_main_writes_monitoring(tmp_path):
         "total_entries": 60,
     }
     (summary_dir / "AAA_summary.json").write_text(json.dumps(sample_summary))
-    (param_dir / "AAA_best_params.json").write_text(json.dumps({"p": 1}))
+    (param_dir / "AAA_best_params.json").write_text(
+        json.dumps({"p": 1, "thresh_pct": 0.01, "loss_pct": 0.02})
+    )
 
     select_best.SUMMARY_DIR = summary_dir
     select_best.PARAM_DIR = param_dir
@@ -94,7 +98,7 @@ def test_main_writes_monitoring(tmp_path):
     select_best.main()
 
     data = json.loads((conf_dir / "f5_f1_monitoring_list.json").read_text())
-    assert data == ["AAA"]
+    assert data == [{"symbol": "AAA", "thresh_pct": 0.01, "loss_pct": 0.02}]
 
     log_text = (tmp_path / "select.log").read_text()
     assert "monitoring list updated" in log_text
