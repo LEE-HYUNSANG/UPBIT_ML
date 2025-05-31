@@ -215,6 +215,17 @@ def test_open_positions_empty(app_client):
     assert resp.get_json() == []
 
 
+def test_pending_positions_not_listed(app_client):
+    client, order_executor, _ = app_client
+    order_executor._default_executor.position_manager.positions = [
+        {"symbol": "KRW-NEO", "status": "pending", "qty": 1.0}
+    ]
+    resp = client.get("/api/open_positions")
+    assert resp.status_code == 200
+    assert resp.get_json() == []
+    order_executor._default_executor.position_manager.positions = []
+
+
 def test_events_endpoint(app_client, tmp_path, monkeypatch):
     client, _, _ = app_client
     import app as app_mod
