@@ -51,6 +51,10 @@ python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
 Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
+The `run()` function in this module only updates
+`config/f2_f2_realtime_buy_list.json`. Orders are executed later by the
+`signal_loop.py` loop or by manually running
+`buy_list_executor.execute_buy_list()`.
 
 
 ## Running the order executor
