@@ -330,3 +330,21 @@ def test_buy_settings_endpoint(app_client, tmp_path, monkeypatch):
     assert resp.status_code == 200
     assert json.loads(cfg.read_text())["ENTRY_SIZE_INITIAL"] == 20000
 
+
+def test_alarm_config_endpoint(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    cfg = tmp_path / "alarm.json"
+    monkeypatch.setattr(app_mod, "ALARM_CONFIG_FILE", str(cfg))
+
+    resp = client.get("/api/alarm_config")
+    data = resp.get_json()
+    assert data["system_start_stop"] is True
+
+    monkeypatch.setattr(app_mod.request, "method", "POST")
+    monkeypatch.setattr(app_mod.request, "get_json", lambda force=False: {"system_start_stop": False})
+    resp = client.get("/api/alarm_config")
+    assert resp.status_code == 200
+    assert json.loads(cfg.read_text())["system_start_stop"] is False
+

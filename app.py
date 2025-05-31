@@ -12,6 +12,7 @@ from logging.handlers import RotatingFileHandler
 from signal_loop import process_symbol, main_loop
 import threading
 from f6_setting.buy_config import load_buy_config, save_buy_config
+from f6_setting import alarm_control
 from f1_universe.universe_selector import (
     select_universe,
     load_config,
@@ -49,6 +50,7 @@ STRATEGY_SETTINGS_FILE = os.path.join("config", "app_f2_strategy_settings.json")
 STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
 STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 BUY_SETTINGS_FILE = os.path.join("config", "f6_buy_settings.json")
+ALARM_CONFIG_FILE = alarm_control.CONFIG_FILE
 
 # 자동 매매 스레드의 실행 상태 보관용 변수
 _auto_trade_thread = None
@@ -98,6 +100,14 @@ def load_buy_settings() -> dict:
 
 def save_buy_settings(data: dict) -> None:
     save_buy_config(data, BUY_SETTINGS_FILE)
+
+
+def load_alarm_settings() -> dict:
+    return alarm_control.load_config(ALARM_CONFIG_FILE)
+
+
+def save_alarm_settings(data: dict) -> None:
+    alarm_control.save_config(data, ALARM_CONFIG_FILE)
 
 
 def load_recent_events(limit: int = 20) -> list:
@@ -581,6 +591,16 @@ def buy_settings_endpoint() -> Response:
         return jsonify(load_buy_settings())
     data = request.get_json(force=True) or {}
     save_buy_settings(data)
+    return jsonify({"status": "ok"})
+
+
+@app.route("/api/alarm_config", methods=["GET", "POST"])
+def alarm_config_endpoint() -> Response:
+    """텔레그램 알림 설정 조회 또는 업데이트"""
+    if request.method == "GET":
+        return jsonify(load_alarm_settings())
+    data = request.get_json(force=True) or {}
+    save_alarm_settings(data)
     return jsonify({"status": "ok"})
 
 

@@ -30,20 +30,21 @@
     <div class="bg-gray-800 p-7 rounded-2xl shadow">
         <h2 class="card-title mb-4">텔레그램 알림 설정</h2>
         <label class="flex items-center gap-2 mb-2">
-            <input type="checkbox" class="w-4 h-4"> 시스템 기동/중지
+            <input id="tg-start" type="checkbox" class="w-4 h-4"> 시스템 기동/중지
         </label>
         <label class="flex items-center gap-2 mb-2">
-            <input type="checkbox" class="w-4 h-4"> 매수 모니터링
+            <input id="tg-buy" type="checkbox" class="w-4 h-4"> 매수 모니터링
         </label>
         <label class="flex items-center gap-2 mb-2">
-            <input type="checkbox" class="w-4 h-4"> 매수, 매도 주문체결
+            <input id="tg-order" type="checkbox" class="w-4 h-4"> 매수, 매도 주문체결
         </label>
         <label class="flex items-center gap-2 mb-2">
-            <input type="checkbox" class="w-4 h-4"> 시스템 알림
+            <input id="tg-alert" type="checkbox" class="w-4 h-4"> 시스템 알림
         </label>
         <label class="flex items-center gap-2 mb-2">
-            <input type="checkbox" class="w-4 h-4"> F5 머신러닝 감시
+            <input id="tg-ml" type="checkbox" class="w-4 h-4"> F5 머신러닝 감시
         </label>
+        <button id="save-alarm-settings" class="mt-4 px-4 py-2 rounded bg-green-600 text-sm">저장</button>
     </div>
     <div class="bg-gray-800 p-7 rounded-2xl shadow">
         <h2 class="card-title mb-4">텔레그램 원격</h2>
@@ -78,6 +79,33 @@ document.getElementById('save-buy-settings').onclick = function () {
         MAX_RETRY: Number(document.getElementById('max-retry').value)
     };
     fetch('/api/buy_settings', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+};
+
+function loadAlarmSettings() {
+    fetch('/api/alarm_config')
+        .then(r => r.json())
+        .then(d => {
+            document.getElementById('tg-start').checked = d.system_start_stop;
+            document.getElementById('tg-buy').checked = d.buy_monitoring;
+            document.getElementById('tg-order').checked = d.order_execution;
+            document.getElementById('tg-alert').checked = d.system_alert;
+            document.getElementById('tg-ml').checked = d.ml_pipeline;
+        });
+}
+loadAlarmSettings();
+document.getElementById('save-alarm-settings').onclick = function () {
+    const data = {
+        system_start_stop: document.getElementById('tg-start').checked,
+        buy_monitoring: document.getElementById('tg-buy').checked,
+        order_execution: document.getElementById('tg-order').checked,
+        system_alert: document.getElementById('tg-alert').checked,
+        ml_pipeline: document.getElementById('tg-ml').checked
+    };
+    fetch('/api/alarm_config', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
