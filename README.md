@@ -51,10 +51,10 @@ python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
 Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
-The `run()` function in this module only updates
-`config/f2_f2_realtime_buy_list.json`. Orders are executed later by the
-`signal_loop.py` loop or by manually running
-`buy_list_executor.execute_buy_list()`.
+The `run()` function updates `config/f2_f2_realtime_buy_list.json`.
+The Flask scheduler automatically calls
+`buy_list_executor.execute_buy_list()` after each run so any buy candidates are
+immediately ordered. You can still invoke this function manually if needed.
 
 
 ## Running the order executor

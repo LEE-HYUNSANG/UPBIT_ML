@@ -70,10 +70,11 @@
 
 ## 실시간 매수 리스트 활용
 
-`f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`을 그대로
-사용해 주문을 실행하려면 `f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor.execute_buy_list()` 함수를
-호출하면 됩니다. 이 함수는 리스트에서 `"buy_signal": 1`인 항목을 골라 현재
-가격을 조회한 뒤 `OrderExecutor.entry()`로 전달합니다.
+`f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`은
+웹 서버의 스케줄러가 1분마다 자동으로 읽어 주문을 실행합니다. 구현은
+`buy_list_executor.execute_buy_list()`를 호출하는 방식이며, 매수 후보가 있으면
+즉시 `OrderExecutor.entry()`로 전달됩니다. 필요하다면 아래와 같이 수동으로도
+실행할 수 있습니다.
 
 ```python
 from f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor import execute_buy_list
