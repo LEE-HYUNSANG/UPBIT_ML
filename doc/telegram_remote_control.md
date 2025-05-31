@@ -1,7 +1,7 @@
 # Telegram Remote Control
 
 `f6_setting.telegram_control` provides a small Telegram bot to start and stop the
-trading loop remotely.
+trading loop remotely. It relies on the `pyTelegramBotAPI` package.
 
 1. Create a bot with `@BotFather` and note the token.
 2. Set the `TELEGRAM_TOKEN` environment variable with the token.

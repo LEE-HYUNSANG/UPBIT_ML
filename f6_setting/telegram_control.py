@@ -1,7 +1,8 @@
 import os
+import importlib
 
 try:
-    import telebot
+    telebot = importlib.import_module("telebot")
 except Exception:  # pragma: no cover - optional dependency
     telebot = None
 

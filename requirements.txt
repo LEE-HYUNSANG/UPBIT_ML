@@ -19,3 +19,4 @@ pyarrow==15.0.2
 optuna==3.5.0
 lightgbm==4.3.0
 scikit-learn==1.4.2
+pyTelegramBotAPI
