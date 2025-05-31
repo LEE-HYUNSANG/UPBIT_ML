@@ -9,6 +9,7 @@ import datetime
 import time
 import logging
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 from signal_loop import process_symbol, main_loop
 import threading
 from f6_setting.buy_config import load_buy_config, save_buy_config
@@ -35,16 +36,16 @@ CONFIG = load_config()
 load_universe_from_file()
 schedule_universe_updates(1800, CONFIG)
 
-CFG_DIR = "config/setting_date"
-LATEST_CFG = os.path.join(CFG_DIR, "f4_f3_latest_config.json")
-DEFAULT_CFG = os.path.join(CFG_DIR, "f4_f3_default_config.json")
-ML_CFG = os.path.join(CFG_DIR, "f4_f3_ml_config.json")
-YDAY_CFG = os.path.join(CFG_DIR, "f4_f3_yesterday_config.json")
+CFG_DIR = "config"
+LATEST_CFG = os.path.join(CFG_DIR, "f6_buy_settings.json")
+DEFAULT_CFG = LATEST_CFG
+ML_CFG = LATEST_CFG
+YDAY_CFG = LATEST_CFG
 
 RISK_CONFIG_PATH = LATEST_CFG
 
 AUTOTRADE_STATUS_FILE = os.path.join("config", "web_autotrade_status.json")
-EVENTS_LOG = os.path.join("logs", "events.jsonl")
+EVENTS_LOG = os.path.join("logs", "etc", "events.jsonl")
 
 STRATEGY_SETTINGS_FILE = os.path.join("config", "app_f2_strategy_settings.json")
 STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
@@ -320,9 +321,9 @@ def get_config_path(name: str) -> str:
 WEB_LOGGER = None
 if WEB_LOGGER is None:
     WEB_LOGGER = logging.getLogger("web")
-    os.makedirs("logs", exist_ok=True)
+    os.makedirs("logs/etc", exist_ok=True)
     handler = RotatingFileHandler(
-        "logs/web.log",
+        "logs/etc/web.log",
         encoding="utf-8",
         maxBytes=100_000 * 1024,
         backupCount=1000,
@@ -622,7 +623,7 @@ def alarm_config_endpoint() -> Response:
 @app.route("/api/risk_events")
 def risk_events_endpoint() -> Response:
     """SQLite 로그에서 최근 리스크 매니저 이벤트 조회"""
-    db_path = os.path.join("logs", "risk_events.db")
+    db_path = os.path.join("logs", "f4", "risk_events.db")
     if not os.path.exists(db_path):
         return jsonify([])
     conn = sqlite3.connect(db_path)
@@ -669,24 +670,27 @@ start_monitoring()
 
 
 if __name__ == "__main__":
+    Path("logs/etc").mkdir(parents=True, exist_ok=True)
+    Path("logs/f1").mkdir(parents=True, exist_ok=True)
+    Path("logs/f2").mkdir(parents=True, exist_ok=True)
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [F1-F2] [%(levelname)s] %(message)s",
         handlers=[
             RotatingFileHandler(
-                "logs/F1-F2_loop.log",
+                Path("logs/etc/F1-F2_loop.log"),
                 encoding="utf-8",
                 maxBytes=100_000 * 1024,
                 backupCount=1000,
             ),
             RotatingFileHandler(
-                "logs/F1_signal_engine.log",
+                Path("logs/f1/F1_signal_engine.log"),
                 encoding="utf-8",
                 maxBytes=100_000 * 1024,
                 backupCount=1000,
             ),
             RotatingFileHandler(
-                "logs/F2_signal_engine.log",
+                Path("logs/f2/F2_signal_engine.log"),
                 encoding="utf-8",
                 maxBytes=100_000 * 1024,
                 backupCount=1000,

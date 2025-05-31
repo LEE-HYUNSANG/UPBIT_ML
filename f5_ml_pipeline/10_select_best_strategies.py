@@ -17,7 +17,7 @@ PARAM_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 OUT_DIR = PIPELINE_ROOT / "ml_data" / "10_selected"
 OUT_FILE = OUT_DIR / "selected_strategies.json"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_select_best_strategies.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_select_best_strategies.log"
 MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "f5_f1_monitoring_list.json"
 
 

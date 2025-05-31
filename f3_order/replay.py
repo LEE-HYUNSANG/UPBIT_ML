@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 
 
-def replay_trades(start_date: str, end_date: str, strategy_id: str, db_path: str = "logs/orders.db"):
+def replay_trades(start_date: str, end_date: str, strategy_id: str, db_path: str = "logs/f3/orders.db"):
     """Yield historical trades between start and end date for a given strategy."""
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()

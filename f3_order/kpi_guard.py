@@ -1,15 +1,17 @@
 """
 [F3] KPI 품질보증 가드 (승률, 손익 등 자동 중단/롤백)
-로그: logs/F3_kpi_guard.log
+로그: logs/f3/F3_kpi_guard.log
 """
 import logging
 from logging.handlers import RotatingFileHandler
 from .utils import log_with_tag
 from .exception_handler import ExceptionHandler
+import os
 
 logger = logging.getLogger("F3_kpi_guard")
+os.makedirs("logs/f3", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/F3_kpi_guard.log",
+    "logs/f3/F3_kpi_guard.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,

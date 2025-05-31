@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+import os
 
 if __name__ == "__main__" and __package__ is None:
     # Allow running this module directly by adding the package root to sys.path
@@ -26,8 +27,9 @@ import time
 import json
 
 logger = logging.getLogger("F3_order_executor")
+os.makedirs("logs/f3", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/F3_order_executor.log",
+    "logs/f3/F3_order_executor.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,

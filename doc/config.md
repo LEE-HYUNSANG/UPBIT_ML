@@ -38,23 +38,11 @@ This file has been removed. It previously stored legacy risk parameters such as 
 Order execution defaults such as retry counts and quantity settings. Used only by **F3**.
 
 ## f6_buy_settings.json
-Buy order settings controlled via the web UI. Contains `ENTRY_SIZE_INITIAL`,
-`MAX_SYMBOLS` and `MAX_RETRY` which default to `10000`, `7` and `3` respectively.
-These values override the order executor's defaults.
+Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
+`MAX_SYMBOLS`, `MAX_RETRY`, `SLIP_MAX` and `ORDER_FAIL_RETRY` which default to
+`10000`, `7`, `3`, `0.15` and `3` respectively. These values override the order
+executor's defaults and are mirrored to the risk manager.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
-## f4_f3_latest_config.json
-Primary risk management configuration loaded by **F4**. Updated values are mirrored to
-**F3** in real time.
-
-## f4_f3_default_config.json
-A template file containing safe default risk settings. It can be copied over the latest
-file when resetting the system.
-
-## f4_f3_ml_config.json
-Alternative risk settings used during machine learning experiments.
-
-## f4_f3_yesterday_config.json
-Snapshot of yesterday's risk configuration stored for reference.
 

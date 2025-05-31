@@ -1,6 +1,6 @@
 """
 [F3] 장애/슬리피지/오류 처리, 자동 롤백/경보
-로그: logs/F3_exception_handler.log
+로그: logs/f3/F3_exception_handler.log
 """
 import logging
 from logging.handlers import RotatingFileHandler
@@ -17,8 +17,9 @@ import os
 import datetime
 
 logger = logging.getLogger("F3_exception_handler")
+os.makedirs("logs/f3", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/F3_exception_handler.log",
+    "logs/f3/F3_exception_handler.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,
@@ -53,7 +54,7 @@ class ExceptionHandler:
             self.tg_chat_id = None
 
     def _log_event(self, data: dict) -> None:
-        path = os.path.join("logs", "events.jsonl")
+        path = os.path.join("logs", "etc", "events.jsonl")
         data["time"] = _now_kst()
         _log_jsonl(path, data)
 

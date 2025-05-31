@@ -40,14 +40,13 @@
 
 
 ### 주요 설정 값
-`config/setting_date/f4_f3_latest_config.json` 파일에서 다음과 같은 리스크 파라미터를 관리합니다.
-- `DAILY_LOSS_LIM` – 하루 누적 손실 한도(%)
-- `MDD_LIM` – 최근 30일 최대 낙폭 한도(%)
-- `MONTHLY_MDD_LIM` – 월간 최대 낙폭 한도(%)
+`config/f6_buy_settings.json` 파일에서 다음 항목을 관리합니다.
+- `ENTRY_SIZE_INITIAL` – 신규 진입 시 기본 주문 금액
 - `MAX_SYMBOLS` – 동시에 보유 가능한 코인 수 제한
 - `SLIP_MAX` – 허용 슬리피지 한도(%)
+- `ORDER_FAIL_RETRY` – 주문 실패 시 재시도 횟수
 
-`ENTRY_SIZE_INITIAL`, `AVG_SIZE`, `PYR_SIZE` 등 주문 크기 설정도 같은 파일에서 조정합니다.【F:config/setting_date/f4_f3_latest_config.json†L1-L23】
+파일이 변경되면 `hot_reload()`가 즉시 적용되어 `OrderExecutor` 금액도 동기화됩니다.
 
 ## 동작 흐름
 1. `signal_loop.py`에서 매 루프마다 `RiskManager.update_account`로 실현 손익과 보유 코인을 전달합니다.
