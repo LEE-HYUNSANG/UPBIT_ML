@@ -53,18 +53,23 @@ Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
 
 
-## Running the Order Executor
+## Running the order executor
 
-Execute the F3 module using Python's `-m` switch so that its package imports
-are properly resolved:
+For quick testing you may execute the order module directly:
+
+```bash
+python f3_order/order_executor.py
+```
+
+When run this way the script prepends the project root to `sys.path` so the
+relative imports work. The recommended invocation in production is:
 
 ```bash
 python -m f3_order.order_executor
 ```
 
-Running `python f3_order/order_executor.py` directly can lead to
-`ImportError: attempted relative import with no known parent package`.
-
+Both methods start the default `OrderExecutor` instance which logs activity to
+`logs/F3_order_executor.log`.
 
 ## Running the web dashboard
 

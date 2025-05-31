@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+if __name__ == "__main__" and __package__ is None:
+    # Allow running this module directly by adding the package root to sys.path
+    sys.path.append(str(Path(__file__).resolve().parent.parent))
+    print("Running order_executor.py as a script. Import paths have been adjusted.")
+
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -16,7 +24,6 @@ from .utils import load_config, log_with_tag
 from f6_setting.buy_config import load_buy_config
 import time
 import json
-from pathlib import Path
 
 logger = logging.getLogger("F3_order_executor")
 fh = RotatingFileHandler(
