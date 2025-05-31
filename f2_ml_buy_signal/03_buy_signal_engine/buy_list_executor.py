@@ -66,11 +66,13 @@ def execute_buy_list() -> list[str]:
             "buy_triggers": [],
             "sell_triggers": [],
         }
+        log_with_tag(logger, f"Executing buy for {symbol} at {price}")
         oe.entry(signal)
         executed.append(symbol)
         for it in buy_list:
             if it.get("symbol") == symbol:
                 it["buy_count"] = 1
+                log_with_tag(logger, f"Updated buy_count for {symbol}")
                 break
 
     try:
