@@ -1,12 +1,12 @@
 [
-  "KRW-UXLINK",
-  "KRW-CTC",
   "KRW-FLOW",
-  "KRW-MNT",
+  "KRW-UXLINK",
   "KRW-NEO",
+  "KRW-CTC",
   "KRW-AUCTION",
-  "KRW-BERA",
-  "KRW-APT",
-  "KRW-UNI",
-  "KRW-ME"
+  "KRW-ME",
+  "KRW-WAVES",
+  "KRW-MNT",
+  "KRW-QTUM",
+  "KRW-APT"
 ]
