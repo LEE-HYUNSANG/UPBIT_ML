@@ -32,5 +32,7 @@
 | 26 | [telegram_notifications.md](telegram_notifications.md) | 주문 알림 텔레그램 설정 |
 | 27 | [telegram_remote_control.md](telegram_remote_control.md) | 텔레그램 원격 제어 봇 사용법 |
 | 28 | [web_template_overview.md](web_template_overview.md) | 웹 대시보드 구성 설명 |
+| 29 | [06_f5_machine_learning.md](06_f5_machine_learning.md) | F5 전체 로직 한눈에 보기 |
+| 30 | [07_alarm_setting.md](07_alarm_setting.md) | 알림 및 원격 설정 가이드 |
 
 각 문서에서는 사용되는 설정 파일 경로, 실행 스크립트 위치, 데이터 저장 구조와 로그 파일 위치까지 가능한 한 구체적으로 서술했습니다. 문서를 읽는 순서는 위 표의 번호를 따라가면 이해가 빠릅니다.
