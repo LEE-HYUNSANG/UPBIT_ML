@@ -37,5 +37,6 @@
 | 31 | [03_coin_buy_logic.md](03_coin_buy_logic.md) | 매수 주문 처리 절차 |
 | 32 | [04_coin_sell_signal.md](04_coin_sell_signal.md) | 매도 시그널 계산 방식 |
 | 33 | [05_coin_buy_signal.md](05_coin_buy_signal.md) | 매도 주문 처리 로직 |
-
+| 34 | [06_f5_machine_learning.md](06_f5_machine_learning.md) | F5 전체 로직 한눈에 보기 |
+| 35 | [07_alarm_setting.md](07_alarm_setting.md) | 알림 및 원격 설정 가이드 |
 각 문서에서는 사용되는 설정 파일 경로, 실행 스크립트 위치, 데이터 저장 구조와 로그 파일 위치까지 가능한 한 구체적으로 서술했습니다. 문서를 읽는 순서는 위 표의 번호를 따라가면 이해가 빠릅니다.
