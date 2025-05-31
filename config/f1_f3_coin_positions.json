@@ -1,19 +1,19 @@
 [
   {
-    "symbol": "KRW-ME",
-    "entry_time": 1748734400.1956437,
-    "entry_price": 1147.0,
-    "qty": 52.31037486,
+    "symbol": "KRW-CTC",
+    "entry_time": 1748735087.7046518,
+    "entry_price": 869.6,
+    "qty": 34.49862003,
     "pyramid_count": 0,
     "avgdown_count": 0,
     "status": "open",
     "origin": "imported",
     "strategy": "imported",
-    "avg_price": 1147.0,
-    "current_price": 1140.0,
-    "eval_amount": 59633.82734040001,
-    "pnl_percent": -0.6102877070619006,
-    "max_price": 1140.0,
-    "min_price": 1140.0
+    "avg_price": 869.6,
+    "current_price": 868.0,
+    "eval_amount": 29944.802186039997,
+    "pnl_percent": -0.18399264029439083,
+    "max_price": 869.7,
+    "min_price": 867.5
   }
 ]

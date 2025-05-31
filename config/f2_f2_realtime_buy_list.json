@@ -1,8 +1,8 @@
 [
   {
-    "symbol": "KRW-FLOW",
+    "symbol": "KRW-XTZ",
     "ml_signal": 0,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
@@ -11,12 +11,12 @@
     "symbol": "KRW-NEO",
     "ml_signal": 0,
     "rsi_sel": 0,
-    "trend_sel": 1,
+    "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   },
   {
-    "symbol": "KRW-CTC",
+    "symbol": "KRW-UXLINK",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -24,7 +24,7 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-ME",
+    "symbol": "KRW-CTC",
     "ml_signal": 0,
     "rsi_sel": 1,
     "trend_sel": 0,
@@ -32,7 +32,23 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-UXLINK",
+    "symbol": "KRW-ME",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-WAVES",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-ONDO",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -48,16 +64,8 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-MNT",
-    "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
     "symbol": "KRW-QTUM",
-    "ml_signal": 0,
+    "ml_signal": 1,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
@@ -65,16 +73,8 @@
   },
   {
     "symbol": "KRW-APT",
-    "ml_signal": 0,
+    "ml_signal": 1,
     "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-AKT",
-    "ml_signal": 0,
-    "rsi_sel": 1,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0

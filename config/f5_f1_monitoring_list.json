@@ -1,11 +1,16 @@
 [
   {
-    "symbol": "KRW-FLOW",
+    "symbol": "KRW-XTZ",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   },
   {
     "symbol": "KRW-NEO",
+    "thresh_pct": 0.004,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-UXLINK",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
@@ -20,17 +25,17 @@
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-UXLINK",
+    "symbol": "KRW-WAVES",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-ONDO",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
   {
     "symbol": "KRW-AUCTION",
-    "thresh_pct": 0.004,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-MNT",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   },
@@ -41,11 +46,6 @@
   },
   {
     "symbol": "KRW-APT",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-AKT",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   }
