@@ -29,6 +29,17 @@ def execute_buy_list() -> list[str]:
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
     buy_list = _load_buy_list(buy_path)
 
+    seen = set()
+    deduped = []
+    for item in buy_list:
+        symbol = item.get("symbol")
+        if symbol and symbol not in seen:
+            deduped.append(item)
+            seen.add(symbol)
+    if len(deduped) != len(buy_list):
+        buy_list = deduped
+        log_with_tag(logger, "Removed duplicate symbols from buy list")
+
     targets = [
         b["symbol"]
         for b in buy_list
