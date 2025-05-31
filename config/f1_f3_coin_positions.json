@@ -1,18 +1,1 @@
-[
-  {
-    "symbol": "KRW-NEO",
-    "entry_time": 1748695711.3611128,
-    "entry_price": 8198.0,
-    "qty": 12.19809709685289,
-    "pyramid_count": 0,
-    "avgdown_count": 0,
-    "status": "open",
-    "origin": "trade",
-    "avg_price": 8198.0,
-    "current_price": 8206.0,
-    "eval_amount": 100097.58477677482,
-    "pnl_percent": 0.09758477677482312,
-    "max_price": 8222.0,
-    "min_price": 8198.0
-  }
-]
+[]
