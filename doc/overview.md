@@ -63,8 +63,9 @@ external tools always see up-to-date values.
 
 Buy orders that are submitted but not immediately filled are saved with the
 status `"pending"`. While a position is pending any further buy signals for the
-same symbol are ignored. Once the balance updates to a non-zero quantity the
-status automatically switches to `"open"` on the next refresh.
+same symbol are ignored. Pending entries are not shown in the sell monitoring
+table. Once the balance updates to a non-zero quantity the status automatically
+switches to `"open"` on the next refresh.
 
 Positions detected in the exchange account when the application boots are
 registered with the origin value `"imported"` so they can be distinguished from

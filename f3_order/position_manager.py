@@ -206,9 +206,12 @@ class PositionManager:
             sym = pos.get("symbol")
             info = acc_map.get(sym, {})
             pos["avg_price"] = float(info.get("avg_buy_price", pos.get("entry_price") or 0))
-            qty = float(info.get("balance", pos.get("qty") or 0))
+            if pos.get("status") == "pending":
+                qty = float(info.get("balance", 0))
+            else:
+                qty = float(info.get("balance", pos.get("qty") or 0))
             pos["qty"] = qty
-            if pos.get("status") == "pending" and qty > 0:
+            if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
             elif accounts_ok and qty <= 0 and pos.get("status") == "open":
                 pos["status"] = "closed"
