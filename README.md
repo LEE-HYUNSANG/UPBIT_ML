@@ -125,6 +125,15 @@ Remote start/stop commands are documented in
 Startup messages about credential loading are written to `logs/F3_utils.log`.
 Check this file if account queries fail to verify that API keys were detected.
 
+## Remote control
+
+The trading loop checks `server_status.txt` each cycle. When the file contains `ON` the loop runs normally.
+Writing `OFF` stops trading but leaves the program running. You can edit the file manually or send
+`/on` and `/off` commands to the Telegram bot which updates the file for you.
+
+See [doc/telegram_remote_control.md](doc/telegram_remote_control.md) for details.
+
+
 
 ## F4 Risk Manager Guide
 
