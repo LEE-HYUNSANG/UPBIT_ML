@@ -12,7 +12,7 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 | `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
 | `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
 | `f4_riskManager/risk_manager.py` | 손실 한도 초과 시 `pause()`나 `halt()`를 통해 강제 청산을 수행합니다. |
-| `config/setting_date/f4_f3_latest_config.json` | 손절·익절 비율 등 리스크 파라미터가 저장된 파일입니다. |
+| `config/f6_buy_settings.json` | 진입 금액과 동시 보유 코인 수 등을 지정하는 설정 파일입니다. |
 
 로그는 `logs/F3_position_manager.log`와 `logs/F4_risk_manager.log` 등에 기록됩니다.
 

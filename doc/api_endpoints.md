@@ -50,6 +50,6 @@ All endpoints return a JSON object. Failures are logged in `logs/events.jsonl`.
 
 API access itself requires no authentication, but the trading loop must be
 configured via the JSON files under `config/`. The main file is
-`config/f4_f3_latest_config.json` which controls risk parameters and order sizes.
-Other modules also read from files in that directory. Changes to these files take
-effect on the next loop iteration and are logged under `logs`.
+`config/f6_buy_settings.json` which controls order sizes and basic limits.
+Changes to this file take effect on the next loop iteration and are logged
+under `logs`.
