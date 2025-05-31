@@ -15,3 +15,7 @@ Supported categories:
 
 Default templates for order alerts reside in the same configuration file and can
 be customized.
+
+The web UI under **환경설정** now exposes these options. The page loads values
+from `/api/alarm_config` and posts changes back to the same endpoint when the
+user clicks the Save button.
