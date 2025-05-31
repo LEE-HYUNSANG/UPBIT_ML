@@ -35,7 +35,8 @@
 1. 서버 시작 시 `alarm_control.load_config()`를 호출해 각 알림의 기본값을 불러옵니다.
 2. 사용자가 웹 UI에서 설정을 변경하면 `save_config()`를 통해 JSON 파일이 갱신됩니다.
 3. `remote_control.start_bot()`을 실행하면 텔레그램에서 `/on` 또는 `/off` 명령을
-   받을 수 있으며, 상태는 `server_status.txt`에 기록됩니다.
+   받을 수 있으며, 상태는 `remote_control.py`와 같은 폴더의 `server_status.txt`에 기록됩니다.
+   경로를 바꾸려면 `SERVER_STATUS_FILE` 환경 변수를 설정합니다.
 4. 매수 로직은 `buy_config.load_buy_config()`로 초기 설정을 가져오고,
    필요 시 `save_buy_config()`로 값을 갱신합니다.
 

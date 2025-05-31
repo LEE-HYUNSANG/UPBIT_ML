@@ -127,9 +127,10 @@ Check this file if account queries fail to verify that API keys were detected.
 
 ## Remote control
 
-The trading loop checks `server_status.txt` each cycle. When the file contains `ON` the loop runs normally.
-Writing `OFF` stops trading but leaves the program running. You can edit the file manually or send
-`/on` and `/off` commands to the Telegram bot which updates the file for you.
+The trading loop checks `server_status.txt` each cycle. This file is stored next to `remote_control.py` by default.
+When it contains `ON` the loop runs normally. Writing `OFF` stops trading but leaves the program running.
+You can edit the file manually or send `/on` and `/off` commands to the Telegram bot which updates the file.
+Set `SERVER_STATUS_FILE` to customize the location.
 
 See [doc/telegram_remote_control.md](doc/telegram_remote_control.md) for details.
 

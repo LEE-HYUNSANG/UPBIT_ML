@@ -7,7 +7,8 @@ except Exception:  # pragma: no cover - optional dependency
     telebot = None
 
 TOKEN = os.environ.get("TELEGRAM_TOKEN")
-STATUS_FILE = "server_status.txt"
+DEFAULT_STATUS_PATH = os.path.join(os.path.dirname(__file__), "server_status.txt")
+STATUS_FILE = os.environ.get("SERVER_STATUS_FILE", DEFAULT_STATUS_PATH)
 
 bot = telebot.TeleBot(TOKEN) if telebot and TOKEN else None
 
