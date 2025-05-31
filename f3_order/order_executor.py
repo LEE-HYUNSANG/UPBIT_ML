@@ -1,5 +1,12 @@
 import logging
 from logging.handlers import RotatingFileHandler
+
+if __name__ == "__main__" and __package__ is None:
+    import sys
+    from pathlib import Path
+
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 from .smart_buy import smart_buy
 from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
@@ -122,6 +129,7 @@ class OrderExecutor:
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
+            log_with_tag(logger, f"Entry signal received: {signal}")
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
@@ -168,6 +176,8 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result, status="pending")
                     log_with_tag(logger, f"Pending buy recorded: {order_result}")
+            else:
+                log_with_tag(logger, f"No buy signal for {signal.get('symbol')}")
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
 
@@ -190,3 +200,7 @@ _default_executor = OrderExecutor()
 def entry(signal):
     """기본 실행기를 사용하는 하위 호환 엔트리 포인트"""
     _default_executor.entry(signal)
+
+
+if __name__ == "__main__":  # pragma: no cover - manual execution
+    print("OrderExecutor ready. Use order_executor.entry(signal) to submit orders.")

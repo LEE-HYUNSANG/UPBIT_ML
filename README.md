@@ -53,6 +53,19 @@ Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
 
 
+## Running the Order Executor
+
+Execute the F3 module using Python's `-m` switch so that its package imports
+are properly resolved:
+
+```bash
+python -m f3_order.order_executor
+```
+
+Running `python f3_order/order_executor.py` directly can lead to
+`ImportError: attempted relative import with no known parent package`.
+
+
 ## Running the web dashboard
 
 Launch the Flask application with:

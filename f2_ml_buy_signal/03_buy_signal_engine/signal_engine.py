@@ -42,6 +42,7 @@ def f2_signal(
 ) -> dict:
     """Return buy signal using lightweight ML model."""
     df_1m = df_1m.sort_values("timestamp").reset_index(drop=True)
+    logging.info("Checking %s (calc_buy=%s, calc_sell=%s)", symbol, calc_buy, calc_sell)
     buy_signal = check_buy_signal_df(df_1m) if calc_buy else False
     result = {
         "symbol": symbol,
@@ -50,7 +51,7 @@ def f2_signal(
         "buy_triggers": [],
         "sell_triggers": [],
     }
-    logging.debug("[%s] result=%s", symbol, result)
+    logging.info("[%s] result: %s", symbol, result)
     return result
 
 
