@@ -134,8 +134,9 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
         risk_manager.config._cache.update(load_buy_config())
     executor.set_risk_manager(risk_manager)
     while True:
-        if read_status().upper() != "ON":
-            logging.info("[Loop] Waiting for ON status...")
+        status = read_status().upper()
+        if status != "ON":
+            logging.info("[Loop] Auto-trade status %s; waiting for ON...", status)
             executor.manage_positions()
             time.sleep(5)
             if stop_event and stop_event.is_set():
