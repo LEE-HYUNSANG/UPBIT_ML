@@ -1,0 +1,17 @@
+2025-05-31 19:39:44,876 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 19:39:48,150 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:02:59,386 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:03:02,514 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:49:27,041 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:49:55,962 [F1-F2] [INFO] [F1-F2] signal_loop.py 이 current_universe.json 파일을 로드 했습니다.
+2025-05-31 20:49:55,963 [F1-F2] [INFO] [F3] Loaded credentials from env.json
+2025-05-31 20:49:55,964 [F1-F2] [INFO] [F3] Upbit credentials loaded
+2025-05-31 20:49:56,036 [F1-F2] [INFO] [F1-F2] signal_loop.py 이 current_universe.json 파일을 로드 했습니다.
+2025-05-31 20:49:56,038 [F1-F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-NEO', 'KRW-WAL']
+2025-05-31 20:49:56,040 [F1-F2] [INFO] Universe updated: ['KRW-NEO', 'KRW-WAL']
+2025-05-31 20:49:56,041 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:49:56,044 [F1-F2] [INFO] [Loop] Auto-trade status OFF; waiting for ON...
+2025-05-31 20:50:01,481 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:50:04,551 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:59:45,495 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-05-31 20:59:48,388 [F1-F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
