@@ -8,6 +8,13 @@ if __name__ == "__main__" and __package__ is None:
 
 import logging
 from logging.handlers import RotatingFileHandler
+
+if __name__ == "__main__" and __package__ is None:
+    import sys
+    from pathlib import Path
+
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 from .smart_buy import smart_buy
 from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
@@ -200,3 +207,7 @@ _default_executor = OrderExecutor()
 def entry(signal):
     """기본 실행기를 사용하는 하위 호환 엔트리 포인트"""
     _default_executor.entry(signal)
+
+
+if __name__ == "__main__":  # pragma: no cover - manual execution
+    print("OrderExecutor ready. Use order_executor.entry(signal) to submit orders.")
