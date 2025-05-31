@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from f4_setting.telegram_control import read_status, write_status
+from f6_setting.telegram_control import read_status, write_status
 
 
 def test_read_status_defaults_to_off(tmp_path, monkeypatch):
