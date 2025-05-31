@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+if __name__ == "__main__" and __package__ is None:
+    # Allow running this module directly by adding the package root to sys.path
+    sys.path.append(str(Path(__file__).resolve().parent.parent))
+    print("Running order_executor.py as a script. Import paths have been adjusted.")
+
 import logging
 from logging.handlers import RotatingFileHandler
 from .smart_buy import smart_buy
@@ -9,7 +17,6 @@ from .utils import load_config, log_with_tag
 from f6_setting.buy_config import load_buy_config
 import time
 import json
-from pathlib import Path
 
 logger = logging.getLogger("F3_order_executor")
 fh = RotatingFileHandler(
@@ -122,6 +129,7 @@ class OrderExecutor:
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
+            log_with_tag(logger, f"Entry signal received: {signal}")
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
@@ -168,6 +176,8 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result, status="pending")
                     log_with_tag(logger, f"Pending buy recorded: {order_result}")
+            else:
+                log_with_tag(logger, f"No buy signal for {signal.get('symbol')}")
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
 

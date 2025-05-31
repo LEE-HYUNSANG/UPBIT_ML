@@ -53,6 +53,24 @@ Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
 
 
+## Running the order executor
+
+For quick testing you may execute the order module directly:
+
+```bash
+python f3_order/order_executor.py
+```
+
+When run this way the script prepends the project root to `sys.path` so the
+relative imports work. The recommended invocation in production is:
+
+```bash
+python -m f3_order.order_executor
+```
+
+Both methods start the default `OrderExecutor` instance which logs activity to
+`logs/F3_order_executor.log`.
+
 ## Running the web dashboard
 
 Launch the Flask application with:
