@@ -165,6 +165,11 @@ def start_auto_trade() -> None:
     )
     _auto_trade_thread.start()
     stop_monitoring()
+    try:
+        from f6_setting.remote_control import write_status
+        write_status("ON")
+    except Exception:
+        pass
 
 
 def stop_auto_trade() -> None:
@@ -174,6 +179,11 @@ def stop_auto_trade() -> None:
         _auto_trade_stop.set()
     _auto_trade_thread = None
     start_monitoring()
+    try:
+        from f6_setting.remote_control import write_status
+        write_status("OFF")
+    except Exception:
+        pass
 
 
 def start_monitoring() -> None:
