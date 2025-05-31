@@ -15,7 +15,7 @@ def test_entry_sends_alert(monkeypatch):
     monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
     monkeypatch.setattr(
         "f3_order.order_executor.smart_buy",
-        lambda s, c, d, position_manager, logger: {
+        lambda s, c, position_manager, logger: {
             "filled": True,
             "symbol": s["symbol"],
             "price": 10.0,

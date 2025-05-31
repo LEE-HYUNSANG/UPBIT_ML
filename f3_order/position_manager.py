@@ -64,9 +64,8 @@ def _load_json_dict(path: str) -> dict:
     return {}
 
 class PositionManager:
-    def __init__(self, config, dynamic_params, kpi_guard, exception_handler, parent_logger=None):
+    def __init__(self, config, kpi_guard, exception_handler, parent_logger=None):
         self.config = config
-        self.dynamic_params = dynamic_params
         self.kpi_guard = kpi_guard
         self.exception_handler = exception_handler
         self.db_path = self.config.get("DB_PATH", "logs/orders.db")
@@ -231,7 +230,7 @@ class PositionManager:
     def hold_loop(self):
         """
         1Hz 루프: 각 포지션별 FSM 관리 (불타기/물타기/익절/손절/트레일/타임스탑 등)
-        ※ 조건/산식은 config와 dynamic_params 기준. (실제 시세 연동 필요)
+        ※ 조건/산식은 config 기준. (실제 시세 연동 필요)
         """
         remaining = []
         sell_cfg = _load_json_dict(self.sell_config_path)
@@ -385,7 +384,7 @@ class PositionManager:
         cur = position.get("current_price")
         if cur is None:
             return
-        trigger = self.dynamic_params.get("PYR_TRIGGER", 1.0)
+        trigger = self.config.get("PYR_TRIGGER", 1.0)
         if (cur - position["entry_price"]) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("PYR_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)
@@ -401,7 +400,7 @@ class PositionManager:
         cur = position.get("current_price")
         if cur is None:
             return
-        trigger = self.dynamic_params.get("AVG_TRIGGER", 1.0)
+        trigger = self.config.get("AVG_TRIGGER", 1.0)
         if (position["entry_price"] - cur) / position["entry_price"] * 100 >= trigger:
             qty = self.config.get("AVG_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)

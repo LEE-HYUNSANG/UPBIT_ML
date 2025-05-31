@@ -123,6 +123,9 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
 
     executor = _default_executor
     risk_manager = RiskManager(order_executor=executor, exception_handler=executor.exception_handler)
+    from f6_setting.buy_config import load_buy_config
+    if hasattr(risk_manager, "config"):
+        risk_manager.config._cache.update(load_buy_config())
     executor.set_risk_manager(risk_manager)
     while True:
         if read_status().upper() != "ON":

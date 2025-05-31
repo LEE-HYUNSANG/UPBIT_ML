@@ -6,6 +6,8 @@ from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from f6_setting.alarm_control import get_template
 from .utils import load_config, log_with_tag
+from f6_setting.buy_config import load_buy_config
+import time
 import json
 from pathlib import Path
 
@@ -23,14 +25,14 @@ logger.setLevel(logging.INFO)
 
 
 class OrderExecutor:
-    def __init__(self, config_path="config/f3_f3_order_config.json", dyn_param_path="config/f3_f3_dynamic_params.json", risk_manager=None):
+    def __init__(self, config_path="config/f3_f3_order_config.json", buy_path="config/f6_buy_settings.json", risk_manager=None):
         self.config = load_config(config_path)
-        self.dynamic_params = load_config(dyn_param_path)
+        self.config.update(load_buy_config(buy_path))
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
         self.risk_manager = risk_manager
         self.position_manager = PositionManager(
-            self.config, self.dynamic_params, self.kpi_guard, self.exception_handler, logger
+            self.config, self.kpi_guard, self.exception_handler, logger
         )
         if self.risk_manager:
             self.update_from_risk_config()
@@ -135,13 +137,19 @@ class OrderExecutor:
                 ):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
-                order_result = smart_buy(
-                    signal,
-                    self.config,
-                    self.dynamic_params,
-                    self.position_manager,
-                    logger,
-                )
+                max_retry = int(self.config.get("MAX_RETRY", 3))
+                order_result = {}
+                for attempt in range(max_retry):
+                    order_result = smart_buy(
+                        signal,
+                        self.config,
+                        self.position_manager,
+                        logger,
+                    )
+                    if order_result.get("filled"):
+                        break
+                    if attempt < max_retry - 1:
+                        time.sleep(3)
                 if order_result.get("filled", False):
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]

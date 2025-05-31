@@ -18,7 +18,6 @@ def make_pm(tmp_path, monkeypatch=None):
         "PYR_ENABLED": False,
         "AVG_ENABLED": False,
     }
-    dyn = {}
     guard = KPIGuard({})
     handler = ExceptionHandler({"SLIP_MAX": 0.15})
     if monkeypatch is not None:
@@ -38,7 +37,7 @@ def make_pm(tmp_path, monkeypatch=None):
                 return [{"market": m, "trade_price": 100.0} for m in markets]
 
         monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
-    return PositionManager(cfg, dyn, guard, handler)
+    return PositionManager(cfg, guard, handler)
 
 
 def test_execute_sell_closes_position(tmp_path, monkeypatch):

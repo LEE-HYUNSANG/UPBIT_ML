@@ -17,7 +17,7 @@ def test_duplicate_buy_skipped(monkeypatch):
     monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
     monkeypatch.setattr(
         "f3_order.order_executor.smart_buy",
-        lambda s, c, d, position_manager, logger: {
+        lambda s, c, position_manager, logger: {
             "filled": False,
             "symbol": s["symbol"],
             "price": 10.0,

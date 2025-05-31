@@ -32,7 +32,7 @@ def test_load_positions_from_file(tmp_path, monkeypatch):
     positions_file.write_text(json.dumps(data))
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     cfg = {"DB_PATH": os.path.join(tmp_path, "orders.db"), "POSITIONS_FILE": str(positions_file)}
-    pm = PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
     assert pm.positions and pm.positions[0]["symbol"] == "KRW-BTC"
     assert pm.positions[0]["strategy"] == "TEST"
 
@@ -52,7 +52,7 @@ def test_refresh_persists_positions(tmp_path, monkeypatch):
     positions_file.write_text(json.dumps(data))
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     cfg = {"DB_PATH": os.path.join(tmp_path, "orders.db"), "POSITIONS_FILE": str(positions_file)}
-    pm = PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
     pm.refresh_positions()
     with open(positions_file, "r", encoding="utf-8") as f:
         persisted = json.load(f)
