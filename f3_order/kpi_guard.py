@@ -37,14 +37,14 @@ class KPIGuard:
             if winrate < WIN_THRESHOLD:
                 msg = f"KPI WINRATE DOWN: {winrate:.2%} < {WIN_THRESHOLD:.2%} (TRIGGER PAUSE)"
                 log_with_tag(logger, msg)
-                self.exception_handler.send_alert(msg, "warning")
+                self.exception_handler.send_alert(msg, "warning", "system_alert")
         if self.pnl_history:
             avg_pnl = sum(self.pnl_history[-WIN_MIN_N:]) / min(len(self.pnl_history), WIN_MIN_N)
             pnl_th = self.config.get("PNL_THRESHOLD", -5.0)
             if avg_pnl <= pnl_th:
                 msg = f"KPI PnL DOWN: {avg_pnl:.2f}% <= {pnl_th}%"
                 log_with_tag(logger, msg)
-                self.exception_handler.send_alert(msg, "warning")
+                self.exception_handler.send_alert(msg, "warning", "system_alert")
 
     def record_trade(self, win: bool, pnl: float) -> None:
         self.win_history.append(1 if win else 0)

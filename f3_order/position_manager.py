@@ -8,6 +8,7 @@ import os
 import sqlite3
 import json
 from .utils import log_with_tag, now
+from f6_setting.alarm_control import get_template
 from .upbit_api import UpbitClient
 
 logger = logging.getLogger("F3_position_manager")
@@ -166,7 +167,9 @@ class PositionManager:
                 lines.append("- 5천원 이상 보유: " + ", ".join(imported) + " → 매도 감시")
             if ignored:
                 lines.append("- 5천원 미만: " + ", ".join(ignored) + " → 신규 매수 가능")
-            self.exception_handler.send_alert("\n".join(lines), "info")
+            self.exception_handler.send_alert(
+                "\n".join(lines), "info", "system_start_stop"
+            )
 
     def refresh_positions(self) -> None:
         """Update price and PnL information for all open positions."""
@@ -348,11 +351,12 @@ class PositionManager:
         self._persist_positions()
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         if self.exception_handler:
-            msg = (
-                f"SELL {position['symbol']} {qty} via {exit_type}"
-                f" @ {order.get('price')}"
+            template = get_template("sell")
+            msg = template.format(
+                symbol=position["symbol"],
+                price=order.get("price"),
             )
-            self.exception_handler.send_alert(msg, "info")
+            self.exception_handler.send_alert(msg, "info", "order_execution")
         return order
 
     def manage_trailing_stop(self, position):

@@ -11,6 +11,7 @@ except Exception:  # pragma: no cover - offline test env
     import urllib.request as _urlreq
 from urllib.parse import urlencode
 from .utils import log_with_tag, load_env
+from f6_setting.alarm_control import is_enabled, get_template
 import json
 import os
 import datetime
@@ -56,9 +57,11 @@ class ExceptionHandler:
         data["time"] = _now_kst()
         _log_jsonl(path, data)
 
-    def send_alert(self, message: str, severity: str = "info") -> None:
-        """Send a Telegram notification if credentials are set."""
+    def send_alert(self, message: str, severity: str = "info", category: str = "system_alert") -> None:
+        """Send a Telegram notification if credentials are set and category is enabled."""
         if not self.tg_token or not self.tg_chat_id:
+            return
+        if not is_enabled(category):
             return
         text = f"[{severity.upper()}] {message}"
         url = f"https://api.telegram.org/bot{self.tg_token}/sendMessage"
@@ -98,7 +101,7 @@ class ExceptionHandler:
                 self._log_event({
                     "event": "SlippageLimit", "symbol": symbol, "count": cnt
                 })
-                self.send_alert(msg, "warning")
+                self.send_alert(msg, "warning", "system_alert")
         
     def handle_slippage(self, symbol, order_info):
         slip_pct = order_info.get("slippage_pct", 0.0)
@@ -115,6 +118,6 @@ class ExceptionHandler:
             "count": self.slippage_count[symbol],
         })
         if self.slippage_count[symbol] >= self.config.get("SLIP_FAIL_MAX", 5):
-            self.send_alert(msg, "warning")
+            self.send_alert(msg, "warning", "system_alert")
 
 

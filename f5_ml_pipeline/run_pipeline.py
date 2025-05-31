@@ -3,6 +3,9 @@ from __future__ import annotations
 import subprocess
 import sys
 from pathlib import Path
+import json
+from datetime import datetime
+from f3_order.exception_handler import ExceptionHandler
 
 PIPELINE_STEPS = [
     "02_data_cleaning.py",
@@ -34,9 +37,28 @@ def run_step(step: str, index: int, total: int) -> None:
 
 
 def main() -> None:
+    handler = ExceptionHandler({})
+    now = datetime.now().strftime("%Y%m%d %H:%M:%S")
+    handler.send_alert(f"머신러닝 학습 시작] @{now}", "info", "ml_pipeline")
+
     total = len(PIPELINE_STEPS)
     for idx, step in enumerate(PIPELINE_STEPS, start=1):
         run_step(step, idx, total)
+
+    now = datetime.now().strftime("%Y%m%d %H:%M:%S")
+    selected_file = PIPELINE_ROOT / "ml_data" / "10_selected" / "selected_strategies.json"
+    coins = None
+    try:
+        with open(selected_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        coins = ",".join(data) if isinstance(data, list) else None
+    except Exception:
+        coins = None
+    handler.send_alert(
+        f"머신러닝 학습 종료] @{now} - selected_coinList: {coins if coins else 'None'}",
+        "info",
+        "ml_pipeline",
+    )
 
 
 if __name__ == "__main__":
