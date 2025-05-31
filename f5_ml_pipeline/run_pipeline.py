@@ -51,7 +51,12 @@ def main() -> None:
     try:
         with open(selected_file, "r", encoding="utf-8") as f:
             data = json.load(f)
-        coins = ",".join(data) if isinstance(data, list) else None
+        if isinstance(data, list):
+            if data and isinstance(data[0], dict):
+                symbols = [item.get("symbol") for item in data if item.get("symbol")]
+            else:
+                symbols = [str(item) for item in data]
+            coins = ",".join(symbols) if symbols else None
     except Exception:
         coins = None
     handler.send_alert(
