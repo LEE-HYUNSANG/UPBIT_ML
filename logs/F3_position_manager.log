@@ -1,0 +1,1 @@
+2025-05-31 21:48:31,361 [F3] [F3] Open position: {'symbol': 'KRW-NEO', 'entry_time': 1748695711.3611128, 'entry_price': 8198.0, 'qty': 12.19809709685289, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'pending', 'origin': 'trade'}

@@ -1,31 +1,6 @@
 [
   {
-    "symbol": "KRW-AKT",
-    "thresh_pct": 0.004,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-TOKAMAK",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-AXS",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-MTL",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-INJ",
-    "thresh_pct": 0.005,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-ADA",
+    "symbol": "KRW-NEO",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   }

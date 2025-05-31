@@ -30,8 +30,8 @@ MONITORING_LIST_FILE = PROJECT_ROOT / "config" / "f5_f1_monitoring_list.json"
 # MIN_ENTRIES = 1          # 최소 1회 진입
 # TOP_N = 1               # 상위 10개 전략만 채택
 # 상용 기본값
-MIN_WIN_RATE = 0.50      # 승률 50% 이상
-MIN_AVG_ROI = 0.001      # 진입 1회당 0.1% 이상
+MIN_WIN_RATE = 0.40      # 승률 50% 이상
+MIN_AVG_ROI = 0.000      # 진입 1회당 0.1% 이상
 MIN_SHARPE = 1.0         # 샤프비 1.0 이상
 MAX_MDD = 0.10           # 최대 낙폭 10% 이하
 MIN_ENTRIES = 20         # 최소 50회 진입

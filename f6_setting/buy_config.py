@@ -3,7 +3,7 @@ import os
 
 DEFAULTS = {
     "ENTRY_SIZE_INITIAL": 10000,
-    "MAX_SYMBOLS": 7,
+    "MAX_SYMBOLS": 10,
     "MAX_RETRY": 3,
 }
 

@@ -1,1 +1,10 @@
-{}
+[
+  {
+    "symbol": "KRW-NEO",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  }
+]
