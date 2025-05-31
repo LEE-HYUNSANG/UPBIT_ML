@@ -2,6 +2,7 @@ import importlib
 import os
 import sys
 import types
+import json
 import pytest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -107,7 +108,7 @@ def app_client(monkeypatch):
     # Simplify smart_buy to include qty/price for position opening
     monkeypatch.setattr(
         "f3_order.smart_buy.smart_buy",
-        lambda signal, config, dynamic_params, pm=None, parent_logger=None: {
+        lambda signal, config, pm=None, parent_logger=None: {
             "filled": True,
             "symbol": signal["symbol"],
             "order_type": "market",
@@ -310,3 +311,22 @@ def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
     assert res.status_code == 200
     assert data[0]["symbol"] == "KRW-AAA"
     assert data[0]["win_rate"] == 0.8
+
+
+def test_buy_settings_endpoint(app_client, tmp_path, monkeypatch):
+    client, _, _ = app_client
+    import app as app_mod
+
+    cfg = tmp_path / "buy.json"
+    monkeypatch.setattr(app_mod, "BUY_SETTINGS_FILE", str(cfg))
+
+    resp = client.get("/api/buy_settings")
+    data = resp.get_json()
+    assert data["ENTRY_SIZE_INITIAL"] == 10000
+
+    monkeypatch.setattr(app_mod.request, "method", "POST")
+    monkeypatch.setattr(app_mod.request, "get_json", lambda force=False: {"ENTRY_SIZE_INITIAL": 20000})
+    resp = client.get("/api/buy_settings")
+    assert resp.status_code == 200
+    assert json.loads(cfg.read_text())["ENTRY_SIZE_INITIAL"] == 20000
+

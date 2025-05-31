@@ -11,6 +11,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from signal_loop import process_symbol, main_loop
 import threading
+from f6_setting.buy_config import load_buy_config, save_buy_config
 from f1_universe.universe_selector import (
     select_universe,
     load_config,
@@ -47,6 +48,7 @@ EVENTS_LOG = os.path.join("logs", "events.jsonl")
 STRATEGY_SETTINGS_FILE = os.path.join("config", "app_f2_strategy_settings.json")
 STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
 STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
+BUY_SETTINGS_FILE = os.path.join("config", "f6_buy_settings.json")
 
 # 자동 매매 스레드의 실행 상태 보관용 변수
 _auto_trade_thread = None
@@ -88,6 +90,14 @@ def save_auto_trade_status(data: dict) -> None:
     os.makedirs(os.path.dirname(AUTOTRADE_STATUS_FILE), exist_ok=True)
     with open(AUTOTRADE_STATUS_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_buy_settings() -> dict:
+    return load_buy_config(BUY_SETTINGS_FILE)
+
+
+def save_buy_settings(data: dict) -> None:
+    save_buy_config(data, BUY_SETTINGS_FILE)
 
 
 def load_recent_events(limit: int = 20) -> list:
@@ -169,6 +179,8 @@ def start_monitoring() -> None:
             order_executor=_default_executor,
             exception_handler=_default_executor.exception_handler,
         )
+        if hasattr(rm, "config"):
+            rm.config._cache.update(load_buy_settings())
         _default_executor.set_risk_manager(rm)
         while not _monitor_stop.is_set():
             open_syms = [
@@ -560,6 +572,16 @@ def strategies_endpoint() -> Response:
     reload_strategy_settings()
     ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return jsonify({"status": "ok", "updated_at": ts})
+
+
+@app.route("/api/buy_settings", methods=["GET", "POST"])
+def buy_settings_endpoint() -> Response:
+    """매수 설정 조회 또는 업데이트"""
+    if request.method == "GET":
+        return jsonify(load_buy_settings())
+    data = request.get_json(force=True) or {}
+    save_buy_settings(data)
+    return jsonify({"status": "ok"})
 
 
 @app.route("/api/risk_events")

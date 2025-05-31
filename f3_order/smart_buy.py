@@ -19,7 +19,7 @@ logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
 
-def smart_buy(signal, config, dynamic_params, position_manager=None, parent_logger=None):
+def smart_buy(signal, config, position_manager=None, parent_logger=None):
     """Execute a real buy order using ``position_manager``.
 
     ``position_manager`` must provide a ``place_order`` method compatible with
@@ -29,7 +29,7 @@ def smart_buy(signal, config, dynamic_params, position_manager=None, parent_logg
 
     symbol = signal["symbol"]
     spread = float(signal.get("spread", 0.0))
-    SPREAD_TH = dynamic_params.get("SPREAD_TH", 0.0008)
+    SPREAD_TH = config.get("SPREAD_TH", 0.0008)
     MAX_RETRY = config.get("MAX_RETRY", 2)
 
     if position_manager is None:

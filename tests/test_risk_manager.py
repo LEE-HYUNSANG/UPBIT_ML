@@ -26,7 +26,7 @@ def make_pm(tmp_path, monkeypatch):
         "SL_PCT": 1.0,
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
-    pm = PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
     return pm
 
 

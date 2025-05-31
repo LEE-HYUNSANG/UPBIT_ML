@@ -29,7 +29,7 @@ def make_pm(tmp_path, monkeypatch):
         "SL_PCT": 100,
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
-    return PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    return PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
 
 
 def test_hold_loop_respects_hold_secs(tmp_path, monkeypatch):
