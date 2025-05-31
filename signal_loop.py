@@ -90,6 +90,12 @@ def process_symbol(symbol: str) -> Optional[dict]:
         calc_sell=bool(open_pos),
         strategy_codes=strat_codes or None,
     )
+    if (
+        getattr(df_1m, "empty", True) is False
+        and hasattr(df_1m, "iloc")
+        and "close" in getattr(df_1m, "columns", [])
+    ):
+        result["price"] = float(df_1m["close"].iloc[-1])
     logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
