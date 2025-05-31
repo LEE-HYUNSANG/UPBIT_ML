@@ -5,7 +5,7 @@ from typing import Optional
 
 from f3_order.order_executor import entry as f3_entry, _default_executor
 from f4_riskManager import RiskManager
-from f6_setting.telegram_control import read_status
+from f6_setting.remote_control import read_status
 
 import pyupbit
 

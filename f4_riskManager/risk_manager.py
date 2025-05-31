@@ -80,7 +80,7 @@ class RiskManager:
         self.logger.warn(f"{symbol} 슬리피지 초과: 누적 {self.slippage_events[symbol]}")
         if self.exception_handler:
             self.exception_handler.send_alert(
-                f"{symbol} slippage event #{self.slippage_events[symbol]}", "warning"
+                f"{symbol} slippage event #{self.slippage_events[symbol]}", "warning", "system_alert"
             )
         max_slip = self.config.get("SLIP_FAIL_MAX", 5)
         if self.slippage_events[symbol] >= max_slip:
@@ -120,7 +120,9 @@ class RiskManager:
         self.logger.warn(f"상태전이: PAUSE - {reason}, {minutes}분간 신규진입 중단")
         _log_fsm(prev, self.state, reason)
         if self.exception_handler:
-            self.exception_handler.send_alert(f"PAUSE: {reason}", "warning")
+            self.exception_handler.send_alert(
+                f"PAUSE: {reason}", "warning", "system_alert"
+            )
 
     def disable_symbol(self, symbol):
         """특정 심볼(코인) 엔트리 중단"""
@@ -132,7 +134,9 @@ class RiskManager:
                     if pos.get("symbol") == symbol and pos.get("status") == "open":
                         pm.execute_sell(pos, "risk_disable", pos.get("qty"))
         if self.exception_handler:
-            self.exception_handler.send_alert(f"DISABLE {symbol}", "warning")
+            self.exception_handler.send_alert(
+                f"DISABLE {symbol}", "warning", "system_alert"
+            )
         self.disabled_symbols.add(symbol)
 
     def is_symbol_disabled(self, symbol: str) -> bool:
@@ -149,7 +153,9 @@ class RiskManager:
         self.logger.critical(f"상태전이: HALT - {reason}, 모든 포지션 청산 및 서비스 중단")
         _log_fsm(prev, self.state, reason)
         if self.exception_handler:
-            self.exception_handler.send_alert(f"HALT: {reason}", "critical")
+            self.exception_handler.send_alert(
+                f"HALT: {reason}", "critical", "system_start_stop"
+            )
         # 엔진에 전체 청산 명령 및 신규 진입 불가 트리거
 
     def hot_reload(self):
@@ -164,7 +170,9 @@ class RiskManager:
             if self.order_executor:
                 self.order_executor.update_from_risk_config()
             if self.exception_handler:
-                self.exception_handler.send_alert("Risk parameters reloaded", "info")
+                self.exception_handler.send_alert(
+                    "Risk parameters reloaded", "info", "system_alert"
+                )
 
     def periodic(self):
         """메인 루프(1Hz)에서 주기적 호출"""
@@ -172,7 +180,9 @@ class RiskManager:
             self.state = RiskState.ACTIVE
             self.logger.info("PAUSE 해제 → ACTIVE 복귀")
             if self.exception_handler:
-                self.exception_handler.send_alert("Trading resumed", "info")
+                self.exception_handler.send_alert(
+                    "Trading resumed", "info", "system_start_stop"
+                )
         current = now()
         if current - self._last_reload_check >= 1:
             self.hot_reload()

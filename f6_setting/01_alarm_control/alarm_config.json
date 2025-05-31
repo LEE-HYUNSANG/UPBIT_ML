@@ -1,0 +1,11 @@
+{
+    "system_start_stop": true,
+    "buy_monitoring": true,
+    "order_execution": true,
+    "system_alert": true,
+    "ml_pipeline": true,
+    "templates": {
+        "buy": "[매수 체결] {symbol} @{price}",
+        "sell": "[매도 체결] {symbol} @{price}"
+    }
+}

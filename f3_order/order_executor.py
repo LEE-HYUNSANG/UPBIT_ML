@@ -4,6 +4,7 @@ from .smart_buy import smart_buy
 from .position_manager import PositionManager
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
+from f6_setting.alarm_control import get_template
 from .utils import load_config, log_with_tag
 import json
 from pathlib import Path
@@ -148,11 +149,12 @@ class OrderExecutor:
                     self._update_realtime_sell_list(symbol)
                     self._mark_buy_filled(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
-                    msg = (
-                        f"BUY {order_result['symbol']} {order_result.get('qty')}"
-                        f" @ {order_result.get('price')}"
+                    template = get_template("buy")
+                    msg = template.format(
+                        symbol=order_result["symbol"],
+                        price=order_result.get("price"),
                     )
-                    self.exception_handler.send_alert(msg, "info")
+                    self.exception_handler.send_alert(msg, "info", "order_execution")
                 else:
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]
