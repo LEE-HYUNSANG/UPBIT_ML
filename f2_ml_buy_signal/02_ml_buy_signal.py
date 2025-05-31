@@ -14,7 +14,7 @@ import shutil
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
-LOG_PATH = PROJECT_ROOT / "logs" / "f2_ml_buy_signal.log"
+LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
 
 def setup_logger() -> None:

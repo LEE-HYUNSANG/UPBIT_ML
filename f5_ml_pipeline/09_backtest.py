@@ -17,7 +17,7 @@ PRED_DIR = PIPELINE_ROOT / "ml_data" / "08_pred"
 LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 OUT_DIR = PIPELINE_ROOT / "ml_data" / "09_backtest"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_backtest.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_backtest.log"
 COMMISSION = 0.001  # 0.1% upbit round trip
 
 

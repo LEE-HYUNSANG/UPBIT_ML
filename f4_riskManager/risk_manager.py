@@ -1,6 +1,6 @@
 """
 F4 RiskManager - 실시간 리스크 감시, 상태머신, 자동 조치
-로그: logs/F4_risk_manager.log
+로그: logs/f4/F4_risk_manager.log
 """
 from .risk_config import RiskConfig
 from .risk_logger import RiskLogger
@@ -30,11 +30,11 @@ def _log_fsm(from_state: RiskState, to_state: RiskState, reason: str) -> None:
         "to": to_state.name,
         "reason": reason,
     }
-    _log_jsonl("logs/risk_fsm.log", data)
+    _log_jsonl("logs/f4/risk_fsm.log", data)
 class RiskManager:
     def __init__(self, config_path="config/f6_buy_settings.json", order_executor=None, exception_handler=None):
         self.config = RiskConfig(config_path)
-        self.logger = RiskLogger("logs/F4_risk_manager.log")
+        self.logger = RiskLogger("logs/f4/F4_risk_manager.log")
         self.order_executor = order_executor
         self.exception_handler = exception_handler
         self.state = RiskState.ACTIVE

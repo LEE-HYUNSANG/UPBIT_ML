@@ -21,7 +21,7 @@ DATA_ROOT = PIPELINE_ROOT / "ml_data" / "00_24ago_data"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
-LOG_PATH = ROOT_DIR / "logs" / "F5_yesterday_collect.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_yesterday_collect.log"
 CANDLE_LIMIT = 1440
 
 

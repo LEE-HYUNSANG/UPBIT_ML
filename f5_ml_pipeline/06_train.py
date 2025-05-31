@@ -20,7 +20,7 @@ PIPELINE_ROOT = Path(__file__).resolve().parent
 SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
 MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_train.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_train.log"
 CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
 CONFIG = load_yaml_config(CONFIG_PATH)
 

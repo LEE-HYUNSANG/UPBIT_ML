@@ -75,7 +75,7 @@ def test_log_event_writes_to_default_file(tmp_path, monkeypatch):
     handler = ExceptionHandler({})
     handler._log_event({"event": "Test"})
 
-    log_path = tmp_path / "logs" / "events.jsonl"
+    log_path = tmp_path / "logs" / "etc" / "events.jsonl"
     assert log_path.exists()
     with log_path.open("r", encoding="utf-8") as f:
         data = json.loads(f.readline())

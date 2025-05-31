@@ -16,7 +16,7 @@ PIPELINE_ROOT = Path(__file__).resolve().parent
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_label.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_label.log"
 
 THRESH_LIST      = [0.003, 0.004, 0.005]    # 익절(%)
 LOSS_LIST        = [0.003, 0.004, 0.005]    # 손절(%)

@@ -15,14 +15,17 @@ from typing import Dict, List
 
 import logging
 from logging.handlers import RotatingFileHandler
-os.makedirs("logs", exist_ok=True)
+from pathlib import Path
+
+LOG_DIR = Path("logs/f1")
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [F1] [%(levelname)s] %(message)s",
     handlers=[
         RotatingFileHandler(
-            "logs/F1_signal_engine.log",
+            LOG_DIR / "F1_signal_engine.log",
             encoding="utf-8",
             maxBytes=100_000 * 1024,
             backupCount=1000,

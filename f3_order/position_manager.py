@@ -1,6 +1,6 @@
 """
 [F3] 포지션 상태 관리(HOLD FSM, 불타기/물타기/익절/손절/트레일 등)
-로그: logs/F3_position_manager.log
+로그: logs/f3/F3_position_manager.log
 """
 import logging
 from logging.handlers import RotatingFileHandler
@@ -12,8 +12,9 @@ from f6_setting.alarm_control import get_template
 from .upbit_api import UpbitClient
 
 logger = logging.getLogger("F3_position_manager")
+os.makedirs("logs/f3", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/F3_position_manager.log",
+    "logs/f3/F3_position_manager.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,
@@ -68,7 +69,7 @@ class PositionManager:
         self.config = config
         self.kpi_guard = kpi_guard
         self.exception_handler = exception_handler
-        self.db_path = self.config.get("DB_PATH", "logs/orders.db")
+        self.db_path = self.config.get("DB_PATH", "logs/f3/orders.db")
         self.positions_file = self.config.get("POSITIONS_FILE", "config/f1_f3_coin_positions.json")
         self.sell_config_path = self.config.get(
             "SELL_LIST_PATH", "config/f3_f3_realtime_sell_list.json"
@@ -158,7 +159,7 @@ class PositionManager:
             else:
                 log_data.update({"event": "IgnoreSmallBalance", "action": "매수대상 유지"})
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
-            _log_jsonl("logs/position_init.log", log_data)
+            _log_jsonl("logs/etc/position_init.log", log_data)
 
         if self.exception_handler and (imported or ignored):
             lines = ["[시스템] 시작 시 보유코인 점검 완료."]
@@ -460,7 +461,7 @@ class PositionManager:
             if pos.get("symbol") not in universe and pos.get("origin") != "imported":
                 self.close_position(pos.get("symbol"), "Universe Excluded")
                 _log_jsonl(
-                    "logs/position_universe_sync.log",
+                    "logs/etc/position_universe_sync.log",
                     {
                         "time": _now_kst(),
                         "event": "Universe Excluded",
