@@ -381,13 +381,6 @@ def run() -> List[str]:
         })
         if final:
             results.append(sym)
-            updated.append({
-                "symbol": sym,
-                "buy_signal": 1,
-                "rsi_sel": int(rsi_flag),
-                "trend_sel": int(trend_flag),
-                "buy_count": 0,
-            })
 
     _save_json(buy_list_path, updated)
     if updated:
