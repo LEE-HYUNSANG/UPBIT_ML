@@ -16,7 +16,7 @@ MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 PRED_DIR = PIPELINE_ROOT / "ml_data" / "08_pred"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_predict.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_predict.log"
 
 # 모델 저장 시 포함된 피처 목록을 우선 사용한다.
 IGNORE_COLS = {"timestamp"}

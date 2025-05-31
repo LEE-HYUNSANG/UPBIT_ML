@@ -24,7 +24,7 @@ SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
 MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
 EVAL_DIR = PIPELINE_ROOT / "ml_data" / "07_eval"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_eval.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_eval.log"
 
 
 # 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.

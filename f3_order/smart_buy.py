@@ -1,14 +1,16 @@
 """
 [F3] 하이브리드 주문 함수 (시장가↔IOC, 체결률/슬리피지 최적화)
-로그: logs/F3_smart_buy.log
+로그: logs/f3/F3_smart_buy.log
 """
 import logging
 from logging.handlers import RotatingFileHandler
 from .utils import log_with_tag
+import os
 
 logger = logging.getLogger("F3_smart_buy")
+os.makedirs("logs/f3", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/F3_smart_buy.log",
+    "logs/f3/F3_smart_buy.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,

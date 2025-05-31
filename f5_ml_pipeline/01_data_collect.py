@@ -31,7 +31,7 @@ DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
-LOG_PATH = ROOT_DIR / "logs" / "F5_data_collect.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_data_collect.log"
 START_DELAY = 5  # seconds after each minute boundary
 
 

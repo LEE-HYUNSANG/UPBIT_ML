@@ -15,7 +15,7 @@ PIPELINE_ROOT = Path(__file__).resolve().parent
 CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 ROOT_DIR = PIPELINE_ROOT.parent
-LOG_PATH = ROOT_DIR / "logs" / "F5_ml_feature.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_feature.log"
 
 
 def setup_logger() -> None:

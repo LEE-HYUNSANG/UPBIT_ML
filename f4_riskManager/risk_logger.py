@@ -7,7 +7,7 @@ import os
 import sqlite3
 
 class RiskLogger:
-    def __init__(self, log_path, db_path="logs/risk_events.db"):
+    def __init__(self, log_path, db_path="logs/f4/risk_events.db"):
         self.logger = logging.getLogger("F4_risk_manager")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         fh = RotatingFileHandler(
