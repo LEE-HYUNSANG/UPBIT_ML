@@ -36,6 +36,10 @@
    매수를 방지합니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의
    과정에서 갱신됩니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
+4. 이 함수는 실매수를 수행하지 않고 JSON 파일만 갱신합니다. 실제 주문은
+   `signal_loop.py`가 주기적으로 이 파일을 읽어 실행하거나,
+   `buy_list_executor.execute_buy_list()`를 직접 호출해 수동으로 체결할 수
+   있습니다.
 
 ### `f2_signal(df_1m, df_5m, symbol="", ...)`
 `signal_loop.py`에서 호출되어 실제 매매 루프를 돌 때 사용됩니다.
