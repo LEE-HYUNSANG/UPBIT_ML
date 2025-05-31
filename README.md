@@ -132,6 +132,10 @@ When it contains `ON` the loop runs normally. Writing `OFF` stops trading but le
 You can edit the file manually or send `/on` and `/off` commands to the Telegram bot which updates the file.
 Set `SERVER_STATUS_FILE` to customize the location.
 
+The `/api/auto_trade_status` endpoint now synchronizes this file as well. Using
+`POST` to enable or disable trading immediately updates `server_status.txt` so
+the main loop reacts without a restart.
+
 See [doc/telegram_remote_control.md](doc/telegram_remote_control.md) for details.
 
 
