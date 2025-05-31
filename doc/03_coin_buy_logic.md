@@ -14,7 +14,7 @@
 | `f3_order/position_manager.py` | 포지션을 저장하고 손익을 계산하며 매도 조건을 감시합니다. |
 | `config/f2_f2_realtime_buy_list.json` | 매수 시그널과 체결 여부(`buy_count`)가 기록됩니다. |
 | `config/f3_f3_realtime_sell_list.json` | 매도 시 세부 설정(TP/SL)을 저장하는 파일입니다. |
-| `logs/F3_order_executor.log` | 주문 실행 과정의 로그가 남습니다. |
+| `logs/F3_order_executor.log` | 주문 실행 과정과 각 신호 처리 내역이 기록됩니다. |
 | `logs/F3_smart_buy.log` | 실매수 로직의 상세 로그입니다. |
 | `logs/F3_position_manager.log` | 포지션 상태 변화가 기록됩니다. |
 
@@ -32,6 +32,6 @@
 5. `refresh_positions()`와 `hold_loop()`가 매초 실행되어 현재가, 손익률, 손절/익절 조건을 지속적으로 계산합니다.
 
 ## 로그 위치 및 설명
-- `logs/F3_order_executor.log`에서 주문 시도와 결과를 확인할 수 있습니다.
+- `logs/F3_order_executor.log`에서 주문 시도와 결과뿐 아니라 신호를 받은 시점과 "매수 없음" 판단까지 모두 확인할 수 있습니다.
 - `logs/F3_smart_buy.log`에는 IOC/시장가 주문 전환 기록이 남아 슬리피지 상황을 파악할 수 있습니다.
 - `logs/F3_position_manager.log`에는 포지션 오픈과 종료, 손익 변화가 시간 순서대로 저장됩니다.

@@ -122,6 +122,7 @@ class OrderExecutor:
     def entry(self, signal):
         """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
         try:
+            log_with_tag(logger, f"Entry signal received: {signal}")
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
@@ -168,6 +169,8 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self.position_manager.open_position(order_result, status="pending")
                     log_with_tag(logger, f"Pending buy recorded: {order_result}")
+            else:
+                log_with_tag(logger, f"No buy signal for {signal.get('symbol')}")
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
 
