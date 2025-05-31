@@ -28,7 +28,7 @@ def test_import_existing_positions(tmp_path, monkeypatch):
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
-    pm = PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
     assert len(pm.positions) == 1
     assert pm.positions[0]["symbol"] == "KRW-XRP"
     assert pm.positions[0]["origin"] == "imported"

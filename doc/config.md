@@ -37,10 +37,10 @@ This file has been removed. It previously stored legacy risk parameters such as 
 ## f3_f3_order_config.json
 Order execution defaults such as retry counts and quantity settings. Used only by **F3**.
 
-## f3_f3_dynamic_params.json
-Dynamic parameters for averaging and pyramiding controlled at runtime by **F3**.
-
-
+## f6_buy_settings.json
+Buy order settings controlled via the web UI. Contains `ENTRY_SIZE_INITIAL`,
+`MAX_SYMBOLS` and `MAX_RETRY` which default to `10000`, `7` and `3` respectively.
+These values override the order executor's defaults.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 

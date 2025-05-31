@@ -8,6 +8,12 @@ It contains two main pages:
 - **알림 설정** – allows configuration of buy amount limits and Telegram
   notification options.
 
+The "매수 설정" card on this page loads values from `/api/buy_settings` and
+updates `config/f6_buy_settings.json`. Three fields are provided: the buy amount
+(`ENTRY_SIZE_INITIAL`), the maximum number of coins to hold (`MAX_SYMBOLS`), and
+the retry count when an order fails (`MAX_RETRY`). Default values are `10000`,
+`7` and `3` respectively.
+
 Both pages share a dark themed layout with an auto trade toggle and server
 status indicator in the header.
 

@@ -24,7 +24,7 @@ def make_pm(tmp_path, monkeypatch):
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
-    return PositionManager(cfg, {}, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    return PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
 
 
 def test_manage_trailing_stop_missing_entry_price(tmp_path, monkeypatch):
