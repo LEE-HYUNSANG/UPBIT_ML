@@ -401,10 +401,18 @@ class PositionManager:
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         if self.exception_handler:
             template = get_template("sell")
-            msg = template.format(
-                symbol=position["symbol"],
-                price=order.get("price"),
-            )
+            reason = "손절 매도" if exit_type == "stop_loss" else "익절 매도"
+            try:
+                msg = template.format(
+                    symbol=position["symbol"],
+                    price=order.get("price"),
+                    reason=reason,
+                )
+            except KeyError:
+                msg = template.format(
+                    symbol=position["symbol"],
+                    price=order.get("price"),
+                )
             self.exception_handler.send_alert(msg, "info", "order_execution")
         return order
 
