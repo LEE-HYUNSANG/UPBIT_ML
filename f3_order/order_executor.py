@@ -180,10 +180,11 @@ class OrderExecutor:
                     )
                     self.exception_handler.send_alert(msg, "info", "order_execution")
                 else:
-                    if signal.get("buy_triggers"):
-                        order_result["strategy"] = signal["buy_triggers"][0]
-                    self.position_manager.open_position(order_result, status="pending")
-                    log_with_tag(logger, f"Pending buy recorded: {order_result}")
+                    if not self.position_manager.has_position(symbol):
+                        if signal.get("buy_triggers"):
+                            order_result["strategy"] = signal["buy_triggers"][0]
+                        self.position_manager.open_position(order_result, status="pending")
+                        log_with_tag(logger, f"Pending buy recorded: {order_result}")
             else:
                 log_with_tag(logger, f"No buy signal for {signal.get('symbol')}")
         except Exception as e:
