@@ -14,15 +14,23 @@ import pandas as pd
 import requests
 
 from utils import ensure_dir
+import shutil
 
 BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
-DATA_ROOT = PIPELINE_ROOT / "ml_data" / "00_24ago_data"
+DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_yesterday_collect.log"
 CANDLE_LIMIT = 1440
+
+
+def clear_output_dir(path: Path) -> None:
+    """Remove all contents of ``path`` and recreate it."""
+    if path.exists():
+        shutil.rmtree(path, ignore_errors=True)
+    path.mkdir(parents=True, exist_ok=True)
 
 
 def setup_logger() -> None:
@@ -158,8 +166,8 @@ def collect_all(markets: Iterable[str]) -> None:
 
 def main() -> None:
     """Download the last 24 hours of minute data."""
-    ensure_dir(DATA_ROOT)
     setup_logger()
+    clear_output_dir(DATA_ROOT)
     markets = load_coin_list()
     if not markets:
         logging.error("No markets to collect")
