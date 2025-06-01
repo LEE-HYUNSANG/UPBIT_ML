@@ -10,11 +10,11 @@
     "origin": "imported",
     "strategy": "imported",
     "avg_price": 869.6,
-    "current_price": 865.0,
-    "eval_amount": 29841.306325949998,
-    "pnl_percent": -0.5289788408463687,
+    "current_price": 863.3,
+    "eval_amount": 29782.658671898997,
+    "pnl_percent": -0.7244710211591615,
     "max_price": 869.7,
-    "min_price": 865.0
+    "min_price": 863.2
   },
   {
     "symbol": "KRW-ONDO",
@@ -27,9 +27,9 @@
     "origin": "imported",
     "strategy": "imported",
     "avg_price": 1175.0,
-    "current_price": 1168.0,
-    "eval_amount": 29821.276568160003,
-    "pnl_percent": -0.5957446808510638,
+    "current_price": 1177.0,
+    "eval_amount": 30051.063801990003,
+    "pnl_percent": 0.1702127659574468,
     "max_price": 1177.0,
     "min_price": 1166.0
   }

@@ -1,6 +1,6 @@
 [
   {
-    "symbol": "KRW-XTZ",
+    "symbol": "KRW-SUI",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -8,15 +8,15 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-ZRO",
-    "ml_signal": 1,
+    "symbol": "KRW-XTZ",
+    "ml_signal": 0,
     "rsi_sel": 1,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   },
   {
-    "symbol": "KRW-SUI",
+    "symbol": "KRW-ZRO",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -26,40 +26,8 @@
   {
     "symbol": "KRW-AUCTION",
     "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-UXLINK",
-    "ml_signal": 1,
     "rsi_sel": 1,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-MNT",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-NXPC",
-    "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-MTL",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
+    "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0
   },
@@ -72,10 +40,42 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-CELO",
-    "ml_signal": 1,
+    "symbol": "KRW-ME",
+    "ml_signal": 0,
     "rsi_sel": 0,
-    "trend_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-UXLINK",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-WAVES",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-MTL",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-CELO",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0
   }
