@@ -118,6 +118,11 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
             df = pd.concat([old, df], ignore_index=True)
         except Exception as exc:  # pragma: no cover - best effort
             logging.warning("Failed reading %s: %s", file_path.name, exc)
+            try:
+                file_path.unlink()
+                logging.info("Removed corrupt file %s", file_path.name)
+            except Exception:
+                logging.warning("Failed removing %s", file_path.name)
 
     subset = _dedupe_columns(df)
     if subset:
