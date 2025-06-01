@@ -49,3 +49,19 @@ def test_minimum_buy_limit(monkeypatch):
     client.MIN_KRW_BUY = 5000
     with pytest.raises(ValueError):
         client.place_order('KRW-XRP', 'bid', 1.0, 100.0, 'price')
+
+
+def test_cancel_order(monkeypatch):
+    captured = {}
+
+    def fake_delete(self, path, params=None):
+        captured['path'] = path
+        captured['params'] = params
+        return {'uuid': params['uuid'], 'state': 'cancel'}
+
+    monkeypatch.setattr(UpbitClient, 'delete', fake_delete, raising=False)
+    client = UpbitClient('a', 'b')
+    resp = client.cancel_order('123')
+    assert captured['path'] == '/v1/order'
+    assert captured['params']['uuid'] == '123'
+    assert resp['state'] == 'cancel'

@@ -85,6 +85,25 @@ class UpbitClient:
                 import json
                 return json.loads(r.read().decode())
 
+    def delete(self, path: str, params=None):
+        url = f"{self.BASE_URL}{path}"
+        headers = self._headers(params)
+        if requests:
+            resp = requests.delete(url, params=params, headers=headers, timeout=10)
+            try:
+                resp.raise_for_status()
+            except Exception as e:  # pragma: no cover - network error path
+                msg = f"{e} - {resp.text}"
+                raise type(e)(msg) from None
+            return resp.json()
+        else:
+            if params:
+                url = f"{url}?{urlencode(params)}"
+            req = _urlreq.Request(url, headers=headers, method="DELETE")
+            with _urlreq.urlopen(req, timeout=10) as r:
+                import json
+                return json.loads(r.read().decode())
+
     def place_order(self, market: str, side: str, volume: float, price: float | None, ord_type: str):
         """Submit an order via the Upbit REST API."""
 
@@ -142,3 +161,7 @@ class UpbitClient:
         if not markets:
             return []
         return self.get("/v1/ticker", {"markets": ",".join(markets)})
+
+    def cancel_order(self, uuid: str):
+        """Cancel an existing order."""
+        return self.delete("/v1/order", {"uuid": uuid})
