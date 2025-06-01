@@ -8,47 +8,15 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-NEO",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-UXLINK",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-CTC",
-    "ml_signal": 0,
+    "symbol": "KRW-ZRO",
+    "ml_signal": 1,
     "rsi_sel": 1,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   },
   {
-    "symbol": "KRW-ME",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-WAVES",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-ONDO",
+    "symbol": "KRW-SUI",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -64,15 +32,47 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-QTUM",
+    "symbol": "KRW-UXLINK",
     "ml_signal": 1,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-MNT",
+    "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   },
   {
-    "symbol": "KRW-APT",
+    "symbol": "KRW-NXPC",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-MTL",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-PENDLE",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-CELO",
     "ml_signal": 1,
     "rsi_sel": 0,
     "trend_sel": 0,

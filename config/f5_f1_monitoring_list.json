@@ -5,32 +5,12 @@
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-NEO",
+    "symbol": "KRW-ZRO",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-UXLINK",
-    "thresh_pct": 0.004,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-CTC",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-ME",
-    "thresh_pct": 0.004,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-WAVES",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-ONDO",
+    "symbol": "KRW-SUI",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
@@ -40,12 +20,32 @@
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-QTUM",
+    "symbol": "KRW-UXLINK",
+    "thresh_pct": 0.004,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-MNT",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-APT",
+    "symbol": "KRW-NXPC",
+    "thresh_pct": 0.005,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-MTL",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-PENDLE",
+    "thresh_pct": 0.004,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-CELO",
     "thresh_pct": 0.003,
     "loss_pct": 0.003
   }
