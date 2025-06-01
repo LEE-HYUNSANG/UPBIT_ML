@@ -50,6 +50,7 @@ class OrderExecutor:
         self.position_manager = PositionManager(
             self.config, self.kpi_guard, self.exception_handler, logger
         )
+        self.pending_symbols: set[str] = set()
         if self.risk_manager:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
@@ -147,25 +148,32 @@ class OrderExecutor:
                     "info",
                     "buy_monitoring",
                 )
+                if symbol in self.pending_symbols:
+                    log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
+                    return
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
                 if self.position_manager.has_position(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
+                self.pending_symbols.add(symbol)
                 max_retry = int(self.config.get("MAX_RETRY", 3))
                 order_result = {}
-                for attempt in range(max_retry):
-                    order_result = smart_buy(
-                        signal,
-                        self.config,
-                        self.position_manager,
-                        logger,
-                    )
-                    if order_result.get("filled"):
-                        break
-                    if attempt < max_retry - 1:
-                        time.sleep(3)
+                try:
+                    for attempt in range(max_retry):
+                        order_result = smart_buy(
+                            signal,
+                            self.config,
+                            self.position_manager,
+                            logger,
+                        )
+                        if order_result.get("filled"):
+                            break
+                        if attempt < max_retry - 1:
+                            time.sleep(3)
+                finally:
+                    self.pending_symbols.discard(symbol)
                 if order_result.get("filled", False):
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]

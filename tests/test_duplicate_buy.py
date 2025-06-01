@@ -34,3 +34,26 @@ def test_duplicate_buy_skipped(monkeypatch):
     assert len(oe.position_manager.positions) == 1
     oe.entry({"symbol": "KRW-BTC", "buy_signal": True, "price": 10.0})
     assert len(oe.position_manager.positions) == 1
+
+
+def test_pending_buy_skipped(monkeypatch):
+    import threading, time
+
+    monkeypatch.setattr("f3_order.order_executor.load_config", lambda p: {"ENTRY_SIZE_INITIAL": 1})
+    monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
+
+    def slow_buy(s, c, position_manager, logger):
+        time.sleep(0.1)
+        return {"filled": True, "symbol": s["symbol"], "price": 10.0, "qty": 1.0}
+
+    monkeypatch.setattr("f3_order.order_executor.smart_buy", slow_buy)
+
+    oe = OrderExecutor(risk_manager=None)
+
+    t = threading.Thread(target=oe.entry, args=({"symbol": "KRW-BTC", "buy_signal": True, "price": 10.0},))
+    t.start()
+    time.sleep(0.02)
+    oe.entry({"symbol": "KRW-BTC", "buy_signal": True, "price": 10.0})
+    t.join()
+
+    assert len(oe.position_manager.positions) == 1

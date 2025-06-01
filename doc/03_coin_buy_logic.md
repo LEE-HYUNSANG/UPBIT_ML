@@ -27,6 +27,8 @@
 ## 동작 흐름
 1. `signal_loop.py`가 `f2_signal()` 결과를 받아 `OrderExecutor.entry()`에 전달합니다.
 2. `entry()` 함수는 이미 보유 중이거나 리스크 매니저가 차단한 코인은 건너뜁니다.
+   동시에 동일 코인 주문이 진행 중이면 `pending_symbols` 집합에 기록되어
+   추가 주문을 무시합니다.
 3. `smart_buy()`가 IOC 주문을 시도하고 필요하면 시장가 주문으로 전환합니다. 체결 여부는 `filled` 필드로 확인합니다.
 4. 주문이 성공하면 `PositionManager.open_position()`이 호출되어 포지션이 등록되고 실시간 매도 설정 리스트가 갱신됩니다.
    체결되지 않았을 경우에도 `pending` 상태로 저장하며 `buy_list`의 `buy_count`를 1로 변경해
