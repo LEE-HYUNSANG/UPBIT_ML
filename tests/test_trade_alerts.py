@@ -25,5 +25,7 @@ def test_entry_sends_alert(monkeypatch):
     oe = OrderExecutor(risk_manager=None)
     calls = []
     oe.exception_handler.send_alert = lambda m, s="info", *a: calls.append((m, s))
-    oe.entry({"symbol": "KRW-BTC", "buy_signal": True})
-    assert calls and "KRW-BTC" in calls[0][0]
+    oe.entry({"symbol": "KRW-BTC", "buy_signal": True, "price": 10.0})
+    assert len(calls) == 2
+    assert "매수 시그널" in calls[0][0]
+    assert "KRW-BTC" in calls[1][0]
