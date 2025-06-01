@@ -699,7 +699,9 @@ if __name__ == "__main__":
         ],
         force=True,
     )
-    start_data_collection()
-    start_buy_signal_scheduler()
-    start_pipeline_scheduler()
+    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        start_data_collection()
+        start_buy_signal_scheduler()
+        start_pipeline_scheduler()
+
     app.run(host="0.0.0.0", port=PORT, debug=True)

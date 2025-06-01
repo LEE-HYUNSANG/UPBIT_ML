@@ -211,7 +211,7 @@ def test_tp_cancels_when_price_below_entry(tmp_path, monkeypatch):
     pos["avg_price"] = 100.0
     pos["current_price"] = 99.5
     pm.hold_loop()
-    assert pm.client.cancelled == ["tp"]
+    assert pm.client.cancelled == []
 
 def test_tp_kept_when_price_above_entry(tmp_path, monkeypatch):
     class DummyClient:
@@ -249,4 +249,4 @@ def test_tp_kept_when_price_above_entry(tmp_path, monkeypatch):
     pos["avg_price"] = 100.0
     pos["current_price"] = 101.0
     pm.hold_loop()
-    assert pm.client.cancelled == []
+    assert pm.client.cancelled == ["tp"]

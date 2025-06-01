@@ -80,6 +80,20 @@ class PositionManager:
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
 
+    def has_position(self, symbol: str) -> bool:
+        """Return True if *symbol* has an open or pending position."""
+        for p in self.positions:
+            if p.get("symbol") == symbol and p.get("status") in ("open", "pending"):
+                return True
+        try:
+            data = _load_json(self.positions_file)
+            return any(
+                p.get("symbol") == symbol and p.get("status") in ("open", "pending")
+                for p in data
+            )
+        except Exception:  # pragma: no cover - best effort
+            return False
+
     def _persist_positions(self) -> None:
         try:
             _save_json(self.positions_file, self.positions)
@@ -271,6 +285,10 @@ class PositionManager:
             entry = pos.get("entry_price", cur_price)
             pos["max_price"] = max(pos.get("max_price", cur_price), cur_price)
             pos["min_price"] = min(pos.get("min_price", cur_price), cur_price)
+            from .utils import tick_size
+
+            tick = tick_size(entry)
+            change_tick = int((cur_price - entry) / tick)
             change_pct = (cur_price - entry) / entry * 100
 
             hold_secs = self.config.get("HOLD_SECS", 0)
@@ -278,10 +296,14 @@ class PositionManager:
 
             tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
             sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
-            if change_pct >= tp:
+
+            tp_tick = int(entry * tp / 100 / tick)
+            sl_tick = int(entry * abs(sl) / 100 / tick)
+
+            if change_tick >= tp_tick:
                 # take-profit order will execute automatically
                 pass
-            elif change_pct <= -abs(sl):
+            elif change_tick <= -sl_tick:
                 self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:
@@ -387,10 +409,18 @@ class PositionManager:
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         if self.exception_handler:
             template = get_template("sell")
-            msg = template.format(
-                symbol=position["symbol"],
-                price=order.get("price"),
-            )
+            reason = "손절 매도" if exit_type == "stop_loss" else "익절 매도"
+            try:
+                msg = template.format(
+                    symbol=position["symbol"],
+                    price=order.get("price"),
+                    reason=reason,
+                )
+            except KeyError:
+                msg = template.format(
+                    symbol=position["symbol"],
+                    price=order.get("price"),
+                )
             self.exception_handler.send_alert(msg, "info", "order_execution")
         return order
 

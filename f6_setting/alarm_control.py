@@ -12,7 +12,8 @@ DEFAULT_CONFIG = {
     "ml_pipeline": True,
     "templates": {
         "buy": "[매수 체결] {symbol} @{price}",
-        "sell": "[매도 체결] {symbol} @{price}"
+        # {reason} will be replaced with '익절 매도' or '손절 매도'
+        "sell": "[매도 체결] {symbol} | {reason} @{price}"
     }
 }
 

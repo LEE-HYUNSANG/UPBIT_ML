@@ -10,6 +10,11 @@ class DummyPM:
     def open_position(self, order_result, status="open"):
         order_result["status"] = status
         self.positions.append(order_result)
+    def has_position(self, symbol):
+        return any(
+            p.get("symbol") == symbol and p.get("status") in ("open", "pending")
+            for p in self.positions
+        )
 
 
 def test_duplicate_buy_skipped(monkeypatch):

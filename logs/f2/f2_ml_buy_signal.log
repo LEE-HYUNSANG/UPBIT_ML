@@ -1,0 +1,37 @@
+2025-06-01 12:51:06,783 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-TIA']
+2025-06-01 12:51:06,786 [F2] [INFO] Universe updated: ['KRW-TIA']
+2025-06-01 12:51:06,806 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-01 12:51:06,808 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-01 12:51:06,808 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-01 12:51:06,808 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-TIA']
+2025-06-01 12:51:06,809 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-TIA', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-01 12:51:06,809 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-01 12:51:06,810 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-01 12:51:06,830 [F2] [INFO]  * Restarting with stat
+2025-06-01 12:51:06,875 [F2] [INFO] [FETCH] KRW-TIA count=60
+2025-06-01 12:51:06,948 [F2] [INFO] [FETCH] KRW-TIA rows=60
+2025-06-01 12:51:07,031 [F2] [INFO] [FETCH] saved KRW-TIA.parquet
+2025-06-01 12:51:08,481 [F2] [INFO] [CHECK] KRW-TIA prob=0.5000
+2025-06-01 12:51:08,487 [F2] [INFO] [KRW-TIA] buy=False rsi=True trend=True
+2025-06-01 12:51:08,488 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-TIA', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-01 12:51:08,488 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-01 12:51:08,490 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-01 12:51:08,491 [F2] [INFO] [F3] No buy candidates found
+2025-06-01 12:51:09,384 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-TIA']
+2025-06-01 12:51:09,388 [F2] [INFO] Universe updated: ['KRW-TIA']
+2025-06-01 12:51:09,396 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AGLD', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARKM', 'KRW-ARK', 'KRW-ATOM', 'KRW-AUCTION', 'KRW-AXS', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-CELO', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-FIL', 'KRW-FLOW', 'KRW-GAS', 'KRW-IMX', 'KRW-INJ', 'KRW-JTO', 'KRW-JUP', 'KRW-KAITO', 'KRW-KAVA', 'KRW-LAYER', 'KRW-LINK', 'KRW-LSK', 'KRW-MASK', 'KRW-ME', 'KRW-MNT', 'KRW-MTL', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PENDLE', 'KRW-PUNDIX', 'KRW-QTUM', 'KRW-RENDER', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-THETA', 'KRW-TIA', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-UNI', 'KRW-USDC', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP', 'KRW-XTZ', 'KRW-ZRO']
+2025-06-01 12:51:09,397 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-01 12:51:09,398 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-01 12:51:09,398 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-01 12:51:09,398 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-TIA']
+2025-06-01 12:51:09,399 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-TIA', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-01 12:51:09,399 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-01 12:51:09,400 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-01 12:51:09,413 [F2] [WARNING]  * Debugger is active!
+2025-06-01 12:51:09,422 [F2] [INFO]  * Debugger PIN: 872-957-534
+2025-06-01 12:51:09,473 [F2] [INFO] [FETCH] KRW-TIA count=60
+2025-06-01 12:51:09,553 [F2] [INFO] [FETCH] KRW-TIA rows=60
+2025-06-01 12:51:09,636 [F2] [INFO] [FETCH] saved KRW-TIA.parquet
+2025-06-01 12:51:09,949 [F2] [WARNING]  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-06-01 12:51:09,950 [F2] [INFO]  * Running on http://192.168.123.103:3000/ (Press CTRL+C to quit)
