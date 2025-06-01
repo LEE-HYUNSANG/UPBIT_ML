@@ -162,7 +162,6 @@ def test_stop_loss_cancels_tp_order(tmp_path, monkeypatch):
     pm.hold_loop()
     assert pm.client.cancelled == ["tp"]
 
-
 def test_tp_cancels_when_price_above_entry(tmp_path, monkeypatch):
     class DummyClient:
         def __init__(self):
