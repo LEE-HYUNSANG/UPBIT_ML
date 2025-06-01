@@ -1,9 +1,0 @@
-{"event": "Slippage", "symbol": "KRW-ONDO", "slippage": 1.1063829787234043, "count": 1, "time": "2025-06-01T11:12:35+09:00"}
-{"event": "Slippage", "symbol": "KRW-ZRO", "slippage": 1.3711436584605796, "count": 1, "time": "2025-06-01T11:12:37+09:00"}
-{"event": "Exception", "context": "place_order", "type": "HTTPError", "message": "400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-ONDO&side=ask&ord_type=market&volume=25.53191487 - {\"error\":{\"name\":\"insufficient_funds_ask\",\"message\":\"주문 가능한 금액(ONDO)이 부족합니다.\"}}", "time": "2025-06-01T11:12:37+09:00"}
-{"event": "Slippage", "symbol": "KRW-ONDO", "slippage": 1.1063829787234043, "count": 1, "time": "2025-06-01T11:12:37+09:00"}
-{"event": "Exception", "context": "place_order", "type": "HTTPError", "message": "400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-ZRO&side=ask&ord_type=market&volume=9.34870674 - {\"error\":{\"message\":\"주문 가능한 금액(ZRO)이 부족합니다.\",\"name\":\"insufficient_funds_ask\"}}", "time": "2025-06-01T11:12:40+09:00"}
-{"event": "Slippage", "symbol": "KRW-ZRO", "slippage": 1.3711436584605796, "count": 1, "time": "2025-06-01T11:12:40+09:00"}
-{"event": "Slippage", "symbol": "KRW-ME", "slippage": 1.1363636363636365, "count": 1, "time": "2025-06-01T11:13:50+09:00"}
-{"event": "Exception", "context": "place_order", "type": "HTTPError", "message": "400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-ME&side=ask&ord_type=market&volume=26.22377622 - {\"error\":{\"name\":\"insufficient_funds_ask\",\"message\":\"주문 가능한 금액(ME)이 부족합니다.\"}}", "time": "2025-06-01T11:13:50+09:00"}
-{"event": "Slippage", "symbol": "KRW-ME", "slippage": 1.1363636363636365, "count": 1, "time": "2025-06-01T11:13:50+09:00"}
