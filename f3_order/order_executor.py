@@ -141,6 +141,12 @@ class OrderExecutor:
             log_with_tag(logger, f"Entry signal received: {signal}")
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
+                price = signal.get("price")
+                self.exception_handler.send_alert(
+                    f"[매수 시그널] {symbol} @{price}",
+                    "info",
+                    "buy_monitoring",
+                )
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
