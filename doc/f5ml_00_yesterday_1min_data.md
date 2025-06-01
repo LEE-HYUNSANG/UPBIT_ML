@@ -11,3 +11,8 @@
 ```bash
 python f5_ml_pipeline/00_yesterday_1min_data.py
 ```
+
+## Troubleshooting
+
+만약 기존 저장된 Parquet 파일을 읽지 못한다는 경고가 표시된다면 손상된 파일일 수 있습니다.
+`save_data()` 함수는 이런 경우 파일을 자동으로 삭제하므로 다음 실행에서 새로 다운로드한 데이터가 저장됩니다.
