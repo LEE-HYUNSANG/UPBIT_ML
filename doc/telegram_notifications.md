@@ -16,7 +16,8 @@ Supported categories:
 - **ml_pipeline** – machine learning pipeline status.
 
 Default templates for order alerts reside in the same configuration file and can
-be customized.
+be customized. The sell template now includes a `{reason}` placeholder which is
+automatically filled with "익절 매도" or "손절 매도" based on the exit type.
 
 The web UI under **환경설정** now exposes these options. The page loads values
 from `/api/alarm_config` and posts changes back to the same endpoint when the
