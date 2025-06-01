@@ -68,3 +68,28 @@ def now() -> float:
 def log_with_tag(logger, msg):
     """ [F3] 태그 붙여 로그 기록 """
     logger.info(f"[F3] {msg}")
+
+
+def apply_tick_size(price: float) -> float:
+    """Return ``price`` adjusted to Upbit's KRW tick size."""
+
+    if price < 10:
+        tick = 0.01
+    elif price < 100:
+        tick = 0.1
+    elif price < 1000:
+        tick = 1
+    elif price < 10000:
+        tick = 5
+    elif price < 100000:
+        tick = 10
+    elif price < 500000:
+        tick = 50
+    elif price < 1000000:
+        tick = 100
+    elif price < 2000000:
+        tick = 500
+    else:
+        tick = 1000
+
+    return round(price / tick) * tick

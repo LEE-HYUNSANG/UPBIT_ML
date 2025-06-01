@@ -51,6 +51,21 @@ def test_minimum_buy_limit(monkeypatch):
         client.place_order('KRW-XRP', 'bid', 1.0, 100.0, 'price')
 
 
+def test_limit_price_rounded(monkeypatch):
+    captured = {}
+
+    def fake_post(self, path, params=None):
+        captured['params'] = params
+        return {'uuid': '1', 'state': 'done'}
+
+    monkeypatch.setattr(UpbitClient, 'post', fake_post, raising=False)
+
+    client = UpbitClient('a', 'b')
+    client.place_order('KRW-ONDO', 'ask', 1.0, 1186.75, 'limit')
+
+    assert captured['params']['price'] == '1185'
+
+
 def test_cancel_order(monkeypatch):
     captured = {}
 
