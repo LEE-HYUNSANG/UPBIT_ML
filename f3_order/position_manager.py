@@ -279,12 +279,18 @@ class PositionManager:
             tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
             sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
             if change_pct >= tp:
-                self.cancel_tp_order(pos.get("symbol"))
-                self.execute_sell(pos, "take_profit")
+                # take-profit order will execute automatically
+                pass
             elif change_pct <= -abs(sl):
                 self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:
+                if pos.get("avg_price") and pos["avg_price"] < cur_price:
+                    self.cancel_tp_order(pos.get("symbol"))
+                elif pos.get("avg_price") and pos["avg_price"] >= cur_price:
+                    if pos.get("symbol") not in self.tp_orders:
+                        self.place_tp_order(pos)
+
                 if held_too_long:
                     self.manage_trailing_stop(pos)
                 else:
