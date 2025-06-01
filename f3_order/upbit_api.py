@@ -23,7 +23,7 @@ except Exception:  # pragma: no cover - simple JWT replacement
 import uuid
 import hashlib
 from urllib.parse import urlencode
-from .utils import load_api_keys
+from .utils import load_api_keys, apply_tick_size
 
 
 class UpbitClient:
@@ -127,14 +127,14 @@ class UpbitClient:
             else:
                 params.update({"ord_type": ord_type, "volume": str(volume)})
                 if price is not None:
-                    params["price"] = str(price)
+                    params["price"] = str(apply_tick_size(float(price)))
         else:  # side == "ask"
             if ord_type == "market":
                 params.update({"ord_type": "market", "volume": str(volume)})
             else:
                 params.update({"ord_type": ord_type, "volume": str(volume)})
                 if price is not None:
-                    params["price"] = str(price)
+                    params["price"] = str(apply_tick_size(float(price)))
 
         return self.post("/v1/orders", params)
 
