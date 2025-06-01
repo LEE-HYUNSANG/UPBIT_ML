@@ -1,4 +1,4 @@
-2025-06-01 12:51:06,783 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-TIA']
+2025-06-01 12:51:06,783 [F2] [INFO] Universe updated: ['KRW-TIA']
 2025-06-01 12:51:06,786 [F2] [INFO] Universe updated: ['KRW-TIA']
 2025-06-01 12:51:06,806 [F2] [INFO] [RUN] starting buy signal scan
 2025-06-01 12:51:06,808 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
@@ -17,7 +17,7 @@
 2025-06-01 12:51:08,488 [F2] [INFO] [RUN] finished. 0 coins to buy
 2025-06-01 12:51:08,490 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
 2025-06-01 12:51:08,491 [F2] [INFO] [F3] No buy candidates found
-2025-06-01 12:51:09,384 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-TIA']
+2025-06-01 12:51:09,384 [F2] [INFO] Universe updated: ['KRW-TIA']
 2025-06-01 12:51:09,388 [F2] [INFO] Universe updated: ['KRW-TIA']
 2025-06-01 12:51:09,396 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AGLD', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARKM', 'KRW-ARK', 'KRW-ATOM', 'KRW-AUCTION', 'KRW-AXS', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-CELO', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-FIL', 'KRW-FLOW', 'KRW-GAS', 'KRW-IMX', 'KRW-INJ', 'KRW-JTO', 'KRW-JUP', 'KRW-KAITO', 'KRW-KAVA', 'KRW-LAYER', 'KRW-LINK', 'KRW-LSK', 'KRW-MASK', 'KRW-ME', 'KRW-MNT', 'KRW-MTL', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PENDLE', 'KRW-PUNDIX', 'KRW-QTUM', 'KRW-RENDER', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-THETA', 'KRW-TIA', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-UNI', 'KRW-USDC', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP', 'KRW-XTZ', 'KRW-ZRO']
 2025-06-01 12:51:09,397 [F2] [INFO] [RUN] starting buy signal scan
