@@ -57,6 +57,19 @@ def test_execute_sell_closes_position(tmp_path, monkeypatch):
     assert calls and "KRW-BTC" in calls[0][0]
 
 
+def test_execute_sell_sends_two_alerts(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
+    calls = []
+    pm.exception_handler.send_alert = lambda m, s="info", *a: calls.append(m)
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
+    pm.open_position(order)
+    pm.positions[0]["current_price"] = 101.0
+    pm.execute_sell(pm.positions[0], "take_profit")
+    assert len(calls) == 2
+    assert "매도 시도" in calls[0]
+    assert "매도" in calls[1]
+
+
 def test_slippage_handling(tmp_path, monkeypatch):
     pm = make_pm(tmp_path, monkeypatch)
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}

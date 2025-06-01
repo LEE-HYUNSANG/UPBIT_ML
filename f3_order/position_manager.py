@@ -370,6 +370,9 @@ class PositionManager:
         """Execute a sell order for a position."""
         if qty is None:
             qty = position.get("qty", 0)
+        if self.exception_handler:
+            msg = f"[매도 시도] {position['symbol']} @{position.get('current_price')}"
+            self.exception_handler.send_alert(msg, "info", "order_execution")
         order = self.place_order(position["symbol"], "ask", qty, "market", position.get("current_price"))
         slip = 0.0
         if position.get("current_price") and position.get("entry_price"):

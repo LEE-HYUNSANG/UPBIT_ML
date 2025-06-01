@@ -10,7 +10,8 @@ Supported categories:
 - **system_start_stop** – server start/stop messages.
 - **buy_monitoring** – updates from the buy monitoring page.
   A notification is also sent when a new buy signal is generated.
-- **order_execution** – buy and sell executions.
+- **order_execution** – buy and sell executions. A notification is also sent
+  when a sell order is attempted.
 - **system_alert** – warnings from the risk manager or KPI guard.
 - **ml_pipeline** – machine learning pipeline status.
 
