@@ -76,6 +76,7 @@ class PositionManager:
         )
         self.positions = _load_json(self.positions_file)
         self.client = UpbitClient()
+        self.tp_orders: dict[str, str] = {}
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
 
@@ -116,6 +117,26 @@ class PositionManager:
         self.positions.append(pos)
         self._persist_positions()
         log_with_tag(logger, f"Open position: {pos}")
+        if status == "open" and pos.get("origin") != "imported":
+            self.place_tp_order(pos)
+
+    def place_tp_order(self, position):
+        """Immediately place a limit sell order for take profit."""
+        cfg = _load_json_dict(self.sell_config_path)
+        tp = cfg.get(position["symbol"], {}).get("TP_PCT", self.config.get("TP_PCT", 1.0))
+        price = position["entry_price"] * (1 + float(tp) / 100)
+        res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
+        uuid = res.get("uuid")
+        if uuid:
+            self.tp_orders[position["symbol"]] = uuid
+
+    def cancel_tp_order(self, symbol: str):
+        uuid = self.tp_orders.pop(symbol, None)
+        if uuid:
+            try:
+                self.client.cancel_order(uuid)
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to cancel TP order {uuid}: {exc}")
 
     def import_existing_positions(self, threshold: float = 5000.0) -> None:
         """Scan account balances and register them as open positions."""
@@ -258,10 +279,18 @@ class PositionManager:
             tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
             sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
             if change_pct >= tp:
-                self.execute_sell(pos, "take_profit")
+                # take-profit order will execute automatically
+                pass
             elif change_pct <= -abs(sl):
+                self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:
+                if pos.get("avg_price") and pos["avg_price"] < cur_price:
+                    self.cancel_tp_order(pos.get("symbol"))
+                elif pos.get("avg_price") and pos["avg_price"] >= cur_price:
+                    if pos.get("symbol") not in self.tp_orders:
+                        self.place_tp_order(pos)
+
                 if held_too_long:
                     self.manage_trailing_stop(pos)
                 else:
@@ -442,6 +471,7 @@ class PositionManager:
         remaining = []
         for pos in list(self.positions):
             if pos.get("status") == "open":
+                self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "risk_close", pos.get("qty"))
             if pos.get("status") == "open":
                 remaining.append(pos)
@@ -451,6 +481,7 @@ class PositionManager:
     def close_position(self, symbol: str, reason: str = "") -> None:
         for pos in list(self.positions):
             if pos.get("symbol") == symbol and pos.get("status") == "open":
+                self.cancel_tp_order(symbol)
                 self.execute_sell(pos, reason or "universe_exit", pos.get("qty"))
         self._persist_positions()
 

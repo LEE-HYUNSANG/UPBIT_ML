@@ -176,8 +176,8 @@ class OrderExecutor:
                 if order_result.get("filled", False):
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]
-                    self.position_manager.open_position(order_result)
                     self._update_realtime_sell_list(symbol)
+                    self.position_manager.open_position(order_result)
                     self._mark_buy_filled(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
                     template = get_template("buy")
