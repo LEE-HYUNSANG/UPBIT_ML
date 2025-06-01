@@ -52,7 +52,7 @@ def test_execute_sell_closes_position(tmp_path, monkeypatch):
     conn = sqlite3.connect(os.path.join(tmp_path, "orders.db"))
     cur = conn.cursor()
     cur.execute("SELECT COUNT(*) FROM orders")
-    assert cur.fetchone()[0] == 1
+    assert cur.fetchone()[0] == 2
     conn.close()
     assert calls and "KRW-BTC" in calls[0][0]
 
@@ -102,6 +102,7 @@ def test_place_order_partial_fill(tmp_path, monkeypatch):
 
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: PartialFillClient())
     pm = make_pm(tmp_path)
+    pm.place_tp_order = lambda p: None
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 2.0}
     pm.open_position(order)
     pm.place_order("KRW-BTC", "sell", 2.0, "market", 100.0)
@@ -117,4 +118,47 @@ def test_open_position_stores_strategy(tmp_path, monkeypatch):
     with open(pm.positions_file, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data and data[0]["strategy"] == "TEST"
+
+
+def test_stop_loss_cancels_tp_order(tmp_path, monkeypatch):
+    class DummyClient:
+        def __init__(self):
+            self.cancelled = []
+
+        def place_order(self, *args, **kwargs):
+            if kwargs.get("ord_type") == "limit":
+                return {"uuid": "tp", "state": "wait", "side": "ask"}
+            return {"uuid": "sl", "state": "done", "side": "ask"}
+
+        def cancel_order(self, uuid):
+            self.cancelled.append(uuid)
+
+        def get_accounts(self):
+            return []
+
+        def ticker(self, markets):
+            return []
+
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
+    sell_cfg = tmp_path / "sell.json"
+    with open(sell_cfg, "w", encoding="utf-8") as f:
+        json.dump({"KRW-BTC": {"TP_PCT": 1.0, "SL_PCT": 1.0}}, f)
+    pm = PositionManager(
+        {
+            "DB_PATH": os.path.join(tmp_path, "orders.db"),
+            "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+            "SELL_LIST_PATH": str(sell_cfg),
+            "TP_PCT": 1.0,
+            "SL_PCT": 1.0,
+            "PYR_ENABLED": False,
+            "AVG_ENABLED": False,
+        },
+        KPIGuard({}),
+        ExceptionHandler({"SLIP_MAX": 0.15}),
+    )
+    pm.open_position({"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0})
+    pos = pm.positions[0]
+    pos["current_price"] = 98.0
+    pm.hold_loop()
+    assert pm.client.cancelled == ["tp"]
 

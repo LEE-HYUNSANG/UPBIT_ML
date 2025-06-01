@@ -166,7 +166,10 @@ def test_signals_and_risk(app_client, monkeypatch):
     data = res.get_json()
     assert res.status_code == 200
     assert data["KRW-BTC"]["buy_signal"] is True
-    assert len(order_executor._default_executor.position_manager.positions) == 1
+    assert any(
+        p.get("symbol") == "KRW-BTC"
+        for p in order_executor._default_executor.position_manager.positions
+    )
     rm.update_account(-3.0, 0.0, 0.0, ["KRW-BTC"])
     rm.periodic()
     assert rm.state.name == "PAUSE"
