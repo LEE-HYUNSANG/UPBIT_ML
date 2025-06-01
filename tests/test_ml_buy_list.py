@@ -60,6 +60,56 @@ def test_run_updates_buy_list_only(tmp_path, monkeypatch):
     assert result == ["KRW-AAA", "KRW-BBB"]
 
 
+def test_run_preserves_existing_buy_count(tmp_path, monkeypatch):
+    cfg = tmp_path
+    (cfg / "f5_f1_monitoring_list.json").write_text(
+        json.dumps([
+            {"symbol": "KRW-AAA", "thresh_pct": 0.01, "loss_pct": 0.02},
+        ])
+    )
+    existing = [
+        {
+            "symbol": "KRW-AAA",
+            "ml_signal": 1,
+            "rsi_sel": 1,
+            "trend_sel": 1,
+            "buy_signal": 1,
+            "buy_count": 1,
+        }
+    ]
+    (cfg / "f2_f2_realtime_buy_list.json").write_text(json.dumps(existing))
+    (cfg / "f3_f3_realtime_sell_list.json").write_text("{}")
+
+    pandas_stub = types.ModuleType("pandas")
+    pandas_stub.Series = object
+    pandas_stub.DataFrame = object
+    sklearn_stub = types.ModuleType("sklearn")
+    linear_stub = types.ModuleType("sklearn.linear_model")
+    linear_stub.LogisticRegression = object
+    joblib_stub = types.ModuleType("joblib")
+    joblib_stub.dump = lambda *a, **k: None
+    joblib_stub.load = lambda *a, **k: None
+    numpy_stub = types.ModuleType("numpy")
+    sys.modules.update({
+        "pandas": pandas_stub,
+        "sklearn": sklearn_stub,
+        "sklearn.linear_model": linear_stub,
+        "joblib": joblib_stub,
+        "numpy": numpy_stub,
+        "pyupbit": types.ModuleType("pyupbit"),
+    })
+
+    from importlib import import_module
+    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+
+    monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
+    monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
+
+    ml.run()
+    after = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    assert after[0]["buy_count"] == 1
+
+
 def test_existing_sell_list_preserved(tmp_path, monkeypatch):
     cfg = tmp_path
     (cfg / "f5_f1_monitoring_list.json").write_text(
