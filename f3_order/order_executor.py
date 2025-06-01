@@ -150,14 +150,7 @@ class OrderExecutor:
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
-                if (
-                    hasattr(self.position_manager, "positions")
-                    and any(
-                        p.get("symbol") == symbol
-                        and p.get("status") in ("open", "pending")
-                        for p in self.position_manager.positions
-                    )
-                ):
+                if self.position_manager.has_position(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
                 max_retry = int(self.config.get("MAX_RETRY", 3))
