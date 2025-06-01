@@ -285,6 +285,10 @@ class PositionManager:
             entry = pos.get("entry_price", cur_price)
             pos["max_price"] = max(pos.get("max_price", cur_price), cur_price)
             pos["min_price"] = min(pos.get("min_price", cur_price), cur_price)
+            from .utils import tick_size
+
+            tick = tick_size(entry)
+            change_tick = int((cur_price - entry) / tick)
             change_pct = (cur_price - entry) / entry * 100
 
             hold_secs = self.config.get("HOLD_SECS", 0)
@@ -292,10 +296,14 @@ class PositionManager:
 
             tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
             sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
-            if change_pct >= tp:
+
+            tp_tick = int(entry * tp / 100 / tick)
+            sl_tick = int(entry * abs(sl) / 100 / tick)
+
+            if change_tick >= tp_tick:
                 # take-profit order will execute automatically
                 pass
-            elif change_pct <= -abs(sl):
+            elif change_tick <= -sl_tick:
                 self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:

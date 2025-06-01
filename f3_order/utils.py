@@ -72,24 +72,27 @@ def log_with_tag(logger, msg):
 
 def apply_tick_size(price: float) -> float:
     """Return ``price`` adjusted to Upbit's KRW tick size."""
+    tick = tick_size(price)
+    return round(price / tick) * tick
+
+
+def tick_size(price: float) -> float:
+    """Return the KRW tick size for ``price``."""
 
     if price < 10:
-        tick = 0.01
-    elif price < 100:
-        tick = 0.1
-    elif price < 1000:
-        tick = 1
-    elif price < 10000:
-        tick = 5
-    elif price < 100000:
-        tick = 10
-    elif price < 500000:
-        tick = 50
-    elif price < 1000000:
-        tick = 100
-    elif price < 2000000:
-        tick = 500
-    else:
-        tick = 1000
-
-    return round(price / tick) * tick
+        return 0.01
+    if price < 100:
+        return 0.1
+    if price < 1000:
+        return 1
+    if price < 10000:
+        return 5
+    if price < 100000:
+        return 10
+    if price < 500000:
+        return 50
+    if price < 1000000:
+        return 100
+    if price < 2000000:
+        return 500
+    return 1000
