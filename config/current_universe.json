@@ -1,10 +1,5 @@
 [
-  "KRW-RENDER",
-  "KRW-TAIKO",
   "KRW-TIA",
-  "KRW-GAS",
-  "KRW-THETA",
-  "KRW-ORCA",
-  "KRW-MNT",
-  "KRW-WCT"
+  "KRW-RENDER",
+  "KRW-GAS"
 ]
