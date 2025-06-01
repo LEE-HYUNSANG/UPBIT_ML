@@ -285,9 +285,9 @@ class PositionManager:
                 self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:
-                if pos.get("avg_price") and pos["avg_price"] < cur_price:
+                if pos.get("avg_price") and pos["avg_price"] > cur_price:
                     self.cancel_tp_order(pos.get("symbol"))
-                elif pos.get("avg_price") and pos["avg_price"] >= cur_price:
+                elif pos.get("avg_price") and pos["avg_price"] <= cur_price:
                     if pos.get("symbol") not in self.tp_orders:
                         self.place_tp_order(pos)
 
