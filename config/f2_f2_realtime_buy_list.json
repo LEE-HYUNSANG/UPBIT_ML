@@ -1,13 +1,5 @@
 [
   {
-    "symbol": "KRW-SUI",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
     "symbol": "KRW-TIA",
     "ml_signal": 0,
     "rsi_sel": 0,
@@ -16,16 +8,8 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-THETA",
+    "symbol": "KRW-SUI",
     "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 0
-  },
-  {
-    "symbol": "KRW-RENDER",
-    "ml_signal": 1,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
@@ -48,15 +32,31 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-ME",
+    "symbol": "KRW-ZRO",
     "ml_signal": 0,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   },
   {
-    "symbol": "KRW-ZRO",
+    "symbol": "KRW-ME",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-RENDER",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-THETA",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
@@ -66,7 +66,7 @@
   {
     "symbol": "KRW-ORCA",
     "ml_signal": 0,
-    "rsi_sel": 0,
+    "rsi_sel": 1,
     "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0

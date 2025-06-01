@@ -1,22 +1,12 @@
 [
   {
-    "symbol": "KRW-SUI",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.003
-  },
-  {
     "symbol": "KRW-TIA",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-THETA",
-    "thresh_pct": 0.004,
-    "loss_pct": 0.003
-  },
-  {
-    "symbol": "KRW-RENDER",
-    "thresh_pct": 0.004,
+    "symbol": "KRW-SUI",
+    "thresh_pct": 0.003,
     "loss_pct": 0.003
   },
   {
@@ -30,12 +20,22 @@
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-ME",
+    "symbol": "KRW-ZRO",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },
   {
-    "symbol": "KRW-ZRO",
+    "symbol": "KRW-ME",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-RENDER",
+    "thresh_pct": 0.004,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-THETA",
     "thresh_pct": 0.004,
     "loss_pct": 0.003
   },

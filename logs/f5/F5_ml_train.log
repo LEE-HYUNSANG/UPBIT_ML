@@ -1,0 +1,795 @@
+2025-06-01 10:29:22,190 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:29:22,191 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:29:22,314 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:22,333 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:22,352 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:22,369 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:22,388 [F5] [WARNING] KRW-AQT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:22,420 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:23,936 [F5] [INFO] [TRAIN] KRW-ARKM saved model KRW-ARKM_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:24,004 [F5] [INFO] [TRAIN] KRW-ARK saved model KRW-ARK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:24,032 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,056 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,080 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,142 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 0.16666666666666666 (label=2 0건)
+2025-06-01 10:29:24,207 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:24,232 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,257 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,283 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,354 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 0.75 (label=2 0건)
+2025-06-01 10:29:24,381 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,447 [F5] [INFO] [TRAIN] KRW-DRIFT saved model KRW-DRIFT_model.pkl and metrics 0.6666666666666666 (label=2 0건)
+2025-06-01 10:29:24,514 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:24,539 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,563 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,586 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,612 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,634 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,650 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,666 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,681 [F5] [WARNING] KRW-KAITO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,741 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 0.7272727272727273 (label=2 0건)
+2025-06-01 10:29:24,808 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.6 (label=2 0건)
+2025-06-01 10:29:24,834 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:24,904 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:25,019 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:29:25,020 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:29:25,041 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.6076388888888888 (label=2 0건)
+2025-06-01 10:29:25,229 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,255 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,281 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,305 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,333 [F5] [WARNING] KRW-AQT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,361 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,382 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.8784722222222222 (label=2 0건)
+2025-06-01 10:29:25,572 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.7937062937062938 (label=2 0건)
+2025-06-01 10:29:25,848 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9825783972125436 (label=2 0건)
+2025-06-01 10:29:25,874 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:25,899 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:26,140 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.9236111111111112 (label=2 0건)
+2025-06-01 10:29:26,376 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.7048611111111112 (label=2 0건)
+2025-06-01 10:29:26,403 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:26,473 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:26,838 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.8780487804878049 (label=2 0건)
+2025-06-01 10:29:26,862 [F5] [WARNING] KRW-PUNDIX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:26,886 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,055 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.8641114982578397 (label=2 0건)
+2025-06-01 10:29:27,181 [F5] [INFO] [TRAIN] KRW-ARKM saved model KRW-ARKM_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:27,247 [F5] [INFO] [TRAIN] KRW-ARK saved model KRW-ARK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:27,266 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.4583333333333333 (label=2 0건)
+2025-06-01 10:29:27,270 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,291 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,295 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,321 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,403 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 0.16666666666666666 (label=2 0건)
+2025-06-01 10:29:27,475 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:27,498 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,523 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,546 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,630 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 0.75 (label=2 0건)
+2025-06-01 10:29:27,655 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,719 [F5] [INFO] [TRAIN] KRW-DRIFT saved model KRW-DRIFT_model.pkl and metrics 0.6666666666666666 (label=2 0건)
+2025-06-01 10:29:27,781 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:27,807 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,833 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,857 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,879 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,908 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,937 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:27,972 [F5] [INFO] [TRAIN] KRW-SUI saved model KRW-SUI_model.pkl and metrics 0.9131944444444444 (label=2 0건)
+2025-06-01 10:29:27,975 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:28,002 [F5] [WARNING] KRW-KAITO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:28,081 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 0.7272727272727273 (label=2 0건)
+2025-06-01 10:29:28,154 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.6 (label=2 0건)
+2025-06-01 10:29:28,178 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:28,257 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:28,293 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.10416666666666667 (label=2 0건)
+2025-06-01 10:29:28,625 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.6076388888888888 (label=2 0건)
+2025-06-01 10:29:29,207 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.7630662020905923 (label=2 0건)
+2025-06-01 10:29:29,708 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.8784722222222222 (label=2 0건)
+2025-06-01 10:29:30,203 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.7937062937062938 (label=2 0건)
+2025-06-01 10:29:30,298 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9442508710801394 (label=2 0건)
+2025-06-01 10:29:30,474 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:30,499 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:30,524 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:30,547 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:30,573 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:30,964 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9825783972125436 (label=2 0건)
+2025-06-01 10:29:30,989 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:31,015 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:31,486 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9722222222222222 (label=2 0건)
+2025-06-01 10:29:31,581 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 0.75 (label=2 0건)
+2025-06-01 10:29:31,648 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:31,826 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.9236111111111112 (label=2 0건)
+2025-06-01 10:29:32,142 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.5972222222222222 (label=2 0건)
+2025-06-01 10:29:32,413 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.7048611111111112 (label=2 0건)
+2025-06-01 10:29:32,439 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:32,505 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:29:32,681 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.8888888888888888 (label=2 0건)
+2025-06-01 10:29:32,779 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.2 (label=2 0건)
+2025-06-01 10:29:32,807 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:33,688 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.8292682926829268 (label=2 0건)
+2025-06-01 10:29:33,715 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.8780487804878049 (label=2 0건)
+2025-06-01 10:29:33,741 [F5] [WARNING] KRW-PUNDIX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:33,767 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:34,165 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.8641114982578397 (label=2 0건)
+2025-06-01 10:29:34,510 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.4583333333333333 (label=2 0건)
+2025-06-01 10:29:34,535 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:34,660 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9825783972125436 (label=2 0건)
+2025-06-01 10:29:34,952 [F5] [INFO] [TRAIN] KRW-SUI saved model KRW-SUI_model.pkl and metrics 0.9131944444444444 (label=2 0건)
+2025-06-01 10:29:35,091 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.10416666666666667 (label=2 0건)
+2025-06-01 10:29:35,406 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.7630662020905923 (label=2 0건)
+2025-06-01 10:29:35,757 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9442508710801394 (label=2 0건)
+2025-06-01 10:29:35,907 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:35,935 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:35,964 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:35,993 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:36,017 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:36,356 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9722222222222222 (label=2 0건)
+2025-06-01 10:29:36,441 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 0.75 (label=2 0건)
+2025-06-01 10:29:36,505 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:29:36,690 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.5972222222222222 (label=2 0건)
+2025-06-01 10:29:36,869 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.8888888888888888 (label=2 0건)
+2025-06-01 10:29:36,938 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.2 (label=2 0건)
+2025-06-01 10:29:36,967 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:29:37,309 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.8292682926829268 (label=2 0건)
+2025-06-01 10:29:37,827 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9825783972125436 (label=2 0건)
+2025-06-01 10:35:11,157 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:35:11,157 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:35:11,282 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,301 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,318 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,336 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,597 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:35:11,598 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:35:11,715 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,736 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,752 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:11,768 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,326 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,327 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,348 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,349 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,469 [F5] [INFO] [TRAIN] KRW-ARKM saved model KRW-ARKM_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,473 [F5] [INFO] [TRAIN] KRW-ARKM saved model KRW-ARKM_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,715 [F5] [INFO] [TRAIN] KRW-ARK saved model KRW-ARK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,722 [F5] [INFO] [TRAIN] KRW-ARK saved model KRW-ARK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:14,739 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,748 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,763 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,771 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,786 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:14,796 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,115 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,149 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,543 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,569 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,593 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,611 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,617 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,636 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,663 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,686 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,855 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,880 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,904 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,946 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:15,971 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:15,995 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,524 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:16,551 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,579 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,605 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,632 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,646 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:16,660 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,674 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,689 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,702 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,716 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,730 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,755 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,780 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,805 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,832 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:16,909 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:17,095 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:17,463 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:17,606 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:17,869 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:17,897 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:18,019 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:18,046 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:18,337 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:18,478 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:18,738 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5069444444444444 (label=2 0건)
+2025-06-01 10:35:18,844 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5069444444444444 (label=2 0건)
+2025-06-01 10:35:19,405 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9686411149825784 (label=2 0건)
+2025-06-01 10:35:19,521 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9686411149825784 (label=2 0건)
+2025-06-01 10:35:19,848 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.8146853146853147 (label=2 0건)
+2025-06-01 10:35:19,962 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.8146853146853147 (label=2 0건)
+2025-06-01 10:35:20,466 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9825174825174825 (label=2 0건)
+2025-06-01 10:35:20,492 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:20,516 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:20,591 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9825174825174825 (label=2 0건)
+2025-06-01 10:35:20,615 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:20,640 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:21,416 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.9097222222222222 (label=2 0건)
+2025-06-01 10:35:21,564 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.9097222222222222 (label=2 0건)
+2025-06-01 10:35:22,469 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.9131944444444444 (label=2 0건)
+2025-06-01 10:35:22,498 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:22,620 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.9131944444444444 (label=2 0건)
+2025-06-01 10:35:22,647 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:22,862 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:23,028 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:24,066 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.9722222222222222 (label=2 0건)
+2025-06-01 10:35:24,269 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.9722222222222222 (label=2 0건)
+2025-06-01 10:35:24,401 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:24,428 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:24,568 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:24,595 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:25,810 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.8784722222222222 (label=2 0건)
+2025-06-01 10:35:25,964 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.8784722222222222 (label=2 0건)
+2025-06-01 10:35:26,165 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5972222222222222 (label=2 0건)
+2025-06-01 10:35:26,191 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:26,216 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:26,310 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5972222222222222 (label=2 0건)
+2025-06-01 10:35:26,337 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:26,362 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:26,747 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.8055555555555556 (label=2 0건)
+2025-06-01 10:35:26,895 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.8055555555555556 (label=2 0건)
+2025-06-01 10:35:27,423 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:35:27,572 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:35:28,030 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9581881533101045 (label=2 0건)
+2025-06-01 10:35:28,179 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9581881533101045 (label=2 0건)
+2025-06-01 10:35:28,326 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:28,350 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,376 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,399 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,428 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,481 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:28,508 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,535 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,560 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,591 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:28,960 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:35:29,298 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:35:29,513 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:29,623 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.9375 (label=2 0건)
+2025-06-01 10:35:29,830 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:29,942 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.9375 (label=2 0건)
+2025-06-01 10:35:30,152 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9405594405594405 (label=2 0건)
+2025-06-01 10:35:30,489 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9405594405594405 (label=2 0건)
+2025-06-01 10:35:30,866 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9059233449477352 (label=2 0건)
+2025-06-01 10:35:31,196 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:31,205 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9059233449477352 (label=2 0건)
+2025-06-01 10:35:31,223 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:31,567 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:35:31,596 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:35:32,096 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9583333333333334 (label=2 0건)
+2025-06-01 10:35:32,455 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9583333333333334 (label=2 0건)
+2025-06-01 10:35:32,735 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:35:32,922 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:41:06,269 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:41:06,270 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:41:06,354 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:41:06,355 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:41:06,371 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,388 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,404 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,420 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,459 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,476 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,493 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:06,511 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,376 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7222222222222222 (label=2 0건)
+2025-06-01 10:41:09,378 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7222222222222222 (label=2 0건)
+2025-06-01 10:41:09,398 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,400 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,421 [F5] [WARNING] KRW-ARKM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,423 [F5] [WARNING] KRW-ARKM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,505 [F5] [INFO] [TRAIN] KRW-ARK saved model KRW-ARK_model.pkl and metrics 0.7727272727272727 (label=2 0건)
+2025-06-01 10:41:09,531 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,531 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,551 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,552 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,571 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,571 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:09,937 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:09,940 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:10,083 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8888888888888888 (label=2 0건)
+2025-06-01 10:41:10,083 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8888888888888888 (label=2 0건)
+2025-06-01 10:41:10,109 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,109 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,134 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,134 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,156 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,157 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,357 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:10,364 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:10,382 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,389 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,405 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,412 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,544 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.96 (label=2 0건)
+2025-06-01 10:41:10,551 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.96 (label=2 0건)
+2025-06-01 10:41:10,566 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,574 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,590 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,596 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,612 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,617 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,634 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,640 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,656 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,666 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,673 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,683 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,690 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,698 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,769 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.9411764705882353 (label=2 0건)
+2025-06-01 10:41:10,789 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.9411764705882353 (label=2 0건)
+2025-06-01 10:41:10,791 [F5] [WARNING] KRW-KAVA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,813 [F5] [WARNING] KRW-KAVA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,885 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.8095238095238095 (label=2 0건)
+2025-06-01 10:41:10,906 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.8095238095238095 (label=2 0건)
+2025-06-01 10:41:10,907 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:10,930 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:11,297 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:11,316 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:11,675 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5138888888888888 (label=2 0건)
+2025-06-01 10:41:11,695 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5138888888888888 (label=2 0건)
+2025-06-01 10:41:12,329 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9513888888888888 (label=2 0건)
+2025-06-01 10:41:12,385 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9513888888888888 (label=2 0건)
+2025-06-01 10:41:12,732 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.8105263157894737 (label=2 0건)
+2025-06-01 10:41:12,787 [F5] [INFO] [TRAIN] KRW-MNT saved model KRW-MNT_model.pkl and metrics 0.8105263157894737 (label=2 0건)
+2025-06-01 10:41:13,308 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9790940766550522 (label=2 0건)
+2025-06-01 10:41:13,331 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:13,372 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9790940766550522 (label=2 0건)
+2025-06-01 10:41:13,394 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:13,399 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:13,455 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:14,121 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.8993055555555556 (label=2 0건)
+2025-06-01 10:41:14,298 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.8993055555555556 (label=2 0건)
+2025-06-01 10:41:15,109 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.9059233449477352 (label=2 0건)
+2025-06-01 10:41:15,135 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:15,322 [F5] [INFO] [TRAIN] KRW-OM saved model KRW-OM_model.pkl and metrics 0.9059233449477352 (label=2 0건)
+2025-06-01 10:41:15,349 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:15,389 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:15,548 [F5] [INFO] [TRAIN] KRW-ORCA saved model KRW-ORCA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:16,591 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.9616724738675958 (label=2 0건)
+2025-06-01 10:41:16,710 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7619047619047619 (label=2 0건)
+2025-06-01 10:41:16,736 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:16,775 [F5] [INFO] [TRAIN] KRW-PENDLE saved model KRW-PENDLE_model.pkl and metrics 0.9616724738675958 (label=2 0건)
+2025-06-01 10:41:16,910 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7619047619047619 (label=2 0건)
+2025-06-01 10:41:16,937 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:17,986 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9166666666666666 (label=2 0건)
+2025-06-01 10:41:18,158 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9166666666666666 (label=2 0건)
+2025-06-01 10:41:18,385 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5486111111111112 (label=2 0건)
+2025-06-01 10:41:18,410 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:18,435 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:18,568 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5486111111111112 (label=2 0건)
+2025-06-01 10:41:18,591 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:18,614 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:18,967 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7708333333333334 (label=2 0건)
+2025-06-01 10:41:19,153 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7708333333333334 (label=2 0건)
+2025-06-01 10:41:19,571 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:41:19,747 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:41:20,529 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:41:20,743 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:41:20,900 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:20,924 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:20,946 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:20,971 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:20,998 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:21,053 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:21,078 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:21,102 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:21,126 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:21,152 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:21,681 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9444444444444444 (label=2 0건)
+2025-06-01 10:41:21,929 [F5] [INFO] [TRAIN] KRW-UXLINK saved model KRW-UXLINK_model.pkl and metrics 0.9444444444444444 (label=2 0건)
+2025-06-01 10:41:22,199 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:22,291 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7058823529411765 (label=2 0건)
+2025-06-01 10:41:22,497 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:22,588 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7058823529411765 (label=2 0건)
+2025-06-01 10:41:22,827 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9401408450704225 (label=2 0건)
+2025-06-01 10:41:23,129 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9401408450704225 (label=2 0건)
+2025-06-01 10:41:23,449 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9024390243902439 (label=2 0건)
+2025-06-01 10:41:23,810 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:23,812 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9024390243902439 (label=2 0건)
+2025-06-01 10:41:23,838 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:24,154 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:41:24,179 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:41:24,600 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9512195121951219 (label=2 0건)
+2025-06-01 10:41:24,895 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9512195121951219 (label=2 0건)
+2025-06-01 10:41:25,603 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:41:25,794 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:46:58,307 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:46:58,307 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:46:58,369 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:46:58,370 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:46:58,408 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,423 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,437 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,453 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,476 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,491 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,508 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:46:58,524 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,365 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:47:01,376 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:47:01,387 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,401 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,410 [F5] [WARNING] KRW-ARKM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,422 [F5] [WARNING] KRW-ARKM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,430 [F5] [WARNING] KRW-ARK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,443 [F5] [WARNING] KRW-ARK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,451 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,466 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,471 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,488 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,492 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,505 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,511 [F5] [WARNING] KRW-BERA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,520 [F5] [WARNING] KRW-BERA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,632 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8947368421052632 (label=2 0건)
+2025-06-01 10:47:01,655 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,668 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8947368421052632 (label=2 0건)
+2025-06-01 10:47:01,682 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,689 [F5] [WARNING] KRW-CBK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,704 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,711 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,735 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,902 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:47:01,926 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,929 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:47:01,947 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,951 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:01,972 [F5] [WARNING] KRW-DRIFT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,048 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.8076923076923077 (label=2 0건)
+2025-06-01 10:47:02,071 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,073 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 0.8076923076923077 (label=2 0건)
+2025-06-01 10:47:02,095 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,096 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,117 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,118 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,141 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,143 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,166 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,185 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,186 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,200 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,200 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,215 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,259 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.631578947368421 (label=2 0건)
+2025-06-01 10:47:02,283 [F5] [WARNING] KRW-KAVA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,302 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.631578947368421 (label=2 0건)
+2025-06-01 10:47:02,305 [F5] [WARNING] KRW-LAYER 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,325 [F5] [WARNING] KRW-KAVA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,329 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,349 [F5] [WARNING] KRW-LAYER 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,371 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:02,765 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:47:02,810 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:47:03,081 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5138888888888888 (label=2 0건)
+2025-06-01 10:47:03,125 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5138888888888888 (label=2 0건)
+2025-06-01 10:47:03,657 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:47:03,678 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:03,707 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:47:03,730 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,229 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9790209790209791 (label=2 0건)
+2025-06-01 10:47:04,256 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,277 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9790209790209791 (label=2 0건)
+2025-06-01 10:47:04,283 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,302 [F5] [WARNING] KRW-NEAR 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,327 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,344 [F5] [WARNING] KRW-NXPC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,369 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,386 [F5] [WARNING] KRW-NXPC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,399 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,414 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,427 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,436 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,446 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,455 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,474 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,520 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7272727272727273 (label=2 0건)
+2025-06-01 10:47:04,545 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:04,574 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7272727272727273 (label=2 0건)
+2025-06-01 10:47:04,596 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:05,776 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9375 (label=2 0건)
+2025-06-01 10:47:05,844 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9375 (label=2 0건)
+2025-06-01 10:47:06,118 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5104166666666666 (label=2 0건)
+2025-06-01 10:47:06,141 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:06,164 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:06,184 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5104166666666666 (label=2 0건)
+2025-06-01 10:47:06,206 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:06,228 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:06,483 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7708333333333334 (label=2 0건)
+2025-06-01 10:47:06,549 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7708333333333334 (label=2 0건)
+2025-06-01 10:47:07,133 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:47:07,201 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:47:08,109 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:47:08,123 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:47:08,207 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.7241379310344828 (label=2 0건)
+2025-06-01 10:47:08,223 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.7241379310344828 (label=2 0건)
+2025-06-01 10:47:08,231 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,246 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,253 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,269 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,280 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,298 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,310 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,327 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,332 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,346 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,348 [F5] [WARNING] KRW-VANA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,362 [F5] [WARNING] KRW-VANA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:08,413 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7222222222222222 (label=2 0건)
+2025-06-01 10:47:08,449 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7222222222222222 (label=2 0건)
+2025-06-01 10:47:09,191 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9024390243902439 (label=2 0건)
+2025-06-01 10:47:09,227 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.9024390243902439 (label=2 0건)
+2025-06-01 10:47:09,766 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.8954703832752613 (label=2 0건)
+2025-06-01 10:47:09,806 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.8954703832752613 (label=2 0건)
+2025-06-01 10:47:09,899 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.8636363636363636 (label=2 0건)
+2025-06-01 10:47:09,924 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:09,934 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.8636363636363636 (label=2 0건)
+2025-06-01 10:47:09,963 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:47:10,598 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9305555555555556 (label=2 0건)
+2025-06-01 10:47:10,629 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9305555555555556 (label=2 0건)
+2025-06-01 10:47:11,248 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9790209790209791 (label=2 0건)
+2025-06-01 10:47:11,275 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9790209790209791 (label=2 0건)
+2025-06-01 10:52:43,888 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:52:43,888 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:52:43,889 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:52:43,889 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:52:43,942 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:43,942 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:43,957 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:43,957 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:43,971 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:43,972 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:44,039 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:44,039 [F5] [WARNING] KRW-APT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,011 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:52:47,011 [F5] [INFO] [TRAIN] KRW-AQT saved model KRW-AQT_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:52:47,032 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,032 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,053 [F5] [WARNING] KRW-ARKM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,075 [F5] [WARNING] KRW-ARK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,098 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,098 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,118 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,119 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,133 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,136 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,186 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:52:47,189 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:52:47,327 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8 (label=2 0건)
+2025-06-01 10:52:47,329 [F5] [INFO] [TRAIN] KRW-CARV saved model KRW-CARV_model.pkl and metrics 0.8 (label=2 0건)
+2025-06-01 10:52:47,505 [F5] [INFO] [TRAIN] KRW-CBK saved model KRW-CBK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:47,506 [F5] [INFO] [TRAIN] KRW-CBK saved model KRW-CBK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:47,532 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,555 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,557 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,773 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:47,774 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:47,796 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,796 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,860 [F5] [INFO] [TRAIN] KRW-DRIFT saved model KRW-DRIFT_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:52:47,885 [F5] [WARNING] KRW-EOS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,910 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,911 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,935 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,935 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,958 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,959 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,977 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,978 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,994 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:47,994 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:48,011 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:48,027 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:48,027 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:48,097 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.4 (label=2 0건)
+2025-06-01 10:52:48,098 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.4 (label=2 0건)
+2025-06-01 10:52:48,162 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:48,162 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:48,231 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:52:48,231 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:52:48,254 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:48,689 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:48,706 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:49,064 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5451388888888888 (label=2 0건)
+2025-06-01 10:52:49,075 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.5451388888888888 (label=2 0건)
+2025-06-01 10:52:49,643 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9616724738675958 (label=2 0건)
+2025-06-01 10:52:49,650 [F5] [INFO] [TRAIN] KRW-ME saved model KRW-ME_model.pkl and metrics 0.9616724738675958 (label=2 0건)
+2025-06-01 10:52:49,667 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:49,677 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,224 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9789473684210527 (label=2 0건)
+2025-06-01 10:52:50,234 [F5] [INFO] [TRAIN] KRW-MTL saved model KRW-MTL_model.pkl and metrics 0.9789473684210527 (label=2 0건)
+2025-06-01 10:52:50,294 [F5] [INFO] [TRAIN] KRW-NEAR saved model KRW-NEAR_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:50,306 [F5] [INFO] [TRAIN] KRW-NEAR saved model KRW-NEAR_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:50,321 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,332 [F5] [WARNING] KRW-NEO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,423 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:50,431 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:50,449 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,458 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,473 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,482 [F5] [WARNING] KRW-ONDO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,497 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,506 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,522 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,530 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,608 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7391304347826086 (label=2 0건)
+2025-06-01 10:52:50,631 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:50,633 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.7391304347826086 (label=2 0건)
+2025-06-01 10:52:50,658 [F5] [WARNING] KRW-QTUM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:52,064 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9407665505226481 (label=2 0건)
+2025-06-01 10:52:52,126 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9407665505226481 (label=2 0건)
+2025-06-01 10:52:52,520 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5763888888888888 (label=2 0건)
+2025-06-01 10:52:52,543 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:52,582 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5763888888888888 (label=2 0건)
+2025-06-01 10:52:52,606 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:52,611 [F5] [INFO] [TRAIN] KRW-SUI saved model KRW-SUI_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:52,671 [F5] [INFO] [TRAIN] KRW-SUI saved model KRW-SUI_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:53,050 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7916666666666666 (label=2 0건)
+2025-06-01 10:52:53,087 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7916666666666666 (label=2 0건)
+2025-06-01 10:52:53,746 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:52:53,773 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9547038327526133 (label=2 0건)
+2025-06-01 10:52:54,554 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.975609756097561 (label=2 0건)
+2025-06-01 10:52:54,587 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.975609756097561 (label=2 0건)
+2025-06-01 10:52:54,659 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.6 (label=2 0건)
+2025-06-01 10:52:54,686 [F5] [WARNING] KRW-TRUMP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,689 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.6 (label=2 0건)
+2025-06-01 10:52:54,713 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+
+2025-06-01 10:52:54,747 [F5] [WARNING] KRW-UNI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,748 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,774 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,778 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,802 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,802 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,822 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:54,866 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:54,891 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:52:54,975 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:52:54,999 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.7368421052631579 (label=2 0건)
+2025-06-01 10:52:55,675 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.89198606271777 (label=2 0건)
+2025-06-01 10:52:55,704 [F5] [INFO] [TRAIN] KRW-WAL saved model KRW-WAL_model.pkl and metrics 0.89198606271777 (label=2 0건)
+2025-06-01 10:52:56,323 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9094076655052264 (label=2 0건)
+2025-06-01 10:52:56,359 [F5] [INFO] [TRAIN] KRW-WAVES saved model KRW-WAVES_model.pkl and metrics 0.9094076655052264 (label=2 0건)
+2025-06-01 10:52:56,448 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.782608695652174 (label=2 0건)
+2025-06-01 10:52:56,472 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:56,489 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.782608695652174 (label=2 0건)
+2025-06-01 10:52:56,515 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:52:57,056 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9265734265734266 (label=2 0건)
+2025-06-01 10:52:57,104 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9265734265734266 (label=2 0건)
+2025-06-01 10:52:57,738 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:52:57,794 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:58:31,582 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:58:31,582 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:58:31,585 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-01 10:58:31,585 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\06_models
+2025-06-01 10:58:31,697 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:31,697 [F5] [WARNING] KRW-ADA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:31,712 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:31,713 [F5] [WARNING] KRW-AGLD 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:31,727 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:31,728 [F5] [WARNING] KRW-AKT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,602 [F5] [INFO] [TRAIN] KRW-APT saved model KRW-APT_model.pkl and metrics 0.5263157894736842 (label=2 0건)
+2025-06-01 10:58:34,605 [F5] [INFO] [TRAIN] KRW-APT saved model KRW-APT_model.pkl and metrics 0.5263157894736842 (label=2 0건)
+2025-06-01 10:58:34,622 [F5] [WARNING] KRW-AQT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,623 [F5] [WARNING] KRW-AQT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,646 [F5] [WARNING] KRW-ARB 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,714 [F5] [INFO] [TRAIN] KRW-ARKM saved model KRW-ARKM_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:34,739 [F5] [WARNING] KRW-ARK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,739 [F5] [WARNING] KRW-ARK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,764 [F5] [WARNING] KRW-ATOM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,787 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,787 [F5] [WARNING] KRW-AUCTION 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,810 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,810 [F5] [WARNING] KRW-AXS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:34,869 [F5] [INFO] [TRAIN] KRW-BERA saved model KRW-BERA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:34,893 [F5] [WARNING] KRW-CARV 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,012 [F5] [INFO] [TRAIN] KRW-CBK saved model KRW-CBK_model.pkl and metrics 0.9523809523809523 (label=2 0건)
+2025-06-01 10:58:35,037 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,038 [F5] [WARNING] KRW-CELO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,062 [F5] [WARNING] KRW-COW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,282 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:35,283 [F5] [INFO] [TRAIN] KRW-CTC saved model KRW-CTC_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:35,308 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,309 [F5] [WARNING] KRW-DOT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,382 [F5] [INFO] [TRAIN] KRW-DRIFT saved model KRW-DRIFT_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:35,453 [F5] [INFO] [TRAIN] KRW-EOS saved model KRW-EOS_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:35,479 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,479 [F5] [WARNING] KRW-FIL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,505 [F5] [WARNING] KRW-FLOW 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,536 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,536 [F5] [WARNING] KRW-GAS 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,560 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,561 [F5] [WARNING] KRW-IMX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,579 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,579 [F5] [WARNING] KRW-INJ 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,596 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,596 [F5] [WARNING] KRW-JTO 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,613 [F5] [WARNING] KRW-JUP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,689 [F5] [INFO] [TRAIN] KRW-KAITO saved model KRW-KAITO_model.pkl and metrics 0.3333333333333333 (label=2 0건)
+2025-06-01 10:58:35,763 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:35,763 [F5] [INFO] [TRAIN] KRW-KAVA saved model KRW-KAVA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:35,832 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:35,832 [F5] [INFO] [TRAIN] KRW-LAYER saved model KRW-LAYER_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:35,857 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:35,858 [F5] [WARNING] KRW-LINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,364 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:36,386 [F5] [INFO] [TRAIN] KRW-LSK saved model KRW-LSK_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:36,751 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.6354166666666666 (label=2 0건)
+2025-06-01 10:58:36,771 [F5] [INFO] [TRAIN] KRW-MASK saved model KRW-MASK_model.pkl and metrics 0.6354166666666666 (label=2 0건)
+2025-06-01 10:58:36,777 [F5] [WARNING] KRW-ME 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,798 [F5] [WARNING] KRW-ME 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,806 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,826 [F5] [WARNING] KRW-MNT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,832 [F5] [WARNING] KRW-MTL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,852 [F5] [WARNING] KRW-MTL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:36,903 [F5] [INFO] [TRAIN] KRW-NEAR saved model KRW-NEAR_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:36,926 [F5] [INFO] [TRAIN] KRW-NEAR saved model KRW-NEAR_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:37,053 [F5] [INFO] [TRAIN] KRW-NEO saved model KRW-NEO_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:37,078 [F5] [INFO] [TRAIN] KRW-NEO saved model KRW-NEO_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:37,154 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:37,180 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,184 [F5] [INFO] [TRAIN] KRW-NXPC saved model KRW-NXPC_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:37,208 [F5] [WARNING] KRW-OM 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,281 [F5] [INFO] [TRAIN] KRW-ONDO saved model KRW-ONDO_model.pkl and metrics 0.6666666666666666 (label=2 0건)
+2025-06-01 10:58:37,306 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,313 [F5] [INFO] [TRAIN] KRW-ONDO saved model KRW-ONDO_model.pkl and metrics 0.6666666666666666 (label=2 0건)
+2025-06-01 10:58:37,334 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,340 [F5] [WARNING] KRW-ORCA 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,367 [F5] [WARNING] KRW-PENDLE 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:37,434 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.625 (label=2 0건)
+2025-06-01 10:58:37,464 [F5] [INFO] [TRAIN] KRW-PUNDIX saved model KRW-PUNDIX_model.pkl and metrics 0.625 (label=2 0건)
+2025-06-01 10:58:37,669 [F5] [INFO] [TRAIN] KRW-QTUM saved model KRW-QTUM_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:37,726 [F5] [INFO] [TRAIN] KRW-QTUM saved model KRW-QTUM_model.pkl and metrics 1.0 (label=2 0건)
+2025-06-01 10:58:38,851 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9442508710801394 (label=2 0건)
+2025-06-01 10:58:38,901 [F5] [INFO] [TRAIN] KRW-RENDER saved model KRW-RENDER_model.pkl and metrics 0.9442508710801394 (label=2 0건)
+2025-06-01 10:58:39,264 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5347222222222222 (label=2 0건)
+2025-06-01 10:58:39,288 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:39,309 [F5] [INFO] [TRAIN] KRW-SAFE saved model KRW-SAFE_model.pkl and metrics 0.5347222222222222 (label=2 0건)
+2025-06-01 10:58:39,311 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:39,335 [F5] [WARNING] KRW-STX 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:39,361 [F5] [WARNING] KRW-SUI 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:39,715 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7569444444444444 (label=2 0건)
+2025-06-01 10:58:39,763 [F5] [INFO] [TRAIN] KRW-TAIKO saved model KRW-TAIKO_model.pkl and metrics 0.7569444444444444 (label=2 0건)
+2025-06-01 10:58:40,389 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:58:40,437 [F5] [INFO] [TRAIN] KRW-THETA saved model KRW-THETA_model.pkl and metrics 0.9548611111111112 (label=2 0건)
+2025-06-01 10:58:41,117 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.975609756097561 (label=2 0건)
+2025-06-01 10:58:41,152 [F5] [INFO] [TRAIN] KRW-TIA saved model KRW-TIA_model.pkl and metrics 0.975609756097561 (label=2 0건)
+2025-06-01 10:58:41,216 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.45161290322580644 (label=2 0건)
+2025-06-01 10:58:41,253 [F5] [INFO] [TRAIN] KRW-TOKAMAK saved model KRW-TOKAMAK_model.pkl and metrics 0.45161290322580644 (label=2 0건)
+2025-06-01 10:58:41,329 [F5] [INFO] [TRAIN] KRW-TRUMP saved model KRW-TRUMP_model.pkl and metrics 0.7142857142857143 (label=2 0건)
+2025-06-01 10:58:41,363 [F5] [INFO] [TRAIN] KRW-TRUMP saved model KRW-TRUMP_model.pkl and metrics 0.7142857142857143 (label=2 0건)
+2025-06-01 10:58:41,435 [F5] [INFO] [TRAIN] KRW-UNI saved model KRW-UNI_model.pkl and metrics 0.45 (label=2 0건)
+2025-06-01 10:58:41,463 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,469 [F5] [INFO] [TRAIN] KRW-UNI saved model KRW-UNI_model.pkl and metrics 0.45 (label=2 0건)
+2025-06-01 10:58:41,494 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,497 [F5] [WARNING] KRW-USDC 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,520 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,525 [F5] [WARNING] KRW-USDT 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,549 [F5] [WARNING] KRW-UXLINK 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,592 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:41,619 [F5] [INFO] [TRAIN] KRW-VANA saved model KRW-VANA_model.pkl and metrics 0.0 (label=2 0건)
+2025-06-01 10:58:41,802 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.95 (label=2 0건)
+2025-06-01 10:58:41,825 [F5] [WARNING] KRW-WAL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,828 [F5] [INFO] [TRAIN] KRW-VIRTUAL saved model KRW-VIRTUAL_model.pkl and metrics 0.95 (label=2 0건)
+2025-06-01 10:58:41,852 [F5] [WARNING] KRW-WAVES 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,855 [F5] [WARNING] KRW-WAL 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,879 [F5] [WARNING] KRW-WAVES 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,959 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.7083333333333334 (label=2 0건)
+2025-06-01 10:58:41,982 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:41,984 [F5] [INFO] [TRAIN] KRW-WCT saved model KRW-WCT_model.pkl and metrics 0.7083333333333334 (label=2 0건)
+2025-06-01 10:58:42,010 [F5] [WARNING] KRW-XRP 학습 스킵: 라벨이 한 종류뿐입니다.
+2025-06-01 10:58:42,559 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9270833333333334 (label=2 0건)
+2025-06-01 10:58:42,591 [F5] [INFO] [TRAIN] KRW-XTZ saved model KRW-XTZ_model.pkl and metrics 0.9270833333333334 (label=2 0건)
+2025-06-01 10:58:43,280 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)
+2025-06-01 10:58:43,291 [F5] [INFO] [TRAIN] KRW-ZRO saved model KRW-ZRO_model.pkl and metrics 0.9756944444444444 (label=2 0건)

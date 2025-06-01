@@ -1,0 +1,287 @@
+2025-06-01 10:29:04,564 [F3] [F3] OrderExecutor initialized.
+2025-06-01 10:29:07,158 [F3] [F3] OrderExecutor initialized.
+2025-06-01 10:51:28,895 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1141.0}
+2025-06-01 10:51:36,309 [F3] [F3] Pending buy recorded: {'uuid': '8aa6f596-a8b7-499b-b7f6-86ef06c85abb', 'side': 'bid', 'ord_type': 'price', 'price': 1141.0, 'state': 'wait', 'market': 'KRW-ME', 'created_at': '2025-06-01T10:51:36+09:00', 'reserved_fee': '5', 'remaining_fee': '5', 'paid_fee': '0', 'locked': '10005', 'executed_volume': '0', 'trades_count': 0, 'filled': False, 'timestamp': 1748742696.3051145, 'symbol': 'KRW-ME', 'qty': 8.76424189307625, 'order_type': 'market'}
+2025-06-01 10:51:36,455 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4574.0}
+2025-06-01 10:51:36,456 [F3] [F3] No buy signal for KRW-SUI
+2025-06-01 10:51:36,613 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:51:36,614 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:51:36,792 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3211.0}
+2025-06-01 10:51:44,196 [F3] [F3] Pending buy recorded: {'uuid': 'e2164061-6b7c-41ed-b277-e88b4ffe0c05', 'side': 'bid', 'ord_type': 'price', 'price': 3211.0, 'state': 'wait', 'market': 'KRW-ZRO', 'created_at': '2025-06-01T10:51:44+09:00', 'reserved_fee': '5', 'remaining_fee': '5', 'paid_fee': '0', 'locked': '10005', 'executed_volume': '0', 'trades_count': 0, 'filled': False, 'timestamp': 1748742704.1780772, 'symbol': 'KRW-ZRO', 'qty': 3.114294612270321, 'order_type': 'market'}
+2025-06-01 10:51:44,329 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14650.0}
+2025-06-01 10:51:51,619 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6825938566552902, 'price': 14650.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:51:51,780 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 538.9}
+2025-06-01 10:51:51,781 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:51:51,929 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5465.0}
+2025-06-01 10:51:59,219 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.829826166514181, 'price': 5465.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:51:59,380 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1060.0}
+2025-06-01 10:52:06,665 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.433962264150944, 'price': 1060.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:06,818 [F3] [F3] Entry signal received: {'symbol': 'KRW-XTZ', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 800.7}
+2025-06-01 10:52:14,102 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-XTZ', 'side': 'bid', 'qty': 12.489072061945796, 'price': 800.7, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:14,249 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4126.0}
+2025-06-01 10:52:14,250 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:52:16,317 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:52:16,317 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:52:17,337 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4126.0}
+2025-06-01 10:52:17,337 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:52:17,443 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 862.0}
+2025-06-01 10:52:17,444 [F3] [F3] No buy signal for KRW-CTC
+2025-06-01 10:52:18,821 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1144.0}
+2025-06-01 10:52:26,105 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.741258741258742, 'price': 1144.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:26,260 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4573.0}
+2025-06-01 10:52:26,261 [F3] [F3] No buy signal for KRW-SUI
+2025-06-01 10:52:26,406 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:52:26,406 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:52:26,778 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 538.9}
+2025-06-01 10:52:26,778 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:52:27,284 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 862.0}
+2025-06-01 10:52:27,284 [F3] [F3] No buy signal for KRW-CTC
+2025-06-01 10:52:28,672 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1143.0}
+2025-06-01 10:52:35,942 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.748906386701663, 'price': 1143.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:36,094 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4568.0}
+2025-06-01 10:52:36,094 [F3] [F3] No buy signal for KRW-SUI
+2025-06-01 10:52:36,250 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:52:36,251 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:52:36,397 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3209.0}
+2025-06-01 10:52:43,698 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1162355874104084, 'price': 3209.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:43,839 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14650.0}
+2025-06-01 10:52:51,093 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6825938566552902, 'price': 14650.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:51,296 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 538.8}
+2025-06-01 10:52:51,297 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:52:51,453 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5455.0}
+2025-06-01 10:52:58,712 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.833180568285976, 'price': 5455.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:52:58,847 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1060.0}
+2025-06-01 10:53:06,192 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.433962264150944, 'price': 1060.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:06,329 [F3] [F3] Entry signal received: {'symbol': 'KRW-XTZ', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 800.7}
+2025-06-01 10:53:13,586 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-XTZ', 'side': 'bid', 'qty': 12.489072061945796, 'price': 800.7, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:13,757 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4126.0}
+2025-06-01 10:53:13,758 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:53:16,161 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 538.8}
+2025-06-01 10:53:16,163 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:53:16,459 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1141.0}
+2025-06-01 10:53:23,754 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.76424189307625, 'price': 1141.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:23,901 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3209.0}
+2025-06-01 10:53:31,161 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1162355874104084, 'price': 3209.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:31,303 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3969.0}
+2025-06-01 10:53:31,303 [F3] [F3] No buy signal for KRW-ORCA
+2025-06-01 10:53:31,449 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4116.0}
+2025-06-01 10:53:31,449 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:53:31,587 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 862.0}
+2025-06-01 10:53:31,587 [F3] [F3] No buy signal for KRW-CTC
+2025-06-01 10:53:33,032 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4563.0}
+2025-06-01 10:53:33,033 [F3] [F3] No buy signal for KRW-SUI
+2025-06-01 10:53:33,159 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:53:33,159 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:53:33,287 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1060.0}
+2025-06-01 10:53:40,574 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.433962264150944, 'price': 1060.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:40,723 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5449.0}
+2025-06-01 10:53:48,044 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8351991191044228, 'price': 5449.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:48,200 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14620.0}
+2025-06-01 10:53:55,512 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6839945280437757, 'price': 14620.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:53:55,654 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 537.5}
+2025-06-01 10:53:55,654 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:53:55,791 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1140.0}
+2025-06-01 10:54:03,149 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.771929824561404, 'price': 1140.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:03,307 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3196.0}
+2025-06-01 10:54:10,789 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1289111389236544, 'price': 3196.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:11,315 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3974.0}
+2025-06-01 10:54:18,955 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.5163563160543534, 'price': 3974.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:19,084 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4112.0}
+2025-06-01 10:54:26,388 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-GAS', 'side': 'bid', 'qty': 2.431906614785992, 'price': 4112.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:26,498 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 860.7}
+2025-06-01 10:54:26,498 [F3] [F3] No buy signal for KRW-CTC
+2025-06-01 10:54:29,951 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4554.0}
+2025-06-01 10:54:37,304 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.1958717610891525, 'price': 4554.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:37,452 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3101.0}
+2025-06-01 10:54:37,452 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:54:37,587 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1058.0}
+2025-06-01 10:54:44,931 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.45179584120983, 'price': 1058.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:45,093 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5439.0}
+2025-06-01 10:54:52,382 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8385732671446957, 'price': 5439.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:54:52,524 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14580.0}
+2025-06-01 10:54:59,868 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6858710562414266, 'price': 14580.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:00,030 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.0}
+2025-06-01 10:55:07,358 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-UXLINK', 'side': 'bid', 'qty': 18.65671641791045, 'price': 536.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:07,543 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1135.0}
+2025-06-01 10:55:14,813 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.810572687224669, 'price': 1135.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:14,974 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3186.0}
+2025-06-01 10:55:22,269 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.138731952291274, 'price': 3186.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:22,423 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3955.0}
+2025-06-01 10:55:29,764 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.5284450063211126, 'price': 3955.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:29,860 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4101.0}
+2025-06-01 10:55:29,860 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:55:31,194 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4551.0}
+2025-06-01 10:55:38,449 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.197319270490002, 'price': 4551.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:38,603 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:55:38,603 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:55:38,748 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1056.0}
+2025-06-01 10:55:46,028 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.469696969696969, 'price': 1056.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:46,185 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 10:55:53,506 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:55:53,660 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14580.0}
+2025-06-01 10:56:01,002 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6858710562414266, 'price': 14580.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:01,149 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.1}
+2025-06-01 10:56:01,149 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:56:01,287 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1135.0}
+2025-06-01 10:56:08,663 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.810572687224669, 'price': 1135.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:08,828 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3186.0}
+2025-06-01 10:56:16,224 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.138731952291274, 'price': 3186.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:16,485 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3944.0}
+2025-06-01 10:56:23,731 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.535496957403651, 'price': 3944.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:23,833 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 10:56:23,833 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:56:25,131 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4551.0}
+2025-06-01 10:56:32,463 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.197319270490002, 'price': 4551.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:32,612 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:56:32,613 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:56:32,752 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 10:56:40,012 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:40,164 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 10:56:47,408 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:47,548 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14580.0}
+2025-06-01 10:56:54,883 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6858710562414266, 'price': 14580.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:56:55,024 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.1}
+2025-06-01 10:56:55,025 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:56:55,157 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1135.0}
+2025-06-01 10:57:02,514 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.810572687224669, 'price': 1135.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:02,725 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3184.0}
+2025-06-01 10:57:10,051 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.14070351758794, 'price': 3184.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:10,234 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3947.0}
+2025-06-01 10:57:17,679 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.533569799847986, 'price': 3947.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:17,824 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 10:57:17,825 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:57:19,165 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4550.0}
+2025-06-01 10:57:26,544 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.197802197802198, 'price': 4550.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:26,699 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:57:26,699 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:57:26,826 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 10:57:34,045 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:34,197 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 10:57:41,517 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:41,662 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14580.0}
+2025-06-01 10:57:48,970 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6858710562414266, 'price': 14580.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:49,122 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.9}
+2025-06-01 10:57:49,123 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:57:49,270 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1135.0}
+2025-06-01 10:57:56,619 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.810572687224669, 'price': 1135.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:57:56,781 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3185.0}
+2025-06-01 10:58:04,123 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1397174254317113, 'price': 3185.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:04,275 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3960.0}
+2025-06-01 10:58:11,639 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.525252525252525, 'price': 3960.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:11,754 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 10:58:11,755 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:58:13,040 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4551.0}
+2025-06-01 10:58:20,471 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.197319270490002, 'price': 4551.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:20,645 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:58:20,646 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:58:20,987 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 10:58:28,297 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:28,490 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14580.0}
+2025-06-01 10:58:35,788 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6858710562414266, 'price': 14580.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:35,976 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.9}
+2025-06-01 10:58:35,977 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:58:36,148 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1135.0}
+2025-06-01 10:58:43,537 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.810572687224669, 'price': 1135.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:43,712 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3184.0}
+2025-06-01 10:58:51,146 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.14070351758794, 'price': 3184.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:51,359 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3967.0}
+2025-06-01 10:58:58,702 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.5207965717166623, 'price': 3967.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:58:58,844 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4108.0}
+2025-06-01 10:58:58,845 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:59:00,163 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:59:00,163 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:59:00,317 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4550.0}
+2025-06-01 10:59:07,663 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.197802197802198, 'price': 4550.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:07,835 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14600.0}
+2025-06-01 10:59:15,062 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.684931506849315, 'price': 14600.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:15,294 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 537.6}
+2025-06-01 10:59:15,294 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:59:16,249 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4108.0}
+2025-06-01 10:59:16,257 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:59:17,661 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:59:17,662 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:59:18,722 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4108.0}
+2025-06-01 10:59:18,723 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:59:20,065 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:59:20,065 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:59:21,155 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4108.0}
+2025-06-01 10:59:21,155 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 10:59:22,509 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 10:59:22,509 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 10:59:22,686 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4553.0}
+2025-06-01 10:59:29,942 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.1963540522732266, 'price': 4553.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:30,069 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14600.0}
+2025-06-01 10:59:37,354 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.684931506849315, 'price': 14600.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:37,525 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 539.0}
+2025-06-01 10:59:37,525 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 10:59:37,677 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3184.0}
+2025-06-01 10:59:44,952 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.14070351758794, 'price': 3184.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:45,080 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1137.0}
+2025-06-01 10:59:52,394 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.795074758135444, 'price': 1137.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:52,545 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 10:59:59,811 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 10:59:59,957 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 11:00:07,260 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:07,407 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3976.0}
+2025-06-01 11:00:14,702 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.515090543259557, 'price': 3976.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:14,822 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 11:00:14,823 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 11:00:16,219 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 11:00:16,220 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 11:00:17,434 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 11:00:25,043 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:25,177 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 11:00:32,511 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:32,713 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3976.0}
+2025-06-01 11:00:40,059 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.515090543259557, 'price': 3976.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:40,166 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 11:00:40,167 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 11:00:41,470 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 11:00:41,471 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 11:00:41,596 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4558.0}
+2025-06-01 11:00:48,915 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.1939447125932428, 'price': 4558.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:49,065 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14570.0}
+2025-06-01 11:00:56,351 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6863417982155113, 'price': 14570.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:00:56,504 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 537.0}
+2025-06-01 11:00:56,504 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 11:00:56,630 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3193.0}
+2025-06-01 11:01:03,938 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1318509238960224, 'price': 3193.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:04,092 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1139.0}
+2025-06-01 11:01:11,395 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ME', 'side': 'bid', 'qty': 8.779631255487269, 'price': 1139.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:11,533 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5438.0}
+2025-06-01 11:01:18,967 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-RENDER', 'side': 'bid', 'qty': 1.8389113644722324, 'price': 5438.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:19,125 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 11:01:26,396 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:26,545 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3966.0}
+2025-06-01 11:01:33,839 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.5214321734745337, 'price': 3966.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:33,956 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 11:01:33,956 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 11:01:35,245 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 11:01:35,245 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 11:01:35,390 [F3] [F3] Entry signal received: {'symbol': 'KRW-SUI', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4547.0}
+2025-06-01 11:01:42,722 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-SUI', 'side': 'bid', 'qty': 2.1992522542335604, 'price': 4547.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:42,913 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 14570.0}
+2025-06-01 11:01:50,213 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6863417982155113, 'price': 14570.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:50,422 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 537.1}
+2025-06-01 11:01:50,423 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 11:01:50,582 [F3] [F3] Entry signal received: {'symbol': 'KRW-ZRO', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3193.0}
+2025-06-01 11:01:57,871 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ZRO', 'side': 'bid', 'qty': 3.1318509238960224, 'price': 3193.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:01:58,021 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1137.0}
+2025-06-01 11:01:58,022 [F3] [F3] No buy signal for KRW-ME
+2025-06-01 11:01:58,164 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5439.0}
+2025-06-01 11:01:58,164 [F3] [F3] No buy signal for KRW-RENDER
+2025-06-01 11:01:58,296 [F3] [F3] Entry signal received: {'symbol': 'KRW-THETA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1055.0}
+2025-06-01 11:02:05,566 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-THETA', 'side': 'bid', 'qty': 9.47867298578199, 'price': 1055.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:02:05,735 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3968.0}
+2025-06-01 11:02:13,031 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ORCA', 'side': 'bid', 'qty': 2.5201612903225805, 'price': 3968.0, 'order_type': 'market', 'filled': False}
+2025-06-01 11:02:13,138 [F3] [F3] Entry signal received: {'symbol': 'KRW-GAS', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 4100.0}
+2025-06-01 11:02:13,139 [F3] [F3] No buy signal for KRW-GAS
+2025-06-01 11:02:14,464 [F3] [F3] Entry signal received: {'symbol': 'KRW-TIA', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3075.0}
+2025-06-01 11:02:14,464 [F3] [F3] No buy signal for KRW-TIA
+2025-06-01 11:02:14,835 [F3] [F3] Entry signal received: {'symbol': 'KRW-UXLINK', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 536.2}
+2025-06-01 11:02:14,835 [F3] [F3] No buy signal for KRW-UXLINK
+2025-06-01 11:02:17,476 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 1137.0}
+2025-06-01 11:02:17,477 [F3] [F3] No buy signal for KRW-ME
+2025-06-01 11:02:17,605 [F3] [F3] Entry signal received: {'symbol': 'KRW-RENDER', 'buy_signal': False, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 5439.0}
+2025-06-01 11:02:17,605 [F3] [F3] No buy signal for KRW-RENDER
+2025-06-01 11:02:17,833 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'buy_triggers': [], 'sell_triggers': [], 'price': 3968.0}
