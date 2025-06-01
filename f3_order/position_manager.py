@@ -80,6 +80,20 @@ class PositionManager:
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
         self.import_existing_positions()
 
+    def has_position(self, symbol: str) -> bool:
+        """Return True if *symbol* has an open or pending position."""
+        for p in self.positions:
+            if p.get("symbol") == symbol and p.get("status") in ("open", "pending"):
+                return True
+        try:
+            data = _load_json(self.positions_file)
+            return any(
+                p.get("symbol") == symbol and p.get("status") in ("open", "pending")
+                for p in data
+            )
+        except Exception:  # pragma: no cover - best effort
+            return False
+
     def _persist_positions(self) -> None:
         try:
             _save_json(self.positions_file, self.positions)
@@ -285,9 +299,9 @@ class PositionManager:
                 self.cancel_tp_order(pos.get("symbol"))
                 self.execute_sell(pos, "stop_loss")
             else:
-                if pos.get("avg_price") and pos["avg_price"] < cur_price:
+                if pos.get("avg_price") and cur_price < pos["avg_price"]:
                     self.cancel_tp_order(pos.get("symbol"))
-                elif pos.get("avg_price") and pos["avg_price"] >= cur_price:
+                elif pos.get("avg_price") and cur_price >= pos["avg_price"]:
                     if pos.get("symbol") not in self.tp_orders:
                         self.place_tp_order(pos)
 
