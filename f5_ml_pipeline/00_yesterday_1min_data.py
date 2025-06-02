@@ -9,6 +9,7 @@ from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Dict, Iterable, List
+import tempfile
 
 import pandas as pd
 import requests
@@ -121,9 +122,9 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
     return None
 
 
-def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
-    """Save ``df`` under ``DATA_ROOT`` directory."""
-    dir_path = ensure_dir(DATA_ROOT)
+def save_data(df: pd.DataFrame, market: str, ts: datetime, root: Path = DATA_ROOT) -> None:
+    """Save ``df`` under ``root`` directory."""
+    dir_path = ensure_dir(root)
     file_path = dir_path / f"{market}_rawdata.parquet"
 
     if file_path.exists():
@@ -155,19 +156,36 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
 def collect_all(markets: Iterable[str]) -> None:
     """Collect 72h history for all markets."""
     ts = datetime.utcnow()
-    for market in markets:
-        try:
-            df = get_ohlcv_history(market)
-            if not df.empty:
-                save_data(df, market, ts)
-        except Exception as exc:  # pragma: no cover - best effort
-            logging.error("Collect error %s: %s", market, exc)
+    ensure_dir(DATA_ROOT)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_root = Path(tmpdir)
+        success = True
+        for market in markets:
+            try:
+                df = get_ohlcv_history(market)
+                if df.empty:
+                    logging.warning("No data for %s", market)
+                    success = False
+                    break
+                save_data(df, market, ts, root=tmp_root)
+            except Exception as exc:  # pragma: no cover - best effort
+                logging.error("Collect error %s: %s", market, exc)
+                success = False
+                break
+
+        if success:
+            for file in tmp_root.glob("*.parquet"):
+                market = file.stem.replace("_rawdata", "")
+                try:
+                    df = pd.read_parquet(file)
+                    save_data(df, market, ts, root=DATA_ROOT)
+                except Exception as exc:  # pragma: no cover - best effort
+                    logging.error("Finalize error %s: %s", file.name, exc)
 
 
 def main() -> None:
     """Download the last 72 hours of minute data."""
     setup_logger()
-    clear_output_dir(DATA_ROOT)
     markets = load_coin_list()
     if not markets:
         logging.error("No markets to collect")
