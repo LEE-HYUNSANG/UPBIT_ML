@@ -1,6 +1,6 @@
 [
   {
-    "symbol": "KRW-CELO",
+    "symbol": "KRW-LAYER",
     "ml_signal": 0,
     "rsi_sel": 1,
     "trend_sel": 0,
@@ -8,10 +8,74 @@
     "buy_count": 0
   },
   {
-    "symbol": "KRW-IMX",
+    "symbol": "KRW-CBK",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-TAIKO",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-TRUMP",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-INJ",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-ME",
     "ml_signal": 0,
     "rsi_sel": 1,
     "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-JUP",
+    "ml_signal": 1,
+    "rsi_sel": 1,
+    "trend_sel": 1,
+    "buy_signal": 1,
+    "buy_count": 1
+  },
+  {
+    "symbol": "KRW-DRIFT",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-ARK",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-NXPC",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0
   }
