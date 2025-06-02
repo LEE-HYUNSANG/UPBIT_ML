@@ -70,6 +70,36 @@ def test_execute_sell_sends_two_alerts(tmp_path, monkeypatch):
     assert "매도" in calls[1]
 
 
+def test_execute_sell_wait_does_not_close(tmp_path, monkeypatch):
+    class WaitClient:
+        def place_order(self, *args, **kwargs):
+            return {
+                "uuid": "2",
+                "state": "wait",
+                "side": kwargs.get("side"),
+                "volume": kwargs.get("volume"),
+                "price": kwargs.get("price"),
+            }
+
+        def get_accounts(self):
+            return []
+
+        def ticker(self, markets):
+            return [{"market": m, "trade_price": 100.0} for m in markets]
+
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: WaitClient())
+    pm = make_pm(tmp_path)
+    calls = []
+    pm.exception_handler.send_alert = lambda m, s="info", *a: calls.append(m)
+    order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
+    pm.open_position(order)
+    pm.positions[0]["current_price"] = 101.0
+    pm.execute_sell(pm.positions[0], "take_profit")
+    assert pm.positions[0]["status"] == "open"
+    assert len(calls) == 1
+    assert "매도 시도" in calls[0]
+
+
 def test_slippage_handling(tmp_path, monkeypatch):
     pm = make_pm(tmp_path, monkeypatch)
     order = {"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0}
