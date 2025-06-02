@@ -111,15 +111,15 @@ class PositionManager:
             초기 포지션 상태. 기본값은 ``"open"`` 이며 미체결 주문을
             추적할 때는 ``"pending"`` 을 사용할 수 있다.
         """
-        price = order_result.get("price")
+        entry_price = order_result.get("entry_price", order_result.get("price"))
         qty = order_result.get("qty")
-        if price is None or qty is None:
+        if entry_price is None or qty is None:
             log_with_tag(logger, f"Invalid order result, skipping position: {order_result}")
             return
         pos = {
             "symbol": order_result["symbol"],
             "entry_time": now(),
-            "entry_price": price,
+            "entry_price": entry_price,
             "qty": qty,
             "pyramid_count": 0,
             "avgdown_count": 0,
