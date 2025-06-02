@@ -250,3 +250,40 @@ def test_tp_kept_when_price_below_entry(tmp_path, monkeypatch):
     pos["current_price"] = 99.5
     pm.hold_loop()
     assert pm.client.cancelled == ["tp"]
+
+
+def test_sell_removes_sell_list_entry(tmp_path, monkeypatch):
+    class DummyClient:
+        def place_order(self, *args, **kwargs):
+            return {"uuid": "1", "state": "done", "side": kwargs.get("side")}
+
+        def get_accounts(self):
+            return []
+
+        def ticker(self, markets):
+            return []
+
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
+    sell_cfg = tmp_path / "sell.json"
+    with open(sell_cfg, "w", encoding="utf-8") as f:
+        json.dump({"KRW-BTC": {"TP_PCT": 1.0, "SL_PCT": 1.0}}, f)
+    pm = PositionManager(
+        {
+            "DB_PATH": os.path.join(tmp_path, "orders.db"),
+            "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+            "SELL_LIST_PATH": str(sell_cfg),
+            "TP_PCT": 1.0,
+            "SL_PCT": 1.0,
+            "PYR_ENABLED": False,
+            "AVG_ENABLED": False,
+        },
+        KPIGuard({}),
+        ExceptionHandler({"SLIP_MAX": 0.15}),
+    )
+    pm.open_position({"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0})
+    pos = pm.positions[0]
+    pos["current_price"] = 101.0
+    pm.execute_sell(pos, "take_profit")
+    with open(sell_cfg, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert "KRW-BTC" not in data

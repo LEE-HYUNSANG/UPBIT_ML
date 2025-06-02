@@ -29,7 +29,8 @@ value is preserved on subsequent runs to prevent duplicate entries.
 ## f3_f3_realtime_sell_list.json
 Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.
 The values originate from `f5_f1_monitoring_list.json` and are consulted when
-placing sell orders.
+placing sell orders. When a position is fully closed the corresponding symbol is
+removed from this file.
 
 ## f4_f2_risk_settings.json
 This file has been removed. It previously stored legacy risk parameters such as stop percentages and trailing stop settings.
