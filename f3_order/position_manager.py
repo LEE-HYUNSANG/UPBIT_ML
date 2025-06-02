@@ -7,6 +7,7 @@ from logging.handlers import RotatingFileHandler
 import os
 import sqlite3
 import json
+from pathlib import Path
 from .utils import log_with_tag, now
 from f6_setting.alarm_control import get_template
 from .upbit_api import UpbitClient
@@ -99,6 +100,31 @@ class PositionManager:
             _save_json(self.positions_file, self.positions)
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to persist positions: {exc}")
+
+    def _reset_buy_count(self, symbol: str) -> None:
+        """Set ``buy_count`` to 0 for the given symbol in the buy list."""
+        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                return
+        except Exception:
+            return
+
+        changed = False
+        for item in data:
+            if item.get("symbol") == symbol:
+                if item.get("buy_count", 0) != 0:
+                    item["buy_count"] = 0
+                    changed = True
+                break
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
 
     def open_position(self, order_result, status: str = "open"):
         """신규 포지션 오픈 (주문 결과 또는 잔고 가져오기)
@@ -414,6 +440,7 @@ class PositionManager:
         position["qty"] -= qty
         if position["qty"] <= 0:
             position["status"] = "closed"
+            self._reset_buy_count(position["symbol"])
         self._persist_positions()
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         if self.exception_handler:
