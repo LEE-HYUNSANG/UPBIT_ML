@@ -97,7 +97,8 @@ When the server starts three background tasks are launched:
 The application requires Upbit API keys and a Telegram bot token to operate.
 Credentials are loaded using `f3_order.utils.load_env()`. This function first
 checks the operating system's environment variables and then looks for a
-`.env.json` file if present.
+`.env.json` file if present. A template with placeholder values is included in
+the repository for reference.
 
 To keep your secrets out of version control, create an untracked `.env.json`
 file or set the following environment variables:

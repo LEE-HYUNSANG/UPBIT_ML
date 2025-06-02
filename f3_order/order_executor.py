@@ -167,7 +167,8 @@ class OrderExecutor:
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
-                if self.position_manager.has_position(symbol):
+                has_pos = getattr(self.position_manager, "has_position", None)
+                if callable(has_pos) and has_pos(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
                 self.pending_symbols.add(symbol)
@@ -203,7 +204,7 @@ class OrderExecutor:
                 else:
                     if order_result.get("canceled"):
                         log_with_tag(logger, f"Buy canceled for {symbol}")
-                    elif not self.position_manager.has_position(symbol):
+                    elif not callable(getattr(self.position_manager, "has_position", None)) or not self.position_manager.has_position(symbol):
                         if signal.get("buy_triggers"):
                             order_result["strategy"] = signal["buy_triggers"][0]
                         self.position_manager.open_position(order_result, status="pending")

@@ -8,9 +8,9 @@ import os
 import time
 
 logger = logging.getLogger("F3_utils")
-os.makedirs("logs/f3", exist_ok=True)
+os.makedirs("logs", exist_ok=True)
 fh = RotatingFileHandler(
-    "logs/f3/F3_utils.log",
+    "logs/F3_utils.log",
     encoding="utf-8",
     maxBytes=100_000 * 1024,
     backupCount=1000,
