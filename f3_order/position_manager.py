@@ -334,9 +334,6 @@ class PositionManager:
             entry = pos.get("entry_price", cur_price)
             pos["max_price"] = max(pos.get("max_price", cur_price), cur_price)
             pos["min_price"] = min(pos.get("min_price", cur_price), cur_price)
-            from .utils import tick_size
-
-            tick = tick_size(entry)
             change_pct = (cur_price - entry) / entry * 100
 
             hold_secs = self.config.get("HOLD_SECS", 0)
@@ -347,10 +344,6 @@ class PositionManager:
 
             tp_price = entry * (1 + tp / 100)
             sl_price = entry * (1 - abs(sl) / 100)
-            if abs(tp_price - entry) / tick <= 2:
-                tp_price += tick
-            if abs(entry - sl_price) / tick <= 2:
-                sl_price -= tick
             tp_pct_adj = (tp_price - entry) / entry * 100
             sl_pct_adj = (sl_price - entry) / entry * 100
 
