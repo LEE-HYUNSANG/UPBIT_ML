@@ -39,9 +39,10 @@ Order execution defaults such as retry counts and quantity settings. Used only b
 
 ## f6_buy_settings.json
 Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
-`MAX_SYMBOLS`, `MAX_RETRY`, `SLIP_MAX` and `ORDER_FAIL_RETRY` which default to
-`10000`, `7`, `3`, `0.15` and `3` respectively. These values override the order
-executor's defaults and are mirrored to the risk manager.
+`MAX_SYMBOLS`, `MAX_RETRY`, `SLIP_MAX`, `ORDER_FAIL_RETRY` and
+`LIMIT_WAIT_SEC` which default to `10000`, `7`, `3`, `0.15`, `3` and `30`
+respectively. These values override the order executor's defaults and are
+mirrored to the risk manager.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
