@@ -244,7 +244,7 @@ def start_data_collection() -> None:
 
 
 def start_buy_signal_scheduler() -> None:
-    """Run the ML buy signal script every minute."""
+    """Run the ML buy signal script every 15 seconds."""
     global _buy_signal_thread, _buy_signal_stop
     if _buy_signal_thread and _buy_signal_thread.is_alive():
         return
@@ -262,11 +262,8 @@ def start_buy_signal_scheduler() -> None:
                 buy_exec.execute_buy_list()
             except Exception as exc:
                 WEB_LOGGER.error("buy signal error: %s", exc)
-            now = datetime.datetime.utcnow()
-            next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1, seconds=15)
-            wait = (next_run - datetime.datetime.utcnow()).total_seconds()
-            if wait > 0:
-                _buy_signal_stop.wait(wait)
+            if _buy_signal_stop.wait(15):
+                break
 
     _buy_signal_thread = threading.Thread(target=worker, daemon=True)
     _buy_signal_thread.start()

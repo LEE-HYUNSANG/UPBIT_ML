@@ -71,7 +71,7 @@
 ## 실시간 매수 리스트 활용
 
 `f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`은
-웹 서버의 스케줄러가 1분마다 자동으로 읽어 주문을 실행합니다. 구현은
+웹 서버의 스케줄러가 15초마다 자동으로 읽어 주문을 실행합니다. 구현은
 `buy_list_executor.execute_buy_list()`를 호출하는 방식이며, 매수 후보가 있으면
 즉시 `OrderExecutor.entry()`로 전달됩니다. 필요하다면 아래와 같이 수동으로도
 실행할 수 있습니다.
