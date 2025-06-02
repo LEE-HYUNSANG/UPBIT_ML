@@ -7,6 +7,17 @@ import json
 from datetime import datetime
 from f3_order.exception_handler import ExceptionHandler
 
+_last_message = None
+
+
+def _send_once(handler: ExceptionHandler, message: str) -> None:
+    """Send a Telegram alert only if it differs from the previous one."""
+    global _last_message
+    if message == _last_message:
+        return
+    handler.send_alert(message, "info", "ml_pipeline")
+    _last_message = message
+
 PIPELINE_STEPS = [
     "02_data_cleaning.py",
     "03_feature_engineering.py",
@@ -38,14 +49,14 @@ def run_step(step: str, index: int, total: int) -> None:
 
 def main() -> None:
     handler = ExceptionHandler({})
-    now = datetime.now().strftime("%Y%m%d %H:%M:%S")
-    handler.send_alert(f"머신러닝 학습 시작] @{now}", "info", "ml_pipeline")
+    now = datetime.now().strftime("%H:%M:%S")
+    _send_once(handler, f"머신러닝 학습 시작] at {now}")
 
     total = len(PIPELINE_STEPS)
     for idx, step in enumerate(PIPELINE_STEPS, start=1):
         run_step(step, idx, total)
 
-    now = datetime.now().strftime("%Y%m%d %H:%M:%S")
+    now = datetime.now().strftime("%H:%M:%S")
     selected_file = PIPELINE_ROOT / "ml_data" / "10_selected" / "selected_strategies.json"
     coins = None
     try:
@@ -56,14 +67,10 @@ def main() -> None:
                 symbols = [item.get("symbol") for item in data if item.get("symbol")]
             else:
                 symbols = [str(item) for item in data]
-            coins = ",".join(symbols) if symbols else None
+            coins = ", ".join(s.split("-")[-1] for s in symbols) if symbols else None
     except Exception:
         coins = None
-    handler.send_alert(
-        f"머신러닝 학습 종료] @{now} - selected_coinList: {coins if coins else 'None'}",
-        "info",
-        "ml_pipeline",
-    )
+    _send_once(handler, f"머신러닝 학습 종료] at {now} - selected_coinList: {coins if coins else 'None'}")
 
 
 if __name__ == "__main__":
