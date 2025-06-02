@@ -10,7 +10,11 @@ def clear_logs() -> None:
         if path.name == 'relog.py':
             continue
         if path.is_file() or path.is_symlink():
-            path.unlink(missing_ok=True)
+            try:
+                path.unlink(missing_ok=True)
+            except PermissionError:
+                # ignore files that are locked by another process
+                continue
         elif path.is_dir():
             shutil.rmtree(path, ignore_errors=True)
     # recreate empty directories for runtime use
