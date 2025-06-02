@@ -96,3 +96,10 @@ def tick_size(price: float) -> float:
     if price < 2000000:
         return 500
     return 1000
+
+
+def pretty_symbol(symbol: str) -> str:
+    """Return ``symbol`` without the market prefix like ``KRW-``."""
+    if not isinstance(symbol, str):
+        return symbol
+    return symbol.split("-", 1)[-1]

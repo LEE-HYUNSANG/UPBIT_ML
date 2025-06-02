@@ -9,8 +9,8 @@ import sqlite3
 import json
 from pathlib import Path
 from .utils import log_with_tag, now
-from f6_setting.alarm_control import get_template
 from .upbit_api import UpbitClient
+from .utils import pretty_symbol
 
 logger = logging.getLogger("F3_position_manager")
 os.makedirs("logs/f3", exist_ok=True)
@@ -151,6 +151,7 @@ class PositionManager:
             "avgdown_count": 0,
             "status": status,
             "origin": order_result.get("origin", "trade"),
+            "entry_fee": float(order_result.get("paid_fee", 0)),
         }
         if "strategy" in order_result:
             pos["strategy"] = order_result["strategy"]
@@ -444,19 +445,17 @@ class PositionManager:
         self._persist_positions()
         log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
         if self.exception_handler:
-            template = get_template("sell")
-            reason = "손절 매도" if exit_type == "stop_loss" else "익절 매도"
-            try:
-                msg = template.format(
-                    symbol=position["symbol"],
-                    price=order.get("price"),
-                    reason=reason,
-                )
-            except KeyError:
-                msg = template.format(
-                    symbol=position["symbol"],
-                    price=order.get("price"),
-                )
+            price_exec = order.get("price") or 0
+            fee = float(order.get("paid_fee", 0))
+            amt = price_exec * qty - fee
+            entry_fee = float(position.get("entry_fee", 0))
+            entry_total = position.get("entry_price", 0) * qty + entry_fee
+            profit = amt - entry_total
+            msg = (
+                f"매도 완료] {pretty_symbol(position['symbol'])} "
+                f"매도 금액: {int(amt):,}원 @{price_exec} "
+                f"이익:{profit:+.0f}원"
+            )
             self.exception_handler.send_alert(msg, "info", "order_execution")
         return order
 
