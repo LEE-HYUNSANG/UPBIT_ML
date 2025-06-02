@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:
     sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from .smart_buy import smart_buy
-from .position_manager import PositionManager
+from .position_manager import PositionManager, _load_json, _save_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from f6_setting.alarm_control import get_template
@@ -50,7 +50,11 @@ class OrderExecutor:
         self.position_manager = PositionManager(
             self.config, self.kpi_guard, self.exception_handler, logger
         )
-        self.pending_symbols: set[str] = set()
+        self.pending_file = self.config.get(
+            "PENDING_FILE", "config/f3_f3_pending_symbols.json"
+        )
+        self.pending_symbols: set[str] = set(_load_json(self.pending_file))
+        _save_json(self.pending_file, list(self.pending_symbols))
         if self.risk_manager:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
@@ -91,6 +95,12 @@ class OrderExecutor:
                     json.dump(data, f, ensure_ascii=False, indent=2)
             except Exception:
                 pass
+
+    def _persist_pending(self) -> None:
+        try:
+            _save_json(self.pending_file, list(self.pending_symbols))
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to persist pending symbols: {exc}")
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
         """Add TP/SL info for *symbol* to the realtime sell list."""
@@ -148,6 +158,10 @@ class OrderExecutor:
                     "info",
                     "buy_monitoring",
                 )
+                try:
+                    self.pending_symbols.update(_load_json(self.pending_file))
+                except Exception:
+                    pass
                 if symbol in self.pending_symbols:
                     log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
                     return
@@ -158,6 +172,7 @@ class OrderExecutor:
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
                 self.pending_symbols.add(symbol)
+                self._persist_pending()
                 max_retry = int(self.config.get("MAX_RETRY", 3))
                 order_result = {}
                 try:
