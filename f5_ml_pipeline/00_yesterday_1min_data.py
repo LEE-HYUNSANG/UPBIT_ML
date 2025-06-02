@@ -1,4 +1,4 @@
-"""Download last 24 hours of 1 minute OHLCV data."""
+"""Download last 72 hours of 1 minute OHLCV data."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_yesterday_collect.log"
-CANDLE_LIMIT = 1440
+CANDLE_LIMIT = 4320
 
 
 def clear_output_dir(path: Path) -> None:
@@ -82,7 +82,7 @@ def _request_json(url: str, params: Dict | None = None, retries: int = 3) -> Lis
 
 
 def get_ohlcv_history(market: str) -> pd.DataFrame:
-    """Fetch last 24 hours of minute candles for ``market``."""
+    """Fetch last 72 hours of minute candles for ``market``."""
     url = f"{BASE_URL}/v1/candles/minutes/1"
     end = datetime.utcnow().replace(second=0, microsecond=0)
     remaining = CANDLE_LIMIT
@@ -153,7 +153,7 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
 
 
 def collect_all(markets: Iterable[str]) -> None:
-    """Collect 24h history for all markets."""
+    """Collect 72h history for all markets."""
     ts = datetime.utcnow()
     for market in markets:
         try:
@@ -165,7 +165,7 @@ def collect_all(markets: Iterable[str]) -> None:
 
 
 def main() -> None:
-    """Download the last 24 hours of minute data."""
+    """Download the last 72 hours of minute data."""
     setup_logger()
     clear_output_dir(DATA_ROOT)
     markets = load_coin_list()
@@ -173,7 +173,7 @@ def main() -> None:
         logging.error("No markets to collect")
         return
 
-    logging.info("Collect 24h history for %s", markets)
+    logging.info("Collect 72h history for %s", markets)
     collect_all(markets)
 
 
