@@ -40,7 +40,7 @@
 
 ## 동작 순서
 
-1. `signal_loop.py` 혹은 상위 스케줄러가 1분봉 종료 시 `run_if_monitoring_list_exists()`를 호출합니다.
+1. `signal_loop.py` 혹은 상위 스케줄러가 15초 주기로 `run_if_monitoring_list_exists()`를 호출합니다.
 2. 스크립트는 `f5_f1_monitoring_list.json`이 존재할 때만 각 코인의 매수 신호를 판별합니다.
 3. 매수 신호가 `True`로 판단되면 해당 코인이 실시간 매수 리스트에만 기록됩니다.
    실제 주문이 체결된 뒤에야 별도의 로직이 매도 설정 리스트(`f3_f3_realtime_sell_list.json`)
