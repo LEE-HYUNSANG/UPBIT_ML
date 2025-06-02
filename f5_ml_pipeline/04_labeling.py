@@ -18,8 +18,8 @@ LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 ROOT_DIR = PIPELINE_ROOT.parent
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_label.log"
 
-THRESH_LIST      = [0.003, 0.004, 0.005]    # 익절(%)
-LOSS_LIST        = [0.003, 0.004, 0.005]    # 손절(%)
+THRESH_LIST      = [0.002, 0.025, 0.003]    # 익절(%)
+LOSS_LIST        = [0.002, 0.025, 0.003]    # 손절(%)
 
 def setup_logger() -> None:
     """로그 설정."""
