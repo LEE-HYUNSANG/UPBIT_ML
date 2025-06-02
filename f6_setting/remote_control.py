@@ -8,21 +8,25 @@ except Exception:  # pragma: no cover - optional dependency
 
 TOKEN = os.environ.get("TELEGRAM_TOKEN")
 DEFAULT_STATUS_PATH = os.path.join(os.path.dirname(__file__), "server_status.txt")
-STATUS_FILE = os.environ.get("SERVER_STATUS_FILE", DEFAULT_STATUS_PATH)
+
+
+def _status_file() -> str:
+    """Return path to the server status file, allowing env override."""
+    return os.environ.get("SERVER_STATUS_FILE", DEFAULT_STATUS_PATH)
 
 bot = telebot.TeleBot(TOKEN) if telebot and TOKEN else None
 
 
 def write_status(state: str) -> None:
     """Write ON/OFF state to the status file."""
-    with open(STATUS_FILE, "w", encoding="utf-8") as f:
+    with open(_status_file(), "w", encoding="utf-8") as f:
         f.write(state)
 
 
 def read_status() -> str:
     """Return current server state, defaults to OFF if file missing."""
     try:
-        with open(STATUS_FILE, "r", encoding="utf-8") as f:
+        with open(_status_file(), "r", encoding="utf-8") as f:
             return f.read().strip()
     except FileNotFoundError:
         return "OFF"
