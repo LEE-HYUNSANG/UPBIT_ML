@@ -476,6 +476,7 @@ class PositionManager:
             if position["qty"] <= 0:
                 position["status"] = "closed"
                 self._reset_buy_count(position["symbol"])
+                _remove_from_json_dict(self.sell_config_path, position["symbol"])
             log_with_tag(
                 logger,
                 f"Position exit: {position['symbol']} via {exit_type}"
