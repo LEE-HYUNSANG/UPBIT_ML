@@ -278,6 +278,15 @@ class PositionManager:
                 continue
             cur_price = pos.get("current_price")
             if cur_price is None:
+                try:
+                    data = self.client.ticker([pos["symbol"]])
+                    if data:
+                        cur_price = float(data[0].get("trade_price", 0))
+                        if cur_price:
+                            pos["current_price"] = cur_price
+                except Exception as exc:  # pragma: no cover - network failure
+                    log_with_tag(logger, f"Ticker fetch failed for {pos['symbol']}: {exc}")
+            if cur_price is None:
                 log_with_tag(logger, f"No price info for {pos['symbol']}")
                 remaining.append(pos)
                 continue

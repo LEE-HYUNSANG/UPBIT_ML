@@ -3,11 +3,8 @@ import os
 
 DEFAULTS = {
     "ENTRY_SIZE_INITIAL": 10000,
-    "MAX_SYMBOLS": 10,
-    "MAX_RETRY": 3,
-    "SLIP_MAX": 0.15,
-    "ORDER_FAIL_RETRY": 3,
-    "LIMIT_WAIT_SEC": 30,
+    "MAX_SYMBOLS": 2,
+    "LIMIT_WAIT_SEC": 50,
 }
 
 

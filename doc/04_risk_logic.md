@@ -43,8 +43,7 @@
 `config/f6_buy_settings.json` 파일에서 다음 항목을 관리합니다.
 - `ENTRY_SIZE_INITIAL` – 신규 진입 시 기본 주문 금액
 - `MAX_SYMBOLS` – 동시에 보유 가능한 코인 수 제한
-- `SLIP_MAX` – 허용 슬리피지 한도(%)
-- `ORDER_FAIL_RETRY` – 주문 실패 시 재시도 횟수
+- `LIMIT_WAIT_SEC` – 지정가 체결 대기 시간
 
 파일이 변경되면 `hot_reload()`가 즉시 적용되어 `OrderExecutor` 금액도 동기화됩니다.
 

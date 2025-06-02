@@ -10,7 +10,7 @@
 | 경로 | 설명 |
 | --- | --- |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 핵심 클래스입니다. |
-| `f3_order/smart_buy.py` | 지정가 주문을 30초씩 두 번 시도하는 함수입니다. |
+| `f3_order/smart_buy.py` | 지정가 주문을 한 번 시도하고 50초 동안 대기합니다. |
 | `f3_order/position_manager.py` | 포지션을 저장하고 손익을 계산하며 매도 조건을 감시합니다. |
 | `config/f2_f2_realtime_buy_list.json` | 매수 시그널과 체결 여부(`buy_count`)가 기록됩니다. |
 | `config/f3_f3_realtime_sell_list.json` | 매도 시 세부 설정(TP/SL)을 저장하는 파일입니다. |
@@ -20,7 +20,7 @@
 
 ## 사용되는 함수
 - `OrderExecutor.entry()` – 매수 신호를 받아 `smart_buy()`를 호출하고 포지션을 등록합니다. 【F:f3_order/order_executor.py†L122-L162】
-- `smart_buy()` – 지정가 주문을 30초씩 두 번 시도하고 미체결 시 포기합니다. 【F:f3_order/smart_buy.py†L25-L62】
+- `smart_buy()` – 지정가 주문을 50초간 대기하며 한 번만 시도합니다. 【F:f3_order/smart_buy.py†L25-L62】
 - `PositionManager.open_position()` – 체결된 주문 정보를 내부 리스트와 파일에 저장합니다. 【F:f3_order/position_manager.py†L87-L117】
 - `PositionManager.refresh_positions()` – 계좌 잔고와 시세를 조회하여 포지션 정보를 업데이트합니다. 【F:f3_order/position_manager.py†L173-L228】
 
@@ -29,7 +29,7 @@
 2. `entry()` 함수는 이미 보유 중이거나 리스크 매니저가 차단한 코인은 건너뜁니다.
    동시에 동일 코인 주문이 진행 중이면 `pending_symbols` 집합에 기록되어
    추가 주문을 무시합니다.
-3. `smart_buy()`가 지정가 주문을 보내 30초 동안 대기한 뒤 미체결 시 한 호가 위 가격으로 다시 시도합니다.
+3. `smart_buy()`가 지정가 주문을 보내 50초 동안 체결을 기다립니다. 체결되지 않으면 주문을 취소하고 포기합니다.
    이때 손절과 익절 기준은 **최초 시도한 가격**을 사용하며 두 번째 시도에서 더 높은 가격에 체결되더라도 계산 값은 바뀌지 않습니다.
 4. 주문이 성공하면 `PositionManager.open_position()`이 호출되어 포지션이 등록되고 실시간 매도 설정 리스트가 갱신됩니다.
    체결되지 않았을 경우에도 `pending` 상태로 저장하며 `buy_list`의 `buy_count`를 1로 변경해
