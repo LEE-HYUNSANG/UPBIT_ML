@@ -22,6 +22,14 @@ Example ML pipeline messages:
 [INFO] 머신러닝 학습 종료] at 12:45:01 - selected_coinList: CBK, WAVES, CELO
 ```
 
+Order execution messages use the following format:
+
+```
+[INFO] 매수 시그널] WAVES @1000.0
+[INFO] 매수 주문 성공] WAVES 매수 금액: 10,000원 @1000.0
+[INFO] 매도 완료] WAVES 매도 금액: 10,500원 @1050.0 이익:+500원
+```
+
 Default templates for order alerts reside in the same configuration file and can
 be customized. The sell template now includes a `{reason}` placeholder which is
 automatically filled with "익절 매도" or "손절 매도" based on the exit type.

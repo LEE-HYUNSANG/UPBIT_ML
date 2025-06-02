@@ -28,4 +28,5 @@ def test_entry_sends_alert(monkeypatch):
     oe.entry({"symbol": "KRW-BTC", "buy_signal": True, "price": 10.0})
     assert len(calls) == 2
     assert "매수 시그널" in calls[0][0]
-    assert "KRW-BTC" in calls[1][0]
+    assert "BTC" in calls[1][0]
+    assert "매수 주문 성공" in calls[1][0]

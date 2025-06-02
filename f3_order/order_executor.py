@@ -20,8 +20,7 @@ from .smart_buy import smart_buy
 from .position_manager import PositionManager, _load_json, _save_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
-from f6_setting.alarm_control import get_template
-from .utils import load_config, log_with_tag
+from .utils import load_config, log_with_tag, pretty_symbol
 from f6_setting.buy_config import load_buy_config
 import time
 import json
@@ -154,7 +153,7 @@ class OrderExecutor:
                 symbol = signal.get("symbol")
                 price = signal.get("price")
                 self.exception_handler.send_alert(
-                    f"[매수 시그널] {symbol} @{price}",
+                    f"매수 시그널] {pretty_symbol(symbol)} @{price}",
                     "info",
                     "buy_monitoring",
                 )
@@ -192,10 +191,13 @@ class OrderExecutor:
                     self.position_manager.open_position(order_result)
                     self._mark_buy_filled(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
-                    template = get_template("buy")
-                    msg = template.format(
-                        symbol=order_result["symbol"],
-                        price=order_result.get("price"),
+                    price_exec = order_result.get("price") or 0
+                    qty_exec = order_result.get("qty") or 0
+                    fee = float(order_result.get("paid_fee", 0))
+                    total = price_exec * qty_exec + fee
+                    msg = (
+                        f"매수 주문 성공] {pretty_symbol(order_result['symbol'])} "
+                        f"매수 금액: {int(total):,}원 @{price_exec}"
                     )
                     self.exception_handler.send_alert(msg, "info", "order_execution")
                 else:
