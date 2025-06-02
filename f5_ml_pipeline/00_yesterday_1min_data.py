@@ -173,6 +173,7 @@ def collect_all(markets: Iterable[str]) -> None:
                 logging.error("Finalize error %s: %s", file.name, exc)
 
 
+
 def main() -> None:
     """Download the last 72 hours of minute data."""
     setup_logger()
