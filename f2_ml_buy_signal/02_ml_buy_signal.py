@@ -159,10 +159,14 @@ def _add_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
-    df = df.copy()
-    df["label"] = (df["close"].shift(-horizon) > df["close"]).astype(int)
-    df.dropna(inplace=True)
-    return df
+    """Label dataset using the same threshold settings as the F5 module."""
+    _ensure_pipeline_modules()
+    thresh = getattr(P04, "THRESH_LIST", [0.002])[0]
+    loss = getattr(P04, "LOSS_LIST", [thresh])[0]
+    labeled = P04.make_labels_basic(df, horizon, thresh, loss)
+    labeled["label"] = (labeled["label"] == 1).astype(int)
+    labeled.dropna(inplace=True)
+    return labeled
 
 
 def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
