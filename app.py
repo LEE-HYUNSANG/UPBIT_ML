@@ -282,6 +282,8 @@ def stop_buy_signal_scheduler() -> None:
 def start_pipeline_scheduler() -> None:
     """Run the full ML pipeline every five minutes."""
     global _pipeline_thread, _pipeline_stop
+    if app.debug and os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        return
     if _pipeline_thread and _pipeline_thread.is_alive():
         return
     module = _import_from_path(os.path.join("f5_ml_pipeline", "run_pipeline.py"), "run_pipeline")
