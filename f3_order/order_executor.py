@@ -199,7 +199,9 @@ class OrderExecutor:
                     )
                     self.exception_handler.send_alert(msg, "info", "order_execution")
                 else:
-                    if not self.position_manager.has_position(symbol):
+                    if order_result.get("canceled"):
+                        log_with_tag(logger, f"Buy canceled for {symbol}")
+                    elif not self.position_manager.has_position(symbol):
                         if signal.get("buy_triggers"):
                             order_result["strategy"] = signal["buy_triggers"][0]
                         self.position_manager.open_position(order_result, status="pending")
