@@ -1,144 +1,46 @@
-2025-06-02 20:41:44,390 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:44,394 [F2] [INFO] Universe updated: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:44,400 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
-2025-06-02 20:41:44,401 [F2] [INFO] [RUN] starting buy signal scan
-2025-06-02 20:41:44,403 [F2] [INFO] [F3] Loaded credentials from env.json
-2025-06-02 20:41:44,411 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
-2025-06-02 20:41:44,413 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
-2025-06-02 20:41:44,414 [F2] [INFO] RiskManager 초기화 완료 (ACTIVE)
-2025-06-02 20:41:44,417 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:44,419 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-STX', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-SUI', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-NEAR', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-OM', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
-2025-06-02 20:41:44,420 [F2] [INFO]  * Restarting with stat
-2025-06-02 20:41:44,421 [F2] [INFO] [RUN] existing sell_list={}
-2025-06-02 20:41:44,488 [F2] [INFO] [FETCH] KRW-ME count=60
-2025-06-02 20:41:44,562 [F2] [INFO] [FETCH] KRW-ME rows=60
-2025-06-02 20:41:44,670 [F2] [INFO] [FETCH] saved KRW-ME.parquet
-2025-06-02 20:41:47,032 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:47,050 [F2] [INFO] Universe updated: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:47,057 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
-2025-06-02 20:41:47,059 [F2] [INFO] [RUN] starting buy signal scan
-2025-06-02 20:41:47,059 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
-2025-06-02 20:41:47,059 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
-2025-06-02 20:41:47,060 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-ME', 'KRW-CBK', 'KRW-TRUMP', 'KRW-JUP', 'KRW-DRIFT', 'KRW-STX', 'KRW-SUI', 'KRW-NXPC', 'KRW-NEAR', 'KRW-OM']
-2025-06-02 20:41:47,060 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-STX', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-SUI', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-NEAR', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-OM', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
-2025-06-02 20:41:47,060 [F2] [INFO] [F3] Loaded credentials from env.json
-2025-06-02 20:41:47,061 [F2] [INFO] [RUN] existing sell_list={}
-2025-06-02 20:41:47,074 [F2] [WARNING]  * Debugger is active!
-2025-06-02 20:41:47,081 [F2] [INFO]  * Debugger PIN: 872-957-534
-2025-06-02 20:41:47,136 [F2] [INFO] [FETCH] KRW-ME count=60
-2025-06-02 20:41:47,215 [F2] [INFO] [FETCH] KRW-ME rows=60
-2025-06-02 20:41:47,290 [F2] [INFO] [FETCH] saved KRW-ME.parquet
-2025-06-02 20:41:47,475 [F2] [INFO] [CHECK] KRW-ME prob=0.0012
-2025-06-02 20:41:47,481 [F2] [INFO] [KRW-ME] buy=False rsi=True trend=True
-2025-06-02 20:41:47,483 [F2] [INFO] [FETCH] KRW-CBK count=60
-2025-06-02 20:41:47,552 [F2] [INFO] [FETCH] KRW-CBK rows=60
-2025-06-02 20:41:47,572 [F2] [INFO] [FETCH] saved KRW-CBK.parquet
-2025-06-02 20:41:47,657 [F2] [WARNING]  * Running on all addresses.
+2025-06-02 23:50:10,633 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:10,637 [F2] [INFO] Universe updated: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:10,645 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-02 23:50:10,645 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 23:50:10,646 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-02 23:50:10,646 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:10,646 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-02 23:50:10,647 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-WAVES', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CELO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-IMX', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 23:50:10,648 [F2] [INFO] [RUN] existing sell_list={'KRW-STX': {'TP_PCT': 0.3, 'SL_PCT': 0.3}, 'KRW-LINK': {'TP_PCT': 0.3, 'SL_PCT': 0.3}, 'KRW-TOKAMAK': {'TP_PCT': 0.5, 'SL_PCT': 0.3}}
+2025-06-02 23:50:10,669 [F2] [INFO]  * Restarting with stat
+2025-06-02 23:50:10,718 [F2] [INFO] [FETCH] KRW-WAVES count=60
+2025-06-02 23:50:10,790 [F2] [INFO] [FETCH] KRW-WAVES rows=60
+2025-06-02 23:50:10,897 [F2] [INFO] [FETCH] saved KRW-WAVES.parquet
+2025-06-02 23:50:12,385 [F2] [INFO] [CHECK] KRW-WAVES prob=0.0192
+2025-06-02 23:50:12,391 [F2] [INFO] [KRW-WAVES] buy=False rsi=True trend=True
+2025-06-02 23:50:12,392 [F2] [INFO] [FETCH] KRW-CELO count=60
+2025-06-02 23:50:12,457 [F2] [INFO] [FETCH] KRW-CELO rows=60
+2025-06-02 23:50:12,461 [F2] [INFO] [FETCH] saved KRW-CELO.parquet
+2025-06-02 23:50:12,560 [F2] [INFO] [CHECK] KRW-CELO prob=0.5000
+2025-06-02 23:50:12,567 [F2] [INFO] [KRW-CELO] buy=False rsi=True trend=True
+2025-06-02 23:50:12,570 [F2] [INFO] [FETCH] KRW-IMX count=60
+2025-06-02 23:50:12,643 [F2] [INFO] [FETCH] KRW-IMX rows=60
+2025-06-02 23:50:12,649 [F2] [INFO] [FETCH] saved KRW-IMX.parquet
+2025-06-02 23:50:12,716 [F2] [INFO] [CHECK] KRW-IMX prob=0.1323
+2025-06-02 23:50:12,722 [F2] [INFO] [KRW-IMX] buy=False rsi=True trend=False
+2025-06-02 23:50:12,722 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-WAVES', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CELO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-IMX', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 23:50:12,723 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-02 23:50:12,725 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 23:50:12,726 [F2] [INFO] [F3] No buy candidates found
+2025-06-02 23:50:13,456 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:13,460 [F2] [INFO] Universe updated: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:13,481 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-02 23:50:13,481 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 23:50:13,482 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-02 23:50:13,482 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-WAVES', 'KRW-CELO', 'KRW-IMX']
+2025-06-02 23:50:13,483 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-WAVES', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CELO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-IMX', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 23:50:13,483 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-02 23:50:13,484 [F2] [INFO] [RUN] existing sell_list={'KRW-STX': {'TP_PCT': 0.3, 'SL_PCT': 0.3}, 'KRW-LINK': {'TP_PCT': 0.3, 'SL_PCT': 0.3}, 'KRW-TOKAMAK': {'TP_PCT': 0.5, 'SL_PCT': 0.3}}
+2025-06-02 23:50:13,497 [F2] [WARNING]  * Debugger is active!
+2025-06-02 23:50:13,504 [F2] [INFO]  * Debugger PIN: 872-957-534
+2025-06-02 23:50:13,560 [F2] [INFO] [FETCH] KRW-WAVES count=60
+2025-06-02 23:50:13,638 [F2] [INFO] [FETCH] KRW-WAVES rows=60
+2025-06-02 23:50:13,733 [F2] [INFO] [FETCH] saved KRW-WAVES.parquet
+2025-06-02 23:50:14,024 [F2] [WARNING]  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
-2025-06-02 20:41:47,657 [F2] [INFO]  * Running on http://192.168.0.183:3000/ (Press CTRL+C to quit)
-2025-06-02 20:41:47,670 [F2] [INFO] [CHECK] KRW-CBK prob=0.5000
-2025-06-02 20:41:47,677 [F2] [INFO] [KRW-CBK] buy=False rsi=False trend=True
-2025-06-02 20:41:47,684 [F2] [INFO] [FETCH] KRW-TRUMP count=60
-2025-06-02 20:41:47,760 [F2] [INFO] [FETCH] KRW-TRUMP rows=60
-2025-06-02 20:41:47,766 [F2] [INFO] [FETCH] saved KRW-TRUMP.parquet
-2025-06-02 20:41:47,828 [F2] [INFO] [CHECK] KRW-TRUMP prob=0.3968
-2025-06-02 20:41:47,834 [F2] [INFO] [KRW-TRUMP] buy=False rsi=True trend=True
-2025-06-02 20:41:47,838 [F2] [INFO] [FETCH] KRW-JUP count=60
-2025-06-02 20:41:47,908 [F2] [INFO] [FETCH] KRW-JUP rows=60
-2025-06-02 20:41:47,914 [F2] [INFO] [FETCH] saved KRW-JUP.parquet
-2025-06-02 20:41:47,980 [F2] [INFO] [CHECK] KRW-JUP prob=0.3757
-2025-06-02 20:41:47,985 [F2] [INFO] [KRW-JUP] buy=False rsi=False trend=False
-2025-06-02 20:41:47,990 [F2] [INFO] [FETCH] KRW-DRIFT count=60
-2025-06-02 20:41:48,082 [F2] [INFO] [FETCH] KRW-DRIFT rows=60
-2025-06-02 20:41:48,089 [F2] [INFO] [FETCH] saved KRW-DRIFT.parquet
-2025-06-02 20:41:48,151 [F2] [INFO] [CHECK] KRW-DRIFT prob=0.1401
-2025-06-02 20:41:48,157 [F2] [INFO] [KRW-DRIFT] buy=False rsi=False trend=False
-2025-06-02 20:41:48,163 [F2] [INFO] [FETCH] KRW-STX count=60
-2025-06-02 20:41:48,243 [F2] [INFO] [FETCH] KRW-STX rows=60
-2025-06-02 20:41:48,249 [F2] [INFO] [FETCH] saved KRW-STX.parquet
-2025-06-02 20:41:48,317 [F2] [INFO] [CHECK] KRW-STX prob=0.5438
-2025-06-02 20:41:48,325 [F2] [INFO] [KRW-STX] buy=True rsi=True trend=True
-2025-06-02 20:41:48,331 [F2] [INFO] [FETCH] KRW-SUI count=60
-2025-06-02 20:41:48,415 [F2] [INFO] [FETCH] KRW-SUI rows=60
-2025-06-02 20:41:48,420 [F2] [INFO] [FETCH] saved KRW-SUI.parquet
-2025-06-02 20:41:48,492 [F2] [INFO] [CHECK] KRW-SUI prob=0.2851
-2025-06-02 20:41:48,497 [F2] [INFO] [KRW-SUI] buy=False rsi=True trend=False
-2025-06-02 20:41:48,503 [F2] [INFO] [FETCH] KRW-NXPC count=60
-2025-06-02 20:41:48,586 [F2] [INFO] [FETCH] KRW-NXPC rows=60
-2025-06-02 20:41:48,591 [F2] [INFO] [FETCH] saved KRW-NXPC.parquet
-2025-06-02 20:41:48,652 [F2] [INFO] [CHECK] KRW-NXPC prob=0.7478
-2025-06-02 20:41:48,658 [F2] [INFO] [KRW-NXPC] buy=True rsi=True trend=False
-2025-06-02 20:41:48,662 [F2] [INFO] [FETCH] KRW-NEAR count=60
-2025-06-02 20:41:48,724 [F2] [INFO] [FETCH] KRW-NEAR rows=60
-2025-06-02 20:41:48,731 [F2] [INFO] [FETCH] saved KRW-NEAR.parquet
-2025-06-02 20:41:48,809 [F2] [INFO] [CHECK] KRW-NEAR prob=0.2348
-2025-06-02 20:41:48,814 [F2] [INFO] [KRW-NEAR] buy=False rsi=True trend=False
-2025-06-02 20:41:48,816 [F2] [INFO] [FETCH] KRW-OM count=60
-2025-06-02 20:41:48,881 [F2] [INFO] [FETCH] KRW-OM rows=60
-2025-06-02 20:41:48,887 [F2] [INFO] [FETCH] saved KRW-OM.parquet
-2025-06-02 20:41:48,932 [F2] [INFO] [CHECK] KRW-ME prob=0.0012
-2025-06-02 20:41:48,939 [F2] [INFO] [KRW-ME] buy=False rsi=True trend=True
-2025-06-02 20:41:48,941 [F2] [INFO] [FETCH] KRW-CBK count=60
-2025-06-02 20:41:48,988 [F2] [INFO] [CHECK] KRW-OM prob=0.5000
-2025-06-02 20:41:48,994 [F2] [INFO] [KRW-OM] buy=False rsi=True trend=False
-2025-06-02 20:41:48,995 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-STX', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 0}, {'symbol': 'KRW-SUI', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-NEAR', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-OM', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
-2025-06-02 20:41:48,996 [F2] [INFO] [RUN] finished. 1 coins to buy
-2025-06-02 20:41:49,000 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
-2025-06-02 20:41:49,002 [F2] [INFO] [F3] Loaded credentials from env.json
-2025-06-02 20:41:49,003 [F2] [INFO] [F3] Upbit credentials loaded
-2025-06-02 20:41:49,010 [F2] [INFO] [FETCH] KRW-CBK rows=60
-2025-06-02 20:41:49,018 [F2] [INFO] [FETCH] saved KRW-CBK.parquet
-2025-06-02 20:41:49,081 [F2] [INFO] [F3] Executing buy for KRW-STX at 1022.0
-2025-06-02 20:41:49,081 [F2] [INFO] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1022.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-02 20:41:49,153 [F2] [INFO] [CHECK] KRW-CBK prob=0.5000
-2025-06-02 20:41:49,160 [F2] [INFO] [KRW-CBK] buy=False rsi=False trend=True
-2025-06-02 20:41:49,167 [F2] [INFO] [FETCH] KRW-TRUMP count=60
-2025-06-02 20:41:49,252 [F2] [INFO] [FETCH] KRW-TRUMP rows=60
-2025-06-02 20:41:49,272 [F2] [INFO] [FETCH] saved KRW-TRUMP.parquet
-2025-06-02 20:41:49,342 [F2] [INFO] [CHECK] KRW-TRUMP prob=0.3968
-2025-06-02 20:41:49,350 [F2] [INFO] [KRW-TRUMP] buy=False rsi=True trend=True
-2025-06-02 20:41:49,355 [F2] [INFO] [FETCH] KRW-JUP count=60
-2025-06-02 20:41:49,436 [F2] [INFO] [FETCH] KRW-JUP rows=60
-2025-06-02 20:41:49,442 [F2] [INFO] [FETCH] saved KRW-JUP.parquet
-2025-06-02 20:41:49,538 [F2] [INFO] [CHECK] KRW-JUP prob=0.3757
-2025-06-02 20:41:49,545 [F2] [INFO] [KRW-JUP] buy=False rsi=False trend=False
-2025-06-02 20:41:49,550 [F2] [INFO] [FETCH] KRW-DRIFT count=60
-2025-06-02 20:41:49,635 [F2] [INFO] [FETCH] KRW-DRIFT rows=60
-2025-06-02 20:41:49,642 [F2] [INFO] [FETCH] saved KRW-DRIFT.parquet
-2025-06-02 20:41:49,721 [F2] [INFO] [CHECK] KRW-DRIFT prob=0.1401
-2025-06-02 20:41:49,729 [F2] [INFO] [KRW-DRIFT] buy=False rsi=False trend=False
-2025-06-02 20:41:49,735 [F2] [INFO] [FETCH] KRW-STX count=60
-2025-06-02 20:41:49,808 [F2] [INFO] [FETCH] KRW-STX rows=60
-2025-06-02 20:41:49,814 [F2] [INFO] [FETCH] saved KRW-STX.parquet
-2025-06-02 20:41:49,898 [F2] [INFO] [CHECK] KRW-STX prob=0.5438
-2025-06-02 20:41:49,906 [F2] [INFO] [KRW-STX] buy=True rsi=True trend=True
-2025-06-02 20:41:49,911 [F2] [INFO] [FETCH] KRW-SUI count=60
-2025-06-02 20:41:49,979 [F2] [INFO] [FETCH] KRW-SUI rows=60
-2025-06-02 20:41:49,986 [F2] [INFO] [FETCH] saved KRW-SUI.parquet
-2025-06-02 20:41:50,088 [F2] [INFO] [CHECK] KRW-SUI prob=0.2851
-2025-06-02 20:41:50,095 [F2] [INFO] [KRW-SUI] buy=False rsi=True trend=False
-2025-06-02 20:41:50,101 [F2] [INFO] [FETCH] KRW-NXPC count=60
-2025-06-02 20:41:50,183 [F2] [INFO] [F3] Order API response: {'uuid': '2dbcea07-8a38-441a-9ce2-65866a0937f6', 'side': 'bid', 'ord_type': 'limit', 'price': 1022.0, 'state': 'wait', 'market': 'KRW-STX', 'created_at': '2025-06-02T20:41:50+09:00', 'volume': '9.78473581', 'remaining_volume': '9.78473581', 'reserved_fee': '4.9902152631', 'remaining_fee': '4.9902152631', 'paid_fee': '0', 'locked': '9985.4207414631', 'executed_volume': '0', 'trades_count': 0, 'filled': False, 'timestamp': 1748864510.1831124, 'symbol': 'KRW-STX', 'qty': 9.784735812133073, 'order_type': 'limit'}
-2025-06-02 20:41:50,184 [F2] [INFO] [FETCH] KRW-NXPC rows=60
-2025-06-02 20:41:50,190 [F2] [INFO] [FETCH] saved KRW-NXPC.parquet
-2025-06-02 20:41:50,283 [F2] [INFO] [CHECK] KRW-NXPC prob=0.7478
-2025-06-02 20:41:50,290 [F2] [INFO] [KRW-NXPC] buy=True rsi=True trend=False
-2025-06-02 20:41:50,295 [F2] [INFO] [FETCH] KRW-NEAR count=60
-2025-06-02 20:41:50,379 [F2] [INFO] [FETCH] KRW-NEAR rows=60
-2025-06-02 20:41:50,386 [F2] [INFO] [FETCH] saved KRW-NEAR.parquet
-2025-06-02 20:41:50,459 [F2] [INFO] [CHECK] KRW-NEAR prob=0.2348
-2025-06-02 20:41:50,466 [F2] [INFO] [KRW-NEAR] buy=False rsi=True trend=False
-2025-06-02 20:41:50,468 [F2] [INFO] [FETCH] KRW-OM count=60
-2025-06-02 20:41:50,557 [F2] [INFO] [FETCH] KRW-OM rows=60
-2025-06-02 20:41:50,563 [F2] [INFO] [FETCH] saved KRW-OM.parquet
-2025-06-02 20:41:50,629 [F2] [INFO] [CHECK] KRW-OM prob=0.5000
-2025-06-02 20:41:50,636 [F2] [INFO] [KRW-OM] buy=False rsi=True trend=False
-2025-06-02 20:41:50,637 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-STX', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 0}, {'symbol': 'KRW-SUI', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-NEAR', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-OM', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
-2025-06-02 20:41:50,637 [F2] [INFO] [RUN] finished. 1 coins to buy
-2025-06-02 20:41:50,641 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
-2025-06-02 20:41:50,643 [F2] [INFO] [F3] Loaded credentials from env.json
-2025-06-02 20:41:50,644 [F2] [INFO] [F3] Upbit credentials loaded
-2025-06-02 20:41:50,709 [F2] [INFO] [F3] Executing buy for KRW-STX at 1022.0
-2025-06-02 20:41:50,710 [F2] [INFO] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1022.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-02 20:41:51,743 [F2] [INFO] [F3] Buy skipped: order already pending for KRW-STX
-2025-06-02 20:41:51,758 [F2] [INFO] [F3] Updated buy_count for KRW-STX
+2025-06-02 23:50:14,025 [F2] [INFO]  * Running on http://192.168.0.183:3000/ (Press CTRL+C to quit)

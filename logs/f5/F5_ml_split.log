@@ -1,400 +1,400 @@
-2025-06-02 20:41:56,835 [F5] [INFO] [SETUP] LABEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\04_label
-2025-06-02 20:41:56,835 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
-2025-06-02 20:41:56,957 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_train.parquet, shape=(23, 86), dist={0: 19, -1: 4}
-2025-06-02 20:41:56,973 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:41:56,988 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,008 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_train.parquet, shape=(14, 86), dist={0: 14}
-2025-06-02 20:41:57,033 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,044 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:57,061 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_train.parquet, shape=(23, 86), dist={0: 19, -1: 3, 1: 1}
-2025-06-02 20:41:57,071 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_valid.parquet, shape=(6, 86), dist={1: 5, 0: 1}
-2025-06-02 20:41:57,083 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,100 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_train.parquet, shape=(16, 86), dist={0: 16}
-2025-06-02 20:41:57,113 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,130 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,156 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_train.parquet, shape=(16, 86), dist={-1: 15, 1: 1}
-2025-06-02 20:41:57,167 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_valid.parquet, shape=(4, 86), dist={1: 2, 0: 2}
-2025-06-02 20:41:57,180 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,201 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_train.parquet, shape=(27, 86), dist={0: 26, -1: 1}
-2025-06-02 20:41:57,216 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_valid.parquet, shape=(7, 86), dist={0: 5, 1: 2}
-2025-06-02 20:41:57,233 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,252 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,264 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,276 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,294 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_train.parquet, shape=(26, 86), dist={-1: 15, 1: 6, 0: 5}
-2025-06-02 20:41:57,305 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_valid.parquet, shape=(7, 86), dist={1: 5, -1: 1, 0: 1}
-2025-06-02 20:41:57,315 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,331 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_train.parquet, shape=(17, 86), dist={0: 17}
-2025-06-02 20:41:57,341 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,352 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,370 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,378 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,393 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,412 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_train.parquet, shape=(26, 86), dist={0: 22, -1: 3, 1: 1}
-2025-06-02 20:41:57,423 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_valid.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:41:57,435 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,450 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,460 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,472 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,512 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_train.parquet, shape=(3024, 86), dist={0: 1602, -1: 960, 1: 462}
-2025-06-02 20:41:57,527 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_valid.parquet, shape=(864, 86), dist={0: 632, -1: 149, 1: 83}
-2025-06-02 20:41:57,540 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_test.parquet, shape=(432, 86), dist={0: 310, -1: 95, 1: 27}
-2025-06-02 20:41:57,556 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:57,566 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,578 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,596 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_train.parquet, shape=(31, 86), dist={0: 20, -1: 9, 1: 2}
-2025-06-02 20:41:57,607 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_valid.parquet, shape=(9, 86), dist={0: 8, 1: 1}
-2025-06-02 20:41:57,618 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,634 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,643 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,653 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,680 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,691 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:57,702 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:57,719 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_train.parquet, shape=(15, 86), dist={0: 15}
-2025-06-02 20:41:57,730 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,741 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,761 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_train.parquet, shape=(11, 86), dist={0: 11}
-2025-06-02 20:41:57,774 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_valid.parquet, shape=(3, 86), dist={0: 2, 1: 1}
-2025-06-02 20:41:57,787 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,804 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_train.parquet, shape=(19, 86), dist={0: 12, 1: 4, -1: 3}
-2025-06-02 20:41:57,814 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_valid.parquet, shape=(5, 86), dist={0: 4, 1: 1}
-2025-06-02 20:41:57,825 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:57,843 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_train.parquet, shape=(18, 86), dist={0: 16, -1: 2}
-2025-06-02 20:41:57,855 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:57,865 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,885 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_train.parquet, shape=(21, 86), dist={0: 20, 1: 1}
-2025-06-02 20:41:57,896 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:41:57,908 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:57,946 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_train.parquet, shape=(3023, 86), dist={0: 2221, 1: 416, -1: 386}
-2025-06-02 20:41:57,974 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_valid.parquet, shape=(863, 86), dist={0: 788, -1: 42, 1: 33}
-2025-06-02 20:41:57,987 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_test.parquet, shape=(433, 86), dist={0: 387, 1: 25, -1: 21}
-2025-06-02 20:41:58,015 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_train.parquet, shape=(1004, 86), dist={0: 759, 1: 142, -1: 103}
-2025-06-02 20:41:58,031 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_valid.parquet, shape=(287, 86), dist={0: 206, -1: 56, 1: 25}
-2025-06-02 20:41:58,048 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_test.parquet, shape=(144, 86), dist={0: 114, 1: 22, -1: 8}
-2025-06-02 20:41:58,068 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_train.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:58,080 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,093 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,119 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_train.parquet, shape=(1006, 86), dist={0: 708, -1: 153, 1: 145}
-2025-06-02 20:41:58,133 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_valid.parquet, shape=(287, 86), dist={0: 223, -1: 53, 1: 11}
-2025-06-02 20:41:58,148 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_test.parquet, shape=(145, 86), dist={0: 89, 1: 29, -1: 27}
-2025-06-02 20:41:58,170 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,182 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,194 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,218 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_train.parquet, shape=(4, 86), dist={0: 3, 1: 1}
-2025-06-02 20:41:58,237 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,254 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,276 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_train.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:41:58,295 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_valid.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,308 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,330 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_train.parquet, shape=(18, 86), dist={0: 15, 1: 3}
-2025-06-02 20:41:58,346 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_valid.parquet, shape=(5, 86), dist={0: 3, 1: 2}
-2025-06-02 20:41:58,358 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:58,379 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,390 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,404 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,423 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,433 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,448 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,465 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,474 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,486 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,503 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,516 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,532 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,549 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,559 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,572 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,596 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_train.parquet, shape=(1005, 86), dist={0: 888, 1: 74, -1: 43}
-2025-06-02 20:41:58,609 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_valid.parquet, shape=(287, 86), dist={0: 253, 1: 18, -1: 16}
-2025-06-02 20:41:58,620 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_test.parquet, shape=(144, 86), dist={0: 107, 1: 25, -1: 12}
-2025-06-02 20:41:58,639 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_train.parquet, shape=(26, 86), dist={0: 23, -1: 3}
-2025-06-02 20:41:58,650 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_valid.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:41:58,662 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:58,679 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,689 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,699 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,737 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_train.parquet, shape=(3024, 86), dist={0: 1257, -1: 1181, 1: 586}
-2025-06-02 20:41:58,773 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_valid.parquet, shape=(864, 86), dist={0: 485, -1: 289, 1: 90}
-2025-06-02 20:41:58,788 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_test.parquet, shape=(433, 86), dist={0: 275, -1: 121, 1: 37}
-2025-06-02 20:41:58,805 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_train.parquet, shape=(21, 86), dist={0: 17, 1: 3, -1: 1}
-2025-06-02 20:41:58,817 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_valid.parquet, shape=(6, 86), dist={1: 3, 0: 3}
-2025-06-02 20:41:58,828 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:58,846 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,856 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:58,867 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:58,885 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_train.parquet, shape=(21, 86), dist={0: 18, -1: 2, 1: 1}
-2025-06-02 20:41:58,900 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_valid.parquet, shape=(6, 86), dist={1: 5, 0: 1}
-2025-06-02 20:41:58,913 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:58,932 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_train.parquet, shape=(8, 86), dist={0: 8}
-2025-06-02 20:41:58,944 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_valid.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,959 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:58,984 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_train.parquet, shape=(22, 86), dist={0: 16, 1: 3, -1: 3}
-2025-06-02 20:41:58,996 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_valid.parquet, shape=(6, 86), dist={0: 3, -1: 3}
-2025-06-02 20:41:59,009 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:59,027 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_train.parquet, shape=(23, 86), dist={0: 23}
-2025-06-02 20:41:59,040 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:41:59,053 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:59,071 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:59,082 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:59,097 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:59,119 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_train.parquet, shape=(21, 86), dist={0: 14, 1: 5, -1: 2}
-2025-06-02 20:41:59,130 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_valid.parquet, shape=(6, 86), dist={0: 5, -1: 1}
-2025-06-02 20:41:59,143 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:59,178 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_train.parquet, shape=(3024, 86), dist={0: 1764, -1: 656, 1: 604}
-2025-06-02 20:41:59,196 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_valid.parquet, shape=(864, 86), dist={0: 657, -1: 109, 1: 98}
-2025-06-02 20:41:59,213 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_test.parquet, shape=(432, 86), dist={0: 342, -1: 52, 1: 38}
-2025-06-02 20:41:59,244 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_train.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:59,270 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:41:59,287 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:59,321 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_train.parquet, shape=(27, 86), dist={0: 17, 1: 6, -1: 4}
-2025-06-02 20:41:59,336 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_valid.parquet, shape=(7, 86), dist={-1: 6, 0: 1}
-2025-06-02 20:41:59,347 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:59,369 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_train.parquet, shape=(1008, 86), dist={0: 729, -1: 148, 1: 131}
-2025-06-02 20:41:59,384 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_valid.parquet, shape=(288, 86), dist={0: 206, -1: 50, 1: 32}
-2025-06-02 20:41:59,398 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_test.parquet, shape=(145, 86), dist={0: 110, 1: 29, -1: 6}
-2025-06-02 20:41:59,422 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_train.parquet, shape=(1002, 86), dist={0: 767, 1: 128, -1: 107}
-2025-06-02 20:41:59,434 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_valid.parquet, shape=(286, 86), dist={0: 189, -1: 52, 1: 45}
-2025-06-02 20:41:59,448 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_test.parquet, shape=(144, 86), dist={0: 112, -1: 18, 1: 14}
-2025-06-02 20:41:59,483 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_train.parquet, shape=(3022, 86), dist={0: 2048, -1: 652, 1: 322}
-2025-06-02 20:41:59,501 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_valid.parquet, shape=(863, 86), dist={0: 509, 1: 224, -1: 130}
-2025-06-02 20:41:59,517 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_test.parquet, shape=(433, 86), dist={1: 284, -1: 144, 0: 5}
-2025-06-02 20:41:59,537 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_train.parquet, shape=(16, 86), dist={0: 16}
-2025-06-02 20:41:59,550 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_valid.parquet, shape=(4, 86), dist={0: 3, 1: 1}
-2025-06-02 20:41:59,563 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:59,592 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_train.parquet, shape=(1008, 86), dist={0: 675, -1: 200, 1: 133}
-2025-06-02 20:41:59,608 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_valid.parquet, shape=(288, 86), dist={0: 177, -1: 80, 1: 31}
-2025-06-02 20:41:59,624 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_test.parquet, shape=(145, 86), dist={0: 111, 1: 19, -1: 15}
-2025-06-02 20:41:59,650 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_train.parquet, shape=(1007, 86), dist={0: 1007}
-2025-06-02 20:41:59,664 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_valid.parquet, shape=(288, 86), dist={0: 288}
-2025-06-02 20:41:59,679 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_test.parquet, shape=(145, 86), dist={0: 145}
-2025-06-02 20:41:59,701 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_train.parquet, shape=(18, 86), dist={0: 18}
-2025-06-02 20:41:59,713 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:41:59,725 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:41:59,769 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_train.parquet, shape=(3024, 86), dist={0: 1698, -1: 786, 1: 540}
-2025-06-02 20:41:59,795 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_valid.parquet, shape=(864, 86), dist={0: 406, -1: 268, 1: 190}
-2025-06-02 20:41:59,822 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_test.parquet, shape=(433, 86), dist={-1: 187, 0: 150, 1: 96}
-2025-06-02 20:41:59,849 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_train.parquet, shape=(18, 86), dist={0: 13, 1: 4, -1: 1}
-2025-06-02 20:41:59,862 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_valid.parquet, shape=(5, 86), dist={1: 3, -1: 1, 0: 1}
-2025-06-02 20:41:59,874 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:41:59,894 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:59,905 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:41:59,917 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:41:59,945 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_train.parquet, shape=(1006, 86), dist={0: 694, -1: 160, 1: 152}
-2025-06-02 20:41:59,969 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_valid.parquet, shape=(287, 86), dist={0: 204, -1: 49, 1: 34}
-2025-06-02 20:41:59,982 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_test.parquet, shape=(145, 86), dist={0: 111, 1: 18, -1: 16}
-2025-06-02 20:42:00,014 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_train.parquet, shape=(3023, 86), dist={0: 2019, -1: 636, 1: 368}
-2025-06-02 20:42:00,030 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_valid.parquet, shape=(863, 86), dist={0: 634, -1: 174, 1: 55}
-2025-06-02 20:42:00,042 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_test.parquet, shape=(433, 86), dist={0: 303, -1: 77, 1: 53}
-2025-06-02 20:42:00,061 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_train.parquet, shape=(19, 86), dist={0: 12, -1: 6, 1: 1}
-2025-06-02 20:42:00,072 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_valid.parquet, shape=(5, 86), dist={1: 3, -1: 1, 0: 1}
-2025-06-02 20:42:00,085 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:00,102 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_train.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:00,112 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,122 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,142 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_train.parquet, shape=(991, 86), dist={0: 855, 1: 76, -1: 60}
-2025-06-02 20:42:00,156 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_valid.parquet, shape=(283, 86), dist={0: 263, -1: 12, 1: 8}
-2025-06-02 20:42:00,168 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_test.parquet, shape=(142, 86), dist={0: 122, 1: 11, -1: 9}
-2025-06-02 20:42:00,185 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_train.parquet, shape=(26, 86), dist={0: 21, 1: 5}
-2025-06-02 20:42:00,196 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_valid.parquet, shape=(7, 86), dist={0: 6, -1: 1}
-2025-06-02 20:42:00,206 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:00,344 [F5] [INFO] [SETUP] LABEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\04_label
-2025-06-02 20:42:00,344 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
-2025-06-02 20:42:00,452 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_train.parquet, shape=(23, 86), dist={0: 19, -1: 4}
-2025-06-02 20:42:00,463 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:42:00,475 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:00,492 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_train.parquet, shape=(14, 86), dist={0: 14}
-2025-06-02 20:42:00,502 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:00,513 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:00,531 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_train.parquet, shape=(23, 86), dist={0: 19, -1: 3, 1: 1}
-2025-06-02 20:42:00,542 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_valid.parquet, shape=(6, 86), dist={1: 5, 0: 1}
-2025-06-02 20:42:00,552 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:00,570 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_train.parquet, shape=(16, 86), dist={0: 16}
-2025-06-02 20:42:00,580 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:00,589 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:00,603 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_train.parquet, shape=(16, 86), dist={-1: 15, 1: 1}
-2025-06-02 20:42:00,612 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_valid.parquet, shape=(4, 86), dist={1: 2, 0: 2}
-2025-06-02 20:42:00,620 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:00,636 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_train.parquet, shape=(27, 86), dist={0: 26, -1: 1}
-2025-06-02 20:42:00,646 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_valid.parquet, shape=(7, 86), dist={0: 5, 1: 2}
-2025-06-02 20:42:00,654 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:00,667 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,688 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,698 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,713 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_train.parquet, shape=(26, 86), dist={-1: 15, 1: 6, 0: 5}
-2025-06-02 20:42:00,722 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_valid.parquet, shape=(7, 86), dist={1: 5, -1: 1, 0: 1}
-2025-06-02 20:42:00,731 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:00,747 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_train.parquet, shape=(17, 86), dist={0: 17}
-2025-06-02 20:42:00,757 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:00,767 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:00,781 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,790 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,800 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,815 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_train.parquet, shape=(26, 86), dist={0: 22, -1: 3, 1: 1}
-2025-06-02 20:42:00,824 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_valid.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:42:00,832 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:00,848 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,856 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,864 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,895 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_train.parquet, shape=(3024, 86), dist={0: 1602, -1: 960, 1: 462}
-2025-06-02 20:42:00,910 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_valid.parquet, shape=(864, 86), dist={0: 632, -1: 149, 1: 83}
-2025-06-02 20:42:00,921 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_test.parquet, shape=(432, 86), dist={0: 310, -1: 95, 1: 27}
-2025-06-02 20:42:00,937 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:00,945 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:00,953 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:00,970 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_train.parquet, shape=(31, 86), dist={0: 20, -1: 9, 1: 2}
-2025-06-02 20:42:00,981 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_valid.parquet, shape=(9, 86), dist={0: 8, 1: 1}
-2025-06-02 20:42:00,991 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:01,008 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,020 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,033 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,059 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,068 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,079 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,096 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_train.parquet, shape=(15, 86), dist={0: 15}
-2025-06-02 20:42:01,106 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_valid.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:01,116 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:01,133 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_train.parquet, shape=(11, 86), dist={0: 11}
-2025-06-02 20:42:01,144 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_valid.parquet, shape=(3, 86), dist={0: 2, 1: 1}
-2025-06-02 20:42:01,155 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:01,171 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_train.parquet, shape=(19, 86), dist={0: 12, 1: 4, -1: 3}
-2025-06-02 20:42:01,183 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_valid.parquet, shape=(5, 86), dist={0: 4, 1: 1}
-2025-06-02 20:42:01,194 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:01,211 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_train.parquet, shape=(18, 86), dist={0: 16, -1: 2}
-2025-06-02 20:42:01,221 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:01,231 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:01,250 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_train.parquet, shape=(21, 86), dist={0: 20, 1: 1}
-2025-06-02 20:42:01,265 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:42:01,277 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:01,310 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_train.parquet, shape=(3023, 86), dist={0: 2221, 1: 416, -1: 386}
-2025-06-02 20:42:01,324 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_valid.parquet, shape=(863, 86), dist={0: 788, -1: 42, 1: 33}
-2025-06-02 20:42:01,335 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_test.parquet, shape=(433, 86), dist={0: 387, 1: 25, -1: 21}
-2025-06-02 20:42:01,356 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_train.parquet, shape=(1004, 86), dist={0: 759, 1: 142, -1: 103}
-2025-06-02 20:42:01,367 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_valid.parquet, shape=(287, 86), dist={0: 206, -1: 56, 1: 25}
-2025-06-02 20:42:01,376 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_test.parquet, shape=(144, 86), dist={0: 114, 1: 22, -1: 8}
-2025-06-02 20:42:01,390 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_train.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:01,399 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,408 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:01,427 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_train.parquet, shape=(1006, 86), dist={0: 708, -1: 153, 1: 145}
-2025-06-02 20:42:01,439 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_valid.parquet, shape=(287, 86), dist={0: 223, -1: 53, 1: 11}
-2025-06-02 20:42:01,449 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_test.parquet, shape=(145, 86), dist={0: 89, 1: 29, -1: 27}
-2025-06-02 20:42:01,464 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:01,471 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,482 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:01,497 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_train.parquet, shape=(4, 86), dist={0: 3, 1: 1}
-2025-06-02 20:42:01,508 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,519 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,536 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_train.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:42:01,546 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_valid.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:01,555 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:01,570 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_train.parquet, shape=(18, 86), dist={0: 15, 1: 3}
-2025-06-02 20:42:01,578 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_valid.parquet, shape=(5, 86), dist={0: 3, 1: 2}
-2025-06-02 20:42:01,588 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:01,601 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,609 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,618 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,632 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,641 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,650 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,664 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,671 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,682 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,696 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,704 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,714 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,728 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,736 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,745 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,766 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_train.parquet, shape=(1005, 86), dist={0: 888, 1: 74, -1: 43}
-2025-06-02 20:42:01,778 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_valid.parquet, shape=(287, 86), dist={0: 253, 1: 18, -1: 16}
-2025-06-02 20:42:01,790 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_test.parquet, shape=(144, 86), dist={0: 107, 1: 25, -1: 12}
-2025-06-02 20:42:01,809 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_train.parquet, shape=(26, 86), dist={0: 23, -1: 3}
-2025-06-02 20:42:01,822 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_valid.parquet, shape=(7, 86), dist={0: 7}
-2025-06-02 20:42:01,833 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:01,848 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,857 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,867 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:01,903 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_train.parquet, shape=(3024, 86), dist={0: 1257, -1: 1181, 1: 586}
-2025-06-02 20:42:01,930 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_valid.parquet, shape=(864, 86), dist={0: 485, -1: 289, 1: 90}
-2025-06-02 20:42:01,942 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_test.parquet, shape=(433, 86), dist={0: 275, -1: 121, 1: 37}
-2025-06-02 20:42:01,956 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_train.parquet, shape=(21, 86), dist={0: 17, 1: 3, -1: 1}
-2025-06-02 20:42:01,966 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_valid.parquet, shape=(6, 86), dist={1: 3, 0: 3}
-2025-06-02 20:42:01,974 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:01,987 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:01,995 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:02,004 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:02,022 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_train.parquet, shape=(21, 86), dist={0: 18, -1: 2, 1: 1}
-2025-06-02 20:42:02,055 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_valid.parquet, shape=(6, 86), dist={1: 5, 0: 1}
-2025-06-02 20:42:02,070 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,088 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_train.parquet, shape=(8, 86), dist={0: 8}
-2025-06-02 20:42:02,098 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_valid.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:02,107 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:02,121 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_train.parquet, shape=(22, 86), dist={0: 16, 1: 3, -1: 3}
-2025-06-02 20:42:02,129 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_valid.parquet, shape=(6, 86), dist={0: 3, -1: 3}
-2025-06-02 20:42:02,137 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,151 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_train.parquet, shape=(23, 86), dist={0: 23}
-2025-06-02 20:42:02,159 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_valid.parquet, shape=(6, 86), dist={0: 6}
-2025-06-02 20:42:02,167 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:02,179 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_train.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:02,186 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:02,194 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:02,209 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_train.parquet, shape=(21, 86), dist={0: 14, 1: 5, -1: 2}
-2025-06-02 20:42:02,216 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_valid.parquet, shape=(6, 86), dist={0: 5, -1: 1}
-2025-06-02 20:42:02,224 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,252 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_train.parquet, shape=(3024, 86), dist={0: 1764, -1: 656, 1: 604}
-2025-06-02 20:42:02,267 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_valid.parquet, shape=(864, 86), dist={0: 657, -1: 109, 1: 98}
-2025-06-02 20:42:02,279 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_test.parquet, shape=(432, 86), dist={0: 342, -1: 52, 1: 38}
-2025-06-02 20:42:02,298 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_train.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,306 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:02,316 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:02,334 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_train.parquet, shape=(27, 86), dist={0: 17, 1: 6, -1: 4}
-2025-06-02 20:42:02,344 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_valid.parquet, shape=(7, 86), dist={-1: 6, 0: 1}
-2025-06-02 20:42:02,352 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_test.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:02,374 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_train.parquet, shape=(1008, 86), dist={0: 729, -1: 148, 1: 131}
-2025-06-02 20:42:02,386 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_valid.parquet, shape=(288, 86), dist={0: 206, -1: 50, 1: 32}
-2025-06-02 20:42:02,395 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_test.parquet, shape=(145, 86), dist={0: 110, 1: 29, -1: 6}
-2025-06-02 20:42:02,414 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_train.parquet, shape=(1002, 86), dist={0: 767, 1: 128, -1: 107}
-2025-06-02 20:42:02,425 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_valid.parquet, shape=(286, 86), dist={0: 189, -1: 52, 1: 45}
-2025-06-02 20:42:02,437 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_test.parquet, shape=(144, 86), dist={0: 112, -1: 18, 1: 14}
-2025-06-02 20:42:02,464 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_train.parquet, shape=(3022, 86), dist={0: 2048, -1: 652, 1: 322}
-2025-06-02 20:42:02,476 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_valid.parquet, shape=(863, 86), dist={0: 509, 1: 224, -1: 130}
-2025-06-02 20:42:02,488 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_test.parquet, shape=(433, 86), dist={1: 284, -1: 144, 0: 5}
-2025-06-02 20:42:02,503 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_train.parquet, shape=(16, 86), dist={0: 16}
-2025-06-02 20:42:02,513 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_valid.parquet, shape=(4, 86), dist={0: 3, 1: 1}
-2025-06-02 20:42:02,523 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:02,543 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_train.parquet, shape=(1008, 86), dist={0: 675, -1: 200, 1: 133}
-2025-06-02 20:42:02,553 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_valid.parquet, shape=(288, 86), dist={0: 177, -1: 80, 1: 31}
-2025-06-02 20:42:02,562 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_test.parquet, shape=(145, 86), dist={0: 111, 1: 19, -1: 15}
-2025-06-02 20:42:02,581 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_train.parquet, shape=(1007, 86), dist={0: 1007}
-2025-06-02 20:42:02,590 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_valid.parquet, shape=(288, 86), dist={0: 288}
-2025-06-02 20:42:02,599 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_test.parquet, shape=(145, 86), dist={0: 145}
-2025-06-02 20:42:02,613 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_train.parquet, shape=(18, 86), dist={0: 18}
-2025-06-02 20:42:02,621 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_valid.parquet, shape=(5, 86), dist={0: 5}
-2025-06-02 20:42:02,631 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_test.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:02,661 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_train.parquet, shape=(3024, 86), dist={0: 1698, -1: 786, 1: 540}
-2025-06-02 20:42:02,672 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_valid.parquet, shape=(864, 86), dist={0: 406, -1: 268, 1: 190}
-2025-06-02 20:42:02,683 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_test.parquet, shape=(433, 86), dist={-1: 187, 0: 150, 1: 96}
-2025-06-02 20:42:02,697 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_train.parquet, shape=(18, 86), dist={0: 13, 1: 4, -1: 1}
-2025-06-02 20:42:02,705 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_valid.parquet, shape=(5, 86), dist={1: 3, -1: 1, 0: 1}
-2025-06-02 20:42:02,713 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,725 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_train.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:02,731 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_valid.parquet, shape=(0, 86), dist={}
-2025-06-02 20:42:02,741 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_test.parquet, shape=(2, 86), dist={0: 2}
-2025-06-02 20:42:02,759 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_train.parquet, shape=(1006, 86), dist={0: 694, -1: 160, 1: 152}
-2025-06-02 20:42:02,781 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_valid.parquet, shape=(287, 86), dist={0: 204, -1: 49, 1: 34}
-2025-06-02 20:42:02,791 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_test.parquet, shape=(145, 86), dist={0: 111, 1: 18, -1: 16}
-2025-06-02 20:42:02,816 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_train.parquet, shape=(3023, 86), dist={0: 2019, -1: 636, 1: 368}
-2025-06-02 20:42:02,827 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_valid.parquet, shape=(863, 86), dist={0: 634, -1: 174, 1: 55}
-2025-06-02 20:42:02,837 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_test.parquet, shape=(433, 86), dist={0: 303, -1: 77, 1: 53}
-2025-06-02 20:42:02,851 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_train.parquet, shape=(19, 86), dist={0: 12, -1: 6, 1: 1}
-2025-06-02 20:42:02,860 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_valid.parquet, shape=(5, 86), dist={1: 3, -1: 1, 0: 1}
-2025-06-02 20:42:02,868 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_test.parquet, shape=(4, 86), dist={0: 4}
-2025-06-02 20:42:02,881 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_train.parquet, shape=(3, 86), dist={0: 3}
-2025-06-02 20:42:02,888 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_valid.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:02,896 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_test.parquet, shape=(1, 86), dist={0: 1}
-2025-06-02 20:42:02,913 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_train.parquet, shape=(991, 86), dist={0: 855, 1: 76, -1: 60}
-2025-06-02 20:42:02,923 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_valid.parquet, shape=(283, 86), dist={0: 263, -1: 12, 1: 8}
-2025-06-02 20:42:02,932 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_test.parquet, shape=(142, 86), dist={0: 122, 1: 11, -1: 9}
-2025-06-02 20:42:02,946 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_train.parquet, shape=(26, 86), dist={0: 21, 1: 5}
-2025-06-02 20:42:02,956 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_valid.parquet, shape=(7, 86), dist={0: 6, -1: 1}
-2025-06-02 20:42:02,965 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:21,510 [F5] [INFO] [SETUP] LABEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\04_label
+2025-06-02 23:50:21,510 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-02 23:50:21,608 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_train.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:21,617 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_valid.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:21,626 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:21,642 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_train.parquet, shape=(14, 86), dist={0: 5, -1: 5, 1: 4}
+2025-06-02 23:50:21,652 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_valid.parquet, shape=(4, 86), dist={0: 3, 1: 1}
+2025-06-02 23:50:21,663 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:21,679 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_train.parquet, shape=(36, 86), dist={1: 24, -1: 11, 0: 1}
+2025-06-02 23:50:21,688 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_valid.parquet, shape=(10, 86), dist={-1: 6, 1: 4}
+2025-06-02 23:50:21,697 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:21,712 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_train.parquet, shape=(28, 86), dist={1: 13, -1: 8, 0: 7}
+2025-06-02 23:50:21,720 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_valid.parquet, shape=(8, 86), dist={-1: 6, 1: 1, 0: 1}
+2025-06-02 23:50:21,732 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:21,749 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_train.parquet, shape=(30, 86), dist={1: 14, -1: 9, 0: 7}
+2025-06-02 23:50:21,760 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_valid.parquet, shape=(8, 86), dist={-1: 5, 1: 2, 0: 1}
+2025-06-02 23:50:21,771 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:21,788 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_train.parquet, shape=(11, 86), dist={-1: 9, 1: 2}
+2025-06-02 23:50:21,797 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_valid.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:21,808 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:21,822 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:21,829 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:21,838 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:21,855 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_train.parquet, shape=(7, 86), dist={0: 5, -1: 2}
+2025-06-02 23:50:21,864 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:21,873 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:21,890 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_train.parquet, shape=(17, 86), dist={0: 12, -1: 4, 1: 1}
+2025-06-02 23:50:21,900 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_valid.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:21,912 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:21,929 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_train.parquet, shape=(42, 86), dist={0: 23, -1: 12, 1: 7}
+2025-06-02 23:50:21,942 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_valid.parquet, shape=(12, 86), dist={0: 7, -1: 5}
+2025-06-02 23:50:21,951 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_test.parquet, shape=(7, 86), dist={0: 6, -1: 1}
+2025-06-02 23:50:21,970 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_train.parquet, shape=(26, 86), dist={0: 20, -1: 3, 1: 3}
+2025-06-02 23:50:21,980 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_valid.parquet, shape=(7, 86), dist={0: 7}
+2025-06-02 23:50:21,989 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:22,004 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_train.parquet, shape=(15, 86), dist={-1: 10, 1: 5}
+2025-06-02 23:50:22,014 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_valid.parquet, shape=(4, 86), dist={-1: 2, 0: 2}
+2025-06-02 23:50:22,023 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:22,039 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_train.parquet, shape=(18, 86), dist={1: 10, 0: 5, -1: 3}
+2025-06-02 23:50:22,049 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_valid.parquet, shape=(5, 86), dist={0: 4, -1: 1}
+2025-06-02 23:50:22,060 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:22,078 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_train.parquet, shape=(33, 86), dist={1: 19, -1: 14}
+2025-06-02 23:50:22,087 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_valid.parquet, shape=(9, 86), dist={1: 8, -1: 1}
+2025-06-02 23:50:22,097 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:22,118 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_train.parquet, shape=(31, 86), dist={0: 14, -1: 9, 1: 8}
+2025-06-02 23:50:22,130 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_valid.parquet, shape=(9, 86), dist={1: 6, -1: 2, 0: 1}
+2025-06-02 23:50:22,140 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:22,158 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_train.parquet, shape=(107, 86), dist={1: 46, -1: 43, 0: 18}
+2025-06-02 23:50:22,170 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_valid.parquet, shape=(30, 86), dist={1: 15, 0: 12, -1: 3}
+2025-06-02 23:50:22,181 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_test.parquet, shape=(16, 86), dist={-1: 7, 0: 5, 1: 4}
+2025-06-02 23:50:22,208 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_train.parquet, shape=(16, 86), dist={1: 7, 0: 5, -1: 4}
+2025-06-02 23:50:22,218 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_valid.parquet, shape=(4, 86), dist={0: 2, 1: 1, -1: 1}
+2025-06-02 23:50:22,229 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:22,248 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_train.parquet, shape=(28, 86), dist={-1: 11, 0: 10, 1: 7}
+2025-06-02 23:50:22,261 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_valid.parquet, shape=(8, 86), dist={-1: 5, 0: 3}
+2025-06-02 23:50:22,274 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:22,293 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_train.parquet, shape=(178, 86), dist={-1: 80, 0: 63, 1: 35}
+2025-06-02 23:50:22,304 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_valid.parquet, shape=(51, 86), dist={0: 22, -1: 21, 1: 8}
+2025-06-02 23:50:22,316 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_test.parquet, shape=(26, 86), dist={0: 15, -1: 7, 1: 4}
+2025-06-02 23:50:22,335 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_train.parquet, shape=(17, 86), dist={-1: 11, 1: 6}
+2025-06-02 23:50:22,349 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_valid.parquet, shape=(5, 86), dist={-1: 2, 0: 2, 1: 1}
+2025-06-02 23:50:22,361 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:22,383 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_train.parquet, shape=(18, 86), dist={0: 11, -1: 4, 1: 3}
+2025-06-02 23:50:22,394 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_valid.parquet, shape=(5, 86), dist={-1: 3, 0: 2}
+2025-06-02 23:50:22,406 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:22,432 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_train.parquet, shape=(21, 86), dist={0: 17, 1: 4}
+2025-06-02 23:50:22,450 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_valid.parquet, shape=(6, 86), dist={0: 4, -1: 2}
+2025-06-02 23:50:22,467 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:22,486 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_train.parquet, shape=(32, 86), dist={1: 17, 0: 10, -1: 5}
+2025-06-02 23:50:22,497 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_valid.parquet, shape=(9, 86), dist={0: 5, -1: 4}
+2025-06-02 23:50:22,509 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_test.parquet, shape=(6, 86), dist={0: 6}
+2025-06-02 23:50:22,530 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_train.parquet, shape=(1004, 86), dist={0: 635, -1: 227, 1: 142}
+2025-06-02 23:50:22,542 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_valid.parquet, shape=(287, 86), dist={0: 171, -1: 91, 1: 25}
+2025-06-02 23:50:22,553 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_test.parquet, shape=(144, 86), dist={0: 103, 1: 22, -1: 19}
+2025-06-02 23:50:22,572 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_train.parquet, shape=(32, 86), dist={1: 19, -1: 7, 0: 6}
+2025-06-02 23:50:22,590 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_valid.parquet, shape=(9, 86), dist={-1: 9}
+2025-06-02 23:50:22,600 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:22,622 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_train.parquet, shape=(1006, 86), dist={0: 614, -1: 247, 1: 145}
+2025-06-02 23:50:22,633 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_valid.parquet, shape=(287, 86), dist={0: 210, -1: 66, 1: 11}
+2025-06-02 23:50:22,645 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_test.parquet, shape=(145, 86), dist={0: 87, -1: 29, 1: 29}
+2025-06-02 23:50:22,661 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_train.parquet, shape=(18, 86), dist={1: 11, -1: 6, 0: 1}
+2025-06-02 23:50:22,673 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_valid.parquet, shape=(5, 86), dist={-1: 4, 0: 1}
+2025-06-02 23:50:22,684 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:22,703 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_train.parquet, shape=(9, 86), dist={-1: 5, 1: 3, 0: 1}
+2025-06-02 23:50:22,713 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,723 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,742 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_train.parquet, shape=(7, 86), dist={0: 7}
+2025-06-02 23:50:22,753 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,763 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,780 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_train.parquet, shape=(61, 86), dist={0: 30, -1: 21, 1: 10}
+2025-06-02 23:50:22,792 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_valid.parquet, shape=(17, 86), dist={0: 15, -1: 2}
+2025-06-02 23:50:22,803 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_test.parquet, shape=(10, 86), dist={0: 7, -1: 3}
+2025-06-02 23:50:22,820 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_train.parquet, shape=(16, 86), dist={-1: 7, 0: 5, 1: 4}
+2025-06-02 23:50:22,830 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_valid.parquet, shape=(4, 86), dist={-1: 3, 0: 1}
+2025-06-02 23:50:22,842 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:22,856 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:22,864 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:22,872 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:22,887 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_train.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,894 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:22,904 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:22,920 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_train.parquet, shape=(32, 86), dist={1: 17, -1: 10, 0: 5}
+2025-06-02 23:50:22,930 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_valid.parquet, shape=(9, 86), dist={-1: 9}
+2025-06-02 23:50:22,941 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:22,955 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:22,963 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:22,972 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:22,992 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_train.parquet, shape=(1005, 86), dist={0: 740, -1: 142, 1: 123}
+2025-06-02 23:50:23,004 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_valid.parquet, shape=(287, 86), dist={0: 173, 1: 65, -1: 49}
+2025-06-02 23:50:23,013 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_test.parquet, shape=(144, 86), dist={0: 96, 1: 31, -1: 17}
+2025-06-02 23:50:23,028 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_train.parquet, shape=(53, 86), dist={1: 27, -1: 21, 0: 5}
+2025-06-02 23:50:23,038 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_valid.parquet, shape=(15, 86), dist={1: 7, 0: 4, -1: 4}
+2025-06-02 23:50:23,048 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_test.parquet, shape=(9, 86), dist={0: 6, -1: 3}
+2025-06-02 23:50:23,062 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_train.parquet, shape=(8, 86), dist={-1: 5, 1: 2, 0: 1}
+2025-06-02 23:50:23,073 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:23,083 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:23,100 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_train.parquet, shape=(131, 86), dist={1: 52, 0: 45, -1: 34}
+2025-06-02 23:50:23,109 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_valid.parquet, shape=(37, 86), dist={1: 24, -1: 12, 0: 1}
+2025-06-02 23:50:23,119 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_test.parquet, shape=(20, 86), dist={-1: 11, 0: 5, 1: 4}
+2025-06-02 23:50:23,134 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_train.parquet, shape=(12, 86), dist={1: 6, -1: 4, 0: 2}
+2025-06-02 23:50:23,144 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_valid.parquet, shape=(3, 86), dist={0: 2, -1: 1}
+2025-06-02 23:50:23,152 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:23,167 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_train.parquet, shape=(16, 86), dist={-1: 9, 1: 5, 0: 2}
+2025-06-02 23:50:23,177 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_valid.parquet, shape=(4, 86), dist={-1: 3, 0: 1}
+2025-06-02 23:50:23,187 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:23,203 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_train.parquet, shape=(185, 86), dist={0: 80, 1: 58, -1: 47}
+2025-06-02 23:50:23,212 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_valid.parquet, shape=(53, 86), dist={1: 27, -1: 22, 0: 4}
+2025-06-02 23:50:23,222 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_test.parquet, shape=(27, 86), dist={1: 11, -1: 11, 0: 5}
+2025-06-02 23:50:23,237 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_train.parquet, shape=(8, 86), dist={0: 8}
+2025-06-02 23:50:23,248 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:23,258 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:23,275 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_train.parquet, shape=(58, 86), dist={0: 24, 1: 23, -1: 11}
+2025-06-02 23:50:23,286 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_valid.parquet, shape=(16, 86), dist={0: 10, 1: 3, -1: 3}
+2025-06-02 23:50:23,296 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_test.parquet, shape=(10, 86), dist={0: 5, 1: 4, -1: 1}
+2025-06-02 23:50:23,313 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_train.parquet, shape=(23, 86), dist={0: 23}
+2025-06-02 23:50:23,323 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_valid.parquet, shape=(6, 86), dist={0: 6}
+2025-06-02 23:50:23,334 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:23,349 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:23,359 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:23,376 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:23,410 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_train.parquet, shape=(117, 86), dist={1: 52, -1: 49, 0: 16}
+2025-06-02 23:50:23,426 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_valid.parquet, shape=(33, 86), dist={1: 23, 0: 8, -1: 2}
+2025-06-02 23:50:23,437 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_test.parquet, shape=(18, 86), dist={-1: 10, 0: 7, 1: 1}
+2025-06-02 23:50:23,455 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_train.parquet, shape=(16, 86), dist={-1: 9, 1: 4, 0: 3}
+2025-06-02 23:50:23,466 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_valid.parquet, shape=(4, 86), dist={0: 3, -1: 1}
+2025-06-02 23:50:23,477 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:23,493 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_train.parquet, shape=(64, 86), dist={1: 31, -1: 24, 0: 9}
+2025-06-02 23:50:23,504 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_valid.parquet, shape=(18, 86), dist={1: 9, -1: 5, 0: 4}
+2025-06-02 23:50:23,513 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_test.parquet, shape=(10, 86), dist={0: 6, -1: 3, 1: 1}
+2025-06-02 23:50:23,529 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_train.parquet, shape=(63, 86), dist={1: 29, -1: 27, 0: 7}
+2025-06-02 23:50:23,538 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_valid.parquet, shape=(18, 86), dist={1: 13, 0: 3, -1: 2}
+2025-06-02 23:50:23,548 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_test.parquet, shape=(10, 86), dist={0: 6, -1: 3, 1: 1}
+2025-06-02 23:50:23,568 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_train.parquet, shape=(1008, 86), dist={0: 638, -1: 239, 1: 131}
+2025-06-02 23:50:23,580 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_valid.parquet, shape=(288, 86), dist={0: 184, -1: 72, 1: 32}
+2025-06-02 23:50:23,594 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_test.parquet, shape=(145, 86), dist={0: 95, 1: 29, -1: 21}
+2025-06-02 23:50:23,620 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_train.parquet, shape=(1002, 86), dist={0: 703, -1: 171, 1: 128}
+2025-06-02 23:50:23,631 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_valid.parquet, shape=(286, 86), dist={0: 162, -1: 79, 1: 45}
+2025-06-02 23:50:23,643 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_test.parquet, shape=(144, 86), dist={0: 94, -1: 36, 1: 14}
+2025-06-02 23:50:23,664 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_train.parquet, shape=(17, 86), dist={1: 12, -1: 5}
+2025-06-02 23:50:23,676 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_valid.parquet, shape=(5, 86), dist={1: 3, 0: 2}
+2025-06-02 23:50:23,689 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:23,709 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_train.parquet, shape=(32, 86), dist={0: 17, -1: 8, 1: 7}
+2025-06-02 23:50:23,720 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_valid.parquet, shape=(9, 86), dist={-1: 7, 1: 1, 0: 1}
+2025-06-02 23:50:23,736 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:23,774 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_train.parquet, shape=(1008, 86), dist={1: 387, -1: 337, 0: 284}
+2025-06-02 23:50:23,786 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_valid.parquet, shape=(288, 86), dist={-1: 102, 0: 101, 1: 85}
+2025-06-02 23:50:23,798 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_test.parquet, shape=(145, 86), dist={0: 58, 1: 55, -1: 32}
+2025-06-02 23:50:23,821 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_train.parquet, shape=(1007, 86), dist={0: 950, 1: 30, -1: 27}
+2025-06-02 23:50:23,833 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_valid.parquet, shape=(288, 86), dist={0: 279, -1: 6, 1: 3}
+2025-06-02 23:50:23,845 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_test.parquet, shape=(145, 86), dist={0: 145}
+2025-06-02 23:50:23,866 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_train.parquet, shape=(104, 86), dist={0: 104}
+2025-06-02 23:50:23,877 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_valid.parquet, shape=(29, 86), dist={0: 28, -1: 1}
+2025-06-02 23:50:23,889 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_test.parquet, shape=(16, 86), dist={0: 16}
+2025-06-02 23:50:23,910 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_train.parquet, shape=(44, 86), dist={1: 26, -1: 18}
+2025-06-02 23:50:23,922 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_valid.parquet, shape=(12, 86), dist={-1: 8, 1: 4}
+2025-06-02 23:50:23,934 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_test.parquet, shape=(8, 86), dist={0: 5, -1: 3}
+2025-06-02 23:50:23,957 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_train.parquet, shape=(183, 86), dist={1: 64, -1: 61, 0: 58}
+2025-06-02 23:50:23,970 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_valid.parquet, shape=(52, 86), dist={1: 35, -1: 17}
+2025-06-02 23:50:23,981 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_test.parquet, shape=(27, 86), dist={1: 14, -1: 8, 0: 5}
+2025-06-02 23:50:24,000 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_train.parquet, shape=(47, 86), dist={1: 25, -1: 21, 0: 1}
+2025-06-02 23:50:24,012 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_valid.parquet, shape=(13, 86), dist={-1: 6, 1: 5, 0: 2}
+2025-06-02 23:50:24,023 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_test.parquet, shape=(8, 86), dist={0: 5, -1: 3}
+2025-06-02 23:50:24,046 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_train.parquet, shape=(1006, 86), dist={0: 610, -1: 244, 1: 152}
+2025-06-02 23:50:24,058 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_valid.parquet, shape=(287, 86), dist={0: 182, -1: 71, 1: 34}
+2025-06-02 23:50:24,068 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_test.parquet, shape=(145, 86), dist={0: 83, -1: 44, 1: 18}
+2025-06-02 23:50:24,102 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_train.parquet, shape=(3023, 86), dist={0: 1396, 1: 862, -1: 765}
+2025-06-02 23:50:24,117 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_valid.parquet, shape=(863, 86), dist={0: 411, -1: 232, 1: 220}
+2025-06-02 23:50:24,129 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_test.parquet, shape=(433, 86), dist={0: 179, 1: 158, -1: 96}
+2025-06-02 23:50:24,150 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_train.parquet, shape=(184, 86), dist={-1: 93, 1: 87, 0: 4}
+2025-06-02 23:50:24,161 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_valid.parquet, shape=(52, 86), dist={1: 33, -1: 19}
+2025-06-02 23:50:24,173 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_test.parquet, shape=(27, 86), dist={1: 17, -1: 5, 0: 5}
+2025-06-02 23:50:24,193 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_train.parquet, shape=(70, 86), dist={0: 49, 1: 13, -1: 8}
+2025-06-02 23:50:24,208 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_valid.parquet, shape=(20, 86), dist={0: 14, -1: 4, 1: 2}
+2025-06-02 23:50:24,221 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_test.parquet, shape=(11, 86), dist={0: 11}
+2025-06-02 23:50:24,243 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_train.parquet, shape=(991, 86), dist={0: 722, -1: 144, 1: 125}
+2025-06-02 23:50:24,256 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_valid.parquet, shape=(283, 86), dist={0: 225, -1: 36, 1: 22}
+2025-06-02 23:50:24,271 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_test.parquet, shape=(142, 86), dist={0: 92, 1: 30, -1: 20}
+2025-06-02 23:50:24,290 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_train.parquet, shape=(26, 86), dist={0: 19, 1: 5, -1: 2}
+2025-06-02 23:50:24,300 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_valid.parquet, shape=(7, 86), dist={-1: 4, 0: 3}
+2025-06-02 23:50:24,310 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:24,505 [F5] [INFO] [SETUP] LABEL_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\04_label
+2025-06-02 23:50:24,505 [F5] [INFO] [SETUP] SPLIT_DIR=D:\UPBIT_ML\f5_ml_pipeline\ml_data\05_split
+2025-06-02 23:50:24,675 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_train.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:24,687 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_valid.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:24,698 [F5] [INFO] [SPLIT] KRW-ADA_label.parquet → KRW-ADA_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:24,714 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_train.parquet, shape=(14, 86), dist={0: 5, -1: 5, 1: 4}
+2025-06-02 23:50:24,726 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_valid.parquet, shape=(4, 86), dist={0: 3, 1: 1}
+2025-06-02 23:50:24,741 [F5] [INFO] [SPLIT] KRW-AGLD_label.parquet → KRW-AGLD_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:24,764 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_train.parquet, shape=(36, 86), dist={1: 24, -1: 11, 0: 1}
+2025-06-02 23:50:24,776 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_valid.parquet, shape=(10, 86), dist={-1: 6, 1: 4}
+2025-06-02 23:50:24,787 [F5] [INFO] [SPLIT] KRW-AKT_label.parquet → KRW-AKT_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:24,804 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_train.parquet, shape=(28, 86), dist={1: 13, -1: 8, 0: 7}
+2025-06-02 23:50:24,814 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_valid.parquet, shape=(8, 86), dist={-1: 6, 1: 1, 0: 1}
+2025-06-02 23:50:24,825 [F5] [INFO] [SPLIT] KRW-APT_label.parquet → KRW-APT_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:24,843 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_train.parquet, shape=(30, 86), dist={1: 14, -1: 9, 0: 7}
+2025-06-02 23:50:24,854 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_valid.parquet, shape=(8, 86), dist={-1: 5, 1: 2, 0: 1}
+2025-06-02 23:50:24,867 [F5] [INFO] [SPLIT] KRW-AQT_label.parquet → KRW-AQT_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:24,892 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_train.parquet, shape=(11, 86), dist={-1: 9, 1: 2}
+2025-06-02 23:50:24,905 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_valid.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:24,918 [F5] [INFO] [SPLIT] KRW-ARB_label.parquet → KRW-ARB_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:24,936 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:24,947 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:24,960 [F5] [INFO] [SPLIT] KRW-ARKM_label.parquet → KRW-ARKM_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:24,979 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_train.parquet, shape=(7, 86), dist={0: 5, -1: 2}
+2025-06-02 23:50:24,990 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,002 [F5] [INFO] [SPLIT] KRW-ARK_label.parquet → KRW-ARK_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,025 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_train.parquet, shape=(17, 86), dist={0: 12, -1: 4, 1: 1}
+2025-06-02 23:50:25,037 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_valid.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:25,050 [F5] [INFO] [SPLIT] KRW-ATOM_label.parquet → KRW-ATOM_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,074 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_train.parquet, shape=(42, 86), dist={0: 23, -1: 12, 1: 7}
+2025-06-02 23:50:25,086 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_valid.parquet, shape=(12, 86), dist={0: 7, -1: 5}
+2025-06-02 23:50:25,101 [F5] [INFO] [SPLIT] KRW-AUCTION_label.parquet → KRW-AUCTION_test.parquet, shape=(7, 86), dist={0: 6, -1: 1}
+2025-06-02 23:50:25,119 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_train.parquet, shape=(26, 86), dist={0: 20, -1: 3, 1: 3}
+2025-06-02 23:50:25,134 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_valid.parquet, shape=(7, 86), dist={0: 7}
+2025-06-02 23:50:25,147 [F5] [INFO] [SPLIT] KRW-AXS_label.parquet → KRW-AXS_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:25,169 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_train.parquet, shape=(15, 86), dist={-1: 10, 1: 5}
+2025-06-02 23:50:25,181 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_valid.parquet, shape=(4, 86), dist={-1: 2, 0: 2}
+2025-06-02 23:50:25,193 [F5] [INFO] [SPLIT] KRW-BERA_label.parquet → KRW-BERA_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,211 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_train.parquet, shape=(18, 86), dist={1: 10, 0: 5, -1: 3}
+2025-06-02 23:50:25,222 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_valid.parquet, shape=(5, 86), dist={0: 4, -1: 1}
+2025-06-02 23:50:25,234 [F5] [INFO] [SPLIT] KRW-CARV_label.parquet → KRW-CARV_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,252 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_train.parquet, shape=(33, 86), dist={1: 19, -1: 14}
+2025-06-02 23:50:25,264 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_valid.parquet, shape=(9, 86), dist={1: 8, -1: 1}
+2025-06-02 23:50:25,276 [F5] [INFO] [SPLIT] KRW-CBK_label.parquet → KRW-CBK_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:25,309 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_train.parquet, shape=(31, 86), dist={0: 14, -1: 9, 1: 8}
+2025-06-02 23:50:25,320 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_valid.parquet, shape=(9, 86), dist={1: 6, -1: 2, 0: 1}
+2025-06-02 23:50:25,331 [F5] [INFO] [SPLIT] KRW-CELO_label.parquet → KRW-CELO_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:25,350 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_train.parquet, shape=(107, 86), dist={1: 46, -1: 43, 0: 18}
+2025-06-02 23:50:25,361 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_valid.parquet, shape=(30, 86), dist={1: 15, 0: 12, -1: 3}
+2025-06-02 23:50:25,374 [F5] [INFO] [SPLIT] KRW-COW_label.parquet → KRW-COW_test.parquet, shape=(16, 86), dist={-1: 7, 0: 5, 1: 4}
+2025-06-02 23:50:25,404 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_train.parquet, shape=(16, 86), dist={1: 7, 0: 5, -1: 4}
+2025-06-02 23:50:25,415 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_valid.parquet, shape=(4, 86), dist={0: 2, 1: 1, -1: 1}
+2025-06-02 23:50:25,425 [F5] [INFO] [SPLIT] KRW-CTC_label.parquet → KRW-CTC_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:25,441 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_train.parquet, shape=(28, 86), dist={-1: 11, 0: 10, 1: 7}
+2025-06-02 23:50:25,450 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_valid.parquet, shape=(8, 86), dist={-1: 5, 0: 3}
+2025-06-02 23:50:25,461 [F5] [INFO] [SPLIT] KRW-DOT_label.parquet → KRW-DOT_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:25,477 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_train.parquet, shape=(178, 86), dist={-1: 80, 0: 63, 1: 35}
+2025-06-02 23:50:25,487 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_valid.parquet, shape=(51, 86), dist={0: 22, -1: 21, 1: 8}
+2025-06-02 23:50:25,497 [F5] [INFO] [SPLIT] KRW-DRIFT_label.parquet → KRW-DRIFT_test.parquet, shape=(26, 86), dist={0: 15, -1: 7, 1: 4}
+2025-06-02 23:50:25,515 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_train.parquet, shape=(17, 86), dist={-1: 11, 1: 6}
+2025-06-02 23:50:25,526 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_valid.parquet, shape=(5, 86), dist={-1: 2, 0: 2, 1: 1}
+2025-06-02 23:50:25,535 [F5] [INFO] [SPLIT] KRW-EOS_label.parquet → KRW-EOS_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,549 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_train.parquet, shape=(18, 86), dist={0: 11, -1: 4, 1: 3}
+2025-06-02 23:50:25,558 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_valid.parquet, shape=(5, 86), dist={-1: 3, 0: 2}
+2025-06-02 23:50:25,567 [F5] [INFO] [SPLIT] KRW-FIL_label.parquet → KRW-FIL_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,582 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_train.parquet, shape=(21, 86), dist={0: 17, 1: 4}
+2025-06-02 23:50:25,591 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_valid.parquet, shape=(6, 86), dist={0: 4, -1: 2}
+2025-06-02 23:50:25,601 [F5] [INFO] [SPLIT] KRW-FLOW_label.parquet → KRW-FLOW_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:25,615 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_train.parquet, shape=(32, 86), dist={1: 17, 0: 10, -1: 5}
+2025-06-02 23:50:25,625 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_valid.parquet, shape=(9, 86), dist={0: 5, -1: 4}
+2025-06-02 23:50:25,634 [F5] [INFO] [SPLIT] KRW-GAS_label.parquet → KRW-GAS_test.parquet, shape=(6, 86), dist={0: 6}
+2025-06-02 23:50:25,654 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_train.parquet, shape=(1004, 86), dist={0: 635, -1: 227, 1: 142}
+2025-06-02 23:50:25,663 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_valid.parquet, shape=(287, 86), dist={0: 171, -1: 91, 1: 25}
+2025-06-02 23:50:25,673 [F5] [INFO] [SPLIT] KRW-IMX_label.parquet → KRW-IMX_test.parquet, shape=(144, 86), dist={0: 103, 1: 22, -1: 19}
+2025-06-02 23:50:25,688 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_train.parquet, shape=(32, 86), dist={1: 19, -1: 7, 0: 6}
+2025-06-02 23:50:25,696 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_valid.parquet, shape=(9, 86), dist={-1: 9}
+2025-06-02 23:50:25,706 [F5] [INFO] [SPLIT] KRW-INJ_label.parquet → KRW-INJ_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:25,724 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_train.parquet, shape=(1006, 86), dist={0: 614, -1: 247, 1: 145}
+2025-06-02 23:50:25,734 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_valid.parquet, shape=(287, 86), dist={0: 210, -1: 66, 1: 11}
+2025-06-02 23:50:25,745 [F5] [INFO] [SPLIT] KRW-JTO_label.parquet → KRW-JTO_test.parquet, shape=(145, 86), dist={0: 87, -1: 29, 1: 29}
+2025-06-02 23:50:25,759 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_train.parquet, shape=(18, 86), dist={1: 11, -1: 6, 0: 1}
+2025-06-02 23:50:25,768 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_valid.parquet, shape=(5, 86), dist={-1: 4, 0: 1}
+2025-06-02 23:50:25,778 [F5] [INFO] [SPLIT] KRW-JUP_label.parquet → KRW-JUP_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:25,795 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_train.parquet, shape=(9, 86), dist={-1: 5, 1: 3, 0: 1}
+2025-06-02 23:50:25,804 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,812 [F5] [INFO] [SPLIT] KRW-KAITO_label.parquet → KRW-KAITO_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,829 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_train.parquet, shape=(7, 86), dist={0: 7}
+2025-06-02 23:50:25,838 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,849 [F5] [INFO] [SPLIT] KRW-KAVA_label.parquet → KRW-KAVA_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,864 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_train.parquet, shape=(61, 86), dist={0: 30, -1: 21, 1: 10}
+2025-06-02 23:50:25,874 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_valid.parquet, shape=(17, 86), dist={0: 15, -1: 2}
+2025-06-02 23:50:25,883 [F5] [INFO] [SPLIT] KRW-LAYER_label.parquet → KRW-LAYER_test.parquet, shape=(10, 86), dist={0: 7, -1: 3}
+2025-06-02 23:50:25,900 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_train.parquet, shape=(16, 86), dist={-1: 7, 0: 5, 1: 4}
+2025-06-02 23:50:25,910 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_valid.parquet, shape=(4, 86), dist={-1: 3, 0: 1}
+2025-06-02 23:50:25,918 [F5] [INFO] [SPLIT] KRW-LINK_label.parquet → KRW-LINK_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:25,931 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:25,940 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:25,948 [F5] [INFO] [SPLIT] KRW-LSK_label.parquet → KRW-LSK_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:25,964 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_train.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,972 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:25,980 [F5] [INFO] [SPLIT] KRW-MASK_label.parquet → KRW-MASK_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:25,995 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_train.parquet, shape=(32, 86), dist={1: 17, -1: 10, 0: 5}
+2025-06-02 23:50:26,005 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_valid.parquet, shape=(9, 86), dist={-1: 9}
+2025-06-02 23:50:26,016 [F5] [INFO] [SPLIT] KRW-ME_label.parquet → KRW-ME_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:26,033 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:26,042 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:26,051 [F5] [INFO] [SPLIT] KRW-MNT_label.parquet → KRW-MNT_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:26,073 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_train.parquet, shape=(1005, 86), dist={0: 740, -1: 142, 1: 123}
+2025-06-02 23:50:26,085 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_valid.parquet, shape=(287, 86), dist={0: 173, 1: 65, -1: 49}
+2025-06-02 23:50:26,095 [F5] [INFO] [SPLIT] KRW-MTL_label.parquet → KRW-MTL_test.parquet, shape=(144, 86), dist={0: 96, 1: 31, -1: 17}
+2025-06-02 23:50:26,114 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_train.parquet, shape=(53, 86), dist={1: 27, -1: 21, 0: 5}
+2025-06-02 23:50:26,124 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_valid.parquet, shape=(15, 86), dist={1: 7, 0: 4, -1: 4}
+2025-06-02 23:50:26,134 [F5] [INFO] [SPLIT] KRW-NEAR_label.parquet → KRW-NEAR_test.parquet, shape=(9, 86), dist={0: 6, -1: 3}
+2025-06-02 23:50:26,148 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_train.parquet, shape=(8, 86), dist={-1: 5, 1: 2, 0: 1}
+2025-06-02 23:50:26,157 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:26,166 [F5] [INFO] [SPLIT] KRW-NEO_label.parquet → KRW-NEO_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:26,182 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_train.parquet, shape=(131, 86), dist={1: 52, 0: 45, -1: 34}
+2025-06-02 23:50:26,190 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_valid.parquet, shape=(37, 86), dist={1: 24, -1: 12, 0: 1}
+2025-06-02 23:50:26,198 [F5] [INFO] [SPLIT] KRW-NXPC_label.parquet → KRW-NXPC_test.parquet, shape=(20, 86), dist={-1: 11, 0: 5, 1: 4}
+2025-06-02 23:50:26,213 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_train.parquet, shape=(12, 86), dist={1: 6, -1: 4, 0: 2}
+2025-06-02 23:50:26,223 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_valid.parquet, shape=(3, 86), dist={0: 2, -1: 1}
+2025-06-02 23:50:26,231 [F5] [INFO] [SPLIT] KRW-OM_label.parquet → KRW-OM_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:26,246 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_train.parquet, shape=(16, 86), dist={-1: 9, 1: 5, 0: 2}
+2025-06-02 23:50:26,255 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_valid.parquet, shape=(4, 86), dist={-1: 3, 0: 1}
+2025-06-02 23:50:26,264 [F5] [INFO] [SPLIT] KRW-ONDO_label.parquet → KRW-ONDO_test.parquet, shape=(4, 86), dist={0: 4}
+2025-06-02 23:50:26,282 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_train.parquet, shape=(185, 86), dist={0: 80, 1: 58, -1: 47}
+2025-06-02 23:50:26,293 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_valid.parquet, shape=(53, 86), dist={1: 27, -1: 22, 0: 4}
+2025-06-02 23:50:26,302 [F5] [INFO] [SPLIT] KRW-ORCA_label.parquet → KRW-ORCA_test.parquet, shape=(27, 86), dist={1: 11, -1: 11, 0: 5}
+2025-06-02 23:50:26,319 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_train.parquet, shape=(8, 86), dist={0: 8}
+2025-06-02 23:50:26,329 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_valid.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:26,338 [F5] [INFO] [SPLIT] KRW-PENDLE_label.parquet → KRW-PENDLE_test.parquet, shape=(2, 86), dist={0: 2}
+2025-06-02 23:50:26,355 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_train.parquet, shape=(58, 86), dist={0: 24, 1: 23, -1: 11}
+2025-06-02 23:50:26,366 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_valid.parquet, shape=(16, 86), dist={0: 10, 1: 3, -1: 3}
+2025-06-02 23:50:26,377 [F5] [INFO] [SPLIT] KRW-PUNDIX_label.parquet → KRW-PUNDIX_test.parquet, shape=(10, 86), dist={0: 5, 1: 4, -1: 1}
+2025-06-02 23:50:26,392 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_train.parquet, shape=(23, 86), dist={0: 23}
+2025-06-02 23:50:26,401 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_valid.parquet, shape=(6, 86), dist={0: 6}
+2025-06-02 23:50:26,410 [F5] [INFO] [SPLIT] KRW-QTUM_label.parquet → KRW-QTUM_test.parquet, shape=(5, 86), dist={0: 5}
+2025-06-02 23:50:26,425 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_train.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:26,433 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_valid.parquet, shape=(0, 86), dist={}
+2025-06-02 23:50:26,443 [F5] [INFO] [SPLIT] KRW-RENDER_label.parquet → KRW-RENDER_test.parquet, shape=(1, 86), dist={0: 1}
+2025-06-02 23:50:26,459 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_train.parquet, shape=(117, 86), dist={1: 52, -1: 49, 0: 16}
+2025-06-02 23:50:26,468 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_valid.parquet, shape=(33, 86), dist={1: 23, 0: 8, -1: 2}
+2025-06-02 23:50:26,479 [F5] [INFO] [SPLIT] KRW-SAFE_label.parquet → KRW-SAFE_test.parquet, shape=(18, 86), dist={-1: 10, 0: 7, 1: 1}
+2025-06-02 23:50:26,493 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_train.parquet, shape=(16, 86), dist={-1: 9, 1: 4, 0: 3}
+2025-06-02 23:50:26,502 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_valid.parquet, shape=(4, 86), dist={0: 3, -1: 1}
+2025-06-02 23:50:26,515 [F5] [INFO] [SPLIT] KRW-STX_label.parquet → KRW-STX_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:26,531 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_train.parquet, shape=(64, 86), dist={1: 31, -1: 24, 0: 9}
+2025-06-02 23:50:26,540 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_valid.parquet, shape=(18, 86), dist={1: 9, -1: 5, 0: 4}
+2025-06-02 23:50:26,551 [F5] [INFO] [SPLIT] KRW-SUI_label.parquet → KRW-SUI_test.parquet, shape=(10, 86), dist={0: 6, -1: 3, 1: 1}
+2025-06-02 23:50:26,567 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_train.parquet, shape=(63, 86), dist={1: 29, -1: 27, 0: 7}
+2025-06-02 23:50:26,575 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_valid.parquet, shape=(18, 86), dist={1: 13, 0: 3, -1: 2}
+2025-06-02 23:50:26,585 [F5] [INFO] [SPLIT] KRW-TAIKO_label.parquet → KRW-TAIKO_test.parquet, shape=(10, 86), dist={0: 6, -1: 3, 1: 1}
+2025-06-02 23:50:26,606 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_train.parquet, shape=(1008, 86), dist={0: 638, -1: 239, 1: 131}
+2025-06-02 23:50:26,617 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_valid.parquet, shape=(288, 86), dist={0: 184, -1: 72, 1: 32}
+2025-06-02 23:50:26,628 [F5] [INFO] [SPLIT] KRW-THETA_label.parquet → KRW-THETA_test.parquet, shape=(145, 86), dist={0: 95, 1: 29, -1: 21}
+2025-06-02 23:50:26,647 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_train.parquet, shape=(1002, 86), dist={0: 703, -1: 171, 1: 128}
+2025-06-02 23:50:26,672 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_valid.parquet, shape=(286, 86), dist={0: 162, -1: 79, 1: 45}
+2025-06-02 23:50:26,683 [F5] [INFO] [SPLIT] KRW-TIA_label.parquet → KRW-TIA_test.parquet, shape=(144, 86), dist={0: 94, -1: 36, 1: 14}
+2025-06-02 23:50:26,699 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_train.parquet, shape=(17, 86), dist={1: 12, -1: 5}
+2025-06-02 23:50:26,707 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_valid.parquet, shape=(5, 86), dist={1: 3, 0: 2}
+2025-06-02 23:50:26,715 [F5] [INFO] [SPLIT] KRW-TOKAMAK_label.parquet → KRW-TOKAMAK_test.parquet, shape=(3, 86), dist={0: 3}
+2025-06-02 23:50:26,729 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_train.parquet, shape=(32, 86), dist={0: 17, -1: 8, 1: 7}
+2025-06-02 23:50:26,738 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_valid.parquet, shape=(9, 86), dist={-1: 7, 1: 1, 0: 1}
+2025-06-02 23:50:26,745 [F5] [INFO] [SPLIT] KRW-TRUMP_label.parquet → KRW-TRUMP_test.parquet, shape=(6, 86), dist={0: 5, -1: 1}
+2025-06-02 23:50:26,779 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_train.parquet, shape=(1008, 86), dist={1: 387, -1: 337, 0: 284}
+2025-06-02 23:50:26,790 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_valid.parquet, shape=(288, 86), dist={-1: 102, 0: 101, 1: 85}
+2025-06-02 23:50:26,799 [F5] [INFO] [SPLIT] KRW-UNI_label.parquet → KRW-UNI_test.parquet, shape=(145, 86), dist={0: 58, 1: 55, -1: 32}
+2025-06-02 23:50:26,817 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_train.parquet, shape=(1007, 86), dist={0: 950, 1: 30, -1: 27}
+2025-06-02 23:50:26,828 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_valid.parquet, shape=(288, 86), dist={0: 279, -1: 6, 1: 3}
+2025-06-02 23:50:26,836 [F5] [INFO] [SPLIT] KRW-USDC_label.parquet → KRW-USDC_test.parquet, shape=(145, 86), dist={0: 145}
+2025-06-02 23:50:26,853 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_train.parquet, shape=(104, 86), dist={0: 104}
+2025-06-02 23:50:26,861 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_valid.parquet, shape=(29, 86), dist={0: 28, -1: 1}
+2025-06-02 23:50:26,868 [F5] [INFO] [SPLIT] KRW-USDT_label.parquet → KRW-USDT_test.parquet, shape=(16, 86), dist={0: 16}
+2025-06-02 23:50:26,882 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_train.parquet, shape=(44, 86), dist={1: 26, -1: 18}
+2025-06-02 23:50:26,891 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_valid.parquet, shape=(12, 86), dist={-1: 8, 1: 4}
+2025-06-02 23:50:26,899 [F5] [INFO] [SPLIT] KRW-UXLINK_label.parquet → KRW-UXLINK_test.parquet, shape=(8, 86), dist={0: 5, -1: 3}
+2025-06-02 23:50:26,914 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_train.parquet, shape=(183, 86), dist={1: 64, -1: 61, 0: 58}
+2025-06-02 23:50:26,923 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_valid.parquet, shape=(52, 86), dist={1: 35, -1: 17}
+2025-06-02 23:50:26,932 [F5] [INFO] [SPLIT] KRW-VANA_label.parquet → KRW-VANA_test.parquet, shape=(27, 86), dist={1: 14, -1: 8, 0: 5}
+2025-06-02 23:50:26,946 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_train.parquet, shape=(47, 86), dist={1: 25, -1: 21, 0: 1}
+2025-06-02 23:50:26,956 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_valid.parquet, shape=(13, 86), dist={-1: 6, 1: 5, 0: 2}
+2025-06-02 23:50:26,963 [F5] [INFO] [SPLIT] KRW-VIRTUAL_label.parquet → KRW-VIRTUAL_test.parquet, shape=(8, 86), dist={0: 5, -1: 3}
+2025-06-02 23:50:26,983 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_train.parquet, shape=(1006, 86), dist={0: 610, -1: 244, 1: 152}
+2025-06-02 23:50:26,994 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_valid.parquet, shape=(287, 86), dist={0: 182, -1: 71, 1: 34}
+2025-06-02 23:50:27,002 [F5] [INFO] [SPLIT] KRW-WAL_label.parquet → KRW-WAL_test.parquet, shape=(145, 86), dist={0: 83, -1: 44, 1: 18}
+2025-06-02 23:50:27,031 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_train.parquet, shape=(3023, 86), dist={0: 1396, 1: 862, -1: 765}
+2025-06-02 23:50:27,043 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_valid.parquet, shape=(863, 86), dist={0: 411, -1: 232, 1: 220}
+2025-06-02 23:50:27,052 [F5] [INFO] [SPLIT] KRW-WAVES_label.parquet → KRW-WAVES_test.parquet, shape=(433, 86), dist={0: 179, 1: 158, -1: 96}
+2025-06-02 23:50:27,067 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_train.parquet, shape=(184, 86), dist={-1: 93, 1: 87, 0: 4}
+2025-06-02 23:50:27,077 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_valid.parquet, shape=(52, 86), dist={1: 33, -1: 19}
+2025-06-02 23:50:27,086 [F5] [INFO] [SPLIT] KRW-WCT_label.parquet → KRW-WCT_test.parquet, shape=(27, 86), dist={1: 17, -1: 5, 0: 5}
+2025-06-02 23:50:27,100 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_train.parquet, shape=(70, 86), dist={0: 49, 1: 13, -1: 8}
+2025-06-02 23:50:27,109 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_valid.parquet, shape=(20, 86), dist={0: 14, -1: 4, 1: 2}
+2025-06-02 23:50:27,118 [F5] [INFO] [SPLIT] KRW-XRP_label.parquet → KRW-XRP_test.parquet, shape=(11, 86), dist={0: 11}
+2025-06-02 23:50:27,136 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_train.parquet, shape=(991, 86), dist={0: 722, -1: 144, 1: 125}
+2025-06-02 23:50:27,147 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_valid.parquet, shape=(283, 86), dist={0: 225, -1: 36, 1: 22}
+2025-06-02 23:50:27,156 [F5] [INFO] [SPLIT] KRW-XTZ_label.parquet → KRW-XTZ_test.parquet, shape=(142, 86), dist={0: 92, 1: 30, -1: 20}
+2025-06-02 23:50:27,170 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_train.parquet, shape=(26, 86), dist={0: 19, 1: 5, -1: 2}
+2025-06-02 23:50:27,179 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_valid.parquet, shape=(7, 86), dist={-1: 4, 0: 3}
+2025-06-02 23:50:27,186 [F5] [INFO] [SPLIT] KRW-ZRO_label.parquet → KRW-ZRO_test.parquet, shape=(5, 86), dist={0: 5}
