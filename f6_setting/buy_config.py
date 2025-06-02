@@ -7,6 +7,7 @@ DEFAULTS = {
     "MAX_RETRY": 3,
     "SLIP_MAX": 0.15,
     "ORDER_FAIL_RETRY": 3,
+    "LIMIT_WAIT_SEC": 30,
 }
 
 

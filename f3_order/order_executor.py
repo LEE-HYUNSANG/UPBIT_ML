@@ -174,6 +174,8 @@ class OrderExecutor:
                             time.sleep(3)
                 finally:
                     self.pending_symbols.discard(symbol)
+                if signal.get("price") is not None:
+                    order_result["entry_price"] = signal["price"]
                 if order_result.get("filled", False):
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]
