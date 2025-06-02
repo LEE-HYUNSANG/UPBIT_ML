@@ -9,11 +9,12 @@ It contains two main pages:
   notification options.
 
 The "매수 설정" card on this page loads values from `/api/buy_settings` and
-updates `config/f6_buy_settings.json`. It exposes five fields: the buy amount
+updates `config/f6_buy_settings.json`. It exposes six fields: the buy amount
 (`ENTRY_SIZE_INITIAL`), the maximum number of coins to hold (`MAX_SYMBOLS`), the
-retry count when an order fails (`MAX_RETRY`), the slippage limit (`SLIP_MAX`)
-and how many times to retry a failed order (`ORDER_FAIL_RETRY`). Default values
-are `10000`, `7`, `3`, `0.15` and `3` respectively.
+retry count when an order fails (`MAX_RETRY`), the slippage limit (`SLIP_MAX`),
+how many times to retry a failed order (`ORDER_FAIL_RETRY`) and how long to wait
+for a limit order to fill (`LIMIT_WAIT_SEC`). Default values are `10000`, `7`,
+`3`, `0.15`, `3` and `30` respectively.
 
 Both pages share a dark themed layout with an auto trade toggle and server
 status indicator in the header.
