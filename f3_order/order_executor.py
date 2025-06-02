@@ -53,8 +53,8 @@ class OrderExecutor:
         self.pending_file = self.config.get(
             "PENDING_FILE", "config/f3_f3_pending_symbols.json"
         )
-        self.pending_symbols: set[str] = set(_load_json(self.pending_file))
-        _save_json(self.pending_file, list(self.pending_symbols))
+        self.pending_symbols: set[str] = set()
+        _save_json(self.pending_file, [])
         if self.risk_manager:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
@@ -173,20 +173,14 @@ class OrderExecutor:
                     return
                 self.pending_symbols.add(symbol)
                 self._persist_pending()
-                max_retry = int(self.config.get("MAX_RETRY", 3))
                 order_result = {}
                 try:
-                    for attempt in range(max_retry):
-                        order_result = smart_buy(
-                            signal,
-                            self.config,
-                            self.position_manager,
-                            logger,
-                        )
-                        if order_result.get("filled"):
-                            break
-                        if attempt < max_retry - 1:
-                            time.sleep(3)
+                    order_result = smart_buy(
+                        signal,
+                        self.config,
+                        self.position_manager,
+                        logger,
+                    )
                 finally:
                     self.pending_symbols.discard(symbol)
                 if signal.get("price") is not None:
