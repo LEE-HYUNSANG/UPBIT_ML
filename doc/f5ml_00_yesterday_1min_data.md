@@ -2,14 +2,14 @@
 
 `f1_f5_data_collection_list.json`에 명시된 코인들의 최근 72시간 1분봉 데이터를 한 번에 다운로드합니다.
 파일은 `f5_ml_pipeline/ml_data/01_raw/` 폴더에 `<코인ID>_rawdata.parquet` 형식으로 저장됩니다.
-기존 파일이 존재하면 내용을 불러와 합치며, 모든 코인 데이터를 정상적으로 받았을 때만 기존 파일 위에 덮어씁니다.
+기존 파일이 존재하면 내용을 불러와 합치며, 다운로드가 성공한 시장만 기존 파일 위에 덮어씁니다.
 
 ## 주요 기능
-- `get_ohlcv_history()` – 각 코인에 대해 분할 호출로 72시간 분봉을 가져옵니다.【F:f5_ml_pipeline/00_yesterday_1min_data.py†L85-L108】
-- `collect_all()` – 모든 코인의 데이터를 내려받아 저장합니다.【F:f5_ml_pipeline/00_yesterday_1min_data.py†L156-L183】
+- `get_ohlcv_history()` – 각 코인에 대해 분할 호출로 72시간 분봉을 가져옵니다.【F:f5_ml_pipeline/00_yesterday_1min_data.py†L75-L98】
+- `collect_all()` – 모든 코인의 데이터를 내려받아 저장합니다.【F:f5_ml_pipeline/00_yesterday_1min_data.py†L146-L173】
 
-모든 시장의 데이터를 임시 폴더에 저장한 후, 전부 성공했을 때만
-`01_raw` 디렉터리에 병합합니다. 중간에 실패하면 기존 데이터는 유지됩니다.
+모든 시장의 데이터를 임시 폴더에 저장한 뒤, 성공한 시장만
+`01_raw` 디렉터리에 병합합니다. 실패한 시장이 있어도 기존 데이터는 그대로 남습니다.
 
 다음과 같이 실행합니다.
 ```bash

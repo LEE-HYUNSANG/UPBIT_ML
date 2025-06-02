@@ -15,8 +15,6 @@ import pandas as pd
 import requests
 
 from utils import ensure_dir
-import shutil
-
 BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
 DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
@@ -25,14 +23,6 @@ COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_yesterday_collect.log"
 CANDLE_LIMIT = 4320
-
-
-def clear_output_dir(path: Path) -> None:
-    """Remove all contents of ``path`` and recreate it."""
-    if path.exists():
-        shutil.rmtree(path, ignore_errors=True)
-    path.mkdir(parents=True, exist_ok=True)
-
 
 def setup_logger() -> None:
     """Configure rotating file logger."""
@@ -122,7 +112,7 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
     return None
 
 
-def save_data(df: pd.DataFrame, market: str, ts: datetime, root: Path = DATA_ROOT) -> None:
+def save_data(df: pd.DataFrame, market: str, root: Path = DATA_ROOT) -> None:
     """Save ``df`` under ``root`` directory."""
     dir_path = ensure_dir(root)
     file_path = dir_path / f"{market}_rawdata.parquet"
@@ -155,32 +145,33 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime, root: Path = DATA_ROO
 
 def collect_all(markets: Iterable[str]) -> None:
     """Collect 72h history for all markets."""
-    ts = datetime.utcnow()
     ensure_dir(DATA_ROOT)
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_root = Path(tmpdir)
-        success = True
+        collected: List[str] = []
         for market in markets:
             try:
                 df = get_ohlcv_history(market)
                 if df.empty:
                     logging.warning("No data for %s", market)
-                    success = False
-                    break
-                save_data(df, market, ts, root=tmp_root)
+                    continue
+                save_data(df, market, root=tmp_root)
+                collected.append(market)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error("Collect error %s: %s", market, exc)
-                success = False
-                break
 
-        if success:
-            for file in tmp_root.glob("*.parquet"):
-                market = file.stem.replace("_rawdata", "")
-                try:
-                    df = pd.read_parquet(file)
-                    save_data(df, market, ts, root=DATA_ROOT)
-                except Exception as exc:  # pragma: no cover - best effort
-                    logging.error("Finalize error %s: %s", file.name, exc)
+        if not collected:
+            logging.error("No market data collected")
+            return
+
+        for market in collected:
+            file = tmp_root / f"{market}_rawdata.parquet"
+            try:
+                df = pd.read_parquet(file)
+                save_data(df, market, root=DATA_ROOT)
+            except Exception as exc:  # pragma: no cover - best effort
+                logging.error("Finalize error %s: %s", file.name, exc)
+
 
 
 def main() -> None:
