@@ -15,6 +15,13 @@ Supported categories:
 - **system_alert** – warnings from the risk manager or KPI guard.
 - **ml_pipeline** – machine learning pipeline status.
 
+Example ML pipeline messages:
+
+```
+[INFO] 머신러닝 학습 시작] at 12:34:56
+[INFO] 머신러닝 학습 종료] at 12:45:01 - selected_coinList: CBK, WAVES, CELO
+```
+
 Default templates for order alerts reside in the same configuration file and can
 be customized. The sell template now includes a `{reason}` placeholder which is
 automatically filled with "익절 매도" or "손절 매도" based on the exit type.
