@@ -48,6 +48,11 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
         if not res.get("filled"):
             try:
                 position_manager.client.cancel_order(uuid)
+                res["canceled"] = True
+                try:
+                    position_manager._reset_buy_count(symbol)
+                except Exception:  # pragma: no cover - best effort
+                    pass
             except Exception as exc:  # pragma: no cover - network failure
                 log_with_tag(logger, f"cancel_order failed for {uuid}: {exc}")
     return res
