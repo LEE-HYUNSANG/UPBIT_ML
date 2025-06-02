@@ -3380,3 +3380,175 @@ _ml_buy_signal\f2_data
 2025-06-02 19:34:18,896 [F2] [INFO] Drop duplicates KRW-WCT_rawdata.parquet - 1 rows
 2025-06-02 19:34:19,041 [F2] [INFO] Remove >72h rows KRW-XRP_rawdata.parquet - 1 rows
 2025-06-02 19:34:19,189 [F2] [INFO] Drop duplicates KRW-XRP_rawdata.parquet - 1 rows
+2025-06-02 19:35:05,082 [F2] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
+2025-06-02 19:35:05,357 [F2] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-02 19:35:05,637 [F2] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-02 19:35:05,644 [F2] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-02 19:35:05,935 [F2] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-02 19:35:06,177 [F2] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-02 19:35:06,220 [F2] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-02 19:35:06,502 [F2] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-02 19:35:06,738 [F2] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-02 19:35:06,784 [F2] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,081 [F2] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,320 [F2] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,322 [F2] [INFO] Remove >72h rows KRW-CARV_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,364 [F2] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,657 [F2] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-02 19:35:07,951 [F2] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-02 19:35:08,159 [F2] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-02 19:35:08,220 [F2] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-02 19:35:08,487 [F2] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-02 19:35:08,755 [F2] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,030 [F2] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,283 [F2] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,284 [F2] [INFO] Remove >72h rows KRW-GAS_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,327 [F2] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,565 [F2] [INFO] Remove >72h rows KRW-INJ_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,619 [F2] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-02 19:35:09,895 [F2] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-02 19:35:10,132 [F2] [INFO] Remove >72h rows KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-02 19:35:10,179 [F2] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-02 19:35:10,463 [F2] [INFO] Drop duplicates KRW-LAYER_rawdata.parquet - 1 rows
+2025-06-02 19:35:10,736 [F2] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,017 [F2] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,251 [F2] [INFO] Remove >72h rows KRW-ME_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,298 [F2] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,570 [F2] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,830 [F2] [INFO] Remove >72h rows KRW-NEO_rawdata.parquet - 1 rows
+2025-06-02 19:35:11,860 [F2] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-02 19:35:12,185 [F2] [INFO] Remove >72h rows KRW-NXPC_rawdata.parquet - 1 rows
+2025-06-02 19:35:12,199 [F2] [INFO] Remove >72h rows KRW-NXPC_rawdata.parquet - 1 rows
+2025-06-02 19:35:12,530 [F2] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-02 19:35:12,959 [F2] [INFO] Remove >72h rows KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-02 19:35:12,959 [F2] [INFO] Remove >72h rows KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-02 19:35:14,037 [F2] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-02 19:35:14,357 [F2] [INFO] Remove >72h rows KRW-STX_rawdata.parquet - 1 rows
+2025-06-02 19:35:14,357 [F2] [INFO] Remove >72h rows KRW-STX_rawdata.parquet - 1 rows
+2025-06-02 19:35:14,652 [F2] [INFO] Remove >72h rows KRW-SUI_rawdata.parquet - 1 rows
+2025-06-02 19:35:14,655 [F2] [INFO] Remove >72h rows KRW-SUI_rawdata.parquet - 1 rows
+2025-06-02 19:35:15,006 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-02 19:35:15,006 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-02 19:35:15,007 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 19:35:15,007 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 19:35:15,007 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-02 19:35:15,007 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-02 19:35:15,008 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-LAYER', 'KRW-CBK', 'KRW-TAIKO', 'KRW-TRUMP', 'KRW-INJ', 'KRW-ME', 'KRW-JUP', 'KRW-DRIFT', 'KRW-ARK', 'KRW-NXPC']
+2025-06-02 19:35:15,008 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: ['KRW-LAYER', 'KRW-CBK', 'KRW-TAIKO', 'KRW-TRUMP', 'KRW-INJ', 'KRW-ME', 'KRW-JUP', 'KRW-DRIFT', 'KRW-ARK', 'KRW-NXPC']
+2025-06-02 19:35:15,008 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-LAYER', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TAIKO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-INJ', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-JUP', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ARK', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 19:35:15,008 [F2] [INFO] [RUN] existing buy_list=[{'symbol': 'KRW-LAYER', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TAIKO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-INJ', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-JUP', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 1, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ARK', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 19:35:15,009 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-02 19:35:15,009 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-02 19:35:15,014 [F2] [INFO] [FETCH] KRW-LAYER count=60
+2025-06-02 19:35:15,014 [F2] [INFO] [FETCH] KRW-LAYER count=60
+2025-06-02 19:35:15,078 [F2] [INFO] [FETCH] KRW-LAYER rows=60
+2025-06-02 19:35:15,079 [F2] [INFO] [FETCH] KRW-LAYER rows=60
+2025-06-02 19:35:15,098 [F2] [INFO] [FETCH] saved KRW-LAYER.parquet
+2025-06-02 19:35:15,098 [F2] [INFO] [FETCH] saved KRW-LAYER.parquet
+2025-06-02 19:35:15,157 [F2] [INFO] [CHECK] KRW-LAYER prob=0.1394
+2025-06-02 19:35:15,164 [F2] [INFO] [KRW-LAYER] buy=False rsi=True trend=False
+2025-06-02 19:35:15,166 [F2] [INFO] [FETCH] KRW-CBK count=60
+2025-06-02 19:35:15,190 [F2] [INFO] [CHECK] KRW-LAYER prob=0.1394
+2025-06-02 19:35:15,199 [F2] [INFO] [KRW-LAYER] buy=False rsi=True trend=False
+2025-06-02 19:35:15,201 [F2] [INFO] [FETCH] KRW-CBK count=60
+2025-06-02 19:35:15,238 [F2] [INFO] [FETCH] KRW-CBK rows=60
+2025-06-02 19:35:15,247 [F2] [INFO] [FETCH] saved KRW-CBK.parquet
+2025-06-02 19:35:15,330 [F2] [INFO] [FETCH] KRW-CBK rows=60
+2025-06-02 19:35:15,333 [F2] [INFO] [FETCH] saved KRW-CBK.parquet
+2025-06-02 19:35:15,336 [F2] [INFO] [CHECK] KRW-CBK prob=0.5000
+2025-06-02 19:35:15,342 [F2] [INFO] [KRW-CBK] buy=False rsi=False trend=True
+2025-06-02 19:35:15,348 [F2] [INFO] [FETCH] KRW-TAIKO count=60
+2025-06-02 19:35:15,411 [F2] [INFO] [FETCH] KRW-TAIKO rows=60
+2025-06-02 19:35:15,417 [F2] [INFO] [FETCH] saved KRW-TAIKO.parquet
+2025-06-02 19:35:15,462 [F2] [INFO] [CHECK] KRW-CBK prob=0.5000
+2025-06-02 19:35:15,469 [F2] [INFO] [KRW-CBK] buy=False rsi=False trend=True
+2025-06-02 19:35:15,475 [F2] [INFO] [FETCH] KRW-TAIKO count=60
+2025-06-02 19:35:15,539 [F2] [INFO] [CHECK] KRW-TAIKO prob=0.1621
+2025-06-02 19:35:15,546 [F2] [INFO] [KRW-TAIKO] buy=False rsi=True trend=True
+2025-06-02 19:35:15,552 [F2] [INFO] [FETCH] KRW-TRUMP count=60
+2025-06-02 19:35:15,691 [F2] [INFO] [FETCH] KRW-TRUMP rows=60
+2025-06-02 19:35:15,691 [F2] [INFO] [FETCH] KRW-TAIKO rows=60
+2025-06-02 19:35:15,694 [F2] [INFO] [FETCH] saved KRW-TAIKO.parquet
+2025-06-02 19:35:15,709 [F2] [INFO] [FETCH] saved KRW-TRUMP.parquet
+2025-06-02 19:35:15,763 [F2] [INFO] [CHECK] KRW-TAIKO prob=0.1621
+2025-06-02 19:35:15,768 [F2] [INFO] [CHECK] KRW-TRUMP prob=0.6429
+2025-06-02 19:35:15,770 [F2] [INFO] [KRW-TAIKO] buy=False rsi=True trend=True
+2025-06-02 19:35:15,774 [F2] [INFO] [KRW-TRUMP] buy=True rsi=True trend=False
+2025-06-02 19:35:15,776 [F2] [INFO] [FETCH] KRW-TRUMP count=60
+2025-06-02 19:35:15,779 [F2] [INFO] [FETCH] KRW-INJ count=60
+2025-06-02 19:35:15,956 [F2] [WARNING] [FETCH] KRW-INJ failed
+2025-06-02 19:35:15,957 [F2] [INFO] [KRW-INJ] buy=False rsi=False trend=False
+2025-06-02 19:35:15,958 [F2] [INFO] [FETCH] KRW-TRUMP rows=60
+2025-06-02 19:35:15,961 [F2] [INFO] [FETCH] KRW-ME count=60
+2025-06-02 19:35:15,963 [F2] [INFO] [FETCH] saved KRW-TRUMP.parquet
+2025-06-02 19:35:16,059 [F2] [INFO] [CHECK] KRW-TRUMP prob=0.6429
+2025-06-02 19:35:16,066 [F2] [INFO] [KRW-TRUMP] buy=True rsi=True trend=False
+2025-06-02 19:35:16,071 [F2] [INFO] [FETCH] KRW-INJ count=60
+2025-06-02 19:35:16,083 [F2] [INFO] [FETCH] KRW-ME rows=60
+2025-06-02 19:35:16,103 [F2] [INFO] [FETCH] saved KRW-ME.parquet
+2025-06-02 19:35:16,145 [F2] [INFO] [FETCH] KRW-INJ rows=60
+2025-06-02 19:35:16,151 [F2] [INFO] [FETCH] saved KRW-INJ.parquet
+2025-06-02 19:35:16,195 [F2] [INFO] [CHECK] KRW-ME prob=0.0187
+2025-06-02 19:35:16,200 [F2] [INFO] [KRW-ME] buy=False rsi=True trend=False
+2025-06-02 19:35:16,204 [F2] [INFO] [FETCH] KRW-JUP count=60
+2025-06-02 19:35:16,258 [F2] [INFO] [CHECK] KRW-INJ prob=0.4119
+2025-06-02 19:35:16,264 [F2] [INFO] [KRW-INJ] buy=False rsi=True trend=False
+2025-06-02 19:35:16,269 [F2] [INFO] [FETCH] KRW-ME count=60
+2025-06-02 19:35:16,287 [F2] [INFO] [FETCH] KRW-JUP rows=60
+2025-06-02 19:35:16,294 [F2] [INFO] [FETCH] saved KRW-JUP.parquet
+2025-06-02 19:35:16,340 [F2] [INFO] [FETCH] KRW-ME rows=60
+2025-06-02 19:35:16,346 [F2] [INFO] [FETCH] saved KRW-ME.parquet
+2025-06-02 19:35:16,398 [F2] [INFO] [CHECK] KRW-JUP prob=0.4572
+2025-06-02 19:35:16,405 [F2] [INFO] [KRW-JUP] buy=False rsi=True trend=True
+2025-06-02 19:35:16,410 [F2] [INFO] [FETCH] KRW-DRIFT count=60
+2025-06-02 19:35:16,431 [F2] [INFO] [CHECK] KRW-ME prob=0.0187
+2025-06-02 19:35:16,439 [F2] [INFO] [KRW-ME] buy=False rsi=True trend=False
+2025-06-02 19:35:16,443 [F2] [INFO] [FETCH] KRW-JUP count=60
+2025-06-02 19:35:16,488 [F2] [INFO] [FETCH] KRW-DRIFT rows=60
+2025-06-02 19:35:16,494 [F2] [INFO] [FETCH] saved KRW-DRIFT.parquet
+2025-06-02 19:35:16,525 [F2] [INFO] [FETCH] KRW-JUP rows=60
+2025-06-02 19:35:16,530 [F2] [INFO] [FETCH] saved KRW-JUP.parquet
+2025-06-02 19:35:16,585 [F2] [INFO] [CHECK] KRW-DRIFT prob=0.1520
+2025-06-02 19:35:16,591 [F2] [INFO] [KRW-DRIFT] buy=False rsi=False trend=False
+2025-06-02 19:35:16,593 [F2] [INFO] [FETCH] KRW-ARK count=60
+2025-06-02 19:35:16,635 [F2] [INFO] [CHECK] KRW-JUP prob=0.4572
+2025-06-02 19:35:16,642 [F2] [INFO] [KRW-JUP] buy=False rsi=True trend=True
+2025-06-02 19:35:16,647 [F2] [INFO] [FETCH] KRW-DRIFT count=60
+2025-06-02 19:35:16,697 [F2] [INFO] Drop duplicates KRW-TRUMP_rawdata.parquet - 1 rows
+2025-06-02 19:35:16,732 [F2] [INFO] [FETCH] KRW-ARK rows=60
+2025-06-02 19:35:16,747 [F2] [INFO] [FETCH] saved KRW-ARK.parquet
+2025-06-02 19:35:16,806 [F2] [INFO] [CHECK] KRW-ARK prob=0.5000
+2025-06-02 19:35:16,812 [F2] [INFO] [KRW-ARK] buy=False rsi=True trend=False
+2025-06-02 19:35:16,818 [F2] [INFO] [FETCH] KRW-NXPC count=60
+2025-06-02 19:35:16,839 [F2] [WARNING] [FETCH] KRW-DRIFT failed
+2025-06-02 19:35:16,840 [F2] [INFO] [KRW-DRIFT] buy=False rsi=False trend=False
+2025-06-02 19:35:16,842 [F2] [INFO] [FETCH] KRW-ARK count=60
+2025-06-02 19:35:16,989 [F2] [WARNING] [FETCH] KRW-NXPC failed
+2025-06-02 19:35:16,990 [F2] [INFO] [KRW-NXPC] buy=False rsi=False trend=False
+2025-06-02 19:35:16,991 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-LAYER', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TAIKO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-INJ', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ARK', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 19:35:16,991 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-02 19:35:16,994 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 19:35:16,994 [F2] [INFO] [F3] No buy candidates found
+2025-06-02 19:35:17,011 [F2] [WARNING] [FETCH] KRW-ARK failed
+2025-06-02 19:35:17,012 [F2] [INFO] [KRW-ARK] buy=False rsi=False trend=False
+2025-06-02 19:35:17,017 [F2] [INFO] [FETCH] KRW-NXPC count=60
+2025-06-02 19:35:17,109 [F2] [INFO] [FETCH] KRW-NXPC rows=60
+2025-06-02 19:35:17,120 [F2] [INFO] [FETCH] saved KRW-NXPC.parquet
+2025-06-02 19:35:17,194 [F2] [INFO] [CHECK] KRW-NXPC prob=0.3747
+2025-06-02 19:35:17,202 [F2] [INFO] [KRW-NXPC] buy=False rsi=False trend=True
+2025-06-02 19:35:17,204 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-LAYER', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-CBK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TAIKO', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-TRUMP', 'ml_signal': 1, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-INJ', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ME', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-JUP', 'ml_signal': 0, 'rsi_sel': 1, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 1}, {'symbol': 'KRW-DRIFT', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-ARK', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 0, 'buy_signal': 0, 'buy_count': 0}, {'symbol': 'KRW-NXPC', 'ml_signal': 0, 'rsi_sel': 0, 'trend_sel': 1, 'buy_signal': 0, 'buy_count': 0}]
+2025-06-02 19:35:17,204 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-02 19:35:17,206 [F2] [INFO] [CLEANUP] removed D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-02 19:35:17,207 [F2] [INFO] [F3] No buy candidates found
+2025-06-02 19:35:17,271 [F2] [INFO] Remove >72h rows KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-02 19:35:17,844 [F2] [INFO] Remove >72h rows KRW-VIRTUAL_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,029 [F2] [INFO] Drop duplicates KRW-USDT_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,111 [F2] [INFO] Remove >72h rows KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,316 [F2] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,615 [F2] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,680 [F2] [INFO] Remove >72h rows KRW-XRP_rawdata.parquet - 1 rows
+2025-06-02 19:35:18,899 [F2] [INFO] Drop duplicates KRW-VIRTUAL_rawdata.parquet - 1 rows
+2025-06-02 19:35:19,184 [F2] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-02 19:35:19,456 [F2] [INFO] Drop duplicates KRW-WCT_rawdata.parquet - 1 rows
+2025-06-02 19:35:19,724 [F2] [INFO] Drop duplicates KRW-XRP_rawdata.parquet - 1 rows
+2025-06-02 19:36:05,662 [F2] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
