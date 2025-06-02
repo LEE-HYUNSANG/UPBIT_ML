@@ -26,3 +26,4 @@
 2025-06-02 18:23:16,701 [F3] [F3] Entry signal received: {'symbol': 'KRW-VIRTUAL', 'buy_signal': True, 'sell_signal': False, 'price': 2754.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
 2025-06-02 18:23:16,702 [F3] [F3] OrderExecutor initialized.
 2025-06-02 18:23:16,766 [F3] [F3] Entry signal received: {'symbol': 'KRW-VIRTUAL', 'buy_signal': True, 'sell_signal': False, 'price': 2754.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 18:23:24,091 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-VIRTUAL', 'side': 'bid', 'qty': 3.6310820624546114, 'price': 2754.0, 'order_type': 'market', 'filled': False}
