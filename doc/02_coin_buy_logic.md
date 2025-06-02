@@ -86,3 +86,7 @@ execute_buy_list()
 ### 중복 매수 방지
 
 `execute_buy_list()`는 매수 리스트를 읽어 들인 후 동일 심볼이 여러 번 존재하면 첫 번째 항목만 남기고 나머지는 제거합니다. 이렇게 하면 CTC와 같은 코인을 중복으로 체결하는 상황을 줄일 수 있습니다.
+또한 기본적으로 `f3_order.order_executor`의 `_default_executor`를 사용해 주문을
+전송합니다. 실행 중인 트레이딩 루프와 동일한 실행기를 공유하므로 이미 보유 중이거나
+주문 대기 중인 코인은 다시 매수하지 않습니다. 별도의 인스턴스를 사용하려면
+`execute_buy_list(executor=my_executor)`와 같이 호출하면 됩니다.

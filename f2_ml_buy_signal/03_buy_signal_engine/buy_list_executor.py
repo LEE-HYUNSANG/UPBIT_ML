@@ -2,7 +2,7 @@ import json
 import logging
 from pathlib import Path
 
-from f3_order.order_executor import OrderExecutor
+from f3_order.order_executor import OrderExecutor, _default_executor
 from f3_order.upbit_api import UpbitClient
 from f3_order.utils import log_with_tag
 
@@ -24,8 +24,15 @@ def _load_buy_list(path: Path) -> list:
     return []
 
 
-def execute_buy_list() -> list[str]:
-    """Execute buys when ``buy_signal`` is 1 and ``buy_count`` is 0."""
+def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
+    """Execute buys when ``buy_signal`` is 1 and ``buy_count`` is 0.
+
+    Parameters
+    ----------
+    executor : OrderExecutor, optional
+        Order executor instance to use. Defaults to the shared
+        :data:`_default_executor` to avoid duplicate orders.
+    """
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
     buy_list = _load_buy_list(buy_path)
 
@@ -50,7 +57,7 @@ def execute_buy_list() -> list[str]:
         return []
 
     client = UpbitClient()
-    oe = OrderExecutor()
+    oe = executor or _default_executor
 
     prices = {}
     try:

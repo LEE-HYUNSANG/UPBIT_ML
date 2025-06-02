@@ -29,7 +29,14 @@ def test_execute_buy_list(tmp_path, monkeypatch):
     pandas_stub.Series = object
     pandas_stub.DataFrame = object
     monkeypatch.setitem(sys.modules, "pandas", pandas_stub)
-    monkeypatch.setitem(sys.modules, "f2_ml_buy_signal.03_buy_signal_engine.signal_engine", types.ModuleType("f2_ml_buy_signal.03_buy_signal_engine.signal_engine"))
+    engine_mod = types.ModuleType(
+        "f2_ml_buy_signal.03_buy_signal_engine.signal_engine"
+    )
+    monkeypatch.setitem(
+        sys.modules,
+        "f2_ml_buy_signal.03_buy_signal_engine.signal_engine",
+        engine_mod,
+    )
 
     ble = importlib.import_module("f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor")
 
@@ -38,7 +45,7 @@ def test_execute_buy_list(tmp_path, monkeypatch):
 
     monkeypatch.setattr(ble, "CONFIG_DIR", Path(tmp_path))
     executor = DummyExecutor()
-    monkeypatch.setattr(ble, "OrderExecutor", lambda: executor)
+    monkeypatch.setattr(ble, "_default_executor", executor)
     monkeypatch.setattr(ble, "UpbitClient", lambda: DummyClient(100.0))
 
     result = ble.execute_buy_list()
