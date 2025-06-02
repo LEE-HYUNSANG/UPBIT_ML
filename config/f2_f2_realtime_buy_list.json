@@ -1,8 +1,16 @@
 [
   {
-    "symbol": "KRW-CELO",
+    "symbol": "KRW-STX",
     "ml_signal": 0,
     "rsi_sel": 1,
+    "trend_sel": 1,
+    "buy_signal": 0,
+    "buy_count": 1
+  },
+  {
+    "symbol": "KRW-XRP",
+    "ml_signal": 0,
+    "rsi_sel": 0,
     "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0

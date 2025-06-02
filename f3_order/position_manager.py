@@ -65,6 +65,20 @@ def _load_json_dict(path: str) -> dict:
         pass
     return {}
 
+def _remove_from_json_dict(path: str, key: str) -> None:
+    if not os.path.exists(path):
+        return
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict) or key not in data:
+            return
+        del data[key]
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
 class PositionManager:
     def __init__(self, config, kpi_guard, exception_handler, parent_logger=None):
         self.config = config
