@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "symbol": "KRW-CELO",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-VIRTUAL",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  },
+  {
+    "symbol": "KRW-IMX",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.003
+  }
+]

@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "symbol": "KRW-CELO",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-VIRTUAL",
+    "ml_signal": 1,
+    "rsi_sel": 1,
+    "trend_sel": 1,
+    "buy_signal": 1,
+    "buy_count": 1
+  },
+  {
+    "symbol": "KRW-IMX",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  }
+]

@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "symbol": "KRW-VIRTUAL",
+    "entry_time": 1748856204.0903935,
+    "entry_price": 2754.0,
+    "qty": 3.6310820624546114,
+    "pyramid_count": 0,
+    "avgdown_count": 0,
+    "status": "pending",
+    "origin": "trade"
+  }
+]

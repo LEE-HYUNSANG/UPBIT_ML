@@ -1,2 +1,28 @@
-2025-06-01 12:51:05,903 [F3] [F3] OrderExecutor initialized.
-2025-06-01 12:51:08,325 [F3] [F3] OrderExecutor initialized.
+2025-06-02 16:30:07,227 [F3] [F3] OrderExecutor initialized.
+2025-06-02 16:30:14,232 [F3] [F3] OrderExecutor initialized.
+2025-06-02 16:35:19,284 [F3] [F3] OrderExecutor initialized.
+2025-06-02 16:35:20,590 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:02:30,352 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:02:32,035 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:15:17,786 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:15:17,870 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14830.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 17:15:25,191 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.6743088334457181, 'price': 14830.0, 'order_type': 'market', 'filled': False}
+2025-06-02 17:19:33,693 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:27:46,553 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:27:48,082 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:30:17,345 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:30:17,397 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:30:17,405 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15820.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 17:30:17,449 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15820.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 17:30:24,637 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-TRUMP', 'side': 'bid', 'qty': 0.6321112515802781, 'price': 15820.0, 'order_type': 'market', 'filled': False}
+2025-06-02 17:37:17,602 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:37:17,691 [F3] [F3] Entry signal received: {'symbol': 'KRW-NXPC', 'buy_signal': True, 'sell_signal': False, 'price': 1875.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 17:37:17,715 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:37:17,782 [F3] [F3] Entry signal received: {'symbol': 'KRW-NXPC', 'buy_signal': True, 'sell_signal': False, 'price': 1875.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 17:37:25,063 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-NXPC', 'side': 'bid', 'qty': 5.333333333333333, 'price': 1875.0, 'order_type': 'market', 'filled': False}
+2025-06-02 17:45:06,589 [F3] [F3] OrderExecutor initialized.
+2025-06-02 17:45:08,238 [F3] [F3] OrderExecutor initialized.
+2025-06-02 18:23:16,639 [F3] [F3] OrderExecutor initialized.
+2025-06-02 18:23:16,701 [F3] [F3] Entry signal received: {'symbol': 'KRW-VIRTUAL', 'buy_signal': True, 'sell_signal': False, 'price': 2754.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-02 18:23:16,702 [F3] [F3] OrderExecutor initialized.
+2025-06-02 18:23:16,766 [F3] [F3] Entry signal received: {'symbol': 'KRW-VIRTUAL', 'buy_signal': True, 'sell_signal': False, 'price': 2754.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
