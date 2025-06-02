@@ -152,11 +152,6 @@ class OrderExecutor:
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 price = signal.get("price")
-                self.exception_handler.send_alert(
-                    f"매수 시그널] {pretty_symbol(symbol)} @{price}",
-                    "info",
-                    "buy_monitoring",
-                )
                 try:
                     self.pending_symbols.update(_load_json(self.pending_file))
                 except Exception:
@@ -171,6 +166,11 @@ class OrderExecutor:
                 if callable(has_pos) and has_pos(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return
+                self.exception_handler.send_alert(
+                    f"매수 시그널] {pretty_symbol(symbol)} @{price}",
+                    "info",
+                    "buy_monitoring",
+                )
                 self.pending_symbols.add(symbol)
                 self._persist_pending()
                 order_result = {}
