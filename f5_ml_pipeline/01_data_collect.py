@@ -32,7 +32,7 @@ ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_data_collect.log"
-START_DELAY = 5  # seconds after each minute boundary
+START_DELAY = 5  # seconds after each one-minute candle closes
 
 
 def setup_logger() -> None:
@@ -132,8 +132,8 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
         if removed:
             logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
-    # Keep only the last 24 hours of data
-    cutoff = pd.Timestamp(ts, tz="UTC") - pd.Timedelta(hours=24)
+    # Keep only the last 72 hours of data
+    cutoff = pd.Timestamp(ts, tz="UTC") - pd.Timedelta(hours=72)
     ts_col = None
     if "timestamp" in df.columns:
         ts_col = "timestamp"
@@ -149,7 +149,7 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
         df = df[dt >= cutoff]
         removed = before - len(df)
         if removed:
-            logging.info("Remove >24h rows %s - %d rows", file_path.name, removed)
+            logging.info("Remove >72h rows %s - %d rows", file_path.name, removed)
 
     try:
         df.to_parquet(file_path, index=False)
@@ -187,7 +187,7 @@ def main() -> None:
 
     logging.info("Start data collection for %s", markets)
 
-    # Wait until 5 seconds after the next minute boundary
+    # Wait until 5 seconds after the current one-minute candle closes
     first_start = next_minute() + timedelta(seconds=START_DELAY)
     wait = (first_start - datetime.utcnow()).total_seconds()
     if wait > 0:

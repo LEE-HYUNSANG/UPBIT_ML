@@ -7,9 +7,9 @@
 
 ## 주요 기능
 - `load_coin_list()` 함수가 모니터링 목록을 읽어 리스트를 반환합니다.
-- 매 분 정각 이후 5초에 `collect_once()`가 한 번씩 호출되어 OHLCV를 다운로드합니다.
+- 1분봉이 완료된 뒤 5초 후에 `collect_once()`가 호출되어 OHLCV를 다운로드합니다.
 - `save_data()`가 기존 파일을 불러와 중복을 제거한 뒤 누적 저장합니다.
-- 새로 저장할 때 **24시간** 이전의 행은 자동으로 삭제되어 항상 최신 24시간치만 유지합니다.
+- 새로 저장할 때 **72시간** 이전의 행은 자동으로 삭제되어 항상 최근 72시간치만 유지합니다.
 - 모든 과정은 `logs/F5_data_collect.log`에 기록되어 누락 여부를 확인할 수 있습니다.
 
 모니터링할 코인 목록은 `config/f1_f5_data_collection_list.json`에 저장되며,
@@ -17,9 +17,9 @@
 
 ### 코드 구조
 - `load_coin_list()` – 수집 대상 코인을 불러옵니다.【F:f5_ml_pipeline/01_data_collect.py†L57-L68】
-- `collect_once()` – 지정된 코인의 OHLCV를 저장합니다.【F:f5_ml_pipeline/01_data_collect.py†L138-L147】
-- `next_minute()` – 다음 분 시작 시각을 계산해 루프 타이밍을 맞춥니다.【F:f5_ml_pipeline/01_data_collect.py†L151-L154】
-- `main()` – 무한 루프를 돌며 `collect_once()`를 호출합니다.【F:f5_ml_pipeline/01_data_collect.py†L157-L184】
+- `collect_once()` – 지정된 코인의 OHLCV를 저장합니다.【F:f5_ml_pipeline/01_data_collect.py†L160-L170】
+- `next_minute()` – 다음 분 시작 시각을 계산해 루프 타이밍을 맞춥니다.【F:f5_ml_pipeline/01_data_collect.py†L173-L176】
+- `main()` – 무한 루프를 돌며 `collect_once()`를 호출합니다.【F:f5_ml_pipeline/01_data_collect.py†L179-L206】
 
 다음과 같이 실행할 수 있습니다.
 ```bash

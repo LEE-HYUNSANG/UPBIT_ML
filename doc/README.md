@@ -12,7 +12,7 @@
 | 6 | [config.md](config.md) | 프로젝트 전반의 JSON 설정 파일 안내 |
 | 7 | [f2_ml_buy_signal.md](f2_ml_buy_signal.md) | 경량 머신러닝 매수 신호 모듈 |
 | 8 | [f5ml_00_before_coin.md](f5ml_00_before_coin.md) | 코인 필터링 및 원시 데이터 수집 |
-| 9 | [f5ml_00_yesterday_1min_data.md](f5ml_00_yesterday_1min_data.md) | 직전 24시간 1분봉 다운로드 |
+| 9 | [f5ml_00_yesterday_1min_data.md](f5ml_00_yesterday_1min_data.md) | 최근 72시간 1분봉 다운로드 |
 | 10 | [f5ml_01_data_collect.md](f5ml_01_data_collect.md) | OHLCV 정기 수집 스크립트 |
 | 11 | [f5ml_data_cleaning.md](f5ml_data_cleaning.md) | 원본 데이터 정제 방법 |
 | 12 | [f5ml_feature_engineering.md](f5ml_feature_engineering.md) | 지표 계산을 통한 피처 생성 |
