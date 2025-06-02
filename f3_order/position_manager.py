@@ -456,33 +456,49 @@ class PositionManager:
         if self.exception_handler:
             msg = f"[매도 시도] {position['symbol']} @{position.get('current_price')}"
             self.exception_handler.send_alert(msg, "info", "order_execution")
-        order = self.place_order(position["symbol"], "ask", qty, "market", position.get("current_price"))
+        order = self.place_order(
+            position["symbol"], "ask", qty, "market", position.get("current_price")
+        )
         slip = 0.0
         if position.get("current_price") and position.get("entry_price"):
-            slip = abs(position["current_price"] - position["entry_price"]) / position["entry_price"] * 100
+            slip = (
+                abs(position["current_price"] - position["entry_price"])
+                / position["entry_price"]
+                * 100
+            )
         order["exit_type"] = exit_type
         order["slippage_pct"] = slip
         self.exception_handler.handle_slippage(position["symbol"], order)
-        position["qty"] -= qty
-        if position["qty"] <= 0:
-            position["status"] = "closed"
-            self._reset_buy_count(position["symbol"])
-            _remove_from_json_dict(self.sell_config_path, position["symbol"])
-        self._persist_positions()
-        log_with_tag(logger, f"Position exit: {position['symbol']} via {exit_type}")
-        if self.exception_handler:
-            price_exec = order.get("price") or 0
-            fee = float(order.get("paid_fee", 0))
-            amt = price_exec * qty - fee
-            entry_fee = float(position.get("entry_fee", 0))
-            entry_total = position.get("entry_price", 0) * qty + entry_fee
-            profit = amt - entry_total
-            msg = (
-                f"매도 완료] {pretty_symbol(position['symbol'])} "
-                f"매도 금액: {int(amt):,}원 @{price_exec} "
-                f"이익:{profit:+.0f}원"
+
+        filled = order.get("filled", False)
+        if filled:
+            position["qty"] -= qty
+            if position["qty"] <= 0:
+                position["status"] = "closed"
+                self._reset_buy_count(position["symbol"])
+            log_with_tag(
+                logger,
+                f"Position exit: {position['symbol']} via {exit_type}"
             )
-            self.exception_handler.send_alert(msg, "info", "order_execution")
+            if self.exception_handler:
+                price_exec = order.get("price") or 0
+                fee = float(order.get("paid_fee", 0))
+                amt = price_exec * qty - fee
+                entry_fee = float(position.get("entry_fee", 0))
+                entry_total = position.get("entry_price", 0) * qty + entry_fee
+                profit = amt - entry_total
+                msg = (
+                    f"매도 완료] {pretty_symbol(position['symbol'])} "
+                    f"매도 금액: {int(amt):,}원 @{price_exec} "
+                    f"이익:{profit:+.0f}원"
+                )
+                self.exception_handler.send_alert(
+                    msg,
+                    "info",
+                    "order_execution",
+                )
+
+        self._persist_positions()
         return order
 
     def manage_trailing_stop(self, position):

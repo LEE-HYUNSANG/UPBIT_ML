@@ -30,8 +30,8 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 
 ### `PositionManager.execute_sell(position, exit_type, qty=None)`
 지정된 포지션을 시장가로 매도합니다.
-모두 청산되면 상태가 `closed`로 바뀌고 결과가 `f1_f3_coin_positions.json`에 저장됩니다.
-매도가 완료되면 `f2_f2_realtime_buy_list.json`에 해당 코인이 존재할 경우 `buy_count`가 0으로 초기화되어 다시 매수를 시도할 수 있습니다.
+주문이 완전히 체결되면 상태가 `closed`로 바뀌고 결과가 `f1_f3_coin_positions.json`에 저장됩니다.
+체결 완료 후 알림이 전송되며 `f2_f2_realtime_buy_list.json`에 해당 코인이 존재할 경우 `buy_count`가 0으로 초기화되어 다시 매수를 시도할 수 있습니다.
 
 ### `RiskManager.check_risk()`
 계좌 손실이나 MDD 한도가 넘으면 `pause()` 또는 `halt()`로 진입을 차단하고
