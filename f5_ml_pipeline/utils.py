@@ -69,6 +69,20 @@ def ensure_dir(path: str | Path) -> Path:
     return p
 
 
+def save_parquet_atomic(df: "pd.DataFrame", path: str | Path) -> None:
+    """Write DataFrame to ``path`` using a temporary file to avoid corruption."""
+    from pandas import DataFrame  # local import to avoid heavy dependency at module load
+    target = Path(path)
+    tmp = target.with_suffix(target.suffix + ".tmp")
+    try:
+        assert isinstance(df, DataFrame)  # type: ignore
+        df.to_parquet(tmp, index=False)
+        tmp.replace(target)
+    finally:
+        if tmp.exists():
+            tmp.unlink(missing_ok=True)
+
+
 try:  # pragma: no cover - platform dependent
     import fcntl  # type: ignore
 except Exception:  # pragma: no cover - Windows

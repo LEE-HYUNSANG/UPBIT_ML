@@ -14,7 +14,7 @@ import tempfile
 import pandas as pd
 import requests
 
-from utils import ensure_dir, file_lock
+from utils import ensure_dir, file_lock, save_parquet_atomic
 BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
 DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
@@ -140,7 +140,7 @@ def save_data(df: pd.DataFrame, market: str, root: Path = DATA_ROOT) -> None:
                 logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
         try:
-            df.to_parquet(file_path, index=False)
+            save_parquet_atomic(df, file_path)
         except Exception as exc:  # pragma: no cover - best effort
             logging.error("Parquet save failed %s: %s", file_path.name, exc)
 

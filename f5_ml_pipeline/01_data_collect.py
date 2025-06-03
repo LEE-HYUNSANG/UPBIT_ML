@@ -18,7 +18,7 @@ from typing import Dict, Iterable, List
 import pandas as pd
 import requests
 
-from utils import ensure_dir, file_lock
+from utils import ensure_dir, file_lock, save_parquet_atomic
 
 BASE_URL = "https://api.upbit.com"
 # Base directory of this pipeline
@@ -135,7 +135,7 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
                 logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
         try:
-            df.to_parquet(file_path, index=False)
+            save_parquet_atomic(df, file_path)
         except Exception as exc:  # pragma: no cover - best effort
             logging.error("Parquet save failed %s: %s", file_path.name, exc)
 
