@@ -19,7 +19,7 @@ def test_passes_criteria_basic():
     summary = {
         "win_rate": 0.6,
         "avg_roi": 0.003,
-        "sharpe": 1.2,
+        "sharpe": 5.2,
         "mdd": -0.05,
         "total_entries": 60,
     }
@@ -30,7 +30,7 @@ def test_passes_criteria_with_str_values():
     summary = {
         "win_rate": "0.6",
         "avg_roi": "0.003",
-        "sharpe": "1.2",
+        "sharpe": "5.2",
         "mdd": "-0.05",
         "total_entries": "60",
     }
@@ -46,7 +46,7 @@ def test_select_strategies(tmp_path):
     sample_summary = {
         "win_rate": 0.6,
         "avg_roi": 0.003,
-        "sharpe": 1.3,
+        "sharpe": 5.3,
         "mdd": -0.05,
         "total_entries": 60,
     }
@@ -78,7 +78,7 @@ def test_main_writes_monitoring(tmp_path):
     sample_summary = {
         "win_rate": 0.6,
         "avg_roi": 0.003,
-        "sharpe": 1.3,
+        "sharpe": 5.3,
         "mdd": -0.05,
         "total_entries": 60,
     }
