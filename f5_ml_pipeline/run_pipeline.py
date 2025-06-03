@@ -44,7 +44,11 @@ LOCK_FILE = PIPELINE_ROOT / "ml_data" / ".pipeline.lock"
 def _acquire_lock() -> object:
     """Return a file handle with an exclusive lock or exit if locked."""
     LOCK_FILE.parent.mkdir(parents=True, exist_ok=True)
-    fh = open(LOCK_FILE, "w")
+    try:
+        fh = open(LOCK_FILE, "a+")
+    except OSError:
+        print("Another pipeline run is in progress. Exiting.", flush=True)
+        sys.exit(0)
     try:
         if fcntl:
             fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
