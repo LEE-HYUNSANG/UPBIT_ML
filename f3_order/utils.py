@@ -5,6 +5,7 @@ import json
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from pathlib import Path
 
 logger = logging.getLogger("F3_utils")
 os.makedirs("logs", exist_ok=True)
@@ -20,25 +21,39 @@ logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+
+
+def _env_paths(path: str | Path) -> list[Path]:
+    """Return possible locations for ``path``."""
+    p = Path(path)
+    if p.is_absolute():
+        return [p]
+    return [p, ROOT_DIR / p]
+
+
 def load_env(path: str = ".env.json") -> dict:
     """Load API keys and tokens from environment variables or ``path``.
 
     The function first checks the current process' environment variables and
-    then loads values from ``path`` if the file exists. Entries found in the
-    JSON file override those from the environment.
+    then loads values from ``path``. If the file is not found, the project root
+    is searched as a fallback. Entries found in the JSON file override those
+    from the environment.
     """
     env = dict(os.environ)
-    if not os.path.exists(path):
-        log_with_tag(logger, f"{path} not found; using environment only")
-        return env
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            file_env = json.load(f)
-            env.update(file_env)
-    except Exception as exc:
-        log_with_tag(logger, f"Failed to load {path}: {exc}")
-        return env
-    log_with_tag(logger, "Loaded credentials from env.json")
+    for p in _env_paths(path):
+        if not p.exists():
+            continue
+        try:
+            with open(p, "r", encoding="utf-8") as f:
+                file_env = json.load(f)
+                env.update(file_env)
+            log_with_tag(logger, "Loaded credentials from env.json")
+            return env
+        except Exception as exc:
+            log_with_tag(logger, f"Failed to load {p}: {exc}")
+            return env
+    log_with_tag(logger, f"{path} not found; using environment only")
     return env
 
 
