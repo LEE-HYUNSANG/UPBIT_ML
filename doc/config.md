@@ -30,10 +30,10 @@ duplicate entries. The `pending` flag reflects whether an order for the symbol
 is currently being processed. This file is cleared whenever `app.py` starts.
 
 ## f3_f3_realtime_sell_list.json
-Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.
-The values originate from `f5_f1_monitoring_list.json` and are consulted when
-placing sell orders. When a position is fully closed the corresponding symbol is
-removed from this file. This file is cleared whenever `app.py` starts.
+Contains only the list of symbols currently held. A symbol is added when a buy
+order fills and removed once the position is closed. The ML buy list keeps
+`buy_count` at 1 for any symbol present here. The file is recreated on startup
+based on existing account balances.
 
 ## f4_f2_risk_settings.json
 This file has been removed. It previously stored legacy risk parameters such as stop percentages and trailing stop settings.
@@ -46,9 +46,16 @@ Order execution defaults such as retry counts and quantity settings. Used only b
 
 ## f6_buy_settings.json
 Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
-`MAX_SYMBOLS` and `LIMIT_WAIT_SEC` which default to `10000`, `2` and `50`
+`MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`, `LIMIT_WAIT_SEC_2` and
+`2nd_Bid_Price`. Defaults are `10000`, `2`, `50`, `"BID1"`, `0` and `"ASK1"`
 respectively. These values override the order executor's defaults and are
 mirrored to the risk manager.
+
+## f6_sell_settings.json
+Take-profit settings for open positions. It currently stores `TP_PCT` which
+specifies the percentage above the entry price to place a limit sell order
+immediately after a buy fills. `OrderExecutor` loads this file on startup and
+merges the values into its configuration.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 

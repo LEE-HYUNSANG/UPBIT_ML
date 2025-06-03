@@ -12,6 +12,7 @@ class DummyPM:
 
 def test_entry_sends_alert(monkeypatch):
     monkeypatch.setattr("f3_order.order_executor.load_config", lambda p: {})
+    monkeypatch.setattr("f3_order.order_executor.load_sell_config", lambda p: {})
     monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
     monkeypatch.setattr(
         "f3_order.order_executor.smart_buy",

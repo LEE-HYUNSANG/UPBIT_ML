@@ -36,27 +36,28 @@ def _log_jsonl(path: str, data: dict) -> None:
 
 
 
-def _load_json_dict(path: str) -> dict:
+def _load_json_list(path: str) -> list:
     if not os.path.exists(path):
-        return {}
+        return []
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if isinstance(data, dict):
+        if isinstance(data, list):
             return data
     except Exception:
         pass
-    return {}
+    return []
 
-def _remove_from_json_dict(path: str, key: str) -> None:
+
+def _remove_from_json_list(path: str, value: str) -> None:
     if not os.path.exists(path):
         return
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if not isinstance(data, dict) or key not in data:
+        if not isinstance(data, list) or value not in data:
             return
-        del data[key]
+        data.remove(value)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception:
@@ -160,8 +161,9 @@ class PositionManager:
 
     def place_tp_order(self, position):
         """Immediately place a limit sell order for take profit."""
-        cfg = _load_json_dict(self.sell_config_path)
-        tp = cfg.get(position["symbol"], {}).get("TP_PCT", self.config.get("TP_PCT", 1.0))
+        tp = float(self.config.get("TP_PCT", 0.15))
+        if float(tp) <= 0:
+            return
         price = position["entry_price"] * (1 + float(tp) / 100)
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")
@@ -230,24 +232,16 @@ class PositionManager:
                 "\n".join(lines), "info", "system_start_stop"
             )
 
-        # remove symbols from realtime sell list that are not held
+        # update realtime sell list with currently held symbols
         try:
-            sell_cfg = _load_json_dict(self.sell_config_path)
-            held = {
+            held = [
                 p.get("symbol")
                 for p in self.positions
                 if p.get("status") == "open"
-            }
-            removed = False
-            for sym in list(sell_cfg.keys()):
-                if sym not in held:
-                    del sell_cfg[sym]
-                    removed = True
-                    log_with_tag(logger, f"Removed stale sell entry for {sym}")
-            if removed:
-                save_json(self.sell_config_path, sell_cfg)
+            ]
+            save_json(self.sell_config_path, held)
         except Exception as exc:  # pragma: no cover - best effort
-            log_with_tag(logger, f"Failed to clean sell list: {exc}")
+            log_with_tag(logger, f"Failed to update sell list: {exc}")
 
     def refresh_positions(self) -> None:
         """Update price and PnL information for all open positions."""
@@ -333,7 +327,6 @@ class PositionManager:
         ※ 조건/산식은 config 기준. (실제 시세 연동 필요)
         """
         remaining = []
-        sell_cfg = _load_json_dict(self.sell_config_path)
         for pos in self.positions:
             if pos.get("status") != "open":
                 continue
@@ -360,20 +353,14 @@ class PositionManager:
             hold_secs = self.config.get("HOLD_SECS", 0)
             held_too_long = hold_secs and now() - pos.get("entry_time", 0) >= hold_secs
 
-            tp = sell_cfg.get(pos.get("symbol"), {}).get("TP_PCT", self.config.get("TP_PCT", 1.2))
-            sl = sell_cfg.get(pos.get("symbol"), {}).get("SL_PCT", self.config.get("SL_PCT", 1.0))
+            tp = float(self.config.get("TP_PCT", 0.15))
 
             tp_price = entry * (1 + tp / 100)
-            sl_price = entry * (1 - abs(sl) / 100)
             tp_pct_adj = (tp_price - entry) / entry * 100
-            sl_pct_adj = (sl_price - entry) / entry * 100
 
             if change_pct >= tp_pct_adj:
                 # take-profit order will execute automatically
                 pass
-            elif change_pct <= sl_pct_adj:
-                self.cancel_tp_order(pos.get("symbol"))
-                self.execute_sell(pos, "stop_loss")
             else:
                 if pos.get("avg_price") and cur_price < pos["avg_price"]:
                     self.cancel_tp_order(pos.get("symbol"))
@@ -483,7 +470,7 @@ class PositionManager:
             if position["qty"] <= 0:
                 position["status"] = "closed"
                 self._reset_buy_count(position["symbol"])
-                _remove_from_json_dict(self.sell_config_path, position["symbol"])
+                _remove_from_json_list(self.sell_config_path, position["symbol"])
             log_with_tag(
                 logger,
                 f"Position exit: {position['symbol']} via {exit_type}"

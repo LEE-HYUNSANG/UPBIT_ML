@@ -23,7 +23,6 @@ def make_pm(tmp_path, monkeypatch):
     cfg = {
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "TP_PCT": 1.0,
-        "SL_PCT": 1.0,
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
     pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))

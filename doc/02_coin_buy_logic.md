@@ -16,7 +16,7 @@
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
 | `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록(`symbol`, `thresh_pct`, `loss_pct`). F5 단계에서 생성됩니다. |
 | `config/f2_f2_realtime_buy_list.json` | 매수 조건을 만족한 코인의 목록을 저장합니다. |
-| `config/f3_f3_realtime_sell_list.json` | 매수한 코인의 `thresh_pct`, `loss_pct` 값을 저장해 매도 주문에 활용합니다. |
+| `config/f3_f3_realtime_sell_list.json` | 현재 보유 중인 코인 심볼 목록을 저장합니다. 포지션이 정리되면 목록에서 제거됩니다. |
 | `config/f4_f2_risk_settings.json` | 삭제된 파일로, 과거 기본 위험 관리 값이 들어 있었습니다. |
 
 로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
@@ -96,4 +96,7 @@ execute_buy_list()
 
 실행기는 `f2_f2_realtime_buy_list.json` 파일을 읽고 쓸 때
 `fcntl.flock()`(Windows는 `msvcrt.locking()`)을 사용해 파일 잠금을 획득합니다.
-이를 통해 여러 프로세스가 동시에 업데이트하더라도 내용이 손상되지 않습니다.
+0.5.0 버전부터는 `execute_buy_list()`도 같은 잠금을 전체 실행 동안 유지해
+다중 프로세스 환경에서 중복 매수를 방지합니다.
+이를 통해 여러 프로세스가 동시에 업데이트하더라도 내용이 손상되거나 중복 주문이
+발생하지 않습니다.

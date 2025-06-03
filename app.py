@@ -135,8 +135,23 @@ def load_recent_events(limit: int = 20) -> list:
 def reset_state_files() -> None:
     """Initialize runtime JSON files on app startup."""
     save_json(BUY_LIST_FILE, [])
-    save_json(SELL_LIST_FILE, {})
+    save_json(SELL_LIST_FILE, [])
     save_json(MONITORING_LIST_FILE, [])
+
+
+def init_sell_list_from_positions() -> None:
+    """Record currently held symbols into the realtime sell list."""
+    from f3_order.order_executor import _default_executor
+
+    symbols = [
+        p.get("symbol")
+        for p in _default_executor.position_manager.positions
+        if p.get("status") == "open"
+    ]
+    save_json(SELL_LIST_FILE, symbols)
+    sel = Path("f5_ml_pipeline/ml_data/10_selected/selected_strategies.json")
+    if sel.exists():
+        sel.unlink()
 
 
 def load_strategy_master() -> list:
@@ -711,6 +726,7 @@ save_auto_trade_status({
 })
 reset_state_files()
 start_monitoring()
+init_sell_list_from_positions()
 
 
 if __name__ == "__main__":

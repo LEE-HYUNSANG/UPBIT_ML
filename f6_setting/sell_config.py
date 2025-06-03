@@ -2,16 +2,11 @@ import json
 import os
 
 DEFAULTS = {
-    "ENTRY_SIZE_INITIAL": 10000,
-    "MAX_SYMBOLS": 2,
-    "LIMIT_WAIT_SEC_1": 50,
-    "1st_Bid_Price": "BID1",
-    "LIMIT_WAIT_SEC_2": 0,
-    "2nd_Bid_Price": "ASK1",
+    "TP_PCT": 1.5,
 }
 
 
-def load_buy_config(path: str = "config/f6_buy_settings.json") -> dict:
+def load_sell_config(path: str = "config/f6_sell_settings.json") -> dict:
     data = DEFAULTS.copy()
     if os.path.exists(path):
         try:
@@ -24,8 +19,8 @@ def load_buy_config(path: str = "config/f6_buy_settings.json") -> dict:
     return data
 
 
-def save_buy_config(cfg: dict, path: str = "config/f6_buy_settings.json") -> None:
-    data = load_buy_config(path)
+def save_sell_config(cfg: dict, path: str = "config/f6_sell_settings.json") -> None:
+    data = load_sell_config(path)
     data.update({k: cfg[k] for k in cfg if k in DEFAULTS})
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:

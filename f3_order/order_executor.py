@@ -12,7 +12,9 @@ from common_utils import load_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag, pretty_symbol
+import time
 from f6_setting.buy_config import load_buy_config
+from f6_setting.sell_config import load_sell_config
 import json
 from contextlib import contextmanager
 
@@ -34,6 +36,9 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+logger.propagate = False
+if os.environ.get("PYTEST_CURRENT_TEST"):
+    logger.disabled = True
 
 
 @contextmanager
@@ -58,15 +63,23 @@ def _buy_list_lock(path: str | Path):
 
 
 class OrderExecutor:
-    def __init__(self, config_path="config/f3_f3_order_config.json", buy_path="config/f6_buy_settings.json", risk_manager=None):
+    def __init__(
+        self,
+        config_path="config/f3_f3_order_config.json",
+        buy_path="config/f6_buy_settings.json",
+        sell_path="config/f6_sell_settings.json",
+        risk_manager=None,
+    ):
         self.config = load_config(config_path)
         self.config.update(load_buy_config(buy_path))
+        self.config.update(load_sell_config(sell_path))
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
         self.risk_manager = risk_manager
         self.position_manager = PositionManager(
             self.config, self.kpi_guard, self.exception_handler, logger
         )
+        self._pending_cache: tuple[float, set[str]] | None = None
         self.pending_symbols: set[str] = self._load_pending_flags()
         self._pending_lock = threading.Lock()
         if self.risk_manager:
@@ -88,11 +101,13 @@ class OrderExecutor:
     def _mark_buy_filled(self, symbol: str) -> None:
         """Set ``buy_count`` to 1 for the given symbol in the buy list."""
         path = Path("config") / "f2_f2_realtime_buy_list.json"
+        if not path.exists():
+            return
         with _buy_list_lock(path):
             try:
                 with open(path, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                if not isinstance(data, list):
+                if not isinstance(data, list) or not data:
                     return
             except Exception:
                 return
@@ -114,11 +129,13 @@ class OrderExecutor:
     def _set_pending_flag(self, symbol: str, value: int) -> None:
         """Update ``pending`` field for *symbol* in the buy list."""
         path = Path("config") / "f2_f2_realtime_buy_list.json"
+        if not path.exists():
+            return
         with _buy_list_lock(path):
             try:
                 with open(path, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                if not isinstance(data, list):
+                if not isinstance(data, list) or not data:
                     return
             except Exception:
                 return
@@ -139,60 +156,47 @@ class OrderExecutor:
 
     def _load_pending_flags(self) -> set[str]:
         """Return symbols with ``pending`` flag set in the buy list."""
+        now_ts = time.time()
+        if self._pending_cache and now_ts - self._pending_cache[0] < 1:
+            return set(self._pending_cache[1])
+
         path = Path("config") / "f2_f2_realtime_buy_list.json"
         with _buy_list_lock(path):
             try:
                 with open(path, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 if isinstance(data, list):
-                    return {
+                    result = {
                         item.get("symbol")
                         for item in data
                         if isinstance(item, dict) and item.get("pending")
                     }
+                    self._pending_cache = (now_ts, result)
+                    return result
             except Exception:
                 pass
+        self._pending_cache = (now_ts, set())
         return set()
 
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
-        """Add TP/SL info for *symbol* to the realtime sell list."""
+        """Add *symbol* to the realtime sell list if missing."""
         sell_path = Path("config") / "f3_f3_realtime_sell_list.json"
-        mon_path = Path("config") / "f5_f1_monitoring_list.json"
+        if not sell_path.exists():
+            return
 
         try:
             with open(sell_path, "r", encoding="utf-8") as f:
                 sell_data = json.load(f)
-            if not isinstance(sell_data, dict):
-                sell_data = {}
+            if not isinstance(sell_data, list) or not sell_data:
+                return
         except Exception:
-            sell_data = {}
+            return
 
         if symbol in sell_data:
             return
 
-        try:
-            with open(mon_path, "r", encoding="utf-8") as f:
-                mon_list = json.load(f)
-        except Exception:
-            return
-
-        thresh = None
-        loss = None
-        if isinstance(mon_list, list):
-            for item in mon_list:
-                if isinstance(item, dict) and item.get("symbol") == symbol:
-                    thresh = item.get("thresh_pct")
-                    loss = item.get("loss_pct")
-                    break
-        if thresh is None or loss is None:
-            return
-
-        sell_data[symbol] = {
-            "TP_PCT": float(thresh) * 100,
-            "SL_PCT": float(loss) * 100,
-        }
-
+        sell_data.append(symbol)
         try:
             with open(sell_path, "w", encoding="utf-8") as f:
                 json.dump(sell_data, f, ensure_ascii=False, indent=2)
