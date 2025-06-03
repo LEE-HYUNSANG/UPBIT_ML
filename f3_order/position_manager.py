@@ -188,6 +188,7 @@ class PositionManager:
 
         imported = []
         ignored = []
+        seen = set()
         for coin in accounts:
             if coin.get("currency") == "KRW":
                 continue
@@ -203,24 +204,37 @@ class PositionManager:
                 "eval_amt": eval_amt,
             }
             if eval_amt >= threshold:
+                seen.add(symbol)
                 exists = any(
                     p.get("symbol") == symbol and p.get("status") == "open"
                     for p in self.positions
                 )
                 if not exists:
-                    self.open_position({
-                        "symbol": symbol,
-                        "price": price,
-                        "qty": bal,
-                        "origin": "imported",
-                        "strategy": "imported",
-                    })
+                    self.open_position(
+                        {
+                            "symbol": symbol,
+                            "price": price,
+                            "qty": bal,
+                            "origin": "imported",
+                            "strategy": "imported",
+                        }
+                    )
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
                 imported.append(f"{symbol}({int(eval_amt):,}원)")
             else:
                 log_data.update({"event": "IgnoreSmallBalance", "action": "매수대상 유지"})
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
             _log_jsonl("logs/etc/position_init.log", log_data)
+
+        if seen:
+            before = len(self.positions)
+            self.positions = [
+                p
+                for p in self.positions
+                if p.get("status") != "open" or p.get("symbol") in seen
+            ]
+            if len(self.positions) != before:
+                self._persist_positions()
 
         if self.exception_handler and (imported or ignored):
             lines = ["[시스템] 시작 시 보유코인 점검 완료."]
