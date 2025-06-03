@@ -6,4 +6,6 @@ config/web_autotrade_status.json
 .env.json
 
 # Machine learning data
-f5_ml_pipeline/ml_data/
+f5_ml_pipeline/ml_data/*
+!f5_ml_pipeline/ml_data/**/
+!f5_ml_pipeline/ml_data/**/.gitkeep
