@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import importlib.util
 import json
 import logging
@@ -10,17 +12,19 @@ import time
 from pathlib import Path
 from typing import List, Tuple
 import shutil
-from common_utils import ensure_utf8_stdout
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
+
+from common_utils import ensure_utf8_stdout
 
 LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
 
 def setup_logger() -> None:
     """Configure basic logger."""
-    LOG_PATH.parent.mkdir(exist_ok=True)
+    # Ensure the logs directory exists even if the entire tree was removed.
+    LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     ensure_utf8_stdout()
     logging.basicConfig(
         level=logging.INFO,
@@ -32,13 +36,19 @@ def setup_logger() -> None:
 
 setup_logger()
 
+DEPS_MISSING = False
+if TYPE_CHECKING:  # pragma: no cover - used only for type hints
+    import pandas as pd
 try:
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
     import joblib
 except ImportError as exc:  # pragma: no cover - dependency missing at runtime
     logging.exception("Required dependency missing: %s", exc)
-    sys.exit(1)
+    pd = None  # type: ignore
+    LogisticRegression = object  # type: ignore
+    joblib = None  # type: ignore
+    DEPS_MISSING = True
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
@@ -315,6 +325,10 @@ def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
 
 
 def run() -> List[str]:
+    if DEPS_MISSING:
+        logging.warning("[RUN] dependencies missing; skipping scan")
+        return []
+
     logging.info("[RUN] starting buy signal scan")
     logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
@@ -409,6 +423,10 @@ def run() -> List[str]:
 
 def run_if_monitoring_list_exists() -> List[str]:
     """Run :func:`run` only when monitoring list is present."""
+    if DEPS_MISSING:
+        logging.warning("[RUN_IF] dependencies missing; skipping")
+        return []
+
     path = CONFIG_DIR / "f5_f1_monitoring_list.json"
     if path.exists():
         return run()
