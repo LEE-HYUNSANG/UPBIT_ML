@@ -55,7 +55,8 @@ Whenever a new trade is opened the current list of holdings is written to
 quantity and strategy information. This file can be inspected to see which
 coins are being monitored even after restarting the application. The
 `PositionManager` reloads this file at startup so any open positions continue
-to be tracked across restarts.
+to be tracked across restarts. Positions missing from the account are
+automatically purged during this step.
 
 Position data is now refreshed every second. The latest quantity, price and
 PnL information are persisted back to `f1_f3_coin_positions.json` on each update so
