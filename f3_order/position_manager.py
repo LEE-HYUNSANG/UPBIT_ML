@@ -188,13 +188,44 @@ class PositionManager:
 
         imported = []
         ignored = []
+        seen_all = set()
+
+        zero_price_syms: list[str] = []
+        acc_map: dict[str, tuple[float, float]] = {}
         for coin in accounts:
             if coin.get("currency") == "KRW":
                 continue
             bal = float(coin.get("balance", 0))
             price = float(coin.get("avg_buy_price", 0))
-            eval_amt = bal * price
             symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
+            acc_map[symbol] = (bal, price)
+            if bal > 0 and price <= 0:
+                zero_price_syms.append(symbol)
+
+        price_map: dict[str, float] = {}
+        if zero_price_syms:
+            try:
+                data = self.client.ticker(zero_price_syms)
+                price_map = {
+                    d.get("market"): float(d.get("trade_price", 0))
+                    for d in data
+                }
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+            missing = [s for s in zero_price_syms if price_map.get(s, 0) <= 0]
+            for sym in missing:
+                try:
+                    ob = self.client.orderbook([sym])
+                    if ob:
+                        price = float(ob[0]["orderbook_units"][0]["ask_price"])
+                        price_map[sym] = price
+                except Exception as exc:  # pragma: no cover - best effort
+                    log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
+
+        for symbol, (bal, price) in acc_map.items():
+            if price <= 0:
+                price = price_map.get(symbol, 0.0)
+            eval_amt = bal * price
             log_data = {
                 "time": now_kst(),
                 "symbol": symbol,
@@ -202,25 +233,38 @@ class PositionManager:
                 "entry_price": price,
                 "eval_amt": eval_amt,
             }
+            if bal > 0:
+                seen_all.add(symbol)
             if eval_amt >= threshold:
                 exists = any(
                     p.get("symbol") == symbol and p.get("status") == "open"
                     for p in self.positions
                 )
                 if not exists:
-                    self.open_position({
-                        "symbol": symbol,
-                        "price": price,
-                        "qty": bal,
-                        "origin": "imported",
-                        "strategy": "imported",
-                    })
+                    self.open_position(
+                        {
+                            "symbol": symbol,
+                            "price": price,
+                            "qty": bal,
+                            "origin": "imported",
+                            "strategy": "imported",
+                        }
+                    )
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
                 imported.append(f"{symbol}({int(eval_amt):,}원)")
             else:
                 log_data.update({"event": "IgnoreSmallBalance", "action": "매수대상 유지"})
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
             _log_jsonl("logs/etc/position_init.log", log_data)
+
+        before = len(self.positions)
+        self.positions = [
+            p
+            for p in self.positions
+            if p.get("status") != "open" or p.get("symbol") in seen_all
+        ]
+        if len(self.positions) != before:
+            self._persist_positions()
 
         if self.exception_handler and (imported or ignored):
             lines = ["[시스템] 시작 시 보유코인 점검 완료."]
