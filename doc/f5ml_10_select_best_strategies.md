@@ -33,11 +33,11 @@ python f5_ml_pipeline/10_select_best_strategies.py
 
 ### 기본 임계치
 - `MIN_WIN_RATE`: 0.55
-- `MIN_AVG_ROI`: 0.002
-- `MIN_SHARPE`: 1.0
+- `MIN_AVG_ROI`: 0.000
+- `MIN_SHARPE`: 5.0
 - `MAX_MDD`: 0.10
 - `MIN_ENTRIES`: 50
-- `TOP_N`: 10
+- `TOP_N`: 20
 
 이 값들은 `f5_ml_pipeline/10_select_best_strategies.py`를 편집하여 자유롭게 조정할 수 있습니다.
 스크립트는 항상 자신의 디렉터리 기준으로 절대 경로를 계산하므로 실행 위치와 관계없이 `f5_ml_pipeline/ml_data/` 하위에서 입출력이 이루어집니다.
