@@ -20,7 +20,7 @@
 | `config/f4_f2_risk_settings.json` | 삭제된 파일로, 과거 기본 위험 관리 값이 들어 있었습니다. |
 
 로그는 `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
-`logs/F3_order_executor.log` 등에 남습니다.
+`logs/f2/buy_list_executor.log`, `logs/F3_order_executor.log` 등에 남습니다.
 
 ## 주요 함수
 
