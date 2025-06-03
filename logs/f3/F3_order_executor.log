@@ -1,2 +1,8 @@
 2025-06-03 15:20:03,485 [F3] [F3] OrderExecutor initialized.
 2025-06-03 15:20:06,195 [F3] [F3] OrderExecutor initialized.
+2025-06-03 15:41:49,457 [F3] [F3] OrderExecutor initialized.
+2025-06-03 15:41:58,912 [F3] [F3] OrderExecutor initialized.
+2025-06-03 15:42:01,465 [F3] [F3] OrderExecutor initialized.
+2025-06-03 15:45:34,649 [F3] [F3] OrderExecutor initialized.
+2025-06-03 15:53:18,532 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 723.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-03 15:53:18,534 [F3] [F3] Buy skipped: already holding KRW-CBK

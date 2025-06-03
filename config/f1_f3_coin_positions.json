@@ -10,10 +10,10 @@
     "origin": "trade",
     "entry_fee": 0.0,
     "avg_price": 723.5,
-    "current_price": 721.5,
-    "eval_amount": 29917.0697943,
-    "pnl_percent": -0.27643400138217,
-    "max_price": 723.6,
+    "current_price": 723.8,
+    "eval_amount": 30012.43952476,
+    "pnl_percent": 0.041465100207319215,
+    "max_price": 727.5,
     "min_price": 721.4
   }
 ]
