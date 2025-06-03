@@ -33,12 +33,13 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
     price = float(signal.get("price", 0))
     qty = config.get("ENTRY_SIZE_INITIAL", 1) / max(price, 1)
     qty = max(qty, 0.0001)
-    wait_sec = int(config.get("LIMIT_WAIT_SEC", 50))
+    wait_sec1 = int(config.get("LIMIT_WAIT_SEC_1", config.get("LIMIT_WAIT_SEC", 50)))
+    wait_sec2 = int(config.get("LIMIT_WAIT_SEC_2", 0))
 
     res = position_manager.place_order(symbol, "bid", qty, "limit", price)
     uuid = res.get("uuid")
     if uuid:
-        time.sleep(wait_sec)
+        time.sleep(wait_sec1)
         try:
             info = position_manager.client.order_info(uuid)
             res["filled"] = info.get("state") == "done"
@@ -55,5 +56,28 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
                     pass
             except Exception as exc:  # pragma: no cover - network failure
                 log_with_tag(logger, f"cancel_order failed for {uuid}: {exc}")
+
+            if wait_sec2 > 0:
+                res2 = position_manager.place_order(symbol, "bid", qty, "limit", price)
+                uuid2 = res2.get("uuid")
+                if uuid2:
+                    time.sleep(wait_sec2)
+                    try:
+                        info2 = position_manager.client.order_info(uuid2)
+                        res2["filled"] = info2.get("state") == "done"
+                    except Exception as exc:  # pragma: no cover - network failure
+                        log_with_tag(logger, f"order_info failed for {symbol}: {exc}")
+                        res2["filled"] = False
+                    if not res2.get("filled"):
+                        try:
+                            position_manager.client.cancel_order(uuid2)
+                            res2["canceled"] = True
+                            try:
+                                position_manager._reset_buy_count(symbol)
+                            except Exception:  # pragma: no cover - best effort
+                                pass
+                        except Exception as exc:  # pragma: no cover - network failure
+                            log_with_tag(logger, f"cancel_order failed for {uuid2}: {exc}")
+                res = res2
     return res
 
