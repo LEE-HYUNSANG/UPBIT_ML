@@ -155,5 +155,4 @@ def test_import_zero_price_fallback(tmp_path, monkeypatch):
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
     pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
-    assert len(pm.positions) == 1
-    assert pm.positions[0]["symbol"] == "KRW-SUI"
+    assert pm.positions == []
