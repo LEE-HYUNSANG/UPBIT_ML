@@ -59,6 +59,8 @@ to be tracked across restarts. Positions missing from the account are
 automatically purged during this step. Stale entries are removed even if no
 holdings exceed the import threshold so the list always reflects the current
 account state.
+If a coin reports an average buy price of zero the latest ticker price is used
+to estimate its value so deposited assets are included.
 
 Position data is now refreshed every second. The latest quantity, price and
 PnL information are persisted back to `f1_f3_coin_positions.json` on each update so
