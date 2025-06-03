@@ -55,7 +55,12 @@ def _resolve_path(path: str | Path) -> Path:
 
 @contextmanager
 def _buy_list_lock(path: str | Path):
-    """Context manager providing an exclusive lock on *path*."""
+    """Context manager providing an exclusive lock on *path*.
+
+    Returns the locked file handle so callers can read/write without reopening
+    the file. This avoids ``PermissionError`` on Windows when the same path is
+    opened while locked.
+    """
     lock_file = Path(path)
     fh = lock_file.open("a+")
     try:
@@ -63,7 +68,8 @@ def _buy_list_lock(path: str | Path):
             fcntl.flock(fh, fcntl.LOCK_EX)
         else:  # pragma: no cover - Windows
             msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-        yield
+        fh.seek(0)
+        yield fh
     finally:
         try:
             if fcntl:
@@ -115,10 +121,9 @@ class OrderExecutor:
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
         if not path.exists():
             return
-        with _buy_list_lock(path):
+        with _buy_list_lock(path) as fh:
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                data = json.load(fh)
                 if not isinstance(data, list) or not data:
                     return
             except Exception:
@@ -133,8 +138,9 @@ class OrderExecutor:
                     break
             if changed:
                 try:
-                    with open(path, "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False, indent=2)
+                    fh.seek(0)
+                    fh.truncate()
+                    json.dump(data, fh, ensure_ascii=False, indent=2)
                 except Exception:
                     pass
 
@@ -143,10 +149,9 @@ class OrderExecutor:
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
         if not path.exists():
             return
-        with _buy_list_lock(path):
+        with _buy_list_lock(path) as fh:
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                data = json.load(fh)
                 if not isinstance(data, list) or not data:
                     return
             except Exception:
@@ -161,8 +166,9 @@ class OrderExecutor:
                     break
             if changed:
                 try:
-                    with open(path, "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False, indent=2)
+                    fh.seek(0)
+                    fh.truncate()
+                    json.dump(data, fh, ensure_ascii=False, indent=2)
                 except Exception:
                     pass
 
@@ -173,10 +179,9 @@ class OrderExecutor:
             return set(self._pending_cache[1])
 
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
-        with _buy_list_lock(path):
+        with _buy_list_lock(path) as fh:
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                data = json.load(fh)
                 if isinstance(data, list):
                     result = {
                         item.get("symbol")
