@@ -12,7 +12,9 @@ from f3_order.order_executor import (
 from f3_order.upbit_api import UpbitClient
 from f3_order.utils import log_with_tag
 
-CONFIG_DIR = Path("config")
+# Resolve configuration directory relative to the project root so the module
+# works regardless of the current working directory.
+CONFIG_DIR = Path(__file__).resolve().parents[2] / "config"
 
 logger = logging.getLogger("buy_list_executor")
 if not logger.handlers:
