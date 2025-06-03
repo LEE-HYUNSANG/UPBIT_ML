@@ -12,7 +12,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from signal_loop import process_symbol, main_loop
 import threading
-from common_utils import ensure_utf8_stdout
+from common_utils import ensure_utf8_stdout, save_json
 from f6_setting.buy_config import load_buy_config, save_buy_config
 from f6_setting import alarm_control
 from f1_universe.universe_selector import (
@@ -53,6 +53,10 @@ STRATEGY_YDAY_FILE = os.path.join("config", "strategy_settings_yesterday.json")
 STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 BUY_SETTINGS_FILE = os.path.join("config", "f6_buy_settings.json")
 ALARM_CONFIG_FILE = alarm_control.CONFIG_FILE
+
+BUY_LIST_FILE = os.path.join("config", "f2_f2_realtime_buy_list.json")
+SELL_LIST_FILE = os.path.join("config", "f3_f3_realtime_sell_list.json")
+MONITORING_LIST_FILE = os.path.join("config", "f5_f1_monitoring_list.json")
 
 # 자동 매매 스레드의 실행 상태 보관용 변수
 _auto_trade_thread = None
@@ -126,6 +130,13 @@ def load_recent_events(limit: int = 20) -> list:
         except Exception:
             continue
     return events
+
+
+def reset_state_files() -> None:
+    """Initialize runtime JSON files on app startup."""
+    save_json(BUY_LIST_FILE, [])
+    save_json(SELL_LIST_FILE, {})
+    save_json(MONITORING_LIST_FILE, [])
 
 
 def load_strategy_master() -> list:
@@ -698,6 +709,7 @@ save_auto_trade_status({
     "enabled": False,
     "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
 })
+reset_state_files()
 start_monitoring()
 
 
