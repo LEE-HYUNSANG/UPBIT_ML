@@ -188,10 +188,10 @@ class OrderExecutor:
         try:
             with open(sell_path, "r", encoding="utf-8") as f:
                 sell_data = json.load(f)
-            if not isinstance(sell_data, list):
-                sell_data = []
+            if not isinstance(sell_data, list) or not sell_data:
+                return
         except Exception:
-            sell_data = []
+            return
 
         if symbol in sell_data:
             return
