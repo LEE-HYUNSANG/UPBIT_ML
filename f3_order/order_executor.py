@@ -40,6 +40,18 @@ logger.propagate = False
 if os.environ.get("PYTEST_CURRENT_TEST"):
     logger.disabled = True
 
+# Use an absolute path to the project root to avoid issues when this module is
+# executed from a different working directory.
+ROOT_DIR = Path(__file__).resolve().parents[1]
+
+
+def _resolve_path(path: str | Path) -> Path:
+    """Return *path* as a Path, searching the project root if necessary."""
+    p = Path(path)
+    if p.is_absolute() or p.exists():
+        return p
+    return ROOT_DIR / p
+
 
 @contextmanager
 def _buy_list_lock(path: str | Path):
@@ -70,9 +82,9 @@ class OrderExecutor:
         sell_path="config/f6_sell_settings.json",
         risk_manager=None,
     ):
-        self.config = load_config(config_path)
-        self.config.update(load_buy_config(buy_path))
-        self.config.update(load_sell_config(sell_path))
+        self.config = load_config(str(_resolve_path(config_path)))
+        self.config.update(load_buy_config(str(_resolve_path(buy_path))))
+        self.config.update(load_sell_config(str(_resolve_path(sell_path))))
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
         self.risk_manager = risk_manager
@@ -100,7 +112,7 @@ class OrderExecutor:
 
     def _mark_buy_filled(self, symbol: str) -> None:
         """Set ``buy_count`` to 1 for the given symbol in the buy list."""
-        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
         if not path.exists():
             return
         with _buy_list_lock(path):
@@ -128,7 +140,7 @@ class OrderExecutor:
 
     def _set_pending_flag(self, symbol: str, value: int) -> None:
         """Update ``pending`` field for *symbol* in the buy list."""
-        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
         if not path.exists():
             return
         with _buy_list_lock(path):
@@ -160,7 +172,7 @@ class OrderExecutor:
         if self._pending_cache and now_ts - self._pending_cache[0] < 1:
             return set(self._pending_cache[1])
 
-        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
         with _buy_list_lock(path):
             try:
                 with open(path, "r", encoding="utf-8") as f:
@@ -181,7 +193,7 @@ class OrderExecutor:
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
         """Add *symbol* to the realtime sell list if missing."""
-        sell_path = Path("config") / "f3_f3_realtime_sell_list.json"
+        sell_path = _resolve_path("config/f3_f3_realtime_sell_list.json")
         if not sell_path.exists():
             return
 
