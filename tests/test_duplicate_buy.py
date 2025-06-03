@@ -19,6 +19,7 @@ class DummyPM:
 
 def test_duplicate_buy_skipped(monkeypatch):
     monkeypatch.setattr("f3_order.order_executor.load_config", lambda p: {"ENTRY_SIZE_INITIAL": 1})
+    monkeypatch.setattr("f3_order.order_executor.load_sell_config", lambda p: {})
     monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
     monkeypatch.setattr(
         "f3_order.order_executor.smart_buy",
@@ -40,6 +41,7 @@ def test_pending_buy_skipped(monkeypatch):
     import threading, time
 
     monkeypatch.setattr("f3_order.order_executor.load_config", lambda p: {"ENTRY_SIZE_INITIAL": 1})
+    monkeypatch.setattr("f3_order.order_executor.load_sell_config", lambda p: {})
     monkeypatch.setattr("f3_order.order_executor.PositionManager", DummyPM)
 
     def slow_buy(s, c, position_manager, logger):

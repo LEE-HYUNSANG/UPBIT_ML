@@ -62,10 +62,11 @@ flowchart TD
 
 ## 6. F6 설정/원격 제어
 - **역할**: 웹 대시보드에서 매수 금액, 위험 설정, 텔레그램 알림 등을 관리하고, 원격으로 자동매매 ON/OFF 상태를 제어합니다.
-- **주요 파일**: `f6_setting/buy_config.py`, `f6_setting/alarm_control.py`, `f6_setting/remote_control.py`
-- **주요 함수**
-  - `load_buy_config()` / `save_buy_config()` – 매수 관련 설정 로드·저장 【F:f6_setting/buy_config.py†L11-L27】
-  - `read_status()` / `write_status()` – 자동매매 상태 파일 관리 【F:f6_setting/remote_control.py†L15-L27】
+ - **주요 파일**: `f6_setting/buy_config.py`, `f6_setting/sell_config.py`, `f6_setting/alarm_control.py`, `f6_setting/remote_control.py`
+ - **주요 함수**
+   - `load_buy_config()` / `save_buy_config()` – 매수 관련 설정 로드·저장 【F:f6_setting/buy_config.py†L11-L27】
+   - `load_sell_config()` / `save_sell_config()` – 매도 관련 설정 로드·저장 【F:f6_setting/sell_config.py†L1-L27】
+   - `read_status()` / `write_status()` – 자동매매 상태 파일 관리 【F:f6_setting/remote_control.py†L15-L27】
 - **로그**: 웹 관련 이벤트는 `logs/events.jsonl`에 기록됩니다.
 
 ## 동작 흐름 요약

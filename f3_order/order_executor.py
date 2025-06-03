@@ -13,6 +13,7 @@ from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag, pretty_symbol
 from f6_setting.buy_config import load_buy_config
+from f6_setting.sell_config import load_sell_config
 import json
 from contextlib import contextmanager
 
@@ -58,9 +59,16 @@ def _buy_list_lock(path: str | Path):
 
 
 class OrderExecutor:
-    def __init__(self, config_path="config/f3_f3_order_config.json", buy_path="config/f6_buy_settings.json", risk_manager=None):
+    def __init__(
+        self,
+        config_path="config/f3_f3_order_config.json",
+        buy_path="config/f6_buy_settings.json",
+        sell_path="config/f6_sell_settings.json",
+        risk_manager=None,
+    ):
         self.config = load_config(config_path)
         self.config.update(load_buy_config(buy_path))
+        self.config.update(load_sell_config(sell_path))
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
         self.risk_manager = risk_manager
