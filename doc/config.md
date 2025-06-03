@@ -49,6 +49,11 @@ Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
 `MAX_SYMBOLS` and `LIMIT_WAIT_SEC` which default to `10000`, `2` and `50`
 respectively. These values override the order executor's defaults and are
 mirrored to the risk manager.
+
+## f6_sell_settings.json
+Take-profit settings for open positions. It currently stores `TP_PCT` which
+specifies the percentage above the entry price to place a limit sell order
+immediately after a buy fills.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
