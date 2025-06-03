@@ -1,13 +1,13 @@
 {
   "symbol": "KRW-ARK",
-  "thresh_pct": 0.002,
+  "thresh_pct": 0.003,
   "loss_pct": 0.002,
   "trail_start_pct": null,
   "trail_down_pct": null,
-  "support": 0.0,
-  "row_count": 1,
-  "label1_count": 0,
+  "support": 0.15874159462055715,
+  "row_count": 8328,
+  "label1_count": 1322,
   "label2_count": 0,
-  "label-1_count": 0,
-  "label0_count": 1
+  "label-1_count": 2360,
+  "label0_count": 4646
 }

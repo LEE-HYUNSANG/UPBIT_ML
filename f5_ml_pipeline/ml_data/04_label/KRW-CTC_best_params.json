@@ -4,10 +4,10 @@
   "loss_pct": 0.002,
   "trail_start_pct": null,
   "trail_down_pct": null,
-  "support": 0.14160997732426303,
-  "row_count": 8820,
-  "label1_count": 1249,
+  "support": 0.14197807115685837,
+  "row_count": 8938,
+  "label1_count": 1269,
   "label2_count": 0,
-  "label-1_count": 2249,
-  "label0_count": 5322
+  "label-1_count": 2257,
+  "label0_count": 5412
 }

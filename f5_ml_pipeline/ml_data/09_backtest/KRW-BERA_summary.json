@@ -1,16 +1,16 @@
 {
-  "total_entries": 2,
-  "tp_count": 0,
+  "total_entries": 818,
+  "tp_count": 527,
   "trail_count": 0,
-  "sl_count": 1,
+  "sl_count": 291,
   "hold_count": 0,
-  "force_count": 1,
-  "win_rate": 0.0,
-  "loss_rate": 0.5,
-  "avg_roi": -0.002142484903335572,
-  "cum_roi": -0.004284969806671144,
-  "sharpe": -3.5333852654753617,
-  "mdd": -0.0012849698066711478,
-  "avg_roi_gross": -0.0011424849033355722,
-  "cum_roi_gross": -0.0022849698066711444
+  "force_count": 0,
+  "win_rate": 0.6442542787286064,
+  "loss_rate": 0.35574572127139364,
+  "avg_roi": -0.00042298288508557495,
+  "cum_roi": -0.3460000000000003,
+  "sharpe": -6.317437546151673,
+  "mdd": -0.29571625022526005,
+  "avg_roi_gross": 0.0005770171149144253,
+  "cum_roi_gross": 0.47199999999999986
 }

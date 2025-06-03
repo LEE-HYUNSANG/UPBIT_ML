@@ -1,13 +1,13 @@
 {
   "symbol": "KRW-LAYER",
-  "thresh_pct": 0.003,
+  "thresh_pct": 0.002,
   "loss_pct": 0.002,
   "trail_start_pct": null,
   "trail_down_pct": null,
-  "support": 0.16666666666666666,
-  "row_count": 12,
-  "label1_count": 2,
+  "support": 0.37817477399913907,
+  "row_count": 4646,
+  "label1_count": 1757,
   "label2_count": 0,
-  "label-1_count": 4,
-  "label0_count": 6
+  "label-1_count": 1637,
+  "label0_count": 1252
 }

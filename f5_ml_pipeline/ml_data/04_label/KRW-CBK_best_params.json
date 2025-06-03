@@ -1,13 +1,13 @@
 {
   "symbol": "KRW-CBK",
-  "thresh_pct": 0.002,
+  "thresh_pct": 0.003,
   "loss_pct": 0.002,
   "trail_start_pct": null,
   "trail_down_pct": null,
-  "support": 0.4,
-  "row_count": 10,
-  "label1_count": 4,
+  "support": 0.1741223982603293,
+  "row_count": 12876,
+  "label1_count": 2242,
   "label2_count": 0,
-  "label-1_count": 0,
-  "label0_count": 6
+  "label-1_count": 2931,
+  "label0_count": 7703
 }

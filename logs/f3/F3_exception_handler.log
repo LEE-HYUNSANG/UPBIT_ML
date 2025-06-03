@@ -1,0 +1,46 @@
+2025-06-03 15:20:05,982 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:05,997 [F3] [F3] Slippage 0.23% for KRW-CBK (count 1)
+2025-06-03 15:20:08,311 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:08,326 [F3] [F3] Slippage 0.23% for KRW-CBK (count 2)
+2025-06-03 15:20:08,743 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:08,744 [F3] [F3] Slippage 0.23% for KRW-CBK (count 1)
+2025-06-03 15:20:10,580 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:10,581 [F3] [F3] Slippage 0.23% for KRW-CBK (count 3)
+2025-06-03 15:20:10,943 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:10,945 [F3] [F3] Slippage 0.23% for KRW-CBK (count 2)
+2025-06-03 15:20:12,825 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:12,827 [F3] [F3] Slippage 0.23% for KRW-CBK (count 4)
+2025-06-03 15:20:13,165 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:13,166 [F3] [F3] Slippage 0.23% for KRW-CBK (count 3)
+2025-06-03 15:20:15,028 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:15,030 [F3] [F3] Slippage 0.23% for KRW-CBK (count 5)
+2025-06-03 15:20:15,414 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:15,416 [F3] [F3] Slippage 0.23% for KRW-CBK (count 4)
+2025-06-03 15:20:17,632 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:17,633 [F3] [F3] Slippage 0.23% for KRW-CBK (count 5)
+2025-06-03 15:20:18,384 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:18,386 [F3] [F3] Slippage 0.23% for KRW-CBK (count 6)
+2025-06-03 15:20:20,912 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:20,914 [F3] [F3] Slippage 0.23% for KRW-CBK (count 6)
+2025-06-03 15:20:21,729 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:21,731 [F3] [F3] Slippage 0.23% for KRW-CBK (count 7)
+2025-06-03 15:20:24,201 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:24,202 [F3] [F3] Slippage 0.23% for KRW-CBK (count 7)
+2025-06-03 15:20:25,014 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:25,016 [F3] [F3] Slippage 0.23% for KRW-CBK (count 8)
+2025-06-03 15:20:27,371 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:27,372 [F3] [F3] Slippage 0.23% for KRW-CBK (count 8)
+2025-06-03 15:20:28,368 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:28,369 [F3] [F3] Slippage 0.23% for KRW-CBK (count 9)
+2025-06-03 15:20:30,604 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:30,607 [F3] [F3] Slippage 0.23% for KRW-CBK (count 9)
+2025-06-03 15:20:31,757 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:31,759 [F3] [F3] Slippage 0.23% for KRW-CBK (count 10)
+2025-06-03 15:20:34,008 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:34,011 [F3] [F3] Slippage 0.23% for KRW-CBK (count 10)
+2025-06-03 15:20:35,082 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:35,085 [F3] [F3] Slippage 0.23% for KRW-CBK (count 11)
+2025-06-03 15:20:37,275 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:37,278 [F3] [F3] Slippage 0.23% for KRW-CBK (count 11)
+2025-06-03 15:20:38,381 [F3] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:38,395 [F3] [F3] Slippage 0.23% for KRW-CBK (count 12)

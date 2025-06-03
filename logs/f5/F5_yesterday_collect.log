@@ -1,82 +1,574 @@
-2025-06-03 12:14:34,306 [F5] [INFO] Collect 72h history for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
-2025-06-03 12:19:39,088 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
-2025-06-03 12:19:39,118 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 5 rows
-2025-06-03 12:19:39,134 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 2 rows
-2025-06-03 12:19:39,153 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 4302 rows
-2025-06-03 12:19:39,173 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 4297 rows
-2025-06-03 12:19:39,192 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 4311 rows
-2025-06-03 12:19:39,213 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 4305 rows
-2025-06-03 12:19:39,231 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 4304 rows
-2025-06-03 12:19:39,251 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 11 rows
-2025-06-03 12:19:39,272 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 4302 rows
-2025-06-03 12:19:39,291 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 5 rows
-2025-06-03 12:19:39,322 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 3 rows
-2025-06-03 12:19:39,342 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 4311 rows
-2025-06-03 12:19:39,362 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 4304 rows
-2025-06-03 12:19:39,381 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 4 rows
-2025-06-03 12:19:39,400 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 4303 rows
-2025-06-03 12:19:39,419 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 3 rows
-2025-06-03 12:19:39,443 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 4286 rows
-2025-06-03 12:19:39,480 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 4296 rows
-2025-06-03 12:19:39,502 [F5] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 4 rows
-2025-06-03 12:19:39,522 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 4303 rows
-2025-06-03 12:19:39,541 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 4298 rows
-2025-06-03 12:19:39,557 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 10 rows
-2025-06-03 12:19:39,581 [F5] [INFO] Drop duplicates KRW-NXPC_rawdata.parquet - 4282 rows
-2025-06-03 12:19:39,608 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 6 rows
-2025-06-03 12:19:39,633 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 4288 rows
-2025-06-03 12:19:39,660 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 4296 rows
-2025-06-03 12:19:39,687 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 4316 rows
-2025-06-03 12:19:39,712 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 4303 rows
-2025-06-03 12:19:39,731 [F5] [INFO] Drop duplicates KRW-STX_rawdata.parquet - 5 rows
-2025-06-03 12:19:39,752 [F5] [INFO] Drop duplicates KRW-SUI_rawdata.parquet - 4 rows
-2025-06-03 12:19:39,776 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 4304 rows
-2025-06-03 12:19:39,850 [F5] [INFO] Drop duplicates KRW-USDT_rawdata.parquet - 4282 rows
-2025-06-03 12:19:39,881 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 4283 rows
-2025-06-03 12:19:39,912 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 4288 rows
-2025-06-03 12:19:39,944 [F5] [INFO] Drop duplicates KRW-VIRTUAL_rawdata.parquet - 4281 rows
-2025-06-03 12:19:39,971 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 4310 rows
-2025-06-03 12:47:23,747 [F5] [INFO] Collect 72h history for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
-2025-06-03 12:52:38,523 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 6 rows
-2025-06-03 12:52:38,549 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 4 rows
-2025-06-03 12:52:38,576 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 4 rows
-2025-06-03 12:52:38,602 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 7 rows
-2025-06-03 12:52:38,631 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
-2025-06-03 12:52:38,660 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 3 rows
-2025-06-03 12:52:38,690 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 11 rows
-2025-06-03 12:52:38,720 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 16 rows
-2025-06-03 12:52:38,749 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
-2025-06-03 12:52:38,773 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 7 rows
-2025-06-03 12:52:38,795 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 10 rows
-2025-06-03 12:52:38,822 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 5 rows
-2025-06-03 12:52:38,850 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 4313 rows
-2025-06-03 12:52:38,877 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 4315 rows
-2025-06-03 12:52:38,904 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
-2025-06-03 12:52:38,929 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 4315 rows
-2025-06-03 12:52:38,963 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 4314 rows
-2025-06-03 12:52:38,997 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 4304 rows
-2025-06-03 12:52:39,025 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 9 rows
-2025-06-03 12:52:39,056 [F5] [INFO] Drop duplicates KRW-LAYER_rawdata.parquet - 10 rows
-2025-06-03 12:52:39,088 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 8 rows
-2025-06-03 12:52:39,117 [F5] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 1 rows
-2025-06-03 12:52:39,153 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 4315 rows
-2025-06-03 12:52:39,182 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,214 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,248 [F5] [INFO] Drop duplicates KRW-NXPC_rawdata.parquet - 4287 rows
-2025-06-03 12:52:39,278 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 3 rows
-2025-06-03 12:52:39,312 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 4294 rows
-2025-06-03 12:52:39,346 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 4308 rows
-2025-06-03 12:52:39,375 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,405 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,435 [F5] [INFO] Drop duplicates KRW-STX_rawdata.parquet - 4301 rows
-2025-06-03 12:52:39,459 [F5] [INFO] Drop duplicates KRW-SUI_rawdata.parquet - 4296 rows
-2025-06-03 12:52:39,487 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,513 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 4289 rows
-2025-06-03 12:52:39,539 [F5] [INFO] Drop duplicates KRW-TRUMP_rawdata.parquet - 4296 rows
-2025-06-03 12:52:39,570 [F5] [INFO] Drop duplicates KRW-USDT_rawdata.parquet - 4290 rows
-2025-06-03 12:52:39,595 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 4289 rows
-2025-06-03 12:52:39,622 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 4301 rows
-2025-06-03 12:52:39,650 [F5] [INFO] Drop duplicates KRW-VIRTUAL_rawdata.parquet - 5 rows
-2025-06-03 12:52:39,679 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 4316 rows
-2025-06-03 12:52:39,710 [F5] [INFO] Drop duplicates KRW-WCT_rawdata.parquet - 4288 rows
-2025-06-03 12:52:39,737 [F5] [INFO] Drop duplicates KRW-XRP_rawdata.parquet - 4287 rows
+2025-06-03 15:20:04,642 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:04,645 [F5] [INFO] Collect 72h history for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-03 15:20:04,645 [F5] [INFO] RiskManager 초기화 완료 (ACTIVE)
+2025-06-03 15:20:04,647 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:04,651 [F5] [INFO] [RUN] existing sell_list={'KRW-CBK': {'TP_PCT': 0.3, 'SL_PCT': 0.2}}
+2025-06-03 15:20:04,653 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:04,654 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:04,657 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:04,667 [F5] [INFO]  * Restarting with stat
+2025-06-03 15:20:05,982 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:05,997 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 1)
+2025-06-03 15:20:07,536 [F5] [INFO] Collect 72h history for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-03 15:20:07,536 [F5] [ERROR] pipeline error: [Errno 13] Permission denied
+2025-06-03 15:20:07,545 [F5] [WARNING]  * Debugger is active!
+2025-06-03 15:20:07,551 [F5] [INFO]  * Debugger PIN: 872-957-534
+2025-06-03 15:20:07,857 [F5] [WARNING]  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-06-03 15:20:07,858 [F5] [INFO]  * Running on http://192.168.0.183:3000/ (Press CTRL+C to quit)
+2025-06-03 15:20:08,311 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:08,326 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 2)
+2025-06-03 15:20:08,743 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:08,744 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 1)
+2025-06-03 15:20:10,580 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:10,581 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 3)
+2025-06-03 15:20:10,943 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:10,945 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 2)
+2025-06-03 15:20:12,825 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:12,827 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 4)
+2025-06-03 15:20:13,165 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:13,166 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 3)
+2025-06-03 15:20:15,028 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:15,030 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 5)
+2025-06-03 15:20:15,414 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:15,416 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 4)
+2025-06-03 15:20:17,632 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:17,633 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 5)
+2025-06-03 15:20:18,384 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:18,386 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 6)
+2025-06-03 15:20:19,664 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:19,664 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:19,664 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:19,664 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:19,664 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:19,665 [F5] [INFO] [RUN] existing sell_list={'KRW-CBK': {'TP_PCT': 0.3, 'SL_PCT': 0.2}}
+2025-06-03 15:20:19,665 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:19,665 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:19,667 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:20,912 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:20,914 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 6)
+2025-06-03 15:20:21,729 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:21,731 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 7)
+2025-06-03 15:20:22,549 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:22,549 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:22,549 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:22,551 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:22,551 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:22,552 [F5] [INFO] [RUN] existing sell_list={'KRW-CBK': {'TP_PCT': 0.3, 'SL_PCT': 0.2}}
+2025-06-03 15:20:22,554 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:22,554 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:22,556 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:24,201 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:24,202 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 7)
+2025-06-03 15:20:25,014 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:25,016 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 8)
+2025-06-03 15:20:27,371 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:27,372 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 8)
+2025-06-03 15:20:28,368 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:28,369 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 9)
+2025-06-03 15:20:30,604 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:30,607 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 9)
+2025-06-03 15:20:31,757 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:31,759 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 10)
+2025-06-03 15:20:34,008 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:34,011 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 10)
+2025-06-03 15:20:34,675 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:34,676 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:34,676 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:34,677 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:34,679 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:34,679 [F5] [INFO] [RUN] existing sell_list={'KRW-CBK': {'TP_PCT': 0.3, 'SL_PCT': 0.2}}
+2025-06-03 15:20:34,682 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:34,682 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:34,684 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:35,082 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"name":"insufficient_funds_ask","message":"주문 가능한 금액(CBK)이 부족합니다."}}
+2025-06-03 15:20:35,085 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 11)
+2025-06-03 15:20:37,275 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:37,278 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 11)
+2025-06-03 15:20:37,562 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:37,563 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:37,564 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:37,565 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:37,567 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:37,568 [F5] [INFO] [RUN] existing sell_list={'KRW-CBK': {'TP_PCT': 0.3, 'SL_PCT': 0.2}}
+2025-06-03 15:20:37,570 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:37,571 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:37,572 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:38,381 [F5] [INFO] [F3] Exception in place_order: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/orders?market=KRW-CBK&side=ask&ord_type=market&volume=41.4651002 - {"error":{"message":"주문 가능한 금액(CBK)이 부족합니다.","name":"insufficient_funds_ask"}}
+2025-06-03 15:20:38,395 [F5] [INFO] [F3] Slippage 0.23% for KRW-CBK (count 12)
+2025-06-03 15:20:49,685 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:49,686 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:49,686 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:49,688 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:49,690 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:49,692 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:20:49,694 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:49,694 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:49,696 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:20:52,576 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:20:52,577 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:20:52,577 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:20:52,578 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:20:52,579 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:20:52,579 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:20:52,580 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:20:52,580 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:20:52,581 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:04,706 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:04,707 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:04,708 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:04,709 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:04,710 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:04,712 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:04,713 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:04,713 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:04,715 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:06,121 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
+2025-06-03 15:21:06,519 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-03 15:21:06,723 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:21:07,595 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:07,595 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:07,596 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:07,596 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:07,597 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:07,597 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:07,598 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:07,598 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:07,598 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:07,878 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:21:09,262 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:21:10,650 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-03 15:21:11,586 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:21:12,160 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:21:12,523 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:21:13,653 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-03 15:21:14,068 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-03 15:21:14,410 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:21:14,750 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-03 15:21:15,058 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:21:15,359 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:21:15,671 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-03 15:21:15,996 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:21:17,371 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:21:18,762 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:21:19,729 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:19,729 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:19,730 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:19,731 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:19,731 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:19,733 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:19,734 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:19,735 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:19,736 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:20,493 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-03 15:21:20,825 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:21:22,068 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:21:22,602 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:22,602 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:22,602 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:22,603 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:22,603 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:22,603 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:22,604 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:22,604 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:22,604 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:22,653 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-03 15:21:22,951 [F5] [INFO] Drop duplicates KRW-NXPC_rawdata.parquet - 1 rows
+2025-06-03 15:21:23,279 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-03 15:21:24,667 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-03 15:21:26,092 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-03 15:21:26,392 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-03 15:21:26,672 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:21:27,560 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:21:27,888 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-03 15:21:30,927 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-03 15:21:31,252 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-03 15:21:32,939 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:21:34,745 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:34,745 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:34,746 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:34,746 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:34,746 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:34,747 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:34,747 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:34,747 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:34,748 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:37,617 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:37,617 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:37,617 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:37,618 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:37,618 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:37,619 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:37,619 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:37,619 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:37,620 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:49,754 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:49,755 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:49,755 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:49,756 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:49,756 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:49,757 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:49,757 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:49,758 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:49,758 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:21:52,627 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:21:52,628 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:21:52,628 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:21:52,628 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:21:52,629 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:21:52,629 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:21:52,630 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:21:52,630 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:21:52,630 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:04,762 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:04,762 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:04,762 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:04,763 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:04,763 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:04,763 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:04,764 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:04,764 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:04,765 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:06,101 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
+2025-06-03 15:22:06,451 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-03 15:22:06,708 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:22:06,985 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:22:07,591 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:22:07,640 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:07,640 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:07,640 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:07,641 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:07,642 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:07,642 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:07,644 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:07,644 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:07,644 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:07,809 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:22:07,921 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:22:08,217 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-03 15:22:08,531 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:22:08,823 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-03 15:22:09,115 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:22:09,173 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:22:09,425 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:22:10,330 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:22:10,641 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:22:10,816 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:22:11,105 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:22:11,392 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-03 15:22:11,680 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:22:11,973 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-03 15:22:12,290 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:22:13,636 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:22:13,658 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:22:16,354 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:22:16,930 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:22:17,709 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:22:19,070 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:22:19,388 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-03 15:22:19,693 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-03 15:22:19,776 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:19,776 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:19,776 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:19,777 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:19,777 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:19,777 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:19,778 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:19,778 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:19,779 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:20,382 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:22:21,055 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:22:21,288 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:22:22,659 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:22,659 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:22,659 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:22,659 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:22,659 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:22,660 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:22,660 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:22,660 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:22,660 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:22,673 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-03 15:22:24,301 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:22:24,577 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-03 15:22:25,950 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-03 15:22:26,517 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-03 15:22:27,847 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-03 15:22:28,132 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-03 15:22:28,429 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-03 15:22:28,740 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:22:29,070 [F5] [INFO] Drop duplicates KRW-STX_rawdata.parquet - 1 rows
+2025-06-03 15:22:29,354 [F5] [INFO] Drop duplicates KRW-SUI_rawdata.parquet - 1 rows
+2025-06-03 15:22:29,677 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:22:31,336 [F5] [INFO] Drop duplicates KRW-TRUMP_rawdata.parquet - 1 rows
+2025-06-03 15:22:33,027 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-03 15:22:33,341 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-03 15:22:34,785 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:34,785 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:34,785 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:34,786 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:34,786 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:34,786 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:34,787 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:34,787 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:34,787 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:34,980 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:22:37,667 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:37,668 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:37,669 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:37,669 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:37,670 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:37,670 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:37,671 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:37,671 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:37,671 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:49,795 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:49,795 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:49,795 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:49,796 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:49,796 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:49,797 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:49,798 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:49,798 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:49,799 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:22:52,683 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:22:52,683 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:22:52,683 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:22:52,684 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:22:52,684 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:22:52,685 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:22:52,685 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:22:52,685 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:22:52,686 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:04,811 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:04,812 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:04,812 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:04,812 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:04,813 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:04,813 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:04,813 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:04,814 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:04,814 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:05,635 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:23:05,947 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:23:06,090 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
+2025-06-03 15:23:06,392 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-03 15:23:06,559 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:23:06,678 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:23:06,946 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:23:07,236 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-03 15:23:07,545 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:23:07,690 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:07,690 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:07,691 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:07,691 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:07,691 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:07,692 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:07,692 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:07,694 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:07,695 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:07,849 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:23:07,903 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:23:09,250 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-03 15:23:10,557 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:23:10,624 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:23:11,978 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-03 15:23:12,186 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:23:12,485 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:23:13,085 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:23:13,345 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:23:13,387 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:23:14,715 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:23:14,745 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:23:16,104 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-03 15:23:17,453 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:23:18,823 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:23:19,096 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:23:19,383 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-03 15:23:19,685 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-03 15:23:19,816 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:19,816 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:19,816 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:19,816 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:19,817 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:19,817 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:19,818 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:19,818 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:19,818 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:20,004 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:23:20,299 [F5] [INFO] Drop duplicates KRW-LAYER_rawdata.parquet - 1 rows
+2025-06-03 15:23:21,639 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-03 15:23:21,653 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-03 15:23:22,699 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:22,699 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:22,699 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:22,700 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:22,700 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:22,700 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:22,701 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:22,701 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:22,701 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:24,348 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:23:25,971 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-03 15:23:26,257 [F5] [INFO] Drop duplicates KRW-NXPC_rawdata.parquet - 1 rows
+2025-06-03 15:23:26,539 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-03 15:23:26,569 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:23:26,859 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-03 15:23:27,127 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-03 15:23:28,455 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-03 15:23:28,516 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:23:28,755 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:23:29,057 [F5] [INFO] Drop duplicates KRW-STX_rawdata.parquet - 1 rows
+2025-06-03 15:23:29,604 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:23:29,890 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-03 15:23:31,235 [F5] [INFO] Drop duplicates KRW-TRUMP_rawdata.parquet - 1 rows
+2025-06-03 15:23:32,573 [F5] [INFO] Drop duplicates KRW-USDT_rawdata.parquet - 1 rows
+2025-06-03 15:23:32,681 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:23:32,867 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-03 15:23:33,501 [F5] [INFO] Drop duplicates KRW-VIRTUAL_rawdata.parquet - 1 rows
+2025-06-03 15:23:33,833 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:23:34,140 [F5] [INFO] Drop duplicates KRW-WCT_rawdata.parquet - 1 rows
+2025-06-03 15:23:34,827 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:34,827 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:34,827 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:34,828 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:34,828 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:34,829 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:34,829 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:34,829 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:34,829 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:35,509 [F5] [INFO] Drop duplicates KRW-XRP_rawdata.parquet - 1 rows
+2025-06-03 15:23:37,716 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:37,716 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:37,716 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:37,717 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:37,717 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:37,717 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:37,718 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:37,718 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:37,719 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:49,834 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:49,834 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:49,836 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:49,836 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:49,837 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:49,837 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:49,838 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:49,838 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:49,839 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:23:52,724 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:23:52,724 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:23:52,724 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:23:52,724 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:23:52,726 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:23:52,726 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:23:52,726 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:23:52,726 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:23:52,727 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:04,854 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:04,854 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:04,856 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:04,856 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:04,856 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:04,857 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:04,858 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:04,858 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:04,858 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:05,161 [F5] [INFO] Drop duplicates KRW-ADA_rawdata.parquet - 1 rows
+2025-06-03 15:24:05,508 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-03 15:24:05,816 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:24:06,566 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-03 15:24:06,909 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:24:06,935 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-03 15:24:07,249 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-03 15:24:07,249 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:24:07,737 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:07,738 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:07,738 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:07,740 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:07,740 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:07,740 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:07,741 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:07,741 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:07,741 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:08,707 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-03 15:24:09,017 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-03 15:24:09,322 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-03 15:24:10,647 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-03 15:24:10,720 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:24:12,000 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-03 15:24:12,079 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:24:12,303 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-03 15:24:12,348 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-03 15:24:13,658 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-03 15:24:13,710 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:24:13,936 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-03 15:24:15,320 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-03 15:24:15,605 [F5] [INFO] Drop duplicates KRW-DRIFT_rawdata.parquet - 1 rows
+2025-06-03 15:24:15,667 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-03 15:24:16,996 [F5] [INFO] Drop duplicates KRW-EOS_rawdata.parquet - 1 rows
+2025-06-03 15:24:17,278 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-03 15:24:17,293 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:24:18,634 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-03 15:24:18,934 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-03 15:24:19,869 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:19,869 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:19,869 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:19,870 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:19,870 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:19,870 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:19,871 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:19,871 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:19,871 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:20,281 [F5] [INFO] Drop duplicates KRW-KAITO_rawdata.parquet - 1 rows
+2025-06-03 15:24:20,557 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:24:21,926 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-03 15:24:22,745 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:22,745 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:22,746 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:22,746 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:22,746 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:22,747 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:22,747 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:22,747 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:22,748 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:23,608 [F5] [INFO] Drop duplicates KRW-ME_rawdata.parquet - 1 rows
+2025-06-03 15:24:23,912 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-03 15:24:24,201 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-03 15:24:24,494 [F5] [INFO] Drop duplicates KRW-NXPC_rawdata.parquet - 1 rows
+2025-06-03 15:24:24,799 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-03 15:24:25,264 [F5] [INFO] Drop duplicates KRW-ONDO_rawdata.parquet - 1 rows
+2025-06-03 15:24:25,416 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-03 15:24:25,536 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-03 15:24:25,812 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-03 15:24:27,053 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-03 15:24:27,323 [F5] [INFO] Drop duplicates KRW-STX_rawdata.parquet - 1 rows
+2025-06-03 15:24:28,662 [F5] [INFO] Drop duplicates KRW-SUI_rawdata.parquet - 1 rows
+2025-06-03 15:24:28,963 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-03 15:24:29,272 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-03 15:24:29,591 [F5] [INFO] Drop duplicates KRW-TRUMP_rawdata.parquet - 1 rows
+2025-06-03 15:24:30,305 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-03 15:24:30,601 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-03 15:24:31,926 [F5] [INFO] Drop duplicates KRW-VIRTUAL_rawdata.parquet - 1 rows
+2025-06-03 15:24:32,109 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:24:32,212 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-03 15:24:33,583 [F5] [INFO] Drop duplicates KRW-WCT_rawdata.parquet - 1 rows
+2025-06-03 15:24:33,854 [F5] [INFO] Drop duplicates KRW-XRP_rawdata.parquet - 1 rows
+2025-06-03 15:24:34,887 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:34,888 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:34,888 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:34,889 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:34,890 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:34,890 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:34,891 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:34,891 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:34,892 [F5] [INFO] [F3] No buy candidates found
+2025-06-03 15:24:37,757 [F5] [INFO] [RUN] starting buy signal scan
+2025-06-03 15:24:37,758 [F5] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 15:24:37,758 [F5] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 15:24:37,759 [F5] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 15:24:37,759 [F5] [INFO] [RUN] existing buy_list=[]
+2025-06-03 15:24:37,759 [F5] [INFO] [RUN] existing sell_list={}
+2025-06-03 15:24:37,760 [F5] [INFO] [RUN] cleared buy_list
+2025-06-03 15:24:37,761 [F5] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 15:24:37,761 [F5] [INFO] [F3] No buy candidates found

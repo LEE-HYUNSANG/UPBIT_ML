@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "symbol": "KRW-CBK",
+    "entry_time": 1748930569.9917352,
+    "entry_price": 723.5,
+    "qty": 41.4651002,
+    "pyramid_count": 0,
+    "avgdown_count": 0,
+    "status": "open",
+    "origin": "trade",
+    "entry_fee": 0.0,
+    "avg_price": 723.5,
+    "current_price": 721.5,
+    "eval_amount": 29917.0697943,
+    "pnl_percent": -0.27643400138217,
+    "max_price": 723.6,
+    "min_price": 721.4
+  }
+]
