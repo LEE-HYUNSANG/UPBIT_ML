@@ -93,3 +93,7 @@ execute_buy_list()
 `f2_f2_realtime_buy_list.json`의 ``pending`` 값으로 공유되므로 여러 프로세스가
 동시에 실행되더라도 동일 코인을 다시 주문하지 않습니다. 별도의 인스턴스를
 사용하려면 `execute_buy_list(executor=my_executor)`와 같이 호출하면 됩니다.
+
+실행기는 `f2_f2_realtime_buy_list.json` 파일을 읽고 쓸 때
+`fcntl.flock()`(Windows는 `msvcrt.locking()`)을 사용해 파일 잠금을 획득합니다.
+이를 통해 여러 프로세스가 동시에 업데이트하더라도 내용이 손상되지 않습니다.

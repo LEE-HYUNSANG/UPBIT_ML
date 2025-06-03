@@ -14,6 +14,13 @@ from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag, pretty_symbol
 from f6_setting.buy_config import load_buy_config
 import json
+from contextlib import contextmanager
+
+try:
+    import fcntl
+except Exception:  # pragma: no cover - Windows
+    fcntl = None  # type: ignore
+    import msvcrt
 
 logger = logging.getLogger("F3_order_executor")
 os.makedirs("logs/f3", exist_ok=True)
@@ -27,6 +34,27 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+
+
+@contextmanager
+def _buy_list_lock(path: str | Path):
+    """Context manager providing an exclusive lock on *path*."""
+    lock_file = Path(path)
+    fh = lock_file.open("a+")
+    try:
+        if fcntl:
+            fcntl.flock(fh, fcntl.LOCK_EX)
+        else:  # pragma: no cover - Windows
+            msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+        yield
+    finally:
+        try:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+            else:  # pragma: no cover - Windows
+                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+        finally:
+            fh.close()
 
 
 class OrderExecutor:
@@ -60,67 +88,70 @@ class OrderExecutor:
     def _mark_buy_filled(self, symbol: str) -> None:
         """Set ``buy_count`` to 1 for the given symbol in the buy list."""
         path = Path("config") / "f2_f2_realtime_buy_list.json"
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if not isinstance(data, list):
-                return
-        except Exception:
-            return
-
-        changed = False
-        for item in data:
-            if item.get("symbol") == symbol:
-                if item.get("buy_count", 0) != 1:
-                    item["buy_count"] = 1
-                    changed = True
-                break
-        if changed:
+        with _buy_list_lock(path):
             try:
-                with open(path, "w", encoding="utf-8") as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if not isinstance(data, list):
+                    return
             except Exception:
-                pass
+                return
+
+            changed = False
+            for item in data:
+                if item.get("symbol") == symbol:
+                    if item.get("buy_count", 0) != 1:
+                        item["buy_count"] = 1
+                        changed = True
+                    break
+            if changed:
+                try:
+                    with open(path, "w", encoding="utf-8") as f:
+                        json.dump(data, f, ensure_ascii=False, indent=2)
+                except Exception:
+                    pass
 
     def _set_pending_flag(self, symbol: str, value: int) -> None:
         """Update ``pending`` field for *symbol* in the buy list."""
         path = Path("config") / "f2_f2_realtime_buy_list.json"
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if not isinstance(data, list):
-                return
-        except Exception:
-            return
-
-        changed = False
-        for item in data:
-            if item.get("symbol") == symbol:
-                if item.get("pending", 0) != value:
-                    item["pending"] = value
-                    changed = True
-                break
-        if changed:
+        with _buy_list_lock(path):
             try:
-                with open(path, "w", encoding="utf-8") as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if not isinstance(data, list):
+                    return
             except Exception:
-                pass
+                return
+
+            changed = False
+            for item in data:
+                if item.get("symbol") == symbol:
+                    if item.get("pending", 0) != value:
+                        item["pending"] = value
+                        changed = True
+                    break
+            if changed:
+                try:
+                    with open(path, "w", encoding="utf-8") as f:
+                        json.dump(data, f, ensure_ascii=False, indent=2)
+                except Exception:
+                    pass
 
     def _load_pending_flags(self) -> set[str]:
         """Return symbols with ``pending`` flag set in the buy list."""
         path = Path("config") / "f2_f2_realtime_buy_list.json"
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if isinstance(data, list):
-                return {
-                    item.get("symbol")
-                    for item in data
-                    if isinstance(item, dict) and item.get("pending")
-                }
-        except Exception:
-            pass
+        with _buy_list_lock(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, list):
+                    return {
+                        item.get("symbol")
+                        for item in data
+                        if isinstance(item, dict) and item.get("pending")
+                    }
+            except Exception:
+                pass
         return set()
 
 
