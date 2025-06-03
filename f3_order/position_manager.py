@@ -236,6 +236,7 @@ class PositionManager:
             if bal > 0:
                 seen_all.add(symbol)
             if eval_amt >= threshold:
+                seen.add(symbol)
                 exists = any(
                     p.get("symbol") == symbol and p.get("status") == "open"
                     for p in self.positions
