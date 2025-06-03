@@ -292,19 +292,24 @@ class PositionManager:
             if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
             elif accounts_ok and qty <= 0 and pos.get("status") == "open":
-                pos["status"] = "closed"
-                if self.exception_handler and prev_qty > 0:
-                    price_exec = price_map.get(sym, pos.get("current_price", 0))
-                    fee = float(pos.get("entry_fee", 0))
-                    amt = price_exec * prev_qty
-                    entry_total = pos.get("entry_price", 0) * prev_qty + fee
-                    profit = amt - entry_total
-                    msg = (
-                        f"매도 완료] {pretty_symbol(sym)} "
-                        f"매도 금액: {int(amt):,}원 @{price_exec} "
-                        f"이익:{profit:+.0f}원"
-                    )
-                    self.exception_handler.send_alert(msg, "info", "order_execution")
+                # Avoid premature close right after a buy due to balance sync delay
+                if now() - pos.get("entry_time", 0) < 5:
+                    qty = prev_qty
+                    pos["qty"] = qty
+                else:
+                    pos["status"] = "closed"
+                    if self.exception_handler and prev_qty > 0:
+                        price_exec = price_map.get(sym, pos.get("current_price", 0))
+                        fee = float(pos.get("entry_fee", 0))
+                        amt = price_exec * prev_qty
+                        entry_total = pos.get("entry_price", 0) * prev_qty + fee
+                        profit = amt - entry_total
+                        msg = (
+                            f"매도 완료] {pretty_symbol(sym)} "
+                            f"매도 금액: {int(amt):,}원 @{price_exec} "
+                            f"이익:{profit:+.0f}원"
+                        )
+                        self.exception_handler.send_alert(msg, "info", "order_execution")
             if sym in price_map:
                 pos["current_price"] = price_map[sym]
             if pos.get("current_price") is not None:
