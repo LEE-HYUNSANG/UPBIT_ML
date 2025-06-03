@@ -341,11 +341,14 @@ def run() -> List[str]:
         buy_list = []
     logging.info("[RUN] existing buy_list=%s", buy_list)
     existing_counts = {}
+    pending_set = set()
     for it in buy_list:
         if isinstance(it, dict):
             sym = it.get("symbol")
             if sym:
                 existing_counts[sym] = it.get("buy_count", 0)
+                if it.get("pending"):
+                    pending_set.add(sym)
 
     pending_path = CONFIG_DIR / "f3_f3_pending_symbols.json"
     pending_set = set(load_json(pending_path, default=[])) if pending_path.exists() else set()

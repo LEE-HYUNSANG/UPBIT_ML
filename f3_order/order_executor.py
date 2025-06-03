@@ -8,12 +8,11 @@ from logging.handlers import RotatingFileHandler
 from .smart_buy import smart_buy
 import threading
 from .position_manager import PositionManager
-from common_utils import load_json, save_json
+from common_utils import load_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag, pretty_symbol
 from f6_setting.buy_config import load_buy_config
-import time
 import json
 
 logger = logging.getLogger("F3_order_executor")
@@ -40,12 +39,8 @@ class OrderExecutor:
         self.position_manager = PositionManager(
             self.config, self.kpi_guard, self.exception_handler, logger
         )
-        self.pending_file = self.config.get(
-            "PENDING_FILE", "config/f3_f3_pending_symbols.json"
-        )
-        self.pending_symbols: set[str] = set()
+        self.pending_symbols: set[str] = self._load_pending_flags()
         self._pending_lock = threading.Lock()
-        save_json(self.pending_file, [])
         if self.risk_manager:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
@@ -112,11 +107,22 @@ class OrderExecutor:
             except Exception:
                 pass
 
-    def _persist_pending(self) -> None:
+    def _load_pending_flags(self) -> set[str]:
+        """Return symbols with ``pending`` flag set in the buy list."""
+        path = Path("config") / "f2_f2_realtime_buy_list.json"
         try:
-            save_json(self.pending_file, list(self.pending_symbols))
-        except Exception as exc:  # pragma: no cover - best effort
-            log_with_tag(logger, f"Failed to persist pending symbols: {exc}")
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                return {
+                    item.get("symbol")
+                    for item in data
+                    if isinstance(item, dict) and item.get("pending")
+                }
+        except Exception:
+            pass
+        return set()
+
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
         """Add TP/SL info for *symbol* to the realtime sell list."""
@@ -170,15 +176,11 @@ class OrderExecutor:
                 symbol = signal.get("symbol")
                 price = signal.get("price")
                 with self._pending_lock:
-                    try:
-                        self.pending_symbols.update(load_json(self.pending_file, default=[]))
-                    except Exception:
-                        pass
+                    self.pending_symbols.update(self._load_pending_flags())
                     if symbol in self.pending_symbols:
                         log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
                         return
                     self.pending_symbols.add(symbol)
-                    self._persist_pending()
                 self._set_pending_flag(symbol, 1)
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
@@ -203,7 +205,6 @@ class OrderExecutor:
                 finally:
                     with self._pending_lock:
                         self.pending_symbols.discard(symbol)
-                        self._persist_pending()
                     self._set_pending_flag(symbol, 0)
                 if signal.get("price") is not None:
                     order_result["entry_price"] = signal["price"]
