@@ -3,6 +3,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import os
+import time
 
 from f3_order.order_executor import (
     OrderExecutor,
@@ -35,7 +36,7 @@ def _load_buy_list(path: Path) -> list:
     if not path.exists():
         return []
 
-    for attempt in range(2):
+    for attempt in range(5):
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -43,20 +44,12 @@ def _load_buy_list(path: Path) -> list:
                 return data
             break
         except PermissionError as exc:  # pragma: no cover - permission issues
-            if attempt == 0:
-                try:
-                    path.chmod(0o644)
-                    continue
-                except Exception as perm_exc:
-                    log_with_tag(
-                        logger,
-                        f"Failed to fix permissions for buy list: {perm_exc}",
-                    )
-            log_with_tag(logger, f"Failed to load buy list: {exc}")
-            break
+            time.sleep(0.1)
+            continue
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to load buy list: {exc}")
             break
+    log_with_tag(logger, "Failed to load buy list: giving up")
     return []
 
 
