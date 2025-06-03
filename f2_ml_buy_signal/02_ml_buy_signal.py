@@ -33,13 +33,17 @@ def setup_logger() -> None:
 
 setup_logger()
 
+DEPS_MISSING = False
 try:
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
     import joblib
 except ImportError as exc:  # pragma: no cover - dependency missing at runtime
     logging.exception("Required dependency missing: %s", exc)
-    sys.exit(1)
+    pd = None  # type: ignore
+    LogisticRegression = object  # type: ignore
+    joblib = None  # type: ignore
+    DEPS_MISSING = True
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
@@ -316,6 +320,10 @@ def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
 
 
 def run() -> List[str]:
+    if DEPS_MISSING:
+        logging.warning("[RUN] dependencies missing; skipping scan")
+        return []
+
     logging.info("[RUN] starting buy signal scan")
     logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
@@ -410,6 +418,10 @@ def run() -> List[str]:
 
 def run_if_monitoring_list_exists() -> List[str]:
     """Run :func:`run` only when monitoring list is present."""
+    if DEPS_MISSING:
+        logging.warning("[RUN_IF] dependencies missing; skipping")
+        return []
+
     path = CONFIG_DIR / "f5_f1_monitoring_list.json"
     if path.exists():
         return run()
