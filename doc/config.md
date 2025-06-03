@@ -22,9 +22,11 @@ and continuously updated by the **F3** order executor.
 ## f2_f2_realtime_buy_list.json
 List of dictionaries produced by **F2** when a coin meets the ML and indicator
 conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
-and `buy_count`. Only items where `buy_signal` is 1 and `buy_count` is 0 are
-considered for new orders. Once a buy is filled the count changes to 1 and this
-value is preserved on subsequent runs to prevent duplicate entries.
+`buy_count` and `pending`. Only items where `buy_signal` is 1 and
+`buy_count` is 0 are considered for new orders. Once a buy is filled the count
+changes to 1 and this value is preserved on subsequent runs to prevent
+duplicate entries. The `pending` flag reflects whether an order for the symbol
+is currently being processed.
 
 ## f3_f3_realtime_sell_list.json
 Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.

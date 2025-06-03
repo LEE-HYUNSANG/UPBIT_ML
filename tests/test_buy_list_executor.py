@@ -40,7 +40,7 @@ def test_execute_buy_list(tmp_path, monkeypatch):
 
     ble = importlib.import_module("f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor")
 
-    data = [{"symbol": "KRW-BTC", "buy_signal": 1, "buy_count": 0}]
+    data = [{"symbol": "KRW-BTC", "buy_signal": 1, "buy_count": 0, "pending": 0}]
     (tmp_path / "f2_f2_realtime_buy_list.json").write_text(json.dumps(data))
 
     monkeypatch.setattr(ble, "CONFIG_DIR", Path(tmp_path))

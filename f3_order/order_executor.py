@@ -87,6 +87,31 @@ class OrderExecutor:
             except Exception:
                 pass
 
+    def _set_pending_flag(self, symbol: str, value: int) -> None:
+        """Update ``pending`` field for *symbol* in the buy list."""
+        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                return
+        except Exception:
+            return
+
+        changed = False
+        for item in data:
+            if item.get("symbol") == symbol:
+                if item.get("pending", 0) != value:
+                    item["pending"] = value
+                    changed = True
+                break
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
     def _persist_pending(self) -> None:
         try:
             save_json(self.pending_file, list(self.pending_symbols))
@@ -154,6 +179,7 @@ class OrderExecutor:
                         return
                     self.pending_symbols.add(symbol)
                     self._persist_pending()
+                self._set_pending_flag(symbol, 1)
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
@@ -178,6 +204,7 @@ class OrderExecutor:
                     with self._pending_lock:
                         self.pending_symbols.discard(symbol)
                         self._persist_pending()
+                    self._set_pending_flag(symbol, 0)
                 if signal.get("price") is not None:
                     order_result["entry_price"] = signal["price"]
                 if order_result.get("filled", False):
