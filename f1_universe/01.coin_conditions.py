@@ -16,10 +16,10 @@ except Exception:  # pragma: no cover - fallback when requests missing
     from urllib.parse import urlencode
 
 # === Coin Conditions ===
-PRICE1_MIN = 1000
-PRICE1_MAX = 3333
-PRICE2_MIN = 10000
-PRICE2_MAX = 33333
+PRICE1_MIN = 700
+PRICE1_MAX = 26666
+PRICE2_MIN = 0
+PRICE2_MAX = 0
 TRADE_VALUE_MIN = 1400000000
 
 # PRICE2_MIN = 0 and PRICE2_MAX = 0 disables the second range
