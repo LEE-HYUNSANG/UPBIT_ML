@@ -106,7 +106,7 @@ except Exception:  # pragma: no cover - Windows
 def file_lock(path: str | Path):
     """Context manager providing an exclusive lock on ``path``."""
     lock_path = Path(path)
-    fh = lock_path.open("w")
+    fh = lock_path.open("a+")
     try:
         if fcntl:
             fcntl.flock(fh, fcntl.LOCK_EX)
