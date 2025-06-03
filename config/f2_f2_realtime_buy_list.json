@@ -1,17 +1,49 @@
 [
   {
-    "symbol": "KRW-STX",
+    "symbol": "KRW-APT",
     "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 1,
+    "rsi_sel": 0,
+    "trend_sel": 0,
     "buy_signal": 0,
-    "buy_count": 1
+    "buy_count": 0
   },
   {
     "symbol": "KRW-XRP",
     "ml_signal": 0,
     "rsi_sel": 0,
-    "trend_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-NEAR",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-TRUMP",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-ONDO",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0
+  },
+  {
+    "symbol": "KRW-DOT",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0
   }

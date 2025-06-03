@@ -1,18 +1,6 @@
 {
-  "KRW-STX": {
-    "TP_PCT": 0.3,
-    "SL_PCT": 0.3
-  },
-  "KRW-LINK": {
-    "TP_PCT": 0.3,
-    "SL_PCT": 0.3
-  },
-  "KRW-TOKAMAK": {
-    "TP_PCT": 0.5,
-    "SL_PCT": 0.3
-  },
-  "KRW-APT": {
-    "TP_PCT": 0.3,
+  "KRW-LAYER": {
+    "TP_PCT": 0.2,
     "SL_PCT": 0.2
   }
 }
