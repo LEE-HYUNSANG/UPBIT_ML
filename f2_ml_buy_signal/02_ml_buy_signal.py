@@ -341,11 +341,14 @@ def run() -> List[str]:
         buy_list = []
     logging.info("[RUN] existing buy_list=%s", buy_list)
     existing_counts = {}
+    pending_set = set()
     for it in buy_list:
         if isinstance(it, dict):
             sym = it.get("symbol")
             if sym:
                 existing_counts[sym] = it.get("buy_count", 0)
+                if it.get("pending"):
+                    pending_set.add(sym)
 
     sell_list_path = CONFIG_DIR / "f3_f3_realtime_sell_list.json"
     sell_list = load_json(sell_list_path, default={})
@@ -376,6 +379,7 @@ def run() -> List[str]:
             "trend_sel": int(trend_flag),
             "buy_signal": final,
             "buy_count": existing_counts.get(sym, 0),
+            "pending": 1 if sym in pending_set else 0,
         })
         if final:
             results.append(sym)
