@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 import json
 from datetime import datetime
+from common_utils import ensure_utf8_stdout
 try:
     import fcntl  # POSIX only
 except ImportError:  # pragma: no cover - Windows
@@ -93,6 +94,7 @@ def run_step(step: str, index: int, total: int) -> None:
 
 
 def main() -> None:
+    ensure_utf8_stdout()
     handler = ExceptionHandler({})
     lock = _acquire_lock()
     now = datetime.now().strftime("%H:%M:%S")

@@ -10,6 +10,7 @@ import time
 from pathlib import Path
 from typing import List, Tuple
 import shutil
+from common_utils import ensure_utf8_stdout
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
@@ -20,6 +21,7 @@ LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 def setup_logger() -> None:
     """Configure basic logger."""
     LOG_PATH.parent.mkdir(exist_ok=True)
+    ensure_utf8_stdout()
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [F2] [%(levelname)s] %(message)s",

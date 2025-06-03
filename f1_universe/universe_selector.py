@@ -13,12 +13,16 @@ import threading
 import time
 from typing import Dict, List
 
+from common_utils import ensure_utf8_stdout
+
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 LOG_DIR = Path("logs/f1")
 LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+ensure_utf8_stdout()
 
 logging.basicConfig(
     level=logging.INFO,

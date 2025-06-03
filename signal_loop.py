@@ -3,6 +3,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import time
 from typing import Optional
+from common_utils import ensure_utf8_stdout
 
 from f3_order.order_executor import entry as f3_entry, _default_executor
 from f4_riskManager import RiskManager
@@ -171,6 +172,7 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
 
 
 if __name__ == "__main__":
+    ensure_utf8_stdout()
     Path("logs/etc").mkdir(parents=True, exist_ok=True)
     Path("logs/f1").mkdir(parents=True, exist_ok=True)
     Path("logs/f2").mkdir(parents=True, exist_ok=True)

@@ -3,6 +3,17 @@ from pathlib import Path
 import datetime
 import time
 from typing import Any
+import sys
+
+
+def ensure_utf8_stdout() -> None:
+    """Force UTF-8 encoding for stdout/stderr if possible."""
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+            sys.stderr.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
 
 
 def load_json(path: str | Path, default: Any = None) -> Any:
