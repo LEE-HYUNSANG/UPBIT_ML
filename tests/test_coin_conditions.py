@@ -26,6 +26,10 @@ def test_select_coins_filters(tmp_path, monkeypatch):
     monkeypatch.setattr(coin_cond, "fetch_candles", dummy_fetch_candles)
     monkeypatch.setattr(coin_cond, "fetch_ticker", dummy_fetch_ticker)
 
+    old_min, old_max = coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX
+    coin_cond.PRICE1_MIN = 1000
+    coin_cond.PRICE1_MAX = 3000
+
     coins = coin_cond.select_coins()
     assert coins == ["KRW-AAA"]
 
@@ -35,9 +39,14 @@ def test_select_coins_filters(tmp_path, monkeypatch):
         data = json.load(f)
     assert data == ["KRW-AAA"]
 
+    coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX = old_min, old_max
+
 
 def test_price2_disabled(monkeypatch):
+    old_p1_min, old_p1_max = coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX
     old_min, old_max = coin_cond.PRICE2_MIN, coin_cond.PRICE2_MAX
+    coin_cond.PRICE1_MIN = 1000
+    coin_cond.PRICE1_MAX = 3000
     coin_cond.PRICE2_MIN = 0
     coin_cond.PRICE2_MAX = 0
 
@@ -52,4 +61,5 @@ def test_price2_disabled(monkeypatch):
     coins = coin_cond.select_coins()
     assert coins == []
 
+    coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX = old_p1_min, old_p1_max
     coin_cond.PRICE2_MIN, coin_cond.PRICE2_MAX = old_min, old_max

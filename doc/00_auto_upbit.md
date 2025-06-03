@@ -33,7 +33,7 @@ flowchart TD
   - `run()` – 모니터링 리스트를 순회하며 매수 신호 계산 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L323-L392】
   - `run_if_monitoring_list_exists()` – 모니터링 파일이 있을 때만 실행 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L395-L401】
   - `f2_signal()` – 실시간 루프에서 호출되는 신호 계산 함수 【F:f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py†L34-L54】
-- **로그**: `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`
+- **로그**: `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`
 
 ## 3. F3 주문 실행기
 - **역할**: F2에서 전달된 매수/매도 신호를 실제 주문으로 전환하고 포지션을 관리합니다.
