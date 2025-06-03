@@ -54,7 +54,8 @@ mirrored to the risk manager.
 ## f6_sell_settings.json
 Take-profit settings for open positions. It currently stores `TP_PCT` which
 specifies the percentage above the entry price to place a limit sell order
-immediately after a buy fills.
+immediately after a buy fills. `OrderExecutor` loads this file on startup and
+merges the values into its configuration.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
