@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 import json
 from datetime import datetime
+import fcntl
 from f3_order.exception_handler import ExceptionHandler
 
 _last_message = None
@@ -32,6 +33,22 @@ PIPELINE_STEPS = [
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 
+# Prevent concurrent executions which can corrupt intermediate data.
+LOCK_FILE = PIPELINE_ROOT / "ml_data" / ".pipeline.lock"
+
+
+def _acquire_lock() -> object:
+    """Return a file handle with an exclusive lock or exit if locked."""
+    LOCK_FILE.parent.mkdir(parents=True, exist_ok=True)
+    fh = open(LOCK_FILE, "w")
+    try:
+        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print("Another pipeline run is in progress. Exiting.", flush=True)
+        fh.close()
+        sys.exit(0)
+    return fh
+
 
 def run_step(step: str, index: int, total: int) -> None:
     """Execute a single pipeline step and print progress."""
@@ -49,6 +66,7 @@ def run_step(step: str, index: int, total: int) -> None:
 
 def main() -> None:
     handler = ExceptionHandler({})
+    lock = _acquire_lock()
     now = datetime.now().strftime("%H:%M:%S")
     _send_once(handler, f"머신러닝 학습 시작] at {now}")
 
@@ -71,6 +89,7 @@ def main() -> None:
     except Exception:
         coins = None
     _send_once(handler, f"머신러닝 학습 종료] at {now} - selected_coinList: {coins if coins else 'None'}")
+    lock.close()
 
 
 if __name__ == "__main__":
