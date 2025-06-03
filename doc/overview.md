@@ -4,7 +4,8 @@ This repository implements a four stage trading system built around the Upbit ex
 
 - **F1 Universe Selector** – builds a list of tradable tickers based on configurable
   filters such as volume and price. If `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json`
-  exists the `symbol` entries from that file define the monitoring universe.
+  exists the `symbol` entries from that file define the monitoring universe. The
+  file itself is versioned so you can review past selections.
   Otherwise the results are stored in `config/current_universe.json`.
 - **F2 Signal Engine** – evaluates OHLCV data for each symbol and produces buy/sell
   signals. The `signal_loop.py` script orchestrates data collection and executes this

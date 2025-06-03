@@ -9,3 +9,4 @@ config/web_autotrade_status.json
 f5_ml_pipeline/ml_data/*
 !f5_ml_pipeline/ml_data/**/
 !f5_ml_pipeline/ml_data/**/.gitkeep
+!f5_ml_pipeline/ml_data/10_selected/selected_strategies.json
