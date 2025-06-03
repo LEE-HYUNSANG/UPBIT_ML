@@ -55,7 +55,7 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         targets = [
             b["symbol"]
             for b in buy_list
-            if b.get("buy_signal") == 1 and b.get("buy_count", 0) == 0
+            if int(b.get("buy_signal", 0)) == 1 and int(b.get("buy_count", 0)) == 0
         ]
         if not targets:
             log_with_tag(logger, "No buy candidates found")
@@ -88,7 +88,7 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
 
         executed = []
         for item in buy_list:
-            if item.get("buy_signal") != 1:
+            if int(item.get("buy_signal", 0)) != 1:
                 continue
             symbol = item.get("symbol")
             price = prices.get(symbol)
