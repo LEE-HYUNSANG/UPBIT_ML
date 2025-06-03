@@ -212,8 +212,18 @@ class PositionManager:
                 }
             except Exception as exc:  # pragma: no cover - best effort
                 log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+
             missing = [s for s in zero_price_syms if price_map.get(s, 0) <= 0]
-            for sym in missing:
+            for sym in list(missing):
+                try:
+                    data = self.client.ticker([sym])
+                    if data:
+                        price = float(data[0].get("trade_price", 0))
+                        if price > 0:
+                            price_map[sym] = price
+                            continue
+                except Exception as exc:  # pragma: no cover - best effort
+                    log_with_tag(logger, f"Failed to fetch ticker for {sym}: {exc}")
                 try:
                     ob = self.client.orderbook([sym])
                     if ob:
@@ -235,7 +245,8 @@ class PositionManager:
             }
             if bal > 0:
                 seen_all.add(symbol)
-            if eval_amt >= threshold:
+            import_cond = eval_amt >= threshold or (bal > 0 and price <= 0)
+            if import_cond:
                 seen_all.add(symbol)
                 exists = any(
                     p.get("symbol") == symbol and p.get("status") == "open"
@@ -252,7 +263,10 @@ class PositionManager:
                         }
                     )
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
-                imported.append(f"{symbol}({int(eval_amt):,}원)")
+                if price > 0:
+                    imported.append(f"{symbol}({int(eval_amt):,}원)")
+                else:
+                    imported.append(f"{symbol}(가격 미상)")
             else:
                 log_data.update({"event": "IgnoreSmallBalance", "action": "매수대상 유지"})
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
