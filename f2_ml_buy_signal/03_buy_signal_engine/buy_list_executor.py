@@ -55,7 +55,7 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         targets = [
             b["symbol"]
             for b in buy_list
-            if b.get("buy_signal") == 1 and b.get("buy_count", 0) == 0
+            if int(b.get("buy_signal", 0)) == 1 and int(b.get("buy_count", 0)) == 0
         ]
         if not targets:
             log_with_tag(logger, "No buy candidates found")
@@ -73,9 +73,22 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         except Exception as exc:  # pragma: no cover - network issues
             log_with_tag(logger, f"Failed to fetch ticker: {exc}")
 
+        missing_syms = [s for s in targets if s not in prices]
+        for sym in missing_syms:
+            try:
+                ob = client.orderbook([sym])
+                if ob:
+                    unit = ob[0].get("orderbook_units", [{}])[0]
+                    price = float(unit.get("bid_price", 0))
+                    if price > 0:
+                        prices[sym] = price
+                        continue
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
+
         executed = []
         for item in buy_list:
-            if item.get("buy_signal") != 1:
+            if int(item.get("buy_signal", 0)) != 1:
                 continue
             symbol = item.get("symbol")
             price = prices.get(symbol)
