@@ -162,6 +162,16 @@ class UpbitClient:
             return []
         return self.get("/v1/ticker", {"markets": ",".join(markets)})
 
+    def orderbook(self, markets: list[str]):
+        """Return orderbook data for ``markets``.
+
+        Each item should be a market code like ``KRW-BTC``. The response is the
+        list returned by ``/v1/orderbook``.
+        """
+        if not markets:
+            return []
+        return self.get("/v1/orderbook", {"markets": ",".join(markets)})
+
     def cancel_order(self, uuid: str):
         """Cancel an existing order."""
         return self.delete("/v1/order", {"uuid": uuid})
