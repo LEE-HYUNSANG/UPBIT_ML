@@ -52,3 +52,83 @@ def test_import_cleans_sell_list(tmp_path, monkeypatch):
     with open(sell, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data == ["KRW-XRP"]
+
+
+class ZeroPriceClient(DummyClient):
+    def get_accounts(self):
+        return [
+            {"currency": "SUI", "balance": "30", "avg_buy_price": "0", "unit_currency": "KRW"},
+            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
+        ]
+
+    def ticker(self, markets):
+        return [{"market": m, "trade_price": 1000.0} for m in markets]
+
+
+def test_import_uses_ticker_for_zero_price(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: ZeroPriceClient())
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert len(pm.positions) == 1
+    assert pm.positions[0]["symbol"] == "KRW-SUI"
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data and data[0]["symbol"] == "KRW-SUI"
+
+
+class TickerFailClient(ZeroPriceClient):
+    def ticker(self, markets):
+        raise Exception("boom")
+
+    def orderbook(self, markets):
+        return [{"orderbook_units": [{"ask_price": 1000.0}]}]
+
+
+def test_import_orderbook_fallback(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "f3_order.position_manager.UpbitClient",
+        lambda: TickerFailClient(),
+    )
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert len(pm.positions) == 1
+    assert pm.positions[0]["symbol"] == "KRW-SUI"
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data and data[0]["symbol"] == "KRW-SUI"
+
+
+class NoHoldingsClient(DummyClient):
+    def get_accounts(self):
+        return [
+            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
+        ]
+
+
+def test_cleanup_when_no_holdings(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: NoHoldingsClient())
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    with open(cfg["POSITIONS_FILE"], "w", encoding="utf-8") as f:
+        json.dump([
+            {
+                "symbol": "KRW-CBK",
+                "entry_time": 0,
+                "entry_price": 1,
+                "qty": 1,
+                "status": "open",
+            }
+        ], f)
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert pm.positions == []
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data == []
