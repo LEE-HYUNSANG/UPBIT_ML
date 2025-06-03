@@ -18,7 +18,7 @@ from typing import Dict, Iterable, List
 import pandas as pd
 import requests
 
-from utils import ensure_dir, file_lock, save_parquet_atomic
+from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file
 
 BASE_URL = "https://api.upbit.com"
 # Base directory of this pipeline
@@ -120,11 +120,8 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
                 df = pd.concat([old, df], ignore_index=True)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.warning("Failed reading %s: %s", file_path.name, exc)
-                try:
-                    file_path.unlink()
-                    logging.info("Removed corrupt file %s", file_path.name)
-                except Exception:
-                    logging.warning("Failed removing %s", file_path.name)
+                new = backup_file(file_path)
+                logging.info("Backed up corrupt file to %s", new.name)
 
         subset = _dedupe_columns(df)
         if subset:
