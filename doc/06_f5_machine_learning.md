@@ -39,7 +39,10 @@
 `start_pipeline_scheduler()` 모두 `WERKZEUG_RUN_MAIN` 환경 변수를 확인해
 실제 프로세스에서만 스케줄러를 시작하므로 텔레그램 알림이 한 번만
 전송됩니다.
-6. `run_pipeline.py`는 `ml_data/.pipeline.lock` 파일을 이용해 한 번에 하나의
+6. 실시간 수집 중 손상될 수 있는 데이터를 복구하기 위해
+   `start_full_refresh_scheduler()`가 20분 간격으로
+   `00_72h_1min_data.py`를 실행합니다.
+7. `run_pipeline.py`는 `ml_data/.pipeline.lock` 파일을 이용해 한 번에 하나의
    인스턴스만 실행됩니다. Linux/macOS에서는 `fcntl.flock()`을 사용하고
    Windows에서는 `msvcrt.locking()`을 사용해 잠금을 획득합니다. 기존 실행이
    끝나지 않았으면 새 파이프라인은 즉시 종료되어 데이터 손상을 방지합니다.
