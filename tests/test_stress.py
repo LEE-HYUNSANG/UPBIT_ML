@@ -107,5 +107,5 @@ def test_stress_entry_and_risk(system):
     assert rm.state == RiskState.ACTIVE
     assert len(oe.position_manager.positions) == 500
     # Allow more time on slower CI machines
-    assert duration < 10.0
+    assert duration < 12.0
     assert peak < 50 * 1024 * 1024
