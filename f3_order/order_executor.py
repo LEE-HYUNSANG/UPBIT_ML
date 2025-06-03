@@ -17,6 +17,7 @@ if __name__ == "__main__" and __package__ is None:
     sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from .smart_buy import smart_buy
+import threading
 from .position_manager import PositionManager, _load_json, _save_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
@@ -53,6 +54,7 @@ class OrderExecutor:
             "PENDING_FILE", "config/f3_f3_pending_symbols.json"
         )
         self.pending_symbols: set[str] = set()
+        self._pending_lock = threading.Lock()
         _save_json(self.pending_file, [])
         if self.risk_manager:
             self.update_from_risk_config()
@@ -152,13 +154,16 @@ class OrderExecutor:
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 price = signal.get("price")
-                try:
-                    self.pending_symbols.update(_load_json(self.pending_file))
-                except Exception:
-                    pass
-                if symbol in self.pending_symbols:
-                    log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
-                    return
+                with self._pending_lock:
+                    try:
+                        self.pending_symbols.update(_load_json(self.pending_file))
+                    except Exception:
+                        pass
+                    if symbol in self.pending_symbols:
+                        log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
+                        return
+                    self.pending_symbols.add(symbol)
+                    self._persist_pending()
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return
@@ -171,8 +176,6 @@ class OrderExecutor:
                     "info",
                     "buy_monitoring",
                 )
-                self.pending_symbols.add(symbol)
-                self._persist_pending()
                 order_result = {}
                 try:
                     order_result = smart_buy(
@@ -182,7 +185,9 @@ class OrderExecutor:
                         logger,
                     )
                 finally:
-                    self.pending_symbols.discard(symbol)
+                    with self._pending_lock:
+                        self.pending_symbols.discard(symbol)
+                        self._persist_pending()
                 if signal.get("price") is not None:
                     order_result["entry_price"] = signal["price"]
                 if order_result.get("filled", False):
