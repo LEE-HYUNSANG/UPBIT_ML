@@ -77,3 +77,28 @@ def test_import_uses_ticker_for_zero_price(tmp_path, monkeypatch):
     with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data and data[0]["symbol"] == "KRW-SUI"
+
+
+class TickerFailClient(ZeroPriceClient):
+    def ticker(self, markets):
+        raise Exception("boom")
+
+    def orderbook(self, markets):
+        return [{"orderbook_units": [{"ask_price": 1000.0}]}]
+
+
+def test_import_orderbook_fallback(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "f3_order.position_manager.UpbitClient",
+        lambda: TickerFailClient(),
+    )
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert len(pm.positions) == 1
+    assert pm.positions[0]["symbol"] == "KRW-SUI"
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data and data[0]["symbol"] == "KRW-SUI"
