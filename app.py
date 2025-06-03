@@ -61,8 +61,10 @@ _monitor_stop = None
 _data_collect_thread = None
 _buy_signal_thread = None
 _pipeline_thread = None
+_refresh_thread = None
 _buy_signal_stop = None
 _pipeline_stop = None
+_refresh_stop = None
 
 
 def load_risk_config(path: str = RISK_CONFIG_PATH) -> dict:
@@ -304,6 +306,36 @@ def stop_pipeline_scheduler() -> None:
     if _pipeline_stop:
         _pipeline_stop.set()
     _pipeline_thread = None
+
+
+def start_full_refresh_scheduler() -> None:
+    """Run ``00_72h_1min_data.py`` every 20 minutes."""
+    global _refresh_thread, _refresh_stop
+    if app.debug and os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        return
+    if _refresh_thread and _refresh_thread.is_alive():
+        return
+    module = _import_from_path(os.path.join("f5_ml_pipeline", "00_72h_1min_data.py"), "f5_72h")
+    _refresh_stop = threading.Event()
+
+    def worker():
+        while not _refresh_stop.is_set():
+            try:
+                module.main()
+            except Exception as exc:
+                WEB_LOGGER.error("72h refresh error: %s", exc)
+            if _refresh_stop.wait(1200):
+                break
+
+    _refresh_thread = threading.Thread(target=worker, daemon=True)
+    _refresh_thread.start()
+
+
+def stop_full_refresh_scheduler() -> None:
+    global _refresh_thread, _refresh_stop
+    if _refresh_stop:
+        _refresh_stop.set()
+    _refresh_thread = None
 
 
 def get_config_path(name: str) -> str:
@@ -702,5 +734,6 @@ if __name__ == "__main__":
         start_data_collection()
         start_buy_signal_scheduler()
         start_pipeline_scheduler()
+        start_full_refresh_scheduler()
 
     app.run(host="0.0.0.0", port=PORT, debug=True)
