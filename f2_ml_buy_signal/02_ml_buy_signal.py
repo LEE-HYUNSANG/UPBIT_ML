@@ -23,6 +23,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
 from common_utils import ensure_utf8_stdout
+from f3_order.order_executor import _buy_list_lock
 
 LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
@@ -65,7 +66,7 @@ except ImportError as exc:  # pragma: no cover - dependency missing at runtime
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
-from common_utils import load_json, save_json
+from common_utils import load_json
 try:
     spec = importlib.util.spec_from_file_location(
         "buy_indicator", Path(__file__).with_name("01_buy_indicator.py")
@@ -365,10 +366,15 @@ def run() -> List[str]:
         logger.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
     buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    buy_list = load_json(buy_list_path, default=[])
-    if not isinstance(buy_list, list):
-        buy_list = []
-    logger.info("[RUN] existing buy_list=%s", buy_list)
+    with _buy_list_lock(buy_list_path) as fh:
+        try:
+            fh.seek(0)
+            buy_list = json.load(fh)
+            if not isinstance(buy_list, list):
+                buy_list = []
+        except Exception:
+            buy_list = []
+        logger.info("[RUN] existing buy_list=%s", buy_list)
     existing_counts = {}
     pending_set = set()
     for it in buy_list:
@@ -424,11 +430,17 @@ def run() -> List[str]:
         if final:
             results.append(sym)
 
-    save_json(buy_list_path, updated)
-    if updated:
-        logger.info("[RUN] saved buy_list=%s", updated)
-    else:
-        logger.info("[RUN] cleared buy_list")
+    with _buy_list_lock(buy_list_path) as fh:
+        try:
+            fh.seek(0)
+            fh.truncate()
+            json.dump(updated, fh, ensure_ascii=False, indent=2)
+            if updated:
+                logger.info("[RUN] saved buy_list=%s", updated)
+            else:
+                logger.info("[RUN] cleared buy_list")
+        except Exception as exc:  # pragma: no cover - best effort
+            logger.warning("[RUN] failed to save buy list: %s", exc)
     logger.info("[RUN] finished. %d coins to buy", len(results))
     cleanup_data_dir()
     return results
