@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from pandas import DataFrame
+else:  # pragma: no cover - avoid runtime dependency for type hints
+    DataFrame = Any  # type: ignore
+
 import importlib.util
 import json
 import logging
@@ -10,17 +17,19 @@ import time
 from pathlib import Path
 from typing import List, Tuple
 import shutil
-from common_utils import ensure_utf8_stdout
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
+
+from common_utils import ensure_utf8_stdout
 
 LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
 
 def setup_logger() -> None:
     """Configure basic logger."""
-    LOG_PATH.parent.mkdir(exist_ok=True)
+    # Ensure the logs directory exists even if the entire tree was removed.
+    LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     ensure_utf8_stdout()
     logging.basicConfig(
         level=logging.INFO,
@@ -32,13 +41,19 @@ def setup_logger() -> None:
 
 setup_logger()
 
+DEPS_MISSING = False
+if TYPE_CHECKING:  # pragma: no cover - used only for type hints
+    import pandas as pd
 try:
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
     import joblib
 except ImportError as exc:  # pragma: no cover - dependency missing at runtime
     logging.exception("Required dependency missing: %s", exc)
-    sys.exit(1)
+    pd = None  # type: ignore
+    LogisticRegression = object  # type: ignore
+    joblib = None  # type: ignore
+    DEPS_MISSING = True
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
@@ -101,13 +116,13 @@ def cleanup_data_dir() -> None:
 
 
 
-def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
+def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
     """Fetch recent OHLCV data with retries."""
     logging.info("[FETCH] %s count=%d", symbol, count)
     try:
         import pyupbit  # type: ignore
     except Exception:
-        return pd.DataFrame()
+        return DataFrame()  # type: ignore
 
     for _ in range(3):
         try:
@@ -126,16 +141,16 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
         except Exception:
             time.sleep(0.2)
     logging.warning("[FETCH] %s failed", symbol)
-    return pd.DataFrame()
+    return DataFrame()  # type: ignore
 
 
-def _clean_df(df: pd.DataFrame) -> pd.DataFrame:
+def _clean_df(df: DataFrame) -> DataFrame:
     df = df.drop_duplicates("timestamp").sort_values("timestamp")
     df = df.ffill().bfill().reset_index(drop=True)
     return df
 
 
-def _add_features(df: pd.DataFrame) -> pd.DataFrame:
+def _add_features(df: DataFrame) -> DataFrame:
     df = df.copy()
     df["return"] = df["close"].pct_change()
     df["rsi"] = rsi(df["close"], 14)
@@ -148,7 +163,7 @@ def _add_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
+def _label(df: DataFrame, horizon: int = 5) -> DataFrame:
     """Label dataset using the same threshold settings as the F5 module."""
     _ensure_pipeline_modules()
     thresh = getattr(P04, "THRESH_LIST", [0.002])[0]
@@ -159,8 +174,8 @@ def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
     return labeled
 
 
-def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
-              valid_ratio: float = 0.2) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def _split_df(df: DataFrame, train_ratio: float = 0.7,
+              valid_ratio: float = 0.2) -> Tuple[DataFrame, DataFrame, DataFrame]:
     n = len(df)
     n_train = int(n * train_ratio)
     n_valid = int(n * valid_ratio)
@@ -170,7 +185,7 @@ def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
     return train, valid, test
 
 
-def _train_predict(df: pd.DataFrame, symbol: str) -> bool:
+def _train_predict(df: DataFrame, symbol: str) -> bool:
     features = ["return", "rsi", "ema_diff", "vol_ratio"]
     train_df, valid_df, test_df = _split_df(df)
 
@@ -299,7 +314,7 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
     return buy, rsi_flag, trend_flag
 
 
-def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
+def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
     if df.empty or len(df) < 30:
         logging.info("[CHECK_DF] insufficient rows")
         return False
@@ -315,6 +330,10 @@ def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
 
 
 def run() -> List[str]:
+    if DEPS_MISSING:
+        logging.warning("[RUN] dependencies missing; skipping scan")
+        return []
+
     logging.info("[RUN] starting buy signal scan")
     logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
@@ -409,6 +428,10 @@ def run() -> List[str]:
 
 def run_if_monitoring_list_exists() -> List[str]:
     """Run :func:`run` only when monitoring list is present."""
+    if DEPS_MISSING:
+        logging.warning("[RUN_IF] dependencies missing; skipping")
+        return []
+
     path = CONFIG_DIR / "f5_f1_monitoring_list.json"
     if path.exists():
         return run()
