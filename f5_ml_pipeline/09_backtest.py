@@ -4,13 +4,12 @@ from __future__ import annotations
 
 import json
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 PRED_DIR = PIPELINE_ROOT / "ml_data" / "08_pred"
@@ -20,23 +19,6 @@ ROOT_DIR = PIPELINE_ROOT.parent
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_backtest.log"
 COMMISSION = 0.001  # 0.1% upbit round trip
 
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 
 def simulate_exit(df: pd.DataFrame, start_idx: int, params: dict) -> tuple[int, float, str]:
@@ -212,7 +194,7 @@ def main() -> None:
     ensure_dir(PRED_DIR)
     ensure_dir(LABEL_DIR)
     ensure_dir(OUT_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     for file in PRED_DIR.glob("*_pred.csv"):
         symbol = file.stem.split("_")[0]

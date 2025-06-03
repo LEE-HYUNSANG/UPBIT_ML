@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from itertools import product
 
@@ -10,7 +9,7 @@ import numpy as np
 import pandas as pd
 from numpy.lib.stride_tricks import sliding_window_view
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
@@ -20,23 +19,6 @@ LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_label.log"
 
 THRESH_LIST      = [0.002, 0.025, 0.003]    # 익절(%)
 LOSS_LIST        = [0.002, 0.025, 0.003]    # 손절(%)
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 def make_labels_basic(
     df: pd.DataFrame,
@@ -238,7 +220,7 @@ def process_file(file: Path, horizon: int = 5) -> None:
 def main() -> None:
     ensure_dir(FEATURE_DIR)
     ensure_dir(LABEL_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     for file in FEATURE_DIR.glob("*.parquet"):
         process_file(file)

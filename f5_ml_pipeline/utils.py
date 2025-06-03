@@ -3,6 +3,8 @@ from datetime import datetime
 from pathlib import Path
 from contextlib import contextmanager
 from typing import Any
+import logging
+from logging.handlers import RotatingFileHandler
 
 
 def _convert_value(val: str) -> Any:
@@ -93,6 +95,24 @@ def backup_file(path: str | Path, label: str = "corrupt") -> Path:
     except Exception:
         return target
     return new_path
+
+
+def setup_logger(log_path: str | Path, tag: str = "F5", level: int = logging.INFO) -> None:
+    """Configure rotating file logger shared across pipeline steps."""
+    ensure_dir(Path(log_path).parent)
+    logging.basicConfig(
+        level=level,
+        format=f"%(asctime)s [{tag}] [%(levelname)s] %(message)s",
+        handlers=[
+            RotatingFileHandler(
+                log_path,
+                encoding="utf-8",
+                maxBytes=50_000 * 1024,
+                backupCount=5,
+            )
+        ],
+        force=True,
+    )
 
 
 try:  # pragma: no cover - platform dependent

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import joblib
@@ -17,7 +16,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
@@ -29,23 +28,6 @@ LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_eval.log"
 
 # 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.
 IGNORE_COLS = {"timestamp", "label"}
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 def evaluate(symbol: str) -> None:
     """단일 심볼의 모델을 평가해 JSON으로 저장."""
@@ -138,7 +120,7 @@ def main() -> None:
     ensure_dir(SPLIT_DIR)
     ensure_dir(MODEL_DIR)
     ensure_dir(EVAL_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     for model_file in MODEL_DIR.glob("*_model.pkl"):
         symbol = model_file.stem.split("_")[0]

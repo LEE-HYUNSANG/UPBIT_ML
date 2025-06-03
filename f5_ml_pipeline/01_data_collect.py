@@ -11,14 +11,13 @@ import json
 import logging
 import time
 from datetime import datetime, timedelta
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Dict, Iterable, List
 
 import pandas as pd
 import requests
 
-from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file
+from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file, setup_logger
 
 BASE_URL = "https://api.upbit.com"
 # Base directory of this pipeline
@@ -33,24 +32,6 @@ COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2  # seconds between API calls
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_data_collect.log"
 START_DELAY = 5  # seconds after each one-minute candle closes
-
-
-def setup_logger() -> None:
-    """Configure rotating file logger."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 
 def load_coin_list(path: str = COIN_LIST_FILE) -> List[str]:
@@ -159,7 +140,7 @@ def next_minute(now: datetime | None = None) -> datetime:
 def main() -> None:
     """Run the continuous data collector."""
     ensure_dir(DATA_ROOT)
-    setup_logger()
+    setup_logger(LOG_PATH)
     markets = load_coin_list()
     if not markets:
         logging.error("No markets to collect")

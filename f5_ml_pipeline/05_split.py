@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 # Absolute paths relative to this file so the script behaves the same
 # regardless of the current working directory.
@@ -17,24 +16,6 @@ LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
 SPLIT_DIR = PIPELINE_ROOT / "ml_data" / "05_split"
 ROOT_DIR = PIPELINE_ROOT.parent
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_split.log"
-
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 
 def time_split(
@@ -85,7 +66,7 @@ def main(train_ratio: float = 0.7, valid_ratio: float = 0.2) -> None:
     """실행 엔트리 포인트."""
     ensure_dir(LABEL_DIR)
     ensure_dir(SPLIT_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
     logging.info("[SETUP] LABEL_DIR=%s", LABEL_DIR)
     logging.info("[SETUP] SPLIT_DIR=%s", SPLIT_DIR)
 

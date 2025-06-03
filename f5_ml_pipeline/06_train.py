@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import joblib
@@ -12,7 +11,7 @@ import lightgbm as lgb
 import pandas as pd
 from sklearn.metrics import classification_report, roc_auc_score
 
-from utils import ensure_dir, load_yaml_config
+from utils import ensure_dir, load_yaml_config, setup_logger
 
 # Use absolute paths relative to this file so execution works regardless of
 # the current working directory.
@@ -26,23 +25,6 @@ CONFIG = load_yaml_config(CONFIG_PATH)
 
 # 학습 시 사용할 피처 목록은 데이터에 존재하는 컬럼에서 자동 추출한다.
 IGNORE_COLS = {"timestamp", "label"}
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 def train_and_eval(symbol: str) -> None:
     """단일 심볼의 모델을 학습하고 저장한다."""
@@ -143,7 +125,7 @@ def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(SPLIT_DIR)
     ensure_dir(MODEL_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
     logging.info("[SETUP] SPLIT_DIR=%s", SPLIT_DIR)
     logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
     
