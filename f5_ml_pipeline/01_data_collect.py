@@ -18,7 +18,7 @@ from typing import Dict, Iterable, List
 import pandas as pd
 import requests
 
-from utils import ensure_dir
+from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file
 
 BASE_URL = "https://api.upbit.com"
 # Base directory of this pipeline
@@ -112,30 +112,29 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
     dir_path = ensure_dir(DATA_ROOT)
     file_path = dir_path / f"{market}_rawdata.parquet"
 
-    if file_path.exists():
-        try:
-            old = pd.read_parquet(file_path)
-            df = pd.concat([old, df], ignore_index=True)
-        except Exception as exc:  # pragma: no cover - best effort
-            logging.warning("Failed reading %s: %s", file_path.name, exc)
+    lock_file = file_path.with_suffix(file_path.suffix + ".lock")
+    with file_lock(lock_file):
+        if file_path.exists():
             try:
-                file_path.unlink()
-                logging.info("Removed corrupt file %s", file_path.name)
-            except Exception:
-                logging.warning("Failed removing %s", file_path.name)
+                old = pd.read_parquet(file_path)
+                df = pd.concat([old, df], ignore_index=True)
+            except Exception as exc:  # pragma: no cover - best effort
+                logging.warning("Failed reading %s: %s", file_path.name, exc)
+                new = backup_file(file_path)
+                logging.info("Backed up corrupt file to %s", new.name)
 
-    subset = _dedupe_columns(df)
-    if subset:
-        before = len(df)
-        df = df.drop_duplicates(subset=subset)
-        removed = before - len(df)
-        if removed:
-            logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
+        subset = _dedupe_columns(df)
+        if subset:
+            before = len(df)
+            df = df.drop_duplicates(subset=subset)
+            removed = before - len(df)
+            if removed:
+                logging.info("Drop duplicates %s - %d rows", file_path.name, removed)
 
-    try:
-        df.to_parquet(file_path, index=False)
-    except Exception as exc:  # pragma: no cover - best effort
-        logging.error("Parquet save failed %s: %s", file_path.name, exc)
+        try:
+            save_parquet_atomic(df, file_path)
+        except Exception as exc:  # pragma: no cover - best effort
+            logging.error("Parquet save failed %s: %s", file_path.name, exc)
 
 
 def collect_once(markets: Iterable[str]) -> None:
