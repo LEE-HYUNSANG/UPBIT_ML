@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import importlib.util
 import json
 import logging
@@ -10,10 +12,11 @@ import time
 from pathlib import Path
 from typing import List, Tuple
 import shutil
-from common_utils import ensure_utf8_stdout
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
+
+from common_utils import ensure_utf8_stdout
 
 LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
@@ -34,6 +37,8 @@ def setup_logger() -> None:
 setup_logger()
 
 DEPS_MISSING = False
+if TYPE_CHECKING:  # pragma: no cover - used only for type hints
+    import pandas as pd
 try:
     import pandas as pd
     from sklearn.linear_model import LogisticRegression
