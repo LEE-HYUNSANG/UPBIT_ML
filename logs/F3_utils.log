@@ -1,459 +1,176 @@
-2025-06-03 15:20:02,318 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:02,318 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:02,319 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:02,319 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:20:04,639 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:05,048 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:05,049 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:05,049 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:20:05,049 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:20:07,533 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:25:07,551 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:26:51,609 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:31:45,524 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:33:35,498 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:38:23,587 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:40:27,294 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:48,354 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:48,354 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:48,355 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:48,355 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:41:50,843 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:57,814 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:57,815 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:57,816 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:41:57,816 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:41:59,955 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:42:00,351 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:42:00,352 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:42:00,352 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:42:00,352 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:42:02,815 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:45:33,525 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:45:33,525 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:45:33,526 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:45:33,526 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:45:35,757 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:48:48,590 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:52:25,030 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:53:18,451 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:53:18,452 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:55:53,300 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:56:49,036 [F3] [F3] Loaded credentials from env.json
-2025-06-03 15:56:49,037 [F3] [F3] Upbit credentials loaded
-2025-06-03 15:59:24,889 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:02:53,517 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:03:48,442 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:03:48,443 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:03:56,311 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:03:56,312 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:06:20,650 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:09:53,826 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:10:33,580 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:10:33,589 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:10:42,104 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:10:42,106 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:13:30,817 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:16:16,131 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:16:16,132 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:16:20,834 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:16:20,835 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:17:07,594 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:20:37,794 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:24:18,265 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:27:46,858 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:31:24,425 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:34:47,943 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:37:15,145 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:37:15,146 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:38:32,647 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:41:51,654 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:44:10,482 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:44:10,482 [F3] [F3] Upbit credentials loaded
-2025-06-03 16:45:37,830 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:48:43,482 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:52:23,366 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:55:29,917 [F3] [F3] Loaded credentials from env.json
-2025-06-03 16:59:05,611 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:02:31,340 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:06:27,829 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:08:09,160 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:08:09,162 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:09:17,240 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:09:17,241 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:09:17,242 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:09:17,242 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:09:20,376 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:13:37,886 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:16:34,916 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:20:50,337 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:23:32,954 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:24:12,891 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:24:12,891 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:24:12,893 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:24:12,893 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:24:16,509 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:27:54,504 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:31:12,341 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:34:45,977 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:38:06,424 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:41:36,988 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:45:02,039 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:48:38,830 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:51:16,206 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:51:16,207 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:51:18,192 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:51:18,193 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:51:54,627 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:54:49,620 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:54:49,621 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:54:49,621 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:54:49,622 [F3] [F3] Upbit credentials loaded
-2025-06-03 17:54:52,453 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:55:34,554 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:58:13,930 [F3] [F3] Loaded credentials from env.json
-2025-06-03 17:58:13,931 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:00:34,562 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:02:04,477 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:07:04,526 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:07:55,031 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:10:06,463 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:10:06,464 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:12:55,035 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:13:53,332 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:18:53,394 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:19:49,265 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:19:49,266 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:19:49,267 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:19:49,268 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:19:52,945 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:08,161 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:52,621 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:52,621 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:52,622 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:52,622 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:20:55,010 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:55,537 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:55,537 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:55,537 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:20:55,537 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:20:58,796 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:56:56,273 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:56:56,274 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:56:56,275 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:56:56,276 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:57:04,053 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:57:04,472 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:57:04,473 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:57:04,473 [F3] [F3] Loaded credentials from env.json
-2025-06-03 18:57:04,473 [F3] [F3] Upbit credentials loaded
-2025-06-03 18:57:06,994 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:00:19,326 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:00:19,327 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:00:23,662 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:00:23,663 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:02:07,012 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:03:49,783 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:08:49,790 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:09:21,404 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:09:46,722 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:09:46,724 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:09:55,018 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:09:55,019 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:14:09,701 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:14:09,702 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:14:19,966 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:14:19,967 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:14:21,408 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:15:31,756 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:20:31,774 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:21:01,841 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:23:50,516 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:23:50,516 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:26:01,856 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:27:18,311 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:32:18,329 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:33:02,654 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:35:35,498 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:35:35,499 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:38:02,669 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:39:07,853 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:44:07,862 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:44:34,039 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:44:34,040 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:44:34,326 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:44:34,328 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:45:13,114 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:50:13,135 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:51:06,244 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:51:06,245 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:51:07,879 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:51:10,193 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:51:10,195 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:54:05,787 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:54:05,788 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:54:09,185 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:54:09,186 [F3] [F3] Upbit credentials loaded
-2025-06-03 19:56:07,890 [F3] [F3] Loaded credentials from env.json
-2025-06-03 19:57:05,995 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:02:05,999 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:02:59,231 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:04:35,444 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:04:35,444 [F3] [F3] Upbit credentials loaded
-2025-06-03 20:07:59,271 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:09:03,762 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:14:03,791 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:14:48,891 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:19:48,933 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:20:29,847 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:20:29,849 [F3] [F3] Upbit credentials loaded
-2025-06-03 20:20:49,681 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:25:49,706 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:26:36,653 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:31:36,687 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:32:39,790 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:37:39,826 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:38:20,998 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:43:21,028 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:44:24,814 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:49:24,838 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:50:09,064 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:55:09,085 [F3] [F3] Loaded credentials from env.json
-2025-06-03 20:56:09,033 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:01:09,068 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:01:58,135 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:06:58,154 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:07:59,365 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:11:08,042 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:11:08,042 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:12:59,389 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:13:47,187 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:18:16,855 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:18:16,856 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:18:47,201 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:19:48,773 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:20:22,969 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:20:22,970 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:20:27,175 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:20:27,176 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:24:48,790 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:25:24,634 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:25:24,635 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:25:54,232 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:30:54,252 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:31:35,397 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:31:48,460 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:31:48,462 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:31:48,465 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:31:48,466 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:32:59,936 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:32:59,937 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:33:00,506 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:33:00,507 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:36:35,417 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:37:53,371 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:42:00,482 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:42:00,483 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:42:00,483 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:42:00,484 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:42:03,245 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:42:53,386 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:45:26,638 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:45:26,639 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:46:34,856 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:46:34,858 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:47:53,396 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:49:05,540 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:50:04,913 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:50:04,914 [F3] [F3] Upbit credentials loaded
-2025-06-03 21:54:05,552 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:54:55,020 [F3] [F3] Loaded credentials from env.json
-2025-06-03 21:59:55,069 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:00:52,605 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:05:52,620 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:07:06,507 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:11:09,349 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:11:09,350 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:12:06,523 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:13:00,840 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:13:34,813 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:13:34,814 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:18:00,850 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:19:20,195 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:24:20,203 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:24:44,689 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:27:45,011 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:27:45,012 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:27:46,772 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:27:46,776 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:29:44,721 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:31:21,304 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:36:21,308 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:36:35,178 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:41:35,185 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:42:21,603 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:42:21,604 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:42:32,688 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:42:32,689 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:43:11,834 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:44:33,912 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:44:33,913 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:47:08,179 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:47:08,180 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:48:11,851 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:48:17,597 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:50:46,128 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:50:46,128 [F3] [F3] Upbit credentials loaded
-2025-06-03 22:53:17,602 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:54:57,986 [F3] [F3] Loaded credentials from env.json
-2025-06-03 22:59:58,001 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:00:05,088 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:01:07,922 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:01:07,923 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:05:05,137 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:07:02,488 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:12:02,564 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:13:08,889 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:18:08,906 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:19:49,985 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:20:21,057 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:20:21,058 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:20:24,048 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:20:24,049 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:24:50,003 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:25:55,927 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:27:38,536 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:27:38,536 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:30:55,940 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:32:30,368 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:34:20,826 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:34:20,828 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:34:23,163 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:34:23,164 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:35:17,910 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:35:17,912 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:35:20,237 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:35:20,240 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:37:30,382 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:38:34,127 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:43:34,131 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:44:45,379 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:47:48,410 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:47:48,411 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:47:51,708 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:47:51,709 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:49:45,392 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:50:40,005 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:55:40,029 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:57:02,905 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:58:40,454 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:58:40,454 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:58:40,456 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:58:40,456 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:58:42,968 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:02,964 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:02,964 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:02,964 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:02,965 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:59:05,166 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:05,600 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:05,600 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:05,601 [F3] [F3] Loaded credentials from env.json
-2025-06-03 23:59:05,601 [F3] [F3] Upbit credentials loaded
-2025-06-03 23:59:08,176 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:00:57,966 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:00:57,966 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:03:00,536 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:03:00,537 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:04:08,186 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:04:17,735 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:04:17,735 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:04:22,127 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:04:22,128 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:05:05,669 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:05:05,670 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:05:10,227 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:05:10,228 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:05:51,858 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:09:53,726 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:09:53,727 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:09:56,245 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:09:56,246 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:10:51,870 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:10:57,510 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:15:57,581 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:17:47,406 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:19:03,620 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:19:03,621 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:19:17,924 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:19:17,924 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:22:47,419 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:23:02,237 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:28:02,249 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:29:06,632 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:29:06,633 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:29:20,162 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:29:20,163 [F3] [F3] Upbit credentials loaded
-2025-06-04 00:29:50,370 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:34:50,377 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:35:06,789 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:40:06,810 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:42:08,926 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:47:08,940 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:47:47,128 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:52:47,146 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:54:02,000 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:59:02,004 [F3] [F3] Loaded credentials from env.json
-2025-06-04 00:59:44,850 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:04:44,905 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:05:55,339 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:10:55,356 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:11:40,515 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:16:40,521 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:17:53,132 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:22:18,653 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:22:18,654 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:22:27,209 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:22:27,210 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:22:53,140 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:23:52,641 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:24:27,559 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:24:27,560 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:24:37,457 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:24:37,457 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:28:52,650 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:30:47,624 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:33:03,905 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:33:03,905 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:33:08,493 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:33:08,494 [F3] [F3] Upbit credentials loaded
-2025-06-04 01:35:47,635 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:35:56,265 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:40:56,282 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:43:15,587 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:48:15,601 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:48:20,210 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:53:20,238 [F3] [F3] Loaded credentials from env.json
-2025-06-04 01:55:19,561 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:00:08,856 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:02:11,784 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:07:03,681 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:09:10,602 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:13:59,491 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:16:11,481 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:21:08,207 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:23:36,351 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:28:25,944 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:30:55,942 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:35:55,984 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:36:29,290 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:36:58,722 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:36:58,723 [F3] [F3] Upbit credentials loaded
-2025-06-04 02:37:06,892 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:37:06,893 [F3] [F3] Upbit credentials loaded
-2025-06-04 02:41:29,301 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:43:27,957 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:48:27,969 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:49:25,065 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:54:25,103 [F3] [F3] Loaded credentials from env.json
-2025-06-04 02:56:29,070 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:46:33,574 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:48:34,251 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:53:34,276 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:53:48,276 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:55:02,475 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:55:02,475 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:55:02,476 [F3] [F3] Loaded credentials from env.json
+2025-06-04 04:55:02,476 [F3] [F3] Upbit credentials loaded
+2025-06-04 04:55:05,956 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:06,001 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:45,169 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:45,169 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:45,170 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:45,170 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:00:47,998 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:48,428 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:48,428 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:48,429 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:00:48,429 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:00:51,498 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:05:51,533 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:08:04,436 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:13:04,474 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:13:15,215 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:47,625 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:47,626 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:47,627 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:47,627 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:15:50,679 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:51,114 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:51,115 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:51,116 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:15:51,116 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:15:55,627 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:20:55,659 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:22:58,981 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:27:59,015 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:28:17,426 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:33:17,449 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:35:25,664 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:40:25,686 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:40:34,980 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:53,725 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:53,726 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:53,726 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:53,726 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:42:56,358 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:56,757 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:56,757 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:56,758 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:42:56,758 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:42:59,609 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:47:59,636 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:49:48,428 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:54:48,463 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:55:54,897 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:57:59,715 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:57:59,715 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:57:59,715 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:57:59,716 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:58:02,452 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:58:02,895 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:58:02,896 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:58:02,896 [F3] [F3] Loaded credentials from env.json
+2025-06-04 05:58:02,896 [F3] [F3] Upbit credentials loaded
+2025-06-04 05:58:05,928 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:03:05,951 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:05:09,391 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:26,422 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:26,422 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:26,423 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:26,423 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:08:29,229 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:29,756 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:29,757 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:29,757 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:08:29,757 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:08:32,797 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:13:32,820 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:15:34,439 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:15:34,879 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:15:34,879 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:15:34,880 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:15:34,881 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:15:39,225 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:20:39,253 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:22:36,887 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:22:47,792 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:22:47,793 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:22:47,795 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:22:47,795 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:22:51,515 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:27:36,916 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:30:01,723 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:35:01,747 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:35:12,539 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:38:33,306 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:38:33,307 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:38:33,307 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:38:33,308 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:38:36,465 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:40:12,553 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:43:35,179 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:43:35,181 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:43:35,181 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:43:35,182 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:43:37,985 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:45:12,575 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:50:12,590 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:50:51,688 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:55:51,726 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:47,676 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:47,677 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:47,678 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:47,678 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:57:50,556 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:51,058 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:51,059 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:51,059 [F3] [F3] Loaded credentials from env.json
+2025-06-04 06:57:51,060 [F3] [F3] Upbit credentials loaded
+2025-06-04 06:57:54,055 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:40,527 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:40,528 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:40,528 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:40,528 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:00:44,714 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:45,365 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:45,366 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:45,367 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:00:45,368 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:00:48,876 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:05:48,795 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:08:23,489 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:13:23,505 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:13:34,104 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:16:00,643 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:16:00,645 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:16:00,646 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:16:00,647 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:16:04,954 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:21:04,973 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:21:32,532 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:29,706 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:29,707 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:29,709 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:29,709 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:26:32,568 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:32,893 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:40,966 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:40,966 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:40,967 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:40,967 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:26:43,415 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:43,825 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:43,825 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:43,826 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:26:43,826 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:26:46,572 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:20,778 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:20,779 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:20,780 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:20,780 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:29:24,076 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:26,853 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:26,854 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:26,856 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:26,856 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:29:29,303 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:29,776 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:29,776 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:29,777 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:29:29,777 [F3] [F3] Upbit credentials loaded
+2025-06-04 07:29:32,710 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:34:32,719 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:36:35,551 [F3] [F3] Loaded credentials from env.json
+2025-06-04 07:41:35,568 [F3] [F3] Loaded credentials from env.json

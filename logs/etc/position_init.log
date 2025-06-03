@@ -1,18 +1,114 @@
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-SUI", "qty": 0.0, "entry_price": 4649.5, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:58:40+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-SUI", "qty": 0.0, "entry_price": 4649.5, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:03+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-SUI", "qty": 0.0, "entry_price": 4649.5, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
-{"time": "2025-06-03T23:59:05+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:00+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T05:58:03+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:26+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:08:30+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:15:35+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:22:48+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:38:33+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:43:35+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:48+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T06:57:51+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:41+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:00:45+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:16:01+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:30+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:41+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:26:44+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:21+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:27+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-GAS", "qty": 0.08530064, "entry_price": 3728.42076273, "eval_amt": 318.03667725015714, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-ETHW", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-ETHF", "qty": 0.04663312, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-SUI", "qty": 6.45300064, "entry_price": 4636.21831489, "eval_amt": 29917.519753164892, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-XCORE", "qty": 1.72996111, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-04T07:29:30+09:00", "symbol": "KRW-BERA", "qty": 0.00082055, "entry_price": 3978.78961901, "eval_amt": 3.2647958218786552, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
