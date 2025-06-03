@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from pandas import DataFrame
+else:  # pragma: no cover - avoid runtime dependency for type hints
+    DataFrame = Any  # type: ignore
 
 import importlib.util
 import json
@@ -111,13 +116,13 @@ def cleanup_data_dir() -> None:
 
 
 
-def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
+def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
     """Fetch recent OHLCV data with retries."""
     logging.info("[FETCH] %s count=%d", symbol, count)
     try:
         import pyupbit  # type: ignore
     except Exception:
-        return pd.DataFrame()
+        return DataFrame()  # type: ignore
 
     for _ in range(3):
         try:
@@ -136,16 +141,16 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
         except Exception:
             time.sleep(0.2)
     logging.warning("[FETCH] %s failed", symbol)
-    return pd.DataFrame()
+    return DataFrame()  # type: ignore
 
 
-def _clean_df(df: pd.DataFrame) -> pd.DataFrame:
+def _clean_df(df: DataFrame) -> DataFrame:
     df = df.drop_duplicates("timestamp").sort_values("timestamp")
     df = df.ffill().bfill().reset_index(drop=True)
     return df
 
 
-def _add_features(df: pd.DataFrame) -> pd.DataFrame:
+def _add_features(df: DataFrame) -> DataFrame:
     df = df.copy()
     df["return"] = df["close"].pct_change()
     df["rsi"] = rsi(df["close"], 14)
@@ -158,7 +163,7 @@ def _add_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
+def _label(df: DataFrame, horizon: int = 5) -> DataFrame:
     """Label dataset using the same threshold settings as the F5 module."""
     _ensure_pipeline_modules()
     thresh = getattr(P04, "THRESH_LIST", [0.002])[0]
@@ -169,8 +174,8 @@ def _label(df: pd.DataFrame, horizon: int = 5) -> pd.DataFrame:
     return labeled
 
 
-def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
-              valid_ratio: float = 0.2) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def _split_df(df: DataFrame, train_ratio: float = 0.7,
+              valid_ratio: float = 0.2) -> Tuple[DataFrame, DataFrame, DataFrame]:
     n = len(df)
     n_train = int(n * train_ratio)
     n_valid = int(n * valid_ratio)
@@ -180,7 +185,7 @@ def _split_df(df: pd.DataFrame, train_ratio: float = 0.7,
     return train, valid, test
 
 
-def _train_predict(df: pd.DataFrame, symbol: str) -> bool:
+def _train_predict(df: DataFrame, symbol: str) -> bool:
     features = ["return", "rsi", "ema_diff", "vol_ratio"]
     train_df, valid_df, test_df = _split_df(df)
 
@@ -309,7 +314,7 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
     return buy, rsi_flag, trend_flag
 
 
-def check_buy_signal_df(df: pd.DataFrame, symbol: str = "df") -> bool:
+def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
     if df.empty or len(df) < 30:
         logging.info("[CHECK_DF] insufficient rows")
         return False
