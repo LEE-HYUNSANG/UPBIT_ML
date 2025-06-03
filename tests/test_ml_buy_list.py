@@ -264,6 +264,7 @@ def test_run_records_non_signals(tmp_path, monkeypatch):
         "trend_sel": 1,
         "buy_signal": 0,
         "buy_count": 0,
+        "pending": 0,
     }]
     assert sell == {}
     assert result == []

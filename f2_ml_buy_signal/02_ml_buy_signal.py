@@ -347,6 +347,14 @@ def run() -> List[str]:
             if sym:
                 existing_counts[sym] = it.get("buy_count", 0)
 
+    pending_path = CONFIG_DIR / "f3_f3_pending_symbols.json"
+    pending_set = set(load_json(pending_path, default=[])) if pending_path.exists() else set()
+    for it in buy_list:
+        if isinstance(it, dict):
+            sym = it.get("symbol")
+            if sym:
+                existing_counts[sym] = it.get("buy_count", 0)
+
     sell_list_path = CONFIG_DIR / "f3_f3_realtime_sell_list.json"
     sell_list = load_json(sell_list_path, default={})
     if not isinstance(sell_list, dict):
@@ -376,6 +384,7 @@ def run() -> List[str]:
             "trend_sel": int(trend_flag),
             "buy_signal": final,
             "buy_count": existing_counts.get(sym, 0),
+            "pending": 1 if sym in pending_set else 0,
         })
         if final:
             results.append(sym)

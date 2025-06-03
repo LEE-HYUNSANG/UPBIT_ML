@@ -30,10 +30,11 @@
 
 ### `run()`
 1. 모니터링 목록을 읽어 각 코인에 대해 `check_buy_signal()`을 수행합니다.
-2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count]`
-   정보를 `f2_f2_realtime_buy_list.json`에 저장합니다. 여기서 ``buy_count``
-   값이 0인 항목만이 매수 후보가 되며, 체결되면 값이 1로 갱신되어 중복
-   매수를 방지합니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의
+2. 조건을 만족한 코인은 `[symbol, buy_signal, rsi_sel, trend_sel, buy_count,
+   pending]` 정보를 `f2_f2_realtime_buy_list.json`에 저장합니다. 여기서
+   ``buy_count`` 값이 0인 항목만이 매수 후보가 되며, 체결되면 값이 1로
+   갱신되어 중복 매수를 방지합니다. ``pending`` 필드는 해당 심볼의 주문이
+   실행 중인지 표시합니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의
    과정에서 갱신됩니다.
 3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
 4. 이 함수는 실매수를 수행하지 않고 JSON 파일만 갱신합니다. 실제 주문은
@@ -88,7 +89,7 @@ execute_buy_list()
 `execute_buy_list()`는 매수 리스트를 읽어 들인 후 동일 심볼이 여러 번 존재하면 첫 번째 항목만 남기고 나머지는 제거합니다. 이렇게 하면 CTC와 같은 코인을 중복으로 체결하는 상황을 줄일 수 있습니다.
 또한 기본적으로 `f3_order.order_executor`의 `_default_executor`를 사용해 주문을
 전송합니다. 실행 중인 트레이딩 루프와 동일한 실행기를 공유하므로 이미 보유 중이거나
-주문 대기 중인 코인은 다시 매수하지 않습니다. 이때 진행 중인 주문 정보는
-`config/f3_f3_pending_symbols.json`에 저장되어 여러 프로세스가 동시에 실행되어도
-동일 코인을 다시 주문하지 않습니다. 별도의 인스턴스를 사용하려면
-`execute_buy_list(executor=my_executor)`와 같이 호출하면 됩니다.
+주문 대기 중인 코인은 다시 매수하지 않습니다. 진행 중 여부는
+`f2_f2_realtime_buy_list.json`의 ``pending`` 값으로 공유되므로 여러 프로세스가
+동시에 실행되더라도 동일 코인을 다시 주문하지 않습니다. 별도의 인스턴스를
+사용하려면 `execute_buy_list(executor=my_executor)`와 같이 호출하면 됩니다.
