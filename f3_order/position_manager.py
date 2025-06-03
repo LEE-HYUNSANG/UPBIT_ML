@@ -189,13 +189,31 @@ class PositionManager:
         imported = []
         ignored = []
         seen_all = set()
+
+        zero_price_syms: list[str] = []
+        acc_map: dict[str, tuple[float, float]] = {}
         for coin in accounts:
             if coin.get("currency") == "KRW":
                 continue
             bal = float(coin.get("balance", 0))
             price = float(coin.get("avg_buy_price", 0))
-            eval_amt = bal * price
             symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
+            acc_map[symbol] = (bal, price)
+            if bal > 0 and price <= 0:
+                zero_price_syms.append(symbol)
+
+        price_map: dict[str, float] = {}
+        if zero_price_syms:
+            try:
+                data = self.client.ticker(zero_price_syms)
+                price_map = {d.get("market"): float(d.get("trade_price", 0)) for d in data}
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+
+        for symbol, (bal, price) in acc_map.items():
+            if price <= 0:
+                price = price_map.get(symbol, 0.0)
+            eval_amt = bal * price
             log_data = {
                 "time": now_kst(),
                 "symbol": symbol,
