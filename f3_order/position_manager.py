@@ -8,9 +8,11 @@ import os
 import sqlite3
 import json
 from pathlib import Path
-from .utils import log_with_tag, now
+from .utils import log_with_tag
+from common_utils import now
 from .upbit_api import UpbitClient
 from .utils import pretty_symbol
+from common_utils import load_json, save_json, now_kst
 
 logger = logging.getLogger("F3_position_manager")
 os.makedirs("logs/f3", exist_ok=True)
@@ -26,12 +28,6 @@ logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
 
-def _now_kst():
-    import datetime
-    tz = datetime.timezone(datetime.timedelta(hours=9))
-    return datetime.datetime.now(tz).isoformat(timespec="seconds")
-
-
 def _log_jsonl(path: str, data: dict) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "a", encoding="utf-8") as f:
@@ -39,19 +35,6 @@ def _log_jsonl(path: str, data: dict) -> None:
         f.write("\n")
 
 
-def _save_json(path: str, data) -> None:
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-def _load_json(path: str):
-    if not os.path.exists(path):
-        return []
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:  # pragma: no cover - best effort
-        return []
 
 def _load_json_dict(path: str) -> dict:
     if not os.path.exists(path):
@@ -89,7 +72,7 @@ class PositionManager:
         self.sell_config_path = self.config.get(
             "SELL_LIST_PATH", "config/f3_f3_realtime_sell_list.json"
         )
-        self.positions = _load_json(self.positions_file)
+        self.positions = load_json(self.positions_file, default=[])
         self.client = UpbitClient()
         self.tp_orders: dict[str, str] = {}
         # 계좌의 기존 잔고를 가져와 본 앱에서 연 포지션과 함께 관리
@@ -101,7 +84,7 @@ class PositionManager:
             if p.get("symbol") == symbol and p.get("status") in ("open", "pending"):
                 return True
         try:
-            data = _load_json(self.positions_file)
+            data = load_json(self.positions_file, default=[])
             return any(
                 p.get("symbol") == symbol and p.get("status") in ("open", "pending")
                 for p in data
@@ -111,7 +94,7 @@ class PositionManager:
 
     def _persist_positions(self) -> None:
         try:
-            _save_json(self.positions_file, self.positions)
+            save_json(self.positions_file, self.positions)
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to persist positions: {exc}")
 
@@ -211,7 +194,7 @@ class PositionManager:
             eval_amt = bal * price
             symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
             log_data = {
-                "time": _now_kst(),
+                "time": now_kst(),
                 "symbol": symbol,
                 "qty": bal,
                 "entry_price": price,
@@ -262,7 +245,7 @@ class PositionManager:
                     removed = True
                     log_with_tag(logger, f"Removed stale sell entry for {sym}")
             if removed:
-                _save_json(self.sell_config_path, sell_cfg)
+                save_json(self.sell_config_path, sell_cfg)
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to clean sell list: {exc}")
 
@@ -629,7 +612,7 @@ class PositionManager:
                 _log_jsonl(
                     "logs/etc/position_universe_sync.log",
                     {
-                        "time": _now_kst(),
+                        "time": now_kst(),
                         "event": "Universe Excluded",
                         "symbol": pos.get("symbol"),
                         "action": "AutoClose",
