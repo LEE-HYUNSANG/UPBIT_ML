@@ -19,7 +19,7 @@
 | `config/f3_f3_realtime_sell_list.json` | 현재 보유 중인 코인 심볼 목록을 저장합니다. 포지션이 정리되면 목록에서 제거됩니다. |
 | `config/f4_f2_risk_settings.json` | 삭제된 파일로, 과거 기본 위험 관리 값이 들어 있었습니다. |
 
-로그는 `logs/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
+로그는 `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
 `logs/F3_order_executor.log` 등에 남습니다.
 
 ## 주요 함수
@@ -36,7 +36,7 @@
    갱신되어 중복 매수를 방지합니다. ``pending`` 필드는 해당 심볼의 주문이
    실행 중인지 표시합니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의
    과정에서 갱신됩니다.
-3. 과정과 결과는 `logs/f2_ml_buy_signal.log`에 기록됩니다.
+3. 과정과 결과는 `logs/f2/f2_ml_buy_signal.log`에 기록됩니다.
 4. 이 함수는 실매수를 수행하지 않고 JSON 파일만 갱신합니다. 실제 주문은
    `signal_loop.py`가 주기적으로 이 파일을 읽어 실행하거나,
    `buy_list_executor.execute_buy_list()`를 직접 호출해 수동으로 체결할 수
@@ -100,3 +100,7 @@ execute_buy_list()
 다중 프로세스 환경에서 중복 매수를 방지합니다.
 이를 통해 여러 프로세스가 동시에 업데이트하더라도 내용이 손상되거나 중복 주문이
 발생하지 않습니다.
+
+매수가 체결되면 `OrderExecutor`는 `_update_realtime_sell_list()`를 호출해
+`f3_f3_realtime_sell_list.json`에 해당 심볼을 기록합니다. 이전에는 파일이 비어
+있는 경우 갱신되지 않았으나 이제는 빈 리스트여도 정상적으로 추가됩니다.

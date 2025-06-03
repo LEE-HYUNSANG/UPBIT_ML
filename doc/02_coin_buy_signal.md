@@ -13,7 +13,7 @@
 | `f2_ml_buy_signal/01_buy_indicator.py` | EMA와 RSI 기반의 기본 필터 함수를 제공합니다. |
 | `config/f5_f1_monitoring_list.json` | 매수 신호를 계산할 코인 목록입니다. |
 | `config/f2_f2_realtime_buy_list.json` | 계산된 매수 신호가 저장되는 파일입니다. |
-| `logs/f2_ml_buy_signal.log` | 매수 신호 계산 과정의 로그가 기록됩니다. |
+| `logs/f2/f2_ml_buy_signal.log` | 매수 신호 계산 과정의 로그가 기록됩니다. |
 
 ## 사용되는 함수
 - `run_if_monitoring_list_exists()` – 모니터링 목록이 존재할 때만 `run()`을 호출합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L361-L371】
@@ -26,8 +26,8 @@
 3. `03_feature_engineering.py` 모듈의 `add_features()`를 사용해 피처를 계산합니다.
 4. 로드한 모델이 확률을 반환하면 0.5 이상 여부를 판단하여 `buy` 플래그를 만듭니다.
 5. `01_buy_indicator.py`의 EMA/RSI 조건도 만족해야 최종 매수 시그널(`buy_signal`)이 1로 기록됩니다.
-6. 결과는 `config/f2_f2_realtime_buy_list.json`에 저장되며 로그는 `logs/f2_ml_buy_signal.log`에서 확인할 수 있습니다.
+6. 결과는 `config/f2_f2_realtime_buy_list.json`에 저장되며 로그는 `logs/f2/f2_ml_buy_signal.log`에서 확인할 수 있습니다.
 
 ## 로그 위치 및 설명
-- `logs/f2_ml_buy_signal.log`에 각 단계의 성공 여부와 예측 확률이 기록됩니다.
+- `logs/f2/f2_ml_buy_signal.log`에 각 단계의 성공 여부와 예측 확률이 기록됩니다.
 - 예를 들어 `[CHECK] KRW-BTC prob=0.67` 형식으로 남으므로 어떤 코인이 어떤 확률로 매수 대상이 되었는지 추적할 수 있습니다.

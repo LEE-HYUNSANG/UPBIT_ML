@@ -132,3 +132,28 @@ def test_cleanup_when_no_holdings(tmp_path, monkeypatch):
     with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data == []
+
+
+class ZeroPriceFailClient(DummyClient):
+    def get_accounts(self):
+        return [
+            {"currency": "SUI", "balance": "30", "avg_buy_price": "0", "unit_currency": "KRW"},
+            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
+        ]
+
+    def ticker(self, markets):
+        return [{"market": m, "trade_price": 0.0} for m in markets]
+
+    def orderbook(self, markets):
+        return [{"orderbook_units": [{"ask_price": 0.0}]}]
+
+
+def test_import_zero_price_fallback(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: ZeroPriceFailClient())
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert len(pm.positions) == 1
+    assert pm.positions[0]["symbol"] == "KRW-SUI"
