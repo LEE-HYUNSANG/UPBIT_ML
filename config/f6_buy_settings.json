@@ -1,5 +1,5 @@
 {
-  "ENTRY_SIZE_INITIAL": 10000,
+  "ENTRY_SIZE_INITIAL": 7000,
   "MAX_SYMBOLS": 7,
   "LIMIT_WAIT_SEC_1": 20,
   "1st_Bid_Price": "BID1",
