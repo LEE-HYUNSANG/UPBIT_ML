@@ -102,3 +102,33 @@ def test_import_orderbook_fallback(tmp_path, monkeypatch):
     with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data and data[0]["symbol"] == "KRW-SUI"
+
+
+class NoHoldingsClient(DummyClient):
+    def get_accounts(self):
+        return [
+            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
+        ]
+
+
+def test_cleanup_when_no_holdings(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: NoHoldingsClient())
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+    }
+    with open(cfg["POSITIONS_FILE"], "w", encoding="utf-8") as f:
+        json.dump([
+            {
+                "symbol": "KRW-CBK",
+                "entry_time": 0,
+                "entry_price": 1,
+                "qty": 1,
+                "status": "open",
+            }
+        ], f)
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert pm.positions == []
+    with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data == []
