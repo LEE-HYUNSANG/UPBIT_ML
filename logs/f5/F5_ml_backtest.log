@@ -1,429 +1,172 @@
-2025-06-03 11:03:56,799 [F5] [INFO] [BACKTEST] KRW-ADA entries=657 win_rate=76.41% avg_roi=0.0001 sharpe=0.85 mdd=-8.63%
-2025-06-03 11:03:56,939 [F5] [INFO] [BACKTEST] KRW-ADA entries=657 win_rate=76.41% avg_roi=0.0001 sharpe=0.85 mdd=-8.63%
-2025-06-03 11:03:57,748 [F5] [INFO] [BACKTEST] KRW-AKT entries=1008 win_rate=72.92% avg_roi=-0.0001 sharpe=-1.49 mdd=-21.09%
-2025-06-03 11:03:57,861 [F5] [INFO] [BACKTEST] KRW-AKT entries=1008 win_rate=72.92% avg_roi=-0.0001 sharpe=-1.49 mdd=-21.09%
-2025-06-03 11:03:58,386 [F5] [INFO] [BACKTEST] KRW-APT entries=430 win_rate=67.67% avg_roi=0.0004 sharpe=3.45 mdd=-3.45%
-2025-06-03 11:03:58,490 [F5] [INFO] [BACKTEST] KRW-APT entries=430 win_rate=67.67% avg_roi=0.0004 sharpe=3.45 mdd=-3.45%
-2025-06-03 11:03:59,462 [F5] [INFO] [BACKTEST] KRW-AQT entries=1200 win_rate=73.50% avg_roi=-0.0001 sharpe=-1.11 mdd=-23.23%
-2025-06-03 11:03:59,574 [F5] [INFO] [BACKTEST] KRW-AQT entries=1200 win_rate=73.50% avg_roi=-0.0001 sharpe=-1.11 mdd=-23.23%
-2025-06-03 11:04:00,086 [F5] [INFO] [BACKTEST] KRW-ARB entries=714 win_rate=70.87% avg_roi=-0.0002 sharpe=-2.43 mdd=-15.69%
-2025-06-03 11:04:00,214 [F5] [INFO] [BACKTEST] KRW-ARB entries=714 win_rate=70.87% avg_roi=-0.0002 sharpe=-2.43 mdd=-15.69%
-2025-06-03 11:04:00,915 [F5] [INFO] [BACKTEST] KRW-ARK entries=498 win_rate=54.22% avg_roi=-0.0003 sharpe=-2.59 mdd=-19.10%
-2025-06-03 11:04:01,024 [F5] [INFO] [BACKTEST] KRW-ARK entries=498 win_rate=54.22% avg_roi=-0.0003 sharpe=-2.59 mdd=-19.10%
-2025-06-03 11:04:01,535 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=426 win_rate=78.40% avg_roi=0.0009 sharpe=9.23 mdd=-2.58%
-2025-06-03 11:04:01,633 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=426 win_rate=78.40% avg_roi=0.0009 sharpe=9.23 mdd=-2.58%
-2025-06-03 11:04:02,123 [F5] [INFO] [BACKTEST] KRW-BERA entries=723 win_rate=63.21% avg_roi=-0.0005 sharpe=-6.57 mdd=-29.21%
-2025-06-03 11:04:02,209 [F5] [INFO] [BACKTEST] KRW-BERA entries=723 win_rate=63.21% avg_roi=-0.0005 sharpe=-6.57 mdd=-29.21%
-2025-06-03 11:04:02,787 [F5] [INFO] [BACKTEST] KRW-CARV entries=1013 win_rate=73.74% avg_roi=-0.0001 sharpe=-0.91 mdd=-13.67%
-2025-06-03 11:04:02,876 [F5] [INFO] [BACKTEST] KRW-CARV entries=1013 win_rate=73.74% avg_roi=-0.0001 sharpe=-0.91 mdd=-13.67%
-2025-06-03 11:04:04,093 [F5] [INFO] [BACKTEST] KRW-CBK entries=862 win_rate=79.12% avg_roi=0.0010 sharpe=13.90 mdd=-4.81%
-2025-06-03 11:04:04,166 [F5] [INFO] [BACKTEST] KRW-CBK entries=862 win_rate=79.12% avg_roi=0.0010 sharpe=13.90 mdd=-4.81%
-2025-06-03 11:04:04,940 [F5] [INFO] [BACKTEST] KRW-COW entries=934 win_rate=60.06% avg_roi=-0.0006 sharpe=-9.32 mdd=-42.99%
-2025-06-03 11:04:04,992 [F5] [INFO] [BACKTEST] KRW-COW entries=934 win_rate=60.06% avg_roi=-0.0006 sharpe=-9.32 mdd=-42.99%
-2025-06-03 11:04:05,698 [F5] [INFO] [BACKTEST] KRW-CTC entries=389 win_rate=76.61% avg_roi=0.0008 sharpe=7.74 mdd=-2.47%
-2025-06-03 11:04:05,851 [F5] [INFO] [BACKTEST] KRW-CTC entries=389 win_rate=76.61% avg_roi=0.0008 sharpe=7.74 mdd=-2.47%
-2025-06-03 11:04:06,356 [F5] [INFO] [BACKTEST] KRW-DOT entries=264 win_rate=81.82% avg_roi=0.0011 sharpe=9.19 mdd=-1.50%
-2025-06-03 11:04:06,521 [F5] [INFO] [BACKTEST] KRW-DOT entries=264 win_rate=81.82% avg_roi=0.0011 sharpe=9.19 mdd=-1.50%
-2025-06-03 11:04:07,252 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1134 win_rate=54.14% avg_roi=-0.0008 sharpe=-14.09 mdd=-61.23%
-2025-06-03 11:04:07,413 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1134 win_rate=54.14% avg_roi=-0.0008 sharpe=-14.09 mdd=-61.23%
-2025-06-03 11:04:07,961 [F5] [INFO] [BACKTEST] KRW-EOS entries=1083 win_rate=70.73% avg_roi=-0.0002 sharpe=-3.06 mdd=-19.49%
-2025-06-03 11:04:08,145 [F5] [INFO] [BACKTEST] KRW-EOS entries=1083 win_rate=70.73% avg_roi=-0.0002 sharpe=-3.06 mdd=-19.49%
-2025-06-03 11:04:08,852 [F5] [INFO] [BACKTEST] KRW-GAS entries=493 win_rate=84.79% avg_roi=0.0004 sharpe=6.05 mdd=-3.16%
-2025-06-03 11:04:09,154 [F5] [INFO] [BACKTEST] KRW-GAS entries=493 win_rate=84.79% avg_roi=0.0004 sharpe=6.05 mdd=-3.16%
-2025-06-03 11:04:09,711 [F5] [INFO] [BACKTEST] KRW-INJ entries=981 win_rate=64.83% avg_roi=-0.0004 sharpe=-6.67 mdd=-35.10%
-2025-06-03 11:04:09,947 [F5] [INFO] [BACKTEST] KRW-INJ entries=981 win_rate=64.83% avg_roi=-0.0004 sharpe=-6.67 mdd=-35.10%
-2025-06-03 11:04:10,429 [F5] [INFO] [BACKTEST] KRW-JUP entries=790 win_rate=60.13% avg_roi=-0.0006 sharpe=-8.54 mdd=-38.10%
-2025-06-03 11:04:10,662 [F5] [INFO] [BACKTEST] KRW-JUP entries=790 win_rate=60.13% avg_roi=-0.0006 sharpe=-8.54 mdd=-38.10%
-2025-06-03 11:04:11,091 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1052 win_rate=70.44% avg_roi=-0.0002 sharpe=-3.24 mdd=-18.82%
-2025-06-03 11:04:11,345 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1052 win_rate=70.44% avg_roi=-0.0002 sharpe=-3.24 mdd=-18.82%
-2025-06-03 11:04:11,678 [F5] [INFO] [BACKTEST] KRW-LAYER entries=712 win_rate=71.63% avg_roi=-0.0001 sharpe=-1.97 mdd=-9.90%
-2025-06-03 11:04:11,937 [F5] [INFO] [BACKTEST] KRW-LAYER entries=712 win_rate=71.63% avg_roi=-0.0001 sharpe=-1.97 mdd=-9.90%
-2025-06-03 11:04:12,158 [F5] [INFO] [BACKTEST] KRW-LINK entries=246 win_rate=85.37% avg_roi=0.0013 sharpe=11.26 mdd=-0.70%
-2025-06-03 11:04:12,432 [F5] [INFO] [BACKTEST] KRW-LINK entries=246 win_rate=85.37% avg_roi=0.0013 sharpe=11.26 mdd=-0.70%
-2025-06-03 11:04:12,935 [F5] [INFO] [BACKTEST] KRW-MASK entries=1300 win_rate=68.92% avg_roi=-0.0002 sharpe=-4.73 mdd=-33.82%
-2025-06-03 11:04:13,412 [F5] [INFO] [BACKTEST] KRW-MASK entries=1300 win_rate=68.92% avg_roi=-0.0002 sharpe=-4.73 mdd=-33.82%
-2025-06-03 11:04:13,804 [F5] [INFO] [BACKTEST] KRW-ME entries=758 win_rate=69.53% avg_roi=-0.0002 sharpe=-3.24 mdd=-15.83%
-2025-06-03 11:04:14,267 [F5] [INFO] [BACKTEST] KRW-ME entries=758 win_rate=69.53% avg_roi=-0.0002 sharpe=-3.24 mdd=-15.83%
-2025-06-03 11:04:14,444 [F5] [INFO] [BACKTEST] KRW-NEAR entries=275 win_rate=89.09% avg_roi=0.0015 sharpe=15.47 mdd=-1.59%
-2025-06-03 11:04:14,853 [F5] [INFO] [BACKTEST] KRW-NEAR entries=275 win_rate=89.09% avg_roi=0.0015 sharpe=15.47 mdd=-1.59%
-2025-06-03 11:04:15,099 [F5] [INFO] [BACKTEST] KRW-NEO entries=322 win_rate=85.71% avg_roi=0.0013 sharpe=13.19 mdd=-1.39%
-2025-06-03 11:04:15,527 [F5] [INFO] [BACKTEST] KRW-NEO entries=322 win_rate=85.71% avg_roi=0.0013 sharpe=13.19 mdd=-1.39%
-2025-06-03 11:04:15,794 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1039 win_rate=56.98% avg_roi=-0.0007 sharpe=-11.73 mdd=-52.73%
-2025-06-03 11:04:16,334 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1039 win_rate=56.98% avg_roi=-0.0007 sharpe=-11.73 mdd=-52.73%
-2025-06-03 11:04:16,610 [F5] [INFO] [BACKTEST] KRW-OM entries=972 win_rate=74.90% avg_roi=-0.0000 sharpe=-0.06 mdd=-8.92%
-2025-06-03 11:04:17,036 [F5] [INFO] [BACKTEST] KRW-OM entries=972 win_rate=74.90% avg_roi=-0.0000 sharpe=-0.06 mdd=-8.92%
-2025-06-03 11:04:17,087 [F5] [INFO] [BACKTEST] KRW-ONDO entries=285 win_rate=88.42% avg_roi=0.0014 sharpe=15.00 mdd=-1.59%
-2025-06-03 11:04:17,845 [F5] [INFO] [BACKTEST] KRW-ONDO entries=285 win_rate=88.42% avg_roi=0.0014 sharpe=15.00 mdd=-1.59%
-2025-06-03 11:04:18,081 [F5] [INFO] [BACKTEST] KRW-ORCA entries=855 win_rate=61.05% avg_roi=-0.0006 sharpe=-8.36 mdd=-38.78%
-2025-06-03 11:04:18,589 [F5] [INFO] [BACKTEST] KRW-ORCA entries=855 win_rate=61.05% avg_roi=-0.0006 sharpe=-8.36 mdd=-38.78%
-2025-06-03 11:04:18,866 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=821 win_rate=79.05% avg_roi=0.0002 sharpe=2.92 mdd=-7.16%
-2025-06-03 11:04:19,387 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=821 win_rate=79.05% avg_roi=0.0002 sharpe=2.92 mdd=-7.16%
-2025-06-03 11:04:19,661 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1081 win_rate=57.91% avg_roi=-0.0007 sharpe=-11.35 mdd=-52.31%
-2025-06-03 11:04:20,261 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1081 win_rate=57.91% avg_roi=-0.0007 sharpe=-11.35 mdd=-52.31%
-2025-06-03 11:04:20,403 [F5] [INFO] [BACKTEST] KRW-STX entries=301 win_rate=91.03% avg_roi=0.0016 sharpe=18.84 mdd=-0.60%
-2025-06-03 11:04:20,912 [F5] [INFO] [BACKTEST] KRW-STX entries=301 win_rate=91.03% avg_roi=0.0016 sharpe=18.84 mdd=-0.60%
-2025-06-03 11:04:20,963 [F5] [INFO] [BACKTEST] KRW-SUI entries=544 win_rate=66.36% avg_roi=-0.0003 sharpe=-4.20 mdd=-16.97%
-2025-06-03 11:04:21,371 [F5] [INFO] [BACKTEST] KRW-SUI entries=544 win_rate=66.36% avg_roi=-0.0003 sharpe=-4.20 mdd=-16.97%
-2025-06-03 11:04:21,560 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=967 win_rate=81.08% avg_roi=0.0002 sharpe=4.82 mdd=-4.24%
-2025-06-03 11:04:21,977 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=967 win_rate=81.08% avg_roi=0.0002 sharpe=4.82 mdd=-4.24%
-2025-06-03 11:04:22,778 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1295 win_rate=76.29% avg_roi=0.0001 sharpe=1.09 mdd=-19.19%
-2025-06-03 11:04:23,243 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1295 win_rate=76.29% avg_roi=0.0001 sharpe=1.09 mdd=-19.19%
-2025-06-03 11:04:23,250 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=264 win_rate=88.64% avg_roi=0.0014 sharpe=14.66 mdd=-0.80%
-2025-06-03 11:04:23,628 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:04:23,694 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=264 win_rate=88.64% avg_roi=0.0014 sharpe=14.66 mdd=-0.80%
-2025-06-03 11:04:24,069 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:04:24,243 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1055 win_rate=64.74% avg_roi=-0.0004 sharpe=-6.95 mdd=-38.72%
-2025-06-03 11:04:24,637 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1055 win_rate=64.74% avg_roi=-0.0004 sharpe=-6.95 mdd=-38.72%
-2025-06-03 11:04:24,817 [F5] [INFO] [BACKTEST] KRW-VANA entries=1028 win_rate=63.62% avg_roi=-0.0005 sharpe=-7.59 mdd=-38.06%
-2025-06-03 11:04:25,206 [F5] [INFO] [BACKTEST] KRW-VANA entries=1028 win_rate=63.62% avg_roi=-0.0005 sharpe=-7.59 mdd=-38.06%
-2025-06-03 11:04:25,373 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=1094 win_rate=73.86% avg_roi=-0.0000 sharpe=-0.86 mdd=-18.18%
-2025-06-03 11:04:25,752 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=1094 win_rate=73.86% avg_roi=-0.0000 sharpe=-0.86 mdd=-18.18%
-2025-06-03 11:04:26,106 [F5] [INFO] [BACKTEST] KRW-WAVES entries=861 win_rate=70.38% avg_roi=-0.0002 sharpe=-2.94 mdd=-15.45%
-2025-06-03 11:04:26,494 [F5] [INFO] [BACKTEST] KRW-WAVES entries=861 win_rate=70.38% avg_roi=-0.0002 sharpe=-2.94 mdd=-15.45%
-2025-06-03 11:04:26,739 [F5] [INFO] [BACKTEST] KRW-WCT entries=1438 win_rate=70.17% avg_roi=-0.0002 sharpe=-3.98 mdd=-30.93%
-2025-06-03 11:04:27,130 [F5] [INFO] [BACKTEST] KRW-XRP entries=158 win_rate=97.47% avg_roi=0.0009 sharpe=17.98 mdd=-0.30%
-2025-06-03 11:04:27,160 [F5] [INFO] [BACKTEST] KRW-WCT entries=1438 win_rate=70.17% avg_roi=-0.0002 sharpe=-3.98 mdd=-30.93%
-2025-06-03 11:04:27,546 [F5] [INFO] [BACKTEST] KRW-XRP entries=158 win_rate=97.47% avg_roi=0.0009 sharpe=17.98 mdd=-0.30%
-2025-06-03 11:10:49,810 [F5] [INFO] [BACKTEST] KRW-ADA entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:10:49,813 [F5] [INFO] [BACKTEST] KRW-ADA entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:10:50,866 [F5] [INFO] [BACKTEST] KRW-AKT entries=1053 win_rate=71.51% avg_roi=-0.0001 sharpe=-2.48 mdd=-21.96%
-2025-06-03 11:10:50,885 [F5] [INFO] [BACKTEST] KRW-AKT entries=1053 win_rate=71.51% avg_roi=-0.0001 sharpe=-2.48 mdd=-21.96%
-2025-06-03 11:10:51,850 [F5] [INFO] [BACKTEST] KRW-APT entries=347 win_rate=88.18% avg_roi=0.0014 sharpe=16.26 mdd=-1.00%
-2025-06-03 11:10:51,870 [F5] [INFO] [BACKTEST] KRW-AQT entries=1 win_rate=0.00% avg_roi=-0.0023 sharpe=0.00 mdd=0.00%
-2025-06-03 11:10:51,893 [F5] [INFO] [BACKTEST] KRW-APT entries=347 win_rate=88.18% avg_roi=0.0014 sharpe=16.26 mdd=-1.00%
-2025-06-03 11:10:51,913 [F5] [INFO] [BACKTEST] KRW-AQT entries=1 win_rate=0.00% avg_roi=-0.0023 sharpe=0.00 mdd=0.00%
-2025-06-03 11:10:52,664 [F5] [INFO] [BACKTEST] KRW-ARB entries=682 win_rate=75.81% avg_roi=0.0000 sharpe=0.49 mdd=-9.66%
-2025-06-03 11:10:52,681 [F5] [INFO] [BACKTEST] KRW-ARK 매매 없음
-2025-06-03 11:10:52,703 [F5] [INFO] [BACKTEST] KRW-ARB entries=682 win_rate=75.81% avg_roi=0.0000 sharpe=0.49 mdd=-9.66%
-2025-06-03 11:10:52,720 [F5] [INFO] [BACKTEST] KRW-ARK 매매 없음
-2025-06-03 11:10:53,405 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=426 win_rate=78.40% avg_roi=0.0009 sharpe=9.23 mdd=-2.58%
-2025-06-03 11:10:53,438 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=426 win_rate=78.40% avg_roi=0.0009 sharpe=9.23 mdd=-2.58%
-2025-06-03 11:10:54,094 [F5] [INFO] [BACKTEST] KRW-BERA entries=848 win_rate=64.98% avg_roi=-0.0004 sharpe=-6.11 mdd=-29.06%
-2025-06-03 11:10:54,112 [F5] [INFO] [BACKTEST] KRW-BERA entries=848 win_rate=64.98% avg_roi=-0.0004 sharpe=-6.11 mdd=-29.06%
-2025-06-03 11:10:54,918 [F5] [INFO] [BACKTEST] KRW-CARV entries=1046 win_rate=72.85% avg_roi=-0.0001 sharpe=-1.56 mdd=-14.45%
-2025-06-03 11:10:54,920 [F5] [INFO] [BACKTEST] KRW-CARV entries=1046 win_rate=72.85% avg_roi=-0.0001 sharpe=-1.56 mdd=-14.45%
-2025-06-03 11:10:56,529 [F5] [INFO] [BACKTEST] KRW-CBK entries=860 win_rate=79.65% avg_roi=0.0010 sharpe=14.34 mdd=-5.19%
-2025-06-03 11:10:56,540 [F5] [INFO] [BACKTEST] KRW-CBK entries=860 win_rate=79.65% avg_roi=0.0010 sharpe=14.34 mdd=-5.19%
-2025-06-03 11:10:57,733 [F5] [INFO] [BACKTEST] KRW-COW entries=950 win_rate=58.11% avg_roi=-0.0007 sharpe=-10.55 mdd=-47.54%
-2025-06-03 11:10:57,757 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:10:57,775 [F5] [INFO] [BACKTEST] KRW-COW entries=950 win_rate=58.11% avg_roi=-0.0007 sharpe=-10.55 mdd=-47.54%
-2025-06-03 11:10:57,799 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:10:58,761 [F5] [INFO] [BACKTEST] KRW-DOT entries=300 win_rate=62.67% avg_roi=0.0001 sharpe=0.95 mdd=-5.56%
-2025-06-03 11:10:58,772 [F5] [INFO] [BACKTEST] KRW-DOT entries=300 win_rate=62.67% avg_roi=0.0001 sharpe=0.95 mdd=-5.56%
-2025-06-03 11:10:59,602 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1104 win_rate=54.71% avg_roi=-0.0008 sharpe=-13.53 mdd=-60.01%
-2025-06-03 11:10:59,604 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1104 win_rate=54.71% avg_roi=-0.0008 sharpe=-13.53 mdd=-60.01%
-2025-06-03 11:11:00,365 [F5] [INFO] [BACKTEST] KRW-EOS entries=1080 win_rate=69.81% avg_roi=-0.0002 sharpe=-3.71 mdd=-22.41%
-2025-06-03 11:11:00,369 [F5] [INFO] [BACKTEST] KRW-EOS entries=1080 win_rate=69.81% avg_roi=-0.0002 sharpe=-3.71 mdd=-22.41%
-2025-06-03 11:11:01,183 [F5] [INFO] [BACKTEST] KRW-GAS entries=492 win_rate=84.96% avg_roi=0.0004 sharpe=6.18 mdd=-3.45%
-2025-06-03 11:11:01,206 [F5] [INFO] [BACKTEST] KRW-GAS entries=492 win_rate=84.96% avg_roi=0.0004 sharpe=6.18 mdd=-3.45%
-2025-06-03 11:11:02,021 [F5] [INFO] [BACKTEST] KRW-INJ entries=952 win_rate=64.92% avg_roi=-0.0004 sharpe=-6.52 mdd=-35.62%
-2025-06-03 11:11:02,038 [F5] [INFO] [BACKTEST] KRW-JUP 매매 없음
-2025-06-03 11:11:02,053 [F5] [INFO] [BACKTEST] KRW-INJ entries=952 win_rate=64.92% avg_roi=-0.0004 sharpe=-6.52 mdd=-35.62%
-2025-06-03 11:11:02,056 [F5] [INFO] [BACKTEST] KRW-KAITO entries=2 win_rate=0.00% avg_roi=-0.0025 sharpe=-7.88 mdd=-0.21%
-2025-06-03 11:11:02,068 [F5] [INFO] [BACKTEST] KRW-JUP 매매 없음
-2025-06-03 11:11:02,085 [F5] [INFO] [BACKTEST] KRW-KAITO entries=2 win_rate=0.00% avg_roi=-0.0025 sharpe=-7.88 mdd=-0.21%
-2025-06-03 11:11:02,651 [F5] [INFO] [BACKTEST] KRW-LAYER entries=691 win_rate=82.63% avg_roi=0.0003 sharpe=5.36 mdd=-6.60%
-2025-06-03 11:11:02,692 [F5] [INFO] [BACKTEST] KRW-LAYER entries=691 win_rate=82.63% avg_roi=0.0003 sharpe=5.36 mdd=-6.60%
-2025-06-03 11:11:03,121 [F5] [INFO] [BACKTEST] KRW-LINK entries=245 win_rate=82.86% avg_roi=0.0011 sharpe=9.49 mdd=-1.39%
-2025-06-03 11:11:03,147 [F5] [INFO] [BACKTEST] KRW-LINK entries=245 win_rate=82.86% avg_roi=0.0011 sharpe=9.49 mdd=-1.39%
-2025-06-03 11:11:03,842 [F5] [INFO] [BACKTEST] KRW-MASK entries=1271 win_rate=68.45% avg_roi=-0.0003 sharpe=-5.00 mdd=-34.61%
-2025-06-03 11:11:03,886 [F5] [INFO] [BACKTEST] KRW-MASK entries=1271 win_rate=68.45% avg_roi=-0.0003 sharpe=-5.00 mdd=-34.61%
-2025-06-03 11:11:04,858 [F5] [INFO] [BACKTEST] KRW-ME entries=778 win_rate=66.07% avg_roi=-0.0004 sharpe=-5.26 mdd=-25.13%
-2025-06-03 11:11:04,880 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:11:04,930 [F5] [INFO] [BACKTEST] KRW-ME entries=778 win_rate=66.07% avg_roi=-0.0004 sharpe=-5.26 mdd=-25.13%
-2025-06-03 11:11:04,949 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:11:05,785 [F5] [INFO] [BACKTEST] KRW-NEO entries=313 win_rate=87.86% avg_roi=0.0014 sharpe=15.09 mdd=-1.19%
-2025-06-03 11:11:05,873 [F5] [INFO] [BACKTEST] KRW-NEO entries=313 win_rate=87.86% avg_roi=0.0014 sharpe=15.09 mdd=-1.19%
-2025-06-03 11:11:06,690 [F5] [INFO] [BACKTEST] KRW-NXPC entries=999 win_rate=58.06% avg_roi=-0.0007 sharpe=-10.85 mdd=-49.45%
-2025-06-03 11:11:06,814 [F5] [INFO] [BACKTEST] KRW-NXPC entries=999 win_rate=58.06% avg_roi=-0.0007 sharpe=-10.85 mdd=-49.45%
-2025-06-03 11:11:07,459 [F5] [INFO] [BACKTEST] KRW-OM entries=965 win_rate=76.06% avg_roi=0.0000 sharpe=0.77 mdd=-8.45%
-2025-06-03 11:11:07,553 [F5] [INFO] [BACKTEST] KRW-OM entries=965 win_rate=76.06% avg_roi=0.0000 sharpe=0.77 mdd=-8.45%
-2025-06-03 11:11:08,008 [F5] [INFO] [BACKTEST] KRW-ONDO entries=293 win_rate=87.03% avg_roi=0.0014 sharpe=13.81 mdd=-1.99%
-2025-06-03 11:11:08,108 [F5] [INFO] [BACKTEST] KRW-ONDO entries=293 win_rate=87.03% avg_roi=0.0014 sharpe=13.81 mdd=-1.99%
-2025-06-03 11:11:08,687 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1063 win_rate=58.80% avg_roi=-0.0006 sharpe=-10.71 mdd=-49.91%
-2025-06-03 11:11:08,705 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:11:08,720 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:11:08,742 [F5] [INFO] [BACKTEST] KRW-STX entries=3 win_rate=33.33% avg_roi=-0.0013 sharpe=-1.34 mdd=-0.19%
-2025-06-03 11:11:08,818 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1063 win_rate=58.80% avg_roi=-0.0006 sharpe=-10.71 mdd=-49.91%
-2025-06-03 11:11:08,834 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:11:08,850 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:11:08,869 [F5] [INFO] [BACKTEST] KRW-STX entries=3 win_rate=33.33% avg_roi=-0.0013 sharpe=-1.34 mdd=-0.19%
-2025-06-03 11:11:09,333 [F5] [INFO] [BACKTEST] KRW-SUI entries=561 win_rate=82.17% avg_roi=0.0003 sharpe=4.44 mdd=-5.56%
-2025-06-03 11:11:09,439 [F5] [INFO] [BACKTEST] KRW-SUI entries=561 win_rate=82.17% avg_roi=0.0003 sharpe=4.44 mdd=-5.56%
-2025-06-03 11:11:10,062 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=970 win_rate=78.97% avg_roi=0.0002 sharpe=3.03 mdd=-5.94%
-2025-06-03 11:11:10,153 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=970 win_rate=78.97% avg_roi=0.0002 sharpe=3.03 mdd=-5.94%
-2025-06-03 11:11:11,447 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1297 win_rate=74.63% avg_roi=-0.0000 sharpe=-0.27 mdd=-23.29%
-2025-06-03 11:11:11,463 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:11:11,478 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:11:11,585 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1297 win_rate=74.63% avg_roi=-0.0000 sharpe=-0.27 mdd=-23.29%
-2025-06-03 11:11:11,602 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:11:11,616 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:11:12,201 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1064 win_rate=64.29% avg_roi=-0.0004 sharpe=-7.27 mdd=-39.21%
-2025-06-03 11:11:12,360 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1064 win_rate=64.29% avg_roi=-0.0004 sharpe=-7.27 mdd=-39.21%
-2025-06-03 11:11:12,833 [F5] [INFO] [BACKTEST] KRW-VANA entries=909 win_rate=65.24% avg_roi=-0.0004 sharpe=-6.18 mdd=-31.18%
-2025-06-03 11:11:12,970 [F5] [INFO] [BACKTEST] KRW-VANA entries=909 win_rate=65.24% avg_roi=-0.0004 sharpe=-6.18 mdd=-31.18%
-2025-06-03 11:11:13,415 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=779 win_rate=61.75% avg_roi=-0.0005 sharpe=-7.61 mdd=-34.00%
-2025-06-03 11:11:13,436 [F5] [INFO] [BACKTEST] KRW-WAVES entries=1 win_rate=0.00% avg_roi=0.0003 sharpe=0.00 mdd=0.00%
-2025-06-03 11:11:13,463 [F5] [INFO] [BACKTEST] KRW-WCT entries=2 win_rate=0.00% avg_roi=-0.0025 sharpe=-6.46 mdd=-0.19%
-2025-06-03 11:11:13,639 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=779 win_rate=61.75% avg_roi=-0.0005 sharpe=-7.61 mdd=-34.00%
-2025-06-03 11:11:13,658 [F5] [INFO] [BACKTEST] KRW-WAVES entries=1 win_rate=0.00% avg_roi=0.0003 sharpe=0.00 mdd=0.00%
-2025-06-03 11:11:13,678 [F5] [INFO] [BACKTEST] KRW-WCT entries=2 win_rate=0.00% avg_roi=-0.0025 sharpe=-6.46 mdd=-0.19%
-2025-06-03 11:11:14,097 [F5] [INFO] [BACKTEST] KRW-XRP entries=157 win_rate=96.82% avg_roi=0.0009 sharpe=15.57 mdd=-0.30%
-2025-06-03 11:11:14,342 [F5] [INFO] [BACKTEST] KRW-XRP entries=157 win_rate=96.82% avg_roi=0.0009 sharpe=15.57 mdd=-0.30%
-2025-06-03 11:17:16,263 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:17:16,263 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:17:16,281 [F5] [INFO] [BACKTEST] KRW-AKT entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:16,282 [F5] [INFO] [BACKTEST] KRW-AKT entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:17,288 [F5] [INFO] [BACKTEST] KRW-APT entries=337 win_rate=89.61% avg_roi=0.0015 sharpe=17.82 mdd=-0.90%
-2025-06-03 11:17:17,306 [F5] [INFO] [BACKTEST] KRW-APT entries=337 win_rate=89.61% avg_roi=0.0015 sharpe=17.82 mdd=-0.90%
-2025-06-03 11:17:17,308 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:17:17,327 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:17:18,253 [F5] [INFO] [BACKTEST] KRW-ARB entries=693 win_rate=75.32% avg_roi=0.0000 sharpe=0.20 mdd=-9.47%
-2025-06-03 11:17:18,277 [F5] [INFO] [BACKTEST] KRW-ARB entries=693 win_rate=75.32% avg_roi=0.0000 sharpe=0.20 mdd=-9.47%
-2025-06-03 11:17:18,284 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0005 sharpe=-0.49 mdd=-0.30%
-2025-06-03 11:17:18,305 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0005 sharpe=-0.49 mdd=-0.30%
-2025-06-03 11:17:18,307 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=1 win_rate=0.00% avg_roi=-0.0003 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:18,328 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=1 win_rate=0.00% avg_roi=-0.0003 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:19,163 [F5] [INFO] [BACKTEST] KRW-BERA entries=884 win_rate=59.84% avg_roi=-0.0006 sharpe=-9.19 mdd=-41.72%
-2025-06-03 11:17:19,198 [F5] [INFO] [BACKTEST] KRW-BERA entries=884 win_rate=59.84% avg_roi=-0.0006 sharpe=-9.19 mdd=-41.72%
-2025-06-03 11:17:19,876 [F5] [INFO] [BACKTEST] KRW-CARV entries=1032 win_rate=67.44% avg_roi=-0.0003 sharpe=-5.15 mdd=-29.02%
-2025-06-03 11:17:19,889 [F5] [INFO] [BACKTEST] KRW-CBK 매매 없음
-2025-06-03 11:17:19,918 [F5] [INFO] [BACKTEST] KRW-CARV entries=1032 win_rate=67.44% avg_roi=-0.0003 sharpe=-5.15 mdd=-29.02%
-2025-06-03 11:17:19,933 [F5] [INFO] [BACKTEST] KRW-CBK 매매 없음
-2025-06-03 11:17:20,600 [F5] [INFO] [BACKTEST] KRW-COW entries=930 win_rate=56.34% avg_roi=-0.0007 sharpe=-11.45 mdd=-50.10%
-2025-06-03 11:17:20,615 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:17:20,641 [F5] [INFO] [BACKTEST] KRW-COW entries=930 win_rate=56.34% avg_roi=-0.0007 sharpe=-11.45 mdd=-50.10%
-2025-06-03 11:17:20,654 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:17:21,186 [F5] [INFO] [BACKTEST] KRW-DOT entries=282 win_rate=69.50% avg_roi=0.0005 sharpe=3.47 mdd=-3.64%
-2025-06-03 11:17:21,215 [F5] [INFO] [BACKTEST] KRW-DOT entries=282 win_rate=69.50% avg_roi=0.0005 sharpe=3.47 mdd=-3.64%
-2025-06-03 11:17:22,024 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1043 win_rate=57.81% avg_roi=-0.0007 sharpe=-11.24 mdd=-52.25%
-2025-06-03 11:17:22,047 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1043 win_rate=57.81% avg_roi=-0.0007 sharpe=-11.24 mdd=-52.25%
-2025-06-03 11:17:22,860 [F5] [INFO] [BACKTEST] KRW-EOS entries=1084 win_rate=70.20% avg_roi=-0.0002 sharpe=-3.44 mdd=-21.17%
-2025-06-03 11:17:22,876 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
-2025-06-03 11:17:22,887 [F5] [INFO] [BACKTEST] KRW-EOS entries=1084 win_rate=70.20% avg_roi=-0.0002 sharpe=-3.44 mdd=-21.17%
-2025-06-03 11:17:22,895 [F5] [INFO] [BACKTEST] KRW-INJ entries=1 win_rate=0.00% avg_roi=-0.0004 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:22,905 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
-2025-06-03 11:17:22,917 [F5] [INFO] [BACKTEST] KRW-JUP entries=4 win_rate=25.00% avg_roi=-0.0020 sharpe=-2.31 mdd=-0.50%
-2025-06-03 11:17:22,924 [F5] [INFO] [BACKTEST] KRW-INJ entries=1 win_rate=0.00% avg_roi=-0.0004 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:22,938 [F5] [INFO] [BACKTEST] KRW-KAITO entries=3 win_rate=0.00% avg_roi=-0.0029 sharpe=-58.75 mdd=-0.58%
-2025-06-03 11:17:22,944 [F5] [INFO] [BACKTEST] KRW-JUP entries=4 win_rate=25.00% avg_roi=-0.0020 sharpe=-2.31 mdd=-0.50%
-2025-06-03 11:17:22,967 [F5] [INFO] [BACKTEST] KRW-KAITO entries=3 win_rate=0.00% avg_roi=-0.0029 sharpe=-58.75 mdd=-0.58%
-2025-06-03 11:17:23,526 [F5] [INFO] [BACKTEST] KRW-LAYER entries=698 win_rate=75.64% avg_roi=0.0000 sharpe=0.40 mdd=-8.64%
-2025-06-03 11:17:23,541 [F5] [INFO] [BACKTEST] KRW-LINK 매매 없음
-2025-06-03 11:17:23,554 [F5] [INFO] [BACKTEST] KRW-LAYER entries=698 win_rate=75.64% avg_roi=0.0000 sharpe=0.40 mdd=-8.64%
-2025-06-03 11:17:23,568 [F5] [INFO] [BACKTEST] KRW-LINK 매매 없음
-2025-06-03 11:17:24,327 [F5] [INFO] [BACKTEST] KRW-MASK entries=1265 win_rate=67.75% avg_roi=-0.0003 sharpe=-5.52 mdd=-36.16%
-2025-06-03 11:17:24,363 [F5] [INFO] [BACKTEST] KRW-MASK entries=1265 win_rate=67.75% avg_roi=-0.0003 sharpe=-5.52 mdd=-36.16%
-2025-06-03 11:17:25,320 [F5] [INFO] [BACKTEST] KRW-ME entries=747 win_rate=67.20% avg_roi=-0.0003 sharpe=-4.54 mdd=-21.36%
-2025-06-03 11:17:25,342 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:17:25,388 [F5] [INFO] [BACKTEST] KRW-ME entries=747 win_rate=67.20% avg_roi=-0.0003 sharpe=-4.54 mdd=-21.36%
-2025-06-03 11:17:25,403 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:17:26,401 [F5] [INFO] [BACKTEST] KRW-NEO entries=336 win_rate=79.46% avg_roi=0.0010 sharpe=8.83 mdd=-2.57%
-2025-06-03 11:17:26,463 [F5] [INFO] [BACKTEST] KRW-NEO entries=336 win_rate=79.46% avg_roi=0.0010 sharpe=8.83 mdd=-2.57%
-2025-06-03 11:17:27,130 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1013 win_rate=56.37% avg_roi=-0.0007 sharpe=-11.95 mdd=-52.94%
-2025-06-03 11:17:27,174 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1013 win_rate=56.37% avg_roi=-0.0007 sharpe=-11.95 mdd=-52.94%
-2025-06-03 11:17:27,846 [F5] [INFO] [BACKTEST] KRW-OM entries=973 win_rate=74.61% avg_roi=-0.0000 sharpe=-0.24 mdd=-8.74%
-2025-06-03 11:17:27,862 [F5] [INFO] [BACKTEST] KRW-OM entries=973 win_rate=74.61% avg_roi=-0.0000 sharpe=-0.24 mdd=-8.74%
-2025-06-03 11:17:28,389 [F5] [INFO] [BACKTEST] KRW-ONDO entries=285 win_rate=87.72% avg_roi=0.0014 sharpe=14.26 mdd=-1.30%
-2025-06-03 11:17:28,399 [F5] [INFO] [BACKTEST] KRW-ONDO entries=285 win_rate=87.72% avg_roi=0.0014 sharpe=14.26 mdd=-1.30%
-2025-06-03 11:17:29,081 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1026 win_rate=59.45% avg_roi=-0.0006 sharpe=-10.14 mdd=-47.75%
-2025-06-03 11:17:29,097 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=3 win_rate=0.00% avg_roi=-0.0020 sharpe=-2.36 mdd=-0.30%
-2025-06-03 11:17:29,097 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1026 win_rate=59.45% avg_roi=-0.0006 sharpe=-10.14 mdd=-47.75%
-2025-06-03 11:17:29,108 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:17:29,114 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=3 win_rate=0.00% avg_roi=-0.0020 sharpe=-2.36 mdd=-0.30%
-2025-06-03 11:17:29,124 [F5] [INFO] [BACKTEST] KRW-STX entries=4 win_rate=25.00% avg_roi=-0.0013 sharpe=-1.43 mdd=-0.31%
-2025-06-03 11:17:29,125 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:17:29,140 [F5] [INFO] [BACKTEST] KRW-STX entries=4 win_rate=25.00% avg_roi=-0.0013 sharpe=-1.43 mdd=-0.31%
-2025-06-03 11:17:29,630 [F5] [INFO] [BACKTEST] KRW-SUI entries=546 win_rate=82.78% avg_roi=0.0003 sharpe=4.85 mdd=-6.31%
-2025-06-03 11:17:29,636 [F5] [INFO] [BACKTEST] KRW-SUI entries=546 win_rate=82.78% avg_roi=0.0003 sharpe=4.85 mdd=-6.31%
-2025-06-03 11:17:29,646 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:29,656 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:17:29,659 [F5] [INFO] [BACKTEST] KRW-TOKAMAK 매매 없음
-2025-06-03 11:17:29,669 [F5] [INFO] [BACKTEST] KRW-TOKAMAK 매매 없음
-2025-06-03 11:17:29,671 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:17:29,681 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:17:29,684 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:17:29,698 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:17:30,299 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1030 win_rate=68.16% avg_roi=-0.0003 sharpe=-4.70 mdd=-31.99%
-2025-06-03 11:17:30,304 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1030 win_rate=68.16% avg_roi=-0.0003 sharpe=-4.70 mdd=-31.99%
-2025-06-03 11:17:30,948 [F5] [INFO] [BACKTEST] KRW-VANA entries=957 win_rate=65.20% avg_roi=-0.0004 sharpe=-6.36 mdd=-32.68%
-2025-06-03 11:17:30,949 [F5] [INFO] [BACKTEST] KRW-VANA entries=957 win_rate=65.20% avg_roi=-0.0004 sharpe=-6.36 mdd=-32.68%
-2025-06-03 11:17:31,568 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=894 win_rate=61.41% avg_roi=-0.0005 sharpe=-8.35 mdd=-38.67%
-2025-06-03 11:17:31,587 [F5] [INFO] [BACKTEST] KRW-WAVES 매매 없음
-2025-06-03 11:17:31,591 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=894 win_rate=61.41% avg_roi=-0.0005 sharpe=-8.35 mdd=-38.67%
-2025-06-03 11:17:31,602 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:17:31,609 [F5] [INFO] [BACKTEST] KRW-WAVES 매매 없음
-2025-06-03 11:17:31,623 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:17:32,083 [F5] [INFO] [BACKTEST] KRW-XRP entries=159 win_rate=97.48% avg_roi=0.0009 sharpe=18.10 mdd=-0.30%
-2025-06-03 11:17:32,113 [F5] [INFO] [BACKTEST] KRW-XRP entries=159 win_rate=97.48% avg_roi=0.0009 sharpe=18.10 mdd=-0.30%
-2025-06-03 11:23:28,255 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:23:28,267 [F5] [INFO] [BACKTEST] KRW-AKT 매매 없음
-2025-06-03 11:23:28,267 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:23:28,280 [F5] [INFO] [BACKTEST] KRW-AKT 매매 없음
-2025-06-03 11:23:28,983 [F5] [INFO] [BACKTEST] KRW-APT entries=348 win_rate=89.66% avg_roi=0.0015 sharpe=18.17 mdd=-1.10%
-2025-06-03 11:23:28,997 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:23:29,001 [F5] [INFO] [BACKTEST] KRW-APT entries=348 win_rate=89.66% avg_roi=0.0015 sharpe=18.17 mdd=-1.10%
-2025-06-03 11:23:29,011 [F5] [INFO] [BACKTEST] KRW-ARB entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:29,016 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:23:29,028 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0016 sharpe=-1.52 mdd=-0.59%
-2025-06-03 11:23:29,029 [F5] [INFO] [BACKTEST] KRW-ARB entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:29,040 [F5] [INFO] [BACKTEST] KRW-AUCTION 매매 없음
-2025-06-03 11:23:29,047 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0016 sharpe=-1.52 mdd=-0.59%
-2025-06-03 11:23:29,052 [F5] [INFO] [BACKTEST] KRW-BERA 매매 없음
-2025-06-03 11:23:29,059 [F5] [INFO] [BACKTEST] KRW-AUCTION 매매 없음
-2025-06-03 11:23:29,072 [F5] [INFO] [BACKTEST] KRW-BERA 매매 없음
-2025-06-03 11:23:29,714 [F5] [INFO] [BACKTEST] KRW-CARV entries=1034 win_rate=71.57% avg_roi=-0.0001 sharpe=-2.45 mdd=-18.14%
-2025-06-03 11:23:29,731 [F5] [INFO] [BACKTEST] KRW-CBK entries=4 win_rate=25.00% avg_roi=-0.0019 sharpe=-2.25 mdd=-0.85%
-2025-06-03 11:23:29,748 [F5] [INFO] [BACKTEST] KRW-CARV entries=1034 win_rate=71.57% avg_roi=-0.0001 sharpe=-2.45 mdd=-18.14%
-2025-06-03 11:23:29,766 [F5] [INFO] [BACKTEST] KRW-CBK entries=4 win_rate=25.00% avg_roi=-0.0019 sharpe=-2.25 mdd=-0.85%
-2025-06-03 11:23:30,380 [F5] [INFO] [BACKTEST] KRW-COW entries=930 win_rate=56.34% avg_roi=-0.0007 sharpe=-11.45 mdd=-50.10%
-2025-06-03 11:23:30,395 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:23:30,428 [F5] [INFO] [BACKTEST] KRW-COW entries=930 win_rate=56.34% avg_roi=-0.0007 sharpe=-11.45 mdd=-50.10%
-2025-06-03 11:23:30,442 [F5] [INFO] [BACKTEST] KRW-CTC 매매 없음
-2025-06-03 11:23:30,945 [F5] [INFO] [BACKTEST] KRW-DOT entries=263 win_rate=79.85% avg_roi=0.0010 sharpe=8.02 mdd=-2.28%
-2025-06-03 11:23:30,993 [F5] [INFO] [BACKTEST] KRW-DOT entries=263 win_rate=79.85% avg_roi=0.0010 sharpe=8.02 mdd=-2.28%
-2025-06-03 11:23:31,677 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1078 win_rate=55.10% avg_roi=-0.0008 sharpe=-13.11 mdd=-58.25%
-2025-06-03 11:23:31,734 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1078 win_rate=55.10% avg_roi=-0.0008 sharpe=-13.11 mdd=-58.25%
-2025-06-03 11:23:32,370 [F5] [INFO] [BACKTEST] KRW-EOS entries=1084 win_rate=70.02% avg_roi=-0.0002 sharpe=-3.58 mdd=-21.87%
-2025-06-03 11:23:32,383 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
-2025-06-03 11:23:32,394 [F5] [INFO] [BACKTEST] KRW-INJ 매매 없음
-2025-06-03 11:23:32,411 [F5] [INFO] [BACKTEST] KRW-JUP entries=4 win_rate=0.00% avg_roi=-0.0021 sharpe=-2.61 mdd=-0.60%
-2025-06-03 11:23:32,418 [F5] [INFO] [BACKTEST] KRW-EOS entries=1084 win_rate=70.02% avg_roi=-0.0002 sharpe=-3.58 mdd=-21.87%
-2025-06-03 11:23:32,428 [F5] [INFO] [BACKTEST] KRW-KAITO entries=5 win_rate=20.00% avg_roi=-0.0018 sharpe=-2.52 mdd=-0.60%
-2025-06-03 11:23:32,431 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
-2025-06-03 11:23:32,444 [F5] [INFO] [BACKTEST] KRW-INJ 매매 없음
-2025-06-03 11:23:32,462 [F5] [INFO] [BACKTEST] KRW-JUP entries=4 win_rate=0.00% avg_roi=-0.0021 sharpe=-2.61 mdd=-0.60%
-2025-06-03 11:23:32,480 [F5] [INFO] [BACKTEST] KRW-KAITO entries=5 win_rate=20.00% avg_roi=-0.0018 sharpe=-2.52 mdd=-0.60%
-2025-06-03 11:23:32,998 [F5] [INFO] [BACKTEST] KRW-LAYER entries=699 win_rate=74.96% avg_roi=-0.0000 sharpe=-0.02 mdd=-7.35%
-2025-06-03 11:23:33,016 [F5] [INFO] [BACKTEST] KRW-LINK entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:33,058 [F5] [INFO] [BACKTEST] KRW-LAYER entries=699 win_rate=74.96% avg_roi=-0.0000 sharpe=-0.02 mdd=-7.35%
-2025-06-03 11:23:33,076 [F5] [INFO] [BACKTEST] KRW-LINK entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:33,630 [F5] [INFO] [BACKTEST] KRW-MASK entries=1240 win_rate=68.15% avg_roi=-0.0003 sharpe=-5.15 mdd=-34.01%
-2025-06-03 11:23:33,688 [F5] [INFO] [BACKTEST] KRW-MASK entries=1240 win_rate=68.15% avg_roi=-0.0003 sharpe=-5.15 mdd=-34.01%
-2025-06-03 11:23:34,239 [F5] [INFO] [BACKTEST] KRW-ME entries=768 win_rate=69.14% avg_roi=-0.0002 sharpe=-3.48 mdd=-16.91%
-2025-06-03 11:23:34,252 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:23:34,267 [F5] [INFO] [BACKTEST] KRW-NEO entries=2 win_rate=50.00% avg_roi=0.0003 sharpe=0.57 mdd=-0.04%
-2025-06-03 11:23:34,303 [F5] [INFO] [BACKTEST] KRW-ME entries=768 win_rate=69.14% avg_roi=-0.0002 sharpe=-3.48 mdd=-16.91%
-2025-06-03 11:23:34,318 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:23:34,332 [F5] [INFO] [BACKTEST] KRW-NEO entries=2 win_rate=50.00% avg_roi=0.0003 sharpe=0.57 mdd=-0.04%
-2025-06-03 11:23:34,870 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1063 win_rate=55.88% avg_roi=-0.0008 sharpe=-12.56 mdd=-55.71%
-2025-06-03 11:23:34,930 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1063 win_rate=55.88% avg_roi=-0.0008 sharpe=-12.56 mdd=-55.71%
-2025-06-03 11:23:35,785 [F5] [INFO] [BACKTEST] KRW-OM entries=978 win_rate=77.51% avg_roi=0.0001 sharpe=1.92 mdd=-6.78%
-2025-06-03 11:23:35,849 [F5] [INFO] [BACKTEST] KRW-OM entries=978 win_rate=77.51% avg_roi=0.0001 sharpe=1.92 mdd=-6.78%
-2025-06-03 11:23:36,586 [F5] [INFO] [BACKTEST] KRW-ONDO entries=291 win_rate=84.88% avg_roi=0.0012 sharpe=11.85 mdd=-1.89%
-2025-06-03 11:23:36,669 [F5] [INFO] [BACKTEST] KRW-ONDO entries=291 win_rate=84.88% avg_roi=0.0012 sharpe=11.85 mdd=-1.89%
-2025-06-03 11:23:37,501 [F5] [INFO] [BACKTEST] KRW-ORCA entries=952 win_rate=59.45% avg_roi=-0.0006 sharpe=-9.77 mdd=-45.34%
-2025-06-03 11:23:37,518 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=3 win_rate=0.00% avg_roi=-0.0017 sharpe=-1.58 mdd=-0.30%
-2025-06-03 11:23:37,530 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:23:37,544 [F5] [INFO] [BACKTEST] KRW-ORCA entries=952 win_rate=59.45% avg_roi=-0.0006 sharpe=-9.77 mdd=-45.34%
-2025-06-03 11:23:37,548 [F5] [INFO] [BACKTEST] KRW-STX entries=5 win_rate=20.00% avg_roi=-0.0018 sharpe=-2.52 mdd=-0.70%
-2025-06-03 11:23:37,561 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=3 win_rate=0.00% avg_roi=-0.0017 sharpe=-1.58 mdd=-0.30%
-2025-06-03 11:23:37,574 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:23:37,593 [F5] [INFO] [BACKTEST] KRW-STX entries=5 win_rate=20.00% avg_roi=-0.0018 sharpe=-2.52 mdd=-0.70%
-2025-06-03 11:23:38,047 [F5] [INFO] [BACKTEST] KRW-SUI entries=562 win_rate=83.10% avg_roi=0.0003 sharpe=5.12 mdd=-6.60%
-2025-06-03 11:23:38,067 [F5] [INFO] [BACKTEST] KRW-TAIKO 매매 없음
-2025-06-03 11:23:38,096 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=4 win_rate=50.00% avg_roi=-0.0006 sharpe=-0.75 mdd=-0.16%
-2025-06-03 11:23:38,113 [F5] [INFO] [BACKTEST] KRW-SUI entries=562 win_rate=83.10% avg_roi=0.0003 sharpe=5.12 mdd=-6.60%
-2025-06-03 11:23:38,115 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:23:38,135 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:23:38,135 [F5] [INFO] [BACKTEST] KRW-TAIKO 매매 없음
-2025-06-03 11:23:38,154 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=4 win_rate=50.00% avg_roi=-0.0006 sharpe=-0.75 mdd=-0.16%
-2025-06-03 11:23:38,167 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:23:38,185 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:23:38,774 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1039 win_rate=64.10% avg_roi=-0.0004 sharpe=-7.32 mdd=-39.82%
-2025-06-03 11:23:38,813 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1039 win_rate=64.10% avg_roi=-0.0004 sharpe=-7.32 mdd=-39.82%
-2025-06-03 11:23:39,354 [F5] [INFO] [BACKTEST] KRW-VANA entries=1112 win_rate=62.23% avg_roi=-0.0005 sharpe=-8.78 mdd=-44.69%
-2025-06-03 11:23:39,401 [F5] [INFO] [BACKTEST] KRW-VANA entries=1112 win_rate=62.23% avg_roi=-0.0005 sharpe=-8.78 mdd=-44.69%
-2025-06-03 11:23:39,905 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=992 win_rate=59.68% avg_roi=-0.0006 sharpe=-9.78 mdd=-45.56%
-2025-06-03 11:23:39,922 [F5] [INFO] [BACKTEST] KRW-WAVES entries=1 win_rate=0.00% avg_roi=-0.0004 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:39,935 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:23:39,959 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=992 win_rate=59.68% avg_roi=-0.0006 sharpe=-9.78 mdd=-45.56%
-2025-06-03 11:23:39,979 [F5] [INFO] [BACKTEST] KRW-WAVES entries=1 win_rate=0.00% avg_roi=-0.0004 sharpe=0.00 mdd=0.00%
-2025-06-03 11:23:39,991 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:23:40,353 [F5] [INFO] [BACKTEST] KRW-XRP entries=160 win_rate=96.25% avg_roi=0.0009 sharpe=14.15 mdd=-0.40%
-2025-06-03 11:23:40,409 [F5] [INFO] [BACKTEST] KRW-XRP entries=160 win_rate=96.25% avg_roi=0.0009 sharpe=14.15 mdd=-0.40%
-2025-06-03 11:29:32,016 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:29:32,031 [F5] [INFO] [BACKTEST] KRW-AKT 매매 없음
-2025-06-03 11:29:32,045 [F5] [INFO] [BACKTEST] KRW-APT 매매 없음
-2025-06-03 11:29:32,054 [F5] [INFO] [BACKTEST] KRW-ADA 매매 없음
-2025-06-03 11:29:32,058 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:29:32,065 [F5] [INFO] [BACKTEST] KRW-AKT 매매 없음
-2025-06-03 11:29:32,069 [F5] [INFO] [BACKTEST] KRW-ARB 매매 없음
-2025-06-03 11:29:32,076 [F5] [INFO] [BACKTEST] KRW-APT 매매 없음
-2025-06-03 11:29:32,086 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0013 sharpe=-1.34 mdd=-0.49%
-2025-06-03 11:29:32,087 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
-2025-06-03 11:29:32,099 [F5] [INFO] [BACKTEST] KRW-ARB 매매 없음
-2025-06-03 11:29:32,100 [F5] [INFO] [BACKTEST] KRW-AUCTION 매매 없음
-2025-06-03 11:29:32,112 [F5] [INFO] [BACKTEST] KRW-BERA 매매 없음
-2025-06-03 11:29:32,118 [F5] [INFO] [BACKTEST] KRW-ARK entries=3 win_rate=33.33% avg_roi=-0.0013 sharpe=-1.34 mdd=-0.49%
-2025-06-03 11:29:32,135 [F5] [INFO] [BACKTEST] KRW-AUCTION 매매 없음
-2025-06-03 11:29:32,148 [F5] [INFO] [BACKTEST] KRW-BERA 매매 없음
-2025-06-03 11:29:32,892 [F5] [INFO] [BACKTEST] KRW-CARV entries=1019 win_rate=76.15% avg_roi=0.0000 sharpe=0.87 mdd=-7.86%
-2025-06-03 11:29:32,909 [F5] [INFO] [BACKTEST] KRW-CBK entries=2 win_rate=50.00% avg_roi=0.0000 sharpe=0.00 mdd=-0.10%
-2025-06-03 11:29:32,926 [F5] [INFO] [BACKTEST] KRW-COW entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:32,938 [F5] [INFO] [BACKTEST] KRW-CARV entries=1019 win_rate=76.15% avg_roi=0.0000 sharpe=0.87 mdd=-7.86%
-2025-06-03 11:29:32,946 [F5] [INFO] [BACKTEST] KRW-CTC entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:32,964 [F5] [INFO] [BACKTEST] KRW-CBK entries=2 win_rate=50.00% avg_roi=0.0000 sharpe=0.00 mdd=-0.10%
-2025-06-03 11:29:32,983 [F5] [INFO] [BACKTEST] KRW-COW entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:33,019 [F5] [INFO] [BACKTEST] KRW-CTC entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:33,579 [F5] [INFO] [BACKTEST] KRW-DOT entries=259 win_rate=80.31% avg_roi=0.0010 sharpe=8.22 mdd=-1.39%
-2025-06-03 11:29:33,644 [F5] [INFO] [BACKTEST] KRW-DOT entries=259 win_rate=80.31% avg_roi=0.0010 sharpe=8.22 mdd=-1.39%
-2025-06-03 11:29:34,465 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1078 win_rate=55.10% avg_roi=-0.0008 sharpe=-13.11 mdd=-58.25%
-2025-06-03 11:29:34,512 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1078 win_rate=55.10% avg_roi=-0.0008 sharpe=-13.11 mdd=-58.25%
-2025-06-03 11:29:35,197 [F5] [INFO] [BACKTEST] KRW-EOS entries=1089 win_rate=70.71% avg_roi=-0.0002 sharpe=-3.10 mdd=-19.50%
-2025-06-03 11:29:35,220 [F5] [INFO] [BACKTEST] KRW-GAS entries=1 win_rate=0.00% avg_roi=-0.0015 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:35,241 [F5] [INFO] [BACKTEST] KRW-INJ entries=3 win_rate=33.33% avg_roi=-0.0006 sharpe=-0.63 mdd=0.00%
-2025-06-03 11:29:35,258 [F5] [INFO] [BACKTEST] KRW-JUP 매매 없음
-2025-06-03 11:29:35,264 [F5] [INFO] [BACKTEST] KRW-EOS entries=1089 win_rate=70.71% avg_roi=-0.0002 sharpe=-3.10 mdd=-19.50%
-2025-06-03 11:29:35,280 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:35,286 [F5] [INFO] [BACKTEST] KRW-GAS entries=1 win_rate=0.00% avg_roi=-0.0015 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:35,306 [F5] [INFO] [BACKTEST] KRW-INJ entries=3 win_rate=33.33% avg_roi=-0.0006 sharpe=-0.63 mdd=0.00%
-2025-06-03 11:29:35,320 [F5] [INFO] [BACKTEST] KRW-JUP 매매 없음
-2025-06-03 11:29:35,336 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:35,808 [F5] [INFO] [BACKTEST] KRW-LAYER entries=714 win_rate=68.21% avg_roi=-0.0003 sharpe=-3.90 mdd=-18.07%
-2025-06-03 11:29:35,825 [F5] [INFO] [BACKTEST] KRW-LINK entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:35,870 [F5] [INFO] [BACKTEST] KRW-LAYER entries=714 win_rate=68.21% avg_roi=-0.0003 sharpe=-3.90 mdd=-18.07%
-2025-06-03 11:29:35,886 [F5] [INFO] [BACKTEST] KRW-LINK entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:36,508 [F5] [INFO] [BACKTEST] KRW-MASK entries=1134 win_rate=66.14% avg_roi=-0.0004 sharpe=-6.30 mdd=-33.82%
-2025-06-03 11:29:36,567 [F5] [INFO] [BACKTEST] KRW-MASK entries=1134 win_rate=66.14% avg_roi=-0.0004 sharpe=-6.30 mdd=-33.82%
-2025-06-03 11:29:37,161 [F5] [INFO] [BACKTEST] KRW-ME entries=760 win_rate=68.55% avg_roi=-0.0003 sharpe=-3.82 mdd=-17.99%
-2025-06-03 11:29:37,175 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:29:37,189 [F5] [INFO] [BACKTEST] KRW-NEO entries=2 win_rate=50.00% avg_roi=0.0000 sharpe=0.00 mdd=-0.10%
-2025-06-03 11:29:37,208 [F5] [INFO] [BACKTEST] KRW-ME entries=760 win_rate=68.55% avg_roi=-0.0003 sharpe=-3.82 mdd=-17.99%
-2025-06-03 11:29:37,223 [F5] [INFO] [BACKTEST] KRW-NEAR 매매 없음
-2025-06-03 11:29:37,238 [F5] [INFO] [BACKTEST] KRW-NEO entries=2 win_rate=50.00% avg_roi=0.0000 sharpe=0.00 mdd=-0.10%
-2025-06-03 11:29:37,799 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1045 win_rate=56.56% avg_roi=-0.0007 sharpe=-12.03 mdd=-53.81%
-2025-06-03 11:29:37,864 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1045 win_rate=56.56% avg_roi=-0.0007 sharpe=-12.03 mdd=-53.81%
-2025-06-03 11:29:38,505 [F5] [INFO] [BACKTEST] KRW-OM entries=951 win_rate=77.50% avg_roi=0.0001 sharpe=1.84 mdd=-6.78%
-2025-06-03 11:29:38,551 [F5] [INFO] [BACKTEST] KRW-OM entries=951 win_rate=77.50% avg_roi=0.0001 sharpe=1.84 mdd=-6.78%
-2025-06-03 11:29:39,002 [F5] [INFO] [BACKTEST] KRW-ONDO entries=293 win_rate=84.64% avg_roi=0.0012 sharpe=11.70 mdd=-1.49%
-2025-06-03 11:29:39,056 [F5] [INFO] [BACKTEST] KRW-ONDO entries=293 win_rate=84.64% avg_roi=0.0012 sharpe=11.70 mdd=-1.49%
-2025-06-03 11:29:39,704 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1045 win_rate=58.95% avg_roi=-0.0006 sharpe=-10.55 mdd=-49.15%
-2025-06-03 11:29:39,724 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=2 win_rate=0.00% avg_roi=-0.0011 sharpe=-0.87 mdd=0.00%
-2025-06-03 11:29:39,739 [F5] [INFO] [BACKTEST] KRW-SAFE 매매 없음
-2025-06-03 11:29:39,757 [F5] [INFO] [BACKTEST] KRW-STX 매매 없음
-2025-06-03 11:29:39,775 [F5] [INFO] [BACKTEST] KRW-SUI entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:39,779 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1045 win_rate=58.95% avg_roi=-0.0006 sharpe=-10.55 mdd=-49.15%
-2025-06-03 11:29:39,794 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=2 win_rate=50.00% avg_roi=-0.0010 sharpe=-0.71 mdd=-0.30%
-2025-06-03 11:29:39,800 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=2 win_rate=0.00% avg_roi=-0.0011 sharpe=-0.87 mdd=0.00%
-2025-06-03 11:29:39,808 [F5] [INFO] [BACKTEST] KRW-TOKAMAK 매매 없음
-2025-06-03 11:29:39,833 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:29:39,834 [F5] [INFO] [BACKTEST] KRW-STX 매매 없음
-2025-06-03 11:29:39,848 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:29:39,850 [F5] [INFO] [BACKTEST] KRW-SUI entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
-2025-06-03 11:29:39,869 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=2 win_rate=50.00% avg_roi=-0.0010 sharpe=-0.71 mdd=-0.30%
-2025-06-03 11:29:39,882 [F5] [INFO] [BACKTEST] KRW-TOKAMAK 매매 없음
-2025-06-03 11:29:39,897 [F5] [INFO] [BACKTEST] KRW-TRUMP 매매 없음
-2025-06-03 11:29:39,910 [F5] [INFO] [BACKTEST] KRW-USDT 매매 없음
-2025-06-03 11:29:40,458 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1053 win_rate=65.72% avg_roi=-0.0004 sharpe=-6.29 mdd=-38.04%
-2025-06-03 11:29:40,523 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1053 win_rate=65.72% avg_roi=-0.0004 sharpe=-6.29 mdd=-38.04%
-2025-06-03 11:29:41,201 [F5] [INFO] [BACKTEST] KRW-VANA entries=1147 win_rate=71.84% avg_roi=-0.0001 sharpe=-2.36 mdd=-16.28%
-2025-06-03 11:29:41,271 [F5] [INFO] [BACKTEST] KRW-VANA entries=1147 win_rate=71.84% avg_roi=-0.0001 sharpe=-2.36 mdd=-16.28%
-2025-06-03 11:29:41,803 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=1078 win_rate=74.03% avg_roi=-0.0000 sharpe=-0.70 mdd=-16.19%
-2025-06-03 11:29:41,816 [F5] [INFO] [BACKTEST] KRW-WAVES 매매 없음
-2025-06-03 11:29:41,837 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:29:41,901 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=1078 win_rate=74.03% avg_roi=-0.0000 sharpe=-0.70 mdd=-16.19%
-2025-06-03 11:29:41,923 [F5] [INFO] [BACKTEST] KRW-WAVES 매매 없음
-2025-06-03 11:29:41,942 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
-2025-06-03 11:29:42,469 [F5] [INFO] [BACKTEST] KRW-XRP entries=161 win_rate=96.89% avg_roi=0.0009 sharpe=16.01 mdd=-0.30%
-2025-06-03 11:29:42,549 [F5] [INFO] [BACKTEST] KRW-XRP entries=161 win_rate=96.89% avg_roi=0.0009 sharpe=16.01 mdd=-0.30%
+2025-06-03 12:11:34,975 [F5] [INFO] [BACKTEST] KRW-ADA entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:34,994 [F5] [INFO] [BACKTEST] KRW-AKT 매매 없음
+2025-06-03 12:11:35,013 [F5] [INFO] [BACKTEST] KRW-APT 매매 없음
+2025-06-03 12:11:36,479 [F5] [INFO] [BACKTEST] KRW-AQT entries=1181 win_rate=74.17% avg_roi=-0.0000 sharpe=-0.63 mdd=-19.53%
+2025-06-03 12:11:37,037 [F5] [INFO] [BACKTEST] KRW-ARB entries=675 win_rate=81.78% avg_roi=0.0003 sharpe=4.59 mdd=-5.18%
+2025-06-03 12:11:37,830 [F5] [INFO] [BACKTEST] KRW-ARK entries=491 win_rate=58.25% avg_roi=-0.0001 sharpe=-0.79 mdd=-16.46%
+2025-06-03 12:11:38,429 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=458 win_rate=71.40% avg_roi=0.0006 sharpe=5.42 mdd=-4.52%
+2025-06-03 12:11:38,987 [F5] [INFO] [BACKTEST] KRW-BERA entries=916 win_rate=59.83% avg_roi=-0.0006 sharpe=-9.37 mdd=-43.10%
+2025-06-03 12:11:39,003 [F5] [INFO] [BACKTEST] KRW-CARV entries=3 win_rate=0.00% avg_roi=-0.0019 sharpe=-2.15 mdd=-0.30%
+2025-06-03 12:11:40,040 [F5] [INFO] [BACKTEST] KRW-CBK entries=846 win_rate=79.08% avg_roi=0.0010 sharpe=13.64 mdd=-6.06%
+2025-06-03 12:11:40,055 [F5] [INFO] [BACKTEST] KRW-COW entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:40,808 [F5] [INFO] [BACKTEST] KRW-CTC entries=396 win_rate=75.25% avg_roi=0.0008 sharpe=7.03 mdd=-2.47%
+2025-06-03 12:11:40,820 [F5] [INFO] [BACKTEST] KRW-DOT 매매 없음
+2025-06-03 12:11:41,541 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1055 win_rate=58.48% avg_roi=-0.0007 sharpe=-10.89 mdd=-50.85%
+2025-06-03 12:11:42,182 [F5] [INFO] [BACKTEST] KRW-EOS entries=1084 win_rate=70.11% avg_roi=-0.0002 sharpe=-3.49 mdd=-21.48%
+2025-06-03 12:11:42,192 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
+2025-06-03 12:11:42,932 [F5] [INFO] [BACKTEST] KRW-INJ entries=974 win_rate=64.27% avg_roi=-0.0004 sharpe=-6.99 mdd=-35.14%
+2025-06-03 12:11:42,960 [F5] [INFO] [BACKTEST] KRW-JUP entries=2 win_rate=50.00% avg_roi=-0.0010 sharpe=-0.71 mdd=-0.30%
+2025-06-03 12:11:43,841 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1082 win_rate=68.48% avg_roi=-0.0003 sharpe=-4.61 mdd=-24.98%
+2025-06-03 12:11:43,865 [F5] [INFO] [BACKTEST] KRW-LAYER entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:44,621 [F5] [INFO] [BACKTEST] KRW-LINK entries=273 win_rate=82.78% avg_roi=0.0011 sharpe=10.07 mdd=-3.06%
+2025-06-03 12:11:44,636 [F5] [INFO] [BACKTEST] KRW-MASK 매매 없음
+2025-06-03 12:11:45,243 [F5] [INFO] [BACKTEST] KRW-ME entries=746 win_rate=65.95% avg_roi=-0.0004 sharpe=-5.18 mdd=-23.54%
+2025-06-03 12:11:45,634 [F5] [INFO] [BACKTEST] KRW-NEAR entries=280 win_rate=89.29% avg_roi=0.0015 sharpe=15.84 mdd=-1.00%
+2025-06-03 12:11:45,649 [F5] [INFO] [BACKTEST] KRW-NEO entries=3 win_rate=33.33% avg_roi=-0.0010 sharpe=-1.10 mdd=-0.41%
+2025-06-03 12:11:46,166 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1001 win_rate=57.94% avg_roi=-0.0007 sharpe=-10.93 mdd=-49.65%
+2025-06-03 12:11:46,180 [F5] [INFO] [BACKTEST] KRW-OM entries=1 win_rate=0.00% avg_roi=-0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:46,594 [F5] [INFO] [BACKTEST] KRW-ONDO entries=290 win_rate=83.10% avg_roi=0.0012 sharpe=10.50 mdd=-1.79%
+2025-06-03 12:11:47,194 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1075 win_rate=60.09% avg_roi=-0.0006 sharpe=-9.98 mdd=-47.60%
+2025-06-03 12:11:47,760 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=869 win_rate=69.28% avg_roi=-0.0002 sharpe=-3.65 mdd=-18.43%
+2025-06-03 12:11:48,360 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1192 win_rate=55.62% avg_roi=-0.0008 sharpe=-13.47 mdd=-60.30%
+2025-06-03 12:11:48,377 [F5] [INFO] [BACKTEST] KRW-STX entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:48,389 [F5] [INFO] [BACKTEST] KRW-SUI 매매 없음
+2025-06-03 12:11:48,986 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1022 win_rate=69.37% avg_roi=-0.0002 sharpe=-3.90 mdd=-20.60%
+2025-06-03 12:11:49,000 [F5] [INFO] [BACKTEST] KRW-TOKAMAK 매매 없음
+2025-06-03 12:11:49,018 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=1 win_rate=0.00% avg_roi=-0.0016 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:49,354 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:11:49,870 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1096 win_rate=62.77% avg_roi=-0.0005 sharpe=-8.37 mdd=-43.84%
+2025-06-03 12:11:50,406 [F5] [INFO] [BACKTEST] KRW-VANA entries=1206 win_rate=64.26% avg_roi=-0.0004 sharpe=-7.76 mdd=-40.28%
+2025-06-03 12:11:50,900 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=900 win_rate=60.67% avg_roi=-0.0006 sharpe=-8.80 mdd=-40.48%
+2025-06-03 12:11:51,991 [F5] [INFO] [BACKTEST] KRW-WAVES entries=954 win_rate=65.83% avg_roi=-0.0004 sharpe=-5.97 mdd=-29.51%
+2025-06-03 12:11:52,013 [F5] [INFO] [BACKTEST] KRW-WCT 매매 없음
+2025-06-03 12:11:52,031 [F5] [INFO] [BACKTEST] KRW-XRP 매매 없음
+2025-06-03 12:16:47,312 [F5] [INFO] [BACKTEST] KRW-ADA entries=2 win_rate=0.00% avg_roi=-0.0020 sharpe=-2.83 mdd=-0.10%
+2025-06-03 12:16:47,324 [F5] [INFO] [BACKTEST] KRW-AKT entries=2 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:16:47,334 [F5] [INFO] [BACKTEST] KRW-APT 매매 없음
+2025-06-03 12:16:48,333 [F5] [INFO] [BACKTEST] KRW-AQT entries=1176 win_rate=74.32% avg_roi=-0.0000 sharpe=-0.48 mdd=-17.74%
+2025-06-03 12:16:48,836 [F5] [INFO] [BACKTEST] KRW-ARB entries=675 win_rate=78.81% avg_roi=0.0002 sharpe=2.46 mdd=-7.04%
+2025-06-03 12:16:49,459 [F5] [INFO] [BACKTEST] KRW-ARK entries=501 win_rate=56.89% avg_roi=-0.0002 sharpe=-1.41 mdd=-18.85%
+2025-06-03 12:16:49,991 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=417 win_rate=81.06% avg_roi=0.0011 sharpe=10.97 mdd=-2.09%
+2025-06-03 12:16:50,565 [F5] [INFO] [BACKTEST] KRW-BERA entries=982 win_rate=58.25% avg_roi=-0.0007 sharpe=-10.64 mdd=-48.37%
+2025-06-03 12:16:50,580 [F5] [INFO] [BACKTEST] KRW-CARV 매매 없음
+2025-06-03 12:16:51,719 [F5] [INFO] [BACKTEST] KRW-CBK entries=871 win_rate=77.04% avg_roi=0.0009 sharpe=12.01 mdd=-6.05%
+2025-06-03 12:16:51,738 [F5] [INFO] [BACKTEST] KRW-COW entries=2 win_rate=0.00% avg_roi=-0.0029 sharpe=-57.23 mdd=-0.29%
+2025-06-03 12:16:52,410 [F5] [INFO] [BACKTEST] KRW-CTC entries=394 win_rate=75.13% avg_roi=0.0008 sharpe=6.95 mdd=-2.47%
+2025-06-03 12:16:52,423 [F5] [INFO] [BACKTEST] KRW-DOT 매매 없음
+2025-06-03 12:16:53,482 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1065 win_rate=58.40% avg_roi=-0.0007 sharpe=-10.97 mdd=-51.35%
+2025-06-03 12:16:54,409 [F5] [INFO] [BACKTEST] KRW-EOS entries=1071 win_rate=70.49% avg_roi=-0.0002 sharpe=-3.23 mdd=-20.05%
+2025-06-03 12:16:54,422 [F5] [INFO] [BACKTEST] KRW-GAS 매매 없음
+2025-06-03 12:16:55,056 [F5] [INFO] [BACKTEST] KRW-INJ entries=972 win_rate=64.92% avg_roi=-0.0004 sharpe=-6.59 mdd=-34.05%
+2025-06-03 12:16:55,069 [F5] [INFO] [BACKTEST] KRW-JUP 매매 없음
+2025-06-03 12:16:55,660 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1059 win_rate=54.30% avg_roi=-0.0008 sharpe=-13.52 mdd=-58.62%
+2025-06-03 12:16:55,676 [F5] [INFO] [BACKTEST] KRW-LAYER entries=3 win_rate=0.00% avg_roi=-0.0020 sharpe=-2.61 mdd=-0.31%
+2025-06-03 12:16:56,109 [F5] [INFO] [BACKTEST] KRW-LINK entries=278 win_rate=83.45% avg_roi=0.0012 sharpe=10.52 mdd=-1.99%
+2025-06-03 12:16:56,121 [F5] [INFO] [BACKTEST] KRW-MASK 매매 없음
+2025-06-03 12:16:56,655 [F5] [INFO] [BACKTEST] KRW-ME entries=755 win_rate=68.61% avg_roi=-0.0003 sharpe=-3.78 mdd=-17.55%
+2025-06-03 12:16:57,073 [F5] [INFO] [BACKTEST] KRW-NEAR entries=274 win_rate=88.32% avg_roi=0.0014 sharpe=14.60 mdd=-1.00%
+2025-06-03 12:16:57,090 [F5] [INFO] [BACKTEST] KRW-NEO entries=5 win_rate=20.00% avg_roi=-0.0016 sharpe=-1.83 mdd=-1.00%
+2025-06-03 12:16:57,576 [F5] [INFO] [BACKTEST] KRW-NXPC entries=982 win_rate=57.64% avg_roi=-0.0007 sharpe=-10.99 mdd=-49.50%
+2025-06-03 12:16:57,590 [F5] [INFO] [BACKTEST] KRW-OM entries=2 win_rate=0.00% avg_roi=-0.0011 sharpe=-0.85 mdd=0.00%
+2025-06-03 12:16:57,952 [F5] [INFO] [BACKTEST] KRW-ONDO entries=297 win_rate=78.11% avg_roi=0.0009 sharpe=7.55 mdd=-2.29%
+2025-06-03 12:16:58,532 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1023 win_rate=59.04% avg_roi=-0.0006 sharpe=-10.35 mdd=-48.22%
+2025-06-03 12:16:59,064 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=860 win_rate=69.53% avg_roi=-0.0002 sharpe=-3.47 mdd=-17.68%
+2025-06-03 12:16:59,888 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1133 win_rate=55.60% avg_roi=-0.0008 sharpe=-13.12 mdd=-58.38%
+2025-06-03 12:16:59,908 [F5] [INFO] [BACKTEST] KRW-STX entries=4 win_rate=0.00% avg_roi=-0.0025 sharpe=-5.77 mdd=-0.70%
+2025-06-03 12:16:59,922 [F5] [INFO] [BACKTEST] KRW-SUI 매매 없음
+2025-06-03 12:17:00,911 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1032 win_rate=70.74% avg_roi=-0.0002 sharpe=-3.01 mdd=-17.97%
+2025-06-03 12:17:00,934 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=8 win_rate=62.50% avg_roi=-0.0002 sharpe=-0.30 mdd=-0.60%
+2025-06-03 12:17:00,959 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=2 win_rate=0.00% avg_roi=-0.0014 sharpe=-1.18 mdd=0.00%
+2025-06-03 12:17:01,366 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:17:01,878 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1064 win_rate=63.72% avg_roi=-0.0005 sharpe=-7.65 mdd=-41.77%
+2025-06-03 12:17:02,429 [F5] [INFO] [BACKTEST] KRW-VANA entries=1202 win_rate=65.56% avg_roi=-0.0004 sharpe=-6.88 mdd=-36.63%
+2025-06-03 12:17:02,884 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=883 win_rate=60.70% avg_roi=-0.0006 sharpe=-8.70 mdd=-39.88%
+2025-06-03 12:17:03,550 [F5] [INFO] [BACKTEST] KRW-WAVES entries=968 win_rate=64.15% avg_roi=-0.0004 sharpe=-7.02 mdd=-34.20%
+2025-06-03 12:17:03,568 [F5] [INFO] [BACKTEST] KRW-WCT entries=7 win_rate=57.14% avg_roi=-0.0007 sharpe=-0.95 mdd=-0.70%
+2025-06-03 12:17:03,579 [F5] [INFO] [BACKTEST] KRW-XRP 매매 없음
+2025-06-03 12:23:03,351 [F5] [INFO] [BACKTEST] KRW-ADA entries=298 win_rate=84.90% avg_roi=0.0012 sharpe=12.00 mdd=-1.99%
+2025-06-03 12:23:04,294 [F5] [INFO] [BACKTEST] KRW-AKT entries=1054 win_rate=73.34% avg_roi=-0.0001 sharpe=-1.22 mdd=-17.80%
+2025-06-03 12:23:04,849 [F5] [INFO] [BACKTEST] KRW-APT entries=344 win_rate=90.12% avg_roi=0.0015 sharpe=18.72 mdd=-1.20%
+2025-06-03 12:23:05,927 [F5] [INFO] [BACKTEST] KRW-AQT entries=1193 win_rate=72.76% avg_roi=-0.0001 sharpe=-1.71 mdd=-22.48%
+2025-06-03 12:23:06,447 [F5] [INFO] [BACKTEST] KRW-ARB entries=680 win_rate=77.94% avg_roi=0.0001 sharpe=1.85 mdd=-6.61%
+2025-06-03 12:23:07,125 [F5] [INFO] [BACKTEST] KRW-ARK entries=518 win_rate=55.02% avg_roi=-0.0002 sharpe=-2.28 mdd=-20.70%
+2025-06-03 12:23:07,661 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=382 win_rate=83.25% avg_roi=0.0012 sharpe=12.17 mdd=-2.09%
+2025-06-03 12:23:08,232 [F5] [INFO] [BACKTEST] KRW-BERA entries=817 win_rate=61.57% avg_roi=-0.0005 sharpe=-7.89 mdd=-35.57%
+2025-06-03 12:23:09,019 [F5] [INFO] [BACKTEST] KRW-CARV entries=1016 win_rate=72.34% avg_roi=-0.0001 sharpe=-1.86 mdd=-15.80%
+2025-06-03 12:23:10,672 [F5] [INFO] [BACKTEST] KRW-CBK entries=866 win_rate=76.91% avg_roi=0.0008 sharpe=11.81 mdd=-6.43%
+2025-06-03 12:23:11,431 [F5] [INFO] [BACKTEST] KRW-COW entries=941 win_rate=57.39% avg_roi=-0.0007 sharpe=-10.93 mdd=-48.68%
+2025-06-03 12:23:12,160 [F5] [INFO] [BACKTEST] KRW-CTC entries=392 win_rate=82.65% avg_roi=0.0011 sharpe=12.03 mdd=-1.49%
+2025-06-03 12:23:12,713 [F5] [INFO] [BACKTEST] KRW-DOT entries=257 win_rate=73.15% avg_roi=0.0007 sharpe=4.76 mdd=-2.87%
+2025-06-03 12:23:13,426 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1046 win_rate=63.77% avg_roi=-0.0004 sharpe=-7.56 mdd=-38.80%
+2025-06-03 12:23:14,112 [F5] [INFO] [BACKTEST] KRW-EOS entries=1088 win_rate=70.68% avg_roi=-0.0002 sharpe=-3.13 mdd=-19.97%
+2025-06-03 12:23:14,880 [F5] [INFO] [BACKTEST] KRW-GAS entries=506 win_rate=84.78% avg_roi=0.0004 sharpe=6.13 mdd=-3.35%
+2025-06-03 12:23:15,640 [F5] [INFO] [BACKTEST] KRW-INJ entries=1061 win_rate=64.75% avg_roi=-0.0004 sharpe=-6.99 mdd=-35.92%
+2025-06-03 12:23:16,235 [F5] [INFO] [BACKTEST] KRW-JUP entries=777 win_rate=62.03% avg_roi=-0.0005 sharpe=-7.45 mdd=-33.47%
+2025-06-03 12:23:16,832 [F5] [INFO] [BACKTEST] KRW-KAITO entries=1059 win_rate=54.30% avg_roi=-0.0008 sharpe=-13.52 mdd=-58.62%
+2025-06-03 12:23:17,326 [F5] [INFO] [BACKTEST] KRW-LAYER entries=674 win_rate=70.47% avg_roi=-0.0002 sharpe=-2.58 mdd=-11.58%
+2025-06-03 12:23:17,855 [F5] [INFO] [BACKTEST] KRW-LINK entries=285 win_rate=82.46% avg_roi=0.0011 sharpe=9.97 mdd=-2.28%
+2025-06-03 12:23:18,561 [F5] [INFO] [BACKTEST] KRW-MASK entries=1234 win_rate=67.34% avg_roi=-0.0003 sharpe=-5.73 mdd=-35.33%
+2025-06-03 12:23:19,419 [F5] [INFO] [BACKTEST] KRW-ME entries=763 win_rate=66.97% avg_roi=-0.0003 sharpe=-4.65 mdd=-21.52%
+2025-06-03 12:23:20,460 [F5] [INFO] [BACKTEST] KRW-NEAR entries=297 win_rate=83.16% avg_roi=0.0012 sharpe=10.67 mdd=-2.87%
+2025-06-03 12:23:21,275 [F5] [INFO] [BACKTEST] KRW-NEO entries=301 win_rate=87.71% avg_roi=0.0014 sharpe=14.64 mdd=-1.19%
+2025-06-03 12:23:21,790 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1000 win_rate=57.70% avg_roi=-0.0007 sharpe=-11.05 mdd=-49.90%
+2025-06-03 12:23:22,455 [F5] [INFO] [BACKTEST] KRW-OM entries=954 win_rate=73.79% avg_roi=-0.0000 sharpe=-0.80 mdd=-10.64%
+2025-06-03 12:23:22,884 [F5] [INFO] [BACKTEST] KRW-ONDO entries=300 win_rate=80.67% avg_roi=0.0010 sharpe=9.06 mdd=-1.79%
+2025-06-03 12:23:23,545 [F5] [INFO] [BACKTEST] KRW-ORCA entries=1076 win_rate=59.76% avg_roi=-0.0006 sharpe=-10.20 mdd=-48.38%
+2025-06-03 12:23:24,221 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=885 win_rate=68.14% avg_roi=-0.0003 sharpe=-4.32 mdd=-21.69%
+2025-06-03 12:23:24,881 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1082 win_rate=55.73% avg_roi=-0.0008 sharpe=-12.76 mdd=-56.59%
+2025-06-03 12:23:25,358 [F5] [INFO] [BACKTEST] KRW-STX entries=299 win_rate=85.95% avg_roi=0.0013 sharpe=12.92 mdd=-0.80%
+2025-06-03 12:23:26,061 [F5] [INFO] [BACKTEST] KRW-SUI entries=258 win_rate=81.40% avg_roi=0.0011 sharpe=8.83 mdd=-1.39%
+2025-06-03 12:23:27,076 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1010 win_rate=75.45% avg_roi=0.0000 sharpe=0.33 mdd=-9.46%
+2025-06-03 12:23:28,314 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1417 win_rate=71.91% avg_roi=-0.0001 sharpe=-2.59 mdd=-29.38%
+2025-06-03 12:23:28,763 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=290 win_rate=86.55% avg_roi=0.0013 sharpe=13.38 mdd=-2.19%
+2025-06-03 12:23:29,073 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:23:29,674 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1095 win_rate=62.47% avg_roi=-0.0005 sharpe=-8.57 mdd=-44.51%
+2025-06-03 12:23:30,442 [F5] [INFO] [BACKTEST] KRW-VANA entries=1205 win_rate=66.14% avg_roi=-0.0004 sharpe=-6.50 mdd=-35.48%
+2025-06-03 12:23:30,923 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=868 win_rate=59.91% avg_roi=-0.0006 sharpe=-9.02 mdd=-40.77%
+2025-06-03 12:23:31,652 [F5] [INFO] [BACKTEST] KRW-WAVES entries=950 win_rate=65.58% avg_roi=-0.0004 sharpe=-6.11 mdd=-30.07%
+2025-06-03 12:23:32,224 [F5] [INFO] [BACKTEST] KRW-WCT entries=1488 win_rate=71.17% avg_roi=-0.0002 sharpe=-3.26 mdd=-30.07%
+2025-06-03 12:23:32,541 [F5] [INFO] [BACKTEST] KRW-XRP entries=140 win_rate=95.71% avg_roi=0.0008 sharpe=12.10 mdd=-0.40%
+2025-06-03 12:28:18,993 [F5] [INFO] [BACKTEST] KRW-ADA entries=311 win_rate=81.35% avg_roi=0.0011 sharpe=9.67 mdd=-2.57%
+2025-06-03 12:28:19,011 [F5] [INFO] [BACKTEST] KRW-AKT entries=1 win_rate=0.00% avg_roi=-0.0020 sharpe=0.00 mdd=0.00%
+2025-06-03 12:28:19,782 [F5] [INFO] [BACKTEST] KRW-APT entries=355 win_rate=89.58% avg_roi=0.0015 sharpe=18.24 mdd=-1.49%
+2025-06-03 12:28:19,796 [F5] [INFO] [BACKTEST] KRW-AQT 매매 없음
+2025-06-03 12:28:19,812 [F5] [INFO] [BACKTEST] KRW-ARB entries=1 win_rate=0.00% avg_roi=-0.0014 sharpe=0.00 mdd=0.00%
+2025-06-03 12:28:19,825 [F5] [INFO] [BACKTEST] KRW-ARK 매매 없음
+2025-06-03 12:28:20,385 [F5] [INFO] [BACKTEST] KRW-AUCTION entries=382 win_rate=83.25% avg_roi=0.0012 sharpe=12.17 mdd=-2.09%
+2025-06-03 12:28:20,950 [F5] [INFO] [BACKTEST] KRW-BERA entries=829 win_rate=61.04% avg_roi=-0.0006 sharpe=-8.22 mdd=-36.92%
+2025-06-03 12:28:21,614 [F5] [INFO] [BACKTEST] KRW-CARV entries=1030 win_rate=65.44% avg_roi=-0.0004 sharpe=-6.44 mdd=-33.03%
+2025-06-03 12:28:21,628 [F5] [INFO] [BACKTEST] KRW-CBK 매매 없음
+2025-06-03 12:28:22,608 [F5] [INFO] [BACKTEST] KRW-COW entries=925 win_rate=57.95% avg_roi=-0.0007 sharpe=-10.51 mdd=-46.95%
+2025-06-03 12:28:23,849 [F5] [INFO] [BACKTEST] KRW-CTC entries=392 win_rate=82.65% avg_roi=0.0011 sharpe=12.03 mdd=-1.49%
+2025-06-03 12:28:24,705 [F5] [INFO] [BACKTEST] KRW-DOT entries=254 win_rate=72.83% avg_roi=0.0006 sharpe=4.60 mdd=-3.93%
+2025-06-03 12:28:25,468 [F5] [INFO] [BACKTEST] KRW-DRIFT entries=1064 win_rate=58.65% avg_roi=-0.0007 sharpe=-10.83 mdd=-51.14%
+2025-06-03 12:28:26,082 [F5] [INFO] [BACKTEST] KRW-EOS entries=1069 win_rate=70.91% avg_roi=-0.0002 sharpe=-2.95 mdd=-19.24%
+2025-06-03 12:28:26,727 [F5] [INFO] [BACKTEST] KRW-GAS entries=511 win_rate=83.76% avg_roi=0.0004 sharpe=5.37 mdd=-3.16%
+2025-06-03 12:28:27,738 [F5] [INFO] [BACKTEST] KRW-INJ entries=1049 win_rate=66.35% avg_roi=-0.0003 sharpe=-5.93 mdd=-31.54%
+2025-06-03 12:28:28,494 [F5] [INFO] [BACKTEST] KRW-JUP entries=753 win_rate=64.94% avg_roi=-0.0004 sharpe=-5.79 mdd=-26.98%
+2025-06-03 12:28:28,508 [F5] [INFO] [BACKTEST] KRW-KAITO 매매 없음
+2025-06-03 12:28:28,528 [F5] [INFO] [BACKTEST] KRW-LAYER entries=1 win_rate=0.00% avg_roi=-0.0030 sharpe=0.00 mdd=0.00%
+2025-06-03 12:28:29,007 [F5] [INFO] [BACKTEST] KRW-LINK entries=275 win_rate=82.91% avg_roi=0.0011 sharpe=10.09 mdd=-2.97%
+2025-06-03 12:28:29,604 [F5] [INFO] [BACKTEST] KRW-MASK entries=1262 win_rate=67.43% avg_roi=-0.0003 sharpe=-5.73 mdd=-36.86%
+2025-06-03 12:28:30,508 [F5] [INFO] [BACKTEST] KRW-ME entries=757 win_rate=66.31% avg_roi=-0.0003 sharpe=-5.04 mdd=-23.07%
+2025-06-03 12:28:31,018 [F5] [INFO] [BACKTEST] KRW-NEAR entries=279 win_rate=87.46% avg_roi=0.0014 sharpe=13.85 mdd=-1.00%
+2025-06-03 12:28:32,006 [F5] [INFO] [BACKTEST] KRW-NEO entries=305 win_rate=88.20% avg_roi=0.0014 sharpe=15.26 mdd=-1.19%
+2025-06-03 12:28:33,400 [F5] [INFO] [BACKTEST] KRW-NXPC entries=1041 win_rate=58.41% avg_roi=-0.0007 sharpe=-10.86 mdd=-49.95%
+2025-06-03 12:28:34,640 [F5] [INFO] [BACKTEST] KRW-OM entries=942 win_rate=77.18% avg_roi=0.0001 sharpe=1.59 mdd=-7.99%
+2025-06-03 12:28:35,131 [F5] [INFO] [BACKTEST] KRW-ONDO entries=292 win_rate=84.59% avg_roi=0.0012 sharpe=11.64 mdd=-1.69%
+2025-06-03 12:28:35,659 [F5] [INFO] [BACKTEST] KRW-ORCA entries=886 win_rate=63.88% avg_roi=-0.0004 sharpe=-6.86 mdd=-32.81%
+2025-06-03 12:28:36,336 [F5] [INFO] [BACKTEST] KRW-PUNDIX entries=874 win_rate=67.28% avg_roi=-0.0003 sharpe=-4.87 mdd=-24.15%
+2025-06-03 12:28:36,922 [F5] [INFO] [BACKTEST] KRW-SAFE entries=1083 win_rate=55.68% avg_roi=-0.0008 sharpe=-12.80 mdd=-56.68%
+2025-06-03 12:28:37,411 [F5] [INFO] [BACKTEST] KRW-STX entries=290 win_rate=85.52% avg_roi=0.0013 sharpe=12.35 mdd=-0.90%
+2025-06-03 12:28:37,935 [F5] [INFO] [BACKTEST] KRW-SUI entries=272 win_rate=86.76% avg_roi=0.0013 sharpe=13.03 mdd=-1.79%
+2025-06-03 12:28:38,636 [F5] [INFO] [BACKTEST] KRW-TAIKO entries=1004 win_rate=72.31% avg_roi=-0.0001 sharpe=-1.90 mdd=-15.13%
+2025-06-03 12:28:39,779 [F5] [INFO] [BACKTEST] KRW-TOKAMAK entries=1402 win_rate=72.25% avg_roi=-0.0001 sharpe=-2.29 mdd=-28.97%
+2025-06-03 12:28:40,406 [F5] [INFO] [BACKTEST] KRW-TRUMP entries=284 win_rate=88.73% avg_roi=0.0014 sharpe=15.54 mdd=-1.89%
+2025-06-03 12:28:41,004 [F5] [INFO] [BACKTEST] KRW-USDT entries=9 win_rate=100.00% avg_roi=0.0010 sharpe=0.00 mdd=0.00%
+2025-06-03 12:28:42,078 [F5] [INFO] [BACKTEST] KRW-UXLINK entries=1097 win_rate=62.63% avg_roi=-0.0005 sharpe=-8.44 mdd=-43.85%
+2025-06-03 12:28:42,963 [F5] [INFO] [BACKTEST] KRW-VANA entries=1161 win_rate=65.63% avg_roi=-0.0004 sharpe=-6.72 mdd=-35.93%
+2025-06-03 12:28:43,690 [F5] [INFO] [BACKTEST] KRW-VIRTUAL entries=1109 win_rate=72.23% avg_roi=-0.0001 sharpe=-2.03 mdd=-21.16%
+2025-06-03 12:28:44,437 [F5] [INFO] [BACKTEST] KRW-WAVES entries=943 win_rate=67.34% avg_roi=-0.0003 sharpe=-5.02 mdd=-25.08%
+2025-06-03 12:28:45,033 [F5] [INFO] [BACKTEST] KRW-WCT entries=1441 win_rate=71.96% avg_roi=-0.0001 sharpe=-2.57 mdd=-23.17%
+2025-06-03 12:28:45,398 [F5] [INFO] [BACKTEST] KRW-XRP entries=151 win_rate=94.70% avg_roi=0.0008 sharpe=10.81 mdd=-0.50%

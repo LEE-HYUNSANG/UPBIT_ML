@@ -2,5 +2,13 @@
   "KRW-LAYER": {
     "TP_PCT": 0.2,
     "SL_PCT": 0.2
+  },
+  "KRW-CBK": {
+    "TP_PCT": 0.3,
+    "SL_PCT": 0.2
+  },
+  "KRW-NEAR": {
+    "TP_PCT": 0.3,
+    "SL_PCT": 0.2
   }
 }
