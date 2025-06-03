@@ -34,13 +34,29 @@ if not logger.handlers:
 def _load_buy_list(path: Path) -> list:
     if not path.exists():
         return []
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        if isinstance(data, list):
-            return data
-    except Exception as exc:  # pragma: no cover - best effort
-        log_with_tag(logger, f"Failed to load buy list: {exc}")
+
+    for attempt in range(2):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                return data
+            break
+        except PermissionError as exc:  # pragma: no cover - permission issues
+            if attempt == 0:
+                try:
+                    path.chmod(0o644)
+                    continue
+                except Exception as perm_exc:
+                    log_with_tag(
+                        logger,
+                        f"Failed to fix permissions for buy list: {perm_exc}",
+                    )
+            log_with_tag(logger, f"Failed to load buy list: {exc}")
+            break
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to load buy list: {exc}")
+            break
     return []
 
 
