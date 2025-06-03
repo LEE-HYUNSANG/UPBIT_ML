@@ -38,3 +38,29 @@ def test_cleanup_stale_positions(tmp_path, monkeypatch):
     with open(pos_file, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert len(data) == 1 and data[0]["symbol"] == "KRW-XRP"
+
+
+class SmallBalanceClient(DummyClient):
+    def get_accounts(self):
+        return [
+            {"currency": "SUI", "balance": "0.5", "avg_buy_price": "1000", "unit_currency": "KRW"},
+            {"currency": "KRW", "balance": "100000", "avg_buy_price": "1", "unit_currency": "KRW"},
+        ]
+
+
+def test_cleanup_when_no_holdings(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: SmallBalanceClient())
+    pos_file = tmp_path / "pos.json"
+    with open(pos_file, "w", encoding="utf-8") as f:
+        json.dump([
+            {"symbol": "KRW-CBK", "status": "open", "entry_price": 700, "qty": 10},
+        ], f)
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": str(pos_file),
+    }
+    pm = PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    assert len(pm.positions) == 0
+    with open(pos_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert data == []
