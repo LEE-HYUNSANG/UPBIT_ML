@@ -56,7 +56,7 @@ flowchart TD
 
 ## 5. F5 ML 파이프라인
 - **역할**: 대량의 과거 데이터를 이용해 LightGBM 모델을 학습하고 백테스트 결과로 우수 전략을 선별합니다.
-- **주요 파일**: `f5_ml_pipeline/00_yesterday_1min_data.py` ~ `10_select_best_strategies.py`, `f5_ml_pipeline/run_pipeline.py`
+- **주요 파일**: `f5_ml_pipeline/00_72h_1min_data.py` ~ `10_select_best_strategies.py`, `f5_ml_pipeline/run_pipeline.py`
 - **데이터 경로**: `f5_ml_pipeline/ml_data/` 하위 폴더에 단계별 데이터가 저장됩니다.
 - **로그**: 각 단계별로 `logs/F5_<step>.log` 형식의 파일이 생성됩니다.
 
