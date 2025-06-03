@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List
 import tempfile
+import shutil
 
 import pandas as pd
 import requests
@@ -16,11 +17,13 @@ import requests
 from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file, setup_logger
 BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
-DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
+DATA_ROOT = PIPELINE_ROOT / "ml_data" / "00_72h_1min_data"
+RAW_DATA_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
+SELECTED_FILE = PIPELINE_ROOT / "ml_data" / "10_selected" / "selected_strategies.json"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
-LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_yesterday_collect.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "00_72h_1min_data.log"
 CANDLE_LIMIT = 4320
 
 
@@ -127,6 +130,9 @@ def save_data(df: pd.DataFrame, market: str, root: Path = DATA_ROOT) -> None:
 def collect_all(markets: Iterable[str]) -> None:
     """Collect 72h history for all markets."""
     ensure_dir(DATA_ROOT)
+    for old in DATA_ROOT.glob("*"):
+        if old.is_file():
+            old.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_root = Path(tmpdir)
         collected: List[str] = []
@@ -152,6 +158,39 @@ def collect_all(markets: Iterable[str]) -> None:
                 save_data(df, market, root=DATA_ROOT)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error("Finalize error %s: %s", file.name, exc)
+
+    refresh_raw_data_if_needed()
+
+
+def refresh_raw_data_if_needed() -> None:
+    """If too few coins are selected, copy data to ``01_raw``."""
+    try:
+        with open(SELECTED_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            count = len(data)
+        else:
+            count = 0
+    except FileNotFoundError:
+        logging.warning("Selected strategies file not found: %s", SELECTED_FILE)
+        return
+    except Exception as exc:
+        logging.error("Failed reading %s: %s", SELECTED_FILE, exc)
+        return
+
+    if count <= 5:
+        logging.info("Selected coin count %d <= 5 - refreshing 01_raw", count)
+        ensure_dir(RAW_DATA_DIR)
+        for old in RAW_DATA_DIR.glob("*"):
+            if old.is_file():
+                old.unlink(missing_ok=True)
+        for src in DATA_ROOT.glob("*"):
+            if src.is_file():
+                dst = RAW_DATA_DIR / src.name
+                try:
+                    shutil.copy2(src, dst)
+                except Exception as exc:
+                    logging.error("Copy failed %s -> %s: %s", src.name, dst.name, exc)
 
 
 
