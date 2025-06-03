@@ -247,6 +247,25 @@ class PositionManager:
                 "\n".join(lines), "info", "system_start_stop"
             )
 
+        # remove symbols from realtime sell list that are not held
+        try:
+            sell_cfg = _load_json_dict(self.sell_config_path)
+            held = {
+                p.get("symbol")
+                for p in self.positions
+                if p.get("status") == "open"
+            }
+            removed = False
+            for sym in list(sell_cfg.keys()):
+                if sym not in held:
+                    del sell_cfg[sym]
+                    removed = True
+                    log_with_tag(logger, f"Removed stale sell entry for {sym}")
+            if removed:
+                _save_json(self.sell_config_path, sell_cfg)
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to clean sell list: {exc}")
+
     def refresh_positions(self) -> None:
         """Update price and PnL information for all open positions."""
         open_syms = [p.get("symbol") for p in self.positions if p.get("status") in ("open", "pending")]
