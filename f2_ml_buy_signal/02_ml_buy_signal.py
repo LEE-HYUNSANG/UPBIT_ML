@@ -20,7 +20,8 @@ LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
 def setup_logger() -> None:
     """Configure basic logger."""
-    LOG_PATH.parent.mkdir(exist_ok=True)
+    # Ensure the logs directory exists even if the entire tree was removed.
+    LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     ensure_utf8_stdout()
     logging.basicConfig(
         level=logging.INFO,
