@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-NEAR",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.17748019615239533,
+  "row_count": 5302,
+  "label1_count": 941,
+  "label2_count": 0,
+  "label-1_count": 1770,
+  "label0_count": 2591
+}

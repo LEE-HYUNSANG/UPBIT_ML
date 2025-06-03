@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-XRP",
+  "thresh_pct": 0.002,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.12087658592848904,
+  "row_count": 4335,
+  "label1_count": 524,
+  "label2_count": 0,
+  "label-1_count": 514,
+  "label0_count": 3297
+}

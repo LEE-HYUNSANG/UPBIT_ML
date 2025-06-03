@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-ME",
+  "thresh_pct": 0.002,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.3567712703473737,
+  "row_count": 5959,
+  "label1_count": 2126,
+  "label2_count": 0,
+  "label-1_count": 1870,
+  "label0_count": 1963
+}

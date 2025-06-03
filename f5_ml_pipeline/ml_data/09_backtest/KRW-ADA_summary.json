@@ -1,0 +1,16 @@
+{
+  "total_entries": 311,
+  "tp_count": 253,
+  "trail_count": 0,
+  "sl_count": 58,
+  "hold_count": 0,
+  "force_count": 0,
+  "win_rate": 0.8135048231511254,
+  "loss_rate": 0.1864951768488746,
+  "avg_roi": 0.001067524115755539,
+  "cum_roi": 0.33199999999997265,
+  "sharpe": 9.666605975817758,
+  "mdd": -0.02574198210333502,
+  "avg_roi_gross": 0.002067524115755539,
+  "cum_roi_gross": 0.6429999999999727
+}

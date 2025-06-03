@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-NEO",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.1602415234556433,
+  "row_count": 6459,
+  "label1_count": 1035,
+  "label2_count": 0,
+  "label-1_count": 1837,
+  "label0_count": 3587
+}

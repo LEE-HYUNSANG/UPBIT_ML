@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-TRUMP",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.1690450054884742,
+  "row_count": 4555,
+  "label1_count": 770,
+  "label2_count": 0,
+  "label-1_count": 1245,
+  "label0_count": 2540
+}

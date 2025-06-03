@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-TOKAMAK",
+  "thresh_pct": 0.002,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.28385208832136205,
+  "row_count": 11277,
+  "label1_count": 3201,
+  "label2_count": 0,
+  "label-1_count": 2393,
+  "label0_count": 5683
+}

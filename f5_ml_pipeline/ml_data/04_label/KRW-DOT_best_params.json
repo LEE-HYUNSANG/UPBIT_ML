@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-DOT",
+  "thresh_pct": 0.003,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.11271019542493561,
+  "row_count": 6601,
+  "label1_count": 744,
+  "label2_count": 0,
+  "label-1_count": 1580,
+  "label0_count": 4277
+}

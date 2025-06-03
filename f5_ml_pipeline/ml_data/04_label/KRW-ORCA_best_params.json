@@ -1,0 +1,13 @@
+{
+  "symbol": "KRW-ORCA",
+  "thresh_pct": 0.002,
+  "loss_pct": 0.002,
+  "trail_start_pct": null,
+  "trail_down_pct": null,
+  "support": 0.5121100561906607,
+  "row_count": 5161,
+  "label1_count": 2643,
+  "label2_count": 0,
+  "label-1_count": 1813,
+  "label0_count": 705
+}

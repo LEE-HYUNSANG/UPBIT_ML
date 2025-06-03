@@ -1,0 +1,275 @@
+[
+  {
+    "symbol": "KRW-APT",
+    "win_rate": 0.8926553672316384,
+    "avg_roi": 0.0014632768361580956,
+    "sharpe": 17.78795601188021,
+    "max_drawdown": 0.010980815656074472,
+    "total_entries": 354,
+    "params": {
+      "symbol": "KRW-APT",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.16206261510128914,
+      "row_count": 7059,
+      "label1_count": 1144,
+      "label2_count": 0,
+      "label-1_count": 1912,
+      "label0_count": 4003
+    }
+  },
+  {
+    "symbol": "KRW-NEAR",
+    "win_rate": 0.8974358974358975,
+    "avg_roi": 0.0014871794871793883,
+    "sharpe": 16.198518450771203,
+    "max_drawdown": 0.01689127318654724,
+    "total_entries": 273,
+    "params": {
+      "symbol": "KRW-NEAR",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.17748019615239533,
+      "row_count": 5302,
+      "label1_count": 941,
+      "label2_count": 0,
+      "label-1_count": 1770,
+      "label0_count": 2591
+    }
+  },
+  {
+    "symbol": "KRW-XRP",
+    "win_rate": 0.9664429530201343,
+    "avg_roi": 0.0008657718120805369,
+    "sharpe": 14.670894868752717,
+    "max_drawdown": 0.00400198799099979,
+    "total_entries": 149,
+    "params": {
+      "symbol": "KRW-XRP",
+      "thresh_pct": 0.002,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.12087658592848904,
+      "row_count": 4335,
+      "label1_count": 524,
+      "label2_count": 0,
+      "label-1_count": 514,
+      "label0_count": 3297
+    }
+  },
+  {
+    "symbol": "KRW-TRUMP",
+    "win_rate": 0.864406779661017,
+    "avg_roi": 0.0013244925256501903,
+    "sharpe": 13.334002121159045,
+    "max_drawdown": 0.024790167901390804,
+    "total_entries": 295,
+    "params": {
+      "symbol": "KRW-TRUMP",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.1690450054884742,
+      "row_count": 4555,
+      "label1_count": 770,
+      "label2_count": 0,
+      "label-1_count": 1245,
+      "label0_count": 2540
+    }
+  },
+  {
+    "symbol": "KRW-STX",
+    "win_rate": 0.8625429553264605,
+    "avg_roi": 0.001312714776632209,
+    "sharpe": 13.006875901503594,
+    "max_drawdown": 0.012940090134433473,
+    "total_entries": 291,
+    "params": {
+      "symbol": "KRW-STX",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.17696992064956635,
+      "row_count": 5419,
+      "label1_count": 959,
+      "label2_count": 0,
+      "label-1_count": 1686,
+      "label0_count": 2774
+    }
+  },
+  {
+    "symbol": "KRW-AUCTION",
+    "win_rate": 0.8324607329842932,
+    "avg_roi": 0.0011623036649213746,
+    "sharpe": 12.165811979973153,
+    "max_drawdown": 0.020900124184580735,
+    "total_entries": 382,
+    "params": {
+      "symbol": "KRW-AUCTION",
+      "thresh_pct": 0.002,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.0,
+      "row_count": 1,
+      "label1_count": 0,
+      "label2_count": 0,
+      "label-1_count": 0,
+      "label0_count": 1
+    }
+  },
+  {
+    "symbol": "KRW-CTC",
+    "win_rate": 0.8181818181818182,
+    "avg_roi": 0.0011018589506244735,
+    "sharpe": 11.435096836866157,
+    "max_drawdown": 0.014925055732920193,
+    "total_entries": 396,
+    "params": {
+      "symbol": "KRW-CTC",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.14160997732426303,
+      "row_count": 8820,
+      "label1_count": 1249,
+      "label2_count": 0,
+      "label-1_count": 2249,
+      "label0_count": 5322
+    }
+  },
+  {
+    "symbol": "KRW-SUI",
+    "win_rate": 0.8434163701067615,
+    "avg_roi": 0.0012170818505337134,
+    "sharpe": 11.228164078983031,
+    "max_drawdown": 0.03454199364482855,
+    "total_entries": 281,
+    "params": {
+      "symbol": "KRW-SUI",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.1992405628769265,
+      "row_count": 4477,
+      "label1_count": 892,
+      "label2_count": 0,
+      "label-1_count": 1450,
+      "label0_count": 2135
+    }
+  },
+  {
+    "symbol": "KRW-LINK",
+    "win_rate": 0.8394160583941606,
+    "avg_roi": 0.0011970802919707097,
+    "sharpe": 10.79416033015944,
+    "max_drawdown": 0.01696505298631428,
+    "total_entries": 274,
+    "params": {
+      "symbol": "KRW-LINK",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.16286327286912425,
+      "row_count": 5127,
+      "label1_count": 835,
+      "label2_count": 0,
+      "label-1_count": 1734,
+      "label0_count": 2558
+    }
+  },
+  {
+    "symbol": "KRW-ONDO",
+    "win_rate": 0.8229508196721311,
+    "avg_roi": 0.001114754098360571,
+    "sharpe": 10.200585296275475,
+    "max_drawdown": 0.013947873209106405,
+    "total_entries": 305,
+    "params": {
+      "symbol": "KRW-ONDO",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.1792717086834734,
+      "row_count": 4641,
+      "label1_count": 832,
+      "label2_count": 0,
+      "label-1_count": 1433,
+      "label0_count": 2376
+    }
+  },
+  {
+    "symbol": "KRW-ADA",
+    "win_rate": 0.8135048231511254,
+    "avg_roi": 0.001067524115755539,
+    "sharpe": 9.666605975817758,
+    "max_drawdown": 0.02574198210333502,
+    "total_entries": 311,
+    "params": {
+      "symbol": "KRW-ADA",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.19673577415086016,
+      "row_count": 4534,
+      "label1_count": 892,
+      "label2_count": 0,
+      "label-1_count": 1845,
+      "label0_count": 1797
+    }
+  },
+  {
+    "symbol": "KRW-NEO",
+    "win_rate": 0.7408536585365854,
+    "avg_roi": 0.0007042682926828468,
+    "sharpe": 5.821920862329453,
+    "max_drawdown": 0.02867933584068471,
+    "total_entries": 328,
+    "params": {
+      "symbol": "KRW-NEO",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.1602415234556433,
+      "row_count": 6459,
+      "label1_count": 1035,
+      "label2_count": 0,
+      "label-1_count": 1837,
+      "label0_count": 3587
+    }
+  },
+  {
+    "symbol": "KRW-DOT",
+    "win_rate": 0.7459016393442623,
+    "avg_roi": 0.0007295081967212291,
+    "sharpe": 5.234960057736073,
+    "max_drawdown": 0.033511738411730954,
+    "total_entries": 244,
+    "params": {
+      "symbol": "KRW-DOT",
+      "thresh_pct": 0.003,
+      "loss_pct": 0.002,
+      "trail_start_pct": null,
+      "trail_down_pct": null,
+      "support": 0.11271019542493561,
+      "row_count": 6601,
+      "label1_count": 744,
+      "label2_count": 0,
+      "label-1_count": 1580,
+      "label0_count": 4277
+    }
+  }
+]
