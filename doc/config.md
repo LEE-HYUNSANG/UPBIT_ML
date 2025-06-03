@@ -8,7 +8,8 @@ The descriptions below are written for planners who may be new to the project.
 ## f5_f1_monitoring_list.json
 List of coins selected by the **F5** machine learning pipeline. Each entry includes
 `symbol`, `thresh_pct` and `loss_pct`. The **F1** and **F2** modules
-load this file to know which coins should be monitored in real time.
+load this file to know which coins should be monitored in real time. This file
+is cleared whenever `app.py` starts.
 
 ## f1_f5_data_collection_list.json
 Coins that should be collected for ML training. The **F1** module maintains this list and the
@@ -26,13 +27,13 @@ conditions. Each entry contains `symbol`, `buy_signal`, `rsi_sel`, `trend_sel`,
 `buy_count` is 0 are considered for new orders. Once a buy is filled the count
 changes to 1 and this value is preserved on subsequent runs to prevent
 duplicate entries. The `pending` flag reflects whether an order for the symbol
-is currently being processed.
+is currently being processed. This file is cleared whenever `app.py` starts.
 
 ## f3_f3_realtime_sell_list.json
 Stores `thresh_pct` and `loss_pct` for each symbol after a buy order is filled.
 The values originate from `f5_f1_monitoring_list.json` and are consulted when
 placing sell orders. When a position is fully closed the corresponding symbol is
-removed from this file.
+removed from this file. This file is cleared whenever `app.py` starts.
 
 ## f4_f2_risk_settings.json
 This file has been removed. It previously stored legacy risk parameters such as stop percentages and trailing stop settings.
