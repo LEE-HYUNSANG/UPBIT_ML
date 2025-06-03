@@ -43,6 +43,8 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 2. `sell_signal`이 `True`이면 `PositionManager.execute_sell()`이 실행되어 시장가 주문을 보냅니다.
 3. 매수 주문이 체결되면 `OrderExecutor`가 `config/f3_f3_realtime_sell_list.json`에
    해당 코인의 익절(`TP_PCT`)과 손절(`SL_PCT`) 값을 기록합니다.
+   앱 시작 시 잔고에 존재하지 않는 심볼은 이 파일에서 자동으로 삭제되어
+   불필요한 매도 시도를 막습니다.
 4. `PositionManager`는 포지션 오픈 직후 익절가에 지정가 매도 주문을 넣습니다.
 5. `hold_loop()`는 매초 손익을 계산합니다. 손절 기준을 만족하면 미리 넣어둔
    익절 지정가 주문을 취소한 뒤 시장가로 청산합니다. 익절 기준 충족 시에는
