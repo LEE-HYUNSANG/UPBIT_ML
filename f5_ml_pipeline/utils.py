@@ -1,6 +1,7 @@
 """공용 유틸리티 함수 모음."""
 from datetime import datetime
 from pathlib import Path
+from contextlib import contextmanager
 from typing import Any
 
 
@@ -66,3 +67,31 @@ def ensure_dir(path: str | Path) -> Path:
     p = Path(path)
     p.mkdir(parents=True, exist_ok=True)
     return p
+
+
+try:  # pragma: no cover - platform dependent
+    import fcntl  # type: ignore
+except Exception:  # pragma: no cover - Windows
+    fcntl = None  # type: ignore
+    import msvcrt
+
+
+@contextmanager
+def file_lock(path: str | Path):
+    """Context manager providing an exclusive lock on ``path``."""
+    lock_path = Path(path)
+    fh = lock_path.open("w")
+    try:
+        if fcntl:
+            fcntl.flock(fh, fcntl.LOCK_EX)
+        else:  # pragma: no cover - Windows
+            msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+        yield fh
+    finally:
+        try:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+            else:  # pragma: no cover - Windows
+                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+        finally:
+            fh.close()
