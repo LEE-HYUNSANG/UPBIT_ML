@@ -6,3 +6,7 @@
 2025-06-03 12:16:53,280 [WEB] ERROR pipeline error: [Errno 13] Permission denied
 2025-06-03 12:22:04,818 [WEB] ERROR pipeline error: [Errno 13] Permission denied
 2025-06-03 12:28:33,745 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-03 12:33:46,675 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-03 12:40:08,556 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-03 12:45:24,066 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-03 12:45:47,563 [WEB] ERROR pipeline error: [Errno 13] Permission denied
