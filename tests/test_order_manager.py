@@ -13,7 +13,6 @@ def make_pm(tmp_path, monkeypatch=None):
     cfg = {
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "TP_PCT": 1.0,
-        "SL_PCT": 1.0,
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
         "PYR_ENABLED": False,
         "AVG_ENABLED": False,
@@ -185,14 +184,13 @@ def test_stop_loss_cancels_tp_order(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     sell_cfg = tmp_path / "sell.json"
     with open(sell_cfg, "w", encoding="utf-8") as f:
-        json.dump({"KRW-BTC": {"TP_PCT": 1.0, "SL_PCT": 1.0}}, f)
+        json.dump(["KRW-BTC"], f)
     pm = PositionManager(
         {
             "DB_PATH": os.path.join(tmp_path, "orders.db"),
             "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
             "SELL_LIST_PATH": str(sell_cfg),
             "TP_PCT": 1.0,
-            "SL_PCT": 1.0,
             "PYR_ENABLED": False,
             "AVG_ENABLED": False,
         },
@@ -203,7 +201,7 @@ def test_stop_loss_cancels_tp_order(tmp_path, monkeypatch):
     pos = pm.positions[0]
     pos["current_price"] = 98.0
     pm.hold_loop()
-    assert pm.client.cancelled == ["tp"]
+    assert pm.client.cancelled == []
 
 def test_tp_cancels_when_price_above_entry(tmp_path, monkeypatch):
     class DummyClient:
@@ -222,14 +220,13 @@ def test_tp_cancels_when_price_above_entry(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     sell_cfg = tmp_path / "sell.json"
     with open(sell_cfg, "w", encoding="utf-8") as f:
-        json.dump({"KRW-BTC": {"TP_PCT": 2.0, "SL_PCT": 1.0}}, f)
+        json.dump(["KRW-BTC"], f)
     pm = PositionManager(
         {
             "DB_PATH": os.path.join(tmp_path, "orders.db"),
             "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
             "SELL_LIST_PATH": str(sell_cfg),
             "TP_PCT": 2.0,
-            "SL_PCT": 1.0,
             "PYR_ENABLED": False,
             "AVG_ENABLED": False,
         },
@@ -260,14 +257,13 @@ def test_tp_kept_when_price_below_entry(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     sell_cfg = tmp_path / "sell.json"
     with open(sell_cfg, "w", encoding="utf-8") as f:
-        json.dump({"KRW-BTC": {"TP_PCT": 2.0, "SL_PCT": 1.0}}, f)
+        json.dump(["KRW-BTC"], f)
     pm = PositionManager(
         {
             "DB_PATH": os.path.join(tmp_path, "orders.db"),
             "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
             "SELL_LIST_PATH": str(sell_cfg),
             "TP_PCT": 2.0,
-            "SL_PCT": 1.0,
             "PYR_ENABLED": False,
             "AVG_ENABLED": False,
         },
@@ -296,14 +292,13 @@ def test_sell_removes_sell_list_entry(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
     sell_cfg = tmp_path / "sell.json"
     with open(sell_cfg, "w", encoding="utf-8") as f:
-        json.dump({"KRW-BTC": {"TP_PCT": 1.0, "SL_PCT": 1.0}}, f)
+        json.dump(["KRW-BTC"], f)
     pm = PositionManager(
         {
             "DB_PATH": os.path.join(tmp_path, "orders.db"),
             "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
             "SELL_LIST_PATH": str(sell_cfg),
             "TP_PCT": 1.0,
-            "SL_PCT": 1.0,
             "PYR_ENABLED": False,
             "AVG_ENABLED": False,
         },
@@ -348,7 +343,6 @@ def test_no_tp_order_when_tp_zero(tmp_path, monkeypatch):
             "DB_PATH": os.path.join(tmp_path, "orders.db"),
             "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
             "TP_PCT": 0,
-            "SL_PCT": 1.0,
             "PYR_ENABLED": False,
             "AVG_ENABLED": False,
         },

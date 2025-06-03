@@ -361,10 +361,13 @@ def run() -> List[str]:
                 existing_counts[sym] = it.get("buy_count", 0)
 
     sell_list_path = CONFIG_DIR / "f3_f3_realtime_sell_list.json"
-    sell_list = load_json(sell_list_path, default={})
-    if not isinstance(sell_list, dict):
-        sell_list = {}
+    sell_list = load_json(sell_list_path, default=[])
+    if not isinstance(sell_list, list):
+        sell_list = []
     logging.info("[RUN] existing sell_list=%s", sell_list)
+
+    for sym in sell_list:
+        existing_counts[sym] = 1
 
     results = []
     updated: List[dict] = []
