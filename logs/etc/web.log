@@ -154,3 +154,11 @@
 2025-06-04 07:34:27,320 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
 2025-06-04 07:34:32,446 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
 2025-06-04 07:36:35,553 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:42:29,071 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:50:04,358 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:51:14,683 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:53:33,890 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:53:49,373 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:53:56,963 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:12,167 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:23,436 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
