@@ -5,7 +5,11 @@ import sys
 from pathlib import Path
 import json
 from datetime import datetime
-import fcntl
+try:
+    import fcntl  # POSIX only
+except ImportError:  # pragma: no cover - Windows
+    fcntl = None  # type: ignore
+    import msvcrt
 from f3_order.exception_handler import ExceptionHandler
 
 _last_message = None
@@ -42,12 +46,32 @@ def _acquire_lock() -> object:
     LOCK_FILE.parent.mkdir(parents=True, exist_ok=True)
     fh = open(LOCK_FILE, "w")
     try:
-        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError:
+        if fcntl:
+            fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        else:  # pragma: no cover - Windows
+            msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+    except (BlockingIOError, OSError):
         print("Another pipeline run is in progress. Exiting.", flush=True)
-        fh.close()
+        if fcntl:
+            fh.close()
+        else:
+            try:
+                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+            finally:
+                fh.close()
         sys.exit(0)
     return fh
+
+
+def _release_lock(fh: object) -> None:
+    """Release the lock file handle."""
+    try:
+        if fcntl:
+            fcntl.flock(fh, fcntl.LOCK_UN)
+        else:  # pragma: no cover - Windows
+            msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+    finally:
+        fh.close()
 
 
 def run_step(step: str, index: int, total: int) -> None:
@@ -89,7 +113,7 @@ def main() -> None:
     except Exception:
         coins = None
     _send_once(handler, f"머신러닝 학습 종료] at {now} - selected_coinList: {coins if coins else 'None'}")
-    lock.close()
+    _release_lock(lock)
 
 
 if __name__ == "__main__":
