@@ -154,3 +154,25 @@
 2025-06-04 07:34:27,320 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
 2025-06-04 07:34:32,446 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
 2025-06-04 07:36:35,553 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:42:29,071 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:50:04,358 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:51:14,683 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 07:53:33,890 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:53:49,373 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:53:56,963 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:12,167 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:23,436 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:29,514 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:54:57,506 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:04,217 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:12,665 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:21,662 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:37,522 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:46,947 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:55:54,631 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:56:04,473 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:56:20,502 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:56:28,966 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 07:58:27,835 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 08:03:14,896 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 08:05:40,081 [WEB] ERROR buy signal error: [Errno 13] Permission denied
