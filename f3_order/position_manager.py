@@ -195,7 +195,7 @@ class PositionManager:
         for coin in accounts:
             if coin.get("currency") == "KRW":
                 continue
-            bal = float(coin.get("balance", 0))
+            bal = float(coin.get("balance", 0)) + float(coin.get("locked", 0))
             price = float(coin.get("avg_buy_price", 0))
             symbol = f"{coin.get('unit_currency', 'KRW')}-{coin.get('currency')}"
             acc_map[symbol] = (bal, price)
@@ -245,7 +245,7 @@ class PositionManager:
             }
             if bal > 0:
                 seen_all.add(symbol)
-            import_cond = eval_amt >= threshold or (bal > 0 and price <= 0)
+            import_cond = eval_amt >= threshold
             if import_cond:
                 seen_all.add(symbol)
                 exists = any(
@@ -339,10 +339,11 @@ class PositionManager:
             info = acc_map.get(sym, {})
             pos["avg_price"] = float(info.get("avg_buy_price", pos.get("entry_price") or 0))
             prev_qty = pos.get("qty", 0)
+            total_qty = float(info.get("balance", 0)) + float(info.get("locked", 0))
             if pos.get("status") == "pending":
-                qty = float(info.get("balance", 0))
+                qty = total_qty
             else:
-                qty = float(info.get("balance", pos.get("qty") or 0))
+                qty = total_qty if info else float(pos.get("qty") or 0)
             pos["qty"] = qty
             if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
