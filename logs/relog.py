@@ -1,7 +1,7 @@
+#!/usr/bin/env python3
 import os
 import shutil
 from pathlib import Path
-
 
 def clear_logs() -> None:
     """Delete all files and subdirectories under the logs folder."""
