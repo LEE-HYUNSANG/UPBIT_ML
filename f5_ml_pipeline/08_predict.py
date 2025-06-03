@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import joblib
 import pandas as pd
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 MODEL_DIR = PIPELINE_ROOT / "ml_data" / "06_models"
@@ -20,23 +19,6 @@ LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_predict.log"
 
 # 모델 저장 시 포함된 피처 목록을 우선 사용한다.
 IGNORE_COLS = {"timestamp"}
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 def predict_signal(symbol: str) -> None:
     """단일 심볼의 예측을 수행해 CSV로 저장."""
@@ -87,7 +69,7 @@ def main() -> None:
     ensure_dir(MODEL_DIR)
     ensure_dir(FEATURE_DIR)
     ensure_dir(PRED_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     for model_file in MODEL_DIR.glob("*_model.pkl"):
         symbol = model_file.stem.split("_")[0]

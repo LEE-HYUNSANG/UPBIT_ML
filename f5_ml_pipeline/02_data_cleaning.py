@@ -1,6 +1,5 @@
 """Convert raw 1 minute OHLCV files into cleaned Parquet files."""
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
@@ -29,7 +28,7 @@ def _aggregate_trades(df: pd.DataFrame) -> pd.DataFrame:
 
 RAW_EXTS = {".csv", ".xlsx", ".xls", ".parquet"}
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 # Raw data now contains only OHLCV files directly under ``01_raw``
 
@@ -38,24 +37,6 @@ RAW_DIR = PIPELINE_ROOT / "ml_data" / "01_raw"
 CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
 ROOT_DIR = PIPELINE_ROOT.parent
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_clean.log"
-
-
-def setup_logger() -> None:
-    """Configure rotating file logger."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 
 def _load_raw_file(path: Path) -> pd.DataFrame | None:
@@ -341,7 +322,7 @@ def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(RAW_DIR)
     ensure_dir(CLEAN_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     file_map: dict[str, List[Path]] = {}
     for file in RAW_DIR.rglob("*"):

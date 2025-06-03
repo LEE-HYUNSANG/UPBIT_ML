@@ -1,7 +1,6 @@
 """03_feature_engineering 단계 확장형 스크립트."""
 
 import logging
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import pandas as pd
@@ -9,31 +8,13 @@ import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from indicators import macd, mfi, adx, sma, vwap
 
-from utils import ensure_dir
+from utils import ensure_dir, setup_logger
 
 PIPELINE_ROOT = Path(__file__).resolve().parent
 CLEAN_DIR = PIPELINE_ROOT / "ml_data" / "02_clean"
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 ROOT_DIR = PIPELINE_ROOT.parent
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_feature.log"
-
-
-def setup_logger() -> None:
-    """로그 설정."""
-    ensure_dir(LOG_PATH.parent)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F5] [%(levelname)s] %(message)s",
-        handlers=[
-            RotatingFileHandler(
-                LOG_PATH,
-                encoding="utf-8",
-                maxBytes=50_000 * 1024,
-                backupCount=5,
-            )
-        ],
-        force=True,
-    )
 
 
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -286,7 +267,7 @@ def main() -> None:
     """실행 엔트리 포인트."""
     ensure_dir(CLEAN_DIR)
     ensure_dir(FEATURE_DIR)
-    setup_logger()
+    setup_logger(LOG_PATH)
 
     for file in CLEAN_DIR.glob("*.parquet"):
         process_file(file)
