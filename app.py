@@ -149,10 +149,6 @@ def init_sell_list_from_positions() -> None:
         if p.get("status") == "open"
     ]
     save_json(SELL_LIST_FILE, symbols)
-    sel = Path("f5_ml_pipeline/ml_data/10_selected/selected_strategies.json")
-    if sel.exists():
-        sel.unlink()
-
 
 def load_strategy_master() -> list:
     with open(STRATEGIES_MASTER_FILE, "r", encoding="utf-8") as f:
