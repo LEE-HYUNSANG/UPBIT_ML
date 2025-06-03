@@ -1,2 +1,14 @@
 {
+  "KRW-SUI": {
+    "TP_PCT": 0.3,
+    "SL_PCT": 0.2
+  },
+  "KRW-LINK": {
+    "TP_PCT": 0.3,
+    "SL_PCT": 0.2
+  },
+  "KRW-AUCTION": {
+    "TP_PCT": 0.3,
+    "SL_PCT": 0.2
+  }
 }

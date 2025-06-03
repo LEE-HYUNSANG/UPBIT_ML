@@ -1,0 +1,36 @@
+2025-06-03 23:58:42,939 [F2] [INFO] 모니터링 코인 리스트 로드: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:58:42,946 [F2] [INFO] Universe updated: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:58:42,959 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-03 23:58:42,962 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-03 23:58:42,963 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 23:58:42,963 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 23:58:42,964 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 23:58:42,965 [F2] [INFO] [RUN] existing buy_list=[]
+2025-06-03 23:58:42,966 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-03 23:58:42,968 [F2] [INFO] [RUN] cleared buy_list
+2025-06-03 23:58:42,968 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 23:58:42,968 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-03 23:58:42,971 [F2] [INFO] [F3] No buy candidates found
+2025-06-03 23:59:05,138 [F2] [INFO] ML 파일에서 로드한 Universe: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:59:05,143 [F2] [INFO] Universe updated: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:59:05,157 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-03 23:59:05,159 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-03 23:59:05,160 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 23:59:05,160 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 23:59:05,161 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 23:59:05,161 [F2] [INFO] [RUN] existing buy_list=[]
+2025-06-03 23:59:05,164 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-03 23:59:05,166 [F2] [INFO] [F3] Loaded credentials from env.json
+2025-06-03 23:59:05,169 [F2] [INFO] [RUN] cleared buy_list
+2025-06-03 23:59:05,170 [F2] [INFO] [RUN] finished. 0 coins to buy
+2025-06-03 23:59:05,171 [F2] [INFO] [F3] No buy candidates found
+2025-06-03 23:59:08,155 [F2] [INFO] ML 파일에서 로드한 Universe: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:59:08,160 [F2] [INFO] Universe updated: ['KRW-SUI', 'KRW-AUCTION', 'KRW-XRP', 'KRW-ONDO', 'KRW-APT', 'KRW-STX', 'KRW-CBK', 'KRW-NEAR', 'KRW-ADA', 'KRW-TRUMP', 'KRW-LINK', 'KRW-CTC']
+2025-06-03 23:59:08,170 [F2] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-03 23:59:08,171 [F2] [INFO] [RUN] starting buy signal scan
+2025-06-03 23:59:08,171 [F2] [INFO] [SETUP] DATA_ROOT=D:\UPBIT_ML\f2_ml_buy_signal\f2_data
+2025-06-03 23:59:08,172 [F2] [INFO] [SETUP] MODEL_DIR=D:\UPBIT_ML\f2_ml_buy_signal\f2_data\06_data
+2025-06-03 23:59:08,172 [F2] [INFO] [RUN] loaded f5_f1_monitoring_list.json: []
+2025-06-03 23:59:08,174 [F2] [INFO] [RUN] existing buy_list=[]
+2025-06-03 23:59:08,176 [F2] [INFO] [RUN] existing sell_list={}
+2025-06-03 23:59:08,176 [F2] [INFO] [F3] Loaded credentials from env.json
