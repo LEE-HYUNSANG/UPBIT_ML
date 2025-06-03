@@ -27,6 +27,9 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 
+# Base directory of the project for resolving configuration files
+ROOT_DIR = Path(__file__).resolve().parents[1]
+
 
 def _log_jsonl(path: str, data: dict) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -101,7 +104,7 @@ class PositionManager:
 
     def _reset_buy_count(self, symbol: str) -> None:
         """Set ``buy_count`` to 0 for the given symbol in the buy list."""
-        path = Path("config") / "f2_f2_realtime_buy_list.json"
+        path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
