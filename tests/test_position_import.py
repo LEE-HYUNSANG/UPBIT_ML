@@ -36,3 +36,19 @@ def test_import_existing_positions(tmp_path, monkeypatch):
     with open(cfg["POSITIONS_FILE"], "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data and data[0]["strategy"] == "imported"
+
+
+def test_import_cleans_sell_list(tmp_path, monkeypatch):
+    monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
+    sell = tmp_path / "sell.json"
+    with open(sell, "w", encoding="utf-8") as f:
+        json.dump({"KRW-CBK": {"TP_PCT": 1.0}, "KRW-XRP": {"TP_PCT": 1.0}}, f)
+    cfg = {
+        "DB_PATH": os.path.join(tmp_path, "orders.db"),
+        "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+        "SELL_LIST_PATH": str(sell),
+    }
+    PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
+    with open(sell, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    assert list(data.keys()) == ["KRW-XRP"]
