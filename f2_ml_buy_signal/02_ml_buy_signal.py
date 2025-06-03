@@ -12,6 +12,7 @@ else:  # pragma: no cover - avoid runtime dependency for type hints
 import importlib.util
 import json
 import logging
+from logging.handlers import RotatingFileHandler
 import sys
 import time
 from pathlib import Path
@@ -25,18 +26,25 @@ from common_utils import ensure_utf8_stdout
 
 LOG_PATH = PROJECT_ROOT / "logs" / "f2" / "f2_ml_buy_signal.log"
 
+logger = logging.getLogger("f2_ml_buy_signal")
+
 
 def setup_logger() -> None:
-    """Configure basic logger."""
-    # Ensure the logs directory exists even if the entire tree was removed.
+    """Configure dedicated logger for this module."""
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     ensure_utf8_stdout()
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [F2] [%(levelname)s] %(message)s",
-        handlers=[logging.StreamHandler(), logging.FileHandler(LOG_PATH)],
-        force=True,
-    )
+    if not logger.handlers:
+        fmt = logging.Formatter("%(asctime)s [F2] [%(levelname)s] %(message)s")
+        fh = RotatingFileHandler(
+            LOG_PATH, encoding="utf-8", maxBytes=100_000 * 1024, backupCount=1000
+        )
+        fh.setFormatter(fmt)
+        sh = logging.StreamHandler()
+        sh.setFormatter(fmt)
+        logger.addHandler(fh)
+        logger.addHandler(sh)
+        logger.setLevel(logging.INFO)
+        logger.propagate = False
 
 
 setup_logger()
@@ -49,7 +57,7 @@ try:
     from sklearn.linear_model import LogisticRegression
     import joblib
 except ImportError as exc:  # pragma: no cover - dependency missing at runtime
-    logging.exception("Required dependency missing: %s", exc)
+    logger.exception("Required dependency missing: %s", exc)
     pd = None  # type: ignore
     LogisticRegression = object  # type: ignore
     joblib = None  # type: ignore
@@ -109,16 +117,16 @@ def cleanup_data_dir() -> None:
     if DATA_ROOT.exists():
         try:
             shutil.rmtree(DATA_ROOT)
-            logging.info("[CLEANUP] removed %s", DATA_ROOT)
+            logger.info("[CLEANUP] removed %s", DATA_ROOT)
         except Exception:
-            logging.warning("[CLEANUP] failed to remove %s", DATA_ROOT)
+            logger.warning("[CLEANUP] failed to remove %s", DATA_ROOT)
 
 
 
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
     """Fetch recent OHLCV data with retries."""
-    logging.info("[FETCH] %s count=%d", symbol, count)
+    logger.info("[FETCH] %s count=%d", symbol, count)
     try:
         import pyupbit  # type: ignore
     except Exception:
@@ -129,18 +137,18 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
             df = pyupbit.get_ohlcv(symbol, interval="minute1", count=count)
             if df is not None:
                 df = df.reset_index().rename(columns={"index": "timestamp"})
-                logging.info("[FETCH] %s rows=%d", symbol, len(df))
+                logger.info("[FETCH] %s rows=%d", symbol, len(df))
                 ensure_dir(RAW_DIR)
                 out_path = RAW_DIR / f"{symbol}.parquet"
                 try:
                     df.to_parquet(out_path, index=False)
-                    logging.info("[FETCH] saved %s", out_path.name)
+                    logger.info("[FETCH] saved %s", out_path.name)
                 except Exception:
-                    logging.warning("[FETCH] save failed %s", out_path.name)
+                    logger.warning("[FETCH] save failed %s", out_path.name)
                 return df
         except Exception:
             time.sleep(0.2)
-    logging.warning("[FETCH] %s failed", symbol)
+    logger.warning("[FETCH] %s failed", symbol)
     return DataFrame()  # type: ignore
 
 
@@ -194,12 +202,12 @@ def _train_predict(df: DataFrame, symbol: str) -> bool:
         out = SPLIT_DIR / f"{symbol}_{part}.parquet"
         try:
             data.to_parquet(out, index=False)
-            logging.info("[SPLIT] saved %s", out.name)
+            logger.info("[SPLIT] saved %s", out.name)
         except Exception:
-            logging.warning("[SPLIT] save failed %s", out.name)
+            logger.warning("[SPLIT] save failed %s", out.name)
 
     if train_df.empty or train_df["label"].nunique() < 2:
-        logging.info("[TRAIN] %s skipped due to insufficient data", symbol)
+        logger.info("[TRAIN] %s skipped due to insufficient data", symbol)
         return False
 
     X = train_df[features]
@@ -211,13 +219,13 @@ def _train_predict(df: DataFrame, symbol: str) -> bool:
     model_path = MODEL_DIR / f"{symbol}_model.pkl"
     try:
         joblib.dump(model, model_path)
-        logging.info("[TRAIN] saved model %s", model_path.name)
+        logger.info("[TRAIN] saved model %s", model_path.name)
     except Exception:
-        logging.warning("[TRAIN] save failed %s", model_path.name)
+        logger.warning("[TRAIN] save failed %s", model_path.name)
 
     last_row = df.iloc[[-1]][features]
     prob = model.predict_proba(last_row)[0][1]
-    logging.info("[PREDICT] prob=%.4f", prob)
+    logger.info("[PREDICT] prob=%.4f", prob)
     return prob > 0.5
 
 
@@ -227,41 +235,41 @@ def run_pipeline_for_symbol(symbol: str) -> None:
     try:
         P01.collect_once([symbol])
     except Exception:
-        logging.exception("[PIPELINE] data_collect failed for %s", symbol)
+        logger.exception("[PIPELINE] data_collect failed for %s", symbol)
 
     raw_file = P01.DATA_ROOT / f"{symbol}_rawdata.parquet"
     try:
         P02.clean_symbol([raw_file], P02.CLEAN_DIR)
     except Exception:
-        logging.exception("[PIPELINE] data_cleaning failed for %s", symbol)
+        logger.exception("[PIPELINE] data_cleaning failed for %s", symbol)
 
     clean_file = P02.CLEAN_DIR / f"{symbol}_clean.parquet"
     try:
         P03.process_file(clean_file)
     except Exception:
-        logging.exception("[PIPELINE] feature_engineering failed for %s", symbol)
+        logger.exception("[PIPELINE] feature_engineering failed for %s", symbol)
 
     feature_file = P03.FEATURE_DIR / f"{symbol}_feature.parquet"
     try:
         P04.process_file(feature_file)
     except Exception:
-        logging.exception("[PIPELINE] labeling failed for %s", symbol)
+        logger.exception("[PIPELINE] labeling failed for %s", symbol)
 
     label_file = P04.LABEL_DIR / f"{symbol}_label.parquet"
     try:
         P05.process_file(label_file, 0.7, 0.2)
     except Exception:
-        logging.exception("[PIPELINE] split failed for %s", symbol)
+        logger.exception("[PIPELINE] split failed for %s", symbol)
 
     try:
         P06.train_and_eval(symbol)
     except Exception:
-        logging.exception("[PIPELINE] train failed for %s", symbol)
+        logger.exception("[PIPELINE] train failed for %s", symbol)
 
     try:
         P08.predict_signal(symbol)
     except Exception:
-        logging.exception("[PIPELINE] predict failed for %s", symbol)
+        logger.exception("[PIPELINE] predict failed for %s", symbol)
 
 
 def _load_model(symbol: str):
@@ -269,7 +277,7 @@ def _load_model(symbol: str):
     try:
         return joblib.load(model_path)
     except Exception:
-        logging.warning("[CHECK] model not found for %s", symbol)
+        logger.warning("[CHECK] model not found for %s", symbol)
         return None
 
 
@@ -289,7 +297,7 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
     try:
         df = P03.add_features(df)
     except Exception:
-        logging.exception("[CHECK] feature engineering failed for %s", symbol)
+        logger.exception("[CHECK] feature engineering failed for %s", symbol)
         return False, False, False
 
     features = getattr(model, "feature_names_in_", None)
@@ -305,7 +313,7 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
 
     last_row = df.iloc[[-1]][list(features)]
     prob = model.predict_proba(last_row)[0][1]
-    logging.info("[CHECK] %s prob=%.4f", symbol, prob)
+    logger.info("[CHECK] %s prob=%.4f", symbol, prob)
     buy = prob > 0.5
 
     indicators = f2_buy_indicator.add_basic_indicators(df)
@@ -316,13 +324,13 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
 
 def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
     if df.empty or len(df) < 30:
-        logging.info("[CHECK_DF] insufficient rows")
+        logger.info("[CHECK_DF] insufficient rows")
         return False
     df = _clean_df(df)
     df = _add_features(df)
     df = _label(df)
     if df.empty:
-        logging.info("[CHECK_DF] no labeled rows")
+        logger.info("[CHECK_DF] no labeled rows")
         return False
     result = _train_predict(df, symbol)
     cleanup_data_dir()
@@ -331,12 +339,12 @@ def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
 
 def run() -> List[str]:
     if DEPS_MISSING:
-        logging.warning("[RUN] dependencies missing; skipping scan")
+        logger.warning("[RUN] dependencies missing; skipping scan")
         return []
 
-    logging.info("[RUN] starting buy signal scan")
-    logging.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
-    logging.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
+    logger.info("[RUN] starting buy signal scan")
+    logger.info("[SETUP] DATA_ROOT=%s", DATA_ROOT)
+    logger.info("[SETUP] MODEL_DIR=%s", MODEL_DIR)
     try:
         with open(CONFIG_DIR / "f5_f1_monitoring_list.json", "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -351,16 +359,16 @@ def run() -> List[str]:
                     coins.append(sym)
         else:
             coins = []
-        logging.info("[RUN] loaded f5_f1_monitoring_list.json: %s", coins)
+        logger.info("[RUN] loaded f5_f1_monitoring_list.json: %s", coins)
     except Exception:
         coins = []
-        logging.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
+        logger.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
     buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
     buy_list = load_json(buy_list_path, default=[])
     if not isinstance(buy_list, list):
         buy_list = []
-    logging.info("[RUN] existing buy_list=%s", buy_list)
+    logger.info("[RUN] existing buy_list=%s", buy_list)
     existing_counts = {}
     pending_set = set()
     for it in buy_list:
@@ -383,7 +391,7 @@ def run() -> List[str]:
     sell_list = load_json(sell_list_path, default=[])
     if not isinstance(sell_list, list):
         sell_list = []
-    logging.info("[RUN] existing sell_list=%s", sell_list)
+    logger.info("[RUN] existing sell_list=%s", sell_list)
 
     for sym in sell_list:
         existing_counts[sym] = 1
@@ -402,7 +410,7 @@ def run() -> List[str]:
         if not sym:
             continue
         buy, rsi_flag, trend_flag = check_buy_signal(sym)
-        logging.info("[%s] buy=%s rsi=%s trend=%s", sym, buy, rsi_flag, trend_flag)
+        logger.info("[%s] buy=%s rsi=%s trend=%s", sym, buy, rsi_flag, trend_flag)
         final = int(buy and rsi_flag and trend_flag)
         updated.append({
             "symbol": sym,
@@ -418,10 +426,10 @@ def run() -> List[str]:
 
     save_json(buy_list_path, updated)
     if updated:
-        logging.info("[RUN] saved buy_list=%s", updated)
+        logger.info("[RUN] saved buy_list=%s", updated)
     else:
-        logging.info("[RUN] cleared buy_list")
-    logging.info("[RUN] finished. %d coins to buy", len(results))
+        logger.info("[RUN] cleared buy_list")
+    logger.info("[RUN] finished. %d coins to buy", len(results))
     cleanup_data_dir()
     return results
 
@@ -429,13 +437,13 @@ def run() -> List[str]:
 def run_if_monitoring_list_exists() -> List[str]:
     """Run :func:`run` only when monitoring list is present."""
     if DEPS_MISSING:
-        logging.warning("[RUN_IF] dependencies missing; skipping")
+        logger.warning("[RUN_IF] dependencies missing; skipping")
         return []
 
     path = CONFIG_DIR / "f5_f1_monitoring_list.json"
     if path.exists():
         return run()
-    logging.info("[RUN_IF] f5_f1_monitoring_list.json not found; skipping")
+    logger.info("[RUN_IF] f5_f1_monitoring_list.json not found; skipping")
     return []
 
 
