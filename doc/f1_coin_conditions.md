@@ -8,6 +8,7 @@
 - 24시간 거래대금(`acc_trade_price_24h`)이 `TRADE_VALUE_MIN` 이상이어야 합니다.
 
 스크립트 상단의 "Coin Conditions" 영역에서 값을 수정해 조건을 조정할 수 있습니다.
+`PRICE2_MIN` 과 `PRICE2_MAX`를 모두 0으로 설정하면 두 번째 가격 범위는 사용하지 않습니다.
 실행 방법은 다음과 같습니다.
 ```bash
 python f1_universe/01.coin_conditions.py

@@ -34,3 +34,22 @@ def test_select_coins_filters(tmp_path, monkeypatch):
     with open(out, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert data == ["KRW-AAA"]
+
+
+def test_price2_disabled(monkeypatch):
+    old_min, old_max = coin_cond.PRICE2_MIN, coin_cond.PRICE2_MAX
+    coin_cond.PRICE2_MIN = 0
+    coin_cond.PRICE2_MAX = 0
+
+    monkeypatch.setattr(coin_cond, "fetch_markets", lambda: ["KRW-AAA"])
+    monkeypatch.setattr(coin_cond, "fetch_candles", lambda market: [{}] * 6)
+    monkeypatch.setattr(
+        coin_cond,
+        "fetch_ticker",
+        lambda market: {"trade_price": 20000, "acc_trade_price_24h": 2_000_000_000},
+    )
+
+    coins = coin_cond.select_coins()
+    assert coins == []
+
+    coin_cond.PRICE2_MIN, coin_cond.PRICE2_MAX = old_min, old_max

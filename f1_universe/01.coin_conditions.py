@@ -22,10 +22,13 @@ PRICE2_MIN = 10000
 PRICE2_MAX = 33333
 TRADE_VALUE_MIN = 1400000000
 
+# PRICE2_MIN = 0 and PRICE2_MAX = 0 disables the second range
+
 BASE_URL = "https://api.upbit.com"
 ROOT_DIR = Path(__file__).resolve().parents[1]
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 LOG_FILE = ROOT_DIR / "logs" / "f1" / "coin_conditions.log"
+LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -93,9 +96,10 @@ def filter_coins(markets: List[str]) -> List[str]:
             continue
         price = float(ticker.get("trade_price", 0))
         volume = float(ticker.get("acc_trade_price_24h", 0))
-        in_range = (PRICE1_MIN <= price <= PRICE1_MAX) or (
-            PRICE2_MIN <= price <= PRICE2_MAX
-        )
+        use_price2 = not (PRICE2_MIN == 0 and PRICE2_MAX == 0)
+        in_range = PRICE1_MIN <= price <= PRICE1_MAX
+        if use_price2:
+            in_range = in_range or (PRICE2_MIN <= price <= PRICE2_MAX)
         if not in_range or volume < TRADE_VALUE_MIN:
             continue
         selected.append(market)
