@@ -49,7 +49,7 @@ root:
 ```bash
 python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
-Results are logged to `logs/f2_ml_buy_signal.log`. If a required package is
+Results are logged to `logs/f2/f2_ml_buy_signal.log`. If a required package is
 missing the error is also written to this log file.
 The `run()` function updates `config/f2_f2_realtime_buy_list.json`.
 The Flask scheduler automatically calls
