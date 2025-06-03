@@ -162,6 +162,8 @@ class PositionManager:
         """Immediately place a limit sell order for take profit."""
         cfg = _load_json_dict(self.sell_config_path)
         tp = cfg.get(position["symbol"], {}).get("TP_PCT", self.config.get("TP_PCT", 1.0))
+        if float(tp) <= 0:
+            return
         price = position["entry_price"] * (1 + float(tp) / 100)
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")

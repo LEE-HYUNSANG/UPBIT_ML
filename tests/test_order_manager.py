@@ -317,3 +317,46 @@ def test_sell_removes_sell_list_entry(tmp_path, monkeypatch):
     with open(sell_cfg, "r", encoding="utf-8") as f:
         data = json.load(f)
     assert "KRW-BTC" not in data
+
+
+def test_no_tp_order_when_tp_zero(tmp_path, monkeypatch):
+    class DummyClient:
+        def __init__(self):
+            self.orders = []
+
+        def place_order(self, *args, **kwargs):
+            self.orders.append(kwargs)
+            return {
+                "uuid": "1",
+                "state": "done",
+                "side": kwargs.get("side"),
+                "volume": kwargs.get("volume"),
+            }
+
+        def get_accounts(self):
+            return []
+
+        def ticker(self, markets):
+            return []
+
+    monkeypatch.setattr(
+        "f3_order.position_manager.UpbitClient", lambda: DummyClient()
+    )
+
+    pm = PositionManager(
+        {
+            "DB_PATH": os.path.join(tmp_path, "orders.db"),
+            "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
+            "TP_PCT": 0,
+            "SL_PCT": 1.0,
+            "PYR_ENABLED": False,
+            "AVG_ENABLED": False,
+        },
+        KPIGuard({}),
+        ExceptionHandler({"SLIP_MAX": 0.15}),
+    )
+
+    pm.open_position({"symbol": "KRW-BTC", "price": 100.0, "qty": 1.0})
+    client = pm.client
+    assert not client.orders
+    assert pm.tp_orders == {}
