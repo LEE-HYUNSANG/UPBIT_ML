@@ -13,6 +13,8 @@ class DummyClient:
         return {"state": "wait"}
     def cancel_order(self, uuid):
         self.canceled = True
+    def orderbook(self, markets):
+        return [{"orderbook_units": [{"bid_price": 10.0, "ask_price": 10.0}]}]
 
 class DummyPM:
     def __init__(self, *_, **__):

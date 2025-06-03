@@ -80,3 +80,21 @@ def test_cancel_order(monkeypatch):
     assert captured['path'] == '/v1/order'
     assert captured['params']['uuid'] == '123'
     assert resp['state'] == 'cancel'
+
+
+def test_orderbook(monkeypatch):
+    captured = {}
+
+    def fake_get(self, path, params=None):
+        captured['path'] = path
+        captured['params'] = params
+        return [{"orderbook_units": [{"bid_price": 1, "ask_price": 2}]}]
+
+    monkeypatch.setattr(UpbitClient, 'get', fake_get, raising=False)
+
+    client = UpbitClient('a', 'b')
+    data = client.orderbook(['KRW-XRP'])
+
+    assert captured['path'] == '/v1/orderbook'
+    assert captured['params']['markets'] == 'KRW-XRP'
+    assert data[0]['orderbook_units'][0]['ask_price'] == 2
