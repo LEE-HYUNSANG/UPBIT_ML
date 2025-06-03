@@ -1,6 +1,8 @@
 import json
 import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
+import os
 
 from f3_order.order_executor import (
     OrderExecutor,
@@ -13,6 +15,18 @@ from f3_order.utils import log_with_tag
 CONFIG_DIR = Path("config")
 
 logger = logging.getLogger("buy_list_executor")
+if not logger.handlers:
+    os.makedirs("logs/f2", exist_ok=True)
+    fh = RotatingFileHandler(
+        "logs/f2/buy_list_executor.log",
+        encoding="utf-8",
+        maxBytes=100_000 * 1024,
+        backupCount=1000,
+    )
+    fh.setFormatter(logging.Formatter("%(asctime)s [F2] %(message)s"))
+    logger.addHandler(fh)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
 
 
 def _load_buy_list(path: Path) -> list:
@@ -55,8 +69,9 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         targets = [
             b["symbol"]
             for b in buy_list
-            if b.get("buy_signal") == 1 and b.get("buy_count", 0) == 0
+            if int(b.get("buy_signal", 0)) == 1 and int(b.get("buy_count", 0)) == 0
         ]
+        log_with_tag(logger, f"Targets: {targets}")
         if not targets:
             log_with_tag(logger, "No buy candidates found")
             return []
@@ -70,12 +85,27 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
             prices = {
                 t["market"]: float(t.get("trade_price", 0)) for t in ticker_info
             }
+            log_with_tag(logger, f"Ticker prices: {prices}")
         except Exception as exc:  # pragma: no cover - network issues
             log_with_tag(logger, f"Failed to fetch ticker: {exc}")
 
+        missing_syms = [s for s in targets if s not in prices]
+        for sym in missing_syms:
+            try:
+                ob = client.orderbook([sym])
+                if ob:
+                    unit = ob[0].get("orderbook_units", [{}])[0]
+                    price = float(unit.get("bid_price", 0))
+                    if price > 0:
+                        prices[sym] = price
+                        log_with_tag(logger, f"Orderbook fallback price for {sym}: {price}")
+                        continue
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
+
         executed = []
         for item in buy_list:
-            if item.get("buy_signal") != 1:
+            if int(item.get("buy_signal", 0)) != 1:
                 continue
             symbol = item.get("symbol")
             price = prices.get(symbol)
@@ -99,6 +129,8 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
                     it["buy_count"] = 1
                     log_with_tag(logger, f"Updated buy_count for {symbol}")
                     break
+
+        log_with_tag(logger, f"Executed buys: {executed}")
 
         try:
             with open(buy_path, "w", encoding="utf-8") as f:

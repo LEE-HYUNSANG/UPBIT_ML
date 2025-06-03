@@ -20,7 +20,7 @@
 | `config/f4_f2_risk_settings.json` | 삭제된 파일로, 과거 기본 위험 관리 값이 들어 있었습니다. |
 
 로그는 `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
-`logs/F3_order_executor.log` 등에 남습니다.
+`logs/f2/buy_list_executor.log`, `logs/F3_order_executor.log` 등에 남습니다.
 
 ## 주요 함수
 
@@ -100,6 +100,8 @@ execute_buy_list()
 다중 프로세스 환경에서 중복 매수를 방지합니다.
 이를 통해 여러 프로세스가 동시에 업데이트하더라도 내용이 손상되거나 중복 주문이
 발생하지 않습니다.
+티커 조회에 실패하면 각 심볼의 주문호가 정보를 대신 조회해 가격을 계산하므로
+일시적인 네트워크 오류에도 주문이 가능한 구조입니다.
 
 매수가 체결되면 `OrderExecutor`는 `_update_realtime_sell_list()`를 호출해
 `f3_f3_realtime_sell_list.json`에 해당 심볼을 기록합니다. 이전에는 파일이 비어
