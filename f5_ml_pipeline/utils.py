@@ -83,6 +83,18 @@ def save_parquet_atomic(df: "pd.DataFrame", path: str | Path) -> None:
             tmp.unlink(missing_ok=True)
 
 
+def backup_file(path: str | Path, label: str = "corrupt") -> Path:
+    """Rename ``path`` to ``<name>.<label>.<timestamp>`` and return the new path."""
+    target = Path(path)
+    ts = datetime.now().strftime("%Y%m%d%H%M%S")
+    new_path = target.with_name(f"{target.stem}.{label}.{ts}{target.suffix}")
+    try:
+        target.replace(new_path)
+    except Exception:
+        return target
+    return new_path
+
+
 try:  # pragma: no cover - platform dependent
     import fcntl  # type: ignore
 except Exception:  # pragma: no cover - Windows
