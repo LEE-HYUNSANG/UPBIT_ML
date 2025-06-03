@@ -188,7 +188,7 @@ class PositionManager:
 
         imported = []
         ignored = []
-        seen = set()
+        seen_all = set()
         for coin in accounts:
             if coin.get("currency") == "KRW":
                 continue
@@ -203,6 +203,8 @@ class PositionManager:
                 "entry_price": price,
                 "eval_amt": eval_amt,
             }
+            if bal > 0:
+                seen_all.add(symbol)
             if eval_amt >= threshold:
                 seen.add(symbol)
                 exists = any(
@@ -226,12 +228,12 @@ class PositionManager:
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
             _log_jsonl("logs/etc/position_init.log", log_data)
 
-        if seen:
+        if seen_all:
             before = len(self.positions)
             self.positions = [
                 p
                 for p in self.positions
-                if p.get("status") != "open" or p.get("symbol") in seen
+                if p.get("status") != "open" or p.get("symbol") in seen_all
             ]
             if len(self.positions) != before:
                 self._persist_positions()
