@@ -258,15 +258,14 @@ class PositionManager:
                 ignored.append(f"{symbol}({int(eval_amt):,}원)")
             _log_jsonl("logs/etc/position_init.log", log_data)
 
-        if seen_all:
-            before = len(self.positions)
-            self.positions = [
-                p
-                for p in self.positions
-                if p.get("status") != "open" or p.get("symbol") in seen_all
-            ]
-            if len(self.positions) != before:
-                self._persist_positions()
+        before = len(self.positions)
+        self.positions = [
+            p
+            for p in self.positions
+            if p.get("status") != "open" or p.get("symbol") in seen_all
+        ]
+        if len(self.positions) != before:
+            self._persist_positions()
 
         if self.exception_handler and (imported or ignored):
             lines = ["[시스템] 시작 시 보유코인 점검 완료."]
