@@ -40,6 +40,7 @@ except ImportError as exc:  # pragma: no cover - dependency missing at runtime
 
 from indicators import ema, sma, rsi  # type: ignore
 from f5_ml_pipeline.utils import ensure_dir
+from common_utils import load_json, save_json
 try:
     spec = importlib.util.spec_from_file_location(
         "buy_indicator", Path(__file__).with_name("01_buy_indicator.py")
@@ -96,19 +97,6 @@ def cleanup_data_dir() -> None:
             logging.warning("[CLEANUP] failed to remove %s", DATA_ROOT)
 
 
-def _load_json(path: Path):
-    if not path.exists():
-        return {}
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return {}
-
-
-def _save_json(path: Path, data) -> None:
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> pd.DataFrame:
@@ -348,7 +336,7 @@ def run() -> List[str]:
         logging.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
     buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    buy_list = _load_json(buy_list_path)
+    buy_list = load_json(buy_list_path, default=[])
     if not isinstance(buy_list, list):
         buy_list = []
     logging.info("[RUN] existing buy_list=%s", buy_list)
@@ -360,7 +348,7 @@ def run() -> List[str]:
                 existing_counts[sym] = it.get("buy_count", 0)
 
     sell_list_path = CONFIG_DIR / "f3_f3_realtime_sell_list.json"
-    sell_list = _load_json(sell_list_path)
+    sell_list = load_json(sell_list_path, default={})
     if not isinstance(sell_list, dict):
         sell_list = {}
     logging.info("[RUN] existing sell_list=%s", sell_list)
@@ -392,7 +380,7 @@ def run() -> List[str]:
         if final:
             results.append(sym)
 
-    _save_json(buy_list_path, updated)
+    save_json(buy_list_path, updated)
     if updated:
         logging.info("[RUN] saved buy_list=%s", updated)
     else:

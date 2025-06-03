@@ -5,7 +5,6 @@ import json
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-import time
 
 logger = logging.getLogger("F3_utils")
 os.makedirs("logs", exist_ok=True)
@@ -61,9 +60,6 @@ def load_config(path):
         print(f"Config load error: {e}")
         return {}
 
-def now() -> float:
-    """Return current epoch timestamp in seconds as a float."""
-    return time.time()
 
 def log_with_tag(logger, msg):
     """ [F3] 태그 붙여 로그 기록 """

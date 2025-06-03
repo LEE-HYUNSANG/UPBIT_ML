@@ -2,23 +2,13 @@ import sys
 from pathlib import Path
 import os
 
-if __name__ == "__main__" and __package__ is None:
-    # Allow running this module directly by adding the package root to sys.path
-    sys.path.append(str(Path(__file__).resolve().parent.parent))
-    print("Running order_executor.py as a script. Import paths have been adjusted.")
-
 import logging
 from logging.handlers import RotatingFileHandler
 
-if __name__ == "__main__" and __package__ is None:
-    import sys
-    from pathlib import Path
-
-    sys.path.append(str(Path(__file__).resolve().parents[1]))
-
 from .smart_buy import smart_buy
 import threading
-from .position_manager import PositionManager, _load_json, _save_json
+from .position_manager import PositionManager
+from common_utils import load_json, save_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
 from .utils import load_config, log_with_tag, pretty_symbol
@@ -55,7 +45,7 @@ class OrderExecutor:
         )
         self.pending_symbols: set[str] = set()
         self._pending_lock = threading.Lock()
-        _save_json(self.pending_file, [])
+        save_json(self.pending_file, [])
         if self.risk_manager:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
@@ -99,7 +89,7 @@ class OrderExecutor:
 
     def _persist_pending(self) -> None:
         try:
-            _save_json(self.pending_file, list(self.pending_symbols))
+            save_json(self.pending_file, list(self.pending_symbols))
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to persist pending symbols: {exc}")
 
@@ -156,7 +146,7 @@ class OrderExecutor:
                 price = signal.get("price")
                 with self._pending_lock:
                     try:
-                        self.pending_symbols.update(_load_json(self.pending_file))
+                        self.pending_symbols.update(load_json(self.pending_file, default=[]))
                     except Exception:
                         pass
                     if symbol in self.pending_symbols:

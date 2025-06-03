@@ -7,12 +7,7 @@ from .risk_logger import RiskLogger
 from .risk_utils import RiskState, now
 import json
 import os
-import datetime
-
-
-def _now_kst():
-    tz = datetime.timezone(datetime.timedelta(hours=9))
-    return datetime.datetime.now(tz).isoformat(timespec="seconds")
+from common_utils import now_kst
 
 
 def _log_jsonl(path: str, data: dict) -> None:
@@ -24,7 +19,7 @@ def _log_jsonl(path: str, data: dict) -> None:
 
 def _log_fsm(from_state: RiskState, to_state: RiskState, reason: str) -> None:
     data = {
-        "time": _now_kst(),
+        "time": now_kst(),
         "event": "FSM Transition",
         "from": from_state.name,
         "to": to_state.name,

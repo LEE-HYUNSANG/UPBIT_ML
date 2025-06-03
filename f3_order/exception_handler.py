@@ -14,7 +14,7 @@ from .utils import log_with_tag, load_env
 from f6_setting.alarm_control import is_enabled, get_template
 import json
 import os
-import datetime
+from common_utils import now_kst
 
 logger = logging.getLogger("F3_exception_handler")
 os.makedirs("logs/f3", exist_ok=True)
@@ -28,11 +28,6 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
-
-
-def _now_kst():
-    tz = datetime.timezone(datetime.timedelta(hours=9))
-    return datetime.datetime.now(tz).isoformat(timespec="seconds")
 
 
 def _log_jsonl(path: str, data: dict) -> None:
@@ -55,7 +50,7 @@ class ExceptionHandler:
 
     def _log_event(self, data: dict) -> None:
         path = os.path.join("logs", "etc", "events.jsonl")
-        data["time"] = _now_kst()
+        data["time"] = now_kst()
         _log_jsonl(path, data)
 
     def send_alert(self, message: str, severity: str = "info", category: str = "system_alert") -> None:

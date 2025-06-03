@@ -15,7 +15,3 @@ def replay_trades(start_date: str, end_date: str, strategy_id: str, db_path: str
     conn.close()
 
 
-def run_integration_tests():
-    """Run pytest and return the exit code."""
-    import subprocess
-    return subprocess.call(["pytest", "-q"])  # pragma: no cover
