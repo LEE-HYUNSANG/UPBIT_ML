@@ -1,108 +1,86 @@
 # UPBIT AutoTrader HS
 
-This project contains utilities for building a trading universe and evaluating trading signals.
+UPBIT AutoTrader HS 프로젝트는 트레이딩 대상 코인을 선별하고 매수/매도 신호를 계산하는 도구 모음입니다.
 
-## Overview
-This project consists of four main components:
-- **F1 Universe Selector** gathers tradable tickers.
-- **F2 Signal Engine** analyzes OHLCV data and issues buy/sell signals.
-- **F3 Order Executor** manages orders and open positions.
-- **F4 Risk Manager** monitors drawdowns and can pause or halt trading.
+## 개요
+이 프로젝트는 네 개의 주요 모듈로 구성됩니다:
+- **F1 Universe Selector**: 거래 가능한 티커를 수집합니다.
+- **F2 Signal Engine**: OHLCV 데이터를 분석하여 매수/매도 신호를 생성합니다.
+- **F3 Order Executor**: 주문과 포지션을 관리합니다.
+- **F4 Risk Manager**: 손실 상황을 감시하고 일시 중지 또는 중단을 수행합니다.
 
-See the [doc](doc/) folder for more details.
-## Installation
-Install the required Python packages with:
+자세한 내용은 [doc](doc/) 폴더에서 확인하세요.
+
+## 설치 방법
+필요한 파이썬 패키지를 다음 명령으로 설치합니다.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This installs dependencies such as `pandas` and `scikit-learn` that are needed
-for the ML buy signal script.
+`pandas`, `scikit-learn` 등 ML 신호 스크립트에 필요한 의존성이 포함되어 있습니다. `tqdm`과 같은 모듈도 이 과정에서 설치됩니다.
 
-This ensures modules such as `tqdm` are available when running the pipeline scripts.
-The file also includes machine learning dependencies (`optuna`, `lightgbm` and
-`scikit-learn`) required for `f5_ml_pipeline/06_optuna_tpe.py`.
-## Universe cache
+`f5_ml_pipeline/06_optuna_tpe.py` 실행에 필요한 `optuna`, `lightgbm`도 같이 설치됩니다.
 
-The latest selected trading universe is saved to `config/current_universe.json`. It is written by `f1_universe.universe_selector.update_universe()` and loaded on startup via `load_universe_from_file()`.
+## 유니버스 캐시
+마지막으로 선택된 트레이딩 유니버스는 `config/current_universe.json`에 저장됩니다.
+이 파일은 `f1_universe.universe_selector.update_universe()`가 작성하며, 시작 시 `load_universe_from_file()`로 불러옵니다.
+외부 프로세스에서도 같은 유니버스를 사용할 수 있도록 공유됩니다.
 
-External processes such as `signal_loop.py` can use this file to share the same universe.
+## 주문호가 일괄 조회
+`f1_universe.universe_selector.apply_filters`는 최대 100개 티커의 호가 정보를 한 번에 받아와 API 호출 수를 줄입니다.
 
-## Orderbook batching
-
-`f1_universe.universe_selector.apply_filters` fetches orderbook data in batches of up to 100 tickers with a single API call per chunk. This reduces the number of requests sent to Upbit when building the universe.
-
-## Running `signal_loop.py`
-
-To start the F1/F2 signal loop, run:
+## `signal_loop.py` 실행
+F1/F2 루프를 시작하려면 다음 명령을 사용합니다.
 
 ```bash
 python signal_loop.py
 ```
 
-Logs are written to `logs/F1-F2_loop.log`.
-Each log file automatically rotates when it exceeds 100&nbsp;MB. Previous files
-are numbered sequentially as `*.1`, `*.2`, and so on.
-To run the standalone ML buy signal routine execute the module from the project
-root:
+로그는 `logs/F1-F2_loop.log`에 기록되며, 용량이 100MB를 넘으면 자동으로 회전합니다. 독립적인 ML 매수 신호 루틴을 실행하려면 프로젝트 루트에서 다음과 같이 실행하세요.
+
 ```bash
 python -m f2_ml_buy_signal.02_ml_buy_signal
 ```
-Results are logged to `logs/f2/f2_ml_buy_signal.log`. If a required package is
-missing the error is also written to this log file.
-The `run()` function updates `config/f2_f2_realtime_buy_list.json`.
-The Flask scheduler automatically calls
-`buy_list_executor.execute_buy_list()` after each run so any buy candidates are
-immediately ordered. You can still invoke this function manually if needed.
 
+결과는 `logs/f2/f2_ml_buy_signal.log`에 저장됩니다. 필요한 패키지가 없으면 이 로그 파일에 오류도 기록됩니다.
+`run()` 함수는 `config/f2_f2_realtime_buy_list.json`을 갱신하며
+ Flask 스케줄러가 자동으로 `buy_list_executor.execute_buy_list()`를 호출해 즉시 주문합니다.
 
-## Running the order executor
-
-For quick testing you may execute the order module directly:
+## 주문 모듈 실행
+빠른 테스트를 위해 직접 주문 모듈을 실행할 수 있습니다.
 
 ```bash
 python f3_order/order_executor.py
 ```
 
-When run this way the script prepends the project root to `sys.path` so the
-relative imports work. The recommended invocation in production is:
+또는 프로덕션 환경에서는 다음과 같이 모듈 형태로 실행하는 것을 권장합니다.
 
 ```bash
 python -m f3_order.order_executor
 ```
 
-Both methods start the default `OrderExecutor` instance which logs activity to
-`logs/F3_order_executor.log`.
+두 방법 모두 기본 `OrderExecutor` 인스턴스를 시작하며 결과는 `logs/F3_order_executor.log`에 기록됩니다.
 
-## Running the web dashboard
-
-Launch the Flask application with:
+## 웹 대시보드 실행
+Flask 애플리케이션을 실행하려면 다음 명령을 사용합니다.
 
 ```bash
 python app.py
 ```
 
-The server listens on port 3000 so you can visit `http://localhost:3000` in your browser.
+서버는 포트 3000에서 동작하며 `http://localhost:3000`으로 접속할 수 있습니다.
+서버 시작 시 다음 세 가지 백그라운드 작업이 실행됩니다.
+- `f5_ml_pipeline/01_data_collect.py` : 1분봉 OHLCV 데이터를 지속적으로 수집합니다.
+- `f2_ml_buy_signal/02_ml_buy_signal.py` : 15초마다 실시간 매수 목록을 갱신합니다.
+- `f5_ml_pipeline/run_pipeline.py` : 5분마다 모델을 재학습하고 평가합니다.
 
-When the server starts three background tasks are launched:
+## 자격 증명 설정
+프로그램을 사용하려면 Upbit API 키와 Telegram 봇 토큰이 필요합니다.
+ `f3_order.utils.load_env()`는 환경 변수 또는 `.env.json` 파일에서 값을 읽습니다.
+예시 파일이 리포지토리에 포함되어 있으므로, 실제 값이 담긴 `.env.json`을 Git에 올리지 않도록 주의하세요.
 
-- `f5_ml_pipeline/01_data_collect.py` continuously fetches 1‑minute OHLCV data.
-- `f2_ml_buy_signal/02_ml_buy_signal.py` runs every 15 seconds to update the real‑time buy list.
-- `f5_ml_pipeline/run_pipeline.py` executes every five minutes to retrain and evaluate models.
-
-
-## Credentials
-
-The application requires Upbit API keys and a Telegram bot token to operate.
-Credentials are loaded using `f3_order.utils.load_env()`. This function first
-checks the operating system's environment variables and then looks for a
-`.env.json` file if present. A template with placeholder values is included in
-the repository for reference.
-
-To keep your secrets out of version control, create an untracked `.env.json`
-file or set the following environment variables:
-
+`.env.json` 파일 내용 예시는 다음과 같습니다.
 ```json
 {
   "UPBIT_KEY": "<your key>",
@@ -111,80 +89,49 @@ file or set the following environment variables:
   "TELEGRAM_CHAT_ID": "<chat id>"
 }
 ```
+파일은 `app.py`와 같은 위치에 두고 `.gitignore`에 추가해 관리합니다.
 
-Place the file next to `app.py` and ensure it is ignored by Git using
-`.gitignore`.
+자격 증명 로딩 문제는 `logs/F3_utils.log`에서 확인할 수 있으며
+ 설정이 완료되면 주문 실행 시마다 간단한 Telegram 알림을 받습니다.
+ 자세한 내용은 [doc/telegram_notifications.md](doc/telegram_notifications.md)
+와 [doc/telegram_remote_control.md](doc/telegram_remote_control.md)를 참고하세요.
 
-Any issues loading credentials are recorded in `logs/F3_utils.log`.
+## 원격 제어
+거래 루프는 매 사이클마다 `server_status.txt`를 확인합니다. 기본 위치는 `remote_control.py`와 같은 폴더이며
+ 파일 내용이 `ON`이면 정상 실행되고 `OFF`이면 거래를 중지합니다. Telegram `/on` `/off` 명령으로도 이 파일을 업데이트할 수 있으며
+ `SERVER_STATUS_FILE` 환경 변수로 위치를 변경할 수 있습니다.
 
-When credentials are set, brief buy/sell notifications are sent through
-Telegram whenever orders are executed. See
-[doc/telegram_notifications.md](doc/telegram_notifications.md).
-Remote start/stop commands are documented in
-[doc/telegram_remote_control.md](doc/telegram_remote_control.md).
+`/api/auto_trade_status` 엔드포인트는 이 파일을 실시간으로 동기화합니다. `POST` 요청으로 상태를 변경하면 즉시 `server_status.txt`가 업데이트되어 재시작 없이 반영됩니다.
 
-Startup messages about credential loading are written to `logs/F3_utils.log`.
-Check this file if account queries fail to verify that API keys were detected.
+## F4 위험 관리 모듈
+F4 모듈은 드로우다운과 일일 손실, 실행 오류를 감시하며 상태 머신으로 동작합니다.
+- **ACTIVE** : 정상 거래 허용
+- **PAUSE** : 설정된 시간 동안 신규 진입 차단
+- **HALT** : 모든 포지션 청산 후 수동 재시작 전까지 중단
 
-## Remote control
+`pause()`, `halt()`, `disable_symbol()` 호출 시 관련 포지션을 자동으로 정리하고 `ExceptionHandler.send_alert()`를 통해 Telegram 알림을 보냅니다
+. 위험 이벤트는 `logs/risk_events.db`에 기록됩니다.
 
-The trading loop checks `server_status.txt` each cycle. This file is stored next to `remote_control.py` by default.
-When it contains `ON` the loop runs normally. Writing `OFF` stops trading but leaves the program running.
-You can edit the file manually or send `/on` and `/off` commands to the Telegram bot which updates the file.
-Set `SERVER_STATUS_FILE` to customize the location.
+매수 설정 파일(`config/f6_buy_settings.json`)이 변경되면 `hot_reload()`가 즉시 감지해 새로운 파라미터를 적용하며, `OrderExecutor`도 변경된 수량 정보를 반영합니다.
 
-The `/api/auto_trade_status` endpoint now synchronizes this file as well. Using
-`POST` to enable or disable trading immediately updates `server_status.txt` so
-the main loop reacts without a restart.
+중단 상태에서 복구하려면 애플리케이션을 재시작하거나 `periodic()`이 다시 `ACTIVE` 상태로 전환될 때까지 기다리면 됩니다.
 
-See [doc/telegram_remote_control.md](doc/telegram_remote_control.md) for details.
+## 초기 잔고 동기화
+프로그램 시작 시 `PositionManager`가 Upbit API로부터 잔고를 받아 5,000원 이상 보유 중인 코인을 `imported` 포지션으로 등록합니다.
+ 무시된 잔고와 함께 `logs/position_init.log`에 기록되고, 요약 알림이 전송됩니다.
 
-
-
-## F4 Risk Manager Guide
-
-The F4 module monitors drawdowns, daily loss and execution errors. It operates as a finite state machine with the following states:
-
-- **ACTIVE** – normal trading allowed.
-- **PAUSE** – new entries are blocked for a configurable time period.
-- **HALT** – all positions are liquidated and trading stops until manually restarted.
-
-`pause()`, `halt()` and `disable_symbol()` automatically close relevant open positions using the order engine and send a Telegram alert through `ExceptionHandler.send_alert()`.
-Risk events are recorded in `logs/risk_events.db` for later review.
-
-When the buy settings file is modified (e.g. `config/f6_buy_settings.json`) the manager detects the change via `hot_reload()` and applies the new parameters immediately. The `OrderExecutor` mirrors updated trade sizing values such as `ENTRY_SIZE_INITIAL` whenever a reload occurs so buy quantities stay in sync.
-
-To recover from a halted state simply restart the application or wait for `periodic()` to transition back to `ACTIVE` when allowed.
-
-## Initial balance sync
-
-When the application starts the `PositionManager` now fetches account balances
-using the Upbit API. Any holding worth at least 5,000 KRW is registered as an
-``imported`` position so that F2/F3 can monitor sell signals for it. Imported
-and ignored balances are logged to ``logs/position_init.log`` and a summary
-notification is sent via ``ExceptionHandler.send_alert``.
-
-## API endpoints
-
-Several lightweight REST APIs expose runtime data for the dashboard.
+## REST API 엔드포인트
+대시보드에서 사용하는 가벼운 REST API가 제공됩니다.
 
 ### `/api/auto_trade_status`
-
-- `GET` – return the current auto trading status.
+- `GET` : 현재 자동 거래 상태를 반환합니다.
   ```json
   {"enabled": false, "updated_at": "2024-05-27 10:12:11"}
   ```
-- `POST` – update the status by sending `{ "enabled": true }`.
-
-The server resets to `{"enabled": false}` whenever it starts. When disabled,
-the monitoring loop continues to run so open positions and alerts remain
-available via the API.
+- `POST` : `{ "enabled": true }` 형식으로 상태를 변경합니다. 서버 시작 시 기본값은 `{"enabled": false}`이며, 비활성화되어도 모니터링 루프는 계속 동작합니다.
 
 ### `/api/open_positions`
-
-- `GET` – list open positions managed by the order executor. The response is
-  always a JSON array. When no positions are open it returns an empty array
-  (`[]`).
+- `GET` : 주문 모듈이 관리 중인 포지션 목록을 JSON 배열로 반환합니다. 포지션이 없으면 빈 배열(`[]`)을 돌려줍니다.
   ```json
   [
     {"symbol": "KRW-BTC", "qty": 1, "status": "open"}
@@ -192,44 +139,34 @@ available via the API.
   ```
 
 ### `/api/events`
-
-- `GET` – return recent event log entries from `logs/events.jsonl`.
-  The optional `limit` query parameter controls how many records are returned.
+- `GET` : `logs/events.jsonl`에서 최근 이벤트를 반환합니다. `limit` 파라미터로 개수를 조절할 수 있습니다.
 
 ### `/api/strategies`
+- `GET` : 전략 목록과 on/off 상태, 우선순위를 반환합니다.
+- `POST` : 각 항목에 `short_code`, `on`, `order` 키가 포함된 목록을 저장합니다. 저장 후 즉시 설정이 반영됩니다.
 
-- `GET` – return the current strategy list with on/off states and priority.
-- `POST` – save an updated list. Each item should contain `short_code`, `on`
-  and `order` keys. Saved settings are reloaded immediately so changes take
-  effect without restarting the server.
-
-## Dashboard data mapping
-
-`templates/01_Home.html` fetches runtime data for the dashboard from the
-new REST API endpoints. The "실시간 포지션 상세" table uses `/api/open_positions`
-and the "실시간 알림/이벤트" list uses `/api/events`. `templates/02_Strategy.html`
-loads and saves strategy settings via `/api/strategies`. All data is refreshed
-every five seconds where applicable:
+## 대시보드 데이터 매핑
+`templates/01_Home.html`과 `templates/02_Strategy.html`에서 새 REST API를 사용해 데이터를 갱신합니다.
+ "실시간 포지션 상세" 표는 `/api/open_positions`를, "실시간 알림/이벤트" 목록은 `/api/events`를 이용하며 5초마다 새 데이터를 불러옵니다.
 
 ```javascript
 function fetchPositions() {
-  fetch('/api/open_positions')
-    .then(r => r.json())
-    .then(renderPositions);
+    fetch('/api/open_positions')
+        .then(r => r.json())
+        .then(renderPositions);
 }
 
 function fetchEvents() {
-  fetch('/api/events')
-    .then(r => r.json())
-    .then(renderEvents);
+    fetch('/api/events')
+        .then(r => r.json())
+        .then(renderEvents);
 }
 
 setInterval(fetchPositions, 5000);
 setInterval(fetchEvents, 5000);
 ```
 
-Each position object contains the keys `symbol`, `strategy`, `entry_price`,
-`avg_price`, `current_price`, `eval_amount`, `pnl_percent`, `pyramid_count` and
-`avgdown_count`. Event objects contain `timestamp` and `message`.
-The `strategy` field records the name of the buy strategy used when the
-position was opened.
+포지션 객체는 `symbol`, `strategy`, `entry_price`, `avg_price`, `current_price`,
+ `eval_amount`, `pnl_percent`, `pyramid_count`, `avgdown_count` 값을 포함합니다.
+
+ 이벤트 객체는 `timestamp`와 `message`를 지니며, `strategy` 필드는 포지션을 열 때 사용한 매수 전략 이름을 기록합니다.
