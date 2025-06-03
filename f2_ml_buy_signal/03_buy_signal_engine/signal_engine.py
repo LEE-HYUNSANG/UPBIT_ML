@@ -3,6 +3,7 @@ import os
 import re
 from logging.handlers import RotatingFileHandler
 from typing import Optional
+from common_utils import ensure_utf8_stdout
 
 import pandas as pd
 
@@ -11,6 +12,7 @@ from importlib import import_module
 check_buy_signal_df = import_module("f2_ml_buy_signal.02_ml_buy_signal").check_buy_signal_df
 
 os.makedirs("logs", exist_ok=True)
+ensure_utf8_stdout()
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [F2] [%(levelname)s] %(message)s",

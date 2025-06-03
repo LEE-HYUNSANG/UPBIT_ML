@@ -12,6 +12,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from signal_loop import process_symbol, main_loop
 import threading
+from common_utils import ensure_utf8_stdout
 from f6_setting.buy_config import load_buy_config, save_buy_config
 from f6_setting import alarm_control
 from f1_universe.universe_selector import (
@@ -701,6 +702,7 @@ start_monitoring()
 
 
 if __name__ == "__main__":
+    ensure_utf8_stdout()
     Path("logs/etc").mkdir(parents=True, exist_ok=True)
     Path("logs/f1").mkdir(parents=True, exist_ok=True)
     Path("logs/f2").mkdir(parents=True, exist_ok=True)
