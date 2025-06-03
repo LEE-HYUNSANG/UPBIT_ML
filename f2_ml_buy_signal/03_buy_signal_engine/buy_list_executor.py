@@ -32,14 +32,14 @@ if not logger.handlers:
     logger.propagate = False
 
 
-def _load_buy_list(path: Path) -> list:
+def _load_buy_list(path: Path, fh) -> list:
     if not path.exists():
         return []
 
     for attempt in range(5):
         try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+            fh.seek(0)
+            data = json.load(fh)
             if isinstance(data, list):
                 return data
             break
@@ -63,8 +63,8 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         :data:`_default_executor` to avoid duplicate orders.
     """
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    with _buy_list_lock(buy_path):
-        buy_list = _load_buy_list(buy_path)
+    with _buy_list_lock(buy_path) as fh:
+        buy_list = _load_buy_list(buy_path, fh)
 
         seen = set()
         deduped = []
@@ -144,8 +144,9 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         log_with_tag(logger, f"Executed buys: {executed}")
 
         try:
-            with open(buy_path, "w", encoding="utf-8") as f:
-                json.dump(buy_list, f, ensure_ascii=False, indent=2)
+            fh.seek(0)
+            fh.truncate()
+            json.dump(buy_list, fh, ensure_ascii=False, indent=2)
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to save buy list: {exc}")
         return executed
