@@ -4,7 +4,10 @@ import os
 DEFAULTS = {
     "ENTRY_SIZE_INITIAL": 10000,
     "MAX_SYMBOLS": 2,
-    "LIMIT_WAIT_SEC": 50,
+    "LIMIT_WAIT_SEC_1": 50,
+    "1st_Bid_Price": "BID1",
+    "LIMIT_WAIT_SEC_2": 0,
+    "2nd_Bid_Price": "ASK1",
 }
 
 
