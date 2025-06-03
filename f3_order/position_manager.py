@@ -206,9 +206,21 @@ class PositionManager:
         if zero_price_syms:
             try:
                 data = self.client.ticker(zero_price_syms)
-                price_map = {d.get("market"): float(d.get("trade_price", 0)) for d in data}
+                price_map = {
+                    d.get("market"): float(d.get("trade_price", 0))
+                    for d in data
+                }
             except Exception as exc:  # pragma: no cover - best effort
                 log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+            missing = [s for s in zero_price_syms if price_map.get(s, 0) <= 0]
+            for sym in missing:
+                try:
+                    ob = self.client.orderbook([sym])
+                    if ob:
+                        price = float(ob[0]["orderbook_units"][0]["ask_price"])
+                        price_map[sym] = price
+                except Exception as exc:  # pragma: no cover - best effort
+                    log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
 
         for symbol, (bal, price) in acc_map.items():
             if price <= 0:
