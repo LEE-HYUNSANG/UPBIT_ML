@@ -156,43 +156,21 @@ class OrderExecutor:
 
 
     def _update_realtime_sell_list(self, symbol: str) -> None:
-        """Add TP/SL info for *symbol* to the realtime sell list."""
+        """Add *symbol* to the realtime sell list if missing."""
         sell_path = Path("config") / "f3_f3_realtime_sell_list.json"
-        mon_path = Path("config") / "f5_f1_monitoring_list.json"
 
         try:
             with open(sell_path, "r", encoding="utf-8") as f:
                 sell_data = json.load(f)
-            if not isinstance(sell_data, dict):
-                sell_data = {}
+            if not isinstance(sell_data, list):
+                sell_data = []
         except Exception:
-            sell_data = {}
+            sell_data = []
 
         if symbol in sell_data:
             return
 
-        try:
-            with open(mon_path, "r", encoding="utf-8") as f:
-                mon_list = json.load(f)
-        except Exception:
-            return
-
-        thresh = None
-        loss = None
-        if isinstance(mon_list, list):
-            for item in mon_list:
-                if isinstance(item, dict) and item.get("symbol") == symbol:
-                    thresh = item.get("thresh_pct")
-                    loss = item.get("loss_pct")
-                    break
-        if thresh is None or loss is None:
-            return
-
-        sell_data[symbol] = {
-            "TP_PCT": float(thresh) * 100,
-            "SL_PCT": float(loss) * 100,
-        }
-
+        sell_data.append(symbol)
         try:
             with open(sell_path, "w", encoding="utf-8") as f:
                 json.dump(sell_data, f, ensure_ascii=False, indent=2)

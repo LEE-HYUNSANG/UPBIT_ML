@@ -11,7 +11,7 @@
 | --- | --- |
 | `f3_order/position_manager.py` | 보유 포지션의 손익률을 계산하고 익절/손절 조건을 감시합니다. |
 | `f4_riskManager/risk_manager.py` | 계좌 단위 손실 한도 초과 시 모든 포지션을 청산합니다. |
-| `config/f3_f3_realtime_sell_list.json` | 포지션별 TP/SL 비율을 저장하는 파일입니다. |
+| `config/f3_f3_realtime_sell_list.json` | 현재 보유 중인 심볼 목록을 저장하는 파일입니다. |
 | `logs/F3_position_manager.log` | 매도 조건 충족 여부와 실행 내역이 기록됩니다. |
 | `logs/F4_risk_manager.log` | 위험 관리 이벤트가 저장됩니다. |
 

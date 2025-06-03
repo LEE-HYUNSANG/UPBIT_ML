@@ -26,7 +26,6 @@ def make_pm(tmp_path, monkeypatch):
         "DB_PATH": os.path.join(tmp_path, "orders.db"),
         "HOLD_SECS": 1,
         "TP_PCT": 100,
-        "SL_PCT": 100,
         "POSITIONS_FILE": os.path.join(tmp_path, "pos.json"),
     }
     return PositionManager(cfg, KPIGuard({}), ExceptionHandler({"SLIP_MAX": 0.15}))
