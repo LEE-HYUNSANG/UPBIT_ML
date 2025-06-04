@@ -56,8 +56,10 @@ class ExceptionHandler:
     def send_alert(self, message: str, severity: str = "info", category: str = "system_alert") -> None:
         """Send a Telegram notification if credentials are set and category is enabled."""
         if not self.tg_token or not self.tg_chat_id:
+            log_with_tag(logger, "Telegram credentials missing; alert suppressed")
             return
         if not is_enabled(category):
+            log_with_tag(logger, f"Alert category disabled: {category}")
             return
         text = f"[{severity.upper()}] {message}"
         url = f"https://api.telegram.org/bot{self.tg_token}/sendMessage"
