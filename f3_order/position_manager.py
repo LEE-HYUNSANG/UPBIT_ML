@@ -565,6 +565,23 @@ class PositionManager:
                     pos["qty"] -= float(fill_info.get("volume", 0))
                     if pos["qty"] <= 0:
                         pos["status"] = "closed"
+                        if self.exception_handler:
+                            price_exec = float(fill_info.get("price", 0))
+                            qty = float(fill_info.get("volume", 0))
+                            fee = float(pos.get("entry_fee", 0))
+                            entry = pos.get("entry_price", 0)
+                            amt = price_exec * qty
+                            profit = amt - (entry * qty + fee)
+                            msg = (
+                                f"매도 완료] {pretty_symbol(symbol)} "
+                                f"매도 금액: {int(amt):,}원 @{price_exec} "
+                                f"이익:{profit:+.0f}원"
+                            )
+                            self.exception_handler.send_alert(
+                                msg,
+                                "info",
+                                "order_execution",
+                            )
                 log_with_tag(logger, f"Position updated from fill {order_id}: {pos}")
                 break
 
