@@ -62,17 +62,34 @@ def _buy_list_lock(path: str | Path):
     opened while locked.
     """
     lock_file = Path(path)
+    fh = None
+    for _ in range(5):
+        try:
+            fh = lock_file.open("a+")
+            break
+        except PermissionError as exc:
+            log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
+            time.sleep(0.1)
+    if fh is None:
+        raise PermissionError(f"Cannot open {lock_file}")
+
+    locked = False
+    for _ in range(5):
+        try:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_EX)
+            else:  # pragma: no cover - Windows
+                msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+            locked = True
+            break
+        except PermissionError:
+            time.sleep(0.1)
+    if not locked:
+        fh.close()
+        raise PermissionError(f"Cannot lock {lock_file}")
+
+    fh.seek(0)
     try:
-        fh = lock_file.open("a+")
-    except PermissionError as exc:  # pragma: no cover - log path on failure
-        log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
-        raise
-    try:
-        if fcntl:
-            fcntl.flock(fh, fcntl.LOCK_EX)
-        else:  # pragma: no cover - Windows
-            msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-        fh.seek(0)
         yield fh
     finally:
         try:
