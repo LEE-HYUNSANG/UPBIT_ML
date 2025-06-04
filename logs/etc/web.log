@@ -1,672 +1,130 @@
-2025-06-03 15:20:07,536 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 15:41:50,846 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 15:42:02,820 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 17:55:34,556 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:02:04,506 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:07:55,033 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:13:53,372 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:20:08,164 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:20:58,802 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 18:57:06,999 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:03:49,786 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:09:21,406 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:15:31,758 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:21:01,844 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:27:18,313 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:33:02,655 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:39:07,855 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:45:13,116 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:51:07,882 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 19:57:05,997 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:02:59,232 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:09:03,763 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:14:48,892 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:20:49,683 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:26:36,656 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:32:39,793 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:38:21,002 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:44:24,815 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:50:09,065 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 20:56:09,052 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:01:58,136 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:07:59,366 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:13:47,188 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:19:48,776 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:25:54,233 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:31:35,399 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:37:53,372 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:42:53,388 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:49:05,542 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 21:54:55,052 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:00:52,606 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:07:06,510 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:13:00,840 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:19:20,197 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:24:44,699 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:31:21,305 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:36:35,180 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:43:11,837 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:48:17,599 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 22:54:57,987 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:00:05,126 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:07:02,491 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:13:08,891 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:19:49,988 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:25:55,928 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:32:30,369 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:38:34,128 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:44:45,384 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:50:40,008 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:57:02,907 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-03 23:59:08,178 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:05:51,859 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:10:57,553 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:17:47,406 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:23:02,238 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:29:50,371 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:35:06,791 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:42:08,930 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:47:47,130 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:54:02,001 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 00:59:44,881 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:05:55,341 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:11:40,517 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:17:53,134 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:23:52,644 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:30:47,631 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:35:56,267 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:43:15,588 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 01:48:20,226 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 02:30:55,958 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 02:36:29,292 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 02:43:27,958 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 02:49:25,068 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 02:56:29,071 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:09:06,652 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:15:56,641 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:21:26,826 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:23:12,544 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:23:26,628 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:30:27,986 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:35:53,800 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:40:22,380 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:47:06,697 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:52:49,528 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 03:59:13,865 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:00:20,559 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:11:52,601 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:26:25,114 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:33:24,963 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:38:44,631 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:41:33,561 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:48:34,255 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:53:48,276 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 04:55:05,959 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:00:51,500 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:08:04,437 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:13:15,225 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:15:55,631 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:22:58,982 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:28:17,428 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:35:25,665 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:40:34,983 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:42:59,613 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:49:48,440 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:55:54,902 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 05:58:05,931 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:05:09,397 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:08:32,800 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:15:39,230 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:22:36,888 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:25:08,843 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 06:30:01,726 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:35:12,542 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:40:12,556 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:45:12,578 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:50:51,691 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 06:57:54,059 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:00:48,882 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:03:36,310 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:03:49,524 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:04:09,373 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:05:01,093 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:05:23,057 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:05:35,361 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:08:23,490 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:13:34,105 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:16:04,962 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:17:22,637 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:19:07,582 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:20:16,133 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:20:49,648 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:21:32,534 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:23:16,010 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:24:07,950 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:26:32,900 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:26:46,575 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:29:24,079 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:29:32,714 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:31:48,160 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:32:04,569 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:32:19,934 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:32:24,778 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:33:19,777 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:34:27,320 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:34:32,446 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:36:35,553 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:42:29,071 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:50:04,358 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:51:14,683 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 07:53:33,890 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:53:49,373 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:53:56,963 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:54:12,167 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:54:23,436 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:54:29,514 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:54:57,506 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:04,217 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:12,665 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:21,662 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:37,522 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:46,947 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:55:54,631 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:56:04,473 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:56:20,502 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:56:28,966 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 07:58:27,835 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:03:14,896 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:05:40,081 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:05:56,114 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:06:13,833 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:06:31,264 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:06:31,503 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:06:48,564 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:07:07,435 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:07:24,042 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:08:19,336 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:08:35,124 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:10:22,504 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:11:12,530 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:11:25,421 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:13:57,285 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:14:12,309 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:14:27,319 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:14:42,336 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:14:57,355 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:15:12,388 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:15:22,520 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:15:27,403 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:15:42,412 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:15:57,425 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:16:12,434 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:16:27,440 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:16:49,696 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:17:07,578 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:17:26,099 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:17:44,493 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:18:03,070 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:18:14,428 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:18:21,769 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:18:40,136 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:18:58,157 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:19:16,997 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:19:35,323 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:19:53,675 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:20:12,629 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:20:31,295 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:20:50,172 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:21:11,677 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:21:32,709 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:21:36,788 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:21:51,483 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:22:11,665 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:22:30,464 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:22:49,067 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:23:08,293 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:23:26,746 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:23:44,607 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:24:02,673 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:24:21,077 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:24:39,248 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:24:57,162 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:25:15,891 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:25:34,386 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:25:52,739 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:26:11,544 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:26:29,642 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:26:48,924 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:27:08,401 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:27:29,298 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:27:50,334 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:28:10,307 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:28:15,222 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:28:30,082 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:28:49,597 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:29:10,182 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:29:27,253 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:29:29,254 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:29:47,798 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:30:06,520 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:30:24,854 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:30:43,359 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:31:01,835 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:31:20,432 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:31:39,030 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:31:57,221 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:32:11,099 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:32:15,744 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:32:33,998 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:32:52,260 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:33:10,793 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:33:20,586 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 08:33:29,461 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:33:48,093 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:34:09,546 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:34:24,880 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 08:34:30,383 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:34:49,708 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:35:08,986 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:35:28,332 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:35:47,017 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:36:05,749 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:36:24,372 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:36:42,654 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:36:58,061 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:37:01,961 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 08:37:21,418 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:18:13,660 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:18:31,465 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:18:45,744 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:18:48,127 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:19:05,830 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:19:23,220 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:19:40,822 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:19:58,432 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:20:16,018 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:20:35,248 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:20:54,525 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:21:12,615 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:21:30,700 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:21:48,620 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:21:54,186 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 12:22:06,703 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:22:24,422 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:22:41,937 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:22:59,463 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:23:10,877 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:23:14,637 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:23:32,302 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:23:49,811 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:24:05,863 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:24:23,366 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:24:40,993 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:24:58,586 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:25:16,387 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:25:34,183 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:25:52,296 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:26:10,515 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:26:28,370 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:26:46,887 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:27:09,113 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:27:17,093 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 12:27:31,556 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:27:52,166 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:28:14,030 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:28:34,794 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:28:55,292 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:29:18,540 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:29:39,810 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:30:00,704 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:30:20,360 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:30:39,789 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:30:59,714 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:31:20,473 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:31:42,473 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:32:02,035 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:32:23,905 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:32:37,429 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:32:44,420 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:33:04,770 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:33:26,800 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:33:48,424 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:34:11,152 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:34:33,458 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:34:54,717 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:35:15,214 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:35:18,718 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:35:35,347 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:35:47,927 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:35:55,451 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:36:14,753 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:36:34,955 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:36:54,989 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:37:15,280 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:37:35,107 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:37:55,282 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:38:17,118 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:38:38,000 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:38:58,079 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:39:17,884 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:39:37,408 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:39:57,203 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:40:17,094 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:40:36,733 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:40:56,116 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:41:15,006 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:41:33,571 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:41:51,276 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:42:11,378 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:42:30,322 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:42:50,520 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:43:11,237 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:43:31,223 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:43:50,506 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:44:09,877 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:44:29,016 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:44:48,096 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:45:00,441 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:45:07,888 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:45:28,820 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:45:47,791 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:46:07,520 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:46:27,355 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:46:47,943 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:47:07,253 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:47:27,113 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:47:44,732 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:47:49,217 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:48:08,622 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:48:27,611 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:48:46,838 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:49:05,810 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:49:25,184 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:49:43,627 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:50:04,287 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:50:08,682 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:50:27,551 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:50:45,979 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:51:04,922 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:51:24,032 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:51:43,762 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:52:03,350 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:53:50,166 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:53:53,685 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 12:53:53,689 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:05,188 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:08,707 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:20,206 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:23,736 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:35,231 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:38,763 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:50,247 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:54:53,773 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:05,271 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:08,797 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:20,291 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:23,808 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:35,298 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:38,826 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:50,311 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:55:53,838 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:05,330 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:08,851 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:27,805 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:30,551 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:46,621 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:56:49,762 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:57:05,424 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:57:06,245 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:57:20,608 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:57:23,786 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:57:40,505 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:57:43,108 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:58:00,070 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:58:02,417 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:58:18,421 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:58:18,445 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:58:33,992 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:58:37,484 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:58:53,429 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:58:57,143 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:59:14,068 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:59:17,168 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:59:30,701 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 12:59:37,826 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:59:51,308 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 12:59:57,773 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:12,579 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:18,114 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:32,278 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:37,377 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:51,501 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:00:56,122 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:11,086 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:15,911 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:16,377 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:01:29,574 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:34,104 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:48,021 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:01:52,461 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:05,617 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:10,363 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:23,395 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:27,788 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:40,950 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:45,436 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:02:58,418 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:03,150 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:16,388 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:21,030 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:34,166 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:38,759 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:51,699 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:03:56,393 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:09,976 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:14,673 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:27,918 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:32,280 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:45,656 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:04:50,219 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:03,895 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:08,032 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:22,098 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:25,581 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:39,855 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:43,473 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:05:58,363 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:02,146 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:16,843 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:20,619 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:35,027 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:38,732 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:53,793 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:06:57,635 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:00,891 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:07:14,282 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:17,575 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:34,262 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:36,993 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:53,919 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:07:55,628 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:13,698 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:15,079 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:32,571 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:33,620 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:52,049 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:08:52,927 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:09:09,291 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:09:10,294 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:09:27,312 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:09:29,083 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:09:44,973 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:09:47,170 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:03,439 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:06,031 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:21,181 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:24,113 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:38,702 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:41,986 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:10:56,843 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:00,527 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:14,519 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:18,981 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:32,544 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:36,953 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:50,351 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:11:54,714 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:08,737 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:13,122 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:26,604 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:31,094 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:45,853 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:12:50,876 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:05,085 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:10,847 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:24,494 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:30,366 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:42,433 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:13:48,421 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:00,513 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:06,938 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:19,068 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:24,975 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:33,660 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:14:37,104 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:43,069 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:14:55,092 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:01,086 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:13,662 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:19,689 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:31,624 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:38,272 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:49,445 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:15:56,095 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:07,599 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:14,871 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:26,501 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:34,239 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:44,907 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:16:52,672 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:03,325 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:11,379 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:22,893 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:29,952 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:41,169 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:48,074 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:17:59,084 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:06,823 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:17,642 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:24,809 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:36,113 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:43,354 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:18:54,297 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:01,669 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:13,511 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:20,756 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:31,886 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:39,736 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:51,005 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:19:59,125 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:20:08,200 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:20:09,829 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:20:19,854 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:20:30,250 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:20:40,521 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:20:50,613 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:21:01,152 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:21:09,024 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:21:20,993 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:21:25,865 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:21:40,368 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:21:44,942 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:21:59,800 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:04,096 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:19,709 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:22,968 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:38,554 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:41,811 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:22:57,857 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:23:00,891 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:23:14,752 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:23:20,231 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:23:30,466 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:23:38,750 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:23:49,444 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:23:57,773 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:24:05,311 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:24:17,715 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:24:25,007 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:24:36,686 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:24:44,287 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:24:55,364 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:25:03,451 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:25:15,156 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:25:24,272 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:25:30,618 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:25:43,270 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:25:49,408 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:11,212 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:15,818 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:26:15,824 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:26,236 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:30,834 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:41,249 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:45,852 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:26:56,273 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:00,867 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:11,296 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:15,897 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:26,322 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:30,912 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:41,338 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:45,928 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:27:56,354 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:00,945 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:11,387 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:15,955 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:26,404 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:30,971 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:45,807 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:28:50,837 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:29:03,592 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:29:08,439 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:29:19,338 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:29:24,261 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:29:37,270 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:29:42,259 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:29:54,873 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:30:00,381 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:30:10,061 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:30:17,332 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:30:28,133 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:30:35,377 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:30:46,031 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:30:53,552 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:04,104 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:11,925 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:20,094 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 13:31:31,815 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:38,655 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:50,310 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:31:56,993 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:10,894 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:16,686 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:31,139 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:36,322 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:51,652 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:32:56,230 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:11,851 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:15,367 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:31,152 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:34,497 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:41,696 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 13:33:50,052 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:33:53,922 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:09,308 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:12,768 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:28,023 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:31,080 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:46,917 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:34:49,764 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:35:05,992 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 13:35:08,595 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:07:42,596 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:07:46,109 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 14:07:46,114 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:07:57,607 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:01,139 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:12,625 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:16,170 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:27,651 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:31,205 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:42,674 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:46,217 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:08:57,691 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:01,240 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:12,709 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:16,261 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:27,725 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:31,273 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:42,768 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:46,294 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:09:57,774 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:10:01,304 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:10:18,656 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:10:19,709 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:10:35,581 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:10:37,064 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:10:53,865 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:10:55,825 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:11:09,410 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:11:12,385 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:11:27,490 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:11:30,603 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:11:45,703 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:11:48,961 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:12:03,100 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:12:07,201 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:12:18,637 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:12:25,640 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:12:33,997 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:12:43,557 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:12:52,299 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:13:02,660 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:13:11,619 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:13:21,701 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:13:28,539 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:13:42,267 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:13:48,631 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:02,677 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:06,856 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:21,317 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:25,334 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:39,882 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:43,732 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:14:58,340 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:01,887 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:11,209 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 14:15:16,868 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:20,628 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:34,838 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:40,061 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:51,903 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:15:57,640 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:09,372 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:15,075 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:26,415 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:32,061 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:43,473 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:16:49,176 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:00,513 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:06,271 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:17,803 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:23,447 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:35,571 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:40,877 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:53,049 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:17:58,195 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:10,951 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:15,824 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:28,283 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:33,344 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:45,486 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:18:50,733 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:02,796 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:08,289 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:20,302 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:25,843 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:37,538 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:43,290 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:19:55,657 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:00,705 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:14,961 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:19,991 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:33,387 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:37,921 [WEB] ERROR pipeline error: [Errno 13] Permission denied
+2025-06-04 14:20:38,874 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:51,654 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:20:56,795 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:11,747 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:16,279 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:31,903 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:35,874 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:51,277 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:21:54,445 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:10,484 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:13,227 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:29,079 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:31,567 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:47,209 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:22:49,681 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:05,136 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:07,780 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:23,067 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:25,717 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:41,203 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:43,561 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:23:58,427 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:01,129 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:16,480 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:19,306 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:33,733 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:36,886 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:51,706 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:24:55,019 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:25:10,602 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 14:25:10,916 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:25:29,203 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:25:30,011 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:25:48,361 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:25:49,205 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:26:07,129 [WEB] ERROR buy signal error: [Errno 13] Permission denied
+2025-06-04 14:26:08,017 [WEB] ERROR buy signal error: [Errno 13] Permission denied
