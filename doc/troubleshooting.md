@@ -98,12 +98,16 @@
 - **Telegram 알림 누락**: `logs/f3/F3_exception_handler.log`에
   `Telegram credentials missing` 또는 `Alert category disabled`가
   기록되면 토큰이나 설정을 확인하세요.
+  전송 시도 후에는 `Telegram sent:` 또는 `Telegram send failed:` 라인이
+  같은 파일에 기록됩니다.
 - **주문 취소 반복**: 호가가 빠르게 변해 한도 주문이 자주 취소된다면
   `FALLBACK_MARKET` 설정을 `true`로 바꿔 첫 주문이 실패할 때 시장가로
   재시도할 수 있습니다.
 - **TypeError: Cannot instantiate typing.Any**: Pandas가 설치되지 않았거나
   구버전 코드에서 빈 데이터프레임을 생성할 때 발생합니다. `pip install -U pandas`
   명령으로 패키지를 설치하거나 최신 코드를 사용하세요.
+- **상장폐지 코인**: `F3_position_manager.log`에 `Code not found` 오류가 반복되면
+  해당 심볼이 자동으로 포지션 목록에서 제거됩니다.
 
 각 예외 메시지를 확인한 뒤 설정 파일과 네트워크 상태를 점검하세요.
 

@@ -359,6 +359,24 @@ class PositionManager:
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to fetch ticker: {exc}")
             ticker_data = []
+            if "404" in str(exc) or "Code not found" in str(exc):
+                invalid = []
+                for sym in open_syms:
+                    try:
+                        self.client.ticker([sym])
+                    except Exception as exc2:  # pragma: no cover - best effort
+                        if "404" in str(exc2) or "Code not found" in str(exc2):
+                            invalid.append(sym)
+                        else:
+                            log_with_tag(logger, f"Ticker fetch failed for {sym}: {exc2}")
+                if invalid:
+                    for sym in invalid:
+                        for pos in self.positions:
+                            if pos.get("symbol") == sym:
+                                pos["status"] = "closed"
+                                self._set_pending_flag(sym, 0)
+                                log_with_tag(logger, f"Removed invalid symbol {sym}")
+                    self._persist_positions()
 
         price_map = {t.get("market"): float(t.get("trade_price", 0)) for t in ticker_data}
 
@@ -432,6 +450,10 @@ class PositionManager:
                             pos["current_price"] = cur_price
                 except Exception as exc:  # pragma: no cover - network failure
                     log_with_tag(logger, f"Ticker fetch failed for {pos['symbol']}: {exc}")
+                    if "404" in str(exc) or "Code not found" in str(exc):
+                        pos["status"] = "closed"
+                        self._set_pending_flag(pos["symbol"], 0)
+                        continue
             if cur_price is None:
                 log_with_tag(logger, f"No price info for {pos['symbol']}")
                 remaining.append(pos)
