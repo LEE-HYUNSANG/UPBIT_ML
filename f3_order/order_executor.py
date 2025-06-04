@@ -62,11 +62,21 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
     opened while locked. ``retries`` and ``delay`` control the open/lock retry
     behavior.
     """
+    if os.environ.get("UPBIT_DISABLE_LOCKS"):
+        fh = Path(path).open("a+")
+        fh.seek(0)
+        try:
+            yield fh
+        finally:
+            fh.close()
+        return
+
     lock_file = Path(path)
     fh = None
     for _ in range(retries):
         try:
             fh = lock_file.open("a+")
+            fh.seek(0)
             break
         except PermissionError as exc:
             log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
@@ -94,10 +104,14 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
         yield fh
     finally:
         try:
+            fh.seek(0)
             if fcntl:
                 fcntl.flock(fh, fcntl.LOCK_UN)
             else:  # pragma: no cover - Windows
-                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+                try:
+                    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+                except PermissionError as exc:
+                    log_with_tag(logger, f"unlock error {lock_file}: {exc}")
         finally:
             fh.close()
 
@@ -246,8 +260,15 @@ class OrderExecutor:
         except Exception:
             pass
 
-    def entry(self, signal):
-        """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)"""
+    def entry(self, signal) -> bool:
+        """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)
+
+        Returns
+        -------
+        bool
+            ``True`` if a new position or pending order was recorded,
+            ``False`` if the signal was skipped or failed.
+        """
         try:
             log_with_tag(logger, f"Entry signal received: {signal}")
             if signal["buy_signal"]:
@@ -257,16 +278,16 @@ class OrderExecutor:
                     self.pending_symbols.update(self._load_pending_flags())
                     if symbol in self.pending_symbols:
                         log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
-                        return
+                        return False
                     self.pending_symbols.add(symbol)
                 self._set_pending_flag(symbol, 1)
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
-                    return
+                    return False
                 has_pos = getattr(self.position_manager, "has_position", None)
                 if callable(has_pos) and has_pos(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
-                    return
+                    return False
                 self.exception_handler.send_alert(
                     f"매수 시그널] {pretty_symbol(symbol)} @{price}",
                     "info",
@@ -305,16 +326,22 @@ class OrderExecutor:
                 else:
                     if order_result.get("canceled"):
                         log_with_tag(logger, f"Buy canceled for {symbol}")
+                        return False
                     elif not callable(getattr(self.position_manager, "has_position", None)) or not self.position_manager.has_position(symbol):
                         if signal.get("buy_triggers"):
                             order_result["strategy"] = signal["buy_triggers"][0]
                         self.position_manager.open_position(order_result, status="pending")
                         self._mark_buy_filled(symbol)
                         log_with_tag(logger, f"Pending buy recorded: {order_result}")
+                        return True
+                    return False
             else:
                 log_with_tag(logger, f"No buy signal for {signal.get('symbol')}")
+                return False
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
+            return False
+        return True
 
     def manage_positions(self):
         """1Hz 루프: 포지션 관리 FSM (불타기, 물타기, 익절, 손절 등)"""
@@ -332,9 +359,9 @@ class OrderExecutor:
 
 _default_executor = OrderExecutor()
 
-def entry(signal):
-    """기본 실행기를 사용하는 하위 호환 엔트리 포인트"""
-    _default_executor.entry(signal)
+def entry(signal) -> bool:
+    """기본 실행기를 사용하는 하위 호환 엔트리 포인트."""
+    return _default_executor.entry(signal)
 
 
 if __name__ == "__main__":  # pragma: no cover - manual execution
