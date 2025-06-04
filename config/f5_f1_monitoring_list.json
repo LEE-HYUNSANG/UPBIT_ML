@@ -1,11 +1,11 @@
 [
   {
-    "symbol": "KRW-CTC",
+    "symbol": "KRW-TRUMP",
     "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
   {
-    "symbol": "KRW-WAVES",
+    "symbol": "KRW-CTC",
     "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
@@ -20,27 +20,12 @@
     "loss_pct": 0.002
   },
   {
-    "symbol": "KRW-ADA",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.002
-  },
-  {
     "symbol": "KRW-CBK",
     "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
   {
-    "symbol": "KRW-TRUMP",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.002
-  },
-  {
-    "symbol": "KRW-NEO",
-    "thresh_pct": 0.003,
-    "loss_pct": 0.002
-  },
-  {
-    "symbol": "KRW-ONDO",
+    "symbol": "KRW-ADA",
     "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
@@ -50,7 +35,7 @@
     "loss_pct": 0.002
   },
   {
-    "symbol": "KRW-PENDLE",
+    "symbol": "KRW-NEO",
     "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
@@ -65,18 +50,18 @@
     "loss_pct": 0.002
   },
   {
-    "symbol": "KRW-ORCA",
-    "thresh_pct": 0.002,
+    "symbol": "KRW-PENDLE",
+    "thresh_pct": 0.003,
+    "loss_pct": 0.002
+  },
+  {
+    "symbol": "KRW-ONDO",
+    "thresh_pct": 0.003,
     "loss_pct": 0.002
   },
   {
     "symbol": "KRW-LINK",
     "thresh_pct": 0.003,
-    "loss_pct": 0.002
-  },
-  {
-    "symbol": "KRW-XRP",
-    "thresh_pct": 0.002,
     "loss_pct": 0.002
   }
 ]
