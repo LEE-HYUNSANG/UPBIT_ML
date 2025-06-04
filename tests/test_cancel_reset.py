@@ -37,6 +37,7 @@ def test_cancel_resets_buy_count(monkeypatch):
         "f3_order.order_executor.load_config",
         lambda p: {"LIMIT_WAIT_SEC_1": 0, "LIMIT_WAIT_SEC_2": 0},
     )
+    monkeypatch.setattr("f3_order.order_executor.load_buy_config", lambda p: {})
     monkeypatch.setattr("f3_order.order_executor.load_sell_config", lambda p: {})
     pm = DummyPM()
     monkeypatch.setattr("f3_order.order_executor.PositionManager", lambda *a, **k: pm)

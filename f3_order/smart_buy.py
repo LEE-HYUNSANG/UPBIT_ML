@@ -102,5 +102,11 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
                         except Exception as exc:  # pragma: no cover - network failure
                             log_with_tag(logger, f"cancel_order failed for {uuid2}: {exc}")
                 res = res2
+            elif config.get("FALLBACK_MARKET"):
+                res2 = position_manager.place_order(symbol, "bid", qty, "market", None)
+                uuid2 = res2.get("uuid")
+                if uuid2:
+                    res2["filled"] = True
+                res = res2
     return res
 
