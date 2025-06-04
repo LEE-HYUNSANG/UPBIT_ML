@@ -1,35 +1,45 @@
-2025-06-04 16:03:19,107 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:03:22,565 [WEB] ERROR pipeline error: [Errno 13] Permission denied
-2025-06-04 16:03:22,568 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:03:34,127 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:03:37,586 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:03:49,145 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:03:52,610 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:04,168 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:07,627 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:19,176 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:22,641 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:34,183 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:37,652 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:49,197 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:04:52,690 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:04,206 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:07,701 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:19,212 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:22,718 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:34,241 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:42,727 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:05:53,961 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:06:01,002 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:06:11,937 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:06:18,922 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:06:27,367 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:06:34,855 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:06:43,413 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:06:52,110 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:07:01,472 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:07:11,535 [WEB] ERROR buy signal error: [Errno 13] Permission denied
-2025-06-04 16:07:16,699 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:07:26,933 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:07:33,694 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
-2025-06-04 16:07:42,967 [WEB] ERROR buy signal error: Cannot instantiate typing.Any
+2025-06-04 17:58:34,470 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 321, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 18:05:33,512 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 321, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 18:06:43,623 [WEB] ERROR buy signal error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 290, in worker
+    module.run_if_monitoring_list_exists()
+  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 457, in run_if_monitoring_list_exists
+    return run()
+  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 369, in run
+    with _buy_list_lock(buy_list_path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
