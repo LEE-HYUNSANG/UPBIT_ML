@@ -143,6 +143,23 @@ class OrderExecutor:
             self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
 
+    def _count_active_positions(self, threshold: float = 5000.0) -> int:
+        """Return the number of open or pending positions with value >= *threshold*."""
+        positions = getattr(self.position_manager, "positions", None)
+        if not isinstance(positions, list):
+            return 0
+        count = 0
+        for pos in positions:
+            if pos.get("status") in ("open", "pending"):
+                try:
+                    price = float(pos.get("entry_price", 0))
+                    qty = float(pos.get("qty", 0))
+                    if price * qty >= threshold:
+                        count += 1
+                except Exception:
+                    continue
+        return count
+
     def set_risk_manager(self, rm):
         self.risk_manager = rm
         self.update_from_risk_config()
@@ -292,8 +309,14 @@ class OrderExecutor:
                     if symbol in self.pending_symbols:
                         log_with_tag(logger, f"Buy skipped: order already pending for {symbol}")
                         return False
+                if self.config.get("MAX_SYMBOLS") is not None and \
+                        self._count_active_positions() >= int(self.config["MAX_SYMBOLS"]):
+                    log_with_tag(logger, "Buy skipped: MAX_SYMBOLS limit reached")
+                    return False
+                with self._pending_lock:
                     self.pending_symbols.add(symbol)
                 self._set_pending_flag(symbol, 1)
+                self._mark_buy_filled(symbol)
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return False

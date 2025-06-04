@@ -34,8 +34,10 @@ Default templates for order alerts reside in the same configuration file and can
 be customized. The sell template now includes a `{reason}` placeholder which is
 automatically filled with "익절 매도" or "손절 매도" based on the exit type.
 
-Sell notifications are also triggered when a position closes because a
-previously placed take-profit order was filled on the exchange.
+Sell notifications are triggered when a position closes because a
+previously placed take-profit order was filled on the exchange. They are
+also emitted when a market order finishes via an asynchronous fill detected in
+`update_position_from_fill`.
 
 The web UI under **환경설정** now exposes these options. The page loads values
 from `/api/alarm_config` and posts changes back to the same endpoint when the

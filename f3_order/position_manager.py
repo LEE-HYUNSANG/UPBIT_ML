@@ -565,6 +565,23 @@ class PositionManager:
                     pos["qty"] -= float(fill_info.get("volume", 0))
                     if pos["qty"] <= 0:
                         pos["status"] = "closed"
+                        if self.exception_handler:
+                            price_exec = float(fill_info.get("price", 0))
+                            qty = float(fill_info.get("volume", 0))
+                            fee = float(pos.get("entry_fee", 0))
+                            entry = pos.get("entry_price", 0)
+                            amt = price_exec * qty
+                            profit = amt - (entry * qty + fee)
+                            msg = (
+                                f"매도 완료] {pretty_symbol(symbol)} "
+                                f"매도 금액: {int(amt):,}원 @{price_exec} "
+                                f"이익:{profit:+.0f}원"
+                            )
+                            self.exception_handler.send_alert(
+                                msg,
+                                "info",
+                                "order_execution",
+                            )
                 log_with_tag(logger, f"Position updated from fill {order_id}: {pos}")
                 break
 
@@ -652,8 +669,15 @@ class PositionManager:
             qty = self.config.get("PYR_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
-                position["qty"] += qty
+                total_qty = position["qty"] + qty
+                avg_base = position.get("entry_price", cur) * position["qty"]
+                new_avg = (avg_base + cur * qty) / total_qty
+                position["qty"] = total_qty
+                position["entry_price"] = new_avg
+                position["avg_price"] = new_avg
                 position["pyramid_count"] += 1
+                self.cancel_tp_order(position["symbol"])
+                self._schedule_tp_order(position)
 
     def process_averaging_down(self, position):
         if not self.config.get("AVG_ENABLED", False):
@@ -668,8 +692,15 @@ class PositionManager:
             qty = self.config.get("AVG_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
-                position["qty"] += qty
+                total_qty = position["qty"] + qty
+                avg_base = position.get("entry_price", cur) * position["qty"]
+                new_avg = (avg_base + cur * qty) / total_qty
+                position["qty"] = total_qty
+                position["entry_price"] = new_avg
+                position["avg_price"] = new_avg
                 position["avgdown_count"] += 1
+                self.cancel_tp_order(position["symbol"])
+                self._schedule_tp_order(position)
 
     def log_order_to_db(self, order_data):
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
