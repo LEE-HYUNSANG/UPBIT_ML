@@ -135,13 +135,13 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
                     "sell_triggers": [],
                 }
                 log_with_tag(logger, f"Executing buy for {symbol} at {price}")
-                oe.entry(signal)
-                executed.append(symbol)
-                for it in buy_list:
-                    if it.get("symbol") == symbol:
-                        it["buy_count"] = 1
-                        log_with_tag(logger, f"Updated buy_count for {symbol}")
-                        break
+                if oe.entry(signal):
+                    executed.append(symbol)
+                    for it in buy_list:
+                        if it.get("symbol") == symbol:
+                            it["buy_count"] = 1
+                            log_with_tag(logger, f"Updated buy_count for {symbol}")
+                            break
 
             log_with_tag(logger, f"Executed buys: {executed}")
 
