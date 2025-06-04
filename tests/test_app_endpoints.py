@@ -140,10 +140,7 @@ def app_client(monkeypatch):
     monkeypatch.setattr("f1_universe.universe_selector.get_universe", lambda: ["KRW-BTC"])
     monkeypatch.setattr("f1_universe.universe_selector.update_universe", lambda cfg: None)
 
-    from f4_riskManager import RiskManager
-    rm = RiskManager(order_executor=order_executor._default_executor,
-                     exception_handler=order_executor._default_executor.exception_handler)
-    order_executor._default_executor.set_risk_manager(rm)
+    rm = None
 
     import app
     importlib.reload(app)
@@ -159,8 +156,8 @@ def test_api_account(app_client, monkeypatch):
     assert res.get_json() == {"krw_balance": 500, "pnl": 1.5}
 
 
-def test_signals_and_risk(app_client, monkeypatch):
-    client, order_executor, rm = app_client
+def test_signals(app_client, monkeypatch):
+    client, order_executor, _ = app_client
     monkeypatch.setattr("f1_universe.universe_selector.get_universe", lambda: ["KRW-BTC"])
     res = client.get("/api/signals")
     data = res.get_json()
@@ -170,11 +167,6 @@ def test_signals_and_risk(app_client, monkeypatch):
         p.get("symbol") == "KRW-BTC"
         for p in order_executor._default_executor.position_manager.positions
     )
-    rm.update_account(-3.0, 0.0, 0.0, ["KRW-BTC"])
-    rm.periodic()
-    assert rm.state.name == "PAUSE"
-    events = client.get("/api/risk_events").get_json()
-    assert any("PAUSE" in e["message"] for e in events)
 
 
 def test_universe_config_endpoint(app_client, monkeypatch):

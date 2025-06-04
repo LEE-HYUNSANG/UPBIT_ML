@@ -23,7 +23,7 @@ def test_update_realtime_sell_list_adds_to_empty(tmp_path, monkeypatch):
     monkeypatch.setattr(oe, "load_sell_config", lambda p=None: {})
     monkeypatch.setattr(oe, "PositionManager", DummyPM)
 
-    executor = oe.OrderExecutor(risk_manager=None)
+    executor = oe.OrderExecutor()
     executor._update_realtime_sell_list("KRW-BTC")
 
     with open(cfg_dir / "f3_f3_realtime_sell_list.json", "r", encoding="utf-8") as f:

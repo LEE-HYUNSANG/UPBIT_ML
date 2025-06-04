@@ -7,9 +7,8 @@
 | 1 | [01_select_universe.md](01_select_universe.md) | 유니버스 선정 절차와 사용 파일 설명 |
 | 2 | [02_coin_buy_logic.md](02_coin_buy_logic.md) | 매수 신호 계산과 주문 흐름 |
 | 3 | [03_coin_sell_logic.md](03_coin_sell_logic.md) | 보유 코인 매도 로직과 포지션 관리 |
-| 4 | [04_risk_logic.md](04_risk_logic.md) | 리스크 매니저 구조와 주요 설정 |
-| 5 | [api_endpoints.md](api_endpoints.md) | 웹 대시보드용 REST API 목록 |
-| 6 | [config.md](config.md) | 프로젝트 전반의 JSON 설정 파일 안내 |
+| 4 | [api_endpoints.md](api_endpoints.md) | 웹 대시보드용 REST API 목록 |
+| 5 | [config.md](config.md) | 프로젝트 전반의 JSON 설정 파일 안내 |
 | 7 | [f2_ml_buy_signal.md](f2_ml_buy_signal.md) | 경량 머신러닝 매수 신호 모듈 |
 | 8 | [f5ml_00_before_coin.md](f5ml_00_before_coin.md) | 코인 필터링 및 원시 데이터 수집 |
 | 9 | [f5ml_00_72h_1min_data.md](f5ml_00_72h_1min_data.md) | 최근 72시간 1분봉 다운로드 |

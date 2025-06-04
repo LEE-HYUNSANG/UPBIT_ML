@@ -43,18 +43,7 @@ flowchart TD
   - `OrderExecutor.manage_positions()` – 보유 포지션 상태 관리 【F:f3_order/order_executor.py†L174-L177】
 - **로그**: `logs/F3_order_executor.log`, `logs/F3_position_manager.log`
 
-## 4. F4 리스크 매니저
-- **역할**: 계좌 손실 한도, MDD 등 위험 조건을 감시하여 매매를 일시 중단(PAUSE)하거나 전면 중단(HALT)합니다.
-- **주요 파일**: `f4_riskManager/risk_manager.py`, `f4_riskManager/risk_config.py`
-- **주요 함수**
-  - `update_account()` – 계좌 손익 정보를 업데이트 【F:f4_riskManager/risk_manager.py†L64-L75】
-  - `check_risk()` – 손실 한도 초과 여부 판단 【F:f4_riskManager/risk_manager.py†L89-L108】
-  - `pause()` / `halt()` – 상태 전이 및 포지션 강제 정리 【F:f4_riskManager/risk_manager.py†L112-L157】
-  - `hot_reload()` – 설정 파일 변경 시 즉시 반영 【F:f4_riskManager/risk_manager.py†L161-L175】
-  - `periodic()` – 메인 루프에서 1초 간격으로 호출 【F:f4_riskManager/risk_manager.py†L177-L190】
-- **로그**: `logs/F4_risk_manager.log`, `logs/risk_fsm.log`, `logs/risk_events.db`
-
-## 5. F5 ML 파이프라인
+## 4. F5 ML 파이프라인
 - **역할**: 대량의 과거 데이터를 이용해 LightGBM 모델을 학습하고 백테스트 결과로 우수 전략을 선별합니다.
 - **주요 파일**: `f5_ml_pipeline/00_72h_1min_data.py` ~ `10_select_best_strategies.py`, `f5_ml_pipeline/run_pipeline.py`
 - **데이터 경로**: `f5_ml_pipeline/ml_data/` 하위 폴더에 단계별 데이터가 저장됩니다.
@@ -74,6 +63,5 @@ flowchart TD
 2. **유니버스 선택(F1)**이 주기적으로 실행되어 모니터링 코인을 결정하고 `config/current_universe.json`에 기록합니다.
 3. **신호 계산(F2)**이 `signal_loop.py`에서 15초 주기로 호출되어 각 코인의 매수/매도 신호를 구합니다.
 4. **주문 실행(F3)**이 신호를 받아 주문을 전송하고, 포지션 정보를 `config/f1_f3_coin_positions.json`에 업데이트합니다.
-5. **리스크 매니저(F4)**가 포지션과 손익을 감시하여 필요 시 일시 중단이나 중단 상태로 전환합니다.
-6. 전체 과정은 **웹 대시보드**에서 실시간으로 조회 가능하며, 텔레그램 알림과 원격 제어 기능(F6)이 지원됩니다.
+5. 전체 과정은 **웹 대시보드**에서 실시간으로 조회 가능하며, 텔레그램 알림과 원격 제어 기능(F6)이 지원됩니다.
 

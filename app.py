@@ -217,25 +217,11 @@ def start_monitoring() -> None:
     global _monitor_thread, _monitor_stop
     if _monitor_thread and _monitor_thread.is_alive():
         return
-    from signal_loop import RiskManager, _default_executor  # lazy import
+    from signal_loop import _default_executor  # lazy import
     _monitor_stop = threading.Event()
 
     def monitor_worker():
-        rm = RiskManager(
-            order_executor=_default_executor,
-            exception_handler=_default_executor.exception_handler,
-        )
-        if hasattr(rm, "config"):
-            rm.config._cache.update(load_buy_settings())
-        _default_executor.set_risk_manager(rm)
         while not _monitor_stop.is_set():
-            open_syms = [
-                p.get("symbol")
-                for p in _default_executor.position_manager.positions
-                if p.get("status") == "open"
-            ]
-            rm.update_account(0.0, 0.0, 0.0, open_syms)
-            rm.periodic()
             _default_executor.manage_positions()
             time.sleep(1)
 

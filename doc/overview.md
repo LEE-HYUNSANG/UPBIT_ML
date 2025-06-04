@@ -22,10 +22,7 @@ This repository implements a four stage trading system built around the Upbit ex
   `manage_positions()` routine (internally running `hold_loop`) is invoked on every
   cycle of the signal loop and also when the application runs in monitoring mode.
   Before sending a buy order the executor verifies that the symbol is not already
-  held and skips the entry if it is. Averaging down or pyramiding remains
-  controlled by the risk configuration.
-- **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
-  or halt trading when risk thresholds are breached.
+  held and skips the entry if it is.
 - **F5ML 머신러닝 파이프라인** – 매매 의사결정에 사용되는 모델을 학습하고 평가합니다. 스크립트는 `f5_ml_pipeline/`에 있습니다.
 - **F9ML Pipeline Backup** – `f9_ml_pipeline_backup/`은 기존 `f5_ml_pipeline`의 전체 사본으로,
   참고 용도로만 남겨둔 폴더입니다. 이 디렉터리의 파일은 수정하거나 실행하지 않습니다.

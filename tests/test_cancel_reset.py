@@ -44,7 +44,7 @@ def test_cancel_resets_buy_count(monkeypatch):
     import importlib
     import f3_order.order_executor as oe_mod
     monkeypatch.setattr(oe_mod, "smart_buy", sb.smart_buy)
-    oe = OrderExecutor(risk_manager=None)
+    oe = OrderExecutor()
     oe.entry({"symbol": "KRW-WAVES", "buy_signal": True, "price": 10.0})
     assert pm.client.canceled
     assert pm.reset_called == ["KRW-WAVES"]

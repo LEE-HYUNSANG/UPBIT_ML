@@ -54,25 +54,44 @@ def _resolve_path(path: str | Path) -> Path:
 
 
 @contextmanager
-def _buy_list_lock(path: str | Path):
+def _buy_list_lock(path: str | Path, retries: int = 200, delay: float = 0.1):
     """Context manager providing an exclusive lock on *path*.
 
     Returns the locked file handle so callers can read/write without reopening
     the file. This avoids ``PermissionError`` on Windows when the same path is
-    opened while locked.
+    opened while locked. ``retries`` and ``delay`` control the open/lock retry
+    behavior.
     """
     lock_file = Path(path)
+    fh = None
+    for _ in range(retries):
+        mode = "r+" if lock_file.exists() else "w+"
+        try:
+            fh = lock_file.open(mode)
+            break
+        except PermissionError as exc:
+            log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
+            time.sleep(delay)
+    if fh is None:
+        raise PermissionError(f"Cannot open {lock_file}")
+
+    locked = False
+    for _ in range(retries):
+        try:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_EX)
+            else:  # pragma: no cover - Windows
+                msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+            locked = True
+            break
+        except PermissionError:
+            time.sleep(delay)
+    if not locked:
+        fh.close()
+        raise PermissionError(f"Cannot lock {lock_file}")
+
+    fh.seek(0)
     try:
-        fh = lock_file.open("a+")
-    except PermissionError as exc:  # pragma: no cover - log path on failure
-        log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
-        raise
-    try:
-        if fcntl:
-            fcntl.flock(fh, fcntl.LOCK_EX)
-        else:  # pragma: no cover - Windows
-            msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-        fh.seek(0)
         yield fh
     finally:
         try:
@@ -90,35 +109,20 @@ class OrderExecutor:
         config_path="config/f3_f3_order_config.json",
         buy_path="config/f6_buy_settings.json",
         sell_path="config/f6_sell_settings.json",
-        risk_manager=None,
     ):
         self.config = load_config(str(_resolve_path(config_path)))
         self.config.update(load_buy_config(str(_resolve_path(buy_path))))
         self.config.update(load_sell_config(str(_resolve_path(sell_path))))
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
-        self.risk_manager = risk_manager
         self.position_manager = PositionManager(
             self.config, self.kpi_guard, self.exception_handler, logger
         )
         self._pending_cache: tuple[float, set[str]] | None = None
         self.pending_symbols: set[str] = self._load_pending_flags()
         self._pending_lock = threading.Lock()
-        if self.risk_manager:
-            self.update_from_risk_config()
         log_with_tag(logger, "OrderExecutor initialized.")
 
-    def set_risk_manager(self, rm):
-        self.risk_manager = rm
-        self.update_from_risk_config()
-
-    def update_from_risk_config(self):
-        """Mirror relevant values from the associated RiskManager."""
-        if not self.risk_manager:
-            return
-        entry_size = self.risk_manager.config.get("ENTRY_SIZE_INITIAL")
-        if entry_size is not None:
-            self.config["ENTRY_SIZE_INITIAL"] = entry_size
 
     def _mark_buy_filled(self, symbol: str) -> None:
         """Set ``buy_count`` to 1 for the given symbol in the buy list."""
@@ -183,19 +187,23 @@ class OrderExecutor:
             return set(self._pending_cache[1])
 
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
-        with _buy_list_lock(path) as fh:
+        for _ in range(10):
             try:
-                data = json.load(fh)
-                if isinstance(data, list):
-                    result = {
-                        item.get("symbol")
-                        for item in data
-                        if isinstance(item, dict) and item.get("pending")
-                    }
-                    self._pending_cache = (now_ts, result)
-                    return result
+                with _buy_list_lock(path) as fh:
+                    data = json.load(fh)
+                    if isinstance(data, list):
+                        result = {
+                            item.get("symbol")
+                            for item in data
+                            if isinstance(item, dict) and item.get("pending")
+                        }
+                        self._pending_cache = (now_ts, result)
+                        return result
+            except PermissionError as exc:
+                log_with_tag(logger, f"Pending flag read error: {exc}")
+                time.sleep(0.1)
             except Exception:
-                pass
+                break
         self._pending_cache = (now_ts, set())
         return set()
 
@@ -238,9 +246,6 @@ class OrderExecutor:
                         return
                     self.pending_symbols.add(symbol)
                 self._set_pending_flag(symbol, 1)
-                if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
-                    log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
-                    return
                 has_pos = getattr(self.position_manager, "has_position", None)
                 if callable(has_pos) and has_pos(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
