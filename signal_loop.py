@@ -6,7 +6,7 @@ from typing import Optional
 from common_utils import ensure_utf8_stdout
 
 from f3_order.order_executor import entry as f3_entry, _default_executor
-from f4_riskManager import RiskManager
+RiskManager = None  # F4 risk management module removed
 from f6_setting.remote_control import read_status
 
 import pyupbit
@@ -130,11 +130,17 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
     schedule_universe_updates(1800, cfg)
 
     executor = _default_executor
-    risk_manager = RiskManager(order_executor=executor, exception_handler=executor.exception_handler)
-    from f6_setting.buy_config import load_buy_config
-    if hasattr(risk_manager, "config"):
-        risk_manager.config._cache.update(load_buy_config())
-    executor.set_risk_manager(risk_manager)
+    if callable(RiskManager):
+        risk_manager = RiskManager(
+            order_executor=executor,
+            exception_handler=executor.exception_handler,
+        )
+        from f6_setting.buy_config import load_buy_config
+        if hasattr(risk_manager, "config"):
+            risk_manager.config._cache.update(load_buy_config())
+        executor.set_risk_manager(risk_manager)
+    else:
+        risk_manager = None
     while True:
         status = read_status().upper()
         if status != "ON":
@@ -158,9 +164,14 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
         logging.info(f"[Loop] Universe: {universe}")
         executor.position_manager.sync_with_universe(universe)
         # Update risk manager with open positions
-        open_syms = [p.get("symbol") for p in executor.position_manager.positions if p.get("status") == "open"]
-        risk_manager.update_account(0.0, 0.0, 0.0, open_syms)
-        risk_manager.periodic()
+        open_syms = [
+            p.get("symbol")
+            for p in executor.position_manager.positions
+            if p.get("status") == "open"
+        ]
+        if risk_manager:
+            risk_manager.update_account(0.0, 0.0, 0.0, open_syms)
+            risk_manager.periodic()
         for symbol in universe:
             try:
                 logging.info(f"[F1-F2] process_symbol() \uc2dc\uc791: {symbol}")
