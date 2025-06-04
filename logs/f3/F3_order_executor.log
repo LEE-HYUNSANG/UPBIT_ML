@@ -1,2 +1,29 @@
-2025-06-04 16:03:16,988 [F3] [F3] OrderExecutor initialized.
-2025-06-04 16:03:21,282 [F3] [F3] OrderExecutor initialized.
+2025-06-04 17:30:01,294 [F3] [F3] OrderExecutor initialized.
+2025-06-04 17:30:04,774 [F3] [F3] OrderExecutor initialized.
+2025-06-04 17:37:56,464 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3538.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:38:27,222 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3538.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:38:56,219 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3544.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:39:05,295 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:39:08,563 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3552.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:39:17,646 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:39:22,771 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3552.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:39:31,839 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:39:35,279 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3552.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:39:44,354 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:39:49,314 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3552.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:39:58,397 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:40:02,027 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3546.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:40:11,097 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:40:16,217 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3547.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:40:25,295 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:40:28,722 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3547.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:40:37,809 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:40:43,094 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3547.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:40:52,171 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:40:55,814 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3547.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:41:04,872 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:41:09,898 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3546.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:41:18,959 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:41:22,810 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3546.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 17:41:31,869 [F3] [F3] Buy skipped: order already pending for KRW-BERA
+2025-06-04 17:41:36,485 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3546.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
