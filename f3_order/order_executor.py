@@ -294,6 +294,7 @@ class OrderExecutor:
                         return False
                     self.pending_symbols.add(symbol)
                 self._set_pending_flag(symbol, 1)
+                self._mark_buy_filled(symbol)
                 if self.risk_manager and self.risk_manager.is_symbol_disabled(symbol):
                     log_with_tag(logger, f"Entry blocked by RiskManager for {symbol}")
                     return False

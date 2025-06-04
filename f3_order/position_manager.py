@@ -669,8 +669,15 @@ class PositionManager:
             qty = self.config.get("PYR_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
-                position["qty"] += qty
+                total_qty = position["qty"] + qty
+                avg_base = position.get("entry_price", cur) * position["qty"]
+                new_avg = (avg_base + cur * qty) / total_qty
+                position["qty"] = total_qty
+                position["entry_price"] = new_avg
+                position["avg_price"] = new_avg
                 position["pyramid_count"] += 1
+                self.cancel_tp_order(position["symbol"])
+                self._schedule_tp_order(position)
 
     def process_averaging_down(self, position):
         if not self.config.get("AVG_ENABLED", False):
@@ -685,8 +692,15 @@ class PositionManager:
             qty = self.config.get("AVG_SIZE", 0) / cur
             res = self.place_order(position["symbol"], "bid", qty, "market", cur)
             if res.get("filled"):
-                position["qty"] += qty
+                total_qty = position["qty"] + qty
+                avg_base = position.get("entry_price", cur) * position["qty"]
+                new_avg = (avg_base + cur * qty) / total_qty
+                position["qty"] = total_qty
+                position["entry_price"] = new_avg
+                position["avg_price"] = new_avg
                 position["avgdown_count"] += 1
+                self.cancel_tp_order(position["symbol"])
+                self._schedule_tp_order(position)
 
     def log_order_to_db(self, order_data):
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
