@@ -14,6 +14,7 @@ class DummyExecutor:
 
     def entry(self, signal):
         self.called.append(signal)
+        return True
 
 
 class DummyClient:
