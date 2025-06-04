@@ -289,8 +289,8 @@ def start_buy_signal_scheduler() -> None:
             try:
                 module.run_if_monitoring_list_exists()
                 buy_exec.execute_buy_list()
-            except Exception as exc:
-                WEB_LOGGER.error("buy signal error: %s", exc)
+            except Exception:
+                WEB_LOGGER.exception("buy signal error")
             if _buy_signal_stop.wait(15):
                 break
 
@@ -319,8 +319,8 @@ def start_pipeline_scheduler() -> None:
         while not _pipeline_stop.is_set():
             try:
                 module.main()
-            except Exception as exc:
-                WEB_LOGGER.error("pipeline error: %s", exc)
+            except Exception:
+                WEB_LOGGER.exception("pipeline error")
             if _pipeline_stop.wait(300):
                 break
 
