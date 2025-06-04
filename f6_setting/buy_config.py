@@ -2,12 +2,13 @@ import json
 import os
 
 DEFAULTS = {
-    "ENTRY_SIZE_INITIAL": 10000,
-    "MAX_SYMBOLS": 2,
-    "LIMIT_WAIT_SEC_1": 50,
-    "1st_Bid_Price": "BID1",
+    "ENTRY_SIZE_INITIAL": 7000,
+    "MAX_SYMBOLS": 7,
+    "LIMIT_WAIT_SEC_1": 60,
+    "1st_Bid_Price": "BID1+",
     "LIMIT_WAIT_SEC_2": 0,
     "2nd_Bid_Price": "ASK1",
+    "FALLBACK_MARKET": True,
 }
 
 

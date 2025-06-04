@@ -5,6 +5,7 @@ import json
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import math
 from pathlib import Path
 
 logger = logging.getLogger("F3_utils")
@@ -81,9 +82,17 @@ def log_with_tag(logger, msg):
     logger.info(f"[F3] {msg}")
 
 
-def apply_tick_size(price: float) -> float:
-    """Return ``price`` adjusted to Upbit's KRW tick size."""
+def apply_tick_size(price: float, method: str = "round") -> float:
+    """Return ``price`` adjusted to Upbit's KRW tick size.
+
+    ``method`` controls the rounding strategy and can be ``"round"``, ``"ceil"`` or
+    ``"floor"``.
+    """
     tick = tick_size(price)
+    if method == "ceil":
+        return math.ceil(price / tick) * tick
+    if method == "floor":
+        return math.floor(price / tick) * tick
     return round(price / tick) * tick
 
 

@@ -8,7 +8,8 @@ import os
 import sqlite3
 import json
 from pathlib import Path
-from .utils import log_with_tag
+import threading
+from .utils import log_with_tag, apply_tick_size
 from common_utils import now
 from .upbit_api import UpbitClient
 from .utils import pretty_symbol
@@ -102,6 +103,13 @@ class PositionManager:
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to persist positions: {exc}")
 
+    def _schedule_tp_order(self, position):
+        """Send a take-profit order after a 1 second delay."""
+        if os.environ.get("PYTEST_CURRENT_TEST"):
+            self.place_tp_order(position)
+        else:
+            threading.Timer(1, self.place_tp_order, args=(position,)).start()
+
     def _reset_buy_count(self, symbol: str) -> None:
         """Set ``buy_count`` to 0 for the given symbol in the buy list."""
         path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
@@ -187,7 +195,7 @@ class PositionManager:
         if status == "pending":
             self._set_pending_flag(pos["symbol"], 1)
         if status == "open" and pos.get("origin") != "imported":
-            self.place_tp_order(pos)
+            self._schedule_tp_order(pos)
 
     def place_tp_order(self, position):
         """Immediately place a limit sell order for take profit."""
@@ -195,6 +203,7 @@ class PositionManager:
         if float(tp) <= 0:
             return
         price = position["entry_price"] * (1 + float(tp) / 100)
+        price = apply_tick_size(price, "ceil")
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")
         if uuid:
@@ -396,6 +405,8 @@ class PositionManager:
             if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
                 self._set_pending_flag(sym, 0)
+                if pos.get("origin") != "imported":
+                    self._schedule_tp_order(pos)
             elif accounts_ok and qty <= 0 and pos.get("status") == "open":
                 # Avoid premature close right after a buy due to balance sync delay
                 if now() - pos.get("entry_time", 0) < 5:

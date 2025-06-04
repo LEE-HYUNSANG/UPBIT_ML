@@ -4,7 +4,7 @@
 """
 import logging
 from logging.handlers import RotatingFileHandler
-from .utils import log_with_tag
+from .utils import log_with_tag, tick_size
 import time
 import os
 
@@ -32,8 +32,11 @@ def _get_price(mode: str, symbol: str, client) -> float | None:
         if not ob:
             return None
         unit = ob[0].get("orderbook_units", [{}])[0]
-        if mode == "BID1":
-            return float(unit.get("bid_price", 0))
+        if mode.startswith("BID1"):
+            price = float(unit.get("bid_price", 0))
+            if mode.endswith("+"):
+                price += tick_size(price)
+            return price
         if mode == "ASK1":
             return float(unit.get("ask_price", 0))
     except Exception:  # pragma: no cover - network failure
