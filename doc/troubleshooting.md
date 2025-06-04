@@ -27,14 +27,17 @@
 
 - **2단계: 스케줄러 동작 여부**
 
-    `app.py`를 실행하면 스케줄러 스레드가 생성되어 15초마다 실행됩니다. `logs/etc/web.log`에서
-    다음과 같은 메시지를 확인합니다.
+`app.py`를 실행하면 스케줄러 스레드가 생성되어 15초마다 실행됩니다.
+`logs/etc/web.log`에서 다음과 같은 메시지를 확인합니다.
 
     ```text
     INFO schedule buy_list_executor.execute_buy_list
     ```
 
-    이 로그가 없다면 스케줄러가 시작되지 않은 상태입니다.
+이 로그가 없다면 스케줄러가 시작되지 않은 상태입니다.  
+추가로 예외가 발생하면 같은 파일에 ``buy signal error`` 라인이
+스택 트레이스와 함께 기록됩니다. 이를 통해 어느 단계에서 문제가
+생겼는지 확인할 수 있습니다.
 
 - **3단계: 매수 실행 과정**
 
@@ -77,7 +80,10 @@
     이후 손절이나 익절 등 매도 주문이 실행될 때도 동일한 파일에 기록됩니다.
 
 ## 자주 발생하는 예외 사례
-- **PermissionError**: `logs/f3/F3_exception_handler.log` 또는 `web.log`에 경로와 함께 기록됩니다.
+- **PermissionError**: `logs/f3/F3_exception_handler.log` 또는 `web.log`에 경로와 함께
+  기록됩니다. 윈도우 환경에서 `unlock error` 메시지가 반복된다면 최신 버전에서 수정된
+  버그이므로 코드를 업데이트하세요. 잠금 해제 전 파일 포인터를 0으로 되돌리도록
+  개선되었습니다.
 - **잔고 부족**: `F3_order_executor.log`에 `insufficient funds` 메시지가 표시됩니다.
 - **네트워크 오류**: Upbit API 호출 실패 시 `web.log`에 HTTP 오류 코드가 남습니다.
 

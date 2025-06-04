@@ -67,6 +67,7 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
     for _ in range(retries):
         try:
             fh = lock_file.open("a+")
+            fh.seek(0)
             break
         except PermissionError as exc:
             log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
@@ -94,10 +95,14 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
         yield fh
     finally:
         try:
+            fh.seek(0)
             if fcntl:
                 fcntl.flock(fh, fcntl.LOCK_UN)
             else:  # pragma: no cover - Windows
-                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+                try:
+                    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+                except PermissionError as exc:
+                    log_with_tag(logger, f"unlock error {lock_file}: {exc}")
         finally:
             fh.close()
 
