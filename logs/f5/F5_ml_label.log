@@ -1,0 +1,501 @@
+2025-06-04 12:54:06,025 [F5] [INFO] symbol=KRW-ADA, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=34.53%(2032), 트레일=0.00%(0), 손절=33.37%(1964), 관망=32.10%(1889), 전체row=5885
+2025-06-04 12:54:06,029 [F5] [INFO] symbol=KRW-ADA, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=34.53%(2032), 트레일=0.00%(0), 손절=0.00%(0), 관망=65.47%(3853), 전체row=5885
+2025-06-04 12:54:06,033 [F5] [INFO] symbol=KRW-ADA, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=34.53%(2032), 트레일=0.00%(0), 손절=15.77%(928), 관망=49.70%(2925), 전체row=5885
+2025-06-04 12:54:06,037 [F5] [INFO] symbol=KRW-ADA, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=37.09%(2183), 관망=62.91%(3702), 전체row=5885
+2025-06-04 12:54:06,041 [F5] [INFO] symbol=KRW-ADA, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5885), 전체row=5885
+2025-06-04 12:54:06,044 [F5] [INFO] symbol=KRW-ADA, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=16.67%(981), 관망=83.33%(4904), 전체row=5885
+2025-06-04 12:54:06,050 [F5] [INFO] symbol=KRW-ADA, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=16.21%(954), 트레일=0.00%(0), 손절=36.13%(2126), 관망=47.66%(2805), 전체row=5885
+2025-06-04 12:54:06,054 [F5] [INFO] symbol=KRW-ADA, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=16.21%(954), 트레일=0.00%(0), 손절=0.00%(0), 관망=83.79%(4931), 전체row=5885
+2025-06-04 12:54:06,057 [F5] [INFO] symbol=KRW-ADA, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=16.21%(954), 트레일=0.00%(0), 손절=16.47%(969), 관망=67.32%(3962), 전체row=5885
+2025-06-04 12:54:06,098 [F5] [INFO] [LABEL] KRW-ADA_feature.parquet → KRW-ADA_label.parquet, shape=(5885, 86), dist={0: 2805, -1: 2126, 1: 954}, best_params={'symbol': 'KRW-ADA', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.162107051826678, 'row_count': 5885, 'label1_count': 954, 'label2_count': 0, 'label-1_count': 2126, 'label0_count': 2805}
+2025-06-04 12:54:06,115 [F5] [INFO] symbol=KRW-AKT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=37.90%(3617), 트레일=0.00%(0), 손절=30.39%(2900), 관망=31.71%(3026), 전체row=9543
+2025-06-04 12:54:06,121 [F5] [INFO] symbol=KRW-AKT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=37.90%(3617), 트레일=0.00%(0), 손절=0.09%(9), 관망=62.00%(5917), 전체row=9543
+2025-06-04 12:54:06,127 [F5] [INFO] symbol=KRW-AKT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=37.90%(3617), 트레일=0.00%(0), 손절=20.81%(1986), 관망=41.29%(3940), 전체row=9543
+2025-06-04 12:54:06,132 [F5] [INFO] symbol=KRW-AKT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.13%(12), 트레일=0.00%(0), 손절=37.28%(3558), 관망=62.59%(5973), 전체row=9543
+2025-06-04 12:54:06,137 [F5] [INFO] symbol=KRW-AKT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.13%(12), 트레일=0.00%(0), 손절=0.12%(11), 관망=99.76%(9520), 전체row=9543
+2025-06-04 12:54:06,144 [F5] [INFO] symbol=KRW-AKT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.13%(12), 트레일=0.00%(0), 손절=24.57%(2345), 관망=75.30%(7186), 전체row=9543
+2025-06-04 12:54:06,149 [F5] [INFO] symbol=KRW-AKT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=23.08%(2203), 트레일=0.00%(0), 손절=33.89%(3234), 관망=43.03%(4106), 전체row=9543
+2025-06-04 12:54:06,155 [F5] [INFO] symbol=KRW-AKT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=23.08%(2203), 트레일=0.00%(0), 손절=0.09%(9), 관망=76.82%(7331), 전체row=9543
+2025-06-04 12:54:06,166 [F5] [INFO] symbol=KRW-AKT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=23.08%(2203), 트레일=0.00%(0), 손절=22.55%(2152), 관망=54.36%(5188), 전체row=9543
+2025-06-04 12:54:06,167 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-AKT, best={'symbol': 'KRW-AKT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.37902127213664466, 'row_count': 9543, 'label1_count': 3617, 'label2_count': 0, 'label-1_count': 2900, 'label0_count': 3026}
+2025-06-04 12:54:06,288 [F5] [INFO] [LABEL] KRW-AKT_feature.parquet → KRW-AKT_label.parquet, shape=(9543, 86), dist={1: 3617, 0: 3026, -1: 2900}, best_params={'symbol': 'KRW-AKT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.37902127213664466, 'row_count': 9543, 'label1_count': 3617, 'label2_count': 0, 'label-1_count': 2900, 'label0_count': 3026}
+2025-06-04 12:54:06,318 [F5] [INFO] symbol=KRW-APT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=26.08%(2195), 트레일=0.00%(0), 손절=22.94%(1931), 관망=50.99%(4292), 전체row=8418
+2025-06-04 12:54:06,327 [F5] [INFO] symbol=KRW-APT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=26.08%(2195), 트레일=0.00%(0), 손절=0.02%(2), 관망=73.90%(6221), 전체row=8418
+2025-06-04 12:54:06,335 [F5] [INFO] symbol=KRW-APT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=26.08%(2195), 트레일=0.00%(0), 손절=12.54%(1056), 관망=61.38%(5167), 전체row=8418
+2025-06-04 12:54:06,346 [F5] [INFO] symbol=KRW-APT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=25.46%(2143), 관망=74.54%(6275), 전체row=8418
+2025-06-04 12:54:06,356 [F5] [INFO] symbol=KRW-APT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.05%(4), 관망=99.95%(8414), 전체row=8418
+2025-06-04 12:54:06,363 [F5] [INFO] symbol=KRW-APT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=13.83%(1164), 관망=86.17%(7254), 전체row=8418
+2025-06-04 12:54:06,372 [F5] [INFO] symbol=KRW-APT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=14.52%(1222), 트레일=0.00%(0), 손절=24.14%(2032), 관망=61.34%(5164), 전체row=8418
+2025-06-04 12:54:06,380 [F5] [INFO] symbol=KRW-APT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=14.52%(1222), 트레일=0.00%(0), 손절=0.02%(2), 관망=85.46%(7194), 전체row=8418
+2025-06-04 12:54:06,389 [F5] [INFO] symbol=KRW-APT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=14.52%(1222), 트레일=0.00%(0), 손절=13.10%(1103), 관망=72.38%(6093), 전체row=8418
+2025-06-04 12:54:06,465 [F5] [INFO] [LABEL] KRW-APT_feature.parquet → KRW-APT_label.parquet, shape=(8418, 86), dist={0: 5164, -1: 2032, 1: 1222}, best_params={'symbol': 'KRW-APT', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.14516512235685436, 'row_count': 8418, 'label1_count': 1222, 'label2_count': 0, 'label-1_count': 2032, 'label0_count': 5164}
+2025-06-04 12:54:06,492 [F5] [INFO] symbol=KRW-AQT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.14%(3291), 트레일=0.00%(0), 손절=28.36%(3202), 관망=42.50%(4799), 전체row=11292
+2025-06-04 12:54:06,502 [F5] [INFO] symbol=KRW-AQT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.14%(3291), 트레일=0.00%(0), 손절=0.05%(6), 관망=70.80%(7995), 전체row=11292
+2025-06-04 12:54:06,510 [F5] [INFO] symbol=KRW-AQT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.14%(3291), 트레일=0.00%(0), 손절=23.43%(2646), 관망=47.42%(5355), 전체row=11292
+2025-06-04 12:54:06,518 [F5] [INFO] symbol=KRW-AQT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.23%(26), 트레일=0.00%(0), 손절=34.85%(3935), 관망=64.92%(7331), 전체row=11292
+2025-06-04 12:54:06,526 [F5] [INFO] symbol=KRW-AQT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.23%(26), 트레일=0.00%(0), 손절=0.10%(11), 관망=99.67%(11255), 전체row=11292
+2025-06-04 12:54:06,534 [F5] [INFO] symbol=KRW-AQT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.23%(26), 트레일=0.00%(0), 손절=28.07%(3170), 관망=71.70%(8096), 전체row=11292
+2025-06-04 12:54:06,542 [F5] [INFO] symbol=KRW-AQT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=21.01%(2372), 트레일=0.00%(0), 손절=29.79%(3364), 관망=49.20%(5556), 전체row=11292
+2025-06-04 12:54:06,551 [F5] [INFO] symbol=KRW-AQT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=21.01%(2372), 트레일=0.00%(0), 손절=0.05%(6), 관망=78.94%(8914), 전체row=11292
+2025-06-04 12:54:06,560 [F5] [INFO] symbol=KRW-AQT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=21.01%(2372), 트레일=0.00%(0), 손절=24.48%(2764), 관망=54.52%(6156), 전체row=11292
+2025-06-04 12:54:06,561 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-AQT, best={'symbol': 'KRW-AQT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2914452709883103, 'row_count': 11292, 'label1_count': 3291, 'label2_count': 0, 'label-1_count': 3202, 'label0_count': 4799}
+2025-06-04 12:54:06,660 [F5] [INFO] [LABEL] KRW-AQT_feature.parquet → KRW-AQT_label.parquet, shape=(11292, 86), dist={0: 4799, 1: 3291, -1: 3202}, best_params={'symbol': 'KRW-AQT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2914452709883103, 'row_count': 11292, 'label1_count': 3291, 'label2_count': 0, 'label-1_count': 3202, 'label0_count': 4799}
+2025-06-04 12:54:06,682 [F5] [INFO] symbol=KRW-ARB, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=33.43%(2303), 트레일=0.00%(0), 손절=31.87%(2195), 관망=34.70%(2390), 전체row=6888
+2025-06-04 12:54:06,688 [F5] [INFO] symbol=KRW-ARB, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=33.43%(2303), 트레일=0.00%(0), 손절=0.07%(5), 관망=66.49%(4580), 전체row=6888
+2025-06-04 12:54:06,695 [F5] [INFO] symbol=KRW-ARB, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=33.43%(2303), 트레일=0.00%(0), 손절=17.06%(1175), 관망=49.51%(3410), 전체row=6888
+2025-06-04 12:54:06,700 [F5] [INFO] symbol=KRW-ARB, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=37.21%(2563), 관망=62.79%(4325), 전체row=6888
+2025-06-04 12:54:06,707 [F5] [INFO] symbol=KRW-ARB, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.07%(5), 관망=99.93%(6883), 전체row=6888
+2025-06-04 12:54:06,713 [F5] [INFO] symbol=KRW-ARB, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=19.86%(1368), 관망=80.14%(5520), 전체row=6888
+2025-06-04 12:54:06,719 [F5] [INFO] symbol=KRW-ARB, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=20.41%(1406), 트레일=0.00%(0), 손절=34.47%(2374), 관망=45.12%(3108), 전체row=6888
+2025-06-04 12:54:06,725 [F5] [INFO] symbol=KRW-ARB, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=20.41%(1406), 트레일=0.00%(0), 손절=0.07%(5), 관망=79.52%(5477), 전체row=6888
+2025-06-04 12:54:06,731 [F5] [INFO] symbol=KRW-ARB, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=20.41%(1406), 트레일=0.00%(0), 손절=18.37%(1265), 관망=61.22%(4217), 전체row=6888
+2025-06-04 12:54:06,731 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-ARB, best={'symbol': 'KRW-ARB', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.33434959349593496, 'row_count': 6888, 'label1_count': 2303, 'label2_count': 0, 'label-1_count': 2195, 'label0_count': 2390}
+2025-06-04 12:54:06,787 [F5] [INFO] [LABEL] KRW-ARB_feature.parquet → KRW-ARB_label.parquet, shape=(6888, 86), dist={0: 2390, 1: 2303, -1: 2195}, best_params={'symbol': 'KRW-ARB', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.33434959349593496, 'row_count': 6888, 'label1_count': 2303, 'label2_count': 0, 'label-1_count': 2195, 'label0_count': 2390}
+2025-06-04 12:54:06,810 [F5] [INFO] symbol=KRW-ARK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=25.44%(2447), 트레일=0.00%(0), 손절=24.61%(2367), 관망=49.95%(4805), 전체row=9619
+2025-06-04 12:54:06,817 [F5] [INFO] symbol=KRW-ARK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=25.44%(2447), 트레일=0.00%(0), 손절=0.00%(0), 관망=74.56%(7172), 전체row=9619
+2025-06-04 12:54:06,824 [F5] [INFO] symbol=KRW-ARK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=25.44%(2447), 트레일=0.00%(0), 손절=13.91%(1338), 관망=60.65%(5834), 전체row=9619
+2025-06-04 12:54:06,831 [F5] [INFO] symbol=KRW-ARK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=27.79%(2673), 관망=72.21%(6946), 전체row=9619
+2025-06-04 12:54:06,837 [F5] [INFO] symbol=KRW-ARK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(9619), 전체row=9619
+2025-06-04 12:54:06,843 [F5] [INFO] symbol=KRW-ARK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=15.47%(1488), 관망=84.53%(8131), 전체row=9619
+2025-06-04 12:54:06,850 [F5] [INFO] symbol=KRW-ARK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=14.43%(1388), 트레일=0.00%(0), 손절=25.98%(2499), 관망=59.59%(5732), 전체row=9619
+2025-06-04 12:54:06,856 [F5] [INFO] symbol=KRW-ARK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=14.43%(1388), 트레일=0.00%(0), 손절=0.00%(0), 관망=85.57%(8231), 전체row=9619
+2025-06-04 12:54:06,863 [F5] [INFO] symbol=KRW-ARK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=14.43%(1388), 트레일=0.00%(0), 손절=14.54%(1399), 관망=71.03%(6832), 전체row=9619
+2025-06-04 12:54:06,944 [F5] [INFO] [LABEL] KRW-ARK_feature.parquet → KRW-ARK_label.parquet, shape=(9619, 86), dist={0: 5732, -1: 2499, 1: 1388}, best_params={'symbol': 'KRW-ARK', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.14429774404823786, 'row_count': 9619, 'label1_count': 1388, 'label2_count': 0, 'label-1_count': 2499, 'label0_count': 5732}
+2025-06-04 12:54:06,960 [F5] [INFO] symbol=KRW-AUCTION, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.94%(2418), 트레일=0.00%(0), 손절=28.43%(2296), 관망=41.64%(3363), 전체row=8077
+2025-06-04 12:54:06,968 [F5] [INFO] symbol=KRW-AUCTION, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.94%(2418), 트레일=0.00%(0), 손절=0.02%(2), 관망=70.04%(5657), 전체row=8077
+2025-06-04 12:54:06,974 [F5] [INFO] symbol=KRW-AUCTION, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.94%(2418), 트레일=0.00%(0), 손절=16.73%(1351), 관망=53.34%(4308), 전체row=8077
+2025-06-04 12:54:06,980 [F5] [INFO] symbol=KRW-AUCTION, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=32.90%(2657), 관망=67.10%(5420), 전체row=8077
+2025-06-04 12:54:06,986 [F5] [INFO] symbol=KRW-AUCTION, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.05%(4), 관망=99.95%(8073), 전체row=8077
+2025-06-04 12:54:06,993 [F5] [INFO] symbol=KRW-AUCTION, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=18.41%(1487), 관망=81.59%(6590), 전체row=8077
+2025-06-04 12:54:07,000 [F5] [INFO] symbol=KRW-AUCTION, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=15.49%(1251), 트레일=0.00%(0), 손절=31.01%(2505), 관망=53.50%(4321), 전체row=8077
+2025-06-04 12:54:07,007 [F5] [INFO] symbol=KRW-AUCTION, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=15.49%(1251), 트레일=0.00%(0), 손절=0.04%(3), 관망=84.47%(6823), 전체row=8077
+2025-06-04 12:54:07,012 [F5] [INFO] symbol=KRW-AUCTION, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=15.49%(1251), 트레일=0.00%(0), 손절=17.58%(1420), 관망=66.93%(5406), 전체row=8077
+2025-06-04 12:54:07,067 [F5] [INFO] [LABEL] KRW-AUCTION_feature.parquet → KRW-AUCTION_label.parquet, shape=(8077, 86), dist={0: 4321, -1: 2505, 1: 1251}, best_params={'symbol': 'KRW-AUCTION', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.15488423919772193, 'row_count': 8077, 'label1_count': 1251, 'label2_count': 0, 'label-1_count': 2505, 'label0_count': 4321}
+2025-06-04 12:54:07,083 [F5] [INFO] symbol=KRW-BERA, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=38.25%(2597), 트레일=0.00%(0), 손절=33.42%(2269), 관망=28.34%(1924), 전체row=6790
+2025-06-04 12:54:07,087 [F5] [INFO] symbol=KRW-BERA, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=38.25%(2597), 트레일=0.00%(0), 손절=0.00%(0), 관망=61.75%(4193), 전체row=6790
+2025-06-04 12:54:07,093 [F5] [INFO] symbol=KRW-BERA, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=38.25%(2597), 트레일=0.00%(0), 손절=23.08%(1567), 관망=38.67%(2626), 전체row=6790
+2025-06-04 12:54:07,098 [F5] [INFO] symbol=KRW-BERA, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=40.35%(2740), 관망=59.57%(4045), 전체row=6790
+2025-06-04 12:54:07,103 [F5] [INFO] symbol=KRW-BERA, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=0.00%(0), 관망=99.93%(6785), 전체row=6790
+2025-06-04 12:54:07,108 [F5] [INFO] symbol=KRW-BERA, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=27.05%(1837), 관망=72.87%(4948), 전체row=6790
+2025-06-04 12:54:07,112 [F5] [INFO] symbol=KRW-BERA, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=25.67%(1743), 트레일=0.00%(0), 손절=36.48%(2477), 관망=37.85%(2570), 전체row=6790
+2025-06-04 12:54:07,116 [F5] [INFO] symbol=KRW-BERA, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=25.67%(1743), 트레일=0.00%(0), 손절=0.00%(0), 관망=74.33%(5047), 전체row=6790
+2025-06-04 12:54:07,122 [F5] [INFO] symbol=KRW-BERA, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=25.67%(1743), 트레일=0.00%(0), 손절=24.83%(1686), 관망=49.50%(3361), 전체row=6790
+2025-06-04 12:54:07,122 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-BERA, best={'symbol': 'KRW-BERA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3824742268041237, 'row_count': 6790, 'label1_count': 2597, 'label2_count': 0, 'label-1_count': 2269, 'label0_count': 1924}
+2025-06-04 12:54:07,167 [F5] [INFO] [LABEL] KRW-BERA_feature.parquet → KRW-BERA_label.parquet, shape=(6790, 86), dist={1: 2597, -1: 2269, 0: 1924}, best_params={'symbol': 'KRW-BERA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3824742268041237, 'row_count': 6790, 'label1_count': 2597, 'label2_count': 0, 'label-1_count': 2269, 'label0_count': 1924}
+2025-06-04 12:54:07,183 [F5] [INFO] symbol=KRW-CARV, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=38.40%(2852), 트레일=0.00%(0), 손절=27.78%(2063), 관망=33.82%(2512), 전체row=7427
+2025-06-04 12:54:07,187 [F5] [INFO] symbol=KRW-CARV, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=38.40%(2852), 트레일=0.00%(0), 손절=0.04%(3), 관망=61.56%(4572), 전체row=7427
+2025-06-04 12:54:07,192 [F5] [INFO] symbol=KRW-CARV, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=38.40%(2852), 트레일=0.00%(0), 손절=19.07%(1416), 관망=42.53%(3159), 전체row=7427
+2025-06-04 12:54:07,196 [F5] [INFO] symbol=KRW-CARV, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.09%(7), 트레일=0.00%(0), 손절=37.82%(2809), 관망=62.08%(4611), 전체row=7427
+2025-06-04 12:54:07,200 [F5] [INFO] symbol=KRW-CARV, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.09%(7), 트레일=0.00%(0), 손절=0.15%(11), 관망=99.76%(7409), 전체row=7427
+2025-06-04 12:54:07,204 [F5] [INFO] symbol=KRW-CARV, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.09%(7), 트레일=0.00%(0), 손절=25.60%(1901), 관망=74.31%(5519), 전체row=7427
+2025-06-04 12:54:07,208 [F5] [INFO] symbol=KRW-CARV, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=27.21%(2021), 트레일=0.00%(0), 손절=30.89%(2294), 관망=41.90%(3112), 전체row=7427
+2025-06-04 12:54:07,213 [F5] [INFO] symbol=KRW-CARV, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=27.21%(2021), 트레일=0.00%(0), 손절=0.05%(4), 관망=72.73%(5402), 전체row=7427
+2025-06-04 12:54:07,217 [F5] [INFO] symbol=KRW-CARV, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=27.21%(2021), 트레일=0.00%(0), 손절=21.03%(1562), 관망=51.76%(3844), 전체row=7427
+2025-06-04 12:54:07,217 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-CARV, best={'symbol': 'KRW-CARV', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.38400430860374307, 'row_count': 7427, 'label1_count': 2852, 'label2_count': 0, 'label-1_count': 2063, 'label0_count': 2512}
+2025-06-04 12:54:07,259 [F5] [INFO] [LABEL] KRW-CARV_feature.parquet → KRW-CARV_label.parquet, shape=(7427, 86), dist={1: 2852, 0: 2512, -1: 2063}, best_params={'symbol': 'KRW-CARV', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.38400430860374307, 'row_count': 7427, 'label1_count': 2852, 'label2_count': 0, 'label-1_count': 2063, 'label0_count': 2512}
+2025-06-04 12:54:07,278 [F5] [INFO] symbol=KRW-CBK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=22.33%(3164), 트레일=0.00%(0), 손절=21.34%(3024), 관망=56.32%(7980), 전체row=14168
+2025-06-04 12:54:07,286 [F5] [INFO] symbol=KRW-CBK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=22.33%(3164), 트레일=0.00%(0), 손절=0.15%(21), 관망=77.52%(10983), 전체row=14168
+2025-06-04 12:54:07,293 [F5] [INFO] symbol=KRW-CBK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=22.33%(3164), 트레일=0.00%(0), 손절=15.63%(2215), 관망=62.03%(8789), 전체row=14168
+2025-06-04 12:54:07,302 [F5] [INFO] symbol=KRW-CBK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.35%(50), 트레일=0.00%(0), 손절=25.47%(3608), 관망=74.18%(10510), 전체row=14168
+2025-06-04 12:54:07,309 [F5] [INFO] symbol=KRW-CBK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.35%(50), 트레일=0.00%(0), 손절=0.27%(38), 관망=99.38%(14080), 전체row=14168
+2025-06-04 12:54:07,317 [F5] [INFO] symbol=KRW-CBK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.35%(50), 트레일=0.00%(0), 손절=18.63%(2640), 관망=81.01%(11478), 전체row=14168
+2025-06-04 12:54:07,324 [F5] [INFO] symbol=KRW-CBK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=16.40%(2324), 트레일=0.00%(0), 손절=22.38%(3171), 관망=61.22%(8673), 전체row=14168
+2025-06-04 12:54:07,332 [F5] [INFO] symbol=KRW-CBK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=16.40%(2324), 트레일=0.00%(0), 손절=0.18%(26), 관망=83.41%(11818), 전체row=14168
+2025-06-04 12:54:07,339 [F5] [INFO] symbol=KRW-CBK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=16.40%(2324), 트레일=0.00%(0), 손절=16.35%(2316), 관망=67.25%(9528), 전체row=14168
+2025-06-04 12:54:07,412 [F5] [INFO] [LABEL] KRW-CBK_feature.parquet → KRW-CBK_label.parquet, shape=(14168, 86), dist={0: 8673, -1: 3171, 1: 2324}, best_params={'symbol': 'KRW-CBK', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.16403162055335968, 'row_count': 14168, 'label1_count': 2324, 'label2_count': 0, 'label-1_count': 3171, 'label0_count': 8673}
+2025-06-04 12:54:07,426 [F5] [INFO] symbol=KRW-COW, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=45.49%(3295), 트레일=0.00%(0), 손절=33.72%(2443), 관망=20.79%(1506), 전체row=7244
+2025-06-04 12:54:07,430 [F5] [INFO] symbol=KRW-COW, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=45.49%(3295), 트레일=0.00%(0), 손절=0.07%(5), 관망=54.45%(3944), 전체row=7244
+2025-06-04 12:54:07,435 [F5] [INFO] symbol=KRW-COW, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=45.49%(3295), 트레일=0.00%(0), 손절=25.95%(1880), 관망=28.56%(2069), 전체row=7244
+2025-06-04 12:54:07,439 [F5] [INFO] symbol=KRW-COW, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=44.86%(3250), 관망=55.07%(3989), 전체row=7244
+2025-06-04 12:54:07,443 [F5] [INFO] symbol=KRW-COW, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=0.10%(7), 관망=99.83%(7232), 전체row=7244
+2025-06-04 12:54:07,447 [F5] [INFO] symbol=KRW-COW, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.07%(5), 트레일=0.00%(0), 손절=32.79%(2375), 관망=67.15%(4864), 전체row=7244
+2025-06-04 12:54:07,450 [F5] [INFO] symbol=KRW-COW, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=30.76%(2228), 트레일=0.00%(0), 손절=38.24%(2770), 관망=31.00%(2246), 전체row=7244
+2025-06-04 12:54:07,455 [F5] [INFO] symbol=KRW-COW, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=30.76%(2228), 트레일=0.00%(0), 손절=0.08%(6), 관망=69.16%(5010), 전체row=7244
+2025-06-04 12:54:07,459 [F5] [INFO] symbol=KRW-COW, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=30.76%(2228), 트레일=0.00%(0), 손절=28.91%(2094), 관망=40.34%(2922), 전체row=7244
+2025-06-04 12:54:07,460 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-COW, best={'symbol': 'KRW-COW', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4548591938155715, 'row_count': 7244, 'label1_count': 3295, 'label2_count': 0, 'label-1_count': 2443, 'label0_count': 1506}
+2025-06-04 12:54:07,499 [F5] [INFO] [LABEL] KRW-COW_feature.parquet → KRW-COW_label.parquet, shape=(7244, 86), dist={1: 3295, -1: 2443, 0: 1506}, best_params={'symbol': 'KRW-COW', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4548591938155715, 'row_count': 7244, 'label1_count': 3295, 'label2_count': 0, 'label-1_count': 2443, 'label0_count': 1506}
+2025-06-04 12:54:07,516 [F5] [INFO] symbol=KRW-CTC, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=26.66%(2727), 트레일=0.00%(0), 손절=22.46%(2297), 관망=50.88%(5203), 전체row=10227
+2025-06-04 12:54:07,522 [F5] [INFO] symbol=KRW-CTC, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=26.66%(2727), 트레일=0.00%(0), 손절=0.03%(3), 관망=73.31%(7497), 전체row=10227
+2025-06-04 12:54:07,528 [F5] [INFO] symbol=KRW-CTC, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=26.66%(2727), 트레일=0.00%(0), 손절=12.79%(1308), 관망=60.55%(6192), 전체row=10227
+2025-06-04 12:54:07,533 [F5] [INFO] symbol=KRW-CTC, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=24.82%(2538), 관망=75.18%(7689), 전체row=10227
+2025-06-04 12:54:07,539 [F5] [INFO] symbol=KRW-CTC, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.05%(5), 관망=99.95%(10222), 전체row=10227
+2025-06-04 12:54:07,545 [F5] [INFO] symbol=KRW-CTC, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=13.97%(1429), 관망=86.03%(8798), 전체row=10227
+2025-06-04 12:54:07,550 [F5] [INFO] symbol=KRW-CTC, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=13.42%(1372), 트레일=0.00%(0), 손절=23.62%(2416), 관망=62.96%(6439), 전체row=10227
+2025-06-04 12:54:07,555 [F5] [INFO] symbol=KRW-CTC, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=13.42%(1372), 트레일=0.00%(0), 손절=0.03%(3), 관망=86.56%(8852), 전체row=10227
+2025-06-04 12:54:07,561 [F5] [INFO] symbol=KRW-CTC, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=13.42%(1372), 트레일=0.00%(0), 손절=13.35%(1365), 관망=73.24%(7490), 전체row=10227
+2025-06-04 12:54:07,621 [F5] [INFO] [LABEL] KRW-CTC_feature.parquet → KRW-CTC_label.parquet, shape=(10227, 86), dist={0: 6439, -1: 2416, 1: 1372}, best_params={'symbol': 'KRW-CTC', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.13415468856947296, 'row_count': 10227, 'label1_count': 1372, 'label2_count': 0, 'label-1_count': 2416, 'label0_count': 6439}
+2025-06-04 12:54:07,638 [F5] [INFO] symbol=KRW-DOT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=21.04%(1685), 트레일=0.00%(0), 손절=20.40%(1634), 관망=58.56%(4690), 전체row=8009
+2025-06-04 12:54:07,642 [F5] [INFO] symbol=KRW-DOT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=21.04%(1685), 트레일=0.00%(0), 손절=0.01%(1), 관망=78.95%(6323), 전체row=8009
+2025-06-04 12:54:07,647 [F5] [INFO] symbol=KRW-DOT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=21.04%(1685), 트레일=0.00%(0), 손절=9.48%(759), 관망=69.48%(5565), 전체row=8009
+2025-06-04 12:54:07,651 [F5] [INFO] symbol=KRW-DOT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=21.78%(1744), 관망=78.22%(6265), 전체row=8009
+2025-06-04 12:54:07,657 [F5] [INFO] symbol=KRW-DOT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.01%(1), 관망=99.99%(8008), 전체row=8009
+2025-06-04 12:54:07,661 [F5] [INFO] symbol=KRW-DOT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=10.11%(810), 관망=89.89%(7199), 전체row=8009
+2025-06-04 12:54:07,666 [F5] [INFO] symbol=KRW-DOT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=9.85%(789), 트레일=0.00%(0), 손절=21.14%(1693), 관망=69.01%(5527), 전체row=8009
+2025-06-04 12:54:07,669 [F5] [INFO] symbol=KRW-DOT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=9.85%(789), 트레일=0.00%(0), 손절=0.01%(1), 관망=90.14%(7219), 전체row=8009
+2025-06-04 12:54:07,674 [F5] [INFO] symbol=KRW-DOT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=9.85%(789), 트레일=0.00%(0), 손절=9.81%(786), 관망=80.33%(6434), 전체row=8009
+2025-06-04 12:54:07,675 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-DOT, best={'symbol': 'KRW-DOT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.21038831314770884, 'row_count': 8009, 'label1_count': 1685, 'label2_count': 0, 'label-1_count': 1634, 'label0_count': 4690}
+2025-06-04 12:54:07,714 [F5] [INFO] [LABEL] KRW-DOT_feature.parquet → KRW-DOT_label.parquet, shape=(8009, 86), dist={0: 4690, 1: 1685, -1: 1634}, best_params={'symbol': 'KRW-DOT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.21038831314770884, 'row_count': 8009, 'label1_count': 1685, 'label2_count': 0, 'label-1_count': 1634, 'label0_count': 4690}
+2025-06-04 12:54:07,731 [F5] [INFO] symbol=KRW-DRIFT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=34.99%(2659), 트레일=0.00%(0), 손절=30.96%(2353), 관망=34.05%(2588), 전체row=7600
+2025-06-04 12:54:07,735 [F5] [INFO] symbol=KRW-DRIFT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=34.99%(2659), 트레일=0.00%(0), 손절=0.08%(6), 관망=64.93%(4935), 전체row=7600
+2025-06-04 12:54:07,740 [F5] [INFO] symbol=KRW-DRIFT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=34.99%(2659), 트레일=0.00%(0), 손절=21.70%(1649), 관망=43.32%(3292), 전체row=7600
+2025-06-04 12:54:07,744 [F5] [INFO] symbol=KRW-DRIFT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.08%(6), 트레일=0.00%(0), 손절=39.78%(3023), 관망=60.14%(4571), 전체row=7600
+2025-06-04 12:54:07,748 [F5] [INFO] symbol=KRW-DRIFT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.08%(6), 트레일=0.00%(0), 손절=0.20%(15), 관망=99.72%(7579), 전체row=7600
+2025-06-04 12:54:07,753 [F5] [INFO] symbol=KRW-DRIFT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.08%(6), 트레일=0.00%(0), 손절=27.14%(2063), 관망=72.78%(5531), 전체row=7600
+2025-06-04 12:54:07,757 [F5] [INFO] symbol=KRW-DRIFT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=24.29%(1846), 트레일=0.00%(0), 손절=33.93%(2579), 관망=41.78%(3175), 전체row=7600
+2025-06-04 12:54:07,762 [F5] [INFO] symbol=KRW-DRIFT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=24.29%(1846), 트레일=0.00%(0), 손절=0.11%(8), 관망=75.61%(5746), 전체row=7600
+2025-06-04 12:54:07,768 [F5] [INFO] symbol=KRW-DRIFT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=24.29%(1846), 트레일=0.00%(0), 손절=23.66%(1798), 관망=52.05%(3956), 전체row=7600
+2025-06-04 12:54:07,768 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-DRIFT, best={'symbol': 'KRW-DRIFT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3498684210526316, 'row_count': 7600, 'label1_count': 2659, 'label2_count': 0, 'label-1_count': 2353, 'label0_count': 2588}
+2025-06-04 12:54:07,809 [F5] [INFO] [LABEL] KRW-DRIFT_feature.parquet → KRW-DRIFT_label.parquet, shape=(7600, 86), dist={1: 2659, 0: 2588, -1: 2353}, best_params={'symbol': 'KRW-DRIFT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3498684210526316, 'row_count': 7600, 'label1_count': 2659, 'label2_count': 0, 'label-1_count': 2353, 'label0_count': 2588}
+2025-06-04 12:54:07,821 [F5] [INFO] symbol=KRW-EOS, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=41.75%(2952), 트레일=0.00%(0), 손절=31.66%(2239), 관망=26.59%(1880), 전체row=7071
+2025-06-04 12:54:07,825 [F5] [INFO] symbol=KRW-EOS, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=41.75%(2952), 트레일=0.00%(0), 손절=0.06%(4), 관망=58.20%(4115), 전체row=7071
+2025-06-04 12:54:07,830 [F5] [INFO] symbol=KRW-EOS, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=41.75%(2952), 트레일=0.00%(0), 손절=24.17%(1709), 관망=34.08%(2410), 전체row=7071
+2025-06-04 12:54:07,834 [F5] [INFO] symbol=KRW-EOS, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.17%(12), 트레일=0.00%(0), 손절=44.72%(3162), 관망=55.11%(3897), 전체row=7071
+2025-06-04 12:54:07,838 [F5] [INFO] symbol=KRW-EOS, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.17%(12), 트레일=0.00%(0), 손절=0.13%(9), 관망=99.70%(7050), 전체row=7071
+2025-06-04 12:54:07,842 [F5] [INFO] symbol=KRW-EOS, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.17%(12), 트레일=0.00%(0), 손절=33.06%(2338), 관망=66.77%(4721), 전체row=7071
+2025-06-04 12:54:07,845 [F5] [INFO] symbol=KRW-EOS, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=31.38%(2219), 트레일=0.00%(0), 손절=35.38%(2502), 관망=33.23%(2350), 전체row=7071
+2025-06-04 12:54:07,850 [F5] [INFO] symbol=KRW-EOS, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=31.38%(2219), 트레일=0.00%(0), 손절=0.07%(5), 관망=68.55%(4847), 전체row=7071
+2025-06-04 12:54:07,854 [F5] [INFO] symbol=KRW-EOS, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=31.38%(2219), 트레일=0.00%(0), 손절=26.77%(1893), 관망=41.85%(2959), 전체row=7071
+2025-06-04 12:54:07,854 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-EOS, best={'symbol': 'KRW-EOS', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.41747984726347054, 'row_count': 7071, 'label1_count': 2952, 'label2_count': 0, 'label-1_count': 2239, 'label0_count': 1880}
+2025-06-04 12:54:07,890 [F5] [INFO] [LABEL] KRW-EOS_feature.parquet → KRW-EOS_label.parquet, shape=(7071, 86), dist={1: 2952, -1: 2239, 0: 1880}, best_params={'symbol': 'KRW-EOS', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.41747984726347054, 'row_count': 7071, 'label1_count': 2952, 'label2_count': 0, 'label-1_count': 2239, 'label0_count': 1880}
+2025-06-04 12:54:07,904 [F5] [INFO] symbol=KRW-ETC, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=23.06%(1380), 트레일=0.00%(0), 손절=20.50%(1227), 관망=56.43%(3377), 전체row=5984
+2025-06-04 12:54:07,908 [F5] [INFO] symbol=KRW-ETC, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=23.06%(1380), 트레일=0.00%(0), 손절=0.00%(0), 관망=76.94%(4604), 전체row=5984
+2025-06-04 12:54:07,912 [F5] [INFO] symbol=KRW-ETC, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=23.06%(1380), 트레일=0.00%(0), 손절=6.48%(388), 관망=70.45%(4216), 전체row=5984
+2025-06-04 12:54:07,916 [F5] [INFO] symbol=KRW-ETC, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=22.34%(1337), 관망=77.66%(4647), 전체row=5984
+2025-06-04 12:54:07,919 [F5] [INFO] symbol=KRW-ETC, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5984), 전체row=5984
+2025-06-04 12:54:07,922 [F5] [INFO] symbol=KRW-ETC, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=7.24%(433), 관망=92.76%(5551), 전체row=5984
+2025-06-04 12:54:07,925 [F5] [INFO] symbol=KRW-ETC, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=6.75%(404), 트레일=0.00%(0), 손절=21.76%(1302), 관망=71.49%(4278), 전체row=5984
+2025-06-04 12:54:07,929 [F5] [INFO] symbol=KRW-ETC, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=6.75%(404), 트레일=0.00%(0), 손절=0.00%(0), 관망=93.25%(5580), 전체row=5984
+2025-06-04 12:54:07,933 [F5] [INFO] symbol=KRW-ETC, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=6.75%(404), 트레일=0.00%(0), 손절=6.92%(414), 관망=86.33%(5166), 전체row=5984
+2025-06-04 12:54:07,933 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-ETC, best={'symbol': 'KRW-ETC', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2306149732620321, 'row_count': 5984, 'label1_count': 1380, 'label2_count': 0, 'label-1_count': 1227, 'label0_count': 3377}
+2025-06-04 12:54:07,966 [F5] [INFO] [LABEL] KRW-ETC_feature.parquet → KRW-ETC_label.parquet, shape=(5984, 86), dist={0: 3377, 1: 1380, -1: 1227}, best_params={'symbol': 'KRW-ETC', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2306149732620321, 'row_count': 5984, 'label1_count': 1380, 'label2_count': 0, 'label-1_count': 1227, 'label0_count': 3377}
+2025-06-04 12:54:07,981 [F5] [INFO] symbol=KRW-GAS, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=20.03%(1750), 트레일=0.00%(0), 손절=18.44%(1611), 관망=61.52%(5374), 전체row=8735
+2025-06-04 12:54:07,986 [F5] [INFO] symbol=KRW-GAS, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=20.03%(1750), 트레일=0.00%(0), 손절=0.01%(1), 관망=79.95%(6984), 전체row=8735
+2025-06-04 12:54:07,990 [F5] [INFO] symbol=KRW-GAS, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=20.03%(1750), 트레일=0.00%(0), 손절=8.32%(727), 관망=71.64%(6258), 전체row=8735
+2025-06-04 12:54:07,995 [F5] [INFO] symbol=KRW-GAS, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=19.93%(1741), 관망=80.07%(6994), 전체row=8735
+2025-06-04 12:54:07,999 [F5] [INFO] symbol=KRW-GAS, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.01%(1), 관망=99.99%(8734), 전체row=8735
+2025-06-04 12:54:08,005 [F5] [INFO] symbol=KRW-GAS, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=8.95%(782), 관망=91.05%(7953), 전체row=8735
+2025-06-04 12:54:08,009 [F5] [INFO] symbol=KRW-GAS, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=8.83%(771), 트레일=0.00%(0), 손절=19.27%(1683), 관망=71.91%(6281), 전체row=8735
+2025-06-04 12:54:08,014 [F5] [INFO] symbol=KRW-GAS, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=8.83%(771), 트레일=0.00%(0), 손절=0.01%(1), 관망=91.16%(7963), 전체row=8735
+2025-06-04 12:54:08,019 [F5] [INFO] symbol=KRW-GAS, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=8.83%(771), 트레일=0.00%(0), 손절=8.61%(752), 관망=82.56%(7212), 전체row=8735
+2025-06-04 12:54:08,019 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-GAS, best={'symbol': 'KRW-GAS', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2003434459072696, 'row_count': 8735, 'label1_count': 1750, 'label2_count': 0, 'label-1_count': 1611, 'label0_count': 5374}
+2025-06-04 12:54:08,074 [F5] [INFO] [LABEL] KRW-GAS_feature.parquet → KRW-GAS_label.parquet, shape=(8735, 86), dist={0: 5374, 1: 1750, -1: 1611}, best_params={'symbol': 'KRW-GAS', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.2003434459072696, 'row_count': 8735, 'label1_count': 1750, 'label2_count': 0, 'label-1_count': 1611, 'label0_count': 5374}
+2025-06-04 12:54:08,088 [F5] [INFO] symbol=KRW-INJ, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=41.34%(3121), 트레일=0.00%(0), 손절=32.29%(2438), 관망=26.37%(1991), 전체row=7550
+2025-06-04 12:54:08,093 [F5] [INFO] symbol=KRW-INJ, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=41.34%(3121), 트레일=0.00%(0), 손절=0.05%(4), 관망=58.61%(4425), 전체row=7550
+2025-06-04 12:54:08,098 [F5] [INFO] symbol=KRW-INJ, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=41.34%(3121), 트레일=0.00%(0), 손절=23.59%(1781), 관망=35.07%(2648), 전체row=7550
+2025-06-04 12:54:08,102 [F5] [INFO] symbol=KRW-INJ, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.11%(8), 트레일=0.00%(0), 손절=42.28%(3192), 관망=57.62%(4350), 전체row=7550
+2025-06-04 12:54:08,106 [F5] [INFO] symbol=KRW-INJ, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.11%(8), 트레일=0.00%(0), 손절=0.05%(4), 관망=99.84%(7538), 전체row=7550
+2025-06-04 12:54:08,111 [F5] [INFO] symbol=KRW-INJ, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.11%(8), 트레일=0.00%(0), 손절=29.17%(2202), 관망=70.73%(5340), 전체row=7550
+2025-06-04 12:54:08,115 [F5] [INFO] symbol=KRW-INJ, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=27.99%(2113), 트레일=0.00%(0), 손절=36.64%(2766), 관망=35.38%(2671), 전체row=7550
+2025-06-04 12:54:08,121 [F5] [INFO] symbol=KRW-INJ, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=27.99%(2113), 트레일=0.00%(0), 손절=0.05%(4), 관망=71.96%(5433), 전체row=7550
+2025-06-04 12:54:08,124 [F5] [INFO] symbol=KRW-INJ, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=27.99%(2113), 트레일=0.00%(0), 손절=26.01%(1964), 관망=46.00%(3473), 전체row=7550
+2025-06-04 12:54:08,125 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-INJ, best={'symbol': 'KRW-INJ', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4133774834437086, 'row_count': 7550, 'label1_count': 3121, 'label2_count': 0, 'label-1_count': 2438, 'label0_count': 1991}
+2025-06-04 12:54:08,168 [F5] [INFO] [LABEL] KRW-INJ_feature.parquet → KRW-INJ_label.parquet, shape=(7550, 86), dist={1: 3121, -1: 2438, 0: 1991}, best_params={'symbol': 'KRW-INJ', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4133774834437086, 'row_count': 7550, 'label1_count': 3121, 'label2_count': 0, 'label-1_count': 2438, 'label0_count': 1991}
+2025-06-04 12:54:08,195 [F5] [INFO] symbol=KRW-JUP, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=34.15%(2466), 트레일=0.00%(0), 손절=31.19%(2252), 관망=34.66%(2503), 전체row=7221
+2025-06-04 12:54:08,205 [F5] [INFO] symbol=KRW-JUP, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=34.15%(2466), 트레일=0.00%(0), 손절=0.07%(5), 관망=65.78%(4750), 전체row=7221
+2025-06-04 12:54:08,211 [F5] [INFO] symbol=KRW-JUP, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=34.15%(2466), 트레일=0.00%(0), 손절=20.40%(1473), 관망=45.45%(3282), 전체row=7221
+2025-06-04 12:54:08,217 [F5] [INFO] symbol=KRW-JUP, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=35.62%(2572), 관망=64.38%(4649), 전체row=7221
+2025-06-04 12:54:08,223 [F5] [INFO] symbol=KRW-JUP, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.07%(5), 관망=99.93%(7216), 전체row=7221
+2025-06-04 12:54:08,229 [F5] [INFO] symbol=KRW-JUP, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=22.43%(1620), 관망=77.57%(5601), 전체row=7221
+2025-06-04 12:54:08,236 [F5] [INFO] symbol=KRW-JUP, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=22.14%(1599), 트레일=0.00%(0), 손절=33.51%(2420), 관망=44.34%(3202), 전체row=7221
+2025-06-04 12:54:08,242 [F5] [INFO] symbol=KRW-JUP, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=22.14%(1599), 트레일=0.00%(0), 손절=0.07%(5), 관망=77.79%(5617), 전체row=7221
+2025-06-04 12:54:08,248 [F5] [INFO] symbol=KRW-JUP, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=22.14%(1599), 트레일=0.00%(0), 손절=21.55%(1556), 관망=56.31%(4066), 전체row=7221
+2025-06-04 12:54:08,248 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-JUP, best={'symbol': 'KRW-JUP', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3415039468217698, 'row_count': 7221, 'label1_count': 2466, 'label2_count': 0, 'label-1_count': 2252, 'label0_count': 2503}
+2025-06-04 12:54:08,297 [F5] [INFO] [LABEL] KRW-JUP_feature.parquet → KRW-JUP_label.parquet, shape=(7221, 86), dist={0: 2503, 1: 2466, -1: 2252}, best_params={'symbol': 'KRW-JUP', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3415039468217698, 'row_count': 7221, 'label1_count': 2466, 'label2_count': 0, 'label-1_count': 2252, 'label0_count': 2503}
+2025-06-04 12:54:08,314 [F5] [INFO] symbol=KRW-KAITO, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=48.67%(2889), 트레일=0.00%(0), 손절=35.02%(2079), 관망=16.31%(968), 전체row=5936
+2025-06-04 12:54:08,318 [F5] [INFO] symbol=KRW-KAITO, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=48.67%(2889), 트레일=0.00%(0), 손절=0.17%(10), 관망=51.16%(3037), 전체row=5936
+2025-06-04 12:54:08,322 [F5] [INFO] symbol=KRW-KAITO, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=48.67%(2889), 트레일=0.00%(0), 손절=27.02%(1604), 관망=24.31%(1443), 전체row=5936
+2025-06-04 12:54:08,330 [F5] [INFO] symbol=KRW-KAITO, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.02%(1), 트레일=0.00%(0), 손절=50.88%(3020), 관망=49.11%(2915), 전체row=5936
+2025-06-04 12:54:08,335 [F5] [INFO] symbol=KRW-KAITO, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.02%(1), 트레일=0.00%(0), 손절=0.20%(12), 관망=99.78%(5923), 전체row=5936
+2025-06-04 12:54:08,341 [F5] [INFO] symbol=KRW-KAITO, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.02%(1), 트레일=0.00%(0), 손절=36.10%(2143), 관망=63.88%(3792), 전체row=5936
+2025-06-04 12:54:08,346 [F5] [INFO] symbol=KRW-KAITO, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=35.60%(2113), 트레일=0.00%(0), 손절=41.53%(2465), 관망=22.88%(1358), 전체row=5936
+2025-06-04 12:54:08,350 [F5] [INFO] symbol=KRW-KAITO, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=35.60%(2113), 트레일=0.00%(0), 손절=0.19%(11), 관망=64.22%(3812), 전체row=5936
+2025-06-04 12:54:08,353 [F5] [INFO] symbol=KRW-KAITO, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=35.60%(2113), 트레일=0.00%(0), 손절=30.95%(1837), 관망=33.46%(1986), 전체row=5936
+2025-06-04 12:54:08,353 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-KAITO, best={'symbol': 'KRW-KAITO', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4866913746630728, 'row_count': 5936, 'label1_count': 2889, 'label2_count': 0, 'label-1_count': 2079, 'label0_count': 968}
+2025-06-04 12:54:08,395 [F5] [INFO] [LABEL] KRW-KAITO_feature.parquet → KRW-KAITO_label.parquet, shape=(5936, 86), dist={1: 2889, -1: 2079, 0: 968}, best_params={'symbol': 'KRW-KAITO', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4866913746630728, 'row_count': 5936, 'label1_count': 2889, 'label2_count': 0, 'label-1_count': 2079, 'label0_count': 968}
+2025-06-04 12:54:08,412 [F5] [INFO] symbol=KRW-LAYER, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=34.86%(2070), 트레일=0.00%(0), 손절=32.47%(1928), 관망=32.67%(1940), 전체row=5938
+2025-06-04 12:54:08,417 [F5] [INFO] symbol=KRW-LAYER, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=34.86%(2070), 트레일=0.00%(0), 손절=0.00%(0), 관망=65.14%(3868), 전체row=5938
+2025-06-04 12:54:08,420 [F5] [INFO] symbol=KRW-LAYER, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=34.86%(2070), 트레일=0.00%(0), 손절=21.02%(1248), 관망=44.12%(2620), 전체row=5938
+2025-06-04 12:54:08,425 [F5] [INFO] symbol=KRW-LAYER, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=38.03%(2258), 관망=61.94%(3678), 전체row=5938
+2025-06-04 12:54:08,429 [F5] [INFO] symbol=KRW-LAYER, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=0.00%(0), 관망=99.97%(5936), 전체row=5938
+2025-06-04 12:54:08,433 [F5] [INFO] symbol=KRW-LAYER, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=24.18%(1436), 관망=75.78%(4500), 전체row=5938
+2025-06-04 12:54:08,437 [F5] [INFO] symbol=KRW-LAYER, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=20.98%(1246), 트레일=0.00%(0), 손절=35.06%(2082), 관망=43.95%(2610), 전체row=5938
+2025-06-04 12:54:08,442 [F5] [INFO] symbol=KRW-LAYER, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=20.98%(1246), 트레일=0.00%(0), 손절=0.00%(0), 관망=79.02%(4692), 전체row=5938
+2025-06-04 12:54:08,445 [F5] [INFO] symbol=KRW-LAYER, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=20.98%(1246), 트레일=0.00%(0), 손절=22.60%(1342), 관망=56.42%(3350), 전체row=5938
+2025-06-04 12:54:08,446 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-LAYER, best={'symbol': 'KRW-LAYER', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3486022229706972, 'row_count': 5938, 'label1_count': 2070, 'label2_count': 0, 'label-1_count': 1928, 'label0_count': 1940}
+2025-06-04 12:54:08,482 [F5] [INFO] [LABEL] KRW-LAYER_feature.parquet → KRW-LAYER_label.parquet, shape=(5938, 86), dist={1: 2070, 0: 1940, -1: 1928}, best_params={'symbol': 'KRW-LAYER', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3486022229706972, 'row_count': 5938, 'label1_count': 2070, 'label2_count': 0, 'label-1_count': 1928, 'label0_count': 1940}
+2025-06-04 12:54:08,496 [F5] [INFO] symbol=KRW-LINK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.15%(1899), 트레일=0.00%(0), 손절=28.28%(1842), 관망=42.57%(2773), 전체row=6514
+2025-06-04 12:54:08,501 [F5] [INFO] symbol=KRW-LINK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.15%(1899), 트레일=0.00%(0), 손절=0.00%(0), 관망=70.85%(4615), 전체row=6514
+2025-06-04 12:54:08,506 [F5] [INFO] symbol=KRW-LINK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.15%(1899), 트레일=0.00%(0), 손절=13.26%(864), 관망=57.58%(3751), 전체row=6514
+2025-06-04 12:54:08,510 [F5] [INFO] symbol=KRW-LINK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=31.41%(2046), 관망=68.59%(4468), 전체row=6514
+2025-06-04 12:54:08,514 [F5] [INFO] symbol=KRW-LINK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(6514), 전체row=6514
+2025-06-04 12:54:08,518 [F5] [INFO] symbol=KRW-LINK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=14.52%(946), 관망=85.48%(5568), 전체row=6514
+2025-06-04 12:54:08,523 [F5] [INFO] symbol=KRW-LINK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=14.57%(949), 트레일=0.00%(0), 손절=30.18%(1966), 관망=55.25%(3599), 전체row=6514
+2025-06-04 12:54:08,527 [F5] [INFO] symbol=KRW-LINK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=14.57%(949), 트레일=0.00%(0), 손절=0.00%(0), 관망=85.43%(5565), 전체row=6514
+2025-06-04 12:54:08,531 [F5] [INFO] symbol=KRW-LINK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=14.57%(949), 트레일=0.00%(0), 손절=14.02%(913), 관망=71.42%(4652), 전체row=6514
+2025-06-04 12:54:08,570 [F5] [INFO] [LABEL] KRW-LINK_feature.parquet → KRW-LINK_label.parquet, shape=(6514, 86), dist={0: 3599, -1: 1966, 1: 949}, best_params={'symbol': 'KRW-LINK', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.14568621430764508, 'row_count': 6514, 'label1_count': 949, 'label2_count': 0, 'label-1_count': 1966, 'label0_count': 3599}
+2025-06-04 12:54:08,583 [F5] [INFO] symbol=KRW-LPT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=58.25%(2742), 트레일=0.00%(0), 손절=32.89%(1548), 관망=8.86%(417), 전체row=4707
+2025-06-04 12:54:08,588 [F5] [INFO] symbol=KRW-LPT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=58.25%(2742), 트레일=0.00%(0), 손절=0.36%(17), 관망=41.39%(1948), 전체row=4707
+2025-06-04 12:54:08,591 [F5] [INFO] symbol=KRW-LPT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=58.25%(2742), 트레일=0.00%(0), 손절=28.11%(1323), 관망=13.64%(642), 전체row=4707
+2025-06-04 12:54:08,593 [F5] [INFO] symbol=KRW-LPT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.98%(46), 트레일=0.00%(0), 손절=58.21%(2740), 관망=40.81%(1921), 전체row=4707
+2025-06-04 12:54:08,597 [F5] [INFO] symbol=KRW-LPT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.98%(46), 트레일=0.00%(0), 손절=0.66%(31), 관망=98.36%(4630), 전체row=4707
+2025-06-04 12:54:08,600 [F5] [INFO] symbol=KRW-LPT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.98%(46), 트레일=0.00%(0), 손절=47.95%(2257), 관망=51.07%(2404), 전체row=4707
+2025-06-04 12:54:08,603 [F5] [INFO] symbol=KRW-LPT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=47.31%(2227), 트레일=0.00%(0), 손절=38.71%(1822), 관망=13.98%(658), 전체row=4707
+2025-06-04 12:54:08,606 [F5] [INFO] symbol=KRW-LPT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=47.31%(2227), 트레일=0.00%(0), 손절=0.40%(19), 관망=52.28%(2461), 전체row=4707
+2025-06-04 12:54:08,608 [F5] [INFO] symbol=KRW-LPT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=47.31%(2227), 트레일=0.00%(0), 손절=32.82%(1545), 관망=19.86%(935), 전체row=4707
+2025-06-04 12:54:08,608 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-LPT, best={'symbol': 'KRW-LPT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5825366475462078, 'row_count': 4707, 'label1_count': 2742, 'label2_count': 0, 'label-1_count': 1548, 'label0_count': 417}
+2025-06-04 12:54:08,642 [F5] [INFO] [LABEL] KRW-LPT_feature.parquet → KRW-LPT_label.parquet, shape=(4707, 86), dist={1: 2742, -1: 1548, 0: 417}, best_params={'symbol': 'KRW-LPT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5825366475462078, 'row_count': 4707, 'label1_count': 2742, 'label2_count': 0, 'label-1_count': 1548, 'label0_count': 417}
+2025-06-04 12:54:08,656 [F5] [INFO] symbol=KRW-MASK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=59.56%(3601), 트레일=0.00%(0), 손절=31.89%(1928), 관망=8.55%(517), 전체row=6046
+2025-06-04 12:54:08,661 [F5] [INFO] symbol=KRW-MASK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=59.56%(3601), 트레일=0.00%(0), 손절=0.50%(30), 관망=39.94%(2415), 전체row=6046
+2025-06-04 12:54:08,665 [F5] [INFO] symbol=KRW-MASK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=59.56%(3601), 트레일=0.00%(0), 손절=28.38%(1716), 관망=12.06%(729), 전체row=6046
+2025-06-04 12:54:08,669 [F5] [INFO] symbol=KRW-MASK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=1.82%(110), 트레일=0.00%(0), 손절=59.41%(3592), 관망=38.77%(2344), 전체row=6046
+2025-06-04 12:54:08,672 [F5] [INFO] symbol=KRW-MASK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=1.82%(110), 트레일=0.00%(0), 손절=1.19%(72), 관망=96.99%(5864), 전체row=6046
+2025-06-04 12:54:08,677 [F5] [INFO] symbol=KRW-MASK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=1.82%(110), 트레일=0.00%(0), 손절=49.21%(2975), 관망=48.97%(2961), 전체row=6046
+2025-06-04 12:54:08,680 [F5] [INFO] symbol=KRW-MASK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=49.40%(2987), 트레일=0.00%(0), 손절=38.49%(2327), 관망=12.11%(732), 전체row=6046
+2025-06-04 12:54:08,684 [F5] [INFO] symbol=KRW-MASK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=49.40%(2987), 트레일=0.00%(0), 손절=0.65%(39), 관망=49.95%(3020), 전체row=6046
+2025-06-04 12:54:08,688 [F5] [INFO] symbol=KRW-MASK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=49.40%(2987), 트레일=0.00%(0), 손절=33.81%(2044), 관망=16.79%(1015), 전체row=6046
+2025-06-04 12:54:08,689 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-MASK, best={'symbol': 'KRW-MASK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5956003969566656, 'row_count': 6046, 'label1_count': 3601, 'label2_count': 0, 'label-1_count': 1928, 'label0_count': 517}
+2025-06-04 12:54:08,729 [F5] [INFO] [LABEL] KRW-MASK_feature.parquet → KRW-MASK_label.parquet, shape=(6046, 86), dist={1: 3601, -1: 1928, 0: 517}, best_params={'symbol': 'KRW-MASK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5956003969566656, 'row_count': 6046, 'label1_count': 3601, 'label2_count': 0, 'label-1_count': 1928, 'label0_count': 517}
+2025-06-04 12:54:08,745 [F5] [INFO] symbol=KRW-ME, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=33.38%(2476), 트레일=0.00%(0), 손절=31.56%(2341), 관망=35.05%(2600), 전체row=7417
+2025-06-04 12:54:08,751 [F5] [INFO] symbol=KRW-ME, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=33.38%(2476), 트레일=0.00%(0), 손절=0.16%(12), 관망=66.46%(4929), 전체row=7417
+2025-06-04 12:54:08,758 [F5] [INFO] symbol=KRW-ME, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=33.38%(2476), 트레일=0.00%(0), 손절=22.37%(1659), 관망=44.25%(3282), 전체row=7417
+2025-06-04 12:54:08,768 [F5] [INFO] symbol=KRW-ME, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.50%(37), 트레일=0.00%(0), 손절=36.34%(2695), 관망=63.17%(4685), 전체row=7417
+2025-06-04 12:54:08,774 [F5] [INFO] symbol=KRW-ME, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.50%(37), 트레일=0.00%(0), 손절=0.24%(18), 관망=99.26%(7362), 전체row=7417
+2025-06-04 12:54:08,781 [F5] [INFO] symbol=KRW-ME, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.50%(37), 트레일=0.00%(0), 손절=25.05%(1858), 관망=74.45%(5522), 전체row=7417
+2025-06-04 12:54:08,786 [F5] [INFO] symbol=KRW-ME, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=21.38%(1586), 트레일=0.00%(0), 손절=33.92%(2516), 관망=44.69%(3315), 전체row=7417
+2025-06-04 12:54:08,790 [F5] [INFO] symbol=KRW-ME, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=21.38%(1586), 트레일=0.00%(0), 손절=0.16%(12), 관망=78.45%(5819), 전체row=7417
+2025-06-04 12:54:08,794 [F5] [INFO] symbol=KRW-ME, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=21.38%(1586), 트레일=0.00%(0), 손절=23.66%(1755), 관망=54.95%(4076), 전체row=7417
+2025-06-04 12:54:08,796 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-ME, best={'symbol': 'KRW-ME', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3338276931373871, 'row_count': 7417, 'label1_count': 2476, 'label2_count': 0, 'label-1_count': 2341, 'label0_count': 2600}
+2025-06-04 12:54:08,840 [F5] [INFO] [LABEL] KRW-ME_feature.parquet → KRW-ME_label.parquet, shape=(7417, 86), dist={0: 2600, 1: 2476, -1: 2341}, best_params={'symbol': 'KRW-ME', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3338276931373871, 'row_count': 7417, 'label1_count': 2476, 'label2_count': 0, 'label-1_count': 2341, 'label0_count': 2600}
+2025-06-04 12:54:08,855 [F5] [INFO] symbol=KRW-NEAR, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.68%(1979), 트레일=0.00%(0), 손절=27.72%(1848), 관망=42.60%(2840), 전체row=6667
+2025-06-04 12:54:08,860 [F5] [INFO] symbol=KRW-NEAR, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.68%(1979), 트레일=0.00%(0), 손절=0.00%(0), 관망=70.32%(4688), 전체row=6667
+2025-06-04 12:54:08,863 [F5] [INFO] symbol=KRW-NEAR, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.68%(1979), 트레일=0.00%(0), 손절=14.70%(980), 관망=55.62%(3708), 전체row=6667
+2025-06-04 12:54:08,867 [F5] [INFO] symbol=KRW-NEAR, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.04%(3), 트레일=0.00%(0), 손절=30.67%(2045), 관망=69.28%(4619), 전체row=6667
+2025-06-04 12:54:08,872 [F5] [INFO] symbol=KRW-NEAR, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.04%(3), 트레일=0.00%(0), 손절=0.00%(0), 관망=99.96%(6664), 전체row=6667
+2025-06-04 12:54:08,877 [F5] [INFO] symbol=KRW-NEAR, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.04%(3), 트레일=0.00%(0), 손절=16.23%(1082), 관망=83.73%(5582), 전체row=6667
+2025-06-04 12:54:08,880 [F5] [INFO] symbol=KRW-NEAR, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=15.67%(1045), 트레일=0.00%(0), 손절=29.43%(1962), 관망=54.90%(3660), 전체row=6667
+2025-06-04 12:54:08,884 [F5] [INFO] symbol=KRW-NEAR, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=15.67%(1045), 트레일=0.00%(0), 손절=0.00%(0), 관망=84.33%(5622), 전체row=6667
+2025-06-04 12:54:08,889 [F5] [INFO] symbol=KRW-NEAR, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=15.67%(1045), 트레일=0.00%(0), 손절=15.58%(1039), 관망=68.74%(4583), 전체row=6667
+2025-06-04 12:54:08,937 [F5] [INFO] [LABEL] KRW-NEAR_feature.parquet → KRW-NEAR_label.parquet, shape=(6667, 86), dist={0: 3660, -1: 1962, 1: 1045}, best_params={'symbol': 'KRW-NEAR', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.1567421628918554, 'row_count': 6667, 'label1_count': 1045, 'label2_count': 0, 'label-1_count': 1962, 'label0_count': 3660}
+2025-06-04 12:54:08,955 [F5] [INFO] symbol=KRW-NEO, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=26.72%(2116), 트레일=0.00%(0), 손절=24.17%(1914), 관망=49.11%(3889), 전체row=7919
+2025-06-04 12:54:08,960 [F5] [INFO] symbol=KRW-NEO, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=26.72%(2116), 트레일=0.00%(0), 손절=0.04%(3), 관망=73.24%(5800), 전체row=7919
+2025-06-04 12:54:08,966 [F5] [INFO] symbol=KRW-NEO, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=26.72%(2116), 트레일=0.00%(0), 손절=12.78%(1012), 관망=60.50%(4791), 전체row=7919
+2025-06-04 12:54:08,971 [F5] [INFO] symbol=KRW-NEO, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=26.85%(2126), 관망=73.15%(5793), 전체row=7919
+2025-06-04 12:54:08,975 [F5] [INFO] symbol=KRW-NEO, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.05%(4), 관망=99.95%(7915), 전체row=7919
+2025-06-04 12:54:08,980 [F5] [INFO] symbol=KRW-NEO, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=14.04%(1112), 관망=85.96%(6807), 전체row=7919
+2025-06-04 12:54:08,986 [F5] [INFO] symbol=KRW-NEO, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=14.18%(1123), 트레일=0.00%(0), 손절=25.42%(2013), 관망=60.40%(4783), 전체row=7919
+2025-06-04 12:54:08,991 [F5] [INFO] symbol=KRW-NEO, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=14.18%(1123), 트레일=0.00%(0), 손절=0.04%(3), 관망=85.78%(6793), 전체row=7919
+2025-06-04 12:54:08,995 [F5] [INFO] symbol=KRW-NEO, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=14.18%(1123), 트레일=0.00%(0), 손절=13.40%(1061), 관망=72.42%(5735), 전체row=7919
+2025-06-04 12:54:09,046 [F5] [INFO] [LABEL] KRW-NEO_feature.parquet → KRW-NEO_label.parquet, shape=(7919, 86), dist={0: 4783, -1: 2013, 1: 1123}, best_params={'symbol': 'KRW-NEO', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.14181083470135117, 'row_count': 7919, 'label1_count': 1123, 'label2_count': 0, 'label-1_count': 2013, 'label0_count': 4783}
+2025-06-04 12:54:09,061 [F5] [INFO] symbol=KRW-NXPC, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=49.21%(2927), 트레일=0.00%(0), 손절=33.83%(2012), 관망=16.96%(1009), 전체row=5948
+2025-06-04 12:54:09,065 [F5] [INFO] symbol=KRW-NXPC, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=49.21%(2927), 트레일=0.00%(0), 손절=0.22%(13), 관망=50.57%(3008), 전체row=5948
+2025-06-04 12:54:09,069 [F5] [INFO] symbol=KRW-NXPC, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=49.21%(2927), 트레일=0.00%(0), 손절=26.19%(1558), 관망=24.60%(1463), 전체row=5948
+2025-06-04 12:54:09,073 [F5] [INFO] symbol=KRW-NXPC, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.18%(11), 트레일=0.00%(0), 손절=49.80%(2962), 관망=50.02%(2975), 전체row=5948
+2025-06-04 12:54:09,076 [F5] [INFO] symbol=KRW-NXPC, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.18%(11), 트레일=0.00%(0), 손절=0.27%(16), 관망=99.55%(5921), 전체row=5948
+2025-06-04 12:54:09,080 [F5] [INFO] symbol=KRW-NXPC, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.18%(11), 트레일=0.00%(0), 손절=35.05%(2085), 관망=64.76%(3852), 전체row=5948
+2025-06-04 12:54:09,084 [F5] [INFO] symbol=KRW-NXPC, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=34.11%(2029), 트레일=0.00%(0), 손절=40.55%(2412), 관망=25.34%(1507), 전체row=5948
+2025-06-04 12:54:09,088 [F5] [INFO] symbol=KRW-NXPC, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=34.11%(2029), 트레일=0.00%(0), 손절=0.27%(16), 관망=65.62%(3903), 전체row=5948
+2025-06-04 12:54:09,092 [F5] [INFO] symbol=KRW-NXPC, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=34.11%(2029), 트레일=0.00%(0), 손절=30.08%(1789), 관망=35.81%(2130), 전체row=5948
+2025-06-04 12:54:09,092 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-NXPC, best={'symbol': 'KRW-NXPC', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.492098184263618, 'row_count': 5948, 'label1_count': 2927, 'label2_count': 0, 'label-1_count': 2012, 'label0_count': 1009}
+2025-06-04 12:54:09,131 [F5] [INFO] [LABEL] KRW-NXPC_feature.parquet → KRW-NXPC_label.parquet, shape=(5948, 86), dist={1: 2927, -1: 2012, 0: 1009}, best_params={'symbol': 'KRW-NXPC', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.492098184263618, 'row_count': 5948, 'label1_count': 2927, 'label2_count': 0, 'label-1_count': 2012, 'label0_count': 1009}
+2025-06-04 12:54:09,148 [F5] [INFO] symbol=KRW-OM, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=40.77%(2692), 트레일=0.00%(0), 손절=31.00%(2047), 관망=28.23%(1864), 전체row=6603
+2025-06-04 12:54:09,153 [F5] [INFO] symbol=KRW-OM, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=40.77%(2692), 트레일=0.00%(0), 손절=0.09%(6), 관망=59.14%(3905), 전체row=6603
+2025-06-04 12:54:09,157 [F5] [INFO] symbol=KRW-OM, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=40.77%(2692), 트레일=0.00%(0), 손절=20.93%(1382), 관망=38.30%(2529), 전체row=6603
+2025-06-04 12:54:09,162 [F5] [INFO] symbol=KRW-OM, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.50%(33), 트레일=0.00%(0), 손절=41.21%(2721), 관망=58.29%(3849), 전체row=6603
+2025-06-04 12:54:09,167 [F5] [INFO] symbol=KRW-OM, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.50%(33), 트레일=0.00%(0), 손절=0.33%(22), 관망=99.17%(6548), 전체row=6603
+2025-06-04 12:54:09,171 [F5] [INFO] symbol=KRW-OM, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.50%(33), 트레일=0.00%(0), 손절=26.82%(1771), 관망=72.68%(4799), 전체row=6603
+2025-06-04 12:54:09,175 [F5] [INFO] symbol=KRW-OM, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=26.97%(1781), 트레일=0.00%(0), 손절=35.14%(2320), 관망=37.89%(2502), 전체row=6603
+2025-06-04 12:54:09,179 [F5] [INFO] symbol=KRW-OM, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=26.97%(1781), 트레일=0.00%(0), 손절=0.15%(10), 관망=72.88%(4812), 전체row=6603
+2025-06-04 12:54:09,183 [F5] [INFO] symbol=KRW-OM, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=26.97%(1781), 트레일=0.00%(0), 손절=23.25%(1535), 관망=49.78%(3287), 전체row=6603
+2025-06-04 12:54:09,184 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-OM, best={'symbol': 'KRW-OM', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4076934726639406, 'row_count': 6603, 'label1_count': 2692, 'label2_count': 0, 'label-1_count': 2047, 'label0_count': 1864}
+2025-06-04 12:54:09,225 [F5] [INFO] [LABEL] KRW-OM_feature.parquet → KRW-OM_label.parquet, shape=(6603, 86), dist={1: 2692, -1: 2047, 0: 1864}, best_params={'symbol': 'KRW-OM', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4076934726639406, 'row_count': 6603, 'label1_count': 2692, 'label2_count': 0, 'label-1_count': 2047, 'label0_count': 1864}
+2025-06-04 12:54:09,238 [F5] [INFO] symbol=KRW-ONDO, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=27.21%(1659), 트레일=0.00%(0), 손절=25.94%(1582), 관망=46.85%(2857), 전체row=6098
+2025-06-04 12:54:09,243 [F5] [INFO] symbol=KRW-ONDO, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=27.21%(1659), 트레일=0.00%(0), 손절=0.00%(0), 관망=72.79%(4439), 전체row=6098
+2025-06-04 12:54:09,247 [F5] [INFO] symbol=KRW-ONDO, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=27.21%(1659), 트레일=0.00%(0), 손절=14.71%(897), 관망=58.08%(3542), 전체row=6098
+2025-06-04 12:54:09,251 [F5] [INFO] symbol=KRW-ONDO, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=28.01%(1708), 관망=71.99%(4390), 전체row=6098
+2025-06-04 12:54:09,255 [F5] [INFO] symbol=KRW-ONDO, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(6098), 전체row=6098
+2025-06-04 12:54:09,259 [F5] [INFO] symbol=KRW-ONDO, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=15.82%(965), 관망=84.18%(5133), 전체row=6098
+2025-06-04 12:54:09,262 [F5] [INFO] symbol=KRW-ONDO, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=15.27%(931), 트레일=0.00%(0), 손절=27.01%(1647), 관망=57.72%(3520), 전체row=6098
+2025-06-04 12:54:09,266 [F5] [INFO] symbol=KRW-ONDO, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=15.27%(931), 트레일=0.00%(0), 손절=0.00%(0), 관망=84.73%(5167), 전체row=6098
+2025-06-04 12:54:09,269 [F5] [INFO] symbol=KRW-ONDO, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=15.27%(931), 트레일=0.00%(0), 손절=15.25%(930), 관망=69.48%(4237), 전체row=6098
+2025-06-04 12:54:09,305 [F5] [INFO] [LABEL] KRW-ONDO_feature.parquet → KRW-ONDO_label.parquet, shape=(6098, 86), dist={0: 3520, -1: 1647, 1: 931}, best_params={'symbol': 'KRW-ONDO', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.15267300754345686, 'row_count': 6098, 'label1_count': 931, 'label2_count': 0, 'label-1_count': 1647, 'label0_count': 3520}
+2025-06-04 12:54:09,321 [F5] [INFO] symbol=KRW-ORCA, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=45.74%(2966), 트레일=0.00%(0), 손절=36.27%(2352), 관망=17.98%(1166), 전체row=6484
+2025-06-04 12:54:09,325 [F5] [INFO] symbol=KRW-ORCA, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=45.74%(2966), 트레일=0.00%(0), 손절=0.11%(7), 관망=54.15%(3511), 전체row=6484
+2025-06-04 12:54:09,329 [F5] [INFO] symbol=KRW-ORCA, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=45.74%(2966), 트레일=0.00%(0), 손절=25.40%(1647), 관망=28.86%(1871), 전체row=6484
+2025-06-04 12:54:09,334 [F5] [INFO] symbol=KRW-ORCA, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.29%(19), 트레일=0.00%(0), 손절=49.95%(3239), 관망=49.75%(3226), 전체row=6484
+2025-06-04 12:54:09,339 [F5] [INFO] symbol=KRW-ORCA, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.29%(19), 트레일=0.00%(0), 손절=0.25%(16), 관망=99.46%(6449), 전체row=6484
+2025-06-04 12:54:09,343 [F5] [INFO] symbol=KRW-ORCA, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.29%(19), 트레일=0.00%(0), 손절=34.21%(2218), 관망=65.50%(4247), 전체row=6484
+2025-06-04 12:54:09,347 [F5] [INFO] symbol=KRW-ORCA, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=33.98%(2203), 트레일=0.00%(0), 손절=41.09%(2664), 관망=24.94%(1617), 전체row=6484
+2025-06-04 12:54:09,351 [F5] [INFO] symbol=KRW-ORCA, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=33.98%(2203), 트레일=0.00%(0), 손절=0.15%(10), 관망=65.87%(4271), 전체row=6484
+2025-06-04 12:54:09,355 [F5] [INFO] symbol=KRW-ORCA, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=33.98%(2203), 트레일=0.00%(0), 손절=28.67%(1859), 관망=37.35%(2422), 전체row=6484
+2025-06-04 12:54:09,355 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-ORCA, best={'symbol': 'KRW-ORCA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4574336829117828, 'row_count': 6484, 'label1_count': 2966, 'label2_count': 0, 'label-1_count': 2352, 'label0_count': 1166}
+2025-06-04 12:54:09,396 [F5] [INFO] [LABEL] KRW-ORCA_feature.parquet → KRW-ORCA_label.parquet, shape=(6484, 86), dist={1: 2966, -1: 2352, 0: 1166}, best_params={'symbol': 'KRW-ORCA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4574336829117828, 'row_count': 6484, 'label1_count': 2966, 'label2_count': 0, 'label-1_count': 2352, 'label0_count': 1166}
+2025-06-04 12:54:09,413 [F5] [INFO] symbol=KRW-PENDLE, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=30.25%(2837), 트레일=0.00%(0), 손절=28.40%(2664), 관망=41.35%(3879), 전체row=9380
+2025-06-04 12:54:09,419 [F5] [INFO] symbol=KRW-PENDLE, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=30.25%(2837), 트레일=0.00%(0), 손절=0.00%(0), 관망=69.75%(6543), 전체row=9380
+2025-06-04 12:54:09,425 [F5] [INFO] symbol=KRW-PENDLE, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=30.25%(2837), 트레일=0.00%(0), 손절=18.81%(1764), 관망=50.95%(4779), 전체row=9380
+2025-06-04 12:54:09,431 [F5] [INFO] symbol=KRW-PENDLE, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=31.92%(2994), 관망=68.08%(6386), 전체row=9380
+2025-06-04 12:54:09,437 [F5] [INFO] symbol=KRW-PENDLE, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(9380), 전체row=9380
+2025-06-04 12:54:09,442 [F5] [INFO] symbol=KRW-PENDLE, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=20.62%(1934), 관망=79.38%(7446), 전체row=9380
+2025-06-04 12:54:09,448 [F5] [INFO] symbol=KRW-PENDLE, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=18.89%(1772), 트레일=0.00%(0), 손절=30.42%(2853), 관망=50.69%(4755), 전체row=9380
+2025-06-04 12:54:09,453 [F5] [INFO] symbol=KRW-PENDLE, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=18.89%(1772), 트레일=0.00%(0), 손절=0.00%(0), 관망=81.11%(7608), 전체row=9380
+2025-06-04 12:54:09,460 [F5] [INFO] symbol=KRW-PENDLE, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=18.89%(1772), 트레일=0.00%(0), 손절=19.93%(1869), 관망=61.18%(5739), 전체row=9380
+2025-06-04 12:54:09,533 [F5] [INFO] [LABEL] KRW-PENDLE_feature.parquet → KRW-PENDLE_label.parquet, shape=(9380, 86), dist={0: 4755, -1: 2853, 1: 1772}, best_params={'symbol': 'KRW-PENDLE', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.18891257995735608, 'row_count': 9380, 'label1_count': 1772, 'label2_count': 0, 'label-1_count': 2853, 'label0_count': 4755}
+2025-06-04 12:54:09,550 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=33.35%(2469), 트레일=0.00%(0), 손절=28.24%(2091), 관망=38.41%(2844), 전체row=7404
+2025-06-04 12:54:09,556 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=33.35%(2469), 트레일=0.00%(0), 손절=0.03%(2), 관망=66.63%(4933), 전체row=7404
+2025-06-04 12:54:09,560 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=33.35%(2469), 트레일=0.00%(0), 손절=16.77%(1242), 관망=49.88%(3693), 전체row=7404
+2025-06-04 12:54:09,565 [F5] [INFO] symbol=KRW-PUNDIX, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.12%(9), 트레일=0.00%(0), 손절=33.94%(2513), 관망=65.94%(4882), 전체row=7404
+2025-06-04 12:54:09,569 [F5] [INFO] symbol=KRW-PUNDIX, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.12%(9), 트레일=0.00%(0), 손절=0.05%(4), 관망=99.82%(7391), 전체row=7404
+2025-06-04 12:54:09,574 [F5] [INFO] symbol=KRW-PUNDIX, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.12%(9), 트레일=0.00%(0), 손절=20.21%(1496), 관망=79.67%(5899), 전체row=7404
+2025-06-04 12:54:09,578 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=20.14%(1491), 트레일=0.00%(0), 손절=30.47%(2256), 관망=49.39%(3657), 전체row=7404
+2025-06-04 12:54:09,583 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=20.14%(1491), 트레일=0.00%(0), 손절=0.03%(2), 관망=79.84%(5911), 전체row=7404
+2025-06-04 12:54:09,587 [F5] [INFO] symbol=KRW-PUNDIX, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=20.14%(1491), 트레일=0.00%(0), 손절=17.86%(1322), 관망=62.01%(4591), 전체row=7404
+2025-06-04 12:54:09,588 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-PUNDIX, best={'symbol': 'KRW-PUNDIX', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3334683954619125, 'row_count': 7404, 'label1_count': 2469, 'label2_count': 0, 'label-1_count': 2091, 'label0_count': 2844}
+2025-06-04 12:54:09,637 [F5] [INFO] [LABEL] KRW-PUNDIX_feature.parquet → KRW-PUNDIX_label.parquet, shape=(7404, 86), dist={0: 2844, 1: 2469, -1: 2091}, best_params={'symbol': 'KRW-PUNDIX', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3334683954619125, 'row_count': 7404, 'label1_count': 2469, 'label2_count': 0, 'label-1_count': 2091, 'label0_count': 2844}
+2025-06-04 12:54:09,654 [F5] [INFO] symbol=KRW-SAFE, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=42.49%(2810), 트레일=0.00%(0), 손절=33.03%(2184), 관망=24.48%(1619), 전체row=6613
+2025-06-04 12:54:09,659 [F5] [INFO] symbol=KRW-SAFE, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=42.49%(2810), 트레일=0.00%(0), 손절=0.12%(8), 관망=57.39%(3795), 전체row=6613
+2025-06-04 12:54:09,666 [F5] [INFO] symbol=KRW-SAFE, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=42.49%(2810), 트레일=0.00%(0), 손절=24.15%(1597), 관망=33.36%(2206), 전체row=6613
+2025-06-04 12:54:09,670 [F5] [INFO] symbol=KRW-SAFE, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.26%(17), 트레일=0.00%(0), 손절=45.79%(3028), 관망=53.95%(3568), 전체row=6613
+2025-06-04 12:54:09,675 [F5] [INFO] symbol=KRW-SAFE, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.26%(17), 트레일=0.00%(0), 손절=0.20%(13), 관망=99.55%(6583), 전체row=6613
+2025-06-04 12:54:09,680 [F5] [INFO] symbol=KRW-SAFE, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.26%(17), 트레일=0.00%(0), 손절=32.89%(2175), 관망=66.85%(4421), 전체row=6613
+2025-06-04 12:54:09,686 [F5] [INFO] symbol=KRW-SAFE, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=31.09%(2056), 트레일=0.00%(0), 손절=37.49%(2479), 관망=31.42%(2078), 전체row=6613
+2025-06-04 12:54:09,690 [F5] [INFO] symbol=KRW-SAFE, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=31.09%(2056), 트레일=0.00%(0), 손절=0.14%(9), 관망=68.77%(4548), 전체row=6613
+2025-06-04 12:54:09,695 [F5] [INFO] symbol=KRW-SAFE, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=31.09%(2056), 트레일=0.00%(0), 손절=27.17%(1797), 관망=41.74%(2760), 전체row=6613
+2025-06-04 12:54:09,695 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-SAFE, best={'symbol': 'KRW-SAFE', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.424920610917889, 'row_count': 6613, 'label1_count': 2810, 'label2_count': 0, 'label-1_count': 2184, 'label0_count': 1619}
+2025-06-04 12:54:09,746 [F5] [INFO] [LABEL] KRW-SAFE_feature.parquet → KRW-SAFE_label.parquet, shape=(6613, 86), dist={1: 2810, -1: 2184, 0: 1619}, best_params={'symbol': 'KRW-SAFE', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.424920610917889, 'row_count': 6613, 'label1_count': 2810, 'label2_count': 0, 'label-1_count': 2184, 'label0_count': 1619}
+2025-06-04 12:54:09,762 [F5] [INFO] symbol=KRW-STX, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=28.49%(1959), 트레일=0.00%(0), 손절=27.30%(1877), 관망=44.21%(3040), 전체row=6876
+2025-06-04 12:54:09,768 [F5] [INFO] symbol=KRW-STX, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=28.49%(1959), 트레일=0.00%(0), 손절=0.00%(0), 관망=71.51%(4917), 전체row=6876
+2025-06-04 12:54:09,772 [F5] [INFO] symbol=KRW-STX, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=28.49%(1959), 트레일=0.00%(0), 손절=16.03%(1102), 관망=55.48%(3815), 전체row=6876
+2025-06-04 12:54:09,778 [F5] [INFO] symbol=KRW-STX, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=29.65%(2039), 관망=70.35%(4837), 전체row=6876
+2025-06-04 12:54:09,783 [F5] [INFO] symbol=KRW-STX, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(6876), 전체row=6876
+2025-06-04 12:54:09,787 [F5] [INFO] symbol=KRW-STX, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=17.22%(1184), 관망=82.78%(5692), 전체row=6876
+2025-06-04 12:54:09,793 [F5] [INFO] symbol=KRW-STX, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=16.80%(1155), 트레일=0.00%(0), 손절=28.53%(1962), 관망=54.67%(3759), 전체row=6876
+2025-06-04 12:54:09,797 [F5] [INFO] symbol=KRW-STX, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=16.80%(1155), 트레일=0.00%(0), 손절=0.00%(0), 관망=83.20%(5721), 전체row=6876
+2025-06-04 12:54:09,802 [F5] [INFO] symbol=KRW-STX, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=16.80%(1155), 트레일=0.00%(0), 손절=16.65%(1145), 관망=66.55%(4576), 전체row=6876
+2025-06-04 12:54:09,849 [F5] [INFO] [LABEL] KRW-STX_feature.parquet → KRW-STX_label.parquet, shape=(6876, 86), dist={0: 3759, -1: 1962, 1: 1155}, best_params={'symbol': 'KRW-STX', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.16797556719022688, 'row_count': 6876, 'label1_count': 1155, 'label2_count': 0, 'label-1_count': 1962, 'label0_count': 3759}
+2025-06-04 12:54:09,867 [F5] [INFO] symbol=KRW-SUI, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.25%(1736), 트레일=0.00%(0), 손절=26.42%(1568), 관망=44.33%(2631), 전체row=5935
+2025-06-04 12:54:09,871 [F5] [INFO] symbol=KRW-SUI, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.25%(1736), 트레일=0.00%(0), 손절=0.00%(0), 관망=70.75%(4199), 전체row=5935
+2025-06-04 12:54:09,875 [F5] [INFO] symbol=KRW-SUI, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.25%(1736), 트레일=0.00%(0), 손절=14.84%(881), 관망=55.91%(3318), 전체row=5935
+2025-06-04 12:54:09,880 [F5] [INFO] symbol=KRW-SUI, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=28.74%(1706), 관망=71.26%(4229), 전체row=5935
+2025-06-04 12:54:09,884 [F5] [INFO] symbol=KRW-SUI, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5935), 전체row=5935
+2025-06-04 12:54:09,889 [F5] [INFO] symbol=KRW-SUI, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=15.84%(940), 관망=84.16%(4995), 전체row=5935
+2025-06-04 12:54:09,894 [F5] [INFO] symbol=KRW-SUI, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=16.51%(980), 트레일=0.00%(0), 손절=27.51%(1633), 관망=55.97%(3322), 전체row=5935
+2025-06-04 12:54:09,898 [F5] [INFO] symbol=KRW-SUI, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=16.51%(980), 트레일=0.00%(0), 손절=0.00%(0), 관망=83.49%(4955), 전체row=5935
+2025-06-04 12:54:09,902 [F5] [INFO] symbol=KRW-SUI, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=16.51%(980), 트레일=0.00%(0), 손절=15.35%(911), 관망=68.14%(4044), 전체row=5935
+2025-06-04 12:54:09,947 [F5] [INFO] [LABEL] KRW-SUI_feature.parquet → KRW-SUI_label.parquet, shape=(5935, 86), dist={0: 3322, -1: 1633, 1: 980}, best_params={'symbol': 'KRW-SUI', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.16512215669755687, 'row_count': 5935, 'label1_count': 980, 'label2_count': 0, 'label-1_count': 1633, 'label0_count': 3322}
+2025-06-04 12:54:09,964 [F5] [INFO] symbol=KRW-TAIKO, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=43.42%(2891), 트레일=0.00%(0), 손절=31.98%(2129), 관망=24.60%(1638), 전체row=6658
+2025-06-04 12:54:09,971 [F5] [INFO] symbol=KRW-TAIKO, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=43.42%(2891), 트레일=0.00%(0), 손절=0.14%(9), 관망=56.44%(3758), 전체row=6658
+2025-06-04 12:54:09,976 [F5] [INFO] symbol=KRW-TAIKO, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=43.42%(2891), 트레일=0.00%(0), 손절=22.35%(1488), 관망=34.23%(2279), 전체row=6658
+2025-06-04 12:54:09,980 [F5] [INFO] symbol=KRW-TAIKO, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.11%(7), 트레일=0.00%(0), 손절=41.27%(2748), 관망=58.62%(3903), 전체row=6658
+2025-06-04 12:54:09,985 [F5] [INFO] symbol=KRW-TAIKO, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.11%(7), 트레일=0.00%(0), 손절=0.27%(18), 관망=99.62%(6633), 전체row=6658
+2025-06-04 12:54:09,989 [F5] [INFO] symbol=KRW-TAIKO, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.11%(7), 트레일=0.00%(0), 손절=28.07%(1869), 관망=71.82%(4782), 전체row=6658
+2025-06-04 12:54:09,994 [F5] [INFO] symbol=KRW-TAIKO, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=29.86%(1988), 트레일=0.00%(0), 손절=35.99%(2396), 관망=34.15%(2274), 전체row=6658
+2025-06-04 12:54:09,997 [F5] [INFO] symbol=KRW-TAIKO, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=29.86%(1988), 트레일=0.00%(0), 손절=0.18%(12), 관망=69.96%(4658), 전체row=6658
+2025-06-04 12:54:10,002 [F5] [INFO] symbol=KRW-TAIKO, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=29.86%(1988), 트레일=0.00%(0), 손절=24.80%(1651), 관망=45.34%(3019), 전체row=6658
+2025-06-04 12:54:10,003 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-TAIKO, best={'symbol': 'KRW-TAIKO', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4342144788224692, 'row_count': 6658, 'label1_count': 2891, 'label2_count': 0, 'label-1_count': 2129, 'label0_count': 1638}
+2025-06-04 12:54:10,053 [F5] [INFO] [LABEL] KRW-TAIKO_feature.parquet → KRW-TAIKO_label.parquet, shape=(6658, 86), dist={1: 2891, -1: 2129, 0: 1638}, best_params={'symbol': 'KRW-TAIKO', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4342144788224692, 'row_count': 6658, 'label1_count': 2891, 'label2_count': 0, 'label-1_count': 2129, 'label0_count': 1638}
+2025-06-04 12:54:10,074 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=29.19%(3630), 트레일=0.00%(0), 손절=25.34%(3151), 관망=45.47%(5654), 전체row=12435
+2025-06-04 12:54:10,082 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=29.19%(3630), 트레일=0.00%(0), 손절=0.51%(64), 관망=70.29%(8741), 전체row=12435
+2025-06-04 12:54:10,089 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=29.19%(3630), 트레일=0.00%(0), 손절=19.80%(2462), 관망=51.01%(6343), 전체row=12435
+2025-06-04 12:54:10,097 [F5] [INFO] symbol=KRW-TOKAMAK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.99%(123), 트레일=0.00%(0), 손절=34.84%(4332), 관망=64.17%(7980), 전체row=12435
+2025-06-04 12:54:10,104 [F5] [INFO] symbol=KRW-TOKAMAK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.99%(123), 트레일=0.00%(0), 손절=1.17%(146), 관망=97.84%(12166), 전체row=12435
+2025-06-04 12:54:10,112 [F5] [INFO] symbol=KRW-TOKAMAK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.99%(123), 트레일=0.00%(0), 손절=27.54%(3425), 관망=71.47%(8887), 전체row=12435
+2025-06-04 12:54:10,119 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=23.87%(2968), 트레일=0.00%(0), 손절=27.07%(3366), 관망=49.06%(6101), 전체row=12435
+2025-06-04 12:54:10,127 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=23.87%(2968), 트레일=0.00%(0), 손절=0.67%(83), 관망=75.46%(9384), 전체row=12435
+2025-06-04 12:54:10,134 [F5] [INFO] symbol=KRW-TOKAMAK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=23.87%(2968), 트레일=0.00%(0), 손절=21.21%(2638), 관망=54.92%(6829), 전체row=12435
+2025-06-04 12:54:10,135 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-TOKAMAK, best={'symbol': 'KRW-TOKAMAK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.29191797346200243, 'row_count': 12435, 'label1_count': 3630, 'label2_count': 0, 'label-1_count': 3151, 'label0_count': 5654}
+2025-06-04 12:54:10,226 [F5] [INFO] [LABEL] KRW-TOKAMAK_feature.parquet → KRW-TOKAMAK_label.parquet, shape=(12435, 86), dist={0: 5654, 1: 3630, -1: 3151}, best_params={'symbol': 'KRW-TOKAMAK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.29191797346200243, 'row_count': 12435, 'label1_count': 3630, 'label2_count': 0, 'label-1_count': 3151, 'label0_count': 5654}
+2025-06-04 12:54:10,242 [F5] [INFO] symbol=KRW-TRUMP, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=23.38%(1406), 트레일=0.00%(0), 손절=22.73%(1367), 관망=53.88%(3240), 전체row=6013
+2025-06-04 12:54:10,248 [F5] [INFO] symbol=KRW-TRUMP, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=23.38%(1406), 트레일=0.00%(0), 손절=0.08%(5), 관망=76.53%(4602), 전체row=6013
+2025-06-04 12:54:10,253 [F5] [INFO] symbol=KRW-TRUMP, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=23.38%(1406), 트레일=0.00%(0), 손절=13.82%(831), 관망=62.80%(3776), 전체row=6013
+2025-06-04 12:54:10,258 [F5] [INFO] symbol=KRW-TRUMP, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.08%(5), 트레일=0.00%(0), 손절=24.80%(1491), 관망=75.12%(4517), 전체row=6013
+2025-06-04 12:54:10,263 [F5] [INFO] symbol=KRW-TRUMP, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.08%(5), 트레일=0.00%(0), 손절=0.08%(5), 관망=99.83%(6003), 전체row=6013
+2025-06-04 12:54:10,268 [F5] [INFO] symbol=KRW-TRUMP, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.08%(5), 트레일=0.00%(0), 손절=15.03%(904), 관망=84.88%(5104), 전체row=6013
+2025-06-04 12:54:10,272 [F5] [INFO] symbol=KRW-TRUMP, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=14.93%(898), 트레일=0.00%(0), 손절=23.55%(1416), 관망=61.52%(3699), 전체row=6013
+2025-06-04 12:54:10,277 [F5] [INFO] symbol=KRW-TRUMP, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=14.93%(898), 트레일=0.00%(0), 손절=0.08%(5), 관망=84.98%(5110), 전체row=6013
+2025-06-04 12:54:10,283 [F5] [INFO] symbol=KRW-TRUMP, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=14.93%(898), 트레일=0.00%(0), 손절=14.32%(861), 관망=70.75%(4254), 전체row=6013
+2025-06-04 12:54:10,332 [F5] [INFO] [LABEL] KRW-TRUMP_feature.parquet → KRW-TRUMP_label.parquet, shape=(6013, 86), dist={0: 3699, -1: 1416, 1: 898}, best_params={'symbol': 'KRW-TRUMP', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.14934308997172793, 'row_count': 6013, 'label1_count': 898, 'label2_count': 0, 'label-1_count': 1416, 'label0_count': 3699}
+2025-06-04 12:54:10,349 [F5] [INFO] symbol=KRW-UNI, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=35.47%(1938), 트레일=0.00%(0), 손절=31.94%(1745), 관망=32.60%(1781), 전체row=5464
+2025-06-04 12:54:10,353 [F5] [INFO] symbol=KRW-UNI, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=35.47%(1938), 트레일=0.00%(0), 손절=0.00%(0), 관망=64.53%(3526), 전체row=5464
+2025-06-04 12:54:10,358 [F5] [INFO] symbol=KRW-UNI, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=35.47%(1938), 트레일=0.00%(0), 손절=19.25%(1052), 관망=45.28%(2474), 전체row=5464
+2025-06-04 12:54:10,362 [F5] [INFO] symbol=KRW-UNI, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.26%(14), 트레일=0.00%(0), 손절=36.15%(1975), 관망=63.60%(3475), 전체row=5464
+2025-06-04 12:54:10,367 [F5] [INFO] symbol=KRW-UNI, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.26%(14), 트레일=0.00%(0), 손절=0.00%(0), 관망=99.74%(5450), 전체row=5464
+2025-06-04 12:54:10,371 [F5] [INFO] symbol=KRW-UNI, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.26%(14), 트레일=0.00%(0), 손절=21.45%(1172), 관망=78.29%(4278), 전체row=5464
+2025-06-04 12:54:10,375 [F5] [INFO] symbol=KRW-UNI, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=21.91%(1197), 트레일=0.00%(0), 손절=34.04%(1860), 관망=44.05%(2407), 전체row=5464
+2025-06-04 12:54:10,379 [F5] [INFO] symbol=KRW-UNI, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=21.91%(1197), 트레일=0.00%(0), 손절=0.00%(0), 관망=78.09%(4267), 전체row=5464
+2025-06-04 12:54:10,383 [F5] [INFO] symbol=KRW-UNI, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=21.91%(1197), 트레일=0.00%(0), 손절=20.17%(1102), 관망=57.92%(3165), 전체row=5464
+2025-06-04 12:54:10,383 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-UNI, best={'symbol': 'KRW-UNI', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3546852122986823, 'row_count': 5464, 'label1_count': 1938, 'label2_count': 0, 'label-1_count': 1745, 'label0_count': 1781}
+2025-06-04 12:54:10,428 [F5] [INFO] [LABEL] KRW-UNI_feature.parquet → KRW-UNI_label.parquet, shape=(5464, 86), dist={1: 1938, 0: 1781, -1: 1745}, best_params={'symbol': 'KRW-UNI', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.3546852122986823, 'row_count': 5464, 'label1_count': 1938, 'label2_count': 0, 'label-1_count': 1745, 'label0_count': 1781}
+2025-06-04 12:54:10,445 [F5] [INFO] symbol=KRW-USDT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=0.27%(16), 트레일=0.00%(0), 손절=0.67%(39), 관망=99.06%(5780), 전체row=5835
+2025-06-04 12:54:10,449 [F5] [INFO] symbol=KRW-USDT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=0.27%(16), 트레일=0.00%(0), 손절=0.00%(0), 관망=99.73%(5819), 전체row=5835
+2025-06-04 12:54:10,453 [F5] [INFO] symbol=KRW-USDT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=0.27%(16), 트레일=0.00%(0), 손절=0.09%(5), 관망=99.64%(5814), 전체row=5835
+2025-06-04 12:54:10,457 [F5] [INFO] symbol=KRW-USDT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.67%(39), 관망=99.33%(5796), 전체row=5835
+2025-06-04 12:54:10,461 [F5] [INFO] symbol=KRW-USDT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5835), 전체row=5835
+2025-06-04 12:54:10,465 [F5] [INFO] symbol=KRW-USDT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.09%(5), 관망=99.91%(5830), 전체row=5835
+2025-06-04 12:54:10,469 [F5] [INFO] symbol=KRW-USDT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.67%(39), 관망=99.33%(5796), 전체row=5835
+2025-06-04 12:54:10,473 [F5] [INFO] symbol=KRW-USDT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5835), 전체row=5835
+2025-06-04 12:54:10,478 [F5] [INFO] symbol=KRW-USDT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.09%(5), 관망=99.91%(5830), 전체row=5835
+2025-06-04 12:54:10,478 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-USDT, best={'symbol': 'KRW-USDT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.0027420736932305054, 'row_count': 5835, 'label1_count': 16, 'label2_count': 0, 'label-1_count': 39, 'label0_count': 5780}
+2025-06-04 12:54:10,517 [F5] [INFO] [LABEL] KRW-USDT_feature.parquet → KRW-USDT_label.parquet, shape=(5835, 86), dist={0: 5780, -1: 39, 1: 16}, best_params={'symbol': 'KRW-USDT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.0027420736932305054, 'row_count': 5835, 'label1_count': 16, 'label2_count': 0, 'label-1_count': 39, 'label0_count': 5780}
+2025-06-04 12:54:10,532 [F5] [INFO] symbol=KRW-UXLINK, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=43.37%(2678), 트레일=0.00%(0), 손절=27.92%(1724), 관망=28.71%(1773), 전체row=6175
+2025-06-04 12:54:10,538 [F5] [INFO] symbol=KRW-UXLINK, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=43.37%(2678), 트레일=0.00%(0), 손절=0.21%(13), 관망=56.42%(3484), 전체row=6175
+2025-06-04 12:54:10,542 [F5] [INFO] symbol=KRW-UXLINK, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=43.37%(2678), 트레일=0.00%(0), 손절=19.47%(1202), 관망=37.17%(2295), 전체row=6175
+2025-06-04 12:54:10,547 [F5] [INFO] symbol=KRW-UXLINK, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.47%(29), 트레일=0.00%(0), 손절=41.46%(2560), 관망=58.07%(3586), 전체row=6175
+2025-06-04 12:54:10,551 [F5] [INFO] symbol=KRW-UXLINK, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.47%(29), 트레일=0.00%(0), 손절=0.36%(22), 관망=99.17%(6124), 전체row=6175
+2025-06-04 12:54:10,555 [F5] [INFO] symbol=KRW-UXLINK, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.47%(29), 트레일=0.00%(0), 손절=28.91%(1785), 관망=70.62%(4361), 전체row=6175
+2025-06-04 12:54:10,560 [F5] [INFO] symbol=KRW-UXLINK, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=29.09%(1796), 트레일=0.00%(0), 손절=32.74%(2022), 관망=38.17%(2357), 전체row=6175
+2025-06-04 12:54:10,564 [F5] [INFO] symbol=KRW-UXLINK, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=29.09%(1796), 트레일=0.00%(0), 손절=0.24%(15), 관망=70.67%(4364), 전체row=6175
+2025-06-04 12:54:10,569 [F5] [INFO] symbol=KRW-UXLINK, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=29.09%(1796), 트레일=0.00%(0), 손절=22.98%(1419), 관망=47.94%(2960), 전체row=6175
+2025-06-04 12:54:10,569 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-UXLINK, best={'symbol': 'KRW-UXLINK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4336842105263158, 'row_count': 6175, 'label1_count': 2678, 'label2_count': 0, 'label-1_count': 1724, 'label0_count': 1773}
+2025-06-04 12:54:10,626 [F5] [INFO] [LABEL] KRW-UXLINK_feature.parquet → KRW-UXLINK_label.parquet, shape=(6175, 86), dist={1: 2678, 0: 1773, -1: 1724}, best_params={'symbol': 'KRW-UXLINK', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.4336842105263158, 'row_count': 6175, 'label1_count': 2678, 'label2_count': 0, 'label-1_count': 1724, 'label0_count': 1773}
+2025-06-04 12:54:10,641 [F5] [INFO] symbol=KRW-VANA, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=53.13%(3244), 트레일=0.00%(0), 손절=35.31%(2156), 관망=11.56%(706), 전체row=6106
+2025-06-04 12:54:10,646 [F5] [INFO] symbol=KRW-VANA, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=53.13%(3244), 트레일=0.00%(0), 손절=0.15%(9), 관망=46.72%(2853), 전체row=6106
+2025-06-04 12:54:10,650 [F5] [INFO] symbol=KRW-VANA, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=53.13%(3244), 트레일=0.00%(0), 손절=25.97%(1586), 관망=20.90%(1276), 전체row=6106
+2025-06-04 12:54:10,654 [F5] [INFO] symbol=KRW-VANA, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=54.34%(3318), 관망=45.63%(2786), 전체row=6106
+2025-06-04 12:54:10,658 [F5] [INFO] symbol=KRW-VANA, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=0.20%(12), 관망=99.77%(6092), 전체row=6106
+2025-06-04 12:54:10,663 [F5] [INFO] symbol=KRW-VANA, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.03%(2), 트레일=0.00%(0), 손절=37.83%(2310), 관망=62.14%(3794), 전체row=6106
+2025-06-04 12:54:10,667 [F5] [INFO] symbol=KRW-VANA, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=40.96%(2501), 트레일=0.00%(0), 손절=42.22%(2578), 관망=16.82%(1027), 전체row=6106
+2025-06-04 12:54:10,671 [F5] [INFO] symbol=KRW-VANA, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=40.96%(2501), 트레일=0.00%(0), 손절=0.18%(11), 관망=58.86%(3594), 전체row=6106
+2025-06-04 12:54:10,675 [F5] [INFO] symbol=KRW-VANA, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=40.96%(2501), 트레일=0.00%(0), 손절=30.85%(1884), 관망=28.19%(1721), 전체row=6106
+2025-06-04 12:54:10,676 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-VANA, best={'symbol': 'KRW-VANA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5312807075008189, 'row_count': 6106, 'label1_count': 3244, 'label2_count': 0, 'label-1_count': 2156, 'label0_count': 706}
+2025-06-04 12:54:10,720 [F5] [INFO] [LABEL] KRW-VANA_feature.parquet → KRW-VANA_label.parquet, shape=(6106, 86), dist={1: 3244, -1: 2156, 0: 706}, best_params={'symbol': 'KRW-VANA', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5312807075008189, 'row_count': 6106, 'label1_count': 3244, 'label2_count': 0, 'label-1_count': 2156, 'label0_count': 706}
+2025-06-04 12:54:10,733 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=53.61%(3112), 트레일=0.00%(0), 손절=33.45%(1942), 관망=12.94%(751), 전체row=5805
+2025-06-04 12:54:10,737 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=53.61%(3112), 트레일=0.00%(0), 손절=0.00%(0), 관망=46.39%(2693), 전체row=5805
+2025-06-04 12:54:10,741 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=53.61%(3112), 트레일=0.00%(0), 손절=27.98%(1624), 관망=18.42%(1069), 전체row=5805
+2025-06-04 12:54:10,745 [F5] [INFO] symbol=KRW-VIRTUAL, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=53.56%(3109), 관망=46.44%(2696), 전체row=5805
+2025-06-04 12:54:10,749 [F5] [INFO] symbol=KRW-VIRTUAL, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5805), 전체row=5805
+2025-06-04 12:54:10,753 [F5] [INFO] symbol=KRW-VIRTUAL, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=40.14%(2330), 관망=59.86%(3475), 전체row=5805
+2025-06-04 12:54:10,757 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=40.21%(2334), 트레일=0.00%(0), 손절=41.55%(2412), 관망=18.24%(1059), 전체row=5805
+2025-06-04 12:54:10,761 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=40.21%(2334), 트레일=0.00%(0), 손절=0.00%(0), 관망=59.79%(3471), 전체row=5805
+2025-06-04 12:54:10,765 [F5] [INFO] symbol=KRW-VIRTUAL, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=40.21%(2334), 트레일=0.00%(0), 손절=33.14%(1924), 관망=26.65%(1547), 전체row=5805
+2025-06-04 12:54:10,765 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-VIRTUAL, best={'symbol': 'KRW-VIRTUAL', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5360895779500431, 'row_count': 5805, 'label1_count': 3112, 'label2_count': 0, 'label-1_count': 1942, 'label0_count': 751}
+2025-06-04 12:54:10,805 [F5] [INFO] [LABEL] KRW-VIRTUAL_feature.parquet → KRW-VIRTUAL_label.parquet, shape=(5805, 86), dist={1: 3112, -1: 1942, 0: 751}, best_params={'symbol': 'KRW-VIRTUAL', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.5360895779500431, 'row_count': 5805, 'label1_count': 3112, 'label2_count': 0, 'label-1_count': 1942, 'label0_count': 751}
+2025-06-04 12:54:10,824 [F5] [INFO] symbol=KRW-WAVES, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=28.21%(2485), 트레일=0.00%(0), 손절=25.86%(2278), 관망=45.93%(4046), 전체row=8809
+2025-06-04 12:54:10,831 [F5] [INFO] symbol=KRW-WAVES, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=28.21%(2485), 트레일=0.00%(0), 손절=0.00%(0), 관망=71.79%(6324), 전체row=8809
+2025-06-04 12:54:10,837 [F5] [INFO] symbol=KRW-WAVES, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=28.21%(2485), 트레일=0.00%(0), 손절=18.37%(1618), 관망=53.42%(4706), 전체row=8809
+2025-06-04 12:54:10,843 [F5] [INFO] symbol=KRW-WAVES, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=29.24%(2576), 관망=70.76%(6233), 전체row=8809
+2025-06-04 12:54:10,849 [F5] [INFO] symbol=KRW-WAVES, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(8809), 전체row=8809
+2025-06-04 12:54:10,855 [F5] [INFO] symbol=KRW-WAVES, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=20.56%(1811), 관망=79.44%(6998), 전체row=8809
+2025-06-04 12:54:10,863 [F5] [INFO] symbol=KRW-WAVES, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=19.83%(1747), 트레일=0.00%(0), 손절=27.14%(2391), 관망=53.03%(4671), 전체row=8809
+2025-06-04 12:54:10,870 [F5] [INFO] symbol=KRW-WAVES, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=19.83%(1747), 트레일=0.00%(0), 손절=0.00%(0), 관망=80.17%(7062), 전체row=8809
+2025-06-04 12:54:10,876 [F5] [INFO] symbol=KRW-WAVES, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=19.83%(1747), 트레일=0.00%(0), 손절=19.12%(1684), 관망=61.05%(5378), 전체row=8809
+2025-06-04 12:54:10,952 [F5] [INFO] [LABEL] KRW-WAVES_feature.parquet → KRW-WAVES_label.parquet, shape=(8809, 86), dist={0: 4671, -1: 2391, 1: 1747}, best_params={'symbol': 'KRW-WAVES', 'thresh_pct': 0.003, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.19831990010216824, 'row_count': 8809, 'label1_count': 1747, 'label2_count': 0, 'label-1_count': 2391, 'label0_count': 4671}
+2025-06-04 12:54:10,968 [F5] [INFO] symbol=KRW-WCT, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=62.31%(3611), 트레일=0.00%(0), 손절=26.61%(1542), 관망=11.08%(642), 전체row=5795
+2025-06-04 12:54:10,972 [F5] [INFO] symbol=KRW-WCT, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=62.31%(3611), 트레일=0.00%(0), 손절=1.35%(78), 관망=36.34%(2106), 전체row=5795
+2025-06-04 12:54:10,976 [F5] [INFO] symbol=KRW-WCT, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=62.31%(3611), 트레일=0.00%(0), 손절=23.52%(1363), 관망=14.17%(821), 전체row=5795
+2025-06-04 12:54:10,980 [F5] [INFO] symbol=KRW-WCT, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=2.48%(144), 트레일=0.00%(0), 손절=61.73%(3577), 관망=35.79%(2074), 전체row=5795
+2025-06-04 12:54:10,984 [F5] [INFO] symbol=KRW-WCT, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=2.48%(144), 트레일=0.00%(0), 손절=3.47%(201), 관망=94.05%(5450), 전체row=5795
+2025-06-04 12:54:10,989 [F5] [INFO] symbol=KRW-WCT, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=2.48%(144), 트레일=0.00%(0), 손절=51.70%(2996), 관망=45.82%(2655), 전체row=5795
+2025-06-04 12:54:10,994 [F5] [INFO] symbol=KRW-WCT, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=50.77%(2942), 트레일=0.00%(0), 손절=34.48%(1998), 관망=14.75%(855), 전체row=5795
+2025-06-04 12:54:10,998 [F5] [INFO] symbol=KRW-WCT, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=50.77%(2942), 트레일=0.00%(0), 손절=1.86%(108), 관망=47.37%(2745), 전체row=5795
+2025-06-04 12:54:11,002 [F5] [INFO] symbol=KRW-WCT, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=50.77%(2942), 트레일=0.00%(0), 손절=29.99%(1738), 관망=19.24%(1115), 전체row=5795
+2025-06-04 12:54:11,003 [F5] [WARNING] ⚠️ 10% 미만 support만 나옴! symbol=KRW-WCT, best={'symbol': 'KRW-WCT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.6231233822260569, 'row_count': 5795, 'label1_count': 3611, 'label2_count': 0, 'label-1_count': 1542, 'label0_count': 642}
+2025-06-04 12:54:11,048 [F5] [INFO] [LABEL] KRW-WCT_feature.parquet → KRW-WCT_label.parquet, shape=(5795, 86), dist={1: 3611, -1: 1542, 0: 642}, best_params={'symbol': 'KRW-WCT', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.6231233822260569, 'row_count': 5795, 'label1_count': 3611, 'label2_count': 0, 'label-1_count': 1542, 'label0_count': 642}
+2025-06-04 12:54:11,065 [F5] [INFO] symbol=KRW-XRP, TP=0.20%, SL=0.20%, TRAIL=None/None | 익절=11.41%(661), 트레일=0.00%(0), 손절=10.56%(612), 관망=78.03%(4520), 전체row=5793
+2025-06-04 12:54:11,069 [F5] [INFO] symbol=KRW-XRP, TP=0.20%, SL=2.50%, TRAIL=None/None | 익절=11.41%(661), 트레일=0.00%(0), 손절=0.00%(0), 관망=88.59%(5132), 전체row=5793
+2025-06-04 12:54:11,075 [F5] [INFO] symbol=KRW-XRP, TP=0.20%, SL=0.30%, TRAIL=None/None | 익절=11.41%(661), 트레일=0.00%(0), 손절=2.87%(166), 관망=85.72%(4966), 전체row=5793
+2025-06-04 12:54:11,079 [F5] [INFO] symbol=KRW-XRP, TP=2.50%, SL=0.20%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=10.72%(621), 관망=89.28%(5172), 전체row=5793
+2025-06-04 12:54:11,084 [F5] [INFO] symbol=KRW-XRP, TP=2.50%, SL=2.50%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=0.00%(0), 관망=100.00%(5793), 전체row=5793
+2025-06-04 12:54:11,088 [F5] [INFO] symbol=KRW-XRP, TP=2.50%, SL=0.30%, TRAIL=None/None | 익절=0.00%(0), 트레일=0.00%(0), 손절=2.92%(169), 관망=97.08%(5624), 전체row=5793
+2025-06-04 12:54:11,093 [F5] [INFO] symbol=KRW-XRP, TP=0.30%, SL=0.20%, TRAIL=None/None | 익절=3.78%(219), 트레일=0.00%(0), 손절=10.70%(620), 관망=85.52%(4954), 전체row=5793
+2025-06-04 12:54:11,097 [F5] [INFO] symbol=KRW-XRP, TP=0.30%, SL=2.50%, TRAIL=None/None | 익절=3.78%(219), 트레일=0.00%(0), 손절=0.00%(0), 관망=96.22%(5574), 전체row=5793
+2025-06-04 12:54:11,101 [F5] [INFO] symbol=KRW-XRP, TP=0.30%, SL=0.30%, TRAIL=None/None | 익절=3.78%(219), 트레일=0.00%(0), 손절=2.92%(169), 관망=93.30%(5405), 전체row=5793
+2025-06-04 12:54:11,144 [F5] [INFO] [LABEL] KRW-XRP_feature.parquet → KRW-XRP_label.parquet, shape=(5793, 86), dist={0: 4520, 1: 661, -1: 612}, best_params={'symbol': 'KRW-XRP', 'thresh_pct': 0.002, 'loss_pct': 0.002, 'trail_start_pct': None, 'trail_down_pct': None, 'support': 0.11410322803383394, 'row_count': 5793, 'label1_count': 661, 'label2_count': 0, 'label-1_count': 612, 'label0_count': 4520}

@@ -46,3 +46,15 @@
 2025-06-04 07:51:13,248 [F3] [F3] OrderExecutor initialized.
 2025-06-04 08:03:09,793 [F3] [F3] OrderExecutor initialized.
 2025-06-04 08:03:13,247 [F3] [F3] OrderExecutor initialized.
+2025-06-04 08:05:31,021 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 712.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 08:11:03,451 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1100.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 08:11:16,336 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1100.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 08:13:54,459 [F3] [F3] OrderExecutor initialized.
+2025-06-04 08:36:48,973 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 712.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:32:28,352 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1101.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:35:38,859 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6951.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:44:51,372 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 900.9, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:47:35,638 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 15140.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:49:55,184 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5942.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 12:53:48,998 [F3] [F3] OrderExecutor initialized.
+2025-06-04 12:53:52,329 [F3] [F3] OrderExecutor initialized.
