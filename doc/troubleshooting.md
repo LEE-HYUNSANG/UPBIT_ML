@@ -80,7 +80,9 @@
     이후 손절이나 익절 등 매도 주문이 실행될 때도 동일한 파일에 기록됩니다.
 
 ## 자주 발생하는 예외 사례
-- **PermissionError**: `logs/f3/F3_exception_handler.log` 또는 `web.log`에 경로와 함께 기록됩니다.
+- **PermissionError**: `logs/f3/F3_exception_handler.log` 또는 `web.log`에 경로와 함께
+  기록됩니다. 윈도우 환경에서 `unlock error` 메시지가 반복된다면 최신 버전에서 수정된
+  버그이므로 코드를 업데이트하세요.
 - **잔고 부족**: `F3_order_executor.log`에 `insufficient funds` 메시지가 표시됩니다.
 - **네트워크 오류**: Upbit API 호출 실패 시 `web.log`에 HTTP 오류 코드가 남습니다.
 
