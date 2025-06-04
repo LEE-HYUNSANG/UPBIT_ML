@@ -62,6 +62,15 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
     opened while locked. ``retries`` and ``delay`` control the open/lock retry
     behavior.
     """
+    if os.environ.get("UPBIT_DISABLE_LOCKS"):
+        fh = Path(path).open("a+")
+        fh.seek(0)
+        try:
+            yield fh
+        finally:
+            fh.close()
+        return
+
     lock_file = Path(path)
     fh = None
     for _ in range(retries):

@@ -26,3 +26,25 @@ def test_unlock_seeks_to_start(tmp_path, monkeypatch):
         fh.read()
 
     assert positions == [0, 0]
+
+
+def test_lock_can_be_disabled(tmp_path, monkeypatch):
+    path = tmp_path / "lock.json"
+    path.write_text("[]")
+
+    def raising(*args, **kwargs):
+        raise AssertionError("locking called")
+
+    monkeypatch.setattr("f3_order.order_executor.fcntl", None)
+    monkeypatch.setattr(
+        "f3_order.order_executor.msvcrt",
+        types.SimpleNamespace(LK_LOCK=1, LK_UNLCK=2, locking=raising),
+        raising=False,
+    )
+    monkeypatch.setenv("UPBIT_DISABLE_LOCKS", "1")
+
+    with _buy_list_lock(path) as fh:
+        fh.write("x")
+
+    monkeypatch.delenv("UPBIT_DISABLE_LOCKS")
+    assert "x" in path.read_text()

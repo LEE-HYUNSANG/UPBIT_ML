@@ -319,8 +319,8 @@ def start_pipeline_scheduler() -> None:
         while not _pipeline_stop.is_set():
             try:
                 module.main()
-            except Exception as exc:
-                WEB_LOGGER.error("pipeline error: %s", exc)
+            except Exception:
+                WEB_LOGGER.exception("pipeline error")
             if _pipeline_stop.wait(300):
                 break
 
