@@ -1,4 +1,4 @@
-2025-06-04 19:26:41,528 [WEB] ERROR pipeline error
+2025-06-04 19:43:25,776 [WEB] ERROR pipeline error
 Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
@@ -14,59 +14,103 @@ Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
 PermissionError: [Errno 13] Permission denied
-2025-06-04 19:29:12,869 [WEB] ERROR buy signal error
+2025-06-04 19:50:15,860 [WEB] ERROR pipeline error
 Traceback (most recent call last):
-  File "D:\UPBIT_ML\app.py", line 295, in worker
-    module.run_if_monitoring_list_exists()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 457, in run_if_monitoring_list_exists
-    return run()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 369, in run
-    with _buy_list_lock(buy_list_path) as fh:
-  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
-    return next(self.gen)
-  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
-    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-OSError: [Errno 36] Resource deadlock avoided
-2025-06-04 19:29:51,260 [WEB] ERROR buy signal error
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
-  File "D:\UPBIT_ML\app.py", line 295, in worker
-    module.run_if_monitoring_list_exists()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 457, in run_if_monitoring_list_exists
-    return run()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 369, in run
-    with _buy_list_lock(buy_list_path) as fh:
-  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
-    return next(self.gen)
-  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
-    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-OSError: [Errno 36] Resource deadlock avoided
-2025-06-04 19:32:31,780 [WEB] ERROR buy signal error
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 19:55:27,250 [WEB] ERROR pipeline error
 Traceback (most recent call last):
-  File "D:\UPBIT_ML\app.py", line 295, in worker
-    module.run_if_monitoring_list_exists()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 457, in run_if_monitoring_list_exists
-    return run()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 369, in run
-    with _buy_list_lock(buy_list_path) as fh:
-  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
-    return next(self.gen)
-  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
-    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-OSError: [Errno 36] Resource deadlock avoided
-2025-06-04 19:33:13,679 [WEB] ERROR buy signal error
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
-  File "D:\UPBIT_ML\app.py", line 295, in worker
-    module.run_if_monitoring_list_exists()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 457, in run_if_monitoring_list_exists
-    return run()
-  File "D:\UPBIT_ML\f2_ml_buy_signal\02_ml_buy_signal.py", line 369, in run
-    with _buy_list_lock(buy_list_path) as fh:
-  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
-    return next(self.gen)
-  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
-    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-OSError: [Errno 36] Resource deadlock avoided
-2025-06-04 19:33:27,162 [WEB] ERROR pipeline error
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:02:15,247 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:07:31,632 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:14:26,511 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:19:52,566 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:27:06,739 [WEB] ERROR pipeline error
 Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)

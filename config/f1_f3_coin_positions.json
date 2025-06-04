@@ -11,10 +11,27 @@
     "entry_fee": 0.0,
     "strategy": "imported",
     "avg_price": 4636.21831489,
-    "pnl_percent": -3.4126588556422246,
-    "current_price": 4478.0,
+    "pnl_percent": -3.9518914435406045,
+    "current_price": 4453.0,
     "max_price": 4606.0,
-    "min_price": 4478.0,
-    "eval_amount": 28896.53686592
+    "min_price": 4447.0,
+    "eval_amount": 28735.21184992
+  },
+  {
+    "symbol": "KRW-NEAR",
+    "entry_time": 1749035994.4333644,
+    "entry_price": 3513.0,
+    "qty": 3.98633256,
+    "pyramid_count": 0,
+    "avgdown_count": 0,
+    "status": "open",
+    "origin": "trade",
+    "entry_fee": 0.0,
+    "avg_price": 3510.0,
+    "current_price": 3504.0,
+    "eval_amount": 13968.10929024,
+    "pnl_percent": -0.17094017094017094,
+    "max_price": 3514.0,
+    "min_price": 3500.0
   }
 ]
