@@ -8,7 +8,8 @@ DEFAULTS = {
     "1st_Bid_Price": "BID1+",
     "LIMIT_WAIT_SEC_2": 0,
     "2nd_Bid_Price": "ASK1",
-    "FALLBACK_MARKET": True,
+    # Send only one limit order by default; market fallback is disabled
+    "FALLBACK_MARKET": False,
 }
 
 

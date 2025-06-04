@@ -48,7 +48,7 @@ Order execution defaults such as retry counts and quantity settings. Used only b
 Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
 `MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`, `LIMIT_WAIT_SEC_2`,
 `2nd_Bid_Price` and `FALLBACK_MARKET`. Defaults are `7000`, `7`, `60`,
-`"BID1+"`, `0`, `"ASK1"` and `true` respectively. These values override the
+`"BID1+"`, `0`, `"ASK1"` and `false` respectively. These values override the
 order executor's defaults and are mirrored to the risk manager. When
 `FALLBACK_MARKET` is enabled the executor sends a market order if the first
 limit order fails and no second attempt is configured.
