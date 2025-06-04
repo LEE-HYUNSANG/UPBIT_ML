@@ -1,230 +1,236 @@
-2025-06-04 18:19:53,066 [F2] [F3] execute_buy_list start
-2025-06-04 18:19:53,066 [F2] [F3] Targets: []
-2025-06-04 18:19:53,067 [F2] [F3] No buy candidates found
-2025-06-04 18:19:56,258 [F2] [F3] execute_buy_list start
-2025-06-04 18:19:56,260 [F2] [F3] Targets: []
-2025-06-04 18:19:56,260 [F2] [F3] No buy candidates found
-2025-06-04 18:20:08,094 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:08,099 [F2] [F3] Targets: []
-2025-06-04 18:20:08,100 [F2] [F3] No buy candidates found
-2025-06-04 18:20:11,270 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:11,271 [F2] [F3] Targets: []
-2025-06-04 18:20:11,286 [F2] [F3] No buy candidates found
-2025-06-04 18:20:23,123 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:23,125 [F2] [F3] Targets: []
-2025-06-04 18:20:23,125 [F2] [F3] No buy candidates found
-2025-06-04 18:20:26,313 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:26,314 [F2] [F3] Targets: []
-2025-06-04 18:20:26,315 [F2] [F3] No buy candidates found
-2025-06-04 18:20:38,150 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:38,155 [F2] [F3] Targets: []
-2025-06-04 18:20:38,156 [F2] [F3] No buy candidates found
-2025-06-04 18:20:41,345 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:41,346 [F2] [F3] Targets: []
-2025-06-04 18:20:41,347 [F2] [F3] No buy candidates found
-2025-06-04 18:20:53,165 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:53,165 [F2] [F3] Targets: []
-2025-06-04 18:20:53,165 [F2] [F3] No buy candidates found
-2025-06-04 18:20:56,359 [F2] [F3] execute_buy_list start
-2025-06-04 18:20:56,359 [F2] [F3] Targets: []
-2025-06-04 18:20:56,359 [F2] [F3] No buy candidates found
-2025-06-04 18:21:08,180 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:08,180 [F2] [F3] Targets: []
-2025-06-04 18:21:08,181 [F2] [F3] No buy candidates found
-2025-06-04 18:21:11,367 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:11,369 [F2] [F3] Targets: []
-2025-06-04 18:21:11,369 [F2] [F3] No buy candidates found
-2025-06-04 18:21:23,200 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:23,201 [F2] [F3] Targets: []
-2025-06-04 18:21:23,202 [F2] [F3] No buy candidates found
-2025-06-04 18:21:26,388 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:26,389 [F2] [F3] Targets: []
-2025-06-04 18:21:26,390 [F2] [F3] No buy candidates found
-2025-06-04 18:21:38,211 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:38,211 [F2] [F3] Targets: []
-2025-06-04 18:21:38,211 [F2] [F3] No buy candidates found
-2025-06-04 18:21:41,404 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:41,405 [F2] [F3] Targets: []
-2025-06-04 18:21:41,405 [F2] [F3] No buy candidates found
-2025-06-04 18:21:53,221 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:53,221 [F2] [F3] Targets: []
-2025-06-04 18:21:53,221 [F2] [F3] No buy candidates found
-2025-06-04 18:21:56,420 [F2] [F3] execute_buy_list start
-2025-06-04 18:21:56,421 [F2] [F3] Targets: []
-2025-06-04 18:21:56,421 [F2] [F3] No buy candidates found
-2025-06-04 18:22:12,962 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:12,964 [F2] [F3] Targets: []
-2025-06-04 18:22:12,964 [F2] [F3] No buy candidates found
-2025-06-04 18:22:16,770 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:16,772 [F2] [F3] Targets: []
-2025-06-04 18:22:16,772 [F2] [F3] No buy candidates found
-2025-06-04 18:22:31,747 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:31,748 [F2] [F3] Targets: []
-2025-06-04 18:22:31,749 [F2] [F3] No buy candidates found
-2025-06-04 18:22:36,237 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:36,239 [F2] [F3] Targets: []
-2025-06-04 18:22:36,239 [F2] [F3] No buy candidates found
-2025-06-04 18:22:49,558 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:49,559 [F2] [F3] Targets: []
-2025-06-04 18:22:49,559 [F2] [F3] No buy candidates found
-2025-06-04 18:22:54,225 [F2] [F3] execute_buy_list start
-2025-06-04 18:22:54,226 [F2] [F3] Targets: []
-2025-06-04 18:22:54,226 [F2] [F3] No buy candidates found
-2025-06-04 18:23:07,734 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:07,735 [F2] [F3] Targets: []
-2025-06-04 18:23:07,735 [F2] [F3] No buy candidates found
-2025-06-04 18:23:12,664 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:12,666 [F2] [F3] Targets: []
-2025-06-04 18:23:12,666 [F2] [F3] No buy candidates found
-2025-06-04 18:23:25,599 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:25,600 [F2] [F3] Targets: []
-2025-06-04 18:23:25,600 [F2] [F3] No buy candidates found
-2025-06-04 18:23:30,738 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:30,739 [F2] [F3] Targets: []
-2025-06-04 18:23:30,740 [F2] [F3] No buy candidates found
-2025-06-04 18:23:43,670 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:43,671 [F2] [F3] Targets: []
-2025-06-04 18:23:43,671 [F2] [F3] No buy candidates found
-2025-06-04 18:23:49,150 [F2] [F3] execute_buy_list start
-2025-06-04 18:23:49,151 [F2] [F3] Targets: []
-2025-06-04 18:23:49,152 [F2] [F3] No buy candidates found
-2025-06-04 18:24:01,847 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:01,848 [F2] [F3] Targets: []
-2025-06-04 18:24:01,848 [F2] [F3] No buy candidates found
-2025-06-04 18:24:07,663 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:07,664 [F2] [F3] Targets: []
-2025-06-04 18:24:07,665 [F2] [F3] No buy candidates found
-2025-06-04 18:24:20,093 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:20,095 [F2] [F3] Targets: []
-2025-06-04 18:24:20,095 [F2] [F3] No buy candidates found
-2025-06-04 18:24:26,382 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:26,383 [F2] [F3] Targets: []
-2025-06-04 18:24:26,383 [F2] [F3] No buy candidates found
-2025-06-04 18:24:38,882 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:38,883 [F2] [F3] Targets: []
-2025-06-04 18:24:38,884 [F2] [F3] No buy candidates found
-2025-06-04 18:24:45,354 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:45,356 [F2] [F3] Targets: []
-2025-06-04 18:24:45,357 [F2] [F3] No buy candidates found
-2025-06-04 18:24:57,201 [F2] [F3] execute_buy_list start
-2025-06-04 18:24:57,202 [F2] [F3] Targets: []
-2025-06-04 18:24:57,202 [F2] [F3] No buy candidates found
-2025-06-04 18:25:04,755 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:04,756 [F2] [F3] Targets: []
-2025-06-04 18:25:04,757 [F2] [F3] No buy candidates found
-2025-06-04 18:25:16,515 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:16,516 [F2] [F3] Targets: []
-2025-06-04 18:25:16,516 [F2] [F3] No buy candidates found
-2025-06-04 18:25:23,892 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:23,894 [F2] [F3] Targets: []
-2025-06-04 18:25:23,895 [F2] [F3] No buy candidates found
-2025-06-04 18:25:37,208 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:37,210 [F2] [F3] Targets: []
-2025-06-04 18:25:37,210 [F2] [F3] No buy candidates found
-2025-06-04 18:25:44,399 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:44,401 [F2] [F3] Targets: []
-2025-06-04 18:25:44,402 [F2] [F3] No buy candidates found
-2025-06-04 18:25:57,602 [F2] [F3] execute_buy_list start
-2025-06-04 18:25:57,604 [F2] [F3] Targets: []
-2025-06-04 18:25:57,604 [F2] [F3] No buy candidates found
-2025-06-04 18:26:03,546 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:03,547 [F2] [F3] Targets: []
-2025-06-04 18:26:03,547 [F2] [F3] No buy candidates found
-2025-06-04 18:26:16,844 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:16,845 [F2] [F3] Targets: []
-2025-06-04 18:26:16,846 [F2] [F3] No buy candidates found
-2025-06-04 18:26:22,790 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:22,791 [F2] [F3] Targets: []
-2025-06-04 18:26:22,792 [F2] [F3] No buy candidates found
-2025-06-04 18:26:35,670 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:35,670 [F2] [F3] Targets: []
-2025-06-04 18:26:35,672 [F2] [F3] No buy candidates found
-2025-06-04 18:26:41,708 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:41,709 [F2] [F3] Targets: []
-2025-06-04 18:26:41,710 [F2] [F3] No buy candidates found
-2025-06-04 18:26:54,336 [F2] [F3] execute_buy_list start
-2025-06-04 18:26:54,337 [F2] [F3] Targets: []
-2025-06-04 18:26:54,338 [F2] [F3] No buy candidates found
-2025-06-04 18:27:00,299 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:00,301 [F2] [F3] Targets: []
-2025-06-04 18:27:00,301 [F2] [F3] No buy candidates found
-2025-06-04 18:27:13,156 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:13,158 [F2] [F3] Targets: []
-2025-06-04 18:27:13,158 [F2] [F3] No buy candidates found
-2025-06-04 18:27:19,133 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:19,135 [F2] [F3] Targets: []
-2025-06-04 18:27:19,135 [F2] [F3] No buy candidates found
-2025-06-04 18:27:31,852 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:31,853 [F2] [F3] Targets: []
-2025-06-04 18:27:31,853 [F2] [F3] No buy candidates found
-2025-06-04 18:27:37,305 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:37,306 [F2] [F3] Targets: []
-2025-06-04 18:27:37,307 [F2] [F3] No buy candidates found
-2025-06-04 18:27:49,596 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:49,598 [F2] [F3] Targets: []
-2025-06-04 18:27:49,598 [F2] [F3] No buy candidates found
-2025-06-04 18:27:55,326 [F2] [F3] execute_buy_list start
-2025-06-04 18:27:55,328 [F2] [F3] Targets: []
-2025-06-04 18:27:55,329 [F2] [F3] No buy candidates found
-2025-06-04 18:28:07,503 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:07,504 [F2] [F3] Targets: []
-2025-06-04 18:28:07,504 [F2] [F3] No buy candidates found
-2025-06-04 18:28:13,475 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:13,477 [F2] [F3] Targets: []
-2025-06-04 18:28:13,477 [F2] [F3] No buy candidates found
-2025-06-04 18:28:25,357 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:25,358 [F2] [F3] Targets: []
-2025-06-04 18:28:25,358 [F2] [F3] No buy candidates found
-2025-06-04 18:28:32,127 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:32,128 [F2] [F3] Targets: []
-2025-06-04 18:28:32,129 [F2] [F3] No buy candidates found
-2025-06-04 18:28:43,745 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:43,746 [F2] [F3] Targets: []
-2025-06-04 18:28:43,746 [F2] [F3] No buy candidates found
-2025-06-04 18:28:50,365 [F2] [F3] execute_buy_list start
-2025-06-04 18:28:50,366 [F2] [F3] Targets: []
-2025-06-04 18:28:50,366 [F2] [F3] No buy candidates found
-2025-06-04 18:29:02,016 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:02,017 [F2] [F3] Targets: []
-2025-06-04 18:29:02,017 [F2] [F3] No buy candidates found
-2025-06-04 18:29:08,267 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:08,269 [F2] [F3] Targets: []
-2025-06-04 18:29:08,269 [F2] [F3] No buy candidates found
-2025-06-04 18:29:19,752 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:19,753 [F2] [F3] Targets: []
-2025-06-04 18:29:19,753 [F2] [F3] No buy candidates found
-2025-06-04 18:29:25,901 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:25,903 [F2] [F3] Targets: []
-2025-06-04 18:29:25,904 [F2] [F3] No buy candidates found
-2025-06-04 18:29:37,376 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:37,378 [F2] [F3] Targets: []
-2025-06-04 18:29:37,378 [F2] [F3] No buy candidates found
-2025-06-04 18:29:43,674 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:43,675 [F2] [F3] Targets: []
-2025-06-04 18:29:43,676 [F2] [F3] No buy candidates found
-2025-06-04 18:29:55,113 [F2] [F3] execute_buy_list start
-2025-06-04 18:29:55,114 [F2] [F3] Targets: []
-2025-06-04 18:29:55,114 [F2] [F3] No buy candidates found
-2025-06-04 18:30:01,484 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:01,486 [F2] [F3] Targets: []
-2025-06-04 18:30:01,486 [F2] [F3] No buy candidates found
-2025-06-04 18:30:13,233 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:13,234 [F2] [F3] Targets: []
-2025-06-04 18:30:13,234 [F2] [F3] No buy candidates found
-2025-06-04 18:30:20,395 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:20,396 [F2] [F3] Targets: []
-2025-06-04 18:30:20,396 [F2] [F3] No buy candidates found
-2025-06-04 18:30:30,877 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:30,878 [F2] [F3] Targets: []
-2025-06-04 18:30:30,878 [F2] [F3] No buy candidates found
-2025-06-04 18:30:38,171 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:38,172 [F2] [F3] Targets: []
-2025-06-04 18:30:38,172 [F2] [F3] No buy candidates found
-2025-06-04 18:30:48,495 [F2] [F3] execute_buy_list start
-2025-06-04 18:30:48,496 [F2] [F3] Targets: ['KRW-PENDLE']
-2025-06-04 18:30:48,549 [F2] [F3] Ticker prices: {'KRW-PENDLE': 6038.0}
-2025-06-04 18:30:48,549 [F2] [F3] Executing buy for KRW-PENDLE at 6038.0
-2025-06-04 18:31:15,781 [F2] execute_buy_list failed: [Errno 36] Resource deadlock avoided
+2025-06-04 18:42:18,455 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:18,456 [F2] [F3] Targets: []
+2025-06-04 18:42:18,456 [F2] [F3] No buy candidates found
+2025-06-04 18:42:21,542 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:21,543 [F2] [F3] Targets: []
+2025-06-04 18:42:21,543 [F2] [F3] No buy candidates found
+2025-06-04 18:42:33,468 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:33,468 [F2] [F3] Targets: []
+2025-06-04 18:42:33,468 [F2] [F3] No buy candidates found
+2025-06-04 18:42:36,555 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:36,555 [F2] [F3] Targets: []
+2025-06-04 18:42:36,569 [F2] [F3] No buy candidates found
+2025-06-04 18:42:48,483 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:48,485 [F2] [F3] Targets: []
+2025-06-04 18:42:48,486 [F2] [F3] No buy candidates found
+2025-06-04 18:42:51,588 [F2] [F3] execute_buy_list start
+2025-06-04 18:42:51,590 [F2] [F3] Targets: []
+2025-06-04 18:42:51,590 [F2] [F3] No buy candidates found
+2025-06-04 18:43:03,504 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:03,505 [F2] [F3] Targets: []
+2025-06-04 18:43:03,506 [F2] [F3] No buy candidates found
+2025-06-04 18:43:06,605 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:06,607 [F2] [F3] Targets: []
+2025-06-04 18:43:06,608 [F2] [F3] No buy candidates found
+2025-06-04 18:43:18,521 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:18,522 [F2] [F3] Targets: []
+2025-06-04 18:43:18,522 [F2] [F3] No buy candidates found
+2025-06-04 18:43:21,614 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:21,614 [F2] [F3] Targets: []
+2025-06-04 18:43:21,614 [F2] [F3] No buy candidates found
+2025-06-04 18:43:33,534 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:33,535 [F2] [F3] Targets: []
+2025-06-04 18:43:33,536 [F2] [F3] No buy candidates found
+2025-06-04 18:43:36,626 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:36,627 [F2] [F3] Targets: []
+2025-06-04 18:43:36,627 [F2] [F3] No buy candidates found
+2025-06-04 18:43:48,555 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:48,555 [F2] [F3] Targets: []
+2025-06-04 18:43:48,555 [F2] [F3] No buy candidates found
+2025-06-04 18:43:51,646 [F2] [F3] execute_buy_list start
+2025-06-04 18:43:51,647 [F2] [F3] Targets: []
+2025-06-04 18:43:51,647 [F2] [F3] No buy candidates found
+2025-06-04 18:44:03,575 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:03,575 [F2] [F3] Targets: []
+2025-06-04 18:44:03,575 [F2] [F3] No buy candidates found
+2025-06-04 18:44:06,661 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:06,661 [F2] [F3] Targets: []
+2025-06-04 18:44:06,662 [F2] [F3] No buy candidates found
+2025-06-04 18:44:18,581 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:18,581 [F2] [F3] Targets: []
+2025-06-04 18:44:18,583 [F2] [F3] No buy candidates found
+2025-06-04 18:44:21,681 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:21,682 [F2] [F3] Targets: []
+2025-06-04 18:44:21,682 [F2] [F3] No buy candidates found
+2025-06-04 18:44:38,313 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:38,314 [F2] [F3] Targets: []
+2025-06-04 18:44:38,314 [F2] [F3] No buy candidates found
+2025-06-04 18:44:41,651 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:41,652 [F2] [F3] Targets: []
+2025-06-04 18:44:41,653 [F2] [F3] No buy candidates found
+2025-06-04 18:44:56,185 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:56,186 [F2] [F3] Targets: []
+2025-06-04 18:44:56,187 [F2] [F3] No buy candidates found
+2025-06-04 18:44:59,822 [F2] [F3] execute_buy_list start
+2025-06-04 18:44:59,823 [F2] [F3] Targets: []
+2025-06-04 18:44:59,823 [F2] [F3] No buy candidates found
+2025-06-04 18:45:14,389 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:14,390 [F2] [F3] Targets: []
+2025-06-04 18:45:14,390 [F2] [F3] No buy candidates found
+2025-06-04 18:45:17,932 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:17,933 [F2] [F3] Targets: []
+2025-06-04 18:45:17,933 [F2] [F3] No buy candidates found
+2025-06-04 18:45:32,293 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:32,295 [F2] [F3] Targets: []
+2025-06-04 18:45:32,295 [F2] [F3] No buy candidates found
+2025-06-04 18:45:36,567 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:36,568 [F2] [F3] Targets: []
+2025-06-04 18:45:36,568 [F2] [F3] No buy candidates found
+2025-06-04 18:45:50,274 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:50,277 [F2] [F3] Targets: []
+2025-06-04 18:45:50,277 [F2] [F3] No buy candidates found
+2025-06-04 18:45:54,643 [F2] [F3] execute_buy_list start
+2025-06-04 18:45:54,644 [F2] [F3] Targets: []
+2025-06-04 18:45:54,644 [F2] [F3] No buy candidates found
+2025-06-04 18:46:08,282 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:08,283 [F2] [F3] Targets: []
+2025-06-04 18:46:08,284 [F2] [F3] No buy candidates found
+2025-06-04 18:46:12,739 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:12,740 [F2] [F3] Targets: []
+2025-06-04 18:46:12,741 [F2] [F3] No buy candidates found
+2025-06-04 18:46:26,395 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:26,397 [F2] [F3] Targets: []
+2025-06-04 18:46:26,397 [F2] [F3] No buy candidates found
+2025-06-04 18:46:30,677 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:30,678 [F2] [F3] Targets: []
+2025-06-04 18:46:30,678 [F2] [F3] No buy candidates found
+2025-06-04 18:46:44,470 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:44,471 [F2] [F3] Targets: []
+2025-06-04 18:46:44,471 [F2] [F3] No buy candidates found
+2025-06-04 18:46:49,011 [F2] [F3] execute_buy_list start
+2025-06-04 18:46:49,013 [F2] [F3] Targets: []
+2025-06-04 18:46:49,013 [F2] [F3] No buy candidates found
+2025-06-04 18:47:02,346 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:02,347 [F2] [F3] Targets: []
+2025-06-04 18:47:02,347 [F2] [F3] No buy candidates found
+2025-06-04 18:47:07,165 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:07,166 [F2] [F3] Targets: []
+2025-06-04 18:47:07,167 [F2] [F3] No buy candidates found
+2025-06-04 18:47:20,820 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:20,822 [F2] [F3] Targets: []
+2025-06-04 18:47:20,823 [F2] [F3] No buy candidates found
+2025-06-04 18:47:26,069 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:26,070 [F2] [F3] Targets: []
+2025-06-04 18:47:26,071 [F2] [F3] No buy candidates found
+2025-06-04 18:47:40,117 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:40,119 [F2] [F3] Targets: []
+2025-06-04 18:47:40,120 [F2] [F3] No buy candidates found
+2025-06-04 18:47:45,765 [F2] [F3] execute_buy_list start
+2025-06-04 18:47:45,766 [F2] [F3] Targets: []
+2025-06-04 18:47:45,766 [F2] [F3] No buy candidates found
+2025-06-04 18:48:00,030 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:00,031 [F2] [F3] Targets: []
+2025-06-04 18:48:00,032 [F2] [F3] No buy candidates found
+2025-06-04 18:48:05,921 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:05,922 [F2] [F3] Targets: []
+2025-06-04 18:48:05,923 [F2] [F3] No buy candidates found
+2025-06-04 18:48:19,912 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:19,918 [F2] [F3] Targets: []
+2025-06-04 18:48:19,919 [F2] [F3] No buy candidates found
+2025-06-04 18:48:26,053 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:26,055 [F2] [F3] Targets: []
+2025-06-04 18:48:26,055 [F2] [F3] No buy candidates found
+2025-06-04 18:48:38,086 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:38,087 [F2] [F3] Targets: []
+2025-06-04 18:48:38,088 [F2] [F3] No buy candidates found
+2025-06-04 18:48:44,573 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:44,574 [F2] [F3] Targets: []
+2025-06-04 18:48:44,575 [F2] [F3] No buy candidates found
+2025-06-04 18:48:56,274 [F2] [F3] execute_buy_list start
+2025-06-04 18:48:56,275 [F2] [F3] Targets: []
+2025-06-04 18:48:56,276 [F2] [F3] No buy candidates found
+2025-06-04 18:49:02,998 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:03,000 [F2] [F3] Targets: []
+2025-06-04 18:49:03,000 [F2] [F3] No buy candidates found
+2025-06-04 18:49:14,896 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:14,897 [F2] [F3] Targets: []
+2025-06-04 18:49:14,898 [F2] [F3] No buy candidates found
+2025-06-04 18:49:21,223 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:21,224 [F2] [F3] Targets: []
+2025-06-04 18:49:21,225 [F2] [F3] No buy candidates found
+2025-06-04 18:49:32,957 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:32,958 [F2] [F3] Targets: []
+2025-06-04 18:49:32,959 [F2] [F3] No buy candidates found
+2025-06-04 18:49:39,352 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:39,353 [F2] [F3] Targets: []
+2025-06-04 18:49:39,353 [F2] [F3] No buy candidates found
+2025-06-04 18:49:50,959 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:50,960 [F2] [F3] Targets: []
+2025-06-04 18:49:50,960 [F2] [F3] No buy candidates found
+2025-06-04 18:49:57,473 [F2] [F3] execute_buy_list start
+2025-06-04 18:49:57,475 [F2] [F3] Targets: []
+2025-06-04 18:49:57,476 [F2] [F3] No buy candidates found
+2025-06-04 18:50:09,267 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:09,268 [F2] [F3] Targets: []
+2025-06-04 18:50:09,268 [F2] [F3] No buy candidates found
+2025-06-04 18:50:16,264 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:16,265 [F2] [F3] Targets: []
+2025-06-04 18:50:16,266 [F2] [F3] No buy candidates found
+2025-06-04 18:50:27,181 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:27,183 [F2] [F3] Targets: []
+2025-06-04 18:50:27,183 [F2] [F3] No buy candidates found
+2025-06-04 18:50:34,307 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:34,309 [F2] [F3] Targets: []
+2025-06-04 18:50:34,309 [F2] [F3] No buy candidates found
+2025-06-04 18:50:45,045 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:45,046 [F2] [F3] Targets: []
+2025-06-04 18:50:45,047 [F2] [F3] No buy candidates found
+2025-06-04 18:50:52,314 [F2] [F3] execute_buy_list start
+2025-06-04 18:50:52,315 [F2] [F3] Targets: []
+2025-06-04 18:50:52,315 [F2] [F3] No buy candidates found
+2025-06-04 18:51:02,842 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:02,843 [F2] [F3] Targets: []
+2025-06-04 18:51:02,843 [F2] [F3] No buy candidates found
+2025-06-04 18:51:10,567 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:10,568 [F2] [F3] Targets: []
+2025-06-04 18:51:10,568 [F2] [F3] No buy candidates found
+2025-06-04 18:51:21,064 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:21,065 [F2] [F3] Targets: []
+2025-06-04 18:51:21,065 [F2] [F3] No buy candidates found
+2025-06-04 18:51:28,620 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:28,621 [F2] [F3] Targets: []
+2025-06-04 18:51:28,622 [F2] [F3] No buy candidates found
+2025-06-04 18:51:38,923 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:38,924 [F2] [F3] Targets: []
+2025-06-04 18:51:38,924 [F2] [F3] No buy candidates found
+2025-06-04 18:51:46,642 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:46,643 [F2] [F3] Targets: []
+2025-06-04 18:51:46,644 [F2] [F3] No buy candidates found
+2025-06-04 18:51:56,892 [F2] [F3] execute_buy_list start
+2025-06-04 18:51:56,893 [F2] [F3] Targets: []
+2025-06-04 18:51:56,894 [F2] [F3] No buy candidates found
+2025-06-04 18:52:04,503 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:04,503 [F2] [F3] Targets: []
+2025-06-04 18:52:04,503 [F2] [F3] No buy candidates found
+2025-06-04 18:52:14,980 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:14,982 [F2] [F3] Targets: []
+2025-06-04 18:52:14,982 [F2] [F3] No buy candidates found
+2025-06-04 18:52:22,651 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:22,652 [F2] [F3] Targets: []
+2025-06-04 18:52:22,653 [F2] [F3] No buy candidates found
+2025-06-04 18:52:33,174 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:33,176 [F2] [F3] Targets: []
+2025-06-04 18:52:33,176 [F2] [F3] No buy candidates found
+2025-06-04 18:52:40,653 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:40,654 [F2] [F3] Targets: []
+2025-06-04 18:52:40,654 [F2] [F3] No buy candidates found
+2025-06-04 18:52:51,070 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:51,071 [F2] [F3] Targets: []
+2025-06-04 18:52:51,071 [F2] [F3] No buy candidates found
+2025-06-04 18:52:58,826 [F2] [F3] execute_buy_list start
+2025-06-04 18:52:58,828 [F2] [F3] Targets: []
+2025-06-04 18:52:58,828 [F2] [F3] No buy candidates found
+2025-06-04 18:53:09,139 [F2] [F3] execute_buy_list start
+2025-06-04 18:53:09,140 [F2] [F3] Targets: []
+2025-06-04 18:53:09,141 [F2] [F3] No buy candidates found
+2025-06-04 18:53:17,115 [F2] [F3] execute_buy_list start
+2025-06-04 18:53:17,116 [F2] [F3] Targets: []
+2025-06-04 18:53:17,117 [F2] [F3] No buy candidates found
+2025-06-04 18:53:27,086 [F2] [F3] execute_buy_list start
+2025-06-04 18:53:27,087 [F2] [F3] Targets: ['KRW-LAYER']
+2025-06-04 18:53:27,149 [F2] [F3] Ticker prices: {'KRW-LAYER': 1119.0}
+2025-06-04 18:53:27,150 [F2] [F3] Executing buy for KRW-LAYER at 1119.0
+2025-06-04 18:53:54,367 [F2] execute_buy_list failed: [Errno 36] Resource deadlock avoided
 Traceback (most recent call last):
   File "D:\UPBIT_ML\f3_order\order_executor.py", line 296, in entry
     self._set_pending_flag(symbol, 1)
@@ -250,12 +256,153 @@ Traceback (most recent call last):
   File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
 OSError: [Errno 36] Resource deadlock avoided
-2025-06-04 18:31:20,387 [F2] [F3] execute_buy_list start
-2025-06-04 18:31:20,388 [F2] [F3] Targets: []
-2025-06-04 18:31:20,389 [F2] [F3] No buy candidates found
-2025-06-04 18:31:33,493 [F2] [F3] execute_buy_list start
-2025-06-04 18:31:33,493 [F2] [F3] Targets: []
-2025-06-04 18:31:33,495 [F2] [F3] No buy candidates found
-2025-06-04 18:31:38,404 [F2] [F3] execute_buy_list start
-2025-06-04 18:31:38,405 [F2] [F3] Targets: []
-2025-06-04 18:31:38,406 [F2] [F3] No buy candidates found
+2025-06-04 18:53:59,074 [F2] [F3] execute_buy_list start
+2025-06-04 18:53:59,075 [F2] [F3] Targets: ['KRW-LAYER']
+2025-06-04 18:53:59,133 [F2] [F3] Ticker prices: {'KRW-LAYER': 1119.0}
+2025-06-04 18:53:59,133 [F2] [F3] Executing buy for KRW-LAYER at 1119.0
+2025-06-04 18:54:26,378 [F2] execute_buy_list failed: [Errno 36] Resource deadlock avoided
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 296, in entry
+    self._set_pending_flag(symbol, 1)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f2_ml_buy_signal\03_buy_signal_engine\buy_list_executor.py", line 138, in execute_buy_list
+    if oe.entry(signal):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 357, in entry
+    self._set_pending_flag(signal.get("symbol"), 0)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+2025-06-04 18:54:36,504 [F2] [F3] execute_buy_list start
+2025-06-04 18:54:36,505 [F2] [F3] Targets: []
+2025-06-04 18:54:36,506 [F2] [F3] No buy candidates found
+2025-06-04 18:54:44,566 [F2] [F3] execute_buy_list start
+2025-06-04 18:54:44,566 [F2] [F3] Targets: []
+2025-06-04 18:54:44,567 [F2] [F3] No buy candidates found
+2025-06-04 18:54:55,341 [F2] [F3] execute_buy_list start
+2025-06-04 18:54:55,343 [F2] [F3] Targets: []
+2025-06-04 18:54:55,344 [F2] [F3] No buy candidates found
+2025-06-04 18:55:05,310 [F2] [F3] execute_buy_list start
+2025-06-04 18:55:05,314 [F2] [F3] Targets: []
+2025-06-04 18:55:05,315 [F2] [F3] No buy candidates found
+2025-06-04 18:55:15,095 [F2] [F3] execute_buy_list start
+2025-06-04 18:55:15,096 [F2] [F3] Targets: []
+2025-06-04 18:55:15,097 [F2] [F3] No buy candidates found
+2025-06-04 18:55:24,183 [F2] [F3] execute_buy_list start
+2025-06-04 18:55:24,185 [F2] [F3] Targets: ['KRW-ARB']
+2025-06-04 18:55:24,253 [F2] [F3] Ticker prices: {'KRW-ARB': 512.0}
+2025-06-04 18:55:24,254 [F2] [F3] Executing buy for KRW-ARB at 512.0
+2025-06-04 18:55:51,460 [F2] execute_buy_list failed: [Errno 36] Resource deadlock avoided
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 296, in entry
+    self._set_pending_flag(symbol, 1)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f2_ml_buy_signal\03_buy_signal_engine\buy_list_executor.py", line 138, in execute_buy_list
+    if oe.entry(signal):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 357, in entry
+    self._set_pending_flag(signal.get("symbol"), 0)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+2025-06-04 18:55:57,373 [F2] [F3] execute_buy_list start
+2025-06-04 18:55:57,375 [F2] [F3] Targets: ['KRW-ARB']
+2025-06-04 18:55:57,439 [F2] [F3] Ticker prices: {'KRW-ARB': 512.0}
+2025-06-04 18:55:57,440 [F2] [F3] Executing buy for KRW-ARB at 512.0
+2025-06-04 18:56:24,642 [F2] execute_buy_list failed: [Errno 36] Resource deadlock avoided
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 296, in entry
+    self._set_pending_flag(symbol, 1)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f2_ml_buy_signal\03_buy_signal_engine\buy_list_executor.py", line 138, in execute_buy_list
+    if oe.entry(signal):
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 357, in entry
+    self._set_pending_flag(signal.get("symbol"), 0)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 200, in _set_pending_flag
+    with _buy_list_lock(path) as fh:
+  File "C:\Users\hslee\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\UPBIT_ML\f3_order\order_executor.py", line 93, in _buy_list_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+OSError: [Errno 36] Resource deadlock avoided
+2025-06-04 18:56:33,235 [F2] [F3] execute_buy_list start
+2025-06-04 18:56:33,236 [F2] [F3] Targets: []
+2025-06-04 18:56:33,236 [F2] [F3] No buy candidates found
+2025-06-04 18:56:42,222 [F2] [F3] execute_buy_list start
+2025-06-04 18:56:42,223 [F2] [F3] Targets: []
+2025-06-04 18:56:42,224 [F2] [F3] No buy candidates found
+2025-06-04 18:56:50,906 [F2] [F3] execute_buy_list start
+2025-06-04 18:56:50,907 [F2] [F3] Targets: []
+2025-06-04 18:56:50,908 [F2] [F3] No buy candidates found
+2025-06-04 18:56:59,824 [F2] [F3] execute_buy_list start
+2025-06-04 18:56:59,825 [F2] [F3] Targets: []
+2025-06-04 18:56:59,825 [F2] [F3] No buy candidates found
+2025-06-04 18:57:08,750 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:08,752 [F2] [F3] Targets: []
+2025-06-04 18:57:08,752 [F2] [F3] No buy candidates found
+2025-06-04 18:57:17,450 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:17,451 [F2] [F3] Targets: []
+2025-06-04 18:57:17,451 [F2] [F3] No buy candidates found
+2025-06-04 18:57:26,491 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:26,493 [F2] [F3] Targets: []
+2025-06-04 18:57:26,493 [F2] [F3] No buy candidates found
+2025-06-04 18:57:35,081 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:35,082 [F2] [F3] Targets: []
+2025-06-04 18:57:35,083 [F2] [F3] No buy candidates found
+2025-06-04 18:57:44,098 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:44,099 [F2] [F3] Targets: []
+2025-06-04 18:57:44,100 [F2] [F3] No buy candidates found
+2025-06-04 18:57:52,903 [F2] [F3] execute_buy_list start
+2025-06-04 18:57:52,906 [F2] [F3] Targets: []
+2025-06-04 18:57:52,906 [F2] [F3] No buy candidates found
+2025-06-04 18:58:02,045 [F2] [F3] execute_buy_list start
+2025-06-04 18:58:02,046 [F2] [F3] Targets: []
+2025-06-04 18:58:02,047 [F2] [F3] No buy candidates found
+2025-06-04 18:58:10,964 [F2] [F3] execute_buy_list start
+2025-06-04 18:58:10,966 [F2] [F3] Targets: []
+2025-06-04 18:58:10,966 [F2] [F3] No buy candidates found
+2025-06-04 18:58:20,347 [F2] [F3] execute_buy_list start
+2025-06-04 18:58:20,348 [F2] [F3] Targets: []
+2025-06-04 18:58:20,348 [F2] [F3] No buy candidates found
+2025-06-04 18:58:28,763 [F2] [F3] execute_buy_list start
+2025-06-04 18:58:28,764 [F2] [F3] Targets: []
+2025-06-04 18:58:28,765 [F2] [F3] No buy candidates found
+2025-06-04 18:58:38,847 [F2] [F3] execute_buy_list start
+2025-06-04 18:58:38,848 [F2] [F3] Targets: []
+2025-06-04 18:58:38,849 [F2] [F3] No buy candidates found
