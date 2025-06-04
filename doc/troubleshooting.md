@@ -92,6 +92,9 @@
   일시적인 진단 목적으로만 사용하세요.
 - **잔고 부족**: `F3_order_executor.log`에 `insufficient funds` 메시지가 표시됩니다.
 - **네트워크 오류**: Upbit API 호출 실패 시 `web.log`에 HTTP 오류 코드가 남습니다.
+- **Telegram 알림 누락**: `logs/f3/F3_exception_handler.log`에
+  `Telegram credentials missing` 또는 `Alert category disabled`가
+  기록되면 토큰이나 설정을 확인하세요.
 - **TypeError: Cannot instantiate typing.Any**: Pandas가 설치되지 않았거나
   구버전 코드에서 빈 데이터프레임을 생성할 때 발생합니다. `pip install -U pandas`
   명령으로 패키지를 설치하거나 최신 코드를 사용하세요.

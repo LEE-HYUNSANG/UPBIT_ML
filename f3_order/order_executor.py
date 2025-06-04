@@ -304,7 +304,6 @@ class OrderExecutor:
                 finally:
                     with self._pending_lock:
                         self.pending_symbols.discard(symbol)
-                    self._set_pending_flag(symbol, 0)
                 if signal.get("price") is not None:
                     order_result["entry_price"] = signal["price"]
                 if order_result.get("filled", False):
@@ -312,6 +311,7 @@ class OrderExecutor:
                         order_result["strategy"] = signal["buy_triggers"][0]
                     self._update_realtime_sell_list(symbol)
                     self.position_manager.open_position(order_result)
+                    self._set_pending_flag(symbol, 0)
                     self._mark_buy_filled(symbol)
                     log_with_tag(logger, f"Buy executed: {order_result}")
                     price_exec = order_result.get("price") or 0
@@ -326,6 +326,7 @@ class OrderExecutor:
                 else:
                     if order_result.get("canceled"):
                         log_with_tag(logger, f"Buy canceled for {symbol}")
+                        self._set_pending_flag(symbol, 0)
                         return False
                     elif not callable(getattr(self.position_manager, "has_position", None)) or not self.position_manager.has_position(symbol):
                         if signal.get("buy_triggers"):
@@ -340,6 +341,7 @@ class OrderExecutor:
                 return False
         except Exception as e:
             self.exception_handler.handle(e, context="entry")
+            self._set_pending_flag(signal.get("symbol"), 0)
             return False
         return True
 
