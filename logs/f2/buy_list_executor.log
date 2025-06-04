@@ -1,47 +1,225 @@
-2025-06-04 16:57:43,456 [F2] [F3] Targets: []
-2025-06-04 16:57:43,456 [F2] [F3] No buy candidates found
-2025-06-04 16:57:46,845 [F2] [F3] Targets: []
-2025-06-04 16:57:46,845 [F2] [F3] No buy candidates found
-2025-06-04 16:57:58,468 [F2] [F3] Targets: []
-2025-06-04 16:57:58,468 [F2] [F3] No buy candidates found
-2025-06-04 16:58:01,856 [F2] [F3] Targets: []
-2025-06-04 16:58:01,857 [F2] [F3] No buy candidates found
-2025-06-04 16:58:13,482 [F2] [F3] Targets: []
-2025-06-04 16:58:13,482 [F2] [F3] No buy candidates found
-2025-06-04 16:58:16,872 [F2] [F3] Targets: []
-2025-06-04 16:58:16,872 [F2] [F3] No buy candidates found
-2025-06-04 16:58:28,504 [F2] [F3] Targets: []
-2025-06-04 16:58:28,505 [F2] [F3] No buy candidates found
-2025-06-04 16:58:31,889 [F2] [F3] Targets: []
-2025-06-04 16:58:31,890 [F2] [F3] No buy candidates found
-2025-06-04 16:58:43,526 [F2] [F3] Targets: []
-2025-06-04 16:58:43,526 [F2] [F3] No buy candidates found
-2025-06-04 16:58:46,908 [F2] [F3] Targets: []
-2025-06-04 16:58:46,909 [F2] [F3] No buy candidates found
-2025-06-04 16:58:58,532 [F2] [F3] Targets: []
-2025-06-04 16:58:58,532 [F2] [F3] No buy candidates found
-2025-06-04 16:59:01,930 [F2] [F3] Targets: []
-2025-06-04 16:59:01,931 [F2] [F3] No buy candidates found
-2025-06-04 16:59:13,556 [F2] [F3] Targets: []
-2025-06-04 16:59:13,556 [F2] [F3] No buy candidates found
-2025-06-04 16:59:16,946 [F2] [F3] Targets: []
-2025-06-04 16:59:16,946 [F2] [F3] No buy candidates found
-2025-06-04 16:59:28,570 [F2] [F3] Targets: []
-2025-06-04 16:59:28,571 [F2] [F3] No buy candidates found
-2025-06-04 16:59:31,963 [F2] [F3] Targets: []
-2025-06-04 16:59:31,963 [F2] [F3] No buy candidates found
-2025-06-04 16:59:47,594 [F2] [F3] Targets: ['KRW-NEO']
-2025-06-04 16:59:47,661 [F2] [F3] Ticker prices: {'KRW-NEO': 8587.0}
-2025-06-04 16:59:47,662 [F2] [F3] Executing buy for KRW-NEO at 8587.0
-2025-06-04 17:00:05,823 [F2] [F3] Updated buy_count for KRW-NEO
-2025-06-04 17:00:05,823 [F2] [F3] Executed buys: ['KRW-NEO']
-2025-06-04 17:00:17,645 [F2] [F3] Targets: []
-2025-06-04 17:00:17,645 [F2] [F3] No buy candidates found
-2025-06-04 17:00:23,031 [F2] [F3] Targets: []
-2025-06-04 17:00:23,032 [F2] [F3] No buy candidates found
-2025-06-04 17:00:34,884 [F2] [F3] Targets: []
-2025-06-04 17:00:34,884 [F2] [F3] No buy candidates found
-2025-06-04 17:00:40,291 [F2] [F3] Targets: []
-2025-06-04 17:00:40,292 [F2] [F3] No buy candidates found
-2025-06-04 17:00:52,258 [F2] [F3] Targets: []
-2025-06-04 17:00:52,259 [F2] [F3] No buy candidates found
+2025-06-04 17:08:45,289 [F2] [F3] execute_buy_list start
+2025-06-04 17:08:45,290 [F2] [F3] Targets: []
+2025-06-04 17:08:45,291 [F2] [F3] No buy candidates found
+2025-06-04 17:08:49,259 [F2] [F3] execute_buy_list start
+2025-06-04 17:08:49,262 [F2] [F3] Targets: []
+2025-06-04 17:08:49,263 [F2] [F3] No buy candidates found
+2025-06-04 17:09:00,308 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:00,309 [F2] [F3] Targets: []
+2025-06-04 17:09:00,309 [F2] [F3] No buy candidates found
+2025-06-04 17:09:04,270 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:04,270 [F2] [F3] Targets: []
+2025-06-04 17:09:04,271 [F2] [F3] No buy candidates found
+2025-06-04 17:09:15,331 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:15,333 [F2] [F3] Targets: []
+2025-06-04 17:09:15,333 [F2] [F3] No buy candidates found
+2025-06-04 17:09:19,288 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:19,290 [F2] [F3] Targets: []
+2025-06-04 17:09:19,291 [F2] [F3] No buy candidates found
+2025-06-04 17:09:30,345 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:30,349 [F2] [F3] Targets: []
+2025-06-04 17:09:30,351 [F2] [F3] No buy candidates found
+2025-06-04 17:09:34,315 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:34,316 [F2] [F3] Targets: []
+2025-06-04 17:09:34,317 [F2] [F3] No buy candidates found
+2025-06-04 17:09:45,361 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:45,362 [F2] [F3] Targets: []
+2025-06-04 17:09:45,362 [F2] [F3] No buy candidates found
+2025-06-04 17:09:49,331 [F2] [F3] execute_buy_list start
+2025-06-04 17:09:49,331 [F2] [F3] Targets: []
+2025-06-04 17:09:49,331 [F2] [F3] No buy candidates found
+2025-06-04 17:10:00,381 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:00,382 [F2] [F3] Targets: []
+2025-06-04 17:10:00,382 [F2] [F3] No buy candidates found
+2025-06-04 17:10:04,344 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:04,344 [F2] [F3] Targets: []
+2025-06-04 17:10:04,344 [F2] [F3] No buy candidates found
+2025-06-04 17:10:15,396 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:15,396 [F2] [F3] Targets: []
+2025-06-04 17:10:15,398 [F2] [F3] No buy candidates found
+2025-06-04 17:10:19,358 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:19,358 [F2] [F3] Targets: []
+2025-06-04 17:10:19,359 [F2] [F3] No buy candidates found
+2025-06-04 17:10:30,417 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:30,417 [F2] [F3] Targets: []
+2025-06-04 17:10:30,417 [F2] [F3] No buy candidates found
+2025-06-04 17:10:34,375 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:34,375 [F2] [F3] Targets: []
+2025-06-04 17:10:34,376 [F2] [F3] No buy candidates found
+2025-06-04 17:10:50,210 [F2] [F3] execute_buy_list start
+2025-06-04 17:10:50,212 [F2] [F3] Targets: ['KRW-LINK']
+2025-06-04 17:10:50,285 [F2] [F3] Ticker prices: {'KRW-LINK': 19910.0}
+2025-06-04 17:10:50,286 [F2] [F3] Executing buy for KRW-LINK at 19910.0
+2025-06-04 17:11:08,425 [F2] [F3] Updated buy_count for KRW-LINK
+2025-06-04 17:11:08,426 [F2] [F3] Executed buys: ['KRW-LINK']
+2025-06-04 17:11:20,788 [F2] [F3] execute_buy_list start
+2025-06-04 17:11:20,789 [F2] [F3] Targets: []
+2025-06-04 17:11:20,790 [F2] [F3] No buy candidates found
+2025-06-04 17:11:26,052 [F2] [F3] execute_buy_list start
+2025-06-04 17:11:26,053 [F2] [F3] Targets: []
+2025-06-04 17:11:26,054 [F2] [F3] No buy candidates found
+2025-06-04 17:11:39,203 [F2] [F3] execute_buy_list start
+2025-06-04 17:11:39,204 [F2] [F3] Targets: []
+2025-06-04 17:11:39,205 [F2] [F3] No buy candidates found
+2025-06-04 17:11:44,233 [F2] [F3] execute_buy_list start
+2025-06-04 17:11:44,234 [F2] [F3] Targets: []
+2025-06-04 17:11:44,234 [F2] [F3] No buy candidates found
+2025-06-04 17:11:57,338 [F2] [F3] execute_buy_list start
+2025-06-04 17:11:57,340 [F2] [F3] Targets: []
+2025-06-04 17:11:57,340 [F2] [F3] No buy candidates found
+2025-06-04 17:12:02,399 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:02,400 [F2] [F3] Targets: []
+2025-06-04 17:12:02,401 [F2] [F3] No buy candidates found
+2025-06-04 17:12:14,795 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:14,796 [F2] [F3] Targets: []
+2025-06-04 17:12:14,797 [F2] [F3] No buy candidates found
+2025-06-04 17:12:19,943 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:19,944 [F2] [F3] Targets: []
+2025-06-04 17:12:19,945 [F2] [F3] No buy candidates found
+2025-06-04 17:12:32,493 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:32,495 [F2] [F3] Targets: []
+2025-06-04 17:12:32,495 [F2] [F3] No buy candidates found
+2025-06-04 17:12:37,661 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:37,662 [F2] [F3] Targets: []
+2025-06-04 17:12:37,663 [F2] [F3] No buy candidates found
+2025-06-04 17:12:49,978 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:49,979 [F2] [F3] Targets: []
+2025-06-04 17:12:49,980 [F2] [F3] No buy candidates found
+2025-06-04 17:12:54,953 [F2] [F3] execute_buy_list start
+2025-06-04 17:12:54,954 [F2] [F3] Targets: []
+2025-06-04 17:12:54,954 [F2] [F3] No buy candidates found
+2025-06-04 17:13:07,347 [F2] [F3] execute_buy_list start
+2025-06-04 17:13:07,348 [F2] [F3] Targets: ['KRW-ONDO']
+2025-06-04 17:13:07,409 [F2] [F3] Ticker prices: {'KRW-ONDO': 1184.0}
+2025-06-04 17:13:07,410 [F2] [F3] Executing buy for KRW-ONDO at 1184.0
+2025-06-04 17:13:25,548 [F2] [F3] Updated buy_count for KRW-ONDO
+2025-06-04 17:13:25,548 [F2] [F3] Executed buys: ['KRW-ONDO']
+2025-06-04 17:13:36,289 [F2] [F3] execute_buy_list start
+2025-06-04 17:13:36,290 [F2] [F3] Targets: []
+2025-06-04 17:13:36,290 [F2] [F3] No buy candidates found
+2025-06-04 17:13:43,135 [F2] [F3] execute_buy_list start
+2025-06-04 17:13:43,137 [F2] [F3] Targets: []
+2025-06-04 17:13:43,137 [F2] [F3] No buy candidates found
+2025-06-04 17:13:54,116 [F2] [F3] execute_buy_list start
+2025-06-04 17:13:54,117 [F2] [F3] Targets: []
+2025-06-04 17:13:54,119 [F2] [F3] No buy candidates found
+2025-06-04 17:14:01,158 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:01,159 [F2] [F3] Targets: []
+2025-06-04 17:14:01,159 [F2] [F3] No buy candidates found
+2025-06-04 17:14:13,148 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:13,150 [F2] [F3] Targets: []
+2025-06-04 17:14:13,150 [F2] [F3] No buy candidates found
+2025-06-04 17:14:20,474 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:20,475 [F2] [F3] Targets: []
+2025-06-04 17:14:20,476 [F2] [F3] No buy candidates found
+2025-06-04 17:14:33,398 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:33,400 [F2] [F3] Targets: []
+2025-06-04 17:14:33,401 [F2] [F3] No buy candidates found
+2025-06-04 17:14:40,254 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:40,255 [F2] [F3] Targets: []
+2025-06-04 17:14:40,257 [F2] [F3] No buy candidates found
+2025-06-04 17:14:53,261 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:53,262 [F2] [F3] Targets: []
+2025-06-04 17:14:53,263 [F2] [F3] No buy candidates found
+2025-06-04 17:14:59,258 [F2] [F3] execute_buy_list start
+2025-06-04 17:14:59,260 [F2] [F3] Targets: []
+2025-06-04 17:14:59,260 [F2] [F3] No buy candidates found
+2025-06-04 17:15:11,373 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:11,374 [F2] [F3] Targets: []
+2025-06-04 17:15:11,375 [F2] [F3] No buy candidates found
+2025-06-04 17:15:17,462 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:17,467 [F2] [F3] Targets: []
+2025-06-04 17:15:17,468 [F2] [F3] No buy candidates found
+2025-06-04 17:15:29,151 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:29,153 [F2] [F3] Targets: []
+2025-06-04 17:15:29,153 [F2] [F3] No buy candidates found
+2025-06-04 17:15:35,374 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:35,375 [F2] [F3] Targets: []
+2025-06-04 17:15:35,375 [F2] [F3] No buy candidates found
+2025-06-04 17:15:46,861 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:46,862 [F2] [F3] Targets: []
+2025-06-04 17:15:46,863 [F2] [F3] No buy candidates found
+2025-06-04 17:15:53,858 [F2] [F3] execute_buy_list start
+2025-06-04 17:15:53,858 [F2] [F3] Targets: []
+2025-06-04 17:15:53,859 [F2] [F3] No buy candidates found
+2025-06-04 17:16:04,485 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:04,487 [F2] [F3] Targets: []
+2025-06-04 17:16:04,487 [F2] [F3] No buy candidates found
+2025-06-04 17:16:11,842 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:11,844 [F2] [F3] Targets: []
+2025-06-04 17:16:11,845 [F2] [F3] No buy candidates found
+2025-06-04 17:16:22,313 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:22,314 [F2] [F3] Targets: []
+2025-06-04 17:16:22,314 [F2] [F3] No buy candidates found
+2025-06-04 17:16:30,942 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:30,944 [F2] [F3] Targets: []
+2025-06-04 17:16:30,944 [F2] [F3] No buy candidates found
+2025-06-04 17:16:41,076 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:41,077 [F2] [F3] Targets: []
+2025-06-04 17:16:41,077 [F2] [F3] No buy candidates found
+2025-06-04 17:16:48,894 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:48,895 [F2] [F3] Targets: []
+2025-06-04 17:16:48,895 [F2] [F3] No buy candidates found
+2025-06-04 17:16:59,691 [F2] [F3] execute_buy_list start
+2025-06-04 17:16:59,693 [F2] [F3] Targets: []
+2025-06-04 17:16:59,694 [F2] [F3] No buy candidates found
+2025-06-04 17:17:08,161 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:08,162 [F2] [F3] Targets: []
+2025-06-04 17:17:08,163 [F2] [F3] No buy candidates found
+2025-06-04 17:17:18,923 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:18,925 [F2] [F3] Targets: []
+2025-06-04 17:17:18,925 [F2] [F3] No buy candidates found
+2025-06-04 17:17:27,039 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:27,041 [F2] [F3] Targets: []
+2025-06-04 17:17:27,041 [F2] [F3] No buy candidates found
+2025-06-04 17:17:37,338 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:37,340 [F2] [F3] Targets: []
+2025-06-04 17:17:37,340 [F2] [F3] No buy candidates found
+2025-06-04 17:17:45,608 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:45,609 [F2] [F3] Targets: []
+2025-06-04 17:17:45,610 [F2] [F3] No buy candidates found
+2025-06-04 17:17:55,637 [F2] [F3] execute_buy_list start
+2025-06-04 17:17:55,639 [F2] [F3] Targets: []
+2025-06-04 17:17:55,639 [F2] [F3] No buy candidates found
+2025-06-04 17:18:04,879 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:04,880 [F2] [F3] Targets: []
+2025-06-04 17:18:04,881 [F2] [F3] No buy candidates found
+2025-06-04 17:18:14,358 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:14,359 [F2] [F3] Targets: []
+2025-06-04 17:18:14,360 [F2] [F3] No buy candidates found
+2025-06-04 17:18:23,469 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:23,470 [F2] [F3] Targets: []
+2025-06-04 17:18:23,471 [F2] [F3] No buy candidates found
+2025-06-04 17:18:32,421 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:32,423 [F2] [F3] Targets: []
+2025-06-04 17:18:32,423 [F2] [F3] No buy candidates found
+2025-06-04 17:18:41,789 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:41,791 [F2] [F3] Targets: []
+2025-06-04 17:18:41,792 [F2] [F3] No buy candidates found
+2025-06-04 17:18:50,680 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:50,682 [F2] [F3] Targets: []
+2025-06-04 17:18:50,683 [F2] [F3] No buy candidates found
+2025-06-04 17:18:59,901 [F2] [F3] execute_buy_list start
+2025-06-04 17:18:59,903 [F2] [F3] Targets: []
+2025-06-04 17:18:59,903 [F2] [F3] No buy candidates found
+2025-06-04 17:19:09,400 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:09,401 [F2] [F3] Targets: []
+2025-06-04 17:19:09,402 [F2] [F3] No buy candidates found
+2025-06-04 17:19:18,611 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:18,613 [F2] [F3] Targets: []
+2025-06-04 17:19:18,613 [F2] [F3] No buy candidates found
+2025-06-04 17:19:27,366 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:27,368 [F2] [F3] Targets: []
+2025-06-04 17:19:27,368 [F2] [F3] No buy candidates found
+2025-06-04 17:19:37,074 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:37,076 [F2] [F3] Targets: []
+2025-06-04 17:19:37,076 [F2] [F3] No buy candidates found
+2025-06-04 17:19:45,695 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:45,696 [F2] [F3] Targets: []
+2025-06-04 17:19:45,697 [F2] [F3] No buy candidates found
+2025-06-04 17:19:55,199 [F2] [F3] execute_buy_list start
+2025-06-04 17:19:55,200 [F2] [F3] Targets: []
+2025-06-04 17:19:55,201 [F2] [F3] No buy candidates found
+2025-06-04 17:20:03,537 [F2] [F3] execute_buy_list start
+2025-06-04 17:20:03,538 [F2] [F3] Targets: []
+2025-06-04 17:20:03,538 [F2] [F3] No buy candidates found
