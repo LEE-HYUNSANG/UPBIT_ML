@@ -1,23 +1,4 @@
-2025-06-04 17:58:29,985 [F3] [F3] OrderExecutor initialized.
-2025-06-04 17:58:33,212 [F3] [F3] OrderExecutor initialized.
-2025-06-04 18:06:26,961 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:07:01,342 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:07:35,997 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:07:45,069 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:07:48,338 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:07:57,408 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:08:02,555 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:08:11,620 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:08:16,619 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:08:25,709 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:08:29,287 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:08:38,362 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:08:43,475 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:08:52,559 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:08:55,756 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:09:04,833 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:09:10,326 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:09:19,410 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:09:22,500 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:09:31,562 [F3] [F3] Buy skipped: order already pending for KRW-CBK
-2025-06-04 18:09:37,366 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 703.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 18:19:51,921 [F3] [F3] OrderExecutor initialized.
+2025-06-04 18:19:55,065 [F3] [F3] OrderExecutor initialized.
+2025-06-04 18:30:48,550 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 6038.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 18:30:48,551 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000

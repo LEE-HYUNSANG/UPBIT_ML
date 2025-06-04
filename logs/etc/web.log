@@ -1,4 +1,4 @@
-2025-06-04 17:58:34,470 [WEB] ERROR pipeline error
+2025-06-04 18:19:56,254 [WEB] ERROR pipeline error
 Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
@@ -14,7 +14,7 @@ Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
 PermissionError: [Errno 13] Permission denied
-2025-06-04 18:05:33,512 [WEB] ERROR pipeline error
+2025-06-04 18:27:01,514 [WEB] ERROR pipeline error
 Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
@@ -30,7 +30,7 @@ Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
 PermissionError: [Errno 13] Permission denied
-2025-06-04 18:06:43,623 [WEB] ERROR buy signal error
+2025-06-04 18:31:02,247 [WEB] ERROR buy signal error
 Traceback (most recent call last):
   File "D:\UPBIT_ML\app.py", line 290, in worker
     module.run_if_monitoring_list_exists()
