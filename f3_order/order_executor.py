@@ -124,6 +124,9 @@ class OrderExecutor:
         sell_path="config/f6_sell_settings.json",
         risk_manager=None,
     ):
+        self.config_path = config_path
+        self.buy_path = buy_path
+        self.sell_path = sell_path
         self.config = load_config(str(_resolve_path(config_path)))
         self.config.update(load_buy_config(str(_resolve_path(buy_path))))
         self.config.update(load_sell_config(str(_resolve_path(sell_path))))
@@ -143,6 +146,15 @@ class OrderExecutor:
     def set_risk_manager(self, rm):
         self.risk_manager = rm
         self.update_from_risk_config()
+
+    def reload_config(self) -> None:
+        """Reload buy/sell settings from their JSON files."""
+        try:
+            self.config.update(load_buy_config(str(_resolve_path(self.buy_path))))
+            self.config.update(load_sell_config(str(_resolve_path(self.sell_path))))
+            log_with_tag(logger, f"Config reloaded: ENTRY_SIZE_INITIAL={self.config.get('ENTRY_SIZE_INITIAL')}")
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Config reload failed: {exc}")
 
     def update_from_risk_config(self):
         """Mirror relevant values from the associated RiskManager."""
@@ -271,6 +283,7 @@ class OrderExecutor:
         """
         try:
             log_with_tag(logger, f"Entry signal received: {signal}")
+            self.reload_config()
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 price = signal.get("price")

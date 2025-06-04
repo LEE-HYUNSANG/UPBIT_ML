@@ -54,6 +54,9 @@
     여기서 계속 `No buy candidates found`만 나타난다면 JSON 파일의 `buy_count` 값이 1로 바뀌었거나
     `pending` 플래그가 1로 남아 있는지 확인합니다.
 
+    최신 버전의 실행기는 주문 전마다 `f6_buy_settings.json`을 다시 읽어 들입니다.
+    설정을 변경한 뒤에는 별도 재시작 없이 곧바로 적용됩니다.
+
 - **4단계: 주문 처리 결과 확인**
 
     `logs/f3/F3_order_executor.log`에서 주문 성공 또는 실패 로그를 찾을 수 있습니다.
