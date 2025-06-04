@@ -127,6 +127,31 @@ class PositionManager:
             except Exception:
                 pass
 
+    def _set_pending_flag(self, symbol: str, value: int) -> None:
+        """Update ``pending`` field for *symbol* in the buy list."""
+        path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                return
+        except Exception:
+            return
+
+        changed = False
+        for item in data:
+            if item.get("symbol") == symbol:
+                if item.get("pending", 0) != value:
+                    item["pending"] = value
+                    changed = True
+                break
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
     def open_position(self, order_result, status: str = "open"):
         """신규 포지션 오픈 (주문 결과 또는 잔고 가져오기)
 
@@ -159,6 +184,8 @@ class PositionManager:
         self.positions.append(pos)
         self._persist_positions()
         log_with_tag(logger, f"Open position: {pos}")
+        if status == "pending":
+            self._set_pending_flag(pos["symbol"], 1)
         if status == "open" and pos.get("origin") != "imported":
             self.place_tp_order(pos)
 
@@ -350,6 +377,7 @@ class PositionManager:
             pos["qty"] = qty
             if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
+                self._set_pending_flag(sym, 0)
             elif accounts_ok and qty <= 0 and pos.get("status") == "open":
                 # Avoid premature close right after a buy due to balance sync delay
                 if now() - pos.get("entry_time", 0) < 5:
@@ -357,6 +385,7 @@ class PositionManager:
                     pos["qty"] = qty
                 else:
                     pos["status"] = "closed"
+                    self._set_pending_flag(sym, 0)
                     if self.exception_handler and prev_qty > 0:
                         price_exec = price_map.get(sym, pos.get("current_price", 0))
                         fee = float(pos.get("entry_fee", 0))
