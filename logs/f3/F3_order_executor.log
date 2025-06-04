@@ -1,10 +1,13 @@
-2025-06-04 18:42:17,412 [F3] [F3] OrderExecutor initialized.
-2025-06-04 18:42:20,419 [F3] [F3] OrderExecutor initialized.
-2025-06-04 18:53:27,150 [F3] [F3] Entry signal received: {'symbol': 'KRW-LAYER', 'buy_signal': True, 'sell_signal': False, 'price': 1119.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:53:27,152 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
-2025-06-04 18:53:59,133 [F3] [F3] Entry signal received: {'symbol': 'KRW-LAYER', 'buy_signal': True, 'sell_signal': False, 'price': 1119.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:53:59,135 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
-2025-06-04 18:55:24,255 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 512.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:55:24,258 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
-2025-06-04 18:55:57,441 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 512.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
-2025-06-04 18:55:57,443 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 19:26:37,136 [F3] [F3] OrderExecutor initialized.
+2025-06-04 19:26:40,336 [F3] [F3] OrderExecutor initialized.
+2025-06-04 19:28:59,899 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 736.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 19:28:59,899 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 19:29:30,520 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 736.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 19:29:30,522 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 19:30:08,976 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 736.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 19:30:08,978 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 19:30:18,043 [F3] [F3] Buy skipped: order already pending for KRW-SAFE
+2025-06-04 19:32:22,390 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 6082.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 19:32:22,392 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 19:32:52,808 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 6074.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 19:32:52,809 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
