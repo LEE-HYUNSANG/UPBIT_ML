@@ -146,6 +146,7 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         log_with_tag(logger, f"Executed buys: {executed}")
 
         with _buy_list_lock(buy_path) as fh:
+
             try:
                 fh.seek(0)
                 fh.truncate()
