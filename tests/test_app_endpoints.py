@@ -316,7 +316,7 @@ def test_buy_settings_endpoint(app_client, tmp_path, monkeypatch):
 
     resp = client.get("/api/buy_settings")
     data = resp.get_json()
-    assert data["ENTRY_SIZE_INITIAL"] == 10000
+    assert data["ENTRY_SIZE_INITIAL"] == 7000
 
     monkeypatch.setattr(app_mod.request, "method", "POST")
     monkeypatch.setattr(app_mod.request, "get_json", lambda force=False: {"ENTRY_SIZE_INITIAL": 20000})

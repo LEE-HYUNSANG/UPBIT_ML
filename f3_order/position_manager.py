@@ -8,7 +8,7 @@ import os
 import sqlite3
 import json
 from pathlib import Path
-from .utils import log_with_tag
+from .utils import log_with_tag, apply_tick_size
 from common_utils import now
 from .upbit_api import UpbitClient
 from .utils import pretty_symbol
@@ -195,6 +195,7 @@ class PositionManager:
         if float(tp) <= 0:
             return
         price = position["entry_price"] * (1 + float(tp) / 100)
+        price = apply_tick_size(price, "ceil")
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")
         if uuid:
