@@ -2,7 +2,7 @@
 
 이 문서는 보유 중인 코인을 언제 정리할지 결정하는 과정을 설명합니다.
 매도 신호는 F2 모듈에서 계산하고, 실제 주문과 포지션 관리는
-F3 모듈과 F4 리스크 매니저가 담당합니다.
+F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 
 ## 관련 파일
 
@@ -11,11 +11,10 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 | `f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수가 매도 공식을 평가합니다. |
 | `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
 | `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
-| `f4_riskManager/risk_manager.py` | 손실 한도 초과 시 `pause()`나 `halt()`를 통해 강제 청산을 수행합니다. |
 | `config/f6_buy_settings.json` | 진입 금액과 동시 보유 코인 수 등을 지정하는 설정 파일입니다. |
 | `config/f6_sell_settings.json` | 포지션이 열릴 때 익절가를 계산하는 `TP_PCT` 값을 저장하며 `OrderExecutor`가 시작 시 불러옵니다. |
 
-로그는 `logs/F3_position_manager.log`와 `logs/F4_risk_manager.log` 등에 기록됩니다.
+로그는 `logs/F3_position_manager.log` 등에 기록됩니다.
 
 ## 주요 함수
 
@@ -34,9 +33,6 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
 주문이 완전히 체결되면 상태가 `closed`로 바뀌고 결과가 `f1_f3_coin_positions.json`에 저장됩니다.
 체결 완료 후 알림이 전송되며 `f2_f2_realtime_buy_list.json`에 해당 코인이 존재할 경우 `buy_count`가 0으로 초기화되어 다시 매수를 시도할 수 있습니다.
 
-### `RiskManager.check_risk()`
-계좌 손실이나 MDD 한도가 넘으면 `pause()` 또는 `halt()`로 진입을 차단하고
-기존 포지션을 청산합니다.
 
 ## 동작 흐름
 
@@ -54,8 +50,7 @@ F3 모듈과 F4 리스크 매니저가 담당합니다.
    
    2025-06 업데이트로 손익 계산이 다시 **퍼센트 단위**로 변경되었습니다.
    최신 버전에서는 틱 기반 보정을 제거하여 설정한 손절/익절 값을 그대로 사용합니다.
-6. 리스크 매니저가 손실 한도 초과를 감지하면 모든 포지션을 강제 정리하고
-   상태를 `PAUSE` 또는 `HALT`로 변경합니다.
+6. 손실 한도 초과 시 모든 포지션을 정리하고 일시 중단하거나 중단 상태로 전환합니다.
 
 이렇게 신호 기반 매도와 위험 관리 로직이 결합되어
 예상치 못한 손실을 최소화하고 이익 실현을 돕습니다.

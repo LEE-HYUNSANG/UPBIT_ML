@@ -221,21 +221,25 @@ def start_monitoring() -> None:
     _monitor_stop = threading.Event()
 
     def monitor_worker():
-        rm = RiskManager(
-            order_executor=_default_executor,
-            exception_handler=_default_executor.exception_handler,
-        )
-        if hasattr(rm, "config"):
-            rm.config._cache.update(load_buy_settings())
-        _default_executor.set_risk_manager(rm)
+        if callable(RiskManager):
+            rm = RiskManager(
+                order_executor=_default_executor,
+                exception_handler=_default_executor.exception_handler,
+            )
+            if hasattr(rm, "config"):
+                rm.config._cache.update(load_buy_settings())
+            _default_executor.set_risk_manager(rm)
+        else:
+            rm = None
         while not _monitor_stop.is_set():
             open_syms = [
                 p.get("symbol")
                 for p in _default_executor.position_manager.positions
                 if p.get("status") == "open"
             ]
-            rm.update_account(0.0, 0.0, 0.0, open_syms)
-            rm.periodic()
+            if rm:
+                rm.update_account(0.0, 0.0, 0.0, open_syms)
+                rm.periodic()
             _default_executor.manage_positions()
             time.sleep(1)
 
@@ -674,22 +678,6 @@ def alarm_config_endpoint() -> Response:
     return jsonify({"status": "ok"})
 
 
-@app.route("/api/risk_events")
-def risk_events_endpoint() -> Response:
-    """SQLite 로그에서 최근 리스크 매니저 이벤트 조회"""
-    db_path = os.path.join("logs", "f4", "risk_events.db")
-    if not os.path.exists(db_path):
-        return jsonify([])
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    cur.execute("SELECT timestamp, state, message FROM risk_events ORDER BY timestamp DESC LIMIT 100")
-    rows = cur.fetchall()
-    conn.close()
-    events = [
-        {"timestamp": ts, "state": st, "message": msg}
-        for ts, st, msg in rows
-    ]
-    return jsonify(events)
 
 @app.route("/")
 def home():
