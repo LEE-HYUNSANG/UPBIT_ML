@@ -54,25 +54,43 @@ def _resolve_path(path: str | Path) -> Path:
 
 
 @contextmanager
-def _buy_list_lock(path: str | Path):
+def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
     """Context manager providing an exclusive lock on *path*.
 
     Returns the locked file handle so callers can read/write without reopening
     the file. This avoids ``PermissionError`` on Windows when the same path is
-    opened while locked.
+    opened while locked. ``retries`` and ``delay`` control the open/lock retry
+    behavior.
     """
     lock_file = Path(path)
+    fh = None
+    for _ in range(retries):
+        try:
+            fh = lock_file.open("a+")
+            break
+        except PermissionError as exc:
+            log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
+            time.sleep(delay)
+    if fh is None:
+        raise PermissionError(f"Cannot open {lock_file}")
+
+    locked = False
+    for _ in range(retries):
+        try:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_EX)
+            else:  # pragma: no cover - Windows
+                msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
+            locked = True
+            break
+        except PermissionError:
+            time.sleep(delay)
+    if not locked:
+        fh.close()
+        raise PermissionError(f"Cannot lock {lock_file}")
+
+    fh.seek(0)
     try:
-        fh = lock_file.open("a+")
-    except PermissionError as exc:  # pragma: no cover - log path on failure
-        log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
-        raise
-    try:
-        if fcntl:
-            fcntl.flock(fh, fcntl.LOCK_EX)
-        else:  # pragma: no cover - Windows
-            msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)
-        fh.seek(0)
         yield fh
     finally:
         try:
@@ -183,19 +201,23 @@ class OrderExecutor:
             return set(self._pending_cache[1])
 
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
-        with _buy_list_lock(path) as fh:
+        for _ in range(5):
             try:
-                data = json.load(fh)
-                if isinstance(data, list):
-                    result = {
-                        item.get("symbol")
-                        for item in data
-                        if isinstance(item, dict) and item.get("pending")
-                    }
-                    self._pending_cache = (now_ts, result)
-                    return result
+                with _buy_list_lock(path) as fh:
+                    data = json.load(fh)
+                    if isinstance(data, list):
+                        result = {
+                            item.get("symbol")
+                            for item in data
+                            if isinstance(item, dict) and item.get("pending")
+                        }
+                        self._pending_cache = (now_ts, result)
+                        return result
+            except PermissionError as exc:
+                log_with_tag(logger, f"Pending flag read error: {exc}")
+                time.sleep(0.1)
             except Exception:
-                pass
+                break
         self._pending_cache = (now_ts, set())
         return set()
 
