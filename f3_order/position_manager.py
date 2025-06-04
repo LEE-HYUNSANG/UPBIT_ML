@@ -9,7 +9,7 @@ import sqlite3
 import json
 from pathlib import Path
 import threading
-from .utils import log_with_tag, apply_tick_size
+from .utils import log_with_tag, apply_tick_size, tick_size
 from common_utils import now
 from .upbit_api import UpbitClient
 from .utils import pretty_symbol
@@ -197,13 +197,22 @@ class PositionManager:
         if status == "open" and pos.get("origin") != "imported":
             self._schedule_tp_order(pos)
 
+    def _calc_tp_price(self, entry_price: float, tp_pct: float) -> float:
+        """Return take-profit price rounded up with at least two ticks margin."""
+        price = entry_price * (1 + tp_pct / 100)
+        price = apply_tick_size(price, "ceil")
+        tick = tick_size(entry_price)
+        if price - entry_price <= tick:
+            price = entry_price + 2 * tick
+            price = apply_tick_size(price, "ceil")
+        return price
+
     def place_tp_order(self, position):
         """Immediately place a limit sell order for take profit."""
         tp = float(self.config.get("TP_PCT", 0.15))
         if float(tp) <= 0:
             return
-        price = position["entry_price"] * (1 + float(tp) / 100)
-        price = apply_tick_size(price, "ceil")
+        price = self._calc_tp_price(position["entry_price"], float(tp))
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")
         if uuid:
@@ -480,7 +489,7 @@ class PositionManager:
 
             tp = float(self.config.get("TP_PCT", 0.15))
 
-            tp_price = entry * (1 + tp / 100)
+            tp_price = self._calc_tp_price(entry, tp)
             tp_pct_adj = (tp_price - entry) / entry * 100
 
             if change_pct >= tp_pct_adj:

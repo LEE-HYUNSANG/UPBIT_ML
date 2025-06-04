@@ -56,7 +56,8 @@ limit order fails and no second attempt is configured.
 ## f6_sell_settings.json
 Take-profit settings for open positions. It currently stores `TP_PCT` which
 specifies the percentage above the entry price to place a limit sell order one
-second after a buy fills. Prices are rounded up to the nearest tick size.
+second after a buy fills. Prices are rounded up to the nearest tick size and
+adjusted so the final price is at least two ticks above the entry price.
 `OrderExecutor` loads this file on startup and merges the values into its
 configuration.
 ## f5_f5_strategy_params.json
