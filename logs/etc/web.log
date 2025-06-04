@@ -126,3 +126,115 @@ Traceback (most recent call last):
   File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
     msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
 PermissionError: [Errno 13] Permission denied
+2025-06-04 20:32:36,322 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:41:56,443 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:47:15,209 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 20:53:07,608 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 21:01:50,425 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 21:06:56,863 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied
+2025-06-04 21:15:42,909 [WEB] ERROR pipeline error
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 57, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+PermissionError: [Errno 13] Permission denied
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\UPBIT_ML\app.py", line 326, in worker
+    module.main()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 99, in main
+    lock = _acquire_lock()
+  File "D:\UPBIT_ML\f5_ml_pipeline\run_pipeline.py", line 64, in _acquire_lock
+    msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+PermissionError: [Errno 13] Permission denied

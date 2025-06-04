@@ -1,16 +1,17 @@
 [
+  "KRW-ONDO",
   "KRW-SUI",
-  "KRW-ADA",
-  "KRW-AUCTION",
   "KRW-TRUMP",
-  "KRW-NEO",
-  "KRW-CTC",
+  "KRW-AUCTION",
   "KRW-NEAR",
+  "KRW-ADA",
+  "KRW-CTC",
+  "KRW-ARK",
   "KRW-LINK",
   "KRW-CBK",
   "KRW-APT",
   "KRW-PENDLE",
-  "KRW-LAYER",
-  "KRW-PUNDIX",
-  "KRW-XRP"
+  "KRW-NEO",
+  "KRW-XRP",
+  "KRW-LAYER"
 ]
