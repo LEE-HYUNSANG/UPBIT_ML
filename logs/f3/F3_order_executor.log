@@ -58,3 +58,5 @@
 2025-06-04 12:49:55,184 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5942.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
 2025-06-04 12:53:48,998 [F3] [F3] OrderExecutor initialized.
 2025-06-04 12:53:52,329 [F3] [F3] OrderExecutor initialized.
+2025-06-04 13:26:09,907 [F3] [F3] OrderExecutor initialized.
+2025-06-04 13:26:13,503 [F3] [F3] OrderExecutor initialized.
