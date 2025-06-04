@@ -170,3 +170,6 @@ setInterval(fetchEvents, 5000);
  `eval_amount`, `pnl_percent`, `pyramid_count`, `avgdown_count` 값을 포함합니다.
 
  이벤트 객체는 `timestamp`와 `message`를 지니며, `strategy` 필드는 포지션을 열 때 사용한 매수 전략 이름을 기록합니다.
+
+## FAQ 및 문제 해결
+주문이 실행되지 않을 경우 [troubleshooting guide](doc/troubleshooting.md)를 참고하세요.

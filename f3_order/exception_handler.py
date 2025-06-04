@@ -62,6 +62,12 @@ class ExceptionHandler:
         text = f"[{severity.upper()}] {message}"
         url = f"https://api.telegram.org/bot{self.tg_token}/sendMessage"
         data = {"chat_id": self.tg_chat_id, "text": text}
+        self._log_event({
+            "event": "Telegram",
+            "category": category,
+            "severity": severity,
+            "message": message,
+        })
         try:
             if requests:
                 requests.post(url, data=data, timeout=5)

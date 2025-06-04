@@ -9,10 +9,13 @@ import f3_order.exception_handler as eh
 from f3_order.exception_handler import ExceptionHandler
 
 
-def _make_handler(monkeypatch):
+def _make_handler(monkeypatch, events=None):
     env = {"TELEGRAM_TOKEN": "TOKEN", "TELEGRAM_CHAT_ID": "CHAT"}
     monkeypatch.setattr(eh, "load_env", lambda: env)
-    return ExceptionHandler({"SLIP_MAX": 0.05, "SLIP_FAIL_MAX": 2})
+    handler = ExceptionHandler({"SLIP_MAX": 0.05, "SLIP_FAIL_MAX": 2})
+    if events is not None:
+        handler._log_event = lambda data: events.append(data)
+    return handler
 
 
 def _patch_sender(monkeypatch, calls):
@@ -33,8 +36,9 @@ def _patch_sender(monkeypatch, calls):
 
 def test_send_alert_uses_telegram_api(monkeypatch):
     calls = []
+    events = []
     _patch_sender(monkeypatch, calls)
-    handler = _make_handler(monkeypatch)
+    handler = _make_handler(monkeypatch, events)
     handler.send_alert("hello", "warning")
 
     expected_url = "https://api.telegram.org/botTOKEN/sendMessage"
@@ -46,12 +50,14 @@ def test_send_alert_uses_telegram_api(monkeypatch):
         assert calls[0]["url"] == expected_url
         assert calls[0]["data"] == urlencode({"chat_id": "CHAT", "text": "[WARNING] hello"}).encode()
         assert calls[0]["timeout"] == 5
+    assert events == [{"event": "Telegram", "category": "system_alert", "severity": "warning", "message": "hello"}]
 
 
 def test_slippage_triggers_alert(monkeypatch):
     calls = []
+    events = []
     _patch_sender(monkeypatch, calls)
-    handler = _make_handler(monkeypatch)
+    handler = _make_handler(monkeypatch, events)
 
     order = {"slippage_pct": 0.1}
     handler.handle_slippage("KRW-BTC", order)
@@ -66,6 +72,7 @@ def test_slippage_triggers_alert(monkeypatch):
         assert calls[0]["url"] == expected_url
         assert calls[0]["data"] == urlencode({"chat_id": "CHAT", "text": f"[WARNING] {expected_msg}"}).encode()
         assert calls[0]["timeout"] == 5
+    assert events[-1]["event"] == "Telegram"
     assert handler.slippage_count["KRW-BTC"] == 2
 
 
