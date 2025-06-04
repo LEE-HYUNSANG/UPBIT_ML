@@ -127,6 +127,31 @@ class PositionManager:
             except Exception:
                 pass
 
+    def _set_pending_flag(self, symbol: str, value: int) -> None:
+        """Update ``pending`` field for *symbol* in the buy list."""
+        path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                return
+        except Exception:
+            return
+
+        changed = False
+        for item in data:
+            if item.get("symbol") == symbol:
+                if item.get("pending", 0) != value:
+                    item["pending"] = value
+                    changed = True
+                break
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
     def open_position(self, order_result, status: str = "open"):
         """신규 포지션 오픈 (주문 결과 또는 잔고 가져오기)
 
@@ -159,6 +184,8 @@ class PositionManager:
         self.positions.append(pos)
         self._persist_positions()
         log_with_tag(logger, f"Open position: {pos}")
+        if status == "pending":
+            self._set_pending_flag(pos["symbol"], 1)
         if status == "open" and pos.get("origin") != "imported":
             self.place_tp_order(pos)
 
@@ -332,6 +359,24 @@ class PositionManager:
         except Exception as exc:  # pragma: no cover - best effort
             log_with_tag(logger, f"Failed to fetch ticker: {exc}")
             ticker_data = []
+            if "404" in str(exc) or "Code not found" in str(exc):
+                invalid = []
+                for sym in open_syms:
+                    try:
+                        self.client.ticker([sym])
+                    except Exception as exc2:  # pragma: no cover - best effort
+                        if "404" in str(exc2) or "Code not found" in str(exc2):
+                            invalid.append(sym)
+                        else:
+                            log_with_tag(logger, f"Ticker fetch failed for {sym}: {exc2}")
+                if invalid:
+                    for sym in invalid:
+                        for pos in self.positions:
+                            if pos.get("symbol") == sym:
+                                pos["status"] = "closed"
+                                self._set_pending_flag(sym, 0)
+                                log_with_tag(logger, f"Removed invalid symbol {sym}")
+                    self._persist_positions()
 
         price_map = {t.get("market"): float(t.get("trade_price", 0)) for t in ticker_data}
 
@@ -350,6 +395,7 @@ class PositionManager:
             pos["qty"] = qty
             if pos.get("status") == "pending" and accounts_ok and qty > 0:
                 pos["status"] = "open"
+                self._set_pending_flag(sym, 0)
             elif accounts_ok and qty <= 0 and pos.get("status") == "open":
                 # Avoid premature close right after a buy due to balance sync delay
                 if now() - pos.get("entry_time", 0) < 5:
@@ -357,6 +403,7 @@ class PositionManager:
                     pos["qty"] = qty
                 else:
                     pos["status"] = "closed"
+                    self._set_pending_flag(sym, 0)
                     if self.exception_handler and prev_qty > 0:
                         price_exec = price_map.get(sym, pos.get("current_price", 0))
                         fee = float(pos.get("entry_fee", 0))
@@ -403,6 +450,10 @@ class PositionManager:
                             pos["current_price"] = cur_price
                 except Exception as exc:  # pragma: no cover - network failure
                     log_with_tag(logger, f"Ticker fetch failed for {pos['symbol']}: {exc}")
+                    if "404" in str(exc) or "Code not found" in str(exc):
+                        pos["status"] = "closed"
+                        self._set_pending_flag(pos["symbol"], 0)
+                        continue
             if cur_price is None:
                 log_with_tag(logger, f"No price info for {pos['symbol']}")
                 remaining.append(pos)

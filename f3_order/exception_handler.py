@@ -56,20 +56,25 @@ class ExceptionHandler:
     def send_alert(self, message: str, severity: str = "info", category: str = "system_alert") -> None:
         """Send a Telegram notification if credentials are set and category is enabled."""
         if not self.tg_token or not self.tg_chat_id:
+            log_with_tag(logger, "Telegram credentials missing; alert suppressed")
             return
         if not is_enabled(category):
+            log_with_tag(logger, f"Alert category disabled: {category}")
             return
         text = f"[{severity.upper()}] {message}"
         url = f"https://api.telegram.org/bot{self.tg_token}/sendMessage"
         data = {"chat_id": self.tg_chat_id, "text": text}
         try:
             if requests:
-                requests.post(url, data=data, timeout=5)
+                resp = requests.post(url, data=data, timeout=5)
+                log_with_tag(logger, f"Telegram sent: {resp.status_code}")
+                resp.raise_for_status()
             else:
                 req = _urlreq.Request(url, data=urlencode(data).encode())
-                _urlreq.urlopen(req, timeout=5)
-        except Exception:
-            pass
+                with _urlreq.urlopen(req, timeout=5) as resp:
+                    log_with_tag(logger, f"Telegram sent: {getattr(resp, 'status', 'ok')}")
+        except Exception as exc:
+            log_with_tag(logger, f"Telegram send failed: {exc}")
 
     def handle(self, exception, context=""):
         """ 예외 상황 처리 및 로그 """

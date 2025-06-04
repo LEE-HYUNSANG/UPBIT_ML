@@ -2,6 +2,7 @@ from flask import Flask, Response, render_template, jsonify, request
 import json
 import sqlite3
 import os
+import sys
 import uuid
 import jwt
 import requests
@@ -255,10 +256,14 @@ def stop_monitoring() -> None:
 
 
 def _import_from_path(path: str, name: str):
+    """Import module from ``path`` under ``name`` preserving singletons."""
+    if name in sys.modules:
+        return sys.modules[name]
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
+    sys.modules[name] = module
     return module
 
 
@@ -289,8 +294,8 @@ def start_buy_signal_scheduler() -> None:
             try:
                 module.run_if_monitoring_list_exists()
                 buy_exec.execute_buy_list()
-            except Exception as exc:
-                WEB_LOGGER.error("buy signal error: %s", exc)
+            except Exception:
+                WEB_LOGGER.exception("buy signal error")
             if _buy_signal_stop.wait(15):
                 break
 
@@ -319,8 +324,8 @@ def start_pipeline_scheduler() -> None:
         while not _pipeline_stop.is_set():
             try:
                 module.main()
-            except Exception as exc:
-                WEB_LOGGER.error("pipeline error: %s", exc)
+            except Exception:
+                WEB_LOGGER.exception("pipeline error")
             if _pipeline_stop.wait(300):
                 break
 

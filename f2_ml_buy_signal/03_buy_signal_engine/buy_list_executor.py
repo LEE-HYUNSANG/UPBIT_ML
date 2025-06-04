@@ -62,9 +62,11 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         Order executor instance to use. Defaults to the shared
         :data:`_default_executor` to avoid duplicate orders.
     """
+    log_with_tag(logger, "execute_buy_list start")
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    with _buy_list_lock(buy_path) as fh:
-        buy_list = _load_buy_list(buy_path, fh)
+    try:
+        with _buy_list_lock(buy_path) as fh:
+            buy_list = _load_buy_list(buy_path, fh)
 
         seen = set()
         deduped = []
@@ -133,23 +135,27 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
                 "sell_triggers": [],
             }
             log_with_tag(logger, f"Executing buy for {symbol} at {price}")
-            oe.entry(signal)
-            executed.append(symbol)
-            for it in buy_list:
-                if it.get("symbol") == symbol:
-                    it["buy_count"] = 1
-                    log_with_tag(logger, f"Updated buy_count for {symbol}")
-                    break
+            if oe.entry(signal):
+                executed.append(symbol)
+                for it in buy_list:
+                    if it.get("symbol") == symbol:
+                        it["buy_count"] = 1
+                        log_with_tag(logger, f"Updated buy_count for {symbol}")
+                        break
 
         log_with_tag(logger, f"Executed buys: {executed}")
 
-        try:
-            fh.seek(0)
-            fh.truncate()
-            json.dump(buy_list, fh, ensure_ascii=False, indent=2)
-        except Exception as exc:  # pragma: no cover - best effort
-            log_with_tag(logger, f"Failed to save buy list: {exc}")
+        with _buy_list_lock(buy_path) as fh:
+            try:
+                fh.seek(0)
+                fh.truncate()
+                json.dump(buy_list, fh, ensure_ascii=False, indent=2)
+            except Exception as exc:  # pragma: no cover - best effort
+                log_with_tag(logger, f"Failed to save buy list: {exc}")
         return executed
+    except Exception as exc:  # pragma: no cover - unexpected errors
+        logger.exception("execute_buy_list failed: %s", exc)
+        return []
 
 
 if __name__ == "__main__":
