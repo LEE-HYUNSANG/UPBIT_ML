@@ -57,3 +57,1283 @@
 2025-06-04 21:14:23,858 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
 2025-06-04 21:15:14,130 [F3] [F3] Buy executed: {'uuid': '58703f35-a5d7-4af7-b720-9ca4499cf5f5', 'side': 'bid', 'ord_type': 'limit', 'price': 19770.0, 'state': 'wait', 'market': 'KRW-LINK', 'created_at': '2025-06-04T21:14:14+09:00', 'volume': '0.35407182', 'remaining_volume': '0.35407182', 'reserved_fee': '3.4999999407', 'remaining_fee': '3.4999999407', 'paid_fee': '0', 'locked': '7003.4998813407', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749039254.0101137, 'symbol': 'KRW-LINK', 'qty': 0.35407182599898834, 'order_type': 'limit', 'entry_price': 19760.0}
 2025-06-04 21:15:25,171 [F3] [F3] Buy executed: {'uuid': '53243605-54f0-414e-a1fa-b10ae3bf4365', 'side': 'bid', 'ord_type': 'limit', 'price': 19780.0, 'state': 'wait', 'market': 'KRW-LINK', 'created_at': '2025-06-04T21:14:25+09:00', 'volume': '0.35389282', 'remaining_volume': '0.35389282', 'reserved_fee': '3.4999999898', 'remaining_fee': '3.4999999898', 'paid_fee': '0', 'locked': '7003.4999795898', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749039265.0792768, 'symbol': 'KRW-LINK', 'qty': 0.3538928210313448, 'order_type': 'limit', 'entry_price': 19760.0}
+2025-06-04 21:39:42,309 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8504.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 21:39:42,311 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 21:39:56,195 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8504.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 21:39:56,198 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 21:40:27,546 [F3] [F3] Buy executed: {'uuid': '4079d718-72c6-4036-89c5-2e66b258fe04', 'side': 'bid', 'ord_type': 'limit', 'price': 8493.0, 'state': 'wait', 'market': 'KRW-NEO', 'created_at': '2025-06-04T21:39:57+09:00', 'volume': '0.82420817', 'remaining_volume': '0.82420817', 'reserved_fee': '3.500824202075', 'remaining_fee': '3.500824202075', 'paid_fee': '0', 'locked': '7005.149228352075', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749040797.4352276, 'symbol': 'KRW-NEO', 'qty': 0.8242081714352997, 'order_type': 'limit', 'entry_price': 8504.0}
+2025-06-04 21:40:44,183 [F3] [F3] Buy executed: {'uuid': 'ac4679a3-31d0-461b-acd9-2444d71ba908', 'side': 'bid', 'ord_type': 'limit', 'price': 8508.0, 'state': 'wait', 'market': 'KRW-NEO', 'created_at': '2025-06-04T21:40:14+09:00', 'volume': '0.82430522', 'remaining_volume': '0.82430522', 'reserved_fee': '3.5074187111', 'remaining_fee': '3.5074187111', 'paid_fee': '0', 'locked': '7018.3448409111', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749040814.0145006, 'symbol': 'KRW-NEO', 'qty': 0.8243052284503062, 'order_type': 'limit', 'entry_price': 8504.0}
+2025-06-04 22:05:57,876 [F3] [F3] OrderExecutor initialized.
+2025-06-04 22:06:01,103 [F3] [F3] OrderExecutor initialized.
+2025-06-04 22:17:20,804 [F3] [F3] OrderExecutor initialized.
+2025-06-04 22:17:25,233 [F3] [F3] OrderExecutor initialized.
+2025-06-04 22:20:39,558 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15340.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:20:39,560 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:21:11,092 [F3] [F3] Buy executed: {'uuid': '6fe5db40-ced4-4c29-aa5c-b649bf0f892d', 'side': 'bid', 'ord_type': 'limit', 'price': 15350.0, 'state': 'wait', 'market': 'KRW-TRUMP', 'created_at': '2025-06-04T22:20:41+09:00', 'volume': '0.45602605', 'remaining_volume': '0.45602605', 'reserved_fee': '3.49999993375', 'remaining_fee': '3.49999993375', 'paid_fee': '0', 'locked': '7003.49986743375', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749043240.785942, 'symbol': 'KRW-TRUMP', 'qty': 0.4560260586319218, 'order_type': 'limit', 'entry_price': 15340.0}
+2025-06-04 22:27:31,317 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 693.6, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:27:31,319 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:27:33,014 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 694.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:27:33,016 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:28:02,595 [F3] [F3] Buy executed: {'uuid': 'ee1ee9e9-2a70-469e-b091-a2c2659a925e', 'side': 'bid', 'ord_type': 'limit', 'price': 694.6, 'state': 'wait', 'market': 'KRW-CBK', 'created_at': '2025-06-04T22:27:32+09:00', 'volume': '10.07774258', 'remaining_volume': '10.07774258', 'reserved_fee': '3.50201554655', 'remaining_fee': '3.50201554655', 'paid_fee': '0', 'locked': '7007.53310864655', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749043652.506561, 'symbol': 'KRW-CBK', 'qty': 10.077742585660811, 'order_type': 'limit', 'entry_price': 693.6}
+2025-06-04 22:28:04,294 [F3] [F3] Buy executed: {'uuid': '12b18425-9b01-486e-94a3-59d0e22727ae', 'side': 'bid', 'ord_type': 'limit', 'price': 694.6, 'state': 'wait', 'market': 'KRW-CBK', 'created_at': '2025-06-04T22:27:34+09:00', 'volume': '10.07774258', 'remaining_volume': '10.07774258', 'reserved_fee': '3.50201554655', 'remaining_fee': '3.50201554655', 'paid_fee': '0', 'locked': '7007.53310864655', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749043654.1885214, 'symbol': 'KRW-CBK', 'qty': 10.077742585660811, 'order_type': 'limit', 'entry_price': 694.8}
+2025-06-04 22:50:06,385 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 503.5, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:50:06,387 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:50:17,696 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6796.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:50:17,699 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:50:18,973 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-APT', 'side': 'bid', 'qty': 1.0292604028819292, 'price': 6801.0, 'order_type': 'limit', 'filled': False, 'entry_price': 6796.0}
+2025-06-04 22:50:37,684 [F3] [F3] Buy executed: {'uuid': '0f22a1c9-36ce-44bd-b543-0278fc73b052', 'side': 'bid', 'ord_type': 'limit', 'price': 503.6, 'state': 'wait', 'market': 'KRW-ARB', 'created_at': '2025-06-04T22:50:07+09:00', 'volume': '13.89992057', 'remaining_volume': '13.89992057', 'reserved_fee': '3.50277998364', 'remaining_fee': '3.50277998364', 'paid_fee': '0', 'locked': '7009.06274726364', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749045007.5854251, 'symbol': 'KRW-ARB', 'qty': 13.899920571882445, 'order_type': 'limit', 'entry_price': 503.5}
+2025-06-04 22:50:38,729 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6796.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:50:38,729 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:50:39,969 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-APT', 'side': 'bid', 'qty': 1.0292604028819292, 'price': 6801.0, 'order_type': 'limit', 'filled': False, 'entry_price': 6796.0}
+2025-06-04 22:50:57,132 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5941.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:50:57,135 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:50:58,328 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-PENDLE', 'side': 'bid', 'qty': 1.1778563015312131, 'price': 5943.0, 'order_type': 'limit', 'filled': False, 'entry_price': 5941.0}
+2025-06-04 22:50:58,430 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5939.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 22:50:58,433 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 22:50:58,438 [F3] [F3] Buy skipped: already holding KRW-PENDLE
+2025-06-04 23:15:10,874 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 23:15:10,876 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 23:15:12,157 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-ONDO', 'side': 'bid', 'qty': 5.9880239520958085, 'price': 1169.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1164.0}
+2025-06-04 23:42:36,237 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 23:42:36,239 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 23:43:27,911 [F3] [F3] Buy executed: {'uuid': 'a98cf8b2-b2f6-47dc-8700-e3807a3e5858', 'side': 'bid', 'ord_type': 'limit', 'price': 821.2, 'state': 'wait', 'market': 'KRW-TAIKO', 'created_at': '2025-06-04T23:43:07+09:00', 'volume': '8.53762653', 'remaining_volume': '8.53762653', 'reserved_fee': '3.504695690565', 'remaining_fee': '3.504695690565', 'paid_fee': '0', 'locked': '7012.896076820565', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749048187.8108754, 'symbol': 'KRW-TAIKO', 'qty': 8.537626539821929, 'order_type': 'limit', 'entry_price': 818.8}
+2025-06-04 23:48:15,761 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 954.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 23:48:15,765 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-04 23:48:47,073 [F3] [F3] Buy executed: {'uuid': 'd51fffa1-dd5b-4b29-96d3-13d3851f4f83', 'side': 'bid', 'ord_type': 'limit', 'price': 954.0, 'state': 'wait', 'market': 'KRW-ADA', 'created_at': '2025-06-04T23:48:16+09:00', 'volume': '7.3375262', 'remaining_volume': '7.3375262', 'reserved_fee': '3.4999999974', 'remaining_fee': '3.4999999974', 'paid_fee': '0', 'locked': '7003.4999947974', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749048496.976835, 'symbol': 'KRW-ADA', 'qty': 7.337526205450734, 'order_type': 'limit', 'entry_price': 954.0}
+2025-06-04 23:59:21,558 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 885.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-04 23:59:21,559 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:00:13,206 [F3] [F3] Buy executed: {'uuid': 'f576f518-5d9e-431a-8dd5-826adfb91dda', 'side': 'bid', 'ord_type': 'limit', 'price': 887.5, 'state': 'wait', 'market': 'KRW-CTC', 'created_at': '2025-06-04T23:59:53+09:00', 'volume': '7.89622109', 'remaining_volume': '7.89622109', 'reserved_fee': '3.50592216396', 'remaining_fee': '3.50592216396', 'paid_fee': '0', 'locked': '7015.35025008396', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749049193.108433, 'symbol': 'KRW-CTC', 'qty': 7.896221094190637, 'order_type': 'limit', 'entry_price': 885.4}
+2025-06-05 00:23:00,119 [F3] [F3] OrderExecutor initialized.
+2025-06-05 00:27:13,293 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6831.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:27:13,294 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:28:04,881 [F3] [F3] Buy executed: {'uuid': '5e513073-f722-469d-958e-08f99c6dcf42', 'side': 'bid', 'ord_type': 'limit', 'price': 6838.0, 'state': 'wait', 'market': 'KRW-APT', 'created_at': '2025-06-05T00:27:44+09:00', 'volume': '1.02399063', 'remaining_volume': '1.02399063', 'reserved_fee': '3.5020479546', 'remaining_fee': '3.5020479546', 'paid_fee': '0', 'locked': '7007.5979571546', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749050864.769003, 'symbol': 'KRW-APT', 'qty': 1.0239906377998829, 'order_type': 'limit', 'entry_price': 6831.0}
+2025-06-05 00:29:42,977 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:29:42,979 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:29:47,057 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5927.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:29:47,058 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:29:47,059 [F3] [F3] Buy skipped: order already pending for KRW-PENDLE
+2025-06-05 00:29:47,060 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:29:47,061 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:29:47,061 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:30:06,482 [F3] [F3] Entry signal received: {'symbol': 'KRW-PENDLE', 'buy_signal': True, 'sell_signal': False, 'price': 5927.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:30:06,489 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:30:06,492 [F3] [F3] Buy skipped: order already pending for KRW-PENDLE
+2025-06-05 00:30:06,493 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:30:06,494 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:30:06,494 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:30:14,348 [F3] [F3] Buy executed: {'uuid': '30852343-a7dc-48b6-9bd7-684faa2ca6a5', 'side': 'bid', 'ord_type': 'limit', 'price': 5935.0, 'state': 'wait', 'market': 'KRW-PENDLE', 'created_at': '2025-06-05T00:29:44+09:00', 'volume': '1.17944397', 'remaining_volume': '1.17944397', 'reserved_fee': '3.499999980975', 'remaining_fee': '3.499999980975', 'paid_fee': '0', 'locked': '7003.499961930975', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749050984.2338278, 'symbol': 'KRW-PENDLE', 'qty': 1.1794439764111204, 'order_type': 'limit', 'entry_price': 5938.0}
+2025-06-05 00:30:15,368 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:30:15,369 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:30:15,371 [F3] [F3] Buy skipped: already holding KRW-STX
+2025-06-05 00:35:34,992 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 914.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:35:34,994 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:35:34,995 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:35:44,457 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 914.6, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:35:44,459 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:35:44,468 [F3] [F3] Buy skipped: already holding KRW-CTC
+2025-06-05 00:35:54,701 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 913.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:35:54,704 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:35:54,706 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:36:05,672 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15400.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:36:05,676 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:36:37,005 [F3] [F3] Buy executed: {'uuid': '0476842c-5c9a-49ef-83cd-47580a6efd42', 'side': 'bid', 'ord_type': 'limit', 'price': 15400.0, 'state': 'wait', 'market': 'KRW-TRUMP', 'created_at': '2025-06-05T00:36:06+09:00', 'volume': '0.45454545', 'remaining_volume': '0.45454545', 'reserved_fee': '3.499999965', 'remaining_fee': '3.499999965', 'paid_fee': '0', 'locked': '7003.499929965', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749051366.8969467, 'symbol': 'KRW-TRUMP', 'qty': 0.45454545454545453, 'order_type': 'limit', 'entry_price': 15400.0}
+2025-06-05 00:36:37,982 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 914.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:36:37,983 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:36:37,985 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 00:38:30,611 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3521.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:38:30,613 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:38:30,614 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:38:34,511 [F3] [F3] Entry signal received: {'symbol': 'KRW-BERA', 'buy_signal': True, 'sell_signal': False, 'price': 3521.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:38:34,513 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:39:24,062 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 512.5, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:39:24,064 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:39:24,065 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:39:26,144 [F3] [F3] Buy executed: {'uuid': 'f69229bd-d02b-4820-b5fe-b24dfc52b5a2', 'side': 'bid', 'ord_type': 'limit', 'price': 3527.0, 'state': 'wait', 'market': 'KRW-BERA', 'created_at': '2025-06-05T00:39:05+09:00', 'volume': '1.98807157', 'remaining_volume': '1.98807157', 'reserved_fee': '3.503976142125', 'remaining_fee': '3.503976142125', 'paid_fee': '0', 'locked': '7011.456260392125', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749051546.0479958, 'symbol': 'KRW-BERA', 'qty': 1.9880715705765408, 'order_type': 'limit', 'entry_price': 3521.0}
+2025-06-05 00:39:41,831 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 512.5, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:39:41,833 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:39:41,834 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:39:45,204 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 512.5, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:39:45,206 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:40:16,550 [F3] [F3] Buy executed: {'uuid': 'd7c1649b-ee05-4aa1-ac88-f97613788f86', 'side': 'bid', 'ord_type': 'limit', 'price': 513.9, 'state': 'wait', 'market': 'KRW-ARB', 'created_at': '2025-06-05T00:39:46+09:00', 'volume': '13.6213271', 'remaining_volume': '13.6213271', 'reserved_fee': '3.5006810647', 'remaining_fee': '3.5006810647', 'paid_fee': '0', 'locked': '7004.8628104647', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749051586.4209335, 'symbol': 'KRW-ARB', 'qty': 13.621327106440942, 'order_type': 'limit', 'entry_price': 512.5}
+2025-06-05 00:44:15,006 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'price': 1440.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:44:15,010 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:44:15,012 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:44:19,538 [F3] [F3] Entry signal received: {'symbol': 'KRW-ME', 'buy_signal': True, 'sell_signal': False, 'price': 1438.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:44:19,541 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:44:50,992 [F3] [F3] Buy executed: {'uuid': 'a618e36e-e9b7-4b1e-8649-4eb4a047b35e', 'side': 'bid', 'ord_type': 'limit', 'price': 1442.0, 'state': 'wait', 'market': 'KRW-ME', 'created_at': '2025-06-05T00:44:20+09:00', 'volume': '4.85436893', 'remaining_volume': '4.85436893', 'reserved_fee': '3.4951456296', 'remaining_fee': '3.4951456296', 'paid_fee': '0', 'locked': '6993.7864048296', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749051860.9110432, 'symbol': 'KRW-ME', 'qty': 4.854368932038835, 'order_type': 'limit', 'entry_price': 1438.0}
+2025-06-05 00:44:56,619 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8539.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:44:56,622 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:44:56,623 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:45:12,670 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8539.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:45:12,673 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:45:17,970 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8542.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 00:45:17,971 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 00:45:17,973 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 00:46:04,463 [F3] [F3] Buy executed: {'uuid': 'd3605e4b-3927-40c1-b353-1e3222a6c4b4', 'side': 'bid', 'ord_type': 'limit', 'price': 8553.0, 'state': 'wait', 'market': 'KRW-NEO', 'created_at': '2025-06-05T00:45:44+09:00', 'volume': '0.81986413', 'remaining_volume': '0.81986413', 'reserved_fee': '3.506968816075', 'remaining_fee': '3.506968816075', 'paid_fee': '0', 'locked': '7017.444600966075', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749051944.3531942, 'symbol': 'KRW-NEO', 'qty': 0.8198641368001874, 'order_type': 'limit', 'entry_price': 8539.0}
+2025-06-05 01:01:02,948 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:02,948 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:02,949 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:01:14,981 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:14,982 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:14,983 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 01:01:22,491 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:22,493 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:22,494 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:01:34,085 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:34,088 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:34,091 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 01:01:41,444 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:41,446 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:41,447 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:01:53,277 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:01:53,278 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:01:53,279 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 01:02:00,261 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 912.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:02:00,262 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:02:00,263 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:02:49,680 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1078.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:02:49,683 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:02:49,684 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:02:56,205 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1078.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:02:56,207 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:02:56,209 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:03:08,084 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1078.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:08,085 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:08,087 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:03:15,422 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1078.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:15,423 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:15,423 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:03:26,438 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1078.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:26,439 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:26,440 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:03:34,538 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1079.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:34,539 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:34,540 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:03:44,812 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1079.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:44,814 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:44,816 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:03:53,291 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1079.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:03:53,292 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:03:53,293 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:04:03,403 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1079.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:04:03,405 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:04:03,406 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:04:12,346 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1079.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:04:12,347 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:04:12,348 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:35:21,043 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 920.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:35:21,046 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:35:21,048 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:35:35,145 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 920.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:35:35,148 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:35:35,150 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 01:35:42,606 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 920.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:35:42,609 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:35:42,611 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:35:55,551 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 920.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:35:55,553 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:35:55,554 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 01:36:02,377 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 920.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:36:02,379 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:36:02,380 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:40:26,769 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:40:26,771 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:40:26,772 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:40:36,665 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:40:36,668 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:40:36,668 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:40:44,928 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:40:44,929 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:40:44,930 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:40:54,874 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:40:54,875 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:40:54,876 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:41:03,136 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:41:03,138 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:41:03,139 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:41:13,599 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:41:13,601 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:41:13,601 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:41:21,709 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1077.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:41:21,710 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:41:21,711 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:41:58,428 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:41:58,429 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:41:58,429 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:42:08,110 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:42:08,112 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:42:08,114 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:42:26,822 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:42:26,824 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:42:26,825 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:42:34,869 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1076.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:42:34,870 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:42:34,871 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:45:29,975 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1075.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:45:29,978 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:45:29,980 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:45:41,454 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1075.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:45:41,456 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:45:41,457 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 01:45:49,047 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1075.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:45:49,049 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:45:49,049 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:48:17,367 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:48:17,368 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:48:17,370 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:48:28,203 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:48:28,205 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:48:28,208 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:48:38,007 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:48:38,009 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:48:38,011 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:48:49,499 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:48:49,504 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:48:49,507 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:48:58,706 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:48:58,708 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:48:58,711 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:11,296 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:11,299 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:11,301 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:18,785 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:18,788 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:18,790 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:30,680 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:30,682 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:30,685 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:38,114 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:38,115 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:38,117 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:50,336 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:50,339 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:50,342 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:49:57,340 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:49:57,343 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:49:57,347 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:09,999 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:09,999 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:10,000 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:17,146 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:17,148 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:17,148 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:29,517 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:29,520 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:29,520 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:36,517 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:36,520 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:36,521 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:48,851 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:48,852 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:48,853 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:50:55,757 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:50:55,760 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:50:55,761 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:07,816 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:07,822 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:07,828 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:14,622 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:14,623 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:14,624 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:25,979 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:25,980 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:25,981 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:33,135 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:33,135 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:33,137 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:43,879 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:43,881 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:43,882 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:51:51,336 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:51:51,337 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:51:51,338 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:02,047 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:02,048 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:02,051 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:11,615 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:11,616 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:11,618 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:20,807 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:20,809 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:20,810 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:29,650 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:29,651 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:29,652 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:39,107 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:39,108 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:39,109 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:47,902 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:47,904 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:47,906 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:52:57,366 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:52:57,366 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:52:57,369 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:06,304 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:06,305 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:06,306 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:16,358 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:16,359 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:16,359 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:24,819 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:24,822 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:24,822 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:34,607 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:34,607 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:34,607 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:43,165 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:43,166 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:43,167 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:53:52,972 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:53:52,973 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:53:52,974 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:01,694 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:01,695 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:01,696 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:11,656 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:11,658 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:11,659 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:20,437 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:20,439 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:20,441 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:30,015 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:30,017 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:30,020 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:30,021 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:30,022 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:30,024 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:38,482 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:38,484 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:38,485 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:38,487 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:38,489 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:38,489 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:48,080 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:48,083 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:48,085 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:48,086 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:48,087 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:48,088 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:56,592 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:56,593 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:56,594 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:54:56,594 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:54:56,596 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:54:56,596 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:06,176 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:06,178 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:06,179 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:06,180 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:06,181 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:06,182 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:14,818 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:14,819 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:14,820 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:14,821 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:14,822 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:14,824 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:24,533 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:24,535 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:24,535 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:24,537 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:24,538 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:24,539 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:32,930 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:32,931 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:32,931 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:32,932 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:32,932 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:32,932 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:42,605 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:42,606 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:42,607 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:42,608 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:42,609 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:42,610 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:51,087 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:51,088 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:51,089 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:55:51,089 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:55:51,090 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:55:51,090 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:01,741 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:01,742 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:01,743 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:01,743 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:01,746 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:01,746 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:10,495 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:10,497 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:10,499 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:10,500 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:10,503 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:10,503 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:21,203 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:21,206 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:21,207 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:21,208 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:21,210 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:21,210 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:29,215 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:29,217 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:29,218 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:29,218 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:29,220 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:29,220 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:42,261 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:42,263 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:42,265 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:42,266 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:42,268 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:42,269 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:50,153 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:50,156 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:50,158 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:56:50,159 [F3] [F3] Entry signal received: {'symbol': 'KRW-ORCA', 'buy_signal': True, 'sell_signal': False, 'price': 3653.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:56:50,162 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:56:50,163 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:03,454 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:03,456 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:03,462 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:11,499 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:11,503 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:11,505 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:23,895 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:23,897 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:23,898 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:31,124 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:31,125 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:31,126 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:43,670 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:43,671 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:43,672 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 01:57:50,626 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1496.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 01:57:50,627 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 01:57:50,628 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 02:49:29,106 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1167.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 02:49:29,107 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 02:49:29,108 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:19:51,207 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 944.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:19:51,210 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:19:51,212 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:20:00,501 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 944.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:20:00,503 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:20:00,503 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:20:10,295 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 944.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:20:10,297 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:20:10,298 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:20:19,717 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 944.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:20:19,719 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:20:19,720 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:20:29,197 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 944.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:20:29,200 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:20:29,201 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:35:38,204 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1066.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:35:38,206 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:35:38,207 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:35:49,933 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1066.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:35:49,935 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:35:49,935 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:35:57,776 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1066.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:35:57,778 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:35:57,779 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:36:09,657 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1066.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:09,658 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:09,659 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:36:17,868 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:17,869 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:17,870 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:36:29,054 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:29,055 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:29,056 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:36:37,368 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:37,369 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:37,370 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:36:48,457 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:48,460 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:48,461 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:36:57,035 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:36:57,036 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:36:57,037 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:37:08,036 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:08,039 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:08,041 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:37:17,029 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:17,032 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:17,034 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:37:27,420 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:27,421 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:27,422 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:37:36,235 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:36,236 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:36,236 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:37:46,461 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:46,461 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:46,462 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:37:55,525 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:37:55,527 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:37:55,529 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:38:06,504 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:06,506 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:06,507 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:38:15,545 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:15,558 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:15,562 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:38:26,486 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:26,487 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:26,488 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:38:35,502 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:35,504 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:35,504 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:38:49,143 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:49,145 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:49,147 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:38:57,605 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1067.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:38:57,607 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:38:57,609 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:39:12,541 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1065.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:39:12,545 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:39:12,547 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 03:46:43,949 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:46:43,952 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:46:43,954 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:46:49,657 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:46:49,657 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:46:49,658 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:03,128 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:03,129 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:03,131 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:09,607 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:09,608 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:09,609 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:22,886 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:22,887 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:22,888 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:29,225 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:29,227 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:29,228 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:42,320 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:42,321 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:42,322 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:47:48,959 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:47:48,959 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:47:48,960 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:01,725 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:01,727 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:01,728 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:09,035 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 472.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:09,037 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:09,038 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:21,917 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:21,919 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:21,919 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:29,105 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:29,107 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:29,108 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:41,368 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:41,370 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:41,370 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:48:48,613 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:48:48,614 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:48:48,615 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:00,632 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:00,633 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:00,634 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:08,101 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:08,104 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:08,104 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:21,311 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:21,312 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:21,313 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:27,566 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:27,568 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:27,569 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:40,449 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:40,452 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:40,452 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:46,972 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:46,974 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:46,975 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:49:59,684 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:49:59,685 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:49:59,686 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:06,337 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:06,339 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:06,340 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:19,230 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:19,231 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:19,233 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:26,113 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:26,121 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:26,122 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:38,372 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:38,373 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:38,374 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:45,742 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:45,743 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:45,744 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:50:57,415 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:50:57,416 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:50:57,417 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:05,464 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:05,465 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:05,467 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:17,158 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:17,160 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:17,161 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:25,005 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:25,007 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:25,008 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:36,441 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:36,442 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:36,443 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:44,844 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:44,845 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:44,845 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:51:56,293 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:51:56,294 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:51:56,296 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:52:04,731 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:52:04,733 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:52:04,733 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:52:18,711 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:52:18,714 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:52:18,717 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:52:26,834 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:52:26,837 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:52:26,842 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:52:41,006 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:52:41,009 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:52:41,012 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:52:48,633 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:52:48,636 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:52:48,638 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:02,390 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:02,391 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:02,392 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:09,824 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:09,825 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:09,826 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:22,929 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:22,932 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:22,934 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:29,989 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:29,990 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:29,991 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:43,497 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:43,498 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:43,499 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:53:50,255 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:53:50,256 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:53:50,257 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:03,600 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:03,602 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:03,602 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:10,529 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:10,530 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:10,531 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:24,068 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:24,069 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:24,070 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:30,151 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:30,152 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:30,153 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:43,955 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:43,957 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:43,957 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 03:54:49,877 [F3] [F3] Entry signal received: {'symbol': 'KRW-CARV', 'buy_signal': True, 'sell_signal': False, 'price': 470.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 03:54:49,879 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 03:54:49,879 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:27:53,830 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:27:53,834 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:27:53,837 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:27:58,646 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:27:58,647 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:27:58,647 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:14,098 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:14,101 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:14,105 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:18,330 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:18,330 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:18,331 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:33,961 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:33,963 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:33,965 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:37,891 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:37,892 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:37,893 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:53,477 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:53,479 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:53,481 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:28:57,153 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:28:57,154 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:28:57,155 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:29:13,106 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:29:13,108 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:29:13,108 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:29:16,884 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:29:16,887 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:29:16,888 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:29:32,421 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:29:32,423 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:29:32,424 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:29:35,988 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 818.4, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:29:35,992 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:29:35,994 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:38:20,321 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:38:20,327 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:38:20,328 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:38:28,782 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:38:28,784 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:38:28,786 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:38:38,708 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:38:38,717 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:38:38,719 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:38:46,939 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:38:46,941 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:38:46,943 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:38:57,036 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:38:57,037 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:38:57,038 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:05,064 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:05,066 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:05,067 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:15,634 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:15,637 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:15,638 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:23,777 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:23,778 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:23,778 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:34,157 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:34,159 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:34,165 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:42,169 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:42,171 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:42,173 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:39:53,443 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:39:53,444 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:39:53,445 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:01,158 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:01,160 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:01,161 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:13,021 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:13,027 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:13,031 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:20,436 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:20,439 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:20,441 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:34,407 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:34,410 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:34,413 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:41,283 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:41,286 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:41,287 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:40:55,527 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:40:55,531 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:40:55,533 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:01,986 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:01,989 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:01,990 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:14,766 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:14,767 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:14,768 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:21,294 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:21,296 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:21,296 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:33,873 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:33,874 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:33,875 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:40,125 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:40,128 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:40,129 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:53,168 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:53,170 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:53,171 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:41:59,148 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:41:59,148 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:41:59,150 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:12,428 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:12,429 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:12,430 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:18,219 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:18,222 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:18,223 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:31,278 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:31,279 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:31,281 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:36,926 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:36,929 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:36,931 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:50,432 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:50,435 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:50,435 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:42:56,531 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:42:56,532 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:42:56,533 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:43:09,153 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:43:09,156 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:43:09,156 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:48:41,750 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:48:41,751 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:48:41,752 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:48:46,667 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:48:46,669 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:48:46,670 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:00,279 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:00,281 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:00,282 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:05,649 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:05,650 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:05,651 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:19,316 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:19,324 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:19,329 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:24,910 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:24,912 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:24,912 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:37,907 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:37,908 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:37,909 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:43,983 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:43,985 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:43,986 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:49:56,833 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:49:56,835 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:49:56,836 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:50:03,254 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:50:03,256 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:50:03,257 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:50:15,876 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:50:15,877 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:50:15,878 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:50:22,498 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:50:22,500 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:50:22,501 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:50:34,431 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 937.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:50:34,433 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:50:34,434 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:50:41,469 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 940.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:50:41,472 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:50:41,473 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:53:54,078 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:53:54,081 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:53:54,083 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:05,029 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:05,032 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:05,033 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:15,719 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:15,722 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:15,727 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:26,571 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:26,574 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:26,577 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:35,316 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:35,318 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:35,320 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:46,354 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:46,356 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:46,358 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:54:54,735 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:54:54,737 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:54:54,738 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:55:06,247 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:55:06,249 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:55:06,250 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:55:14,493 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:55:14,495 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:55:14,497 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:55:25,910 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:55:25,912 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:55:25,915 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:57:03,297 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:57:03,297 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:57:03,298 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:57:11,209 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:57:11,210 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:57:11,211 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:57:22,977 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:57:22,978 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:57:22,979 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:57:30,651 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:57:30,653 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:57:30,653 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 04:57:41,774 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 938.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 04:57:41,778 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 04:57:41,780 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:28:16,672 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 932.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:28:16,674 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:28:16,675 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:28:24,039 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 932.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:28:24,043 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:28:24,044 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:29:14,040 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:29:14,045 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:29:14,048 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:29:22,411 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:29:22,412 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:29:22,412 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:29:33,497 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:29:33,497 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:29:33,499 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:29:41,736 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:29:41,737 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:29:41,739 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:29:52,587 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:29:52,588 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:29:52,589 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:30:00,882 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:30:00,883 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:30:00,884 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:31:47,428 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:31:47,428 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:31:47,429 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:31:56,429 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:31:56,431 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:31:56,434 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:06,726 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:06,728 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:06,729 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:16,306 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:16,308 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:16,309 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:26,076 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:26,079 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:26,082 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:35,269 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:35,270 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:35,271 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:45,410 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:45,411 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:45,412 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:32:55,213 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:32:55,216 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:32:55,217 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:33:05,669 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:33:05,671 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:33:05,672 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:33:15,272 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:33:15,274 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:33:15,275 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:34:09,640 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:09,643 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:09,646 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 05:34:18,155 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:18,156 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:18,157 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:34:29,252 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:29,252 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:29,254 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 05:34:37,722 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:37,723 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:37,725 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:34:50,072 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:50,074 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:50,077 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 05:34:57,316 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:34:57,317 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:34:57,318 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:35:10,671 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:35:10,672 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:35:10,674 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 05:35:37,441 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:35:37,444 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:35:37,446 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:35:50,685 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1156.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:35:50,686 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:35:50,688 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:35:56,941 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1156.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:35:56,942 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:35:56,943 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:40:39,406 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:40:39,407 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:40:39,408 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:40:45,885 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:40:45,886 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:40:45,888 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:40:59,020 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:40:59,021 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:40:59,022 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:41:05,344 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:41:05,345 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:41:05,347 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:41:18,766 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1157.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:41:18,769 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:41:18,770 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:49:34,806 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1048.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:49:34,808 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:49:34,810 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 05:49:44,570 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1048.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:49:44,571 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:49:44,572 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 05:57:07,199 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 930.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 05:57:07,202 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 05:57:07,203 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:15:14,677 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:15:14,679 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:15:14,681 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:15:24,140 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:15:24,141 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:15:24,142 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:15:34,402 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:15:34,403 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:15:34,404 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:15:43,891 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:15:43,892 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:15:43,893 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:15:54,063 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:15:54,065 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:15:54,066 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:16:14,166 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:16:14,168 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:16:14,170 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:16:24,103 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:16:24,105 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:16:24,107 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:16:34,089 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 927.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:16:34,091 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:16:34,092 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:17:40,558 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:17:40,559 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:17:40,561 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:18:28,363 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 928.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:18:28,365 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:18:28,366 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:18:38,946 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 928.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:18:38,947 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:18:38,947 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:18:47,723 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 928.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:18:47,725 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:18:47,726 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:26:10,818 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 928.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:26:10,820 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:26:10,821 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:26:29,530 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:26:29,531 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:26:29,532 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:27:28,592 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:27:28,595 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:27:28,597 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:27:40,714 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 929.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:27:40,717 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:27:40,719 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:27:49,811 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 930.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:27:49,814 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:27:49,816 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:31:35,827 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1045.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:31:35,828 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:31:35,829 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 06:31:43,880 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1045.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:31:43,882 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:31:43,884 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:31:54,833 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1046.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:31:54,835 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:31:54,836 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 06:44:58,283 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:44:58,285 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:44:58,286 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:44:59,539 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:44:59,540 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:44:59,540 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:54:32,653 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 946.6, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:54:32,655 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:54:32,658 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:56:54,401 [F3] [F3] Entry signal received: {'symbol': 'KRW-LAYER', 'buy_signal': True, 'sell_signal': False, 'price': 1109.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:56:54,403 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:56:54,404 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:58:26,187 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1166.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:58:26,188 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:58:26,188 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 06:58:46,826 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:58:46,830 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:58:46,832 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 06:58:52,890 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 06:58:52,891 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 06:58:52,892 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:13,720 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1163.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:13,723 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:13,724 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:13,726 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:13,729 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:13,729 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:00:17,009 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1163.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:17,010 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:17,011 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:17,012 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:17,013 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:17,013 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:34,341 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1163.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:34,344 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:34,345 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:34,347 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:34,349 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:34,349 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:00:37,317 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1163.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:37,318 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:37,319 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:37,321 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:37,322 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:37,323 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:54,944 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:54,946 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:54,947 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:54,948 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:54,950 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:54,950 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:00:57,706 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:57,707 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:57,708 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:00:57,708 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:00:57,709 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:00:57,709 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:01:15,760 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:01:15,761 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:01:15,762 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:01:18,141 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:01:18,142 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:01:18,143 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:01:38,062 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1165.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:01:38,064 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:01:38,067 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:01:58,418 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1165.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:01:58,419 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:01:58,420 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:02:34,833 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:02:34,837 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:02:34,839 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:02:40,116 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:02:40,118 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:02:40,120 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:02:54,794 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:02:54,796 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:02:54,798 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:03:00,179 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:00,189 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:00,191 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:03:16,361 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:16,364 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:16,366 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:03:21,209 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1054.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:21,211 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:21,212 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:03:37,292 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:37,295 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:37,297 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:03:41,999 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1055.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:42,002 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:42,004 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:03:56,771 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:03:56,774 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:03:56,776 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:04:01,981 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:04:01,983 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:04:01,984 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:04:17,329 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:04:17,331 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:04:17,332 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:04:21,761 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:04:21,763 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:04:21,764 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:04:36,786 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:04:36,788 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:04:36,790 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:15:37,909 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:15:37,910 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:15:37,912 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:15:43,671 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:15:43,672 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:15:43,674 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:16:18,912 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:16:18,915 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:16:18,917 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:16:25,079 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:16:25,080 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:16:25,081 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:16:41,089 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:16:41,092 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:16:41,093 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:16:49,031 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:16:49,034 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:16:49,036 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:17:03,436 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:17:03,437 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:17:03,439 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:17:12,636 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:17:12,639 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:17:12,642 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:17:46,960 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:17:46,963 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:17:46,966 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:17:56,540 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:17:56,544 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:17:56,546 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 07:18:07,732 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1056.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:18:07,733 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:18:07,734 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:18:18,217 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:18:18,219 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:18:18,222 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:18:28,818 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:18:28,820 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:18:28,821 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:18:39,059 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:18:39,061 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:18:39,063 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:18:49,308 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:18:49,310 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:18:49,312 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:00,424 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:00,426 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:00,427 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:11,690 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:11,692 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:11,694 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:22,083 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:22,086 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:22,087 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:31,879 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 933.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:31,880 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:31,881 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:42,788 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:42,789 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:42,790 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:42,791 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 934.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:42,793 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:42,793 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:19:52,454 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:19:52,455 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:19:52,457 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:04,647 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:04,648 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:04,649 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:13,393 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:13,395 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:13,396 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:27,043 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:27,047 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:27,049 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:33,657 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1516.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:33,659 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:33,660 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:46,738 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1164.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:46,740 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:46,741 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:20:53,808 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 932.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:20:53,811 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:20:53,813 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:09,291 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 932.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:09,295 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:09,297 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:15,418 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 932.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:15,420 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:15,423 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:29,819 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1162.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:29,821 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:29,823 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:37,281 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1162.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:37,283 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:37,285 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:50,673 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1162.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:50,677 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:50,680 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:21:57,453 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1162.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:21:57,454 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:21:57,456 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
