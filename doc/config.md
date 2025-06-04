@@ -46,10 +46,12 @@ Order execution defaults such as retry counts and quantity settings. Used only b
 
 ## f6_buy_settings.json
 Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
-`MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`, `LIMIT_WAIT_SEC_2` and
-`2nd_Bid_Price`. Defaults are `10000`, `2`, `50`, `"BID1"`, `0` and `"ASK1"`
-respectively. These values override the order executor's defaults and are
-mirrored to the risk manager.
+`MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`, `LIMIT_WAIT_SEC_2`,
+`2nd_Bid_Price` and `FALLBACK_MARKET`. Defaults are `10000`, `2`, `50`,
+`"BID1"`, `0`, `"ASK1"` and `false` respectively. These values override the
+order executor's defaults and are mirrored to the risk manager. When
+`FALLBACK_MARKET` is enabled the executor sends a market order if the first
+limit order fails and no second attempt is configured.
 
 ## f6_sell_settings.json
 Take-profit settings for open positions. It currently stores `TP_PCT` which

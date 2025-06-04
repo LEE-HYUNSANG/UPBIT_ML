@@ -131,7 +131,7 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
     try:
         import pyupbit  # type: ignore
     except Exception:
-        return DataFrame()  # type: ignore
+        return pd.DataFrame() if pd is not None else []
 
     for _ in range(3):
         try:
@@ -150,7 +150,7 @@ def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
         except Exception:
             time.sleep(0.2)
     logger.warning("[FETCH] %s failed", symbol)
-    return DataFrame()  # type: ignore
+    return pd.DataFrame() if pd is not None else []
 
 
 def _clean_df(df: DataFrame) -> DataFrame:
