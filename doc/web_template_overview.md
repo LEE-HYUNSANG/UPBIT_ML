@@ -13,7 +13,7 @@ updates `config/f6_buy_settings.json`. It exposes the buy amount
 (`ENTRY_SIZE_INITIAL`), the maximum number of coins to hold (`MAX_SYMBOLS`),
 two limit order wait times (`LIMIT_WAIT_SEC_1` and `LIMIT_WAIT_SEC_2`) and the
 corresponding price modes (`1st_Bid_Price` and `2nd_Bid_Price`). Default values
-are `10000`, `2`, `50`, `0`, `"BID1"` and `"ASK1"` respectively.
+are `7000`, `7`, `60`, `0`, `"BID1+"` and `"ASK1"` respectively.
 
 Both pages share a dark themed layout with an auto trade toggle and server
 status indicator in the header.
