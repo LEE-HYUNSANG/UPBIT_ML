@@ -54,7 +54,7 @@ def _resolve_path(path: str | Path) -> Path:
 
 
 @contextmanager
-def _buy_list_lock(path: str | Path, retries: int = 200, delay: float = 0.1):
+def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
     """Context manager providing an exclusive lock on *path*.
 
     Returns the locked file handle so callers can read/write without reopening
@@ -65,9 +65,8 @@ def _buy_list_lock(path: str | Path, retries: int = 200, delay: float = 0.1):
     lock_file = Path(path)
     fh = None
     for _ in range(retries):
-        mode = "r+" if lock_file.exists() else "w+"
         try:
-            fh = lock_file.open(mode)
+            fh = lock_file.open("a+")
             break
         except PermissionError as exc:
             log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
@@ -202,7 +201,7 @@ class OrderExecutor:
             return set(self._pending_cache[1])
 
         path = _resolve_path("config/f2_f2_realtime_buy_list.json")
-        for _ in range(10):
+        for _ in range(5):
             try:
                 with _buy_list_lock(path) as fh:
                     data = json.load(fh)
