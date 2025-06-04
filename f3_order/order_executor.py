@@ -62,7 +62,11 @@ def _buy_list_lock(path: str | Path):
     opened while locked.
     """
     lock_file = Path(path)
-    fh = lock_file.open("a+")
+    try:
+        fh = lock_file.open("a+")
+    except PermissionError as exc:  # pragma: no cover - log path on failure
+        log_with_tag(logger, f"PermissionError opening {lock_file}: {exc}")
+        raise
     try:
         if fcntl:
             fcntl.flock(fh, fcntl.LOCK_EX)

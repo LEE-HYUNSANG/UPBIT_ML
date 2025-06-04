@@ -19,3 +19,5 @@ when orders are not executed as expected.
   `0` and `pending` equal to `0`.
 - Check `logs/f3/F3_order_executor.log` and `logs/f3/F3_position_manager.log` for any errors or warnings
   that might block order execution.
+
+- If you encounter a "PermissionError" in `logs/f3/F3_exception_handler.log`, check that the process has read/write access to `config/f2_f2_realtime_buy_list.json`. Recent versions log the file path when this occurs.
