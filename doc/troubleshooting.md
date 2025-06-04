@@ -42,6 +42,9 @@
 - **3단계: 매수 실행 과정**
 
     `logs/f2/buy_list_executor.log`에 `Targets:`와 `Executed buys:`가 기록됩니다.
+    최신 버전에서는 함수 시작 시 `execute_buy_list start` 로그가 먼저
+    남으므로, 해당 메시지가 없으면 스케줄러 호출 자체가 실패한
+    상황으로 볼 수 있습니다.
 
     ```text
     2025-06-04 08:05:31,019 [F2] [F3] Ticker prices: {'KRW-CBK': 712.7}

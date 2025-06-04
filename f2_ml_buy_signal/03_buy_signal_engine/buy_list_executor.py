@@ -62,94 +62,99 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
         Order executor instance to use. Defaults to the shared
         :data:`_default_executor` to avoid duplicate orders.
     """
+    log_with_tag(logger, "execute_buy_list start")
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
-    with _buy_list_lock(buy_path) as fh:
-        buy_list = _load_buy_list(buy_path, fh)
+    try:
+        with _buy_list_lock(buy_path) as fh:
+            buy_list = _load_buy_list(buy_path, fh)
 
-        seen = set()
-        deduped = []
-        for item in buy_list:
-            symbol = item.get("symbol")
-            if symbol and symbol not in seen:
-                deduped.append(item)
-                seen.add(symbol)
-        if len(deduped) != len(buy_list):
-            buy_list = deduped
-            log_with_tag(logger, "Removed duplicate symbols from buy list")
+            seen = set()
+            deduped = []
+            for item in buy_list:
+                symbol = item.get("symbol")
+                if symbol and symbol not in seen:
+                    deduped.append(item)
+                    seen.add(symbol)
+            if len(deduped) != len(buy_list):
+                buy_list = deduped
+                log_with_tag(logger, "Removed duplicate symbols from buy list")
 
-        targets = [
-            b["symbol"]
-            for b in buy_list
-            if int(b.get("buy_signal", 0)) == 1 and int(b.get("buy_count", 0)) == 0
-        ]
-        log_with_tag(logger, f"Targets: {targets}")
-        if not targets:
-            log_with_tag(logger, "No buy candidates found")
-            return []
+            targets = [
+                b["symbol"]
+                for b in buy_list
+                if int(b.get("buy_signal", 0)) == 1 and int(b.get("buy_count", 0)) == 0
+            ]
+            log_with_tag(logger, f"Targets: {targets}")
+            if not targets:
+                log_with_tag(logger, "No buy candidates found")
+                return []
 
-        client = UpbitClient()
-        oe = executor or _default_executor
+            client = UpbitClient()
+            oe = executor or _default_executor
 
-        prices = {}
-        try:
-            ticker_info = client.ticker(targets)
-            prices = {
-                t["market"]: float(t.get("trade_price", 0)) for t in ticker_info
-            }
-            log_with_tag(logger, f"Ticker prices: {prices}")
-        except Exception as exc:  # pragma: no cover - network issues
-            log_with_tag(logger, f"Failed to fetch ticker: {exc}")
-
-        missing_syms = [s for s in targets if s not in prices]
-        for sym in missing_syms:
+            prices = {}
             try:
-                ob = client.orderbook([sym])
-                if ob:
-                    unit = ob[0].get("orderbook_units", [{}])[0]
-                    price = float(unit.get("bid_price", 0))
-                    if price > 0:
-                        prices[sym] = price
-                        log_with_tag(logger, f"Orderbook fallback price for {sym}: {price}")
-                        continue
+                ticker_info = client.ticker(targets)
+                prices = {
+                    t["market"]: float(t.get("trade_price", 0)) for t in ticker_info
+                }
+                log_with_tag(logger, f"Ticker prices: {prices}")
+            except Exception as exc:  # pragma: no cover - network issues
+                log_with_tag(logger, f"Failed to fetch ticker: {exc}")
+
+            missing_syms = [s for s in targets if s not in prices]
+            for sym in missing_syms:
+                try:
+                    ob = client.orderbook([sym])
+                    if ob:
+                        unit = ob[0].get("orderbook_units", [{}])[0]
+                        price = float(unit.get("bid_price", 0))
+                        if price > 0:
+                            prices[sym] = price
+                            log_with_tag(logger, f"Orderbook fallback price for {sym}: {price}")
+                            continue
+                except Exception as exc:  # pragma: no cover - best effort
+                    log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
+
+            executed = []
+            for item in buy_list:
+                if int(item.get("buy_signal", 0)) != 1:
+                    continue
+                symbol = item.get("symbol")
+                price = prices.get(symbol)
+                if price is None:
+                    log_with_tag(logger, f"Price missing for {symbol}, skipping")
+                    continue
+                signal = {
+                    "symbol": symbol,
+                    "buy_signal": True,
+                    "sell_signal": False,
+                    "price": price,
+                    "spread": 0.0,
+                    "buy_triggers": [],
+                    "sell_triggers": [],
+                }
+                log_with_tag(logger, f"Executing buy for {symbol} at {price}")
+                oe.entry(signal)
+                executed.append(symbol)
+                for it in buy_list:
+                    if it.get("symbol") == symbol:
+                        it["buy_count"] = 1
+                        log_with_tag(logger, f"Updated buy_count for {symbol}")
+                        break
+
+            log_with_tag(logger, f"Executed buys: {executed}")
+
+            try:
+                fh.seek(0)
+                fh.truncate()
+                json.dump(buy_list, fh, ensure_ascii=False, indent=2)
             except Exception as exc:  # pragma: no cover - best effort
-                log_with_tag(logger, f"Failed to fetch orderbook for {sym}: {exc}")
-
-        executed = []
-        for item in buy_list:
-            if int(item.get("buy_signal", 0)) != 1:
-                continue
-            symbol = item.get("symbol")
-            price = prices.get(symbol)
-            if price is None:
-                log_with_tag(logger, f"Price missing for {symbol}, skipping")
-                continue
-            signal = {
-                "symbol": symbol,
-                "buy_signal": True,
-                "sell_signal": False,
-                "price": price,
-                "spread": 0.0,
-                "buy_triggers": [],
-                "sell_triggers": [],
-            }
-            log_with_tag(logger, f"Executing buy for {symbol} at {price}")
-            oe.entry(signal)
-            executed.append(symbol)
-            for it in buy_list:
-                if it.get("symbol") == symbol:
-                    it["buy_count"] = 1
-                    log_with_tag(logger, f"Updated buy_count for {symbol}")
-                    break
-
-        log_with_tag(logger, f"Executed buys: {executed}")
-
-        try:
-            fh.seek(0)
-            fh.truncate()
-            json.dump(buy_list, fh, ensure_ascii=False, indent=2)
-        except Exception as exc:  # pragma: no cover - best effort
-            log_with_tag(logger, f"Failed to save buy list: {exc}")
-        return executed
+                log_with_tag(logger, f"Failed to save buy list: {exc}")
+            return executed
+    except Exception as exc:  # pragma: no cover - unexpected errors
+        logger.exception("execute_buy_list failed: %s", exc)
+        return []
 
 
 if __name__ == "__main__":
