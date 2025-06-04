@@ -78,7 +78,6 @@
 
 ## 자주 발생하는 예외 사례
 - **PermissionError**: `logs/f3/F3_exception_handler.log` 또는 `web.log`에 경로와 함께 기록됩니다.
-- **Cannot instantiate typing.Any**: 설정 파일에 `Any` 문자열이 들어가 있으면 발생할 수 있습니다. `config/` 폴더의 JSON이나 YAML을 열어 잘못된 값이 없는지 확인하세요.
 - **잔고 부족**: `F3_order_executor.log`에 `insufficient funds` 메시지가 표시됩니다.
 - **네트워크 오류**: Upbit API 호출 실패 시 `web.log`에 HTTP 오류 코드가 남습니다.
 
