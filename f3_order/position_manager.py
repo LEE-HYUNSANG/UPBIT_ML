@@ -198,12 +198,13 @@ class PositionManager:
             self._schedule_tp_order(pos)
 
     def _calc_tp_price(self, entry_price: float, tp_pct: float) -> float:
-        """Return take-profit price rounded up with at least two ticks margin."""
+        """Return TP price rounded up with a minimum tick distance."""
         price = entry_price * (1 + tp_pct / 100)
         price = apply_tick_size(price, "ceil")
         tick = tick_size(entry_price)
-        if price - entry_price <= tick:
-            price = entry_price + 2 * tick
+        min_ticks = int(self.config.get("MINIMUM_TICKS", 2))
+        if price - entry_price <= tick * (min_ticks - 1):
+            price = entry_price + min_ticks * tick
             price = apply_tick_size(price, "ceil")
         return price
 

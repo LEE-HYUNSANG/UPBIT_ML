@@ -2,7 +2,12 @@ import json
 import os
 
 DEFAULTS = {
-    "TP_PCT": 1.5,
+    "TP_PCT": 0.18,
+    "MINIMUM_TICKS": 2,
+    "TS_FLAG": "OFF",
+    "HOLD_SECS": 180,
+    "TRAIL_START_PCT": 0.3,
+    "TRAIL_STEP_PCT": 1.0,
 }
 
 

@@ -130,6 +130,8 @@ class OrderExecutor:
         self.config = load_config(str(_resolve_path(config_path)))
         self.config.update(load_buy_config(str(_resolve_path(buy_path))))
         self.config.update(load_sell_config(str(_resolve_path(sell_path))))
+        ts_flag = str(self.config.get("TS_FLAG", "OFF")).upper()
+        self.config["TRAILING_STOP_ENABLED"] = ts_flag == "ON"
         self.kpi_guard = KPIGuard(self.config)
         self.exception_handler = ExceptionHandler(self.config)
         self.risk_manager = risk_manager
