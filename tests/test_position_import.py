@@ -21,6 +21,9 @@ class DummyClient:
     def ticker(self, markets):
         return [{"market": m, "trade_price": 100.0} for m in markets]
 
+    def orders(self, params=None):
+        return []
+
 
 def test_import_existing_positions(tmp_path, monkeypatch):
     monkeypatch.setattr("f3_order.position_manager.UpbitClient", lambda: DummyClient())
