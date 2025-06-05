@@ -1,7 +1,7 @@
-# Formula Offset Support
+# 포뮬러 오프셋 지원
 
-`eval_formula` now supports indicator and price offsets using the last parameter of a function.
-For example, `EMA(20,-1)` references the previous candle's 20 period EMA.
-Offsets work for basic OHLCV fields as well, e.g. `Close(-2)`.
-When an offset is requested beyond the available data range, the value is treated as zero.
+`eval_formula`는 이제 함수의 마지막 인자를 사용해 지표와 가격을 이전 시점으로
+참조할 수 있습니다. 예를 들어 `EMA(20,-1)`은 이전 캔들의 20기간 EMA를 나타냅니다.
+기본 OHLCV 필드에서도 오프셋을 사용할 수 있어 `Close(-2)`와 같이 표현할 수
+있습니다. 사용 가능한 범위를 넘어선 오프셋은 값이 0으로 처리됩니다.
 

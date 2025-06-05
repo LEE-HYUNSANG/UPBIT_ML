@@ -1,28 +1,26 @@
-# Telegram Notifications
+# 텔레그램 알림
 
-The system can send various notifications through Telegram. Each notification
-category is toggled in `f6_setting/01_alarm_control/alarm_config.json`.
-Messages are delivered by `ExceptionHandler.send_alert` when both
-`TELEGRAM_TOKEN` and `TELEGRAM_CHAT_ID` are configured.
+시스템은 여러 종류의 알림을 텔레그램으로 보낼 수 있습니다. 각 알림 카테고리는
+`f6_setting/01_alarm_control/alarm_config.json`에서 켜거나 끌 수 있습니다.
+`TELEGRAM_TOKEN`과 `TELEGRAM_CHAT_ID`가 설정되어 있을 때
+`ExceptionHandler.send_alert`가 메시지를 전달합니다.
 
-Supported categories:
+지원되는 카테고리:
 
-- **system_start_stop** – server start/stop messages.
-- **buy_monitoring** – updates from the buy monitoring page.
-  A notification is also sent when a new buy signal is generated.
-- **order_execution** – buy and sell executions. A notification is also sent
-  when a sell order is attempted.
-- **system_alert** – warnings from the risk manager or KPI guard.
-- **ml_pipeline** – machine learning pipeline status.
+- **system_start_stop** – 서버 시작/종료 알림
+- **buy_monitoring** – 매수 모니터링 페이지 업데이트. 새로운 매수 신호가 발생하면 알림을 보냅니다.
+- **order_execution** – 매수·매도 실행 알림. 매도 주문 시도 시에도 전송됩니다.
+- **system_alert** – 위험 관리자나 KPI 가드의 경고
+- **ml_pipeline** – 머신러닝 파이프라인 상태
 
-Example ML pipeline messages:
+예시 ML 파이프라인 메시지:
 
 ```
 [INFO] 머신러닝 학습 시작] at 12:34:56
 [INFO] 머신러닝 학습 종료] at 12:45:01 - selected_coinList: CBK, WAVES, CELO
 ```
 
-Order execution messages use the following format:
+주문 실행 메시지는 다음 형식을 사용합니다:
 
 ```
 [INFO] 매수 시그널] WAVES @1000.0
@@ -30,15 +28,13 @@ Order execution messages use the following format:
 [INFO] 매도 완료] WAVES 매도 금액: 10,500원 @1050.0 이익:+500원
 ```
 
-Default templates for order alerts reside in the same configuration file and can
-be customized. The sell template now includes a `{reason}` placeholder which is
-automatically filled with "익절 매도" or "손절 매도" based on the exit type.
+주문 알림의 기본 템플릿은 동일한 설정 파일에 있으며 사용자 정의가 가능합니다.
+매도 템플릿에는 `{reason}` 자리표시자가 포함되어 있어 익절 또는 손절 여부에 따라
+"익절 매도" 혹은 "손절 매도"로 자동 채워집니다.
 
-Sell notifications are triggered when a position closes because a
-previously placed take-profit order was filled on the exchange. They are
-also emitted when a market order finishes via an asynchronous fill detected in
-`update_position_from_fill`.
+매도 알림은 이전에 제출된 익절 주문이 거래소에서 체결되어 포지션이 닫힐 때 발생합니다.
+또한 `update_position_from_fill`에서 비동기 체결을 감지한 경우에도 전송됩니다.
 
-The web UI under **환경설정** now exposes these options. The page loads values
-from `/api/alarm_config` and posts changes back to the same endpoint when the
-user clicks the Save button.
+웹 UI의 **환경설정** 페이지에서 이 옵션을 제어할 수 있습니다. 페이지는
+`/api/alarm_config`에서 값을 불러오며 저장 버튼을 누르면 같은 엔드포인트로 변경
+사항을 전송합니다.

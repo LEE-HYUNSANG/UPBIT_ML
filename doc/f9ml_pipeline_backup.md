@@ -1,8 +1,7 @@
-# F9ML Pipeline Backup
+# F9ML 파이프라인 백업
 
-The `f9_ml_pipeline_backup` directory is a frozen copy of
-`f5_ml_pipeline`. It preserves all original scripts and data for
-reference. **Do not modify or run files in this directory.**
+`f9_ml_pipeline_backup` 디렉터리는 `f5_ml_pipeline`의 동결된 사본입니다. 모든
+원본 스크립트와 데이터를 보존해 두었으며 참고용으로만 사용합니다.
+**이 디렉터리의 파일은 수정하거나 실행하지 마십시오.**
 
-Updates to the machine learning pipeline should be made only in
-`f5_ml_pipeline`.
+머신러닝 파이프라인에 대한 수정은 반드시 `f5_ml_pipeline`에서만 진행해야 합니다.
