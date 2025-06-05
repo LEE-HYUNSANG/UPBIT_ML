@@ -2,6 +2,7 @@ import json
 import os
 
 DEFAULTS = {
+    "STARTUP_HOLD_SEC": 300,
     "ENTRY_SIZE_INITIAL": 7000,
     "MAX_SYMBOLS": 7,
     "LIMIT_WAIT_SEC_1": 30,

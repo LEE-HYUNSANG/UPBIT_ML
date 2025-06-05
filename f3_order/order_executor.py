@@ -40,6 +40,8 @@ logger.propagate = False
 if os.environ.get("PYTEST_CURRENT_TEST"):
     logger.disabled = True
 
+_startup_time = time.time()
+
 # Use an absolute path to the project root to avoid issues when this module is
 # executed from a different working directory.
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -307,6 +309,13 @@ class OrderExecutor:
         try:
             log_with_tag(logger, f"Entry signal received: {signal}")
             self.reload_config()
+            delay = int(self.config.get("STARTUP_HOLD_SEC", 0))
+            if delay > 0 and not os.environ.get("PYTEST_CURRENT_TEST"):
+                elapsed = time.time() - _startup_time
+                if elapsed < delay:
+                    remain = int(delay - elapsed)
+                    log_with_tag(logger, f"Buy skipped: startup delay {remain}s remaining")
+                    return False
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 price = signal.get("price")

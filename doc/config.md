@@ -49,10 +49,12 @@ This file has been removed. `OrderExecutor` skips loading the file when
 quantities are now provided directly by the code.
 
 ## f6_buy_settings.json
-Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
-`MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`, `LIMIT_WAIT_SEC_2`,
-`2nd_Bid_Price` and `FALLBACK_MARKET`. Defaults are `7000`, `7`, `30`,
-`"BID1"`, `20`, `"BID1+"` and `false` respectively. These values override the
+Buy order settings controlled via the web UI. It stores `STARTUP_HOLD_SEC`,
+`ENTRY_SIZE_INITIAL`, `MAX_SYMBOLS`, `LIMIT_WAIT_SEC_1`, `1st_Bid_Price`,
+`LIMIT_WAIT_SEC_2`, `2nd_Bid_Price` and `FALLBACK_MARKET`. Defaults are `300`,
+`7000`, `7`, `30`, `"BID1"`, `20`, `"BID1+"` and `false` respectively. The
+startup delay disables new buys for the first N seconds after launching
+`app.py` when greater than zero. These values override the
 order executor's defaults and are mirrored to the risk manager. When
 `FALLBACK_MARKET` is enabled the executor sends a market order if the first
 limit order fails and no second attempt is configured.
