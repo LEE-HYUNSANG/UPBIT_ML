@@ -36,10 +36,12 @@ order fills and removed once the position is closed. The ML buy list keeps
 based on existing account balances.
 
 ## f4_f2_risk_settings.json
-This file has been removed. It previously stored legacy risk parameters such as stop percentages and trailing stop settings.
+This file has been removed. It previously stored legacy risk parameters
+such as stop percentages and trailing stop settings.
 
 ## f3_f3_pending_symbols.json
-This file has been removed. Pending order status is now recorded directly in `f2_f2_realtime_buy_list.json` using the `pending` flag.
+This file has been removed. Pending order status is now recorded directly in
+`f2_f2_realtime_buy_list.json` using the `pending` flag.
 
 ## f3_f3_order_config.json
 This file has been removed. `OrderExecutor` skips loading the file when
@@ -69,6 +71,8 @@ Controls how open positions are closed. The keys are:
   monitoring begins.
 * `TRAIL_STEP_PCT` – allowed drop from the peak price once trailing stop is
   active.
+
+Defaults are `0.18`, `2`, `'OFF'`, `180`, `0.3` and `1.0` respectively.
 
 `OrderExecutor` loads these settings on startup and stores them in its
 configuration. The trailing-stop flag is converted to `TRAILING_STOP_ENABLED`
