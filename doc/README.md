@@ -40,4 +40,5 @@
 | 34 | [07_alarm_setting.md](07_alarm_setting.md) | 알림 및 원격 설정 가이드 |
 | 35 | [f1_coin_conditions.md](f1_coin_conditions.md) | 가격과 거래대금 조건으로 코인 선정 |
 | 36 | [installation.md](installation.md) | 패키지 설치 방법 |
+| 37 | [log_reorganization_plan.md](log_reorganization_plan.md) | 로그 구조 재정비 작업 순서 |
 각 문서에서는 사용되는 설정 파일 경로, 실행 스크립트 위치, 데이터 저장 구조와 로그 파일 위치까지 가능한 한 구체적으로 서술했습니다. 문서를 읽는 순서는 위 표의 번호를 따라가면 이해가 빠릅니다.
