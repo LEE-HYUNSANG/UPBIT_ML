@@ -403,9 +403,13 @@ from f3_order.upbit_api import UpbitClient
 
 
 def fetch_account_info() -> dict:
-    """업비트에서 KRW 잔고와 당일 손익을 조회합니다.
+    """Return KRW balance and today's PnL via the Upbit API.
 
-    JWT 토큰 인증을 사용하며 실패 시 0을 반환합니다.
+    Returns
+    -------
+    dict
+        Dictionary with ``krw_balance`` and ``pnl`` keys. Values are ``0`` on
+        failure or when API credentials are missing.
     """
 
     access_key, secret_key = load_api_keys()

@@ -17,7 +17,11 @@ setup_logging("F2", [os.path.join("logs", "F2_signal_engine.log")])
 
 
 def reload_strategy_settings() -> None:
-    """Placeholder for backward compatibility."""
+    """Reload strategy parameters if implemented.
+
+    This function currently performs no action and exists for
+    compatibility with older modules that expect a reload hook.
+    """
     return None
 
 
@@ -30,7 +34,30 @@ def f2_signal(
     calc_sell: bool = True,
     strategy_codes: Optional[list[str]] = None,
 ) -> dict:
-    """Return buy signal using lightweight ML model."""
+    """Compute a buy decision using a small ML model.
+
+    Parameters
+    ----------
+    df_1m : pandas.DataFrame
+        One minute OHLCV data sorted by ``timestamp``.
+    df_5m : pandas.DataFrame
+        Five minute OHLCV data (unused but kept for API parity).
+    symbol : str, optional
+        Ticker symbol being evaluated.
+    trades : pandas.DataFrame, optional
+        Historical trade data (ignored in this lightweight version).
+    calc_buy : bool, optional
+        Whether to calculate the buy side of the signal.
+    calc_sell : bool, optional
+        Whether to calculate the sell side of the signal.
+    strategy_codes : list[str], optional
+        Reserved for compatibility with older strategy modules.
+
+    Returns
+    -------
+    dict
+        Dictionary containing ``buy_signal`` and ``sell_signal`` flags.
+    """
     df_1m = df_1m.sort_values("timestamp").reset_index(drop=True)
     logging.info("Checking %s (calc_buy=%s, calc_sell=%s)", symbol, calc_buy, calc_sell)
     buy_signal = check_buy_signal_df(df_1m) if calc_buy else False
@@ -54,7 +81,30 @@ def eval_formula(
     entry: Optional[float] = None,
     peak: Optional[float] = None,
 ) -> bool:
-    """Evaluate old strategy formulas for compatibility."""
+    """Evaluate a legacy strategy expression.
+
+    Parameters
+    ----------
+    formula : str
+        Formula string containing indicator names and offsets.
+    data_row : pandas.Series
+        Current data row providing indicator values.
+    symbol : str, optional
+        Ticker symbol for logging purposes only.
+    strat_code : str, optional
+        Strategy identifier used solely for debugging.
+    data_df : pandas.DataFrame, optional
+        Full data frame for offset lookups in ``formula``.
+    entry : float, optional
+        Entry price used when the formula references ``Entry``.
+    peak : float, optional
+        High watermark price used for ``Peak`` references.
+
+    Returns
+    -------
+    bool
+        ``True`` if the expression evaluates to a truthy value, otherwise ``False``.
+    """
     expr = formula
     expr = expr.replace("MA(Vol,20)", "Vol_MA20")
     expr = expr.replace("MA(ATR(14),20)", "ATR_14_MA20")

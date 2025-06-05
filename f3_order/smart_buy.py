@@ -26,7 +26,23 @@ if os.environ.get("PYTEST_CURRENT_TEST"):
 
 
 def _get_price(mode: str, symbol: str, client) -> float | None:
-    """Return top bid or ask price for ``symbol`` based on ``mode``."""
+    """Fetch the current bid/ask price according to ``mode``.
+
+    Parameters
+    ----------
+    mode : str
+        Either ``"BID1"``, ``"BID1+"`` or ``"ASK1"`` determining which price
+        to fetch. ``"BID1+"`` returns the best bid plus one tick.
+    symbol : str
+        Market code to query.
+    client : UpbitClient
+        API client used to request the orderbook.
+
+    Returns
+    -------
+    float | None
+        Price if available, otherwise ``None``.
+    """
     try:
         ob = client.orderbook([symbol])
         if not ob:
@@ -45,7 +61,24 @@ def _get_price(mode: str, symbol: str, client) -> float | None:
 
 
 def smart_buy(signal, config, position_manager=None, parent_logger=None):
-    """Place a limit buy order and wait once for it to fill."""
+    """Attempt a two-step limit buy with an optional market fallback.
+
+    Parameters
+    ----------
+    signal : dict
+        Buy signal dictionary containing ``symbol`` and ``price``.
+    config : dict
+        Configuration with limit price modes and wait times.
+    position_manager : PositionManager, optional
+        Manager used to place orders and track positions.
+    parent_logger : logging.Logger, optional
+        Logger to receive additional messages.
+
+    Returns
+    -------
+    dict
+        Upbit order response augmented with ``filled`` or ``canceled`` keys.
+    """
 
     symbol = signal["symbol"]
     if position_manager is None:

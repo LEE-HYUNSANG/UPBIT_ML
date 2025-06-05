@@ -33,6 +33,21 @@ if not logger.handlers:
 
 
 def _load_buy_list(path: Path, fh) -> list:
+    """Return the buy list stored at ``path``.
+
+    Parameters
+    ----------
+    path : pathlib.Path
+        JSON file to read the buy list from.
+    fh : file handle
+        Already locked file handle used for reading. The caller is
+        responsible for acquiring and releasing the lock.
+
+    Returns
+    -------
+    list
+        Parsed list from ``path`` or ``[]`` on failure.
+    """
     if not path.exists():
         return []
 
@@ -54,13 +69,23 @@ def _load_buy_list(path: Path, fh) -> list:
 
 
 def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
-    """Execute buys when ``buy_signal`` is 1 and ``buy_count`` is 0.
+    """Process the realtime buy list and submit orders.
 
     Parameters
     ----------
     executor : OrderExecutor, optional
-        Order executor instance to use. Defaults to the shared
-        :data:`_default_executor` to avoid duplicate orders.
+        Instance used to place orders. If ``None`` the module level
+        default executor is used.
+
+    Returns
+    -------
+    list[str]
+        Symbols for which a buy order was successfully executed.
+
+    Side Effects
+    ------------
+    Updates ``f2_f2_realtime_buy_list.json`` with new ``buy_count`` values
+    and sends orders to the Upbit API via :class:`OrderExecutor`.
     """
     log_with_tag(logger, "execute_buy_list start")
     buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
