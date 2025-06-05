@@ -3,7 +3,7 @@ import os
 import re
 from logging.handlers import RotatingFileHandler
 from typing import Optional
-from common_utils import ensure_utf8_stdout
+from common_utils import ensure_utf8_stdout, setup_logging
 
 import pandas as pd
 
@@ -13,19 +13,7 @@ check_buy_signal_df = import_module("f2_ml_buy_signal.02_ml_buy_signal").check_b
 
 os.makedirs("logs", exist_ok=True)
 ensure_utf8_stdout()
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [F2] [%(levelname)s] %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        RotatingFileHandler(
-            os.path.join("logs", "F2_signal_engine.log"),
-            encoding="utf-8",
-            maxBytes=100_000 * 1024,
-            backupCount=1000,
-        ),
-    ],
-)
+setup_logging("F2", [os.path.join("logs", "F2_signal_engine.log")])
 
 
 def reload_strategy_settings() -> None:
