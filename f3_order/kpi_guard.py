@@ -4,6 +4,7 @@
 """
 import logging
 from logging.handlers import RotatingFileHandler
+from common_utils import DedupFilter
 from .utils import log_with_tag
 from .exception_handler import ExceptionHandler
 import os
@@ -20,6 +21,7 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+logger.addFilter(DedupFilter(60))
 
 class KPIGuard:
     def __init__(self, config):

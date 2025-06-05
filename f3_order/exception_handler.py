@@ -4,6 +4,7 @@
 """
 import logging
 from logging.handlers import RotatingFileHandler
+from common_utils import DedupFilter
 try:
     import requests
 except Exception:  # pragma: no cover - offline test env
@@ -28,6 +29,7 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+logger.addFilter(DedupFilter(60))
 
 
 def _log_jsonl(path: str, data: dict) -> None:

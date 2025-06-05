@@ -4,6 +4,7 @@ import os
 
 import logging
 from logging.handlers import RotatingFileHandler
+from common_utils import DedupFilter
 
 from .smart_buy import smart_buy
 import threading
@@ -37,6 +38,7 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 logger.propagate = False
+logger.addFilter(DedupFilter(60))
 if os.environ.get("PYTEST_CURRENT_TEST"):
     logger.disabled = True
 

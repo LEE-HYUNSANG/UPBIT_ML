@@ -42,3 +42,4 @@
 - [roi_sharpe.md](roi_sharpe.md)
 - [sellqty_handling.md](sellqty_handling.md)
 - [log_reorganization_plan.md](log_reorganization_plan.md)
+- [dedup_logging.md](dedup_logging.md)
