@@ -518,11 +518,8 @@ class PositionManager:
                 # take-profit order will execute automatically
                 pass
             else:
-                if pos.get("avg_price") and cur_price < pos["avg_price"]:
-                    self.cancel_tp_order(pos.get("symbol"))
-                elif pos.get("avg_price") and cur_price >= pos["avg_price"]:
-                    if pos.get("symbol") not in self.tp_orders:
-                        self.place_tp_order(pos)
+                if pos.get("symbol") not in self.tp_orders:
+                    self.place_tp_order(pos)
 
                 if held_too_long:
                     self.manage_trailing_stop(pos)

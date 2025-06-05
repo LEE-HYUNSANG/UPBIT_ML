@@ -275,7 +275,7 @@ def test_tp_kept_when_price_below_entry(tmp_path, monkeypatch):
     pos["avg_price"] = 100.0
     pos["current_price"] = 99.5
     pm.hold_loop()
-    assert pm.client.cancelled == ["tp"]
+    assert pm.client.cancelled == []
 
 
 def test_sell_removes_sell_list_entry(tmp_path, monkeypatch):
