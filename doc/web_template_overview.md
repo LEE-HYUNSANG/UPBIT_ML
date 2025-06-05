@@ -10,10 +10,11 @@ It contains two main pages:
 
 The "매수 설정" card on this page loads values from `/api/buy_settings` and
 updates `config/f6_buy_settings.json`. It exposes the buy amount
-(`ENTRY_SIZE_INITIAL`), the maximum number of coins to hold (`MAX_SYMBOLS`),
-two limit order wait times (`LIMIT_WAIT_SEC_1` and `LIMIT_WAIT_SEC_2`) and the
-corresponding price modes (`1st_Bid_Price` and `2nd_Bid_Price`). Default values
-are `7000`, `7`, `30`, `20`, `"BID1"` and `"BID1+"` respectively.
+(`STARTUP_HOLD_SEC`), the buy amount (`ENTRY_SIZE_INITIAL`), the maximum
+number of coins to hold (`MAX_SYMBOLS`), two limit order wait times
+(`LIMIT_WAIT_SEC_1` and `LIMIT_WAIT_SEC_2`) and the corresponding price modes
+(`1st_Bid_Price` and `2nd_Bid_Price`). Default values are `300`, `7000`, `7`,
+`30`, `20`, `"BID1"` and `"BID1+"` respectively.
 
 Both pages share a dark themed layout with an auto trade toggle and server
 status indicator in the header.
