@@ -585,6 +585,7 @@ class PositionManager:
             return resp
         except Exception as e:
             self.exception_handler.handle(e, context="place_order")
+            error = "insufficient_funds" if "insufficient_funds" in str(e) else ""
             return {
                 "symbol": symbol,
                 "side": side,
@@ -592,6 +593,7 @@ class PositionManager:
                 "price": price,
                 "order_type": order_type,
                 "filled": False,
+                "error": error,
             }
 
     def update_position_from_fill(self, order_id, fill_info):
@@ -637,6 +639,17 @@ class PositionManager:
         order = self.place_order(
             position["symbol"], "ask", qty, "market", position.get("current_price")
         )
+        if order.get("error") == "insufficient_funds":
+            position["qty"] = 0
+            position["status"] = "closed"
+            self._reset_buy_count(position["symbol"])
+            _remove_from_json_list(self.sell_config_path, position["symbol"])
+            log_with_tag(
+                logger,
+                f"Position closed without sell due to insufficient balance: {position['symbol']}"
+            )
+            self._persist_positions()
+            return order
         slip = 0.0
         if position.get("current_price") and position.get("entry_price"):
             slip = (

@@ -97,6 +97,7 @@
   우회할 수 있습니다. 단, 동시 실행 중인 다른 프로세스가 파일을 수정할 수 있으므로
   일시적인 진단 목적으로만 사용하세요.
 - **잔고 부족**: `F3_order_executor.log`에 `insufficient funds` 메시지가 표시됩니다.
+  최신 버전에서는 잔고가 없으면 포지션을 자동으로 닫아 반복 주문을 멈춥니다.
 - **네트워크 오류**: Upbit API 호출 실패 시 `web.log`에 HTTP 오류 코드가 남습니다.
 - **Telegram 알림 누락**: `logs/f3/F3_exception_handler.log`에
   `Telegram credentials missing` 또는 `Alert category disabled`가
