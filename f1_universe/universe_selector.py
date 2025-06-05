@@ -23,7 +23,7 @@ LOG_DIR = Path("logs/f1")
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 ensure_utf8_stdout()
-setup_logging("F1", [LOG_DIR / "F1_signal_engine.log"])
+setup_logging("F1", [LOG_DIR / "F1_signal_engine.log"], dedup_interval=60)
 
 CONFIG_PATH = "config/f1_f1_universe_filters.json"
 UNIVERSE_FILE = "config/current_universe.json"
@@ -36,6 +36,7 @@ DATA_COLLECTION_FILTER_FILE = "config/f1_f5_data_collection_filter.json"
 
 _UNIVERSE: List[str] = []
 _LOCK = threading.Lock()
+_LAST_LOGGED_UNIVERSE: List[str] = []
 
 
 def load_monitoring_coins(path: str = MONITORING_LIST_FILE) -> List[str]:
@@ -158,7 +159,10 @@ def update_universe(config: Dict | None = None) -> None:
             json.dump(universe, f, ensure_ascii=False, indent=2)
     except Exception as exc:  # pragma: no cover - best effort
         logging.error(f"Universe 파일 저장 실패: {exc}")
-    logging.info(f"Universe updated: {universe}")
+    global _LAST_LOGGED_UNIVERSE
+    if universe != _LAST_LOGGED_UNIVERSE:
+        logging.info(f"Universe updated: {universe}")
+        _LAST_LOGGED_UNIVERSE = list(universe)
 
 
 def load_selected_universe(path: str = SELECTED_STRATEGIES_FILE) -> List[str]:

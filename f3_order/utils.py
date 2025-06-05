@@ -4,6 +4,7 @@
 import json
 import logging
 from logging.handlers import RotatingFileHandler
+from common_utils import DedupFilter
 import os
 import math
 from pathlib import Path
@@ -20,6 +21,7 @@ formatter = logging.Formatter('%(asctime)s [F3] %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
+logger.addFilter(DedupFilter(60))
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]

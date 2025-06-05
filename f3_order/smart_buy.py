@@ -5,6 +5,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 from .utils import log_with_tag, tick_size
+from common_utils import DedupFilter
 import time
 import os
 
@@ -21,6 +22,7 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 logger.setLevel(logging.INFO)
 logger.propagate = False
+logger.addFilter(DedupFilter(60))
 if os.environ.get("PYTEST_CURRENT_TEST"):
     logger.disabled = True
 

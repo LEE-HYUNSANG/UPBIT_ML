@@ -12,6 +12,7 @@ from f3_order.order_executor import (
 )
 from f3_order.upbit_api import UpbitClient
 from f3_order.utils import log_with_tag
+from common_utils import DedupFilter
 
 # Resolve configuration directory relative to the project root so the module
 # works regardless of the current working directory.
@@ -30,6 +31,7 @@ if not logger.handlers:
     logger.addHandler(fh)
     logger.setLevel(logging.INFO)
     logger.propagate = False
+    logger.addFilter(DedupFilter(60))
 
 
 def _load_buy_list(path: Path, fh) -> list:
