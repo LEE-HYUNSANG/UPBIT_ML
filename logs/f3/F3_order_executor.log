@@ -1337,3 +1337,202 @@
 2025-06-05 07:21:57,453 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1162.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
 2025-06-05 07:21:57,454 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
 2025-06-05 07:21:57,456 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:26:49,825 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 961.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:26:49,828 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:26:49,830 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 07:26:51,030 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 960.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:26:51,032 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:26:51,034 [F3] [F3] Buy skipped: MAX_SYMBOLS limit reached
+2025-06-05 07:39:14,330 [F3] [F3] Entry signal received: {'symbol': 'KRW-ADA', 'buy_signal': True, 'sell_signal': False, 'price': 931.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:39:14,334 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:39:45,642 [F3] [F3] Buy executed: {'uuid': '0ee23ed0-d298-4aef-b9f3-4f5c79168f17', 'side': 'bid', 'ord_type': 'limit', 'price': 930.0, 'state': 'wait', 'market': 'KRW-ADA', 'created_at': '2025-06-05T07:39:15+09:00', 'volume': '7.52688172', 'remaining_volume': '7.52688172', 'reserved_fee': '3.4999999998', 'remaining_fee': '3.4999999998', 'paid_fee': '0', 'locked': '7003.4999995998', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749076755.5122468, 'symbol': 'KRW-ADA', 'qty': 7.526881720430108, 'order_type': 'limit', 'entry_price': 931.0}
+2025-06-05 07:45:49,954 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1158.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:45:49,957 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:45:51,628 [F3] [F3] Entry signal received: {'symbol': 'KRW-ONDO', 'buy_signal': True, 'sell_signal': False, 'price': 1158.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:45:51,631 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:46:41,745 [F3] [F3] Buy executed: {'uuid': 'f3bff78f-fb21-4d0a-904f-8797bb1f8de4', 'side': 'bid', 'ord_type': 'limit', 'price': 1162.0, 'state': 'wait', 'market': 'KRW-ONDO', 'created_at': '2025-06-05T07:46:21+09:00', 'volume': '6.05012964', 'remaining_volume': '6.05012964', 'reserved_fee': '3.5090751912', 'remaining_fee': '3.5090751912', 'paid_fee': '0', 'locked': '7021.6594575912', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749077181.5018961, 'symbol': 'KRW-ONDO', 'qty': 6.050129645635264, 'order_type': 'limit', 'entry_price': 1158.0}
+2025-06-05 07:46:43,341 [F3] [F3] Buy executed: {'uuid': '76150084-a4f0-432b-9325-6f587a4ab1ab', 'side': 'bid', 'ord_type': 'limit', 'price': 1162.0, 'state': 'wait', 'market': 'KRW-ONDO', 'created_at': '2025-06-05T07:46:23+09:00', 'volume': '6.05012964', 'remaining_volume': '6.05012964', 'reserved_fee': '3.5090751912', 'remaining_fee': '3.5090751912', 'paid_fee': '0', 'locked': '7021.6594575912', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749077183.2172084, 'symbol': 'KRW-ONDO', 'qty': 6.050129645635264, 'order_type': 'limit', 'entry_price': 1158.0}
+2025-06-05 07:47:05,399 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 967.3, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:47:05,402 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:47:05,409 [F3] [F3] Buy skipped: already holding KRW-CTC
+2025-06-05 07:47:05,435 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 967.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:47:05,436 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:47:05,437 [F3] [F3] Buy skipped: order already pending for KRW-CTC
+2025-06-05 07:48:28,221 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 701.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:48:28,223 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:48:28,747 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 701.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:48:28,748 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:49:20,097 [F3] [F3] Buy canceled for KRW-SAFE
+2025-06-05 07:49:20,548 [F3] [F3] Buy canceled for KRW-SAFE
+2025-06-05 07:49:44,815 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 701.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:49:44,818 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:49:45,565 [F3] [F3] Entry signal received: {'symbol': 'KRW-SAFE', 'buy_signal': True, 'sell_signal': False, 'price': 701.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 07:49:45,569 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 07:50:36,571 [F3] [F3] Buy executed: {'uuid': 'c8691a09-72b1-4af2-bb24-2f10bdf92276', 'side': 'bid', 'ord_type': 'limit', 'price': 702.0, 'state': 'wait', 'market': 'KRW-SAFE', 'created_at': '2025-06-05T07:50:16+09:00', 'volume': '9.98573466', 'remaining_volume': '9.98573466', 'reserved_fee': '3.50499286566', 'remaining_fee': '3.50499286566', 'paid_fee': '0', 'locked': '7013.49072418566', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749077416.4714634, 'symbol': 'KRW-SAFE', 'qty': 9.985734664764623, 'order_type': 'limit', 'entry_price': 701.0}
+2025-06-05 07:50:37,393 [F3] [F3] Buy executed: {'uuid': 'db718ff2-6db7-476e-855c-d5a93e42109e', 'side': 'bid', 'ord_type': 'limit', 'price': 702.0, 'state': 'wait', 'market': 'KRW-SAFE', 'created_at': '2025-06-05T07:50:17+09:00', 'volume': '9.98573466', 'remaining_volume': '9.98573466', 'reserved_fee': '3.50499286566', 'remaining_fee': '3.50499286566', 'paid_fee': '0', 'locked': '7013.49072418566', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749077417.2691965, 'symbol': 'KRW-SAFE', 'qty': 9.985734664764623, 'order_type': 'limit', 'entry_price': 701.0}
+2025-06-05 08:08:38,981 [F3] [F3] Entry signal received: {'symbol': 'KRW-XRP', 'buy_signal': True, 'sell_signal': False, 'price': 3068.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:08:38,986 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:09:10,292 [F3] [F3] Buy executed: {'uuid': 'ec14f30f-0f3f-4ee1-9aaa-cb4b2a40a322', 'side': 'bid', 'ord_type': 'limit', 'price': 3068.0, 'state': 'wait', 'market': 'KRW-XRP', 'created_at': '2025-06-05T08:08:40+09:00', 'volume': '2.28161668', 'remaining_volume': '2.28161668', 'reserved_fee': '3.5022816038', 'remaining_fee': '3.5022816038', 'paid_fee': '0', 'locked': '7008.0654892038', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749078520.1697521, 'symbol': 'KRW-XRP', 'qty': 2.2816166883963493, 'order_type': 'limit', 'entry_price': 3068.0}
+2025-06-05 08:14:48,338 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:14:48,339 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:14:48,345 [F3] [F3] Buy skipped: already holding KRW-STX
+2025-06-05 08:14:57,796 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:14:57,798 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:14:57,798 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 08:15:10,557 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:15:10,560 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:15:10,563 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 08:15:19,847 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1049.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:15:19,850 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:15:19,851 [F3] [F3] Buy skipped: order already pending for KRW-STX
+2025-06-05 08:15:42,563 [F3] [F3] OrderExecutor initialized.
+2025-06-05 08:15:47,183 [F3] [F3] OrderExecutor initialized.
+2025-06-05 08:29:52,948 [F3] [F3] Entry signal received: {'symbol': 'KRW-ARB', 'buy_signal': True, 'sell_signal': False, 'price': 499.8, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:29:52,949 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:30:44,653 [F3] [F3] Buy executed: {'uuid': '1d76bd7b-4450-4c31-8ed6-3ac583fc20d4', 'side': 'bid', 'ord_type': 'limit', 'price': 500.3, 'state': 'wait', 'market': 'KRW-ARB', 'created_at': '2025-06-05T08:30:24+09:00', 'volume': '14.01962747', 'remaining_volume': '14.01962747', 'reserved_fee': '3.5049068675', 'remaining_fee': '3.5049068675', 'paid_fee': '0', 'locked': '7013.3186418675', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749079824.5107746, 'symbol': 'KRW-ARB', 'qty': 14.019627478469857, 'order_type': 'limit', 'entry_price': 499.8}
+2025-06-05 08:34:25,032 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8380.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:34:25,033 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:34:26,173 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEO', 'buy_signal': True, 'sell_signal': False, 'price': 8380.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:34:26,174 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:35:16,823 [F3] [F3] Buy executed: {'uuid': '2bdb75d0-de91-4989-97ef-bdfa365397cf', 'side': 'bid', 'ord_type': 'limit', 'price': 8380.0, 'state': 'wait', 'market': 'KRW-NEO', 'created_at': '2025-06-05T08:34:56+09:00', 'volume': '0.83622028', 'remaining_volume': '0.83622028', 'reserved_fee': '3.5037629732', 'remaining_fee': '3.5037629732', 'paid_fee': '0', 'locked': '7011.0297093732', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749080096.6871412, 'symbol': 'KRW-NEO', 'qty': 0.8362202843148967, 'order_type': 'limit', 'entry_price': 8380.0}
+2025-06-05 08:35:17,893 [F3] [F3] Buy executed: {'uuid': 'cb3703f0-cf58-45ea-a1fc-830faccdbaac', 'side': 'bid', 'ord_type': 'limit', 'price': 8380.0, 'state': 'wait', 'market': 'KRW-NEO', 'created_at': '2025-06-05T08:34:57+09:00', 'volume': '0.8359207', 'remaining_volume': '0.8359207', 'reserved_fee': '3.502507733', 'remaining_fee': '3.502507733', 'paid_fee': '0', 'locked': '7008.517973733', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749080097.7699313, 'symbol': 'KRW-NEO', 'qty': 0.8359207069500836, 'order_type': 'limit', 'entry_price': 8380.0}
+2025-06-05 08:35:40,356 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15020.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:35:40,360 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:35:41,577 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-TRUMP', 'side': 'bid', 'qty': 0.46604527296937415, 'price': 15020.0, 'order_type': 'limit', 'filled': False, 'entry_price': 15020.0}
+2025-06-05 08:35:41,915 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15020.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:35:41,918 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:35:41,928 [F3] [F3] Buy skipped: already holding KRW-TRUMP
+2025-06-05 08:37:27,526 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1515.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:37:27,529 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:37:28,697 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AQT', 'side': 'bid', 'qty': 4.62962962962963, 'price': 1512.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1515.0}
+2025-06-05 08:37:28,998 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1515.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:37:28,999 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:37:29,002 [F3] [F3] Buy skipped: already holding KRW-AQT
+2025-06-05 08:37:49,167 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1515.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:37:49,170 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:37:49,695 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1515.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:37:49,696 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:37:49,697 [F3] [F3] Buy skipped: order already pending for KRW-AQT
+2025-06-05 08:37:50,335 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AQT', 'side': 'bid', 'qty': 4.626569729015202, 'price': 1513.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1515.0}
+2025-06-05 08:39:50,133 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15020.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:39:50,137 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:39:51,119 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15020.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:39:51,120 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:39:51,121 [F3] [F3] Buy skipped: order already pending for KRW-TRUMP
+2025-06-05 08:39:51,296 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-TRUMP', 'side': 'bid', 'qty': 0.46604527296937415, 'price': 15020.0, 'order_type': 'limit', 'filled': False, 'entry_price': 15020.0}
+2025-06-05 08:45:29,437 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 698.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:45:29,440 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:45:30,660 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-CBK', 'side': 'bid', 'qty': 10.041600918089227, 'price': 697.1, 'order_type': 'limit', 'filled': False, 'entry_price': 698.0}
+2025-06-05 08:45:32,686 [F3] [F3] Entry signal received: {'symbol': 'KRW-CBK', 'buy_signal': True, 'sell_signal': False, 'price': 698.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 08:45:32,689 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 08:45:33,844 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-CBK', 'side': 'bid', 'qty': 10.041600918089227, 'price': 697.1, 'order_type': 'limit', 'filled': False, 'entry_price': 698.0}
+2025-06-05 09:02:45,769 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14770.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:02:45,772 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:02:46,998 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.4742547425474255, 'price': 14760.0, 'order_type': 'limit', 'filled': False, 'entry_price': 14770.0}
+2025-06-05 09:02:48,407 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14770.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:02:48,411 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:02:48,420 [F3] [F3] Buy skipped: already holding KRW-AUCTION
+2025-06-05 09:25:34,550 [F3] [F3] Entry signal received: {'symbol': 'KRW-CTC', 'buy_signal': True, 'sell_signal': False, 'price': 1014.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:25:34,551 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:25:35,699 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-CTC', 'side': 'bid', 'qty': 6.903353057199211, 'price': 1014.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1014.0}
+2025-06-05 09:44:37,118 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1038.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:44:37,120 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:44:38,504 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-STX', 'side': 'bid', 'qty': 6.74373795761079, 'price': 1038.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1038.0}
+2025-06-05 09:45:28,577 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 14990.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:45:28,579 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:45:28,579 [F3] [F3] Buy skipped: order already pending for KRW-TRUMP
+2025-06-05 09:45:34,748 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 14990.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:45:34,749 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:45:35,897 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-TRUMP', 'side': 'bid', 'qty': 0.466977985323549, 'price': 14990.0, 'order_type': 'limit', 'filled': False, 'entry_price': 14990.0}
+2025-06-05 09:49:42,541 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEAR', 'buy_signal': True, 'sell_signal': False, 'price': 3378.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:49:42,542 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:49:43,599 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-NEAR', 'side': 'bid', 'qty': 2.07284572105419, 'price': 3377.0, 'order_type': 'limit', 'filled': False, 'entry_price': 3378.0}
+2025-06-05 09:55:21,219 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1514.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:55:21,222 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:55:22,544 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AQT', 'side': 'bid', 'qty': 4.623513870541611, 'price': 1514.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1514.0}
+2025-06-05 09:55:23,364 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1517.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 09:55:23,367 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 09:55:23,368 [F3] [F3] Buy skipped: order already pending for KRW-AQT
+2025-06-05 10:12:26,258 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6663.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 10:12:26,262 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 10:12:27,012 [F3] [F3] Entry signal received: {'symbol': 'KRW-APT', 'buy_signal': True, 'sell_signal': False, 'price': 6663.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 10:12:27,015 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 10:13:18,074 [F3] [F3] Buy canceled for KRW-APT
+2025-06-05 10:13:18,713 [F3] [F3] Buy executed: {'uuid': '80bfa041-aacb-4f4d-8000-5aee67eb9b69', 'side': 'bid', 'ord_type': 'limit', 'price': 6675.0, 'state': 'wait', 'market': 'KRW-APT', 'created_at': '2025-06-05T10:12:58+09:00', 'volume': '1.05026256', 'remaining_volume': '1.05026256', 'reserved_fee': '3.505251294', 'remaining_fee': '3.505251294', 'paid_fee': '0', 'locked': '7014.007839294', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749085978.6135347, 'symbol': 'KRW-APT', 'qty': 1.0502625656414104, 'order_type': 'limit', 'entry_price': 6663.0}
+2025-06-05 10:17:57,316 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1043.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 10:17:57,320 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 10:18:28,679 [F3] [F3] Buy executed: {'uuid': '67044b61-559c-48df-b76a-6de499a48b84', 'side': 'bid', 'ord_type': 'limit', 'price': 1043.0, 'state': 'wait', 'market': 'KRW-STX', 'created_at': '2025-06-05T10:17:58+09:00', 'volume': '6.71140939', 'remaining_volume': '6.71140939', 'reserved_fee': '3.506711406275', 'remaining_fee': '3.506711406275', 'paid_fee': '0', 'locked': '7016.929523956275', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749086278.5447392, 'symbol': 'KRW-STX', 'qty': 6.7114093959731544, 'order_type': 'limit', 'entry_price': 1043.0}
+2025-06-05 10:23:46,905 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1522.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 10:23:46,907 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 10:23:46,907 [F3] [F3] Buy skipped: order already pending for KRW-AQT
+2025-06-05 10:23:52,944 [F3] [F3] Entry signal received: {'symbol': 'KRW-AQT', 'buy_signal': True, 'sell_signal': False, 'price': 1529.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 10:23:52,946 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 10:24:44,605 [F3] [F3] Buy executed: {'uuid': '861f6dee-5c9b-4c4d-897f-dc2a9b964be1', 'side': 'bid', 'ord_type': 'limit', 'price': 1528.0, 'state': 'wait', 'market': 'KRW-AQT', 'created_at': '2025-06-05T10:24:24+09:00', 'volume': '4.59921156', 'remaining_volume': '4.59921156', 'reserved_fee': '3.5183968434', 'remaining_fee': '3.5183968434', 'paid_fee': '0', 'locked': '7040.3120836434', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749086664.464344, 'symbol': 'KRW-AQT', 'qty': 4.599211563731932, 'order_type': 'limit', 'entry_price': 1529.0}
+2025-06-05 11:05:55,024 [F3] [F3] Entry signal received: {'symbol': 'KRW-PUNDIX', 'buy_signal': True, 'sell_signal': False, 'price': 445.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 11:05:55,025 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 11:05:57,762 [F3] [F3] Entry signal received: {'symbol': 'KRW-PUNDIX', 'buy_signal': True, 'sell_signal': False, 'price': 445.1, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 11:05:57,764 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 11:05:58,902 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-PUNDIX', 'side': 'bid', 'qty': 15.730337078651685, 'price': 445.0, 'order_type': 'limit', 'filled': False, 'entry_price': 445.1}
+2025-06-05 11:06:26,345 [F3] [F3] Buy executed: {'uuid': '6f04cddd-47b5-4515-b7db-84b97da106de', 'side': 'bid', 'ord_type': 'limit', 'price': 444.8, 'state': 'wait', 'market': 'KRW-PUNDIX', 'created_at': '2025-06-05T11:05:56+09:00', 'volume': '15.73741007', 'remaining_volume': '15.73741007', 'reserved_fee': '3.501573740575', 'remaining_fee': '3.501573740575', 'paid_fee': '0', 'locked': '7006.649054890575', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749089156.2669954, 'symbol': 'KRW-PUNDIX', 'qty': 15.737410071942445, 'order_type': 'limit', 'entry_price': 445.1}
+2025-06-05 11:17:55,259 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14740.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 11:17:55,261 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 11:17:56,403 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-AUCTION', 'side': 'bid', 'qty': 0.47586675730795375, 'price': 14710.0, 'order_type': 'limit', 'filled': False, 'entry_price': 14740.0}
+2025-06-05 11:28:32,529 [F3] [F3] Entry signal received: {'symbol': 'KRW-LAYER', 'buy_signal': True, 'sell_signal': False, 'price': 1097.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 11:28:32,532 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 11:28:33,667 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-LAYER', 'side': 'bid', 'qty': 6.381039197812215, 'price': 1097.0, 'order_type': 'limit', 'filled': False, 'entry_price': 1097.0}
+2025-06-05 12:23:39,765 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 790.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:23:39,767 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:23:43,528 [F3] [F3] Entry signal received: {'symbol': 'KRW-TAIKO', 'buy_signal': True, 'sell_signal': False, 'price': 790.7, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:23:43,529 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:23:44,700 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-TAIKO', 'side': 'bid', 'qty': 8.877615726062142, 'price': 788.5, 'order_type': 'limit', 'filled': False, 'entry_price': 790.7}
+2025-06-05 12:24:31,378 [F3] [F3] Buy executed: {'uuid': 'cc87ecba-bf8d-4293-98fc-fb1dd1e64685', 'side': 'bid', 'ord_type': 'limit', 'price': 789.3, 'state': 'wait', 'market': 'KRW-TAIKO', 'created_at': '2025-06-05T12:24:11+09:00', 'volume': '8.87761572', 'remaining_volume': '8.87761572', 'reserved_fee': '3.50221940154', 'remaining_fee': '3.50221940154', 'paid_fee': '0', 'locked': '7007.94102248154', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749093851.2650692, 'symbol': 'KRW-TAIKO', 'qty': 8.877615726062142, 'order_type': 'limit', 'entry_price': 790.7}
+2025-06-05 12:43:26,247 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15090.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:43:26,249 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:43:27,294 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15090.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:43:27,297 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:43:27,299 [F3] [F3] Buy skipped: order already pending for KRW-TRUMP
+2025-06-05 12:43:46,642 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15090.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:43:46,645 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:43:46,646 [F3] [F3] Buy skipped: order already pending for KRW-TRUMP
+2025-06-05 12:44:05,887 [F3] [F3] Entry signal received: {'symbol': 'KRW-TRUMP', 'buy_signal': True, 'sell_signal': False, 'price': 15090.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:44:05,889 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:44:05,890 [F3] [F3] Buy skipped: order already pending for KRW-TRUMP
+2025-06-05 12:44:17,907 [F3] [F3] Buy executed: {'uuid': '10f757eb-1fc0-424b-9d38-6b1d07bd6149', 'side': 'bid', 'ord_type': 'limit', 'price': 15100.0, 'state': 'wait', 'market': 'KRW-TRUMP', 'created_at': '2025-06-05T12:43:57+09:00', 'volume': '0.46388336', 'remaining_volume': '0.46388336', 'reserved_fee': '3.502319368', 'remaining_fee': '3.502319368', 'paid_fee': '0', 'locked': '7008.141055368', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749095037.802198, 'symbol': 'KRW-TRUMP', 'qty': 0.4638833664678595, 'order_type': 'limit', 'entry_price': 15090.0}
+2025-06-05 12:47:58,029 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14730.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:47:58,033 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:48:44,255 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14730.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:48:44,256 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:48:44,259 [F3] [F3] Buy skipped: order already pending for KRW-AUCTION
+2025-06-05 12:48:49,878 [F3] [F3] Buy canceled for KRW-AUCTION
+2025-06-05 12:49:02,715 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14730.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:49:02,717 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:49:02,719 [F3] [F3] Buy skipped: order already pending for KRW-AUCTION
+2025-06-05 12:49:08,212 [F3] [F3] Entry signal received: {'symbol': 'KRW-AUCTION', 'buy_signal': True, 'sell_signal': False, 'price': 14730.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:49:08,213 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:49:59,950 [F3] [F3] Buy executed: {'uuid': '4a70c254-d0d5-401d-beeb-99fa7aba37f1', 'side': 'bid', 'ord_type': 'limit', 'price': 14730.0, 'state': 'wait', 'market': 'KRW-AUCTION', 'created_at': '2025-06-05T12:49:39+09:00', 'volume': '0.47586675', 'remaining_volume': '0.47586675', 'reserved_fee': '3.50475861375', 'remaining_fee': '3.50475861375', 'paid_fee': '0', 'locked': '7013.02198611375', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749095379.840439, 'symbol': 'KRW-AUCTION', 'qty': 0.47586675730795375, 'order_type': 'limit', 'entry_price': 14730.0}
+2025-06-05 12:52:48,474 [F3] [F3] Entry signal received: {'symbol': 'KRW-NEAR', 'buy_signal': True, 'sell_signal': False, 'price': 3390.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 12:52:48,475 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 12:52:49,687 [F3] [F3] Pending buy recorded: {'symbol': 'KRW-NEAR', 'side': 'bid', 'qty': 2.0648967551622417, 'price': 3390.0, 'order_type': 'limit', 'filled': False, 'entry_price': 3390.0}
+2025-06-05 13:21:31,723 [F3] [F3] Entry signal received: {'symbol': 'KRW-EOS', 'buy_signal': True, 'sell_signal': False, 'price': 905.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 13:21:31,726 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 13:22:03,081 [F3] [F3] Buy executed: {'uuid': 'e35c6399-2b5b-498c-a942-02fb187023bf', 'side': 'bid', 'ord_type': 'limit', 'price': 898.0, 'state': 'wait', 'market': 'KRW-EOS', 'created_at': '2025-06-05T13:21:33+09:00', 'volume': '7.79510022', 'remaining_volume': '7.79510022', 'reserved_fee': '3.49999999878', 'remaining_fee': '3.49999999878', 'paid_fee': '0', 'locked': '7003.49999755878', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749097292.9641433, 'symbol': 'KRW-EOS', 'qty': 7.795100222717149, 'order_type': 'limit', 'entry_price': 905.0}
+2025-06-05 13:30:00,647 [F3] [F3] Entry signal received: {'symbol': 'KRW-WAVES', 'buy_signal': True, 'sell_signal': False, 'price': 1504.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 13:30:00,649 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 13:30:31,894 [F3] [F3] Buy executed: {'uuid': 'de21889d-bb3c-475a-9630-74c69dddf834', 'side': 'bid', 'ord_type': 'limit', 'price': 1503.0, 'state': 'wait', 'market': 'KRW-WAVES', 'created_at': '2025-06-05T13:30:01+09:00', 'volume': '4.65735196', 'remaining_volume': '4.65735196', 'reserved_fee': '3.5046573499', 'remaining_fee': '3.5046573499', 'paid_fee': '0', 'locked': '7012.8193571499', 'executed_volume': '0', 'trades_count': 0, 'filled': True, 'timestamp': 1749097801.7956614, 'symbol': 'KRW-WAVES', 'qty': 4.657351962741184, 'order_type': 'limit', 'entry_price': 1504.0}
+2025-06-05 14:24:00,840 [F3] [F3] OrderExecutor initialized.
+2025-06-05 14:24:04,507 [F3] [F3] OrderExecutor initialized.
+2025-06-05 14:26:39,447 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1045.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 14:26:39,449 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 14:26:39,449 [F3] [F3] Buy skipped: startup delay 139s remaining
+2025-06-05 14:26:42,795 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1047.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 14:26:42,797 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 14:26:42,798 [F3] [F3] Buy skipped: startup delay 139s remaining
+2025-06-05 14:26:58,879 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1045.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 14:26:58,881 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 14:26:58,882 [F3] [F3] Buy skipped: startup delay 119s remaining
+2025-06-05 14:27:02,174 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1045.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 14:27:02,176 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 14:27:02,177 [F3] [F3] Buy skipped: startup delay 120s remaining
+2025-06-05 14:27:21,422 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1047.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
+2025-06-05 14:27:21,424 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
+2025-06-05 14:27:21,425 [F3] [F3] Buy skipped: startup delay 100s remaining

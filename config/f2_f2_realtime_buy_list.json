@@ -1,20 +1,20 @@
 [
   {
-    "symbol": "KRW-ARB",
-    "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 1,
-    "pending": 0
-  },
-  {
     "symbol": "KRW-APT",
     "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
-    "buy_count": 1,
+    "buy_count": 0,
+    "pending": 0
+  },
+  {
+    "symbol": "KRW-LAYER",
+    "ml_signal": 1,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0,
     "pending": 0
   },
   {
@@ -27,89 +27,71 @@
     "pending": 0
   },
   {
-    "symbol": "KRW-LAYER",
+    "symbol": "KRW-CTC",
     "ml_signal": 0,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0,
     "pending": 0
   },
   {
-    "symbol": "KRW-ADA",
+    "symbol": "KRW-PUNDIX",
+    "ml_signal": 0,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0,
+    "pending": 0
+  },
+  {
+    "symbol": "KRW-TRUMP",
     "ml_signal": 1,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0,
     "pending": 0
   },
   {
-    "symbol": "KRW-AQT",
-    "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 1,
-    "buy_signal": 0,
-    "buy_count": 0,
-    "pending": 0
-  },
-  {
-    "symbol": "KRW-NEAR",
-    "ml_signal": 0,
+    "symbol": "KRW-ARB",
+    "ml_signal": 1,
     "rsi_sel": 0,
     "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 1,
-    "pending": 0
-  },
-  {
-    "symbol": "KRW-NEO",
-    "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 1,
-    "pending": 0
-  },
-  {
-    "symbol": "KRW-LINK",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 0,
-    "buy_signal": 0,
-    "buy_count": 1,
-    "pending": 0
-  },
-  {
-    "symbol": "KRW-ARK",
-    "ml_signal": 0,
-    "rsi_sel": 0,
-    "trend_sel": 1,
     "buy_signal": 0,
     "buy_count": 0,
     "pending": 0
   },
   {
     "symbol": "KRW-CBK",
-    "ml_signal": 1,
+    "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 1,
     "buy_signal": 0,
-    "buy_count": 1,
+    "buy_count": 0,
     "pending": 0
   },
   {
-    "symbol": "KRW-ONDO",
+    "symbol": "KRW-STX",
     "ml_signal": 1,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0,
     "pending": 0
   },
   {
-    "symbol": "KRW-WAVES",
-    "ml_signal": 0,
+    "symbol": "KRW-LINK",
+    "ml_signal": 1,
+    "rsi_sel": 0,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 1,
+    "pending": 0
+  },
+  {
+    "symbol": "KRW-ADA",
+    "ml_signal": 1,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
@@ -126,8 +108,17 @@
     "pending": 0
   },
   {
-    "symbol": "KRW-TRUMP",
-    "ml_signal": 1,
+    "symbol": "KRW-ARK",
+    "ml_signal": 0,
+    "rsi_sel": 1,
+    "trend_sel": 0,
+    "buy_signal": 0,
+    "buy_count": 0,
+    "pending": 0
+  },
+  {
+    "symbol": "KRW-AUCTION",
+    "ml_signal": 0,
     "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
@@ -135,21 +126,21 @@
     "pending": 0
   },
   {
-    "symbol": "KRW-CTC",
+    "symbol": "KRW-NEAR",
     "ml_signal": 0,
-    "rsi_sel": 1,
-    "trend_sel": 1,
+    "rsi_sel": 0,
+    "trend_sel": 0,
     "buy_signal": 0,
     "buy_count": 0,
     "pending": 0
   },
   {
-    "symbol": "KRW-CARV",
+    "symbol": "KRW-BERA",
     "ml_signal": 1,
-    "rsi_sel": 1,
+    "rsi_sel": 0,
     "trend_sel": 0,
     "buy_signal": 0,
-    "buy_count": 0,
+    "buy_count": 1,
     "pending": 0
   }
 ]

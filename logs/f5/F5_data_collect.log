@@ -20,3 +20,213 @@
 2025-06-04 22:17:26,602 [F5] [INFO] [F3] Loaded credentials from env.json
 2025-06-05 00:23:01,524 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
 2025-06-05 00:23:01,534 [F5] [INFO] [F3] Loaded credentials from env.json
+2025-06-05 08:15:44,583 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-05 08:15:44,598 [F5] [INFO] [F3] Loaded credentials from env.json
+2025-06-05 08:15:49,444 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-05 08:15:49,454 [F5] [INFO] [F3] Loaded credentials from env.json
+2025-06-05 14:06:19,893 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-05 14:07:09,501 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:07:10,560 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:07:11,641 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:08:05,374 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:08:05,970 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:08:06,572 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:08:07,516 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:08:07,820 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:08:08,437 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-05 14:08:09,368 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:08:10,450 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:08:11,518 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:08:12,832 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:08:17,163 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:08:20,477 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-05 14:09:05,404 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:09:05,732 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:09:06,048 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:09:06,355 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-05 14:09:06,653 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:09:07,248 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-05 14:09:09,354 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:09:10,420 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:09:11,494 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:09:13,065 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-05 14:09:13,369 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-05 14:09:14,605 [F5] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 1 rows
+2025-06-05 14:10:05,396 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:10:05,683 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:10:05,982 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:10:06,577 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:10:07,178 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-05 14:10:07,775 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:10:08,075 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-05 14:10:08,692 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-05 14:10:09,299 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:10:10,375 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:10:11,446 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:10:12,714 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:10:13,361 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-05 14:10:14,333 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-05 14:10:15,567 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-05 14:10:18,658 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-05 14:10:19,568 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-05 14:11:05,683 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:11:06,011 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:11:07,942 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:11:09,439 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:11:10,544 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:11:11,613 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:11:15,661 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-05 14:11:17,147 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:11:20,524 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-05 14:12:05,994 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:12:06,307 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-05 14:12:07,552 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:12:08,507 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-05 14:12:09,460 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:12:10,535 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:12:11,636 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:12:12,935 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:12:15,455 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-05 14:12:16,959 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:12:17,271 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:12:17,575 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-05 14:12:18,518 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-05 14:12:18,833 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-05 14:13:05,725 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:13:06,019 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:13:06,303 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-05 14:13:06,892 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-05 14:13:07,506 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:13:07,795 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:13:08,392 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-05 14:13:09,328 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:13:10,398 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:13:11,472 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:13:12,788 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:13:13,455 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-05 14:13:15,631 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-05 14:13:17,459 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-05 14:13:18,678 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-05 14:14:05,388 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:14:05,681 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:14:05,969 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:14:07,202 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-05 14:14:07,519 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:14:07,813 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:14:08,729 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-05 14:14:09,316 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:14:10,387 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:14:11,470 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:14:13,087 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-05 14:14:14,323 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-05 14:14:16,212 [F5] [INFO] Drop duplicates KRW-OM_rawdata.parquet - 1 rows
+2025-06-05 14:14:18,279 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-05 14:15:05,397 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:15:05,965 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:15:06,549 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:15:08,083 [F5] [INFO] Drop duplicates KRW-COW_rawdata.parquet - 1 rows
+2025-06-05 14:15:09,292 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:15:10,369 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:15:11,424 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:15:12,700 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:15:12,996 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-05 14:15:15,125 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-05 14:15:20,363 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-05 14:16:05,399 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:16:06,017 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:16:06,674 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:16:07,888 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:16:08,512 [F5] [INFO] Drop duplicates KRW-CTC_rawdata.parquet - 1 rows
+2025-06-05 14:16:09,456 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:16:10,543 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:16:11,622 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:16:14,460 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-05 14:16:15,371 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-05 14:16:17,278 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:17:05,388 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:17:05,713 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:17:06,030 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:17:06,614 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:17:07,592 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:17:07,892 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:17:09,417 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:17:10,498 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:17:11,570 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:17:15,232 [F5] [INFO] Drop duplicates KRW-NEAR_rawdata.parquet - 1 rows
+2025-06-05 14:17:16,748 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:18:05,723 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:18:06,042 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:18:07,880 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:18:08,764 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-05 14:18:09,334 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:18:10,411 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:18:11,484 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:18:13,114 [F5] [INFO] Drop duplicates KRW-INJ_rawdata.parquet - 1 rows
+2025-06-05 14:18:15,524 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-05 14:18:18,226 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-05 14:18:18,518 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-05 14:19:05,409 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:19:06,018 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:19:06,931 [F5] [INFO] Drop duplicates KRW-AUCTION_rawdata.parquet - 1 rows
+2025-06-05 14:19:08,756 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-05 14:19:09,331 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:19:10,391 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:19:11,476 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:19:16,840 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:19:18,353 [F5] [INFO] Drop duplicates KRW-TAIKO_rawdata.parquet - 1 rows
+2025-06-05 14:20:05,408 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:20:05,718 [F5] [INFO] Drop duplicates KRW-APT_rawdata.parquet - 1 rows
+2025-06-05 14:20:06,042 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:20:06,651 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:20:07,540 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:20:07,847 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:20:08,751 [F5] [INFO] Drop duplicates KRW-DOT_rawdata.parquet - 1 rows
+2025-06-05 14:20:09,358 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:20:10,440 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:20:11,512 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:20:14,607 [F5] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 1 rows
+2025-06-05 14:20:16,815 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:20:17,403 [F5] [INFO] Drop duplicates KRW-SAFE_rawdata.parquet - 1 rows
+2025-06-05 14:20:19,575 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-05 14:20:19,886 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-05 14:21:06,015 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:21:06,322 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-05 14:21:06,628 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:21:07,244 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-05 14:21:07,556 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:21:09,432 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:21:10,507 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:21:11,563 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:21:17,094 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:21:19,896 [F5] [INFO] Drop duplicates KRW-VANA_rawdata.parquet - 1 rows
+2025-06-05 14:22:05,417 [F5] [INFO] Drop duplicates KRW-AKT_rawdata.parquet - 1 rows
+2025-06-05 14:22:06,373 [F5] [INFO] Drop duplicates KRW-ARB_rawdata.parquet - 1 rows
+2025-06-05 14:22:06,697 [F5] [INFO] Drop duplicates KRW-ARK_rawdata.parquet - 1 rows
+2025-06-05 14:22:07,657 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:22:09,500 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:22:10,589 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:22:11,642 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:22:12,925 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:22:14,151 [F5] [INFO] Drop duplicates KRW-LAYER_rawdata.parquet - 1 rows
+2025-06-05 14:22:14,784 [F5] [INFO] Drop duplicates KRW-MASK_rawdata.parquet - 1 rows
+2025-06-05 14:22:16,898 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:22:17,210 [F5] [INFO] Drop duplicates KRW-PUNDIX_rawdata.parquet - 1 rows
+2025-06-05 14:22:18,731 [F5] [INFO] Drop duplicates KRW-TOKAMAK_rawdata.parquet - 1 rows
+2025-06-05 14:23:05,983 [F5] [INFO] Drop duplicates KRW-AQT_rawdata.parquet - 1 rows
+2025-06-05 14:23:07,196 [F5] [INFO] Drop duplicates KRW-BERA_rawdata.parquet - 1 rows
+2025-06-05 14:23:07,526 [F5] [INFO] Drop duplicates KRW-CARV_rawdata.parquet - 1 rows
+2025-06-05 14:23:07,837 [F5] [INFO] Drop duplicates KRW-CBK_rawdata.parquet - 1 rows
+2025-06-05 14:23:09,315 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:23:10,398 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:23:11,478 [F5] [WARNING] Request error https://api.upbit.com/v1/candles/minutes/1: 404 Client Error:  for url: https://api.upbit.com/v1/candles/minutes/1?market=KRW-EOS&count=1
+2025-06-05 14:23:12,746 [F5] [INFO] Drop duplicates KRW-GAS_rawdata.parquet - 1 rows
+2025-06-05 14:23:13,329 [F5] [INFO] Drop duplicates KRW-JUP_rawdata.parquet - 1 rows
+2025-06-05 14:23:14,242 [F5] [INFO] Drop duplicates KRW-LINK_rawdata.parquet - 1 rows
+2025-06-05 14:23:15,467 [F5] [INFO] Drop duplicates KRW-NEO_rawdata.parquet - 1 rows
+2025-06-05 14:23:16,727 [F5] [INFO] Drop duplicates KRW-ORCA_rawdata.parquet - 1 rows
+2025-06-05 14:23:19,535 [F5] [INFO] Drop duplicates KRW-UXLINK_rawdata.parquet - 1 rows
+2025-06-05 14:23:20,485 [F5] [INFO] Drop duplicates KRW-WAVES_rawdata.parquet - 1 rows
+2025-06-05 14:24:01,912 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-05 14:24:01,919 [F5] [INFO] [F3] Loaded credentials from env.json
+2025-06-05 14:24:05,635 [F5] [INFO] Start data collection for ['KRW-ADA', 'KRW-AKT', 'KRW-APT', 'KRW-AQT', 'KRW-ARB', 'KRW-ARK', 'KRW-AUCTION', 'KRW-BERA', 'KRW-CARV', 'KRW-CBK', 'KRW-COW', 'KRW-CTC', 'KRW-DOT', 'KRW-DRIFT', 'KRW-EOS', 'KRW-GAS', 'KRW-INJ', 'KRW-JUP', 'KRW-KAITO', 'KRW-LAYER', 'KRW-LINK', 'KRW-MASK', 'KRW-ME', 'KRW-NEAR', 'KRW-NEO', 'KRW-NXPC', 'KRW-OM', 'KRW-ONDO', 'KRW-ORCA', 'KRW-PUNDIX', 'KRW-SAFE', 'KRW-STX', 'KRW-SUI', 'KRW-TAIKO', 'KRW-TOKAMAK', 'KRW-TRUMP', 'KRW-USDT', 'KRW-UXLINK', 'KRW-VANA', 'KRW-VIRTUAL', 'KRW-WAVES', 'KRW-WCT', 'KRW-XRP']
+2025-06-05 14:24:05,641 [F5] [INFO] [F3] Loaded credentials from env.json
