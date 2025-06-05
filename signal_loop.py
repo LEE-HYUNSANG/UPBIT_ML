@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import time
 from typing import Optional
-from common_utils import ensure_utf8_stdout, setup_logging
+from common_utils import ensure_utf8_stdout
 
 from f3_order.order_executor import entry as f3_entry, _default_executor
 RiskManager = None  # F4 risk management module removed
@@ -208,13 +208,34 @@ def main_loop(interval: int = 1, stop_event=None) -> None:
 
 if __name__ == "__main__":
     ensure_utf8_stdout()
-    setup_logging(
-        "F1-F2",
-        [
-            Path("logs/etc/F1-F2_loop.log"),
-            Path("logs/f1/F1_signal_engine.log"),
-            Path("logs/f2/F2_signal_engine.log"),
+    Path("logs/etc").mkdir(parents=True, exist_ok=True)
+    Path("logs/f1").mkdir(parents=True, exist_ok=True)
+    Path("logs/f2").mkdir(parents=True, exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [F1-F2] [%(levelname)s] %(message)s",
+        handlers=[
+            RotatingFileHandler(
+                Path("logs/etc/F1-F2_loop.log"),
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
+            RotatingFileHandler(
+                Path("logs/f1/F1_signal_engine.log"),
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
+            RotatingFileHandler(
+                Path("logs/f2/F2_signal_engine.log"),
+                encoding="utf-8",
+                maxBytes=100_000 * 1024,
+                backupCount=1000,
+            ),
+            logging.StreamHandler(),
         ],
+        force=True,
     )
     load_universe_from_file()
     logging.info(
