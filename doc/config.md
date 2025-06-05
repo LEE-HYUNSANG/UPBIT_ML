@@ -54,12 +54,23 @@ order executor's defaults and are mirrored to the risk manager. When
 limit order fails and no second attempt is configured.
 
 ## f6_sell_settings.json
-Take-profit settings for open positions. It currently stores `TP_PCT` which
-specifies the percentage above the entry price to place a limit sell order one
-second after a buy fills. Prices are rounded up to the nearest tick size and
-adjusted so the final price is at least two ticks above the entry price.
-`OrderExecutor` loads this file on startup and merges the values into its
-configuration.
+Controls how open positions are closed. The keys are:
+
+* `TP_PCT` – percentage above entry to place the initial take-profit order.
+* `MINIMUM_TICKS` – minimum tick gap when calculating the TP price. If the
+  rounded TP is within this many ticks of the entry price, it is moved up to
+  maintain the gap.
+* `TS_FLAG` – `'ON'` enables the trailing-stop logic while `'OFF'` disables it.
+* `HOLD_SECS` – trailing stop becomes active once a position has been held at
+  least this many seconds.
+* `TRAIL_START_PCT` – gain percentage that must be reached before trailing stop
+  monitoring begins.
+* `TRAIL_STEP_PCT` – allowed drop from the peak price once trailing stop is
+  active.
+
+`OrderExecutor` loads these settings on startup and stores them in its
+configuration. The trailing-stop flag is converted to `TRAILING_STOP_ENABLED`
+for `PositionManager`.
 ## f5_f5_strategy_params.json
 Default hyperparameters for each strategy used by the ML pipeline.
 
