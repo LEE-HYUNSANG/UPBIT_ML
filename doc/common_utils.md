@@ -11,5 +11,4 @@ F2--F4 packages.
 | `save_json(path, data)` | Write *data* as JSON to *path*, creating directories as needed. |
 | `now_kst()` | Return the current KST timestamp as an ISO string. |
 | `now()` | Return the current epoch time as a float. |
-| `setup_logging(tag, log_files, level=logging.INFO, force=True)` | Configure rotating file and console log handlers. |
 
