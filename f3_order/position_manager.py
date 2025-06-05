@@ -14,6 +14,7 @@ from .utils import log_with_tag, apply_tick_size, tick_size
 from common_utils import now
 from .upbit_api import UpbitClient
 from .utils import pretty_symbol
+from f6_setting.alarm_control import get_template
 from common_utils import load_json, save_json, now_kst
 
 logger = logging.getLogger("F3_position_manager")
@@ -461,10 +462,13 @@ class PositionManager:
                         amt = price_exec * prev_qty
                         entry_total = pos.get("entry_price", 0) * prev_qty + fee
                         profit = amt - entry_total
-                        msg = (
-                            f"매도 완료] {pretty_symbol(sym)} "
-                            f"매도 금액: {int(amt):,}원 @{price_exec} "
-                            f"이익:{profit:+.0f}원"
+                        template = get_template("sell_complete")
+                        msg = template.format(
+                            symbol=pretty_symbol(sym),
+                            reason="익절 매도",
+                            amount=int(amt),
+                            price=price_exec,
+                            profit=f"{profit:+.0f}원",
                         )
                         self.exception_handler.send_alert(msg, "info", "order_execution")
             if sym in price_map:
@@ -618,10 +622,13 @@ class PositionManager:
                             entry = pos.get("entry_price", 0)
                             amt = price_exec * qty
                             profit = amt - (entry * qty + fee)
-                            msg = (
-                                f"매도 완료] {pretty_symbol(symbol)} "
-                                f"매도 금액: {int(amt):,}원 @{price_exec} "
-                                f"이익:{profit:+.0f}원"
+                            template = get_template("sell_complete")
+                            msg = template.format(
+                                symbol=pretty_symbol(symbol),
+                                reason="익절 매도",
+                                amount=int(amt),
+                                price=price_exec,
+                                profit=f"{profit:+.0f}원",
                             )
                             self.exception_handler.send_alert(
                                 msg,
@@ -636,7 +643,11 @@ class PositionManager:
         if qty is None:
             qty = position.get("qty", 0)
         if self.exception_handler:
-            msg = f"[매도 시도] {position['symbol']} @{position.get('current_price')}"
+            template = get_template("sell_attempt")
+            msg = template.format(
+                symbol=position["symbol"],
+                price=position.get("current_price"),
+            )
             self.exception_handler.send_alert(msg, "info", "order_execution")
         order = self.place_order(
             position["symbol"], "ask", qty, "market", position.get("current_price")
@@ -681,10 +692,14 @@ class PositionManager:
                 entry_fee = float(position.get("entry_fee", 0))
                 entry_total = position.get("entry_price", 0) * qty + entry_fee
                 profit = amt - entry_total
-                msg = (
-                    f"매도 완료] {pretty_symbol(position['symbol'])} "
-                    f"매도 금액: {int(amt):,}원 @{price_exec} "
-                    f"이익:{profit:+.0f}원"
+                reason = "익절 매도" if exit_type in ("take_profit", "trailing_stop") else "손절 매도"
+                template = get_template("sell_complete")
+                msg = template.format(
+                    symbol=pretty_symbol(position["symbol"]),
+                    reason=reason,
+                    amount=int(amt),
+                    price=price_exec,
+                    profit=f"{profit:+.0f}원",
                 )
                 self.exception_handler.send_alert(
                     msg,

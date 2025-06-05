@@ -16,6 +16,7 @@ from .utils import load_config, log_with_tag, pretty_symbol
 import time
 from f6_setting.buy_config import load_buy_config
 from f6_setting.sell_config import load_sell_config
+from f6_setting.alarm_control import get_template
 import json
 from contextlib import contextmanager
 
@@ -355,8 +356,9 @@ class OrderExecutor:
                 if callable(has_pos) and has_pos(symbol):
                     log_with_tag(logger, f"Buy skipped: already holding {symbol}")
                     return False
+                template = get_template("buy_signal")
                 self.exception_handler.send_alert(
-                    f"매수 시그널] {pretty_symbol(symbol)} @{price}",
+                    template.format(symbol=pretty_symbol(symbol), price=price),
                     "info",
                     "buy_monitoring",
                 )
@@ -385,9 +387,11 @@ class OrderExecutor:
                     qty_exec = order_result.get("qty") or 0
                     fee = float(order_result.get("paid_fee", 0))
                     total = price_exec * qty_exec + fee
-                    msg = (
-                        f"매수 주문 성공] {pretty_symbol(order_result['symbol'])} "
-                        f"매수 금액: {int(total):,}원 @{price_exec}"
+                    template = get_template("buy_success")
+                    msg = template.format(
+                        symbol=pretty_symbol(order_result["symbol"]),
+                        amount=int(total),
+                        price=price_exec,
                     )
                     self.exception_handler.send_alert(msg, "info", "order_execution")
                 else:

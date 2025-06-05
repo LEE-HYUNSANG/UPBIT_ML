@@ -4,4 +4,10 @@
   "order_execution": true,
   "system_alert": true,
   "ml_pipeline": true
+  ,"templates": {
+    "buy_signal": "[매수 시그널] {symbol} @{price}",
+    "buy_success": "[매수 주문 성공] {symbol} 매수 금액: {amount:,}원 @{price}",
+    "sell_attempt": "[매도 시도] {symbol} @{price}",
+    "sell_complete": "[매도 완료] {symbol} | {reason} 매도 금액: {amount:,}원 @{price} 이익:{profit}"
+  }
 }
