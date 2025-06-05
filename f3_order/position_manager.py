@@ -228,14 +228,7 @@ class PositionManager:
                 log_with_tag(logger, f"Failed to cancel TP order {uuid}: {exc}")
 
     def import_existing_positions(self, threshold: float = 5000.0) -> None:
-        """Import account balances as positions if above ``threshold``.
-
-        Parameters
-        ----------
-        threshold : float, optional
-            Minimum KRW evaluation amount required to track a coin as an
-            open position. Defaults to ``5000.0``.
-        """
+        """Scan account balances and register them as open positions."""
         try:
             accounts = self.client.get_accounts()
         except Exception as exc:  # pragma: no cover - best effort
@@ -585,14 +578,7 @@ class PositionManager:
             return resp
         except Exception as e:
             self.exception_handler.handle(e, context="place_order")
-            return {
-                "symbol": symbol,
-                "side": side,
-                "qty": qty,
-                "price": price,
-                "order_type": order_type,
-                "filled": False,
-            }
+            return {"symbol": symbol, "side": side, "qty": qty, "price": price, "order_type": order_type, "filled": False}
 
     def update_position_from_fill(self, order_id, fill_info):
         """Update a position based on filled order information."""
@@ -749,9 +735,7 @@ class PositionManager:
         conn = sqlite3.connect(self.db_path)
         cur = conn.cursor()
         cur.execute(
-            "CREATE TABLE IF NOT EXISTS orders ("
-            "timestamp TEXT, uuid TEXT, symbol TEXT, side TEXT, qty REAL, "
-            "price REAL, order_type TEXT, state TEXT, exit_type TEXT, slippage REAL)"
+            "CREATE TABLE IF NOT EXISTS orders (timestamp TEXT, uuid TEXT, symbol TEXT, side TEXT, qty REAL, price REAL, order_type TEXT, state TEXT, exit_type TEXT, slippage REAL)"
         )
         cur.execute(
             "INSERT INTO orders VALUES (?,?,?,?,?,?,?,?,?,?)",

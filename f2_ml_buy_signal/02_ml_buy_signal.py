@@ -126,21 +126,7 @@ def cleanup_data_dir() -> None:
 
 
 def fetch_ohlcv(symbol: str, count: int = 60) -> DataFrame:
-    """Retrieve the latest minute data for ``symbol``.
-
-    Parameters
-    ----------
-    symbol : str
-        Market code to request from Upbit.
-    count : int, optional
-        Number of one-minute candles to fetch. Defaults to ``60``.
-
-    Returns
-    -------
-    pandas.DataFrame
-        Data frame containing the candles. An empty frame is returned on
-        failure.
-    """
+    """Fetch recent OHLCV data with retries."""
     logger.info("[FETCH] %s count=%d", symbol, count)
     try:
         import pyupbit  # type: ignore
@@ -199,7 +185,6 @@ def _label(df: DataFrame, horizon: int = 5) -> DataFrame:
 
 def _split_df(df: DataFrame, train_ratio: float = 0.7,
               valid_ratio: float = 0.2) -> Tuple[DataFrame, DataFrame, DataFrame]:
-    """Split ``df`` into train, validation and test sets."""
     n = len(df)
     n_train = int(n * train_ratio)
     n_valid = int(n * valid_ratio)
@@ -210,7 +195,6 @@ def _split_df(df: DataFrame, train_ratio: float = 0.7,
 
 
 def _train_predict(df: DataFrame, symbol: str) -> bool:
-    """Train a logistic regression model and predict the next bar."""
     features = ["return", "rsi", "ema_diff", "vol_ratio"]
     train_df, valid_df, test_df = _split_df(df)
 
@@ -247,13 +231,7 @@ def _train_predict(df: DataFrame, symbol: str) -> bool:
 
 
 def run_pipeline_for_symbol(symbol: str) -> None:
-    """Execute the full F5 ML pipeline once for a given symbol.
-
-    Parameters
-    ----------
-    symbol : str
-        Market code used throughout the pipeline stages.
-    """
+    """Execute the F5 ML pipeline for ``symbol`` once."""
     _ensure_pipeline_modules()
     try:
         P01.collect_once([symbol])
@@ -305,18 +283,7 @@ def _load_model(symbol: str):
 
 
 def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
-    """Check a symbol for a machine learning buy signal.
-
-    Parameters
-    ----------
-    symbol : str
-        Market code to evaluate.
-
-    Returns
-    -------
-    tuple[bool, bool, bool]
-        Tuple ``(buy_signal, rsi_ok, trend_ok)``.
-    """
+    """Return ML buy signal and indicator flags for ``symbol``."""
     _ensure_pipeline_modules()
 
     model = _load_model(symbol)
@@ -357,7 +324,6 @@ def check_buy_signal(symbol: str) -> Tuple[bool, bool, bool]:
 
 
 def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
-    """Train and evaluate the model using the provided data frame."""
     if df.empty or len(df) < 30:
         logger.info("[CHECK_DF] insufficient rows")
         return False
@@ -373,7 +339,6 @@ def check_buy_signal_df(df: DataFrame, symbol: str = "df") -> bool:
 
 
 def run() -> List[str]:
-    """Scan the monitoring list and update the realtime buy list."""
     if DEPS_MISSING:
         logger.warning("[RUN] dependencies missing; skipping scan")
         return []
@@ -480,14 +445,7 @@ def run() -> List[str]:
 
 
 def run_if_monitoring_list_exists() -> List[str]:
-    """Wrapper that runs :func:`run` when a monitoring list is available.
-
-    Returns
-    -------
-    list[str]
-        Symbols selected for buying. An empty list is returned when the
-        monitoring file does not exist or dependencies are missing.
-    """
+    """Run :func:`run` only when monitoring list is present."""
     if DEPS_MISSING:
         logger.warning("[RUN_IF] dependencies missing; skipping")
         return []
