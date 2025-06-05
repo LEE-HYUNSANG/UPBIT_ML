@@ -1,76 +1,93 @@
-# 프로젝트 개요
+# Project Overview
 
-이 저장소는 업비트 거래소를 기반으로 네 단계로 구성된 트레이딩 시스템을 구현합니다.
+This repository implements a four stage trading system built around the Upbit exchange.
 
-- **F1 종목 선정기** – 거래량이나 가격 등 설정 가능한 필터를 기반으로 거래 가능한 티커 목록을 만듭니다.
-  `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json` 파일이 존재하면 그 안의
-  `symbol` 항목이 모니터링 대상이 되며, 파일 자체는 버전 관리되어 과거 선택 내역을 확인할 수 있습니다.
-  파일이 없으면 결과가 `config/current_universe.json`에 저장됩니다.
-- **F2 시그널 엔진** – 각 심볼의 OHLCV 데이터를 평가해 매수/매도 시그널을 생성합니다.
-  `signal_loop.py`가 데이터 수집을 조율하며 이 엔진을 실행합니다. `current_universe.json`의
-  심볼은 매수 후보로만 취급되고 포지션이 열리기 전까지 매도 조건은 무시됩니다. 매도 규칙은
-  `f1_f3_coin_positions.json`에 등재된 코인에 대해서만 평가됩니다. 필요한 경우 `f2_signal`
-  함수의 `strategy_codes` 매개변수로 일부 전략만 선택해 평가할 수 있습니다. 각 OHLCV 요청은
-  샘플 행을 로그에 남겨 업비트 데이터의 정상 여부를 확인할 수 있게 합니다.
-- **F3 주문 실행기** – 시그널을 받아 업비트 API를 통해 주문을 실행합니다. 포지션을 관리하고
-  슬리피지를 처리하며 SQLite 주문 로그를 유지합니다. 위험 관리자와 연동되면 위험 설정이 새로
-  로드될 때마다 `ENTRY_SIZE_INITIAL`과 같은 크기 파라미터를 반영합니다. `manage_positions()`
-  (내부적으로 `hold_loop`)는 시그널 루프의 매 사이클과 모니터링 모드에서 호출됩니다. 매수 주문을
-  보내기 전에 해당 종목을 이미 보유 중인지 확인하여 중복 진입을 방지합니다. 물타기나 피라미딩
-  여부는 위험 설정에서 제어합니다.
-- **F4 위험 관리자** – 손실 한도 등의 보호 장치를 담당하며, 위험 한계가 초과되면 거래를 일시
-  중지하거나 중단할 수 있습니다.
-- **F5ML 머신러닝 파이프라인** – 매매 의사결정에 사용될 모델을 학습하고 평가합니다. 스크립트는
-  `f5_ml_pipeline/`에 있습니다.
+- **F1 Universe Selector** – builds a list of tradable tickers based on configurable
+  filters such as volume and price. If `f5_ml_pipeline/ml_data/10_selected/selected_strategies.json`
+  exists the `symbol` entries from that file define the monitoring universe. The
+  file itself is versioned so you can review past selections.
+  Otherwise the results are stored in `config/current_universe.json`.
+- **F2 Signal Engine** – evaluates OHLCV data for each symbol and produces buy/sell
+  signals. The `signal_loop.py` script orchestrates data collection and executes this
+  engine. Symbols from `current_universe.json` are treated as buy candidates only –
+  their sell conditions are ignored until a position is opened. Sell rules are
+  evaluated exclusively for coins listed in `f1_f3_coin_positions.json`.
+  The `f2_signal` function accepts a `strategy_codes` parameter to evaluate only
+  a subset of strategies when needed.
+  Each OHLCV request logs a sample row so you can verify Upbit data integrity when troubleshooting.
+- **F3 Order Executor** – receives signals and places orders using the Upbit API.
+  It maintains open positions, handles slippage and keeps a SQLite order log. When
+  linked to the Risk Manager the executor mirrors updated sizing parameters like
+  `ENTRY_SIZE_INITIAL` whenever the risk configuration reloads. The executor's
+  `manage_positions()` routine (internally running `hold_loop`) is invoked on every
+  cycle of the signal loop and also when the application runs in monitoring mode.
+  Before sending a buy order the executor verifies that the symbol is not already
+  held and skips the entry if it is. Averaging down or pyramiding remains
+  controlled by the risk configuration.
+- **F4 Risk Manager** – enforces drawdown limits and other protections. It can pause
+  or halt trading when risk thresholds are breached.
+- **F5ML 머신러닝 파이프라인** – 매매 의사결정에 사용되는 모델을 학습하고 평가합니다. 스크립트는 `f5_ml_pipeline/`에 있습니다.
 - **F9ML Pipeline Backup** – `f9_ml_pipeline_backup/`은 기존 `f5_ml_pipeline`의 전체 사본으로,
-  참고용으로만 남겨 둔 폴더입니다. 이 디렉터리의 파일은 수정하거나 실행하지 않습니다.
+  참고 용도로만 남겨둔 폴더입니다. 이 디렉터리의 파일은 수정하거나 실행하지 않습니다.
 
-모든 파이프라인 스크립트는 자신의 위치를 기준으로 절대 경로를 계산하므로 실행 위치와
-관계없이 `f5_ml_pipeline/ml_data/`에 데이터를 저장합니다. `app.py`에 포함된 가벼운 Flask
-애플리케이션이 모니터링과 제어를 위한 REST API 엔드포인트를 제공합니다. `templates/` 아래의
-템플릿은 이러한 API를 사용하는 간단한 대시보드를 구성합니다.
+모든 파이프라인 스크립트는 자신의 위치를 기준으로 절대 경로를 계산하므로 실행 디렉터리에 상관없이 `f5_ml_pipeline/ml_data/`에 데이터를 저장합니다.
+A lightweight Flask application in `app.py` exposes REST API endpoints for monitoring
+and control. The templates under `templates/` form a simple dashboard that consumes
+those APIs.
 
-REST 인터페이스에 대한 자세한 내용은 [`api_endpoints.md`](api_endpoints.md)를 참고하십시오.
-업비트 주문 요건에 대한 추가 설명은 [`order_limits.md`](order_limits.md)에 있습니다.
-자격 증명 로딩 관련 시작 메시지는 `logs/F3_utils.log`에 기록됩니다.
+For detailed information about the REST interface see [`api_endpoints.md`](api_endpoints.md).
+Additional notes on Upbit order requirements are available in [`order_limits.md`](order_limits.md).
+Startup messages about credential loading are written to `logs/F3_utils.log`.
 
-`.env.json`이 없거나 형식이 잘못된 경우에도 `logs/F3_utils.log`에 진단 메시지가 남습니다.
+Credential loading diagnostics are written to `logs/F3_utils.log` whenever `.env.json` is missing or malformed.
 
-## 매도 모니터링 바
+## Sell Monitoring Bar
 
-대시보드의 "매도 모니터링" 테이블은 각 포지션에 대한 가로 막대를 표시합니다.
-왼쪽 끝은 손절 비율을, 오른쪽 끝은 익절 목표를 나타내며 작은 세로 선이 진입가 대비
-현재가 위치를 보여 줍니다. 값은 최신 위험 설정에서 가져오므로 변경 사항이 자동으로
-적용됩니다.
+The dashboard's "매도 모니터링" table displays a horizontal bar for each open
+position. The left edge represents the stop-loss percentage while the right
+edge marks the take-profit target. A small vertical indicator shows the current
+price relative to the entry. Values are taken from the latest risk
+configuration so changes apply automatically.
 
-## 포지션 추적
+## Position Tracking
 
-새로운 거래가 열리면 현재 보유 목록이 `config/f1_f3_coin_positions.json`에 기록됩니다.
-각 항목은 심볼, 진입가, 수량, 전략 정보를 포함하며 애플리케이션을 재시작해도 어떤
-코인을 모니터링하고 있는지 확인할 수 있습니다. `PositionManager`는 시작 시 이 파일을
-다시 로드하여 열린 포지션을 계속 추적합니다. 계정에 없는 포지션은 이 단계에서 자동으로
-제거됩니다. 가져오기 임계값을 넘는 종목이 없어도 오래된 항목은 삭제되어 목록이 항상
-현재 계좌 상태를 반영합니다. 평균 매수가 0으로 보고되는 경우 최근 티커 가격을 사용해
-가치를 계산하여 입금된 자산도 포함됩니다. 티커 API를 사용할 수 없는 경우 주문서 가격을
-대체하여 입금이 인식되도록 합니다.
+Whenever a new trade is opened the current list of holdings is written to
+`config/f1_f3_coin_positions.json`. Each entry contains the symbol, entry price,
+quantity and strategy information. This file can be inspected to see which
+coins are being monitored even after restarting the application. The
+`PositionManager` reloads this file at startup so any open positions continue
+to be tracked across restarts. Positions missing from the account are
+automatically purged during this step. Stale entries are removed even if no
+holdings exceed the import threshold so the list always reflects the current
+account state.
+If a coin reports an average buy price of zero the latest ticker price is used
+to estimate its value so deposited assets are included. When the ticker API is
+unavailable the price from the orderbook is used as a fallback so deposits are
+still recognized.
 
-포지션 데이터는 이제 매초 갱신됩니다. 최신 수량, 가격, 손익 정보가 매 업데이트마다
-`f1_f3_coin_positions.json`에 저장되어 외부 도구에서도 항상 최신 값을 볼 수 있습니다.
+Position data is now refreshed every second. The latest quantity, price and
+PnL information are persisted back to `f1_f3_coin_positions.json` on each update so
+external tools always see up-to-date values.
 
-주문을 보냈지만 즉시 체결되지 않은 경우 상태가 `"pending"`으로 저장됩니다. 포지션이
-pending 상태일 때 동일한 종목의 추가 매수 시그널은 무시합니다. pending 항목은 매도
-모니터링 테이블에 표시되지 않습니다. 잔고가 0이 아닌 수량으로 업데이트되면 다음 갱신에서
-상태가 자동으로 `"open"`으로 전환됩니다.
+Buy orders that are submitted but not immediately filled are saved with the
+status `"pending"`. While a position is pending any further buy signals for the
+same symbol are ignored. Pending entries are not shown in the sell monitoring
+table. Once the balance updates to a non-zero quantity the status automatically
+switches to `"open"` on the next refresh.
 
-애플리케이션을 부팅할 때 계정에서 감지된 포지션은 `"imported"`라는 origin 값과 함께
-등록되어 자동 시그널로 열린 포지션과 구분할 수 있습니다.
+Positions detected in the exchange account when the application boots are
+registered with the origin value `"imported"` so they can be distinguished from
+positions opened by automated signals.
 
-가져온 포지션은 자리 표시 전략 코드가 무시되기 때문에 모든 매도 공식을 사용해
-모니터링됩니다. 각 포지션은 진입에 사용된 전략 코드를 저장합니다. 시그널 루프 중에는
-`current_universe.json`의 종목에 대해서만 매수 규칙이 평가됩니다. 포지션이 열리면
-`strategies_master_pruned.json`에 있는 해당 `sell_formula`를 매번 최신 1분 봉으로
-확인하여 결과가 `True`가 되면 주문 실행기를 통해 매도합니다.
+Imported positions are monitored using all sell formulas because the placeholder strategy code is ignored.
+Each position stores the strategy code used on entry. During the signal loop
+only buy rules are evaluated for symbols from `current_universe.json`. Once a
+position is opened its associated `sell_formula` from
+`strategies_master_pruned.json` is checked on every iteration using the latest
+1-minute candle. When that expression becomes `True` the coin is sold through
+the order executor.
 
-위험 설정에는 `HOLD_SECS` 값도 정의되어 있습니다. 포지션이 이 시간 이상 유지되면
-"손절/익절/TS 조건" 카드의 일반적인 손절, 익절, 트레일링 스톱 규칙이 전략별 공식보다
-우선 적용되어 장기간 보유를 방지합니다.
+The risk configuration also defines a `HOLD_SECS` value. When a position has
+been open for this many seconds the generic stop-loss, take-profit and
+trailing stop rules from the "손절/익절/TS 조건" card take precedence over the
+strategy-specific formula. This helps prevent very long holds.

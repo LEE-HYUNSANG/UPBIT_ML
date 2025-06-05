@@ -1,24 +1,34 @@
-# 웹 템플릿 개요
+# Web Template Overview
 
-이 프로젝트는 `http://localhost:3000/`에서 제공되는 간단한 웹 대시보드를 포함합니다.
-주요 페이지는 두 가지입니다:
+This project provides a simple web dashboard served at `http://localhost:3000/`.
+It contains two main pages:
 
-- **대시보드** – 계좌 잔고, 매도 모니터링, 매수 모니터링, 최근 알림을 표시합니다. 데이터는 5초마다 API 엔드포인트에서 갱신합니다.
-- **알림 설정** – 매수 금액 한도와 텔레그램 알림 옵션을 설정합니다.
+- **Dashboard** – shows account balance, sell monitoring, buy monitoring and
+  recent alerts. Data is fetched every 5 seconds from the API endpoints.
+- **알림 설정** – allows configuration of buy amount limits and Telegram
+  notification options.
 
-이 페이지의 "매수 설정" 카드에서는 `/api/buy_settings`를 불러와 `config/f6_buy_settings.json`을 업데이트합니다.
-여기서 시작 지연(`STARTUP_HOLD_SEC`), 매수 금액(`ENTRY_SIZE_INITIAL`), 최대 보유 코인 수(`MAX_SYMBOLS`),
-두 번의 지정가 주문 대기 시간(`LIMIT_WAIT_SEC_1`, `LIMIT_WAIT_SEC_2`)과 그 가격 모드(`1st_Bid_Price`, `2nd_Bid_Price`)를 조정할 수 있습니다.
-기본값은 각각 `300`, `7000`, `7`, `30`, `20`, `"BID1"`, `"BID1+"`입니다.
+The "매수 설정" card on this page loads values from `/api/buy_settings` and
+updates `config/f6_buy_settings.json`. It exposes the buy amount
+(`STARTUP_HOLD_SEC`), the buy amount (`ENTRY_SIZE_INITIAL`), the maximum
+number of coins to hold (`MAX_SYMBOLS`), two limit order wait times
+(`LIMIT_WAIT_SEC_1` and `LIMIT_WAIT_SEC_2`) and the corresponding price modes
+(`1st_Bid_Price` and `2nd_Bid_Price`). Default values are `300`, `7000`, `7`,
+`30`, `20`, `"BID1"` and `"BID1+"` respectively.
 
-두 페이지 모두 다크 테마 레이아웃을 사용하며, 헤더에는 자동 매매 토글과 서버 상태 표시가 있습니다.
+Both pages share a dark themed layout with an auto trade toggle and server
+status indicator in the header.
 
-대시보드 상단에는 원화 잔고와 오늘 손익이 간결하게 표시되며, 첫 번째 행의 오른쪽에는 열린 포지션을 빠르게 확인할 수 있도록 매도 모니터링 테이블이 배치됩니다.
-카드 제목은 작은 아이콘을 사용하여 한눈에 구분할 수 있도록 통일된 글꼴 스타일을 사용합니다.
+The dashboard shows a compact header with KRW balance and today's PnL on the
+left. A sell monitoring table now occupies the right side of the first row for
+quick access to open positions. Card titles use small icons for quick
+recognition and share a unified font style.
 
-## 매수 모니터링
+## Buy Monitoring
 
-"매수 모니터링" 테이블은 `config/f2_f2_realtime_buy_list.json`을 기반으로 합니다.
-이 파일이 갱신될 때마다 페이지에도 즉시 반영됩니다. 테이블은 대시보드의 두 번째 행 전체를 차지하며,
-F2가 제공하는 경우 예상 승률과 평균 ROI가 소수 첫째 자리까지 표시됩니다. 미세한 가로선으로 가독성을 높였으며,
-버전 열에는 마지막 F5 파이프라인 완료 시간이 `MMDD_HHMM` 형식으로 표시됩니다.
+The "매수 모니터링" table is populated from `config/f2_f2_realtime_buy_list.json`.
+Whenever this file is updated the page reflects the new entries. The table spans
+the entire second row of the dashboard. Expected win rate and average ROI are
+displayed with one decimal place when F2 provides them, and subtle horizontal
+lines improve readability. The version column shows the completion time of the
+last F5 pipeline run in `MMDD_HHMM` format.
