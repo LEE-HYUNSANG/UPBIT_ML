@@ -22,10 +22,10 @@
 
 ## 사용되는 함수
 
-- `load_config(path)` – 알림 설정 파일을 읽어 딕셔너리로 반환합니다.【F:f6_setting/alarm_control.py†L20-L25】
-- `save_config(cfg, path)` – 수정된 알림 설정을 파일에 저장합니다.【F:f6_setting/alarm_control.py†L28-L31】
-- `is_enabled(category)` – 카테고리별 알림 활성화 여부를 확인합니다.【F:f6_setting/alarm_control.py†L34-L36】
-- `get_template(key)` – 매수·매도 알림 메시지 형식을 가져옵니다.【F:f6_setting/alarm_control.py†L39-L41】
+- `load_config(path)` – 알림 설정 파일을 읽어 딕셔너리로 반환합니다.【F:f6_setting/alarm_control.py†L44-L50】
+- `save_config(cfg, path)` – 수정된 알림 설정을 파일에 저장합니다.【F:f6_setting/alarm_control.py†L53-L57】
+- `is_enabled(category)` – 카테고리별 알림 활성화 여부를 확인합니다.【F:f6_setting/alarm_control.py†L60-L63】
+- `get_template(key)` – 텔레그램 메시지 템플릿을 가져옵니다.【F:f6_setting/alarm_control.py†L66-L77】
 - `start_bot()` – 텔레그램 토큰이 설정되어 있으면 명령을 수신합니다.【F:f6_setting/remote_control.py†L30-L49】
 - `load_buy_config(path)` – 매수 설정 파일을 불러 기본값과 병합합니다.【F:f6_setting/buy_config.py†L11-L21】
 - `save_buy_config(cfg, path)` – 주어진 값만 업데이트하여 저장합니다.【F:f6_setting/buy_config.py†L24-L29】
@@ -47,3 +47,26 @@
 
 알림 설정을 통해 시스템 이벤트나 매매 체결 알림을 손쉽게 관리할 수 있으며,
 원격 제어 기능으로 서버를 종료하지 않고도 매매 루프를 중단시킬 수 있습니다.
+
+### 템플릿 커스터마이징
+
+`alarm_config.json` 파일의 `templates` 항목을 수정하면 텔레그램 메시지 형식을
+변경할 수 있습니다. 새 키를 추가해 `get_template()`에서 불러 쓸 수도 있습니다.
+
+예시:
+
+```json
+{
+  "templates": {
+    "buy_signal": "[매수] {symbol} 가격 {price}",
+    "my_alert": "[커스텀] {symbol} {extra}"
+  }
+}
+```
+
+추가한 키는 다음과 같이 사용할 수 있습니다.
+
+```python
+from f6_setting.alarm_control import get_template
+msg = get_template("my_alert").format(symbol="KRW-BTC", extra="TEST")
+```
