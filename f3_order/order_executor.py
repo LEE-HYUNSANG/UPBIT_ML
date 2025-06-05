@@ -119,7 +119,7 @@ def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
 class OrderExecutor:
     def __init__(
         self,
-        config_path="config/f3_f3_order_config.json",
+        config_path=None,
         buy_path="config/f6_buy_settings.json",
         sell_path="config/f6_sell_settings.json",
         risk_manager=None,
@@ -127,7 +127,11 @@ class OrderExecutor:
         self.config_path = config_path
         self.buy_path = buy_path
         self.sell_path = sell_path
-        self.config = load_config(str(_resolve_path(config_path)))
+        self.config: dict = {}
+        if config_path:
+            p = _resolve_path(config_path)
+            if p.exists():
+                self.config.update(load_config(str(p)))
         self.config.update(load_buy_config(str(_resolve_path(buy_path))))
         self.config.update(load_sell_config(str(_resolve_path(sell_path))))
         ts_flag = str(self.config.get("TS_FLAG", "OFF")).upper()
