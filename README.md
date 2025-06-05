@@ -9,7 +9,7 @@ UPBIT AutoTrader HS 프로젝트는 트레이딩 대상 코인을 선별하고 �
 - **F3 Order Executor**: 주문과 포지션을 관리합니다.
 - **F4 Risk Manager**: 손실 상황을 감시하고 일시 중지 또는 중단을 수행합니다.
 
-자세한 내용은 [doc](doc/) 폴더에서 확인하세요.
+자세한 내용은 [문서 폴더](doc/README.md)에서 확인하세요.
 
 ## 설치 방법
 소스 코드를 개발 모드로 설치하려면 다음 명령을 실행합니다.
@@ -91,8 +91,8 @@ python app.py
 
 자격 증명 로딩 문제는 `logs/F3_utils.log`에서 확인할 수 있으며
  설정이 완료되면 주문 실행 시마다 간단한 Telegram 알림을 받습니다.
- 자세한 내용은 [doc/telegram_notifications.md](doc/telegram_notifications.md)
-와 [doc/telegram_remote_control.md](doc/telegram_remote_control.md)를 참고하세요.
+자세한 내용은 [doc/30_utilities/telegram_notifications.md](doc/30_utilities/telegram_notifications.md)
+와 [doc/30_utilities/telegram_remote_control.md](doc/30_utilities/telegram_remote_control.md)를 참고하세요.
 
 ## 원격 제어
 거래 루프는 매 사이클마다 `server_status.txt`를 확인합니다. 기본 위치는 `remote_control.py`와 같은 폴더이며
@@ -170,4 +170,4 @@ setInterval(fetchEvents, 5000);
  이벤트 객체는 `timestamp`와 `message`를 지니며, `strategy` 필드는 포지션을 열 때 사용한 매수 전략 이름을 기록합니다.
 
 ## FAQ 및 문제 해결
-주문이 실행되지 않을 경우 [문제 해결 가이드](doc/troubleshooting.md)를 참고하세요.
+주문이 실행되지 않을 경우 [문제 해결 가이드](doc/30_utilities/troubleshooting.md)를 참고하세요.

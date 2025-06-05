@@ -32,7 +32,7 @@ python f5_ml_pipeline/<스크립트명>.py
 
 설정 값은 `f5_ml_pipeline/config/train_config.yaml`에서 관리합니다.
 모든 하이퍼파라미터는 이 파일을 수정해 변경하며, 코드에는 값을 직접 적지 않습니다.
-세부 동작은 `doc/` 폴더의 각 문서를 참고해 주세요.
+세부 동작은 `doc/10_f5_pipeline/` 폴더의 각 문서를 참고해 주세요.
 
 ### \uc77c\uac80 \uc2e4\ud589
 
