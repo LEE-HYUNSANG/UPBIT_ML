@@ -150,7 +150,18 @@ def select_universe(config: Dict | None = None) -> List[str]:
 
 
 def update_universe(config: Dict | None = None) -> None:
-    """Refresh the cached universe."""
+    """Refresh the cached universe and persist it.
+
+    Parameters
+    ----------
+    config : dict, optional
+        Optional filter configuration passed to :func:`select_universe`.
+
+    Side Effects
+    ------------
+    Updates the global ``_UNIVERSE`` list and writes the new universe to
+    :data:`UNIVERSE_FILE`.
+    """
     universe = select_universe(config)
     with _LOCK:
         _UNIVERSE.clear()
@@ -209,7 +220,20 @@ def get_universe() -> List[str]:
 
 
 def schedule_universe_updates(interval: int = 1800, config: Dict | None = None) -> None:
-    """Start a background thread refreshing the universe periodically."""
+    """Start a thread that periodically refreshes the universe.
+
+    Parameters
+    ----------
+    interval : int, optional
+        Refresh period in seconds. Defaults to ``1800`` (30 minutes).
+    config : dict, optional
+        Filter settings forwarded to :func:`update_universe`.
+
+    Side Effects
+    ------------
+    Spawns a daemon thread that keeps the cached universe in sync with
+    user settings or ML selections.
+    """
 
     def _loop() -> None:
         while True:

@@ -6,7 +6,18 @@ import pandas as pd
 
 
 def add_basic_indicators(data: pd.DataFrame) -> pd.DataFrame:
-    """Return copy of ``data`` with EMA5/EMA20/RSI14 columns added."""
+    """Compute standard indicators used for entry decisions.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        OHLCV data containing at least a ``close`` column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        New data frame with ``ema5``, ``ema20`` and ``rsi14`` columns added.
+    """
     df = data.copy()
     df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
     df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
@@ -21,7 +32,18 @@ def add_basic_indicators(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def buy_selector(data: pd.DataFrame) -> pd.Series:
-    """Boolean mask where RSI and uptrend conditions are satisfied."""
+    """Return a boolean mask for rows that meet the buy criteria.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Data frame that must contain ``ema5``, ``ema20`` and ``rsi14``.
+
+    Returns
+    -------
+    pandas.Series
+        ``True`` for rows passing the RSI and trend checks.
+    """
     required = {"ema5", "ema20", "rsi14"}
     if not required.issubset(data.columns):
         df = add_basic_indicators(data)

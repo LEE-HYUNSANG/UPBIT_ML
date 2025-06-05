@@ -70,7 +70,18 @@ def fetch_ohlcv(symbol: str, interval: str, count: int = 50):
 
 
 def process_symbol(symbol: str) -> Optional[dict]:
-    """종목 데이터를 받아 f2_signal 함수 실행"""
+    """Fetch OHLCV data for ``symbol`` and compute buy/sell signals.
+
+    Parameters
+    ----------
+    symbol : str
+        Market code to process.
+
+    Returns
+    -------
+    dict | None
+        Signal dictionary forwarded to F3 or ``None`` when data is missing.
+    """
     df_1m = fetch_ohlcv(symbol, "minute1")
     df_5m = fetch_ohlcv(symbol, "minute5")
     if df_1m is None or df_5m is None or df_1m.empty or df_5m.empty:
@@ -98,7 +109,10 @@ def process_symbol(symbol: str) -> Optional[dict]:
         and "close" in getattr(df_1m, "columns", [])
     ):
         result["price"] = float(df_1m["close"].iloc[-1])
-    logging.info(f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}")
+    logging.info(
+        f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c "
+        f"f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}"
+    )
     if result.get("buy_signal") or result.get("sell_signal"):
         logging.info(
             f"[{symbol}] BUY={result['buy_signal']} SELL={result['sell_signal']}"
@@ -122,11 +136,21 @@ def process_symbol(symbol: str) -> Optional[dict]:
 
 
 def main_loop(interval: int = 1, stop_event=None) -> None:
-    """유니버스를 주기적으로 조회해 신호를 계산하는 메인 루프"""
+    """Continuously compute signals for the current universe.
+
+    Parameters
+    ----------
+    interval : int, optional
+        Sleep time between iterations in seconds.
+    stop_event : threading.Event, optional
+        When set, the loop exits gracefully.
+    """
     cfg = load_config()
     load_universe_from_file()
     init_coin_positions(5000.0)
-    logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
+    logging.info(
+        "[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4."
+    )
     schedule_universe_updates(1800, cfg)
 
     executor = _default_executor
@@ -214,5 +238,7 @@ if __name__ == "__main__":
         force=True,
     )
     load_universe_from_file()
-    logging.info("[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4.")
+    logging.info(
+        "[F1-F2] signal_loop.py \uc774 current_universe.json \ud30c\uc77c\uc744 \ub85c\ub4dc \ud588\uc2b5\ub2c8\ub2e4."
+    )
     main_loop()
