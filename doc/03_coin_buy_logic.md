@@ -46,6 +46,7 @@
 앱 시작 시 `PositionManager.import_existing_positions()`가 업비트 계좌의 코인 잔고를 불러와
 `f1_f3_coin_positions.json` 파일을 초기화합니다. 잔여 수량(`balance`)과 미체결 수량(`locked`)
 을 합산해 평가 금액을 계산하며, 5천 원 미만인 코인은 기록하지 않습니다.
+선매도 주문이 없는 보유 코인은 익절가를 계산해 자동으로 TP 주문을 다시 등록합니다.
 
 ## 실행 방법
 

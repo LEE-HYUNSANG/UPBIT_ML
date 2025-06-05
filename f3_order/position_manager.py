@@ -235,6 +235,18 @@ class PositionManager:
             log_with_tag(logger, f"Failed to fetch accounts: {exc}")
             return
 
+        open_sell_syms: set[str] = set()
+        try:
+            orders = self.client.orders({"state": "wait"})
+            for o in orders:
+                if o.get("side") == "ask":
+                    sym = o.get("market")
+                    if sym:
+                        self.tp_orders[sym] = o.get("uuid")
+                        open_sell_syms.add(sym)
+        except Exception as exc:  # pragma: no cover - best effort
+            log_with_tag(logger, f"Failed to fetch open orders: {exc}")
+
         imported = []
         ignored = []
         seen_all = set()
@@ -311,6 +323,15 @@ class PositionManager:
                             "strategy": "imported",
                         }
                     )
+                pos = next(
+                    (p for p in self.positions if p.get("symbol") == symbol and p.get("status") == "open"),
+                    None,
+                )
+                if pos and symbol not in open_sell_syms and symbol not in self.tp_orders:
+                    try:
+                        self.place_tp_order(pos)
+                    except Exception as exc:  # pragma: no cover - best effort
+                        log_with_tag(logger, f"Failed to place TP for {symbol}: {exc}")
                 log_data.update({"event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"})
                 if price > 0:
                     imported.append(f"{symbol}({int(eval_amt):,}원)")
