@@ -102,4 +102,4 @@ python 01_data_collect.py
 python run_pipeline.py
 ```
 
-각 단계의 세부 옵션과 동작 원리는 `doc/10_f5_pipeline/` 폴더에 있는 문서를 참고하세요.
+각 단계의 세부 옵션과 동작 원리는 `doc/` 폴더에 있는 문서를 참고하세요.
