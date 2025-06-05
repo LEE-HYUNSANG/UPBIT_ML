@@ -41,22 +41,7 @@ logging.basicConfig(
 
 
 def _request_json(url: str, params: Dict | None = None, retries: int = 3) -> List[Dict]:
-    """Return JSON from ``url`` with simple retry logic.
-
-    Parameters
-    ----------
-    url : str
-        Endpoint to request.
-    params : dict, optional
-        Query parameters passed to the request.
-    retries : int, optional
-        Number of attempts before giving up.
-
-    Returns
-    -------
-    list[dict]
-        Parsed JSON data or an empty list when the request fails.
-    """
+    """Make a GET request and return JSON."""
     for _ in range(retries):
         try:
             if requests:
@@ -79,14 +64,14 @@ def _request_json(url: str, params: Dict | None = None, retries: int = 3) -> Lis
 
 
 def fetch_markets() -> List[str]:
-    """Return a list of all KRW market codes from Upbit."""
+    """Return all KRW markets from Upbit."""
     url = f"{BASE_URL}/v1/market/all"
     data = _request_json(url)
     return [d["market"] for d in data if str(d.get("market", "")).startswith("KRW-")]
 
 
 def fetch_candles(market: str) -> List[Dict]:
-    """Fetch the last six one-minute candles for ``market``."""
+    """Return last 6 one-minute candles for ``market``."""
     url = f"{BASE_URL}/v1/candles/minutes/1"
     params = {"market": market, "count": 6}
     return _request_json(url, params)
@@ -100,18 +85,7 @@ def fetch_ticker(market: str) -> Dict:
 
 
 def filter_coins(markets: List[str]) -> List[str]:
-    """Filter markets by price range and 24h trade value.
-
-    Parameters
-    ----------
-    markets : list[str]
-        Market codes to evaluate.
-
-    Returns
-    -------
-    list[str]
-        Markets that satisfy the configured conditions.
-    """
+    """Apply price and volume filters to ``markets``."""
     selected: List[str] = []
     for market in markets:
         candles = fetch_candles(market)
@@ -133,21 +107,13 @@ def filter_coins(markets: List[str]) -> List[str]:
 
 
 def select_coins() -> List[str]:
-    """Return coins that meet the filter conditions."""
+    """Fetch markets and return coins matching conditions."""
     markets = fetch_markets()
     return filter_coins(markets)
 
 
 def save_coin_list(coins: List[str], path: Path = COIN_LIST_FILE) -> None:
-    """Persist selected coins to disk.
-
-    Parameters
-    ----------
-    coins : list[str]
-        Symbols to save.
-    path : pathlib.Path, optional
-        Target file path. Defaults to :data:`COIN_LIST_FILE`.
-    """
+    """Write ``coins`` to ``path``."""
     try:
         with open(path, "w", encoding="utf-8") as f:
             json.dump(coins, f, ensure_ascii=False, indent=4)
@@ -157,7 +123,6 @@ def save_coin_list(coins: List[str], path: Path = COIN_LIST_FILE) -> None:
 
 
 def main() -> None:
-    """Entry point used when run as a script."""
     coins = select_coins()
     if not coins:
         logging.warning("No coins matched conditions")

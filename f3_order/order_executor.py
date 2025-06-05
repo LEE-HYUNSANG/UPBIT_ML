@@ -57,21 +57,12 @@ def _resolve_path(path: str | Path) -> Path:
 
 @contextmanager
 def _buy_list_lock(path: str | Path, retries: int = 50, delay: float = 0.1):
-    """Yield an exclusive file handle for the realtime buy list.
+    """Context manager providing an exclusive lock on *path*.
 
-    Parameters
-    ----------
-    path : str or Path
-        File to lock for exclusive access.
-    retries : int, optional
-        Number of attempts to open and lock the file.
-    delay : float, optional
-        Sleep time between retries in seconds.
-
-    Yields
-    ------
-    file
-        Open file handle positioned at the start of the file.
+    Returns the locked file handle so callers can read/write without reopening
+    the file. This avoids ``PermissionError`` on Windows when the same path is
+    opened while locked. ``retries`` and ``delay`` control the open/lock retry
+    behavior.
     """
     if os.environ.get("UPBIT_DISABLE_LOCKS"):
         fh = Path(path).open("a+")
@@ -307,18 +298,13 @@ class OrderExecutor:
             pass
 
     def entry(self, signal) -> bool:
-        """Process a buy signal and attempt to open a position.
-
-        Parameters
-        ----------
-        signal : dict
-            Output from the F2 module containing at least ``symbol`` and
-            ``buy_signal`` keys.
+        """F2 신호 딕셔너리 → smart_buy 주문 (filled시 포지션 오픈)
 
         Returns
         -------
         bool
-            ``True`` if an order was executed or recorded as pending.
+            ``True`` if a new position or pending order was recorded,
+            ``False`` if the signal was skipped or failed.
         """
         try:
             log_with_tag(logger, f"Entry signal received: {signal}")
@@ -393,10 +379,7 @@ class OrderExecutor:
                         log_with_tag(logger, f"Buy canceled for {symbol}")
                         self._set_pending_flag(symbol, 0)
                         return False
-                    elif (
-                        not callable(getattr(self.position_manager, "has_position", None))
-                        or not self.position_manager.has_position(symbol)
-                    ):
+                    elif not callable(getattr(self.position_manager, "has_position", None)) or not self.position_manager.has_position(symbol):
                         if signal.get("buy_triggers"):
                             order_result["strategy"] = signal["buy_triggers"][0]
                         self.position_manager.open_position(order_result, status="pending")
@@ -430,18 +413,7 @@ class OrderExecutor:
 _default_executor = OrderExecutor()
 
 def entry(signal) -> bool:
-    """Convenience wrapper that forwards ``signal`` to the default executor.
-
-    Parameters
-    ----------
-    signal : dict
-        F2 signal dictionary passed directly to :meth:`OrderExecutor.entry`.
-
-    Returns
-    -------
-    bool
-        Result from :meth:`OrderExecutor.entry`.
-    """
+    """기본 실행기를 사용하는 하위 호환 엔트리 포인트."""
     return _default_executor.entry(signal)
 
 
