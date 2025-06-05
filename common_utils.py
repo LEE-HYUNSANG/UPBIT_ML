@@ -2,8 +2,10 @@ import json
 from pathlib import Path
 import datetime
 import time
-from typing import Any
+from typing import Any, Iterable
 import sys
+import logging
+from logging.handlers import RotatingFileHandler
 
 
 def ensure_utf8_stdout() -> None:
@@ -14,6 +16,35 @@ def ensure_utf8_stdout() -> None:
             sys.stderr.reconfigure(encoding="utf-8")
         except Exception:
             pass
+
+
+def setup_logging(
+    tag: str,
+    log_files: Iterable[str | Path],
+    level: int = logging.INFO,
+    force: bool = True,
+) -> None:
+    """Configure rotating log files and console output.
+
+    ``tag`` is included in log messages. ``log_files`` is an iterable of file
+    paths to write rotating logs to.
+    """
+    handlers = []
+    for file in log_files:
+        p = Path(file)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        handlers.append(
+            RotatingFileHandler(
+                p, encoding="utf-8", maxBytes=100_000 * 1024, backupCount=1000
+            )
+        )
+    handlers.append(logging.StreamHandler())
+    logging.basicConfig(
+        level=level,
+        format=f"%(asctime)s [{tag}] [%(levelname)s] %(message)s",
+        handlers=handlers,
+        force=force,
+    )
 
 
 def load_json(path: str | Path, default: Any = None) -> Any:

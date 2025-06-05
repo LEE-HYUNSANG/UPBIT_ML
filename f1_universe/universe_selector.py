@@ -13,7 +13,7 @@ import threading
 import time
 from typing import Dict, List
 
-from common_utils import ensure_utf8_stdout
+from common_utils import ensure_utf8_stdout, setup_logging
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -23,20 +23,7 @@ LOG_DIR = Path("logs/f1")
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 ensure_utf8_stdout()
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [F1] [%(levelname)s] %(message)s",
-    handlers=[
-        RotatingFileHandler(
-            LOG_DIR / "F1_signal_engine.log",
-            encoding="utf-8",
-            maxBytes=100_000 * 1024,
-            backupCount=1000,
-        ),
-        logging.StreamHandler(),
-    ],
-)
+setup_logging("F1", [LOG_DIR / "F1_signal_engine.log"])
 
 CONFIG_PATH = "config/f1_f1_universe_filters.json"
 UNIVERSE_FILE = "config/current_universe.json"
