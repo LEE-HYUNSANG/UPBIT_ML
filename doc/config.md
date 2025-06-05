@@ -42,7 +42,9 @@ This file has been removed. It previously stored legacy risk parameters such as 
 This file has been removed. Pending order status is now recorded directly in `f2_f2_realtime_buy_list.json` using the `pending` flag.
 
 ## f3_f3_order_config.json
-This file has been removed. Retry counts and quantity defaults are now built into the code.
+This file has been removed. `OrderExecutor` skips loading the file when
+`config_path` is `None` or the path does not exist. Retry counts and default
+quantities are now provided directly by the code.
 
 ## f6_buy_settings.json
 Buy order settings controlled via the web UI. It stores `ENTRY_SIZE_INITIAL`,
