@@ -21,6 +21,7 @@ PRICE1_MAX = 26666
 PRICE2_MIN = 0
 PRICE2_MAX = 0
 TRADE_VALUE_MIN = 1400000000
+EXCEPTION_COINS = ["KRW-TOKAMAK", "KRW-PENDLE"]
 
 # PRICE2_MIN = 0 and PRICE2_MAX = 0 disables the second range
 
@@ -114,6 +115,8 @@ def filter_coins(markets: List[str]) -> List[str]:
     """
     selected: List[str] = []
     for market in markets:
+        if market in EXCEPTION_COINS:
+            continue
         candles = fetch_candles(market)
         if len(candles) < 1:
             continue
