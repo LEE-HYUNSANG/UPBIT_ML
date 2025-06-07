@@ -6,7 +6,15 @@ from pathlib import Path
 import pandas as pd
 import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from indicators import macd, mfi, adx
+from indicators import (
+    macd,
+    mfi,
+    adx,
+    rsi,
+    atr,
+    stochastic,
+    vwap,
+)
 
 from utils import ensure_dir, setup_logger
 
@@ -27,51 +35,48 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     if missing:
         raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
 
-    # === 표준 피처 ===
-
-    # EMA
-    for span in [5, 13, 20, 60, 120]:
+    # === 이동 평균 ===
+    for span in [5, 8, 13, 20, 21, 60, 120]:
         df[f"ema{span}"] = df["close"].ewm(span=span, adjust=False).mean()
+    for span in [5, 20]:
+        df[f"sma{span}"] = df["close"].rolling(span).mean()
+    df["ema5_ema20_diff"] = df["ema5"] - df["ema20"]
+    df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
+    df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
+    df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
+    df["ema_gc"] = (df["ema5"] > df["ema20"]).astype(int)
+    df["ema_dc"] = (df["ema5"] < df["ema20"]).astype(int)
 
-    # RSI(14)
-    delta = df["close"].diff()
-    gain = delta.where(delta > 0, 0)
-    loss = -delta.where(delta < 0, 0)
-    avg_gain = gain.rolling(14).mean()
-    avg_loss = loss.rolling(14).mean()
-    rs = avg_gain / (avg_loss + 1e-8)
-    df["rsi14"] = 100 - (100 / (1 + rs))
+    # === 모멘텀 지표 ===
+    df["rsi7"] = rsi(df["close"], period=7)
+    df["rsi14"] = rsi(df["close"], period=14)
+    df["rsi21"] = rsi(df["close"], period=21)
     df["rsi_oversold"] = (df["rsi14"] < 30).astype(int)
     df["rsi_overbought"] = (df["rsi14"] > 70).astype(int)
+    df["atr14"] = atr(df["high"], df["low"], df["close"], period=14)
 
-    # ATR
-    high_low = df["high"] - df["low"]
-    high_close = (df["high"] - df["close"].shift()).abs()
-    low_close = (df["low"] - df["close"].shift()).abs()
-    tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
-    df["atr14"] = tr.rolling(window=14).mean()
-
-    # 볼륨 평균/비율/증감
     df["ma_vol5"] = df["volume"].rolling(5).mean()
     df["ma_vol20"] = df["volume"].rolling(20).mean()
     df["vol_ratio"] = df["volume"] / (df["ma_vol20"] + 1e-8)
     df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
     df["vol_chg"] = df["volume"].pct_change().fillna(0)
 
-    # 스토캐스틱(K14/D14)
-    low14 = df["low"].rolling(14).min()
-    high14 = df["high"].rolling(14).max()
-    stoch_k14 = 100 * (df["close"] - low14) / (high14 - low14 + 1e-8)
+    stoch_k7, stoch_d7 = stochastic(df["high"], df["low"], df["close"], k_period=7, d_period=3)
+    stoch_k14, stoch_d14 = stochastic(df["high"], df["low"], df["close"], k_period=14, d_period=3)
+    df["stoch_k7"] = stoch_k7
+    df["stoch_d7"] = stoch_d7
     df["stoch_k14"] = stoch_k14
-    df["stoch_d14"] = stoch_k14.rolling(3).mean()
-    df["stoch_k"] = df["stoch_k14"]
-    df["stoch_d"] = df["stoch_d14"]
+    df["stoch_d14"] = stoch_d14
+    df["stoch_k"] = stoch_k14
+    df["stoch_d"] = stoch_d14
 
-    # === 추가 파생 피처/캔들/변동률/볼린저 ===
+    # === 파생 피처 및 변동률 ===
 
     # 가격변동률(1, 5, 10분)
     for p in [1, 5, 10]:
         df[f"pct_change_{p}m"] = df["close"].pct_change(p)
+    df["mom10"] = df["close"].diff(10)
+    df["roc10"] = df["close"].pct_change(10)
 
     # 캔들 신호/패턴/바디 비율
     df["is_bull"] = (df["close"] > df["open"]).astype(int)
@@ -105,6 +110,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["bb_width"] = (df["bb_upper"] - df["bb_lower"]) / (ma20 + 1e-8)
     df["bb_dist"] = (df["close"] - ma20) / (std20 + 1e-8)
     df["dis_ma20"] = (df["close"] - ma20) / (ma20 + 1e-8)
+    df["volatility14"] = df["close"].pct_change().rolling(14).std()
+    df["anomaly"] = ((df["close"] > df["bb_upper"]) | (df["close"] < df["bb_lower"])).astype(int)
 
     # MACD (12, 26, 9)
     macd_line, macd_signal, macd_hist = macd(df["close"])
@@ -115,6 +122,11 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     # MFI와 ADX
     df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
     df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
+    typical_price = (df["high"] + df["low"] + df["close"]) / 3
+    tp_mean = typical_price.rolling(14).mean()
+    tp_dev = typical_price.rolling(14).apply(lambda x: (abs(x - x.mean())).mean(), raw=True)
+    df["cci14"] = (typical_price - tp_mean) / (0.015 * tp_dev + 1e-8)
+    df["vwap"] = vwap(df["high"], df["low"], df["close"], df["volume"])
 
     # OBV
     direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])

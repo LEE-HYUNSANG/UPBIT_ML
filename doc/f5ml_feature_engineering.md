@@ -8,16 +8,19 @@
 처리됩니다.
 
 ## 추가되는 지표
-- `ema5`, `ema13`, `ema20`, `ema60`, `ema120`: 지수이동평균
-- `rsi14`: 14분 상대강도지수 및 과매수/과매도 플래그
+- `ema5`, `ema8`, `ema13`, `ema20`, `ema21`, `ema60`, `ema120` 및 `sma5`, `sma20`
+  : 다양한 이동평균과 교차 신호(`ema_gc`, `ema_dc`)
+- `rsi7`, `rsi14`, `rsi21`: RSI 지표와 과매수/과매도 플래그
 - `atr14`: 14분 평균진폭
-- `pct_change_1m`, `pct_change_5m`, `pct_change_10m`: 가격 변동률
+- `pct_change_1m`, `pct_change_5m`, `pct_change_10m`, `mom10`, `roc10`: 변동률과 모멘텀
 - `vol_ratio`, `vol_ratio_5`: 거래량 비율과 증감률
-- `stoch_k14`, `stoch_d14`: 스토캐스틱(14,3)
+- `stoch_k7`, `stoch_d7`, `stoch_k14`, `stoch_d14`: 스토캐스틱 지표
 - `macd`, `macd_signal`, `macd_hist`: MACD(12,26,9)
 - `mfi14`: 14분 자금 흐름 지수
 - `adx14`: 14분 ADX 추세 강도
-- `bb_mid`, `bb_upper`, `bb_lower`, `bb_width`, `bb_dist`: 볼린저 밴드 지표
+- `cci14`: 상품채널지수
+- `bb_mid`, `bb_upper`, `bb_lower`, `bb_width`, `bb_dist`: 볼린저 밴드와 변동성(`volatility14`, `anomaly`)
+- `vwap`: 거래량 가중 평균가
 - `obv`: 온밸런스 볼륨
 - 여러 캔들 패턴과 시간 관련 파생 컬럼
 
