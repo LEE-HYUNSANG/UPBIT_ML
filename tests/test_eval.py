@@ -55,7 +55,13 @@ def test_evaluate_converts_object_columns(tmp_path):
     model = DummyModel()
     dummy_joblib.dump(model, model_dir / "AAA_model.pkl")
 
-    df = pd.DataFrame({"feat1": ["0.6", "0.4"], "feat2": ["0.5", "0.2"], "label": [1, 0]})
+    df = pd.DataFrame({
+        "feat1": ["0.6", "0.4"],
+        "feat2": ["0.5", "0.2"],
+        "signal1": [1, 0],
+        "signal2": [0, 0],
+        "signal3": [0, 0],
+    })
     df.to_parquet(split_dir / "AAA_test.parquet")
 
     eval_mod.SPLIT_DIR = split_dir
