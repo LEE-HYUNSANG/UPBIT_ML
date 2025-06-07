@@ -47,7 +47,7 @@ def test_run_updates_buy_list_only(tmp_path, monkeypatch):
     })
 
     from importlib import import_module
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
@@ -100,7 +100,7 @@ def test_run_preserves_existing_buy_count(tmp_path, monkeypatch):
     })
 
     from importlib import import_module
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
@@ -145,7 +145,7 @@ def test_existing_sell_list_preserved(tmp_path, monkeypatch):
 
     from importlib import import_module
 
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
@@ -191,7 +191,7 @@ def test_old_sell_entry_untouched(tmp_path, monkeypatch):
 
     from importlib import import_module
 
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
@@ -232,7 +232,7 @@ def test_run_records_non_signals(tmp_path, monkeypatch):
     })
 
     from importlib import import_module
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(cfg))
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((False, True, True)))
@@ -256,7 +256,7 @@ def test_run_records_non_signals(tmp_path, monkeypatch):
 
 def test_run_if_monitoring_skips_when_missing(tmp_path, monkeypatch):
     from importlib import import_module
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
     called = {"cnt": 0}
@@ -274,7 +274,7 @@ def test_run_if_monitoring_skips_when_missing(tmp_path, monkeypatch):
 
 def test_run_if_monitoring_executes(tmp_path, monkeypatch):
     from importlib import import_module
-    ml = import_module("f2_ml_buy_signal.02_ml_buy_signal")
+    ml = import_module("f2_buy_signal.02_ml_buy_signal")
 
     monkeypatch.setattr(ml, "CONFIG_DIR", Path(tmp_path))
     (tmp_path / "f5_f1_monitoring_list.json").write_text("[]")

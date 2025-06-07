@@ -22,8 +22,8 @@ def test_main_loop_invokes_hold_loop(monkeypatch):
     stub = types.ModuleType("signal_engine")
     stub.f2_signal = lambda *a, **k: {}
     stub.reload_strategy_settings = lambda: None
+    sys.modules["f2_buy_signal.03_buy_signal_engine.signal_engine"] = stub
     sys.modules["f2_ml_buy_signal.03_buy_signal_engine.signal_engine"] = stub
-
     import signal_loop
     importlib.reload(signal_loop)
 
@@ -53,6 +53,7 @@ def test_monitor_worker_invokes_hold_loop(monkeypatch):
     stub = types.ModuleType("signal_engine")
     stub.f2_signal = lambda *a, **k: {}
     stub.reload_strategy_settings = lambda: None
+    sys.modules["f2_buy_signal.03_buy_signal_engine.signal_engine"] = stub
     sys.modules["f2_ml_buy_signal.03_buy_signal_engine.signal_engine"] = stub
 
     import signal_loop
