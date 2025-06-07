@@ -1,8 +1,9 @@
 """Real-time Upbit data collector.
 
 이 스크립트는 ``f1_f5_data_collection_list.json``에 지정된 코인에 대해 매 1분
-단위로 **OHLCV** 데이터만 수집합니다. 결과 파일은
-``ml_data/01_raw/`` 폴더에 코인별 Parquet 형식으로 저장됩니다.
+단위로 **OHLCV** 데이터만 수집합니다. 최신 분봉은
+``ml_data/00_now_1min_data/`` 폴더에 저장되고 기존 Raw 데이터와 병합하여
+``ml_data/01_raw/``에 갱신합니다.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
 # Store output under the pipeline data directory regardless of CWD
 DATA_ROOT = PIPELINE_ROOT / "ml_data" / "01_raw"
+NOW_DATA_ROOT = PIPELINE_ROOT / "ml_data" / "00_now_1min_data"
 
 # Use absolute path so the script works regardless of the current
 # working directory.
@@ -70,6 +72,12 @@ def get_ohlcv(market: str) -> List[Dict]:
     return _request_json(url, params={"market": market, "count": 1})
 
 
+def get_ohlcv_range(market: str, count: int = 60) -> List[Dict]:
+    """Fetch ``count`` latest 1 minute OHLCV rows."""
+    url = f"{BASE_URL}/v1/candles/minutes/1"
+    return _request_json(url, params={"market": market, "count": count})
+
+
 # Only OHLCV is collected. The helper functions for orderbook, trades and ticker
 # have been removed to keep the collector focused on minute candles.
 
@@ -88,9 +96,9 @@ def _dedupe_columns(df: pd.DataFrame) -> List[str] | None:
     return None
 
 
-def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
-    """Append ``df`` to ``DATA_ROOT`` directory."""
-    dir_path = ensure_dir(DATA_ROOT)
+def save_data(df: pd.DataFrame, market: str, root: Path = DATA_ROOT) -> None:
+    """Append ``df`` to ``root`` directory."""
+    dir_path = ensure_dir(root)
     file_path = dir_path / f"{market}_rawdata.parquet"
 
     lock_file = file_path.with_suffix(file_path.suffix + ".lock")
@@ -118,14 +126,44 @@ def save_data(df: pd.DataFrame, market: str, ts: datetime) -> None:
             logging.error("Parquet save failed %s: %s", file_path.name, exc)
 
 
+def fill_last_hour(market: str) -> None:
+    """Ensure last hour of minute data is complete for ``market``."""
+    file_path = DATA_ROOT / f"{market}_rawdata.parquet"
+    if not file_path.exists():
+        return
+    try:
+        df = pd.read_parquet(file_path)
+    except Exception as exc:
+        logging.error("Failed reading %s: %s", file_path.name, exc)
+        return
+
+    if "candle_date_time_utc" not in df.columns:
+        return
+
+    ts = pd.to_datetime(df["candle_date_time_utc"], utc=True)
+    end = datetime.utcnow().replace(second=0, microsecond=0)
+    start = end - timedelta(hours=1)
+    recent_ts = ts[ts >= start]
+    idx = pd.date_range(start=start, end=end, freq="1min")
+    missing = idx.difference(recent_ts)
+    if missing.empty:
+        return
+    logging.info("%s missing %d rows - fetching", market, len(missing))
+    new_rows = get_ohlcv_range(market, count=60)
+    if new_rows:
+        save_data(pd.DataFrame(new_rows), market)
+
+
 def collect_once(markets: Iterable[str]) -> None:
     """Collect data for all markets a single time."""
-    ts = datetime.utcnow()
     for market in markets:
         try:
             ohlcv = get_ohlcv(market)
             if ohlcv:
-                save_data(pd.DataFrame(ohlcv), market, ts)
+                df_now = pd.DataFrame(ohlcv)
+                save_data(df_now, market, root=NOW_DATA_ROOT)
+                save_data(df_now, market)
+                fill_last_hour(market)
             time.sleep(REQUEST_DELAY)
         except Exception as exc:  # pragma: no cover - best effort
             logging.error("Collect error %s: %s", market, exc)
@@ -140,6 +178,7 @@ def next_minute(now: datetime | None = None) -> datetime:
 def main() -> None:
     """Run the continuous data collector."""
     ensure_dir(DATA_ROOT)
+    ensure_dir(NOW_DATA_ROOT)
     setup_logger(LOG_PATH)
     markets = load_coin_list()
     if not markets:
