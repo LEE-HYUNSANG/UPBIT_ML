@@ -1,11 +1,11 @@
-"""Download last 100 days of 1 minute OHLCV data."""
+"""Download last 100k minutes of 1 minute OHLCV data."""
 
 from __future__ import annotations
 
 import json
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List
 import tempfile
@@ -22,7 +22,7 @@ ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
 LOG_PATH = ROOT_DIR / "logs" / "f5" / "99_100day_1min_data.log"
-CANDLE_LIMIT = 100 * 24 * 60
+CANDLE_LIMIT = 100_000
 
 
 def load_coin_list(path: str = COIN_LIST_FILE) -> List[str]:
@@ -56,10 +56,9 @@ def _request_json(url: str, params: Dict | None = None, retries: int = 3) -> Lis
 
 
 def get_ohlcv_history(market: str) -> pd.DataFrame:
-    """Fetch last 100 days of minute candles for ``market``."""
+    """Fetch last 100k minutes of minute candles for ``market``."""
     url = f"{BASE_URL}/v1/candles/minutes/1"
     end = datetime.utcnow().replace(second=0, microsecond=0)
-    end = (end - timedelta(days=1)).replace(hour=23, minute=59, second=59)
     remaining = CANDLE_LIMIT
     to = end.isoformat()
     frames: List[pd.DataFrame] = []
@@ -147,6 +146,16 @@ def validate_data(root: Path, markets: Iterable[str]) -> List[str]:
     return incomplete
 
 
+def ask_delete(market: str, rows: int) -> bool:
+    """Prompt whether to delete existing data before retry."""
+    while True:
+        ans = input(
+            f"{market} has {rows} rows (expected {CANDLE_LIMIT}). Delete and retry [d] or keep and retry [r]? "
+        ).strip().lower()
+        if ans in {"d", "r"}:
+            return ans == "d"
+
+
 def collect_markets(markets: Iterable[str]) -> None:
     """Collect history for ``markets`` with progress output."""
     items = list(markets)
@@ -177,7 +186,7 @@ def collect_markets(markets: Iterable[str]) -> None:
 
 
 def main() -> None:
-    """Download the last 100 days of minute data."""
+    """Download the last 100k minutes of minute data."""
     setup_logger(LOG_PATH)
     markets = load_coin_list()
     if not markets:
@@ -191,9 +200,20 @@ def main() -> None:
 
     pending = markets
     while pending:
-        logging.info("Collect 100d history for %s", pending)
+        logging.info("Collect 100k history for %s", pending)
         collect_markets(pending)
-        pending = validate_data(DATA_ROOT, pending)
+        next_round: List[str] = []
+        for market in validate_data(DATA_ROOT, pending):
+            file_path = DATA_ROOT / f"{market}_rawdata.parquet"
+            try:
+                rows = len(pd.read_parquet(file_path))
+            except Exception:
+                rows = 0
+            delete = ask_delete(market, rows)
+            if delete:
+                file_path.unlink(missing_ok=True)
+            next_round.append(market)
+        pending = next_round
         if pending:
             logging.info("Retrying incomplete markets: %s", pending)
 
