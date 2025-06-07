@@ -8,7 +8,7 @@ F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 
 | 경로 | 설명 |
 | --- | --- |
-| `f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수가 매도 공식을 평가합니다. |
+| `f2_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수가 매도 공식을 평가합니다. |
 | `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
 | `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
 | `config/f6_buy_settings.json` | 진입 금액과 동시 보유 코인 수 등을 지정하는 설정 파일입니다. |

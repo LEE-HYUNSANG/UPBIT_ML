@@ -12,7 +12,7 @@ else:
 
 if pandas_available:
     from importlib import import_module
-    _mod = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
+    _mod = import_module("f2_buy_signal.03_buy_signal_engine.signal_engine")
     eval_formula = _mod.eval_formula
     f2_signal = _mod.f2_signal
 

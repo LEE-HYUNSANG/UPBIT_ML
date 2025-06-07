@@ -21,6 +21,7 @@ def app_client(monkeypatch):
         }
     stub.f2_signal = fake_f2_signal
     stub.reload_strategy_settings = lambda: None
+    monkeypatch.setitem(sys.modules, "f2_buy_signal.03_buy_signal_engine.signal_engine", stub)
     monkeypatch.setitem(sys.modules, "f2_ml_buy_signal.03_buy_signal_engine.signal_engine", stub)
 
     # Provide a dummy pyupbit module

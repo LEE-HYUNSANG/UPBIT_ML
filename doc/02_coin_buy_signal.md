@@ -9,15 +9,15 @@
 ## 사용되는 관련 파일
 | 경로 | 설명 |
 | --- | --- |
-| `f2_ml_buy_signal/02_ml_buy_signal.py` | 전체 파이프라인과 실시간 예측 로직을 포함합니다. |
-| `f2_ml_buy_signal/01_buy_indicator.py` | EMA와 RSI 기반의 기본 필터 함수를 제공합니다. |
+| `f2_buy_signal/02_ml_buy_signal.py` | 전체 파이프라인과 실시간 예측 로직을 포함합니다. |
+| `f2_buy_signal/01_buy_indicator.py` | EMA와 RSI 기반의 기본 필터 함수를 제공합니다. |
 | `config/f5_f1_monitoring_list.json` | 매수 신호를 계산할 코인 목록입니다. |
 | `config/f2_f2_realtime_buy_list.json` | 계산된 매수 신호가 저장되는 파일입니다. |
 | `logs/f2/f2_ml_buy_signal.log` | 매수 신호 계산 과정의 로그가 기록됩니다. |
 
 ## 사용되는 함수
 - `run_if_monitoring_list_exists()` – 모니터링 목록이 존재할 때만 `run()`을 호출합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L361-L371】
-- `run()` – 각 코인에 대해 `check_buy_signal()`을 호출하고 결과를 JSON 파일에 기록합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L322-L359】
+- `f2_buy_signal.run()` – 각 코인에 대해 `check_buy_signal()`을 호출하고 결과를 JSON 파일에 기록합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L322-L359】
 - `check_buy_signal()` – 모델 예측 값과 지표 조건을 확인하여 `(buy, rsi_flag, trend_flag)`를 반환합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L256-L303】
 
 ## 동작 흐름
