@@ -1536,3 +1536,4 @@
 2025-06-05 14:27:21,422 [F3] [F3] Entry signal received: {'symbol': 'KRW-STX', 'buy_signal': True, 'sell_signal': False, 'price': 1047.0, 'spread': 0.0, 'buy_triggers': [], 'sell_triggers': []}
 2025-06-05 14:27:21,424 [F3] [F3] Config reloaded: ENTRY_SIZE_INITIAL=7000
 2025-06-05 14:27:21,425 [F3] [F3] Buy skipped: startup delay 100s remaining
+2025-06-07 18:33:24,652 [F3] [F3] OrderExecutor initialized.

@@ -396,3 +396,73 @@
 2025-06-05 14:24:06,345 [F3] [F3] Failed to cancel TP order 76d59ecb-6c01-42c6-93e1-411e7c424609: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/order?uuid=76d59ecb-6c01-42c6-93e1-411e7c424609 - {"error":{"message":"이미 취소된 주문입니다.","name":"canceled_order"}}
 2025-06-05 14:24:06,409 [F3] [F3] Failed to cancel TP order 8da12e86-78b6-46f7-95b9-66a684d23dcf: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/order?uuid=8da12e86-78b6-46f7-95b9-66a684d23dcf - {"error":{"message":"이미 취소된 주문입니다.","name":"canceled_order"}}
 2025-06-05 14:24:06,487 [F3] [F3] Failed to cancel TP order 697e18b4-7153-4cce-9569-619e40bee77f: 400 Client Error: Bad Request for url: https://api.upbit.com/v1/order?uuid=697e18b4-7153-4cce-9569-619e40bee77f - {"error":{"name":"canceled_order","message":"이미 취소된 주문입니다."}}
+2025-06-07 18:33:24,652 [F3] [F3] Failed to fetch accounts: 'Response' object has no attribute 'text'
+2025-06-07 18:33:24,744 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,198 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.1978426, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,198 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.1983445, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 200, 'order_type': 'limit'}
+2025-06-07 18:33:25,229 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,229 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.229664, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,230 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.2300158, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,255 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.2553337, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 101.0, 'order_type': 'market'}
+2025-06-07 18:33:25,268 [F3] [F3] Position exit: KRW-BTC via take_profit
+2025-06-07 18:33:25,273 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,273 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.27338, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,273 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.2737408, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,283 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.2836075, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 101.0, 'order_type': 'market'}
+2025-06-07 18:33:25,287 [F3] [F3] Position exit: KRW-BTC via take_profit
+2025-06-07 18:33:25,290 [F3] [F3] Failed to fetch open orders: 'WaitClient' object has no attribute 'orders'
+2025-06-07 18:33:25,290 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.2905226, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,290 [F3] [F3] Order API response: {'uuid': '2', 'state': 'wait', 'side': 'ask', 'volume': 1.0, 'price': 102, 'filled': False, 'timestamp': 1749321205.2908993, 'symbol': 'KRW-BTC', 'qty': 1.0, 'order_type': 'limit'}
+2025-06-07 18:33:25,306 [F3] [F3] Order API response: {'uuid': '2', 'state': 'wait', 'side': 'ask', 'volume': 1.0, 'price': 101.0, 'filled': False, 'timestamp': 1749321205.3060324, 'symbol': 'KRW-BTC', 'qty': 1.0, 'order_type': 'market'}
+2025-06-07 18:33:25,318 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,319 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.3191562, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,319 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.3196123, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,335 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,336 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.336118, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,336 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.3365424, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,346 [F3] [F3] Position updated from fill 1: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.336118, 'entry_price': 100.0, 'qty': 0.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'closed', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,348 [F3] [F3] Failed to fetch open orders: 'PartialFillClient' object has no attribute 'orders'
+2025-06-07 18:33:25,349 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.3490715, 'entry_price': 100.0, 'qty': 2.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,349 [F3] [F3] Order API response: {'uuid': '2', 'state': 'wait', 'side': 'ask', 'market': 'KRW-BTC', 'volume': 2.0, 'remaining_volume': '1.0', 'executed_volume': '1.0', 'price': 100.0, 'filled': False, 'timestamp': 1749321205.3494065, 'symbol': 'KRW-BTC', 'qty': 2.0, 'order_type': 'market'}
+2025-06-07 18:33:25,349 [F3] [F3] Position updated from fill 2: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.3490715, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,358 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,359 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.358832, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0, 'strategy': 'TEST'}
+2025-06-07 18:33:25,359 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 1.0, 'filled': True, 'timestamp': 1749321205.3593647, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,366 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,367 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.3670993, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,367 [F3] [F3] Order API response: {'uuid': 'tp', 'state': 'wait', 'side': 'ask', 'filled': False, 'timestamp': 1749321205.3674414, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,376 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,376 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.37648, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,376 [F3] [F3] Order API response: {'uuid': 'tp', 'state': 'wait', 'side': 'ask', 'filled': False, 'timestamp': 1749321205.376816, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,403 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,404 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.4042122, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,406 [F3] [F3] Order API response: {'uuid': 'tp', 'state': 'wait', 'side': 'ask', 'filled': False, 'timestamp': 1749321205.4060776, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,417 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,418 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.4183297, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,418 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'filled': True, 'timestamp': 1749321205.418724, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,437 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'filled': True, 'timestamp': 1749321205.4371347, 'symbol': 'KRW-BTC', 'qty': 1.0, 'price': 101.0, 'order_type': 'market'}
+2025-06-07 18:33:25,441 [F3] [F3] Position exit: KRW-BTC via take_profit
+2025-06-07 18:33:25,445 [F3] [F3] Failed to fetch open orders: 'list' object is not callable
+2025-06-07 18:33:25,446 [F3] [F3] Open position: {'symbol': 'KRW-BTC', 'entry_time': 1749321205.4462402, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,448 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,449 [F3] [F3] Open position: {'symbol': 'KRW-XRP', 'entry_time': 1749321205.4491513, 'entry_price': 800.0, 'qty': 70.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'imported', 'entry_fee': 0.0, 'strategy': 'imported'}
+2025-06-07 18:33:25,451 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'filled': True, 'timestamp': 1749321205.4511838, 'symbol': 'KRW-XRP', 'qty': 70.0, 'price': 802, 'order_type': 'limit'}
+2025-06-07 18:33:25,476 [F3] [F3] Failed to fetch open orders: 'SmallBalanceClient' object has no attribute 'orders'
+2025-06-07 18:33:25,479 [F3] [F3] Open position: {'symbol': 'KRW-XRP', 'entry_time': 1749321205.4792423, 'entry_price': 800.0, 'qty': 70.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'imported', 'entry_fee': 0.0, 'strategy': 'imported'}
+2025-06-07 18:33:25,479 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 70.0, 'filled': True, 'timestamp': 1749321205.4795976, 'symbol': 'KRW-XRP', 'qty': 70.0, 'price': 802, 'order_type': 'limit'}
+2025-06-07 18:33:25,502 [F3] [F3] Open position: {'symbol': 'KRW-XRP', 'entry_time': 1749321205.5021207, 'entry_price': 800.0, 'qty': 70.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'imported', 'entry_fee': 0.0, 'strategy': 'imported'}
+2025-06-07 18:33:25,502 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 70.0, 'filled': True, 'timestamp': 1749321205.5024688, 'symbol': 'KRW-XRP', 'qty': 70.0, 'price': 802, 'order_type': 'limit'}
+2025-06-07 18:33:25,510 [F3] [F3] Open position: {'symbol': 'KRW-SUI', 'entry_time': 1749321205.5104237, 'entry_price': 1000.0, 'qty': 30.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'imported', 'entry_fee': 0.0, 'strategy': 'imported'}
+2025-06-07 18:33:25,510 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 30.0, 'filled': True, 'timestamp': 1749321205.5107815, 'symbol': 'KRW-SUI', 'qty': 30.0, 'price': 1010, 'order_type': 'limit'}
+2025-06-07 18:33:25,518 [F3] [F3] Failed to fetch ticker: boom
+2025-06-07 18:33:25,518 [F3] [F3] Failed to fetch ticker for KRW-SUI: boom
+2025-06-07 18:33:25,518 [F3] [F3] Open position: {'symbol': 'KRW-SUI', 'entry_time': 1749321205.518799, 'entry_price': 1000.0, 'qty': 30.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'imported', 'entry_fee': 0.0, 'strategy': 'imported'}
+2025-06-07 18:33:25,519 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'side': 'ask', 'volume': 30.0, 'filled': True, 'timestamp': 1749321205.519064, 'symbol': 'KRW-SUI', 'qty': 30.0, 'price': 1010, 'order_type': 'limit'}
+2025-06-07 18:33:25,532 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,593 [F3] [F3] Open position: {'symbol': 'KRW-AAA', 'entry_time': 1749321205.5934114, 'entry_price': 100.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,593 [F3] [F3] Order API response: {'uuid': '1', 'state': 'done', 'filled': True, 'timestamp': 1749321205.5938072, 'symbol': 'KRW-AAA', 'qty': 1.0, 'price': 100.0, 'order_type': 'market'}
+2025-06-07 18:33:25,602 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,602 [F3] [F3] Open position: {'symbol': 'KRW-AAA', 'entry_time': 1749321205.602256, 'entry_price': 10.0, 'qty': 1.0, 'pyramid_count': 0, 'avgdown_count': 0, 'status': 'open', 'origin': 'trade', 'entry_fee': 0.0}
+2025-06-07 18:33:25,604 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'
+2025-06-07 18:33:25,604 [F3] [F3] Order API response: {'uuid': '1', 'state': 'wait', 'filled': False, 'timestamp': 1749321205.6046007, 'symbol': 'KRW-AAA', 'qty': 1.0, 'price': 102, 'order_type': 'limit'}
+2025-06-07 18:33:25,615 [F3] [F3] Failed to fetch open orders: 'DummyClient' object has no attribute 'orders'

@@ -8,10 +8,8 @@
 
 | 경로 | 용도 |
 | --- | --- |
-| `f2_buy_signal/02_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
 | `f2_buy_signal/01_buy_indicator.py` | 1분 봉에서 RSI와 EMA 조건을 이용한 간단한 매수 필터 함수가 있습니다. |
 | `f2_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치. 신호 계산 후 폴더 전체가 삭제됩니다. |
-| `f2_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
 | `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록(`symbol`, `thresh_pct`, `loss_pct`). F5 단계에서 생성됩니다. |
@@ -43,10 +41,6 @@
    `buy_list_executor.execute_buy_list()`를 직접 호출해 수동으로 체결할 수
    있습니다.
 
-### `f2_signal(df_1m, df_5m, symbol="", ...)`
-`signal_loop.py`에서 호출되어 실제 매매 루프를 돌 때 사용됩니다.
-`check_buy_signal_df()`를 이용해 1분 봉 데이터에서 바로 신호를 계산하며
-매수 가능 여부를 `buy_signal` 필드로 반환합니다.
 
 ### `OrderExecutor.entry(signal)`
 매수 신호가 `True`일 때 호출되어 실거래를 시도합니다.
@@ -60,8 +54,7 @@
 
 1. **전략 선별** – `f5_ml_pipeline/10_select_best_strategies.py`가
    우수 전략을 추려 `f5_f1_monitoring_list.json`을 갱신합니다.
-2. **모니터링** – `signal_loop.py`에서 주기적으로 `f2_signal`을 호출해
-   각 코인의 1분 봉 데이터를 분석합니다.
+2. **모니터링** – `signal_loop.py`에서 주기적으로 1분 봉 데이터를 분석합니다.
 3. **ML 신호 판단** – `run_if_monitoring_list_exists()`가 실행되면
    별도의 경량 ML 모델이 최근 데이터를 학습한 뒤 바로 예측을 수행합니다.
    확률이 0.5 이상이면 매수 대상으로 판단합니다.
@@ -75,8 +68,7 @@
 
 ## 실시간 매수 리스트 활용
 
-`f2_ml_buy_signal.run()`이 작성한 `config/f2_f3_realtime_buy_list.json`은
-웹 서버의 스케줄러가 15초마다 자동으로 읽어 주문을 실행합니다. 구현은
+`config/f2_f3_realtime_buy_list.json` 파일은 웹 서버의 스케줄러가 15초마다 자동으로 읽어 주문을 실행합니다. 구현은
 `buy_list_executor.execute_buy_list()`를 호출하는 방식이며, 매수 후보가 있으면
 즉시 `OrderExecutor.entry()`로 전달됩니다. 필요하다면 아래와 같이 수동으로도
 실행할 수 있습니다.

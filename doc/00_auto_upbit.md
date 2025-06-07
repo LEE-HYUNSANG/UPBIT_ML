@@ -24,9 +24,8 @@ flowchart TD
   - `schedule_universe_updates()` – 주기적 갱신 스레드 시작 【F:f1_universe/universe_selector.py†L204-L216】
 - **로그**: `logs/F1_signal_engine.log`, `logs/F1-F2_loop.log`
 
-## 2. F2 실시간 매수 신호
-- **역할**: 최근 1분봉 데이터를 이용해 머신러닝으로 매수 가능성을 판단합니다.
-- **주요 파일**: `f2_buy_signal/02_ml_buy_signal.py`, `f2_buy_signal/01_buy_indicator.py`, `f2_buy_signal/03_buy_signal_engine/signal_engine.py`
+- **역할**: 최근 1분봉 데이터를 이용해 매수 가능성을 판단합니다.
+- **주요 파일**: `f2_buy_signal/01_buy_indicator.py`
 - **주요 함수**
   - `check_signals(symbol)` – `f5_ml_pipeline/ml_data/08_pred/{symbol}_pred.csv`를 읽어 세 신호를 계산한 뒤 딕셔너리로 반환합니다.
 

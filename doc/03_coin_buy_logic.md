@@ -26,7 +26,7 @@
 - `calc_target_prices()` – 예측 상승률을 이용해 매수/매도 목표가를 계산합니다. 【F:f3_order/utils.py†L129-L136】
 
 ## 동작 흐름
-1. `signal_loop.py`가 `f2_signal()` 결과를 받아 `OrderExecutor.entry()`에 전달합니다.
+1. `signal_loop.py`가 계산한 신호를 `OrderExecutor.entry()`에 전달합니다.
 2. `entry()` 함수는 이미 보유 중이거나 차단된 코인은 건너뜁니다.
    동시에 동일 코인 주문이 진행 중이면 ``pending`` 필드가 1로 설정되어
    추가 주문을 무시합니다.
