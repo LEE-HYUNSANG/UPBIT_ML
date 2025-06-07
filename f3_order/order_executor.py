@@ -203,7 +203,7 @@ class OrderExecutor:
 
     def _mark_buy_filled(self, symbol: str) -> None:
         """Set ``buy_count`` to 1 for the given symbol in the buy list."""
-        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
+        path = _resolve_path("config/f2_f3_realtime_buy_list.json")
         if not path.exists():
             return
         with _buy_list_lock(path) as fh:
@@ -231,7 +231,7 @@ class OrderExecutor:
 
     def _set_pending_flag(self, symbol: str, value: int) -> None:
         """Update ``pending`` field for *symbol* in the buy list."""
-        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
+        path = _resolve_path("config/f2_f3_realtime_buy_list.json")
         if not path.exists():
             return
         with _buy_list_lock(path) as fh:
@@ -263,7 +263,7 @@ class OrderExecutor:
         if self._pending_cache and now_ts - self._pending_cache[0] < 1:
             return set(self._pending_cache[1])
 
-        path = _resolve_path("config/f2_f2_realtime_buy_list.json")
+        path = _resolve_path("config/f2_f3_realtime_buy_list.json")
         for _ in range(5):
             try:
                 with _buy_list_lock(path) as fh:

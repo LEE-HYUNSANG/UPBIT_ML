@@ -15,7 +15,7 @@ def test_update_realtime_sell_list_adds_to_empty(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     cfg_dir = tmp_path / "config"
     cfg_dir.mkdir()
-    (cfg_dir / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg_dir / "f2_f3_realtime_buy_list.json").write_text("[]")
     (cfg_dir / "f3_f3_realtime_sell_list.json").write_text("[]")
 
     monkeypatch.setattr(oe, "load_config", lambda p='': {})

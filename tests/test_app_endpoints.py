@@ -264,7 +264,7 @@ def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
     client, _, _ = app_client
     import app as app_mod
 
-    buy_file = tmp_path / "f2_f2_realtime_buy_list.json"
+    buy_file = tmp_path / "f2_f3_realtime_buy_list.json"
     buy_file.write_text(
         '[{"symbol":"KRW-AAA","buy_signal":1,"trend_sel":1,"rsi_sel":1}]'
     )
@@ -278,7 +278,7 @@ def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
     def fake_join(*parts):
         if parts == (
             "config",
-            "f2_f2_realtime_buy_list.json",
+            "f2_f3_realtime_buy_list.json",
         ):
             return str(buy_file)
         if parts == (
