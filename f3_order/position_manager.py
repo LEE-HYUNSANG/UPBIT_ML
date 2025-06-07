@@ -192,6 +192,8 @@ class PositionManager:
         }
         if "strategy" in order_result:
             pos["strategy"] = order_result["strategy"]
+        if "tp_price" in order_result:
+            pos["tp_price"] = order_result["tp_price"]
         self.positions.append(pos)
         self._persist_positions()
         log_with_tag(logger, f"Open position: {pos}")
@@ -213,10 +215,14 @@ class PositionManager:
 
     def place_tp_order(self, position):
         """Immediately place a limit sell order for take profit."""
-        tp = float(self.config.get("TP_PCT", 0.15))
-        if float(tp) <= 0:
-            return
-        price = self._calc_tp_price(position["entry_price"], float(tp))
+        tp_price = position.get("tp_price")
+        if tp_price is None:
+            tp = float(self.config.get("TP_PCT", 0.15))
+            if float(tp) <= 0:
+                return
+            price = self._calc_tp_price(position["entry_price"], float(tp))
+        else:
+            price = tp_price
         res = self.place_order(position["symbol"], "ask", position["qty"], "limit", price)
         uuid = res.get("uuid")
         if uuid:

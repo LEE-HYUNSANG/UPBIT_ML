@@ -23,6 +23,7 @@
 - `smart_buy()` – 지정가 주문을 50초간 대기하며 한 번만 시도합니다. 【F:f3_order/smart_buy.py†L25-L62】
 - `PositionManager.open_position()` – 체결된 주문 정보를 내부 리스트와 파일에 저장합니다. 【F:f3_order/position_manager.py†L87-L117】
 - `PositionManager.refresh_positions()` – 계좌 잔고와 시세를 조회하여 포지션 정보를 업데이트합니다. 【F:f3_order/position_manager.py†L173-L228】
+- `calc_target_prices()` – 예측 상승률을 이용해 매수/매도 목표가를 계산합니다. 【F:f3_order/utils.py†L129-L136】
 
 ## 동작 흐름
 1. `signal_loop.py`가 `f2_signal()` 결과를 받아 `OrderExecutor.entry()`에 전달합니다.

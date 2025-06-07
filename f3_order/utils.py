@@ -125,3 +125,11 @@ def pretty_symbol(symbol: str) -> str:
     if not isinstance(symbol, str):
         return symbol
     return symbol.split("-", 1)[-1]
+
+
+def calc_target_prices(price: float, predicted_rise: float) -> tuple[float, float]:
+    """Calculate entry and TP prices using a predicted rise percentage."""
+    pct = max(0.2, min(0.5, predicted_rise))
+    pct = round(pct / 0.05) * 0.05
+    tp_price = apply_tick_size(price * (1 + pct / 100), "ceil")
+    return price, tp_price
