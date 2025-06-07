@@ -11,6 +11,9 @@ from numpy.lib.stride_tricks import sliding_window_view
 
 from utils import ensure_dir, setup_logger
 
+DEFAULT_SIGNAL_HORIZONS = [1, 3, 5]
+DEFAULT_SIGNAL_THRESHOLDS = [0.003, 0.005, 0.01]
+
 PIPELINE_ROOT = Path(__file__).resolve().parent
 FEATURE_DIR = PIPELINE_ROOT / "ml_data" / "03_feature"
 LABEL_DIR = PIPELINE_ROOT / "ml_data" / "04_label"
@@ -20,11 +23,40 @@ LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_label.log"
 THRESH_LIST      = [0.002, 0.025, 0.003]    # 익절(%)
 LOSS_LIST        = [0.002, 0.025, 0.003]    # 손절(%)
 
+
+def add_signals(
+    df: pd.DataFrame,
+    horizons: list[int] | None = None,
+    thresholds: list[float] | None = None,
+) -> pd.DataFrame:
+    """Add boolean signal columns based on future high price reach."""
+
+    if horizons is None:
+        horizons = DEFAULT_SIGNAL_HORIZONS
+    if thresholds is None:
+        thresholds = DEFAULT_SIGNAL_THRESHOLDS
+
+    df = df.copy()
+    high = df["high"].to_numpy()
+    close = df["close"].to_numpy()
+    n = len(df)
+
+    for idx, (h, thr) in enumerate(zip(horizons, thresholds), start=1):
+        sig = np.zeros(n, dtype=bool)
+        if n > h:
+            win_high = sliding_window_view(high, h + 1)[:, 1:]
+            future_high = win_high.max(axis=1)
+            sig[:-h] = future_high >= close[:-h] * (1 + thr)
+        df[f"signal{idx}"] = sig.tolist()
+    return df
+
 def make_labels_basic(
     df: pd.DataFrame,
     horizon: int,
     thresh_pct: float,
     loss_pct: float | None = None,
+    signal_horizons: list[int] | None = None,
+    signal_thresholds: list[float] | None = None,
 ) -> pd.DataFrame:
     """TP/SL만 고려한 라벨 생성 (익절=1, 손절=-1, 관망=0)."""
     if loss_pct is None:
@@ -52,6 +84,8 @@ def make_labels_basic(
     labels[:-horizon] = np.where(tp, 1, np.where(sl, -1, 0))
 
     df["label"] = labels.tolist()
+
+    df = add_signals(df, signal_horizons, signal_thresholds)
     return df
 
 def make_labels_trailing(
@@ -61,10 +95,19 @@ def make_labels_trailing(
     loss_pct: float,
     trail_start_pct: float,
     trail_down_pct: float,
+    signal_horizons: list[int] | None = None,
+    signal_thresholds: list[float] | None = None,
 ) -> pd.DataFrame:
     """트레일링스탑 포함 초단타 라벨 생성 (익절=1, 손절=-1, 트레일=2, 관망=0)."""
     if trail_start_pct is None or trail_down_pct is None:
-        return make_labels_basic(df, horizon, thresh_pct, loss_pct)
+        return make_labels_basic(
+            df,
+            horizon,
+            thresh_pct,
+            loss_pct,
+            signal_horizons=signal_horizons,
+            signal_thresholds=signal_thresholds,
+        )
 
     df = df.copy()
     close = df["close"].to_numpy()
@@ -107,6 +150,8 @@ def make_labels_trailing(
                     break
 
     df["label"] = labels.tolist()
+
+    df = add_signals(df, signal_horizons, signal_thresholds)
     return df
 
 def to_py_types(obj):

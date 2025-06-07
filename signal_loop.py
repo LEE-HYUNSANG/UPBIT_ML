@@ -19,10 +19,7 @@ from f1_universe.universe_selector import (
     load_universe_from_file,
     init_coin_positions,
 )
-from importlib import import_module
-
-_se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
-f2_signal = _se.f2_signal
+from f2_buy_signal import check_signals
 
 
 def ensure_kst(timestamp_col):
@@ -83,8 +80,7 @@ def process_symbol(symbol: str) -> Optional[dict]:
         Signal dictionary forwarded to F3 or ``None`` when data is missing.
     """
     df_1m = fetch_ohlcv(symbol, "minute1")
-    df_5m = fetch_ohlcv(symbol, "minute5")
-    if df_1m is None or df_5m is None or df_1m.empty or df_5m.empty:
+    if df_1m is None or df_1m.empty:
         logging.warning(f"[{symbol}] No OHLCV data available")
         return None
 
@@ -94,44 +90,21 @@ def process_symbol(symbol: str) -> Optional[dict]:
 
     pm = _default_executor.position_manager
     open_pos = [p for p in pm.positions if p.get("symbol") == symbol and p.get("status") == "open"]
-    strat_codes = [p.get("strategy") for p in open_pos if p.get("strategy") and p.get("strategy") != "imported"]
-    result = f2_signal(
-        df_1m,
-        df_5m,
-        symbol,
-        calc_buy=not open_pos,
-        calc_sell=bool(open_pos),
-        strategy_codes=strat_codes or None,
-    )
-    if (
-        getattr(df_1m, "empty", True) is False
-        and hasattr(df_1m, "iloc")
-        and "close" in getattr(df_1m, "columns", [])
-    ):
-        result["price"] = float(df_1m["close"].iloc[-1])
-    logging.info(
-        f"[F1-F2] process_symbol() \uac01 \uc2ec\ubd80\uc5d0 \ub300\ud55c "
-        f"f2_signal() \ud638\ucd9c\uc774 \uc644\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4: {symbol}"
-    )
-    if result.get("buy_signal") or result.get("sell_signal"):
-        logging.info(
-            f"[{symbol}] BUY={result['buy_signal']} SELL={result['sell_signal']}"
-        )
-    else:
-        logging.debug(f"[{symbol}] No signal")
 
-    # Forward the resulting signal to F3
+    signals = check_signals(symbol)
+    buy_ok = not open_pos and all(signals.values())
+    result = {"symbol": symbol, "buy_signal": buy_ok, "sell_signal": False, "buy_triggers": [], "sell_triggers": []}
+    if getattr(df_1m, "empty", True) is False and hasattr(df_1m, "iloc") and "close" in getattr(df_1m, "columns", []):
+        result["price"] = float(df_1m["close"].iloc[-1])
+    logging.info(f"[F1-F2] process_symbol() signals={signals} result={buy_ok}: {symbol}")
+    if result.get("buy_signal"):
+        logging.info(f"[{symbol}] BUY signal triggered")
+    else:
+        logging.debug(f"[{symbol}] No buy signal")
     try:
         f3_entry(result)
-    except Exception as exc:  # pragma: no cover - best effort
+    except Exception as exc:
         logging.error(f"[{symbol}] Failed to send signal to F3: {exc}")
-
-    if result.get("sell_signal") and open_pos:
-        for strat_code in result.get("sell_triggers", []):
-            for pos in list(open_pos):
-                if pos.get("strategy") == strat_code:
-                    pm.execute_sell(pos, "strategy_exit")
-
     return result
 
 

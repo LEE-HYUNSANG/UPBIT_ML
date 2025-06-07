@@ -62,7 +62,7 @@ def _get_price(mode: str, symbol: str, client) -> float | None:
     return None
 
 
-def smart_buy(signal, config, position_manager=None, parent_logger=None):
+def smart_buy(signal, config, position_manager=None, parent_logger=None, max_price=None):
     """Attempt a two-step limit buy with an optional market fallback.
 
     Parameters
@@ -75,6 +75,9 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
         Manager used to place orders and track positions.
     parent_logger : logging.Logger, optional
         Logger to receive additional messages.
+    max_price : float, optional
+        Maximum price to pay for the limit order. If given the actual
+        order price will not exceed this value.
 
     Returns
     -------
@@ -91,6 +94,8 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
     mode1 = str(config.get("1st_Bid_Price", "BID1"))
     mode2 = str(config.get("2nd_Bid_Price", "ASK1"))
     price1 = _get_price(mode1, symbol, position_manager.client) or base_price
+    if max_price is not None:
+        price1 = min(price1, max_price)
     qty = config.get("ENTRY_SIZE_INITIAL", 1) / max(price1, 1)
     qty = max(qty, 0.0001)
     wait_sec1 = int(config.get("LIMIT_WAIT_SEC_1", config.get("LIMIT_WAIT_SEC", 50)))
@@ -119,6 +124,8 @@ def smart_buy(signal, config, position_manager=None, parent_logger=None):
 
             if wait_sec2 > 0:
                 price2 = _get_price(mode2, symbol, position_manager.client) or price1
+                if max_price is not None:
+                    price2 = min(price2, max_price)
                 res2 = position_manager.place_order(symbol, "bid", qty, "limit", price2)
                 uuid2 = res2.get("uuid")
                 if uuid2:

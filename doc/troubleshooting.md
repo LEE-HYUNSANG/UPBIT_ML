@@ -17,7 +17,7 @@
 ## 단계별 점검
 - **1단계: 매수 목록 생성 확인**
 
-    `logs/f2/f2_ml_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
+    `logs/f2/f2_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
 
     ```text
     2025-06-04 08:05:30,942 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-TRUMP', ...}]
