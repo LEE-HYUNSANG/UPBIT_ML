@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 import sys
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from indicators import macd, mfi, adx, sma, vwap
+from indicators import macd, mfi, adx
 
 from utils import ensure_dir, setup_logger
 
@@ -29,42 +29,20 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # === 표준 피처 ===
 
-    # EMA 및 장기선
-    df["ema5"] = df["close"].ewm(span=5, adjust=False).mean()
-    df["ema8"] = df["close"].ewm(span=8, adjust=False).mean()
-    df["ema13"] = df["close"].ewm(span=13, adjust=False).mean()
-    df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
-    df["ema21"] = df["close"].ewm(span=21, adjust=False).mean()
-    df["ema60"] = df["close"].ewm(span=60, adjust=False).mean()
-    df["ema120"] = df["close"].ewm(span=120, adjust=False).mean()
+    # EMA
+    for span in [5, 13, 20, 60, 120]:
+        df[f"ema{span}"] = df["close"].ewm(span=span, adjust=False).mean()
 
-    # SMA
-    df["sma5"] = df["close"].rolling(window=5).mean()
-    df["sma20"] = df["close"].rolling(window=20).mean()
-
-    # EMA 차이
-    df["ema5_ema20_diff"] = df["ema5"] - df["ema20"]
-    df["ema8_ema21_diff"] = df["ema8"] - df["ema21"]
-    df["ema5_ema60_diff"] = df["ema5"] - df["ema60"]
-    df["ema20_ema60_diff"] = df["ema20"] - df["ema60"]
-
-    # EMA 골든/데드크로스 flag
-    df["ema_gc"] = ((df["ema5"].shift(1) < df["ema20"].shift(1)) & (df["ema5"] > df["ema20"])).astype(int)
-    df["ema_dc"] = ((df["ema5"].shift(1) > df["ema20"].shift(1)) & (df["ema5"] < df["ema20"])).astype(int)
-
-    # RSI
-    for w in [7, 14, 21]:
-        delta = df["close"].diff()
-        gain = delta.where(delta > 0, 0)
-        loss = -delta.where(delta < 0, 0)
-        avg_gain = gain.rolling(w).mean()
-        avg_loss = loss.rolling(w).mean()
-        rs = avg_gain / (avg_loss + 1e-8)
-        df[f"rsi{w}"] = 100 - (100 / (1 + rs))
-        # 과매수/과매도 flag
-        if w == 14:
-            df["rsi_oversold"] = (df[f"rsi{w}"] < 30).astype(int)
-            df["rsi_overbought"] = (df[f"rsi{w}"] > 70).astype(int)
+    # RSI(14)
+    delta = df["close"].diff()
+    gain = delta.where(delta > 0, 0)
+    loss = -delta.where(delta < 0, 0)
+    avg_gain = gain.rolling(14).mean()
+    avg_loss = loss.rolling(14).mean()
+    rs = avg_gain / (avg_loss + 1e-8)
+    df["rsi14"] = 100 - (100 / (1 + rs))
+    df["rsi_oversold"] = (df["rsi14"] < 30).astype(int)
+    df["rsi_overbought"] = (df["rsi14"] > 70).astype(int)
 
     # ATR
     high_low = df["high"] - df["low"]
@@ -80,15 +58,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["vol_ratio_5"] = df["volume"] / (df["ma_vol5"] + 1e-8)
     df["vol_chg"] = df["volume"].pct_change().fillna(0)
 
-    # 스토캐스틱
-    for w in [7, 14]:
-        low_w = df["low"].rolling(w).min()
-        high_w = df["high"].rolling(w).max()
-        stoch_k = 100 * (df["close"] - low_w) / (high_w - low_w + 1e-8)
-        df[f"stoch_k{w}"] = stoch_k
-        df[f"stoch_d{w}"] = stoch_k.rolling(3).mean()
-
-    # 일반화된 %K, %D(14)
+    # 스토캐스틱(K14/D14)
+    low14 = df["low"].rolling(14).min()
+    high14 = df["high"].rolling(14).max()
+    stoch_k14 = 100 * (df["close"] - low14) / (high14 - low14 + 1e-8)
+    df["stoch_k14"] = stoch_k14
+    df["stoch_d14"] = stoch_k14.rolling(3).mean()
     df["stoch_k"] = df["stoch_k14"]
     df["stoch_d"] = df["stoch_d14"]
 
@@ -141,30 +116,10 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["mfi14"] = mfi(df["high"], df["low"], df["close"], df["volume"], period=14)
     df["adx14"] = adx(df["high"], df["low"], df["close"], period=14)[0]
 
-    # MOM/ROC(10)
-    df["mom10"] = df["close"] - df["close"].shift(10)
-    df["roc10"] = (df["close"] / df["close"].shift(10) - 1) * 100
-
-    # CCI(14)
-    tp = (df["high"] + df["low"] + df["close"]) / 3
-    sma_tp = tp.rolling(14).mean()
-    mean_dev = (tp - sma_tp).abs().rolling(14).mean()
-    df["cci14"] = (tp - sma_tp) / (0.015 * (mean_dev + 1e-8))
-
-    # VWAP
-    try:
-        df["vwap"] = vwap(df["high"], df["low"], df["close"], df["volume"])
-    except Exception:
-        df["vwap"] = pd.NA
-
     # OBV
     direction = df["volume"].where(df["close"] > df["close"].shift(), -df["volume"])
     df["obv"] = direction.cumsum().fillna(0)
 
-    # 변동성 지표 및 이상값 탐지
-    df["return"] = df["close"].pct_change()
-    df["volatility14"] = df["return"].rolling(14).std()
-    df["anomaly"] = (df["return"].abs() > 3 * df["volatility14"]).astype(int)
 
     # 5분/일봉 변환
     if "timestamp" in df.columns:
