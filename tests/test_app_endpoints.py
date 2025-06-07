@@ -9,18 +9,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 @pytest.fixture
 def app_client(monkeypatch):
-    # Stub f2_signal module to avoid pandas dependency
-    stub = types.ModuleType("signal_engine")
-    def fake_f2_signal(df1, df5, symbol="", **_kw):
-        return {
-            "symbol": symbol,
-            "buy_signal": True,
-            "sell_signal": False,
-            "buy_triggers": ["TEST"],
-            "sell_triggers": [],
-        }
-    stub.f2_signal = fake_f2_signal
+    # Stub check_signals to avoid file access
+    stub = types.ModuleType("f2_buy_signal")
+    stub.check_signals = lambda symbol: {"signal1": True, "signal2": True, "signal3": True}
     stub.reload_strategy_settings = lambda: None
+    monkeypatch.setitem(sys.modules, "f2_buy_signal.03_buy_signal_engine.signal_engine", stub)
     monkeypatch.setitem(sys.modules, "f2_ml_buy_signal.03_buy_signal_engine.signal_engine", stub)
 
     # Provide a dummy pyupbit module
@@ -271,7 +264,7 @@ def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
     client, _, _ = app_client
     import app as app_mod
 
-    buy_file = tmp_path / "f2_f2_realtime_buy_list.json"
+    buy_file = tmp_path / "f2_f3_realtime_buy_list.json"
     buy_file.write_text(
         '[{"symbol":"KRW-AAA","buy_signal":1,"trend_sel":1,"rsi_sel":1}]'
     )
@@ -285,7 +278,7 @@ def test_buy_monitoring_endpoint(app_client, tmp_path, monkeypatch):
     def fake_join(*parts):
         if parts == (
             "config",
-            "f2_f2_realtime_buy_list.json",
+            "f2_f3_realtime_buy_list.json",
         ):
             return str(buy_file)
         if parts == (

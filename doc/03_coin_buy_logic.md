@@ -12,7 +12,7 @@
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 핵심 클래스입니다. |
 | `f3_order/smart_buy.py` | 지정가 주문을 한 번 시도하고 50초 동안 대기합니다. |
 | `f3_order/position_manager.py` | 포지션을 저장하고 손익을 계산하며 매도 조건을 감시합니다. |
-| `config/f2_f2_realtime_buy_list.json` | 매수 시그널과 체결 여부(`buy_count`)가 기록됩니다. |
+| `config/f2_f3_realtime_buy_list.json` | 매수 시그널과 체결 여부(`buy_count`)가 기록됩니다. |
 | `config/f3_f3_realtime_sell_list.json` | 매도 시 세부 설정(TP/SL)을 저장하는 파일입니다. |
 | `logs/F3_order_executor.log` | 주문 실행 과정과 각 신호 처리 내역이 기록됩니다. |
 | `logs/F3_smart_buy.log` | 실매수 로직의 상세 로그입니다. |
@@ -23,6 +23,7 @@
 - `smart_buy()` – 지정가 주문을 50초간 대기하며 한 번만 시도합니다. 【F:f3_order/smart_buy.py†L25-L62】
 - `PositionManager.open_position()` – 체결된 주문 정보를 내부 리스트와 파일에 저장합니다. 【F:f3_order/position_manager.py†L87-L117】
 - `PositionManager.refresh_positions()` – 계좌 잔고와 시세를 조회하여 포지션 정보를 업데이트합니다. 【F:f3_order/position_manager.py†L173-L228】
+- `calc_target_prices()` – 예측 상승률을 이용해 매수/매도 목표가를 계산합니다. 【F:f3_order/utils.py†L129-L136】
 
 ## 동작 흐름
 1. `signal_loop.py`가 `f2_signal()` 결과를 받아 `OrderExecutor.entry()`에 전달합니다.

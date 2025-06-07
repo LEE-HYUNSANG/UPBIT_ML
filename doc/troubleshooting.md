@@ -1,12 +1,12 @@
 # 주문 실행 문제 해결
 
-이 문서는 `f2_ml_buy_signal.run()` 실행 이후 `config/f2_f2_realtime_buy_list.json`이 갱신되었는데도
+이 문서는 `f2_ml_buy_signal.run()` 실행 이후 `config/f2_f3_realtime_buy_list.json`이 갱신되었는데도
 주문이 이루어지지 않을 때 확인할 항목을 정리합니다. 각 단계별 로그 확인 방법과 단위 테스트
 실행 방법을 함께 소개합니다.
 
 ## 기본 흐름
 1. `f2_ml_buy_signal/02_ml_buy_signal.py`의 `run()` 함수가 모니터링 중인 코인을 순회하며
-    매수 신호를 계산하고 결과를 `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+    매수 신호를 계산하고 결과를 `config/f2_f3_realtime_buy_list.json`에 저장합니다.
 2. `app.py`의 `start_buy_signal_scheduler()`가 15초마다 위 파일을 읽어
     `buy_list_executor.execute_buy_list()`를 호출합니다.
 3. `buy_list_executor.execute_buy_list()`는 매수 가능한 항목을 필터링한 뒤 현재 가격을 조회하고
@@ -17,7 +17,7 @@
 ## 단계별 점검
 - **1단계: 매수 목록 생성 확인**
 
-    `logs/f2/f2_ml_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
+    `logs/f2/f2_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
 
     ```text
     2025-06-04 08:05:30,942 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-TRUMP', ...}]
@@ -27,7 +27,7 @@
 
 - **2단계: 스케줄러 동작 여부**
 
-`app.py`를 실행하면 스케줄러 스레드가 생성되어 15초마다 실행됩니다.
+`app.py`를 실행하면 스케줄러 스레드가 생성되어 F5 예측 결과가 업데이트될 때마다 실행됩니다.
 `logs/etc/web.log`에서 다음과 같은 메시지를 확인합니다.
 
     ```text
@@ -70,7 +70,7 @@
     실패 예시:
 
     ```text
-    ERROR PermissionError [Errno 13] config/f2_f2_realtime_buy_list.json
+    ERROR PermissionError [Errno 13] config/f2_f3_realtime_buy_list.json
     ```
 
     권한 오류가 발생하면 해당 파일의 읽기/쓰기 권한을 점검합니다.

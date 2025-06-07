@@ -400,7 +400,7 @@ def run() -> List[str]:
         coins = []
         logger.warning("[RUN] f5_f1_monitoring_list.json missing or invalid")
 
-    buy_list_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
+    buy_list_path = CONFIG_DIR / "f2_f3_realtime_buy_list.json"
     with _buy_list_lock(buy_list_path) as fh:
         try:
             fh.seek(0)

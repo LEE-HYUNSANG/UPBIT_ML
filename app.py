@@ -26,10 +26,7 @@ from f1_universe.universe_selector import (
     CONFIG_PATH,
 )
 from importlib import import_module
-import importlib.util
-
-_se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
-reload_strategy_settings = _se.reload_strategy_settings
+from f2_buy_signal import reload_strategy_settings
 
 app = Flask(__name__)
 PORT = int(os.environ.get("PORT", 3000))
@@ -55,7 +52,7 @@ STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 BUY_SETTINGS_FILE = os.path.join("config", "f6_buy_settings.json")
 ALARM_CONFIG_FILE = alarm_control.CONFIG_FILE
 
-BUY_LIST_FILE = os.path.join("config", "f2_f2_realtime_buy_list.json")
+BUY_LIST_FILE = os.path.join("config", "f2_f3_realtime_buy_list.json")
 SELL_LIST_FILE = os.path.join("config", "f3_f3_realtime_sell_list.json")
 MONITORING_LIST_FILE = os.path.join("config", "f5_f1_monitoring_list.json")
 
@@ -282,20 +279,10 @@ def start_buy_signal_scheduler() -> None:
     global _buy_signal_thread, _buy_signal_stop
     if _buy_signal_thread and _buy_signal_thread.is_alive():
         return
-    module = _import_from_path(os.path.join("f2_ml_buy_signal", "02_ml_buy_signal.py"), "f2_ml_buy")
-    buy_exec = _import_from_path(
-        os.path.join("f2_ml_buy_signal", "03_buy_signal_engine", "buy_list_executor.py"),
-        "buy_list_executor",
-    )
     _buy_signal_stop = threading.Event()
 
     def worker():
         while not _buy_signal_stop.is_set():
-            try:
-                module.run_if_monitoring_list_exists()
-                buy_exec.execute_buy_list()
-            except Exception:
-                WEB_LOGGER.exception("buy signal error")
             if _buy_signal_stop.wait(15):
                 break
 
@@ -470,7 +457,7 @@ def api_signals() -> Response:
 @app.route("/api/buy_monitoring")
 def api_buy_monitoring() -> Response:
     """Return buy monitoring list with F2 metrics."""
-    buy_path = os.path.join("config", "f2_f2_realtime_buy_list.json")
+    buy_path = os.path.join("config", "f2_f3_realtime_buy_list.json")
     try:
         with open(buy_path, "r", encoding="utf-8") as f:
             buy_list = json.load(f)

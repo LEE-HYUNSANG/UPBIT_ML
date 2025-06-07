@@ -86,11 +86,11 @@ def execute_buy_list(executor: OrderExecutor | None = None) -> list[str]:
 
     Side Effects
     ------------
-    Updates ``f2_f2_realtime_buy_list.json`` with new ``buy_count`` values
+    Updates ``f2_f3_realtime_buy_list.json`` with new ``buy_count`` values
     and sends orders to the Upbit API via :class:`OrderExecutor`.
     """
     log_with_tag(logger, "execute_buy_list start")
-    buy_path = CONFIG_DIR / "f2_f2_realtime_buy_list.json"
+    buy_path = CONFIG_DIR / "f2_f3_realtime_buy_list.json"
     try:
         with _buy_list_lock(buy_path) as fh:
             buy_list = _load_buy_list(buy_path, fh)

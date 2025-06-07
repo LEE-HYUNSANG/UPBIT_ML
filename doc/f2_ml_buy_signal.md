@@ -1,6 +1,6 @@
-# F2 경량 ML 매수 신호
+# F2 매수 신호 모듈
 
-`f2_ml_buy_signal/02_ml_buy_signal.py`는 실시간 매수를 위한 경량 머신러닝 파이프라인입니다.
+`f2_buy_signal/02_ml_buy_signal.py`는 실시간 매수를 위한 경량 머신러닝 파이프라인입니다.
 업비트 1분봉 데이터를 읽어 F5 파이프라인에서 학습된 모델을 이용해 **매수 신호 여부**만 빠르게 판단합니다.
 
 ## 주요 경로
@@ -9,7 +9,7 @@
 | --- | --- |
 | `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록. 목록이 없으면 스크립트가 실행되지 않습니다. |
 | `logs/f2/f2_ml_buy_signal.log` | 전체 과정의 로그가 저장되는 파일. |
-| `f2_ml_buy_signal/f2_data/` | 단계별 중간 데이터가 저장되는 임시 폴더. 실행이 끝나면 자동으로 삭제됩니다. |
+| `f2_buy_signal/f2_data/` | 단계별 중간 데이터가 저장되는 임시 폴더. 실행이 끝나면 자동으로 삭제됩니다. |
 
 ## 핵심 함수
 
@@ -19,7 +19,7 @@
 ### `run()`
 1. 파일에서 심볼 목록을 읽어 `check_buy_signal()`을 순회합니다.
 2. 모니터링하는 각 코인에 대해 다음과 같은 구조의 리스트를
-   `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+   `config/f2_f3_realtime_buy_list.json`에 저장합니다.
 
    ```json
    [
@@ -40,7 +40,7 @@
 
 ## 동작 순서
 
-1. `signal_loop.py` 혹은 상위 스케줄러가 15초 주기로 `run_if_monitoring_list_exists()`를 호출합니다.
+1. `f5_ml_pipeline`의 예측 결과가 갱신되면 `run_if_monitoring_list_exists()`가 자동으로 호출됩니다.
 2. 스크립트는 `f5_f1_monitoring_list.json`이 존재할 때만 각 코인의 매수 신호를 판별합니다.
 3. 매수 신호가 `True`로 판단되면 해당 코인이 실시간 매수 리스트에만 기록됩니다.
    실제 주문이 체결된 뒤에야 별도의 로직이 매도 설정 리스트(`f3_f3_realtime_sell_list.json`)
@@ -54,5 +54,5 @@
 레포지터리 루트에서 모듈 형태로 실행하면 import 오류 없이 동작합니다.
 
 ```bash
-python -m f2_ml_buy_signal.02_ml_buy_signal
+python -m f2_buy_signal.02_ml_buy_signal
 ```

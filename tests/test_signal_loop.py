@@ -20,17 +20,12 @@ def test_process_symbol_ignores_imported_strategy(monkeypatch):
         "volume": [1, 1],
     })
     monkeypatch.setattr(signal_loop, "fetch_ohlcv", lambda *a, **k: df)
-    captured = {}
-
-    def fake_f2(df1, df5, symbol="", calc_buy=True, calc_sell=True, strategy_codes=None):
-        captured["codes"] = strategy_codes
-        return {"symbol": symbol, "buy_signal": False, "sell_signal": False, "buy_triggers": [], "sell_triggers": []}
-
-    monkeypatch.setattr(signal_loop, "f2_signal", fake_f2)
+    called = {}
+    monkeypatch.setattr(signal_loop, "check_signals", lambda sym: called.setdefault("sym", sym) or {"signal1": True, "signal2": True, "signal3": True})
     pm = signal_loop._default_executor.position_manager
     pm.positions = [{"symbol": "KRW-BTC", "status": "open", "strategy": "imported"}]
     signal_loop.process_symbol("KRW-BTC")
-    assert captured["codes"] is None
+    assert called["sym"] == "KRW-BTC"
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")

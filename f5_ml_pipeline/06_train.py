@@ -24,7 +24,7 @@ CONFIG_PATH = Path(__file__).parent / "config" / "train_config.yaml"
 CONFIG = load_yaml_config(CONFIG_PATH)
 
 # 학습 시 사용할 피처 목록은 데이터에 존재하는 컬럼에서 자동 추출한다.
-IGNORE_COLS = {"timestamp", "label"}
+IGNORE_COLS = {"timestamp", "label", "signal1", "signal2", "signal3"}
 
 def train_and_eval(symbol: str) -> None:
     """단일 심볼의 모델을 학습하고 저장한다."""
@@ -54,9 +54,9 @@ def train_and_eval(symbol: str) -> None:
             if f not in df.columns:
                 df[f] = 0
 
-    # ✅ 익절(1), 트레일링스탑(2)을 모두 성공(label=1)로 간주
-    y_train = train_df["label"].isin([1, 2]).astype(int)
-    y_valid = valid_df["label"].isin([1, 2]).astype(int)
+    # ✅ signal1을 양성 클래스로 사용
+    y_train = train_df.get("signal1", pd.Series([0] * len(train_df))).astype(int)
+    y_valid = valid_df.get("signal1", pd.Series([0] * len(valid_df))).astype(int)
 
     if not features:
         logging.warning("%s 학습 스킵: 사용 가능한 피처가 없습니다.", symbol)
@@ -103,10 +103,9 @@ def train_and_eval(symbol: str) -> None:
         metrics["auc"] = roc_auc_score(y_valid, y_prob)
     except ValueError:
         metrics["auc"] = 0.0
-    metrics["label_2_support"] = int((valid_df["label"] == 2).sum())
-    metrics["label_1_support"] = int((valid_df["label"] == 1).sum())
-    metrics["label_-1_support"] = int((valid_df["label"] == -1).sum())
-    metrics["label_0_support"] = int((valid_df["label"] == 0).sum())
+    metrics["signal1_support"] = int(valid_df.get("signal1", pd.Series()).sum())
+    metrics["signal2_support"] = int(valid_df.get("signal2", pd.Series()).sum())
+    metrics["signal3_support"] = int(valid_df.get("signal3", pd.Series()).sum())
 
     ensure_dir(MODEL_DIR)
     model_path = MODEL_DIR / f"{symbol}_model.pkl"
@@ -117,8 +116,11 @@ def train_and_eval(symbol: str) -> None:
         json.dump(metrics, f, indent=2)
 
     logging.info(
-        "[TRAIN] %s saved model %s and metrics %s (label=2 %d건)",
-        symbol, model_path.name, metrics.get("accuracy"), metrics["label_2_support"]
+        "[TRAIN] %s saved model %s and metrics %s (signal1 %d건)",
+        symbol,
+        model_path.name,
+        metrics.get("accuracy"),
+        metrics["signal1_support"],
     )
 
 def main() -> None:
