@@ -19,6 +19,7 @@
 - `run_if_monitoring_list_exists()` – 모니터링 목록이 존재할 때만 `run()`을 호출합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L361-L371】
 - `f2_buy_signal.run()` – 각 코인에 대해 `check_buy_signal()`을 호출하고 결과를 JSON 파일에 기록합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L322-L359】
 - `check_buy_signal()` – 모델 예측 값과 지표 조건을 확인하여 `(buy, rsi_flag, trend_flag)`를 반환합니다. 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L256-L303】
+- `check_signals(symbol)` – `08_pred` 폴더의 CSV에서 최근 행을 읽어 세 신호 값을 반환합니다.
 
 ## 동작 흐름
 1. `signal_loop.py` 또는 외부 스케줄러가 `run_if_monitoring_list_exists()`를 호출합니다.
