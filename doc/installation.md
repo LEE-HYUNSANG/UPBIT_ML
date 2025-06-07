@@ -7,3 +7,4 @@ pip install -e .
 ```
 
 위 명령은 `requirements.txt`의 의존성을 함께 설치하며, 소스 코드를 수정하면 즉시 반영됩니다.
+editable 모드가 필요 없다면 `pip install -r requirements.txt`로 필요한 패키지만 설치할 수 있습니다.
