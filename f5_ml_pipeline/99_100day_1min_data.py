@@ -146,35 +146,47 @@ def validate_data(root: Path, markets: Iterable[str]) -> List[str]:
     return incomplete
 
 
-def ask_delete(market: str, rows: int) -> bool:
-    """Prompt whether to delete existing data before retry."""
+def ask_retry(market: str, rows: int) -> bool:
+    """Return ``True`` to retry collection of ``market``."""
     while True:
         ans = input(
-            f"{market} has {rows} rows (expected {CANDLE_LIMIT}). Delete and retry [d] or keep and retry [r]? "
+            f"{market} has {rows} rows (expected {CANDLE_LIMIT}). Retry [y/n]? "
         ).strip().lower()
-        if ans in {"d", "r"}:
-            return ans == "d"
+        if ans in {"y", "n"}:
+            return ans == "y"
 
 
-def collect_markets(markets: Iterable[str]) -> None:
+def collect_markets(markets: Iterable[str]) -> List[str]:
     """Collect history for ``markets`` with progress output."""
     items = list(markets)
     total = len(items)
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_root = Path(tmpdir)
         collected: List[str] = []
+        incomplete: List[str] = []
         for idx, market in enumerate(items, start=1):
             print(f"[{idx}/{total}] Collecting {market} ...", flush=True)
             try:
                 df = get_ohlcv_history(market)
                 if df.empty:
                     logging.warning("No data for %s", market)
+                    incomplete.append(market)
+                    continue
+                if len(df) < CANDLE_LIMIT:
+                    logging.warning(
+                        "%s expected %d rows but got %d",
+                        market,
+                        CANDLE_LIMIT,
+                        len(df),
+                    )
+                    incomplete.append(market)
                     continue
                 save_data(df, market, root=tmp_root)
                 collected.append(market)
                 print(f"[{idx}/{total}] {market} done", flush=True)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error("Collect error %s: %s", market, exc)
+                incomplete.append(market)
 
         for market in collected:
             file = tmp_root / f"{market}_rawdata.parquet"
@@ -183,6 +195,7 @@ def collect_markets(markets: Iterable[str]) -> None:
                 save_data(df, market, root=DATA_ROOT)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error("Finalize error %s: %s", file.name, exc)
+        return incomplete
 
 
 def main() -> None:
@@ -201,18 +214,22 @@ def main() -> None:
     pending = markets
     while pending:
         logging.info("Collect 100k history for %s", pending)
-        collect_markets(pending)
+        incomplete = collect_markets(pending)
+        incomplete.extend(validate_data(DATA_ROOT, pending))
         next_round: List[str] = []
-        for market in validate_data(DATA_ROOT, pending):
+        for market in set(incomplete):
             file_path = DATA_ROOT / f"{market}_rawdata.parquet"
             try:
                 rows = len(pd.read_parquet(file_path))
             except Exception:
                 rows = 0
-            delete = ask_delete(market, rows)
-            if delete:
-                file_path.unlink(missing_ok=True)
-            next_round.append(market)
+            retry = ask_retry(market, rows)
+            file_path.unlink(missing_ok=True)
+            if retry:
+                next_round.append(market)
+            else:
+                logging.info("User aborted collection for %s", market)
+                return
         pending = next_round
         if pending:
             logging.info("Retrying incomplete markets: %s", pending)
