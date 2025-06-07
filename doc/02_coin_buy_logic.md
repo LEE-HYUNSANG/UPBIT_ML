@@ -8,10 +8,7 @@
 
 | 경로 | 용도 |
 | --- | --- |
-| `f2_ml_buy_signal/02_ml_buy_signal.py` | 경량 머신러닝으로 실시간 매수 신호를 판단합니다. |
-| `f2_ml_buy_signal/01_buy_indicator.py` | 1분 봉에서 RSI와 EMA 조건을 이용한 간단한 매수 필터 함수가 있습니다. |
-| `f2_ml_buy_signal/f2_data/` | 단계별 임시 Parquet 파일 저장 위치. 신호 계산 후 폴더 전체가 삭제됩니다. |
-| `f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수에서 1분 봉 데이터를 받아 ML 모델을 호출합니다. |
+| `f2_buy_signal/__init__.py` | F5 예측 값을 읽어 세 가지 신호를 계산합니다. |
 | `f3_order/order_executor.py` | 매수 신호를 받아 주문을 실행하는 `OrderExecutor` 클래스가 있습니다. |
 | `f3_order/position_manager.py` | 포지션을 저장·관리하며 주문 결과를 기록합니다. |
 | `config/f5_f1_monitoring_list.json` | 모니터링할 코인 목록(`symbol`, `thresh_pct`, `loss_pct`). F5 단계에서 생성됩니다. |
@@ -19,7 +16,7 @@
 | `config/f3_f3_realtime_sell_list.json` | 현재 보유 중인 코인 심볼 목록을 저장합니다. 포지션이 정리되면 목록에서 제거됩니다. |
 | `config/f4_f2_risk_settings.json` | 삭제된 파일로, 과거 기본 위험 관리 값이 들어 있었습니다. |
 
-로그는 `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`,
+로그는 `logs/f2/f2_buy_signal.log`에 기록되며,
 `logs/f2/buy_list_executor.log`, `logs/F3_order_executor.log` 등에 남습니다.
 
 ## 주요 함수
@@ -37,7 +34,7 @@
   실행 중인지 표시합니다. 주문이 접수되면 1로 바뀌고 체결되거나 취소될 때
   다시 0이 됩니다. 매도 설정 리스트는 실제 매수가 완료된 뒤 별도의 과정에서
   갱신됩니다.
-3. 과정과 결과는 `logs/f2/f2_ml_buy_signal.log`에 기록됩니다.
+3. 과정과 결과는 `logs/f2/f2_buy_signal.log`에 기록됩니다.
 4. 이 함수는 실매수를 수행하지 않고 JSON 파일만 갱신합니다. 실제 주문은
    `signal_loop.py`가 주기적으로 이 파일을 읽어 실행하거나,
    `buy_list_executor.execute_buy_list()`를 직접 호출해 수동으로 체결할 수
@@ -75,14 +72,14 @@
 
 ## 실시간 매수 리스트 활용
 
-`f2_ml_buy_signal.run()`이 작성한 `config/f2_f2_realtime_buy_list.json`은
+`check_signals()` 결과를 이용해 갱신한 `config/f2_f2_realtime_buy_list.json`은
 웹 서버의 스케줄러가 15초마다 자동으로 읽어 주문을 실행합니다. 구현은
 `buy_list_executor.execute_buy_list()`를 호출하는 방식이며, 매수 후보가 있으면
 즉시 `OrderExecutor.entry()`로 전달됩니다. 필요하다면 아래와 같이 수동으로도
 실행할 수 있습니다.
 
 ```python
-from f2_ml_buy_signal.03_buy_signal_engine.buy_list_executor import execute_buy_list
+from f2_buy_signal import check_signals
 execute_buy_list()
 ```
 

@@ -25,13 +25,11 @@ flowchart TD
 - **로그**: `logs/F1_signal_engine.log`, `logs/F1-F2_loop.log`
 
 ## 2. F2 실시간 매수 신호
-- **역할**: 최근 1분봉 데이터를 이용해 머신러닝으로 매수 가능성을 판단합니다.
-- **주요 파일**: `f2_ml_buy_signal/02_ml_buy_signal.py`, `f2_ml_buy_signal/01_buy_indicator.py`, `f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py`
+- **역할**: F5 예측 결과를 읽어 세 가지 조건을 검사합니다.
+- **주요 파일**: `f2_buy_signal/__init__.py`
 - **주요 함수**
-  - `run()` – 모니터링 리스트를 순회하며 매수 신호 계산 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L323-L392】
-  - `run_if_monitoring_list_exists()` – 모니터링 파일이 있을 때만 실행 【F:f2_ml_buy_signal/02_ml_buy_signal.py†L395-L401】
-  - `f2_signal()` – 실시간 루프에서 호출되는 신호 계산 함수 【F:f2_ml_buy_signal/03_buy_signal_engine/signal_engine.py†L34-L54】
-- **로그**: `logs/f2/f2_ml_buy_signal.log`, `logs/F2_signal_engine.log`
+  - `check_signals(symbol)` – 예측 CSV에서 세 신호를 계산해 반환합니다.
+- **로그**: `logs/f2/f2_buy_signal.log`
 
 ## 3. F3 주문 실행기
 - **역할**: F2에서 전달된 매수/매도 신호를 실제 주문으로 전환하고 포지션을 관리합니다.

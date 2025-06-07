@@ -26,10 +26,7 @@ from f1_universe.universe_selector import (
     CONFIG_PATH,
 )
 from importlib import import_module
-import importlib.util
-
-_se = import_module("f2_ml_buy_signal.03_buy_signal_engine.signal_engine")
-reload_strategy_settings = _se.reload_strategy_settings
+from f2_buy_signal import reload_strategy_settings
 
 app = Flask(__name__)
 PORT = int(os.environ.get("PORT", 3000))
@@ -282,20 +279,10 @@ def start_buy_signal_scheduler() -> None:
     global _buy_signal_thread, _buy_signal_stop
     if _buy_signal_thread and _buy_signal_thread.is_alive():
         return
-    module = _import_from_path(os.path.join("f2_ml_buy_signal", "02_ml_buy_signal.py"), "f2_ml_buy")
-    buy_exec = _import_from_path(
-        os.path.join("f2_ml_buy_signal", "03_buy_signal_engine", "buy_list_executor.py"),
-        "buy_list_executor",
-    )
     _buy_signal_stop = threading.Event()
 
     def worker():
         while not _buy_signal_stop.is_set():
-            try:
-                module.run_if_monitoring_list_exists()
-                buy_exec.execute_buy_list()
-            except Exception:
-                WEB_LOGGER.exception("buy signal error")
             if _buy_signal_stop.wait(15):
                 break
 
