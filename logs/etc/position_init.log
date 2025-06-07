@@ -140,3 +140,12 @@
 {"time": "2025-06-05T14:24:03+09:00", "symbol": "KRW-ONDO", "qty": 12.10025928, "entry_price": 1159.0, "eval_amt": 14024.200505519999, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
 {"time": "2025-06-05T14:24:03+09:00", "symbol": "KRW-PENDLE", "qty": 1.17944397, "entry_price": 5935.0, "eval_amt": 6999.9999619499995, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
 {"time": "2025-06-05T14:24:03+09:00", "symbol": "KRW-BERA", "qty": 1.98889212, "entry_price": 3525.18721834, "eval_amt": 7011.2170800811455, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-XRP", "qty": 70.0, "entry_price": 800.0, "eval_amt": 56000.0, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-SUI", "qty": 0.5, "entry_price": 1000.0, "eval_amt": 500.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-XRP", "qty": 70.0, "entry_price": 800.0, "eval_amt": 56000.0, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-ETH", "qty": 0.001, "entry_price": 3400000.0, "eval_amt": 3400.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-XRP", "qty": 70.0, "entry_price": 800.0, "eval_amt": 56000.0, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-ETH", "qty": 0.001, "entry_price": 3400000.0, "eval_amt": 3400.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-SUI", "qty": 30.0, "entry_price": 1000.0, "eval_amt": 30000.0, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-SUI", "qty": 30.0, "entry_price": 1000.0, "eval_amt": 30000.0, "event": "ImportPosition", "origin": "imported", "action": "매도 시그널 감시 시작"}
+{"time": "2025-06-08T03:33:25+09:00", "symbol": "KRW-SUI", "qty": 30.0, "entry_price": 0.0, "eval_amt": 0.0, "event": "IgnoreSmallBalance", "action": "매수대상 유지"}

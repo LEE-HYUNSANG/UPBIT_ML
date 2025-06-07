@@ -1,0 +1,1 @@
+2025-06-07 18:33:25,227 [F3] [F3] cancel_order failed for 1: 'types.SimpleNamespace' object has no attribute 'cancel_order'

@@ -8,7 +8,6 @@ F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 
 | 경로 | 설명 |
 | --- | --- |
-| `f2_buy_signal/03_buy_signal_engine/signal_engine.py` | `f2_signal()` 함수가 매도 공식을 평가합니다. |
 | `f3_order/position_manager.py` | 포지션 정보를 저장하고 `hold_loop()`에서 손익을 주기적으로 계산합니다. |
 | `f3_order/order_executor.py` | `manage_positions()` 메서드로 포지션 상태를 점검하고 필요 시 매도를 실행합니다. |
 | `config/f6_buy_settings.json` | 진입 금액과 동시 보유 코인 수 등을 지정하는 설정 파일입니다. |
@@ -18,10 +17,6 @@ F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 
 ## 주요 함수
 
-### `f2_signal(..., calc_sell=True)`
-1분 봉 데이터를 기반으로 매도 조건을 계산합니다.
-조건을 충족하면 반환 값의 `sell_signal`이 `True`가 되며
-`sell_triggers`에 사용된 전략 코드가 남습니다.
 
 ### `PositionManager.hold_loop()`
 초당 실행되며 각 포지션의 현재가를 가져와 손익률을 계산합니다.
@@ -36,7 +31,7 @@ F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 
 ## 동작 흐름
 
-1. `signal_loop.py`는 보유 중인 각 코인에 대해 `f2_signal(calc_sell=True)`을 호출합니다.
+1. `signal_loop.py`는 보유 중인 각 코인의 1분 봉 데이터를 분석합니다.
 2. `sell_signal`이 `True`이면 `PositionManager.execute_sell()`이 실행되어 시장가 주문을 보냅니다.
 3. 매수 주문이 체결되면 `OrderExecutor`가 `config/f3_f3_realtime_sell_list.json`에
    해당 코인 심볼을 추가합니다. 이 파일은 단순히 현재 보유 중인 심볼을

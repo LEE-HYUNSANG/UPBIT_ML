@@ -1337,3 +1337,8 @@
 2025-06-05 14:29:05,649 [F3] [F3] Loaded credentials from env.json
 2025-06-05 14:31:32,783 [F3] [F3] Loaded credentials from env.json
 2025-06-05 14:36:32,793 [F3] [F3] Loaded credentials from env.json
+2025-06-07 18:33:24,651 [F3] [F3] Loaded credentials from env.json
+2025-06-07 18:33:24,652 [F3] [F3] Upbit credentials loaded
+2025-06-07 18:33:24,743 [F3] [F3] Loaded credentials from env.json
+2025-06-07 18:33:25,649 [F3] [F3] Failed to load /tmp/pytest-of-root/pytest-1/test_invalid_env_logs0/.env.json: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2025-06-07 18:33:25,650 [F3] [F3] UPBIT_KEY or UPBIT_SECRET missing

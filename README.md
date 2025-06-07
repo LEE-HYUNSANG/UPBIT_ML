@@ -36,15 +36,7 @@ F1/F2 루프를 시작하려면 다음 명령을 사용합니다.
 python signal_loop.py
 ```
 
-로그는 `logs/F1-F2_loop.log`에 기록되며, 용량이 100MB를 넘으면 자동으로 회전합니다. 독립적인 ML 매수 신호 루틴을 실행하려면 프로젝트 루트에서 다음과 같이 실행하세요.
-
-```bash
-python -m f2_buy_signal.02_ml_buy_signal
-```
-
-결과는 `logs/f2/f2_ml_buy_signal.log`에 저장됩니다. 필요한 패키지가 없으면 이 로그 파일에 오류도 기록됩니다.
-`run()` 함수는 `config/f2_f3_realtime_buy_list.json`을 갱신하며
- Flask 스케줄러가 자동으로 `buy_list_executor.execute_buy_list()`를 호출해 즉시 주문합니다.
+로그는 `logs/F1-F2_loop.log`에 기록되며, 용량이 100MB를 넘으면 자동으로 회전합니다.
 
 ## 주문 모듈 실행
 빠른 테스트를 위해 직접 주문 모듈을 실행할 수 있습니다.
@@ -69,9 +61,8 @@ python app.py
 ```
 
 서버는 포트 3000에서 동작하며 `http://localhost:3000`으로 접속할 수 있습니다.
-서버 시작 시 다음 세 가지 백그라운드 작업이 실행됩니다.
+서버 시작 시 다음 두 가지 백그라운드 작업이 실행됩니다.
 - `f5_ml_pipeline/01_data_collect.py` : 1분봉 OHLCV 데이터를 지속적으로 수집합니다.
-- `f2_buy_signal/02_ml_buy_signal.py` : F5 예측 결과가 갱신될 때마다 실시간 매수 목록을 갱신합니다.
 - `f5_ml_pipeline/run_pipeline.py` : 5분마다 모델을 재학습하고 평가합니다.
 
 ## 자격 증명 설정

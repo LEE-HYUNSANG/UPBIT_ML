@@ -40,7 +40,6 @@
 - [order_limits.md](order_limits.md)
 - [config.md](config.md)
 - [f1_coin_conditions.md](f1_coin_conditions.md)
-- [f2_ml_buy_signal.md](f2_ml_buy_signal.md)
 - [formula_offsets.md](formula_offsets.md)
 - [roi_sharpe.md](roi_sharpe.md)
 - [sellqty_handling.md](sellqty_handling.md)

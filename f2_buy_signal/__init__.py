@@ -1,27 +1,11 @@
-from __future__ import annotations
-
-from importlib import import_module
 import csv
 import logging
 from pathlib import Path
-import sys
-
-_submodules = {"01_buy_indicator", "02_ml_buy_signal", "03_buy_signal_engine"}
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PRED_DIR = PROJECT_ROOT / "f5_ml_pipeline" / "ml_data" / "08_pred"
 
 logger = logging.getLogger(__name__)
-
-
-def __getattr__(name):
-    if name in _submodules:
-        module = import_module(f"f2_ml_buy_signal.{name}")
-        sys.modules[f"{__name__}.{name}"] = module
-        return module
-    raise AttributeError(f"module {__name__} has no attribute {name}")
-
-__all__ = list(_submodules)
 
 
 def reload_strategy_settings() -> None:
@@ -65,3 +49,5 @@ def check_signals(symbol: str) -> dict:
         signal3 = False
     result.update(signal1=bool(signal1), signal2=bool(signal2), signal3=bool(signal3))
     return result
+
+__all__ = ["check_signals", "reload_strategy_settings"]
