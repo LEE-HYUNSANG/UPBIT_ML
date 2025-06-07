@@ -17,11 +17,11 @@ from utils import ensure_dir, file_lock, save_parquet_atomic, backup_file, setup
 
 BASE_URL = "https://api.upbit.com"
 PIPELINE_ROOT = Path(__file__).resolve().parent
-DATA_ROOT = PIPELINE_ROOT / "ml_data" / "99_100day_1min_data"
+DATA_ROOT = PIPELINE_ROOT / "ml_data" / "99_100K_1min_data"
 ROOT_DIR = PIPELINE_ROOT.parent
 COIN_LIST_FILE = ROOT_DIR / "config" / "f1_f5_data_collection_list.json"
 REQUEST_DELAY = 0.2
-LOG_PATH = ROOT_DIR / "logs" / "f5" / "99_100day_1min_data.log"
+LOG_PATH = ROOT_DIR / "logs" / "f5" / "99_100K_1min_data.log"
 CANDLE_LIMIT = 100_000
 
 
