@@ -24,7 +24,8 @@ dependencies = [
     "optuna==3.5.0",
     "lightgbm==4.3.0",
     "scikit-learn==1.4.2",
-    "pyTelegramBotAPI"
+    "pyTelegramBotAPI",
+    "pytest==8.1.1"
 ]
 
 [project.urls]
