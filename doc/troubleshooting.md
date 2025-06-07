@@ -1,12 +1,11 @@
 # 주문 실행 문제 해결
 
-이 문서는 `f2_ml_buy_signal.run()` 실행 이후 `config/f2_f2_realtime_buy_list.json`이 갱신되었는데도
+이 문서는 `f2_buy_signal.check_signals()` 결과를 이용해 `config/f2_f2_realtime_buy_list.json`을 갱신했음에도
 주문이 이루어지지 않을 때 확인할 항목을 정리합니다. 각 단계별 로그 확인 방법과 단위 테스트
 실행 방법을 함께 소개합니다.
 
 ## 기본 흐름
-1. `f2_ml_buy_signal/02_ml_buy_signal.py`의 `run()` 함수가 모니터링 중인 코인을 순회하며
-    매수 신호를 계산하고 결과를 `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+1. 주기적인 작업이 `check_signals()`를 호출해 결과를 `config/f2_f2_realtime_buy_list.json`에 기록합니다.
 2. `app.py`의 `start_buy_signal_scheduler()`가 15초마다 위 파일을 읽어
     `buy_list_executor.execute_buy_list()`를 호출합니다.
 3. `buy_list_executor.execute_buy_list()`는 매수 가능한 항목을 필터링한 뒤 현재 가격을 조회하고
@@ -17,7 +16,7 @@
 ## 단계별 점검
 - **1단계: 매수 목록 생성 확인**
 
-    `logs/f2/f2_ml_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
+    `logs/f2/f2_buy_signal.log`에서 `saved buy_list=` 라인을 찾습니다.
 
     ```text
     2025-06-04 08:05:30,942 [F2] [INFO] [RUN] saved buy_list=[{'symbol': 'KRW-TRUMP', ...}]
