@@ -148,11 +148,14 @@ def validate_data(root: Path, markets: Iterable[str]) -> List[str]:
 
 
 def collect_markets(markets: Iterable[str]) -> None:
-    """Collect history for ``markets``."""
+    """Collect history for ``markets`` with progress output."""
+    items = list(markets)
+    total = len(items)
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_root = Path(tmpdir)
         collected: List[str] = []
-        for market in markets:
+        for idx, market in enumerate(items, start=1):
+            print(f"[{idx}/{total}] Collecting {market} ...", flush=True)
             try:
                 df = get_ohlcv_history(market)
                 if df.empty:
@@ -160,6 +163,7 @@ def collect_markets(markets: Iterable[str]) -> None:
                     continue
                 save_data(df, market, root=tmp_root)
                 collected.append(market)
+                print(f"[{idx}/{total}] {market} done", flush=True)
             except Exception as exc:  # pragma: no cover - best effort
                 logging.error("Collect error %s: %s", market, exc)
 
