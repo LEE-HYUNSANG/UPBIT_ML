@@ -19,6 +19,7 @@ pip install -e .
 ```
 
 이 명령은 `requirements.txt`에 정의된 패키지를 함께 설치합니다. `pandas`, `scikit-learn` 등 ML 신호 스크립트에 필요한 의존성이 자동으로 포함되며 `f5_ml_pipeline/06_optuna_tpe.py` 실행에 필요한 `optuna`, `lightgbm`도 함께 설치됩니다.
+editable 모드를 원하지 않는 경우 `pip install -r requirements.txt` 명령으로 의존성만 설치할 수 있습니다.
 
 ## 유니버스 캐시
 마지막으로 선택된 트레이딩 유니버스는 `config/current_universe.json`에 저장됩니다.
