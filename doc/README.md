@@ -19,6 +19,7 @@
 
 ## 서비스 로직
 - [00_auto_upbit.md](00_auto_upbit.md)
+- [flow_chart.md](flow_chart.md)
 - [01_selecting_coins_to_buy.md](01_selecting_coins_to_buy.md)
 - [02_coin_buy_signal.md](02_coin_buy_signal.md)
 - [02_coin_buy_logic.md](02_coin_buy_logic.md)
