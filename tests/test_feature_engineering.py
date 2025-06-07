@@ -32,10 +32,21 @@ def test_add_features_basic():
     }
     df = pd.DataFrame(data)
     result = feature_engineering.add_features(df)
-    for col in ["ema5", "ema13", "ema20", "rsi14", "atr14", "vol_ratio", "stoch_k14"]:
+    for col in [
+        "ema5",
+        "ema8",
+        "ema13",
+        "ema20",
+        "ema21",
+        "rsi14",
+        "atr14",
+        "vol_ratio",
+        "stoch_k7",
+        "stoch_k14",
+        "vwap",
+    ]:
         assert col in result.columns
     assert "ma_vol20" not in result.columns
-    assert "ema8" not in result.columns
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
