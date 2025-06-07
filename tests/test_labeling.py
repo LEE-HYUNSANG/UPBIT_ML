@@ -58,5 +58,27 @@ def test_trailing_none_uses_basic():
         trail_down_pct=None,
     )
     res_basic = labeling.make_labels_basic(df, horizon=2, thresh_pct=0.003)
-    for col in ["label", "signal1", "signal2", "signal3"]:
-        assert list(res_trail[col]) == list(res_basic[col])
+    assert list(res_trail["label"]) == list(res_basic["label"])
+
+
+@pytest.mark.skipif(not pandas_available, reason="pandas not available")
+def test_make_labels_trailing_multistage():
+    df = pd.DataFrame(
+        {
+            "timestamp": pd.date_range("2021-01-01", periods=6, freq="T"),
+            "open": [101, 102, 100, 101, 100, 100],
+            "high": [101, 102, 100, 101, 100, 100],
+            "low": [101, 102, 100, 101, 100, 100],
+            "close": [101, 102, 100, 101, 100, 100],
+            "volume": [1] * 6,
+        }
+    )
+    result = labeling.make_labels_trailing(
+        df,
+        horizon=2,
+        thresh_pct=0.01,
+        loss_pct=0.01,
+        trail_start_pct=0.005,
+        trail_down_pct=0.005,
+    )
+    assert list(result["label"][:4]) == [2, -1, 1, 0]

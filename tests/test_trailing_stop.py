@@ -32,3 +32,24 @@ def test_manage_trailing_stop_missing_entry_price(tmp_path, monkeypatch):
     position = {"symbol": "KRW-BTC", "qty": 1.0, "status": "open", "current_price": 100.0}
     pm.manage_trailing_stop(position)
     assert position["status"] == "open"
+
+
+def test_manage_trailing_stop_triggers_sell(tmp_path, monkeypatch):
+    pm = make_pm(tmp_path, monkeypatch)
+    calls = {"sell": 0}
+
+    def fake_sell(pos, reason):
+        calls["sell"] += 1
+    monkeypatch.setattr(pm, "execute_sell", fake_sell)
+
+    position = {
+        "symbol": "KRW-BTC",
+        "qty": 1.0,
+        "status": "open",
+        "entry_price": 100.0,
+        "current_price": 95.0,
+        "max_price": 102.0,
+    }
+    pm.config.update({"TRAIL_START_PCT": 1.0, "TRAIL_STEP_PCT": 1.0})
+    pm.manage_trailing_stop(position)
+    assert calls["sell"] == 1
