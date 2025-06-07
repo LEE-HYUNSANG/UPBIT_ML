@@ -13,7 +13,8 @@ def app_client(monkeypatch):
     stub = types.ModuleType("f2_buy_signal")
     stub.check_signals = lambda symbol: {"signal1": True, "signal2": True, "signal3": True}
     stub.reload_strategy_settings = lambda: None
-    monkeypatch.setitem(sys.modules, "f2_buy_signal", stub)
+    monkeypatch.setitem(sys.modules, "f2_buy_signal.03_buy_signal_engine.signal_engine", stub)
+    monkeypatch.setitem(sys.modules, "f2_ml_buy_signal.03_buy_signal_engine.signal_engine", stub)
 
     # Provide a dummy pyupbit module
     dummy_pyupbit = types.ModuleType("pyupbit")

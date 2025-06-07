@@ -25,8 +25,8 @@ flowchart TD
 - **로그**: `logs/F1_signal_engine.log`, `logs/F1-F2_loop.log`
 
 ## 2. F2 실시간 매수 신호
-- **역할**: F5 예측 결과를 읽어 세 가지 조건을 검사합니다.
-- **주요 파일**: `f2_buy_signal/__init__.py`
+- **역할**: 최근 1분봉 데이터를 이용해 머신러닝으로 매수 가능성을 판단합니다.
+- **주요 파일**: `f2_buy_signal/02_ml_buy_signal.py`, `f2_buy_signal/01_buy_indicator.py`, `f2_buy_signal/03_buy_signal_engine/signal_engine.py`
 - **주요 함수**
   - `check_signals(symbol)` – 예측 CSV에서 세 신호를 계산해 반환합니다.
 - **로그**: `logs/f2/f2_buy_signal.log`
@@ -57,7 +57,7 @@ flowchart TD
 ## 동작 흐름 요약
 1. **전략 선별(F5)**에서 추천된 코인이 `config/f5_f1_monitoring_list.json`에 저장됩니다.
 2. **유니버스 선택(F1)**이 주기적으로 실행되어 모니터링 코인을 결정하고 `config/current_universe.json`에 기록합니다.
-3. **신호 계산(F2)**이 `signal_loop.py`에서 15초 주기로 호출되어 각 코인의 매수/매도 신호를 구합니다.
+3. **신호 계산(F2)**은 F5 파이프라인의 예측 결과가 생성될 때마다 실행되어 각 코인의 매수/매도 신호를 구합니다.
 4. **주문 실행(F3)**이 신호를 받아 주문을 전송하고, 포지션 정보를 `config/f1_f3_coin_positions.json`에 업데이트합니다.
 5. 전체 과정은 **웹 대시보드**에서 실시간으로 조회 가능하며, 텔레그램 알림과 원격 제어 기능(F6)이 지원됩니다.
 

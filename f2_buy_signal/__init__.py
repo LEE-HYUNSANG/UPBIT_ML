@@ -1,52 +1,13 @@
-from __future__ import annotations
-import csv
-import logging
-from pathlib import Path
+from importlib import import_module
+import sys
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-PRED_DIR = PROJECT_ROOT / "f5_ml_pipeline" / "ml_data" / "08_pred"
+_submodules = {"01_buy_indicator", "02_ml_buy_signal", "03_buy_signal_engine"}
 
-logger = logging.getLogger(__name__)
+def __getattr__(name):
+    if name in _submodules:
+        module = import_module(f"f2_ml_buy_signal.{name}")
+        sys.modules[f"{__name__}.{name}"] = module
+        return module
+    raise AttributeError(f"module {__name__} has no attribute {name}")
 
-
-def reload_strategy_settings() -> None:
-    """Placeholder for compatibility."""
-    return None
-
-
-def check_signals(symbol: str) -> dict:
-    """Read prediction file for ``symbol`` and return signal flags."""
-    path = PRED_DIR / f"{symbol}_pred.csv"
-    result = {"signal1": False, "signal2": False, "signal3": False}
-    if not path.exists():
-        logger.warning("prediction file not found: %s", path)
-        return result
-    try:
-        with path.open("r", encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
-    except Exception as exc:
-        logger.error("failed to read %s: %s", path, exc)
-        return result
-    if not rows:
-        return result
-    row = rows[-1]
-    try:
-        signal1 = bool(int(float(row.get("buy_signal", row.get("buy_prob", 0)))))
-    except Exception:
-        try:
-            signal1 = float(row.get("buy_prob", 0)) > 0.5
-        except Exception:
-            signal1 = False
-    try:
-        rsi = float(row.get("rsi14", 0))
-        signal2 = 40 < rsi < 60
-    except Exception:
-        signal2 = False
-    try:
-        ema5 = float(row.get("ema5", 0))
-        ema20 = float(row.get("ema20", 0))
-        signal3 = ema5 > ema20
-    except Exception:
-        signal3 = False
-    result.update(signal1=bool(signal1), signal2=bool(signal2), signal3=bool(signal3))
-    return result
+__all__ = list(_submodules)
