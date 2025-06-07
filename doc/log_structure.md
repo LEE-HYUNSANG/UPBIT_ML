@@ -1,28 +1,17 @@
-# Log Directory Structure
+# 로그 디렉터리 구조
 
-All log files are stored under the `logs/` folder. During development the
-following subdirectories are used:
+모든 로그는 `logs/` 폴더 아래에 저장됩니다. 현재 프로젝트에서 사용하는 기본 구조는
+다음과 같습니다.
 
 ```
 logs/
-  debug/
-  info/
-  warning/
-  error/
-  critical/
   f1/
   f2/
   f3/
-  f4/
   f5/
-  f6/
   etc/
 ```
 
-Each functional module writes its logs to the matching `f1`–`f6` directory.
-General application logs such as `web.log` or `events.jsonl` live under
-`logs/etc`. Level specific directories (`debug`, `info`, `warning`, `error`,
-`critical`) are reserved for future use.
-
-Run `python logs/relog.py` to remove all existing logs and recreate the directory
-structure. This helps review fresh logs after updates.
+각 모듈은 자신의 이름과 동일한 폴더에 로그 파일을 남깁니다. 웹 서버나 이벤트 기록은
+`logs/etc`에 저장됩니다. `logs/relog.py` 스크립트를 실행하면 기존 로그를 삭제하고
+위 폴더 구조를 다시 생성할 수 있습니다.

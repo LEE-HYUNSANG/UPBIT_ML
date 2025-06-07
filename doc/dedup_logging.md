@@ -1,8 +1,5 @@
-# Deduplicated Logging
+# 중복 로그 필터
 
-Repeated log messages can quickly bloat the `logs/` directory. The project now
-uses a `DedupFilter` to ignore identical lines within a short interval.
-
-`common_utils.setup_logging()` accepts a new `dedup_interval` argument. When
-set, each handler drops duplicate records that occur again before the interval
-expires. All core modules enable this with a 60 second window.
+반복되는 로그 메시지가 쌓이는 것을 방지하기 위해 `DedupFilter`를 사용합니다.
+`common_utils.setup_logging()`에 `dedup_interval` 값을 지정하면 해당 시간 내에
+동일한 로그가 다시 기록될 경우 무시됩니다. 기본 설정은 60초입니다.
