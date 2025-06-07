@@ -10,3 +10,4 @@ f5_ml_pipeline/ml_data/*
 !f5_ml_pipeline/ml_data/**/
 !f5_ml_pipeline/ml_data/**/.gitkeep
 !f5_ml_pipeline/ml_data/10_selected/selected_strategies.json
+.pytest_cache/
