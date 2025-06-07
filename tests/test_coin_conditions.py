@@ -63,3 +63,26 @@ def test_price2_disabled(monkeypatch):
 
     coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX = old_p1_min, old_p1_max
     coin_cond.PRICE2_MIN, coin_cond.PRICE2_MAX = old_min, old_max
+
+
+def test_exception_coins(monkeypatch):
+    old_exc = coin_cond.EXCEPTION_COINS
+    coin_cond.EXCEPTION_COINS = ["KRW-AAA"]
+
+    monkeypatch.setattr(coin_cond, "fetch_markets", lambda: ["KRW-AAA", "KRW-BBB"])
+    monkeypatch.setattr(coin_cond, "fetch_candles", lambda market: [{}] * 6)
+    monkeypatch.setattr(
+        coin_cond,
+        "fetch_ticker",
+        lambda market: {"trade_price": 1500, "acc_trade_price_24h": 2_000_000_000},
+    )
+
+    old_min, old_max = coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX
+    coin_cond.PRICE1_MIN = 1000
+    coin_cond.PRICE1_MAX = 2000
+
+    coins = coin_cond.select_coins()
+    assert coins == ["KRW-BBB"]
+
+    coin_cond.PRICE1_MIN, coin_cond.PRICE1_MAX = old_min, old_max
+    coin_cond.EXCEPTION_COINS = old_exc
