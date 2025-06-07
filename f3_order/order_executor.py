@@ -12,7 +12,7 @@ from .position_manager import PositionManager
 from common_utils import load_json
 from .kpi_guard import KPIGuard
 from .exception_handler import ExceptionHandler
-from .utils import load_config, log_with_tag, pretty_symbol
+from .utils import load_config, log_with_tag, pretty_symbol, calc_target_prices
 import time
 from f6_setting.buy_config import load_buy_config
 from f6_setting.sell_config import load_sell_config
@@ -336,6 +336,11 @@ class OrderExecutor:
             if signal["buy_signal"]:
                 symbol = signal.get("symbol")
                 price = signal.get("price")
+                target_price = None
+                tp_price = None
+                if price is not None and signal.get("predicted_rise") is not None:
+                    target_price, tp_price = calc_target_prices(price, float(signal.get("predicted_rise")))
+                    signal["target_buy_price"] = target_price
                 with self._pending_lock:
                     self.pending_symbols.update(self._load_pending_flags())
                     if symbol in self.pending_symbols:
@@ -364,17 +369,23 @@ class OrderExecutor:
                 )
                 order_result = {}
                 try:
+                    kwargs = {}
+                    if target_price is not None:
+                        kwargs["max_price"] = target_price
                     order_result = smart_buy(
                         signal,
                         self.config,
                         self.position_manager,
                         logger,
+                        **kwargs,
                     )
                 finally:
                     with self._pending_lock:
                         self.pending_symbols.discard(symbol)
                 if signal.get("price") is not None:
                     order_result["entry_price"] = signal["price"]
+                if tp_price is not None:
+                    order_result["tp_price"] = tp_price
                 if order_result.get("filled", False):
                     if signal.get("buy_triggers"):
                         order_result["strategy"] = signal["buy_triggers"][0]
@@ -405,6 +416,8 @@ class OrderExecutor:
                     ):
                         if signal.get("buy_triggers"):
                             order_result["strategy"] = signal["buy_triggers"][0]
+                        if tp_price is not None:
+                            order_result["tp_price"] = tp_price
                         self.position_manager.open_position(order_result, status="pending")
                         self._mark_buy_filled(symbol)
                         log_with_tag(logger, f"Pending buy recorded: {order_result}")
