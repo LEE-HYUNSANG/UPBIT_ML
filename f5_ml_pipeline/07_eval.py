@@ -27,7 +27,7 @@ LOG_PATH = ROOT_DIR / "logs" / "f5" / "F5_ml_eval.log"
 
 
 # 평가 단계에서도 모델에 저장된 피처 목록을 우선 사용한다.
-IGNORE_COLS = {"timestamp", "label"}
+IGNORE_COLS = {"timestamp", "label", "signal1", "signal2", "signal3"}
 
 def evaluate(symbol: str) -> None:
     """단일 심볼의 모델을 평가해 JSON으로 저장."""
@@ -58,8 +58,8 @@ def evaluate(symbol: str) -> None:
     test_df.fillna(0, inplace=True)
 
     X_test = test_df[features]
-    # ✅ label==1(익절) or label==2(트레일) 모두 성공(1)로 간주
-    y_true = test_df["label"].isin([1, 2]).astype(int)
+    # ✅ signal1을 기준으로 성공 여부 판단
+    y_true = test_df.get("signal1", pd.Series([0] * len(test_df))).astype(int)
 
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1]
@@ -83,15 +83,14 @@ def evaluate(symbol: str) -> None:
     metrics["brier"] = brier_score_loss(y_true, y_prob)
 
     preds = y_pred == 1
-    # ✅ label==1 또는 label==2로 매매 성공 인정
-    wins = preds & test_df["label"].isin([1, 2])
+    # ✅ signal1이 True일 때 성공으로 간주
+    wins = preds & test_df.get("signal1", pd.Series()).astype(bool)
     metrics["win_rate"] = float(wins.sum() / preds.sum()) if preds.sum() else 0.0
 
-    # label별 분포 추가 저장 (실전 성과 분석용)
-    metrics["label_2_support"] = int((test_df["label"] == 2).sum())
-    metrics["label_1_support"] = int((test_df["label"] == 1).sum())
-    metrics["label_-1_support"] = int((test_df["label"] == -1).sum())
-    metrics["label_0_support"] = int((test_df["label"] == 0).sum())
+    # 신호별 분포 추가 저장 (실전 성과 분석용)
+    metrics["signal1_support"] = int(test_df.get("signal1", pd.Series()).sum())
+    metrics["signal2_support"] = int(test_df.get("signal2", pd.Series()).sum())
+    metrics["signal3_support"] = int(test_df.get("signal3", pd.Series()).sum())
 
     # ROI/Sharpe 계산: horizon/라벨 기준 적용
     if "close" in test_df.columns:
@@ -113,7 +112,12 @@ def evaluate(symbol: str) -> None:
     with open(metrics_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
-    logging.info("[EVAL] %s saved metrics %s (label=2 %d건)", symbol, metrics_path.name, metrics["label_2_support"])
+    logging.info(
+        "[EVAL] %s saved metrics %s (signal1 %d건)",
+        symbol,
+        metrics_path.name,
+        metrics["signal1_support"],
+    )
 
 def main() -> None:
     """실행 엔트리 포인트."""

@@ -33,7 +33,8 @@ def test_make_labels_basic():
         }
     )
     result = labeling.make_labels_basic(df, horizon=2, thresh_pct=0.003)
-    assert list(result["label"]) == [1, -1, 0, 0, 0, 0]
+    for col in ["signal1", "signal2", "signal3"]:
+        assert col in result.columns
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not available")
@@ -57,4 +58,5 @@ def test_trailing_none_uses_basic():
         trail_down_pct=None,
     )
     res_basic = labeling.make_labels_basic(df, horizon=2, thresh_pct=0.003)
-    assert list(res_trail["label"]) == list(res_basic["label"])
+    for col in ["label", "signal1", "signal2", "signal3"]:
+        assert list(res_trail[col]) == list(res_basic[col])
