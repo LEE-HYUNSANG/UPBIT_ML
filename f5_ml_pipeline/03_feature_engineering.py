@@ -1,5 +1,7 @@
 """03_feature_engineering 단계 확장형 스크립트."""
 
+from __future__ import annotations
+
 import logging
 from pathlib import Path
 
