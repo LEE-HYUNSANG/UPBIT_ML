@@ -82,6 +82,6 @@ Defaults are `0.18`, `2`, `'OFF'`, `180`, `0.3` and `1.0` respectively.
 configuration. The trailing-stop flag is converted to `TRAILING_STOP_ENABLED`
 for `PositionManager`.
 ## f5_f5_strategy_params.json
-Default hyperparameters for each strategy used by the ML pipeline.
+This file has been removed. Strategy hyperparameters are now defined directly in the code.
 
 
