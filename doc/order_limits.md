@@ -1,5 +1,7 @@
-# Upbit Order Limits
+# 업비트 주문 제한
 
-Upbit enforces a minimum amount of 5000 KRW when placing a market buy order using `ord_type=price`.
-Orders below this threshold result in a HTTP 400 error.
-Adjust `ENTRY_SIZE_INITIAL` or the quantity passed to `place_order` so that the total amount meets this limit.
+업비트에서 `ord_type=price` 형태로 시장가 매수를 시도할 경우 최소 금액은 5000원입
+니다.
+이보다 적은 금액으로 주문하면 HTTP 400 오류가 발생합니다. 따라서 `ENTRY_SIZE_INITIAL`
+값이나 `place_order`에 전달하는 수량을 조절하여 총 주문 금액이 이 기준을 넘도록 해
+야 합니다.
