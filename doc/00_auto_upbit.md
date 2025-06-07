@@ -28,7 +28,12 @@ flowchart TD
 - **역할**: 최근 1분봉 데이터를 이용해 머신러닝으로 매수 가능성을 판단합니다.
 - **주요 파일**: `f2_buy_signal/02_ml_buy_signal.py`, `f2_buy_signal/01_buy_indicator.py`, `f2_buy_signal/03_buy_signal_engine/signal_engine.py`
 - **주요 함수**
-  - `check_signals(symbol)` – `f5_ml_pipeline/ml_data/08_pred`의 CSV에서 최근 행을 읽어 신호1~3 값을 반환합니다.
+  - `check_signals(symbol)` – `f5_ml_pipeline/ml_data/08_pred/{symbol}_pred.csv`를 읽어 세 신호를 계산한 뒤 딕셔너리로 반환합니다.
+
+    ```python
+    check_signals("KRW-BTC")
+    # {"signal1": True, "signal2": False, "signal3": True}
+    ```
 - **로그**: `logs/f2/f2_buy_signal.log`
 
 ## 3. F3 주문 실행기

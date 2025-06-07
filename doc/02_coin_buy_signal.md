@@ -1,6 +1,13 @@
 # 코인 매수 시그널 생성 로직
 
-본 문서는 `01_selecting_coins_to_buy.md`에서 선정된 코인을 대상으로 `f2_buy_signal.check_signals()` 함수가 어떻게 사용되는지 설명합니다.
+본 문서는 `01_selecting_coins_to_buy.md`에서 선정된 코인을 대상으로 `f2_buy_signal.check_signals()` 함수가 어떻게 사용되는지 설명합니다. 이 함수는 `f5_ml_pipeline/ml_data/08_pred/{symbol}_pred.csv` 파일을 읽어 세 가지 조건을 분석한 뒤 다음과 같은 딕셔너리를 반환합니다.
+
+```python
+signals = check_signals("KRW-BTC")
+# {"signal1": True, "signal2": True, "signal3": False}
+```
+
+세 값이 모두 `True`일 때만 실매수 대상으로 간주합니다.
 
 ## 역할
 - F2 모듈은 F5 단계의 예측 CSV를 읽어 세 가지 조건을 평가합니다.
