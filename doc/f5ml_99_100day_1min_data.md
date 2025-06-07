@@ -4,7 +4,7 @@
 
 ## 주요 기능
 - `get_ohlcv_history()` – 100일치 분봉을 순차적으로 가져옵니다.【F:f5_ml_pipeline/99_100day_1min_data.py†L58-L82】
-- `collect_markets()` – 임시 폴더에 저장 후 정상 파일만 최종 위치로 이동합니다.【F:f5_ml_pipeline/99_100day_1min_data.py†L150-L172】
+- `collect_markets()` – 임시 폴더에 저장 후 정상 파일만 최종 위치로 이동합니다. 진행 상황이 터미널에 출력됩니다.【F:f5_ml_pipeline/99_100day_1min_data.py†L150-L176】
 
 아래와 같이 수동으로 실행합니다.
 ```bash
