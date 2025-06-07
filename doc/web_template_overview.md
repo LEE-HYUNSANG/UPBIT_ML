@@ -26,7 +26,7 @@ recognition and share a unified font style.
 
 ## Buy Monitoring
 
-The "매수 모니터링" table is populated from `config/f2_f2_realtime_buy_list.json`.
+The "매수 모니터링" table is populated from `config/f2_f3_realtime_buy_list.json`.
 Whenever this file is updated the page reflects the new entries. The table spans
 the entire second row of the dashboard. Expected win rate and average ROI are
 displayed with one decimal place when F2 provides them, and subtle horizontal

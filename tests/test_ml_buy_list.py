@@ -23,7 +23,7 @@ def test_run_updates_buy_list_only(tmp_path, monkeypatch):
             {"symbol": "KRW-BBB", "thresh_pct": 0.01, "loss_pct": 0.02},
         ])
     )
-    (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg / "f2_f3_realtime_buy_list.json").write_text("[]")
     (cfg / "f3_f3_realtime_sell_list.json").write_text("[]")
 
     # Stub optional dependencies before importing module
@@ -53,7 +53,7 @@ def test_run_updates_buy_list_only(tmp_path, monkeypatch):
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
 
     result = ml.run()
-    buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    buy = json.loads((cfg / "f2_f3_realtime_buy_list.json").read_text())
     sell_before = json.loads((cfg / "f3_f3_realtime_sell_list.json").read_text())
     assert any(b["symbol"] == "KRW-BBB" and b.get("buy_count") == 0 for b in buy)
     assert sell_before == []
@@ -77,7 +77,7 @@ def test_run_preserves_existing_buy_count(tmp_path, monkeypatch):
             "buy_count": 1,
         }
     ]
-    (cfg / "f2_f2_realtime_buy_list.json").write_text(json.dumps(existing))
+    (cfg / "f2_f3_realtime_buy_list.json").write_text(json.dumps(existing))
     (cfg / "f3_f3_realtime_sell_list.json").write_text("[]")
 
     pandas_stub = types.ModuleType("pandas")
@@ -106,7 +106,7 @@ def test_run_preserves_existing_buy_count(tmp_path, monkeypatch):
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((True, True, True)))
 
     ml.run()
-    after = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    after = json.loads((cfg / "f2_f3_realtime_buy_list.json").read_text())
     assert after[0]["buy_count"] == 1
 
 
@@ -117,7 +117,7 @@ def test_existing_sell_list_preserved(tmp_path, monkeypatch):
             {"symbol": "KRW-LSK", "thresh_pct": 0.005, "loss_pct": 0.003},
         ])
     )
-    (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg / "f2_f3_realtime_buy_list.json").write_text("[]")
     (cfg / "f3_f3_realtime_sell_list.json").write_text(
         json.dumps(["KRW-LSK"])
     )
@@ -163,7 +163,7 @@ def test_old_sell_entry_untouched(tmp_path, monkeypatch):
             {"symbol": "KRW-AAA", "thresh_pct": 0.01, "loss_pct": 0.02},
         ])
     )
-    (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg / "f2_f3_realtime_buy_list.json").write_text("[]")
     (cfg / "f3_f3_realtime_sell_list.json").write_text(
         json.dumps(["KRW-LSK"])
     )
@@ -209,7 +209,7 @@ def test_run_records_non_signals(tmp_path, monkeypatch):
             {"symbol": "KRW-AAA", "thresh_pct": 0.01, "loss_pct": 0.02},
         ])
     )
-    (cfg / "f2_f2_realtime_buy_list.json").write_text("[]")
+    (cfg / "f2_f3_realtime_buy_list.json").write_text("[]")
     (cfg / "f3_f3_realtime_sell_list.json").write_text("[]")
 
     pandas_stub = types.ModuleType("pandas")
@@ -238,7 +238,7 @@ def test_run_records_non_signals(tmp_path, monkeypatch):
     monkeypatch.setattr(ml, "check_buy_signal", Dummy((False, True, True)))
 
     result = ml.run()
-    buy = json.loads((cfg / "f2_f2_realtime_buy_list.json").read_text())
+    buy = json.loads((cfg / "f2_f3_realtime_buy_list.json").read_text())
     sell = json.loads((cfg / "f3_f3_realtime_sell_list.json").read_text())
 
     assert buy == [{

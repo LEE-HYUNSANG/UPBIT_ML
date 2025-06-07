@@ -115,7 +115,7 @@ class PositionManager:
 
     def _reset_buy_count(self, symbol: str) -> None:
         """Set ``buy_count`` to 0 for the given symbol in the buy list."""
-        path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
+        path = ROOT_DIR / "config" / "f2_f3_realtime_buy_list.json"
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -140,7 +140,7 @@ class PositionManager:
 
     def _set_pending_flag(self, symbol: str, value: int) -> None:
         """Update ``pending`` field for *symbol* in the buy list."""
-        path = ROOT_DIR / "config" / "f2_f2_realtime_buy_list.json"
+        path = ROOT_DIR / "config" / "f2_f3_realtime_buy_list.json"
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)

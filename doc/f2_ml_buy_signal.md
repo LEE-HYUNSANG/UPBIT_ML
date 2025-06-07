@@ -19,7 +19,7 @@
 ### `run()`
 1. 파일에서 심볼 목록을 읽어 `check_buy_signal()`을 순회합니다.
 2. 모니터링하는 각 코인에 대해 다음과 같은 구조의 리스트를
-   `config/f2_f2_realtime_buy_list.json`에 저장합니다.
+   `config/f2_f3_realtime_buy_list.json`에 저장합니다.
 
    ```json
    [

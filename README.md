@@ -42,7 +42,7 @@ python -m f2_buy_signal.02_ml_buy_signal
 ```
 
 결과는 `logs/f2/f2_ml_buy_signal.log`에 저장됩니다. 필요한 패키지가 없으면 이 로그 파일에 오류도 기록됩니다.
-`run()` 함수는 `config/f2_f2_realtime_buy_list.json`을 갱신하며
+`run()` 함수는 `config/f2_f3_realtime_buy_list.json`을 갱신하며
  Flask 스케줄러가 자동으로 `buy_list_executor.execute_buy_list()`를 호출해 즉시 주문합니다.
 
 ## 주문 모듈 실행

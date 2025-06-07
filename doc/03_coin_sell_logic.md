@@ -31,7 +31,7 @@ F3 모듈과 간단한 위험 관리 로직이 담당합니다.
 ### `PositionManager.execute_sell(position, exit_type, qty=None)`
 지정된 포지션을 시장가로 매도합니다.
 주문이 완전히 체결되면 상태가 `closed`로 바뀌고 결과가 `f1_f3_coin_positions.json`에 저장됩니다.
-체결 완료 후 알림이 전송되며 `f2_f2_realtime_buy_list.json`에 해당 코인이 존재할 경우 `buy_count`가 0으로 초기화되어 다시 매수를 시도할 수 있습니다.
+체결 완료 후 알림이 전송되며 `f2_f3_realtime_buy_list.json`에 해당 코인이 존재할 경우 `buy_count`가 0으로 초기화되어 다시 매수를 시도할 수 있습니다.
 
 
 ## 동작 흐름

@@ -52,7 +52,7 @@ STRATEGIES_MASTER_FILE = "strategies_master_pruned.json"
 BUY_SETTINGS_FILE = os.path.join("config", "f6_buy_settings.json")
 ALARM_CONFIG_FILE = alarm_control.CONFIG_FILE
 
-BUY_LIST_FILE = os.path.join("config", "f2_f2_realtime_buy_list.json")
+BUY_LIST_FILE = os.path.join("config", "f2_f3_realtime_buy_list.json")
 SELL_LIST_FILE = os.path.join("config", "f3_f3_realtime_sell_list.json")
 MONITORING_LIST_FILE = os.path.join("config", "f5_f1_monitoring_list.json")
 
@@ -457,7 +457,7 @@ def api_signals() -> Response:
 @app.route("/api/buy_monitoring")
 def api_buy_monitoring() -> Response:
     """Return buy monitoring list with F2 metrics."""
-    buy_path = os.path.join("config", "f2_f2_realtime_buy_list.json")
+    buy_path = os.path.join("config", "f2_f3_realtime_buy_list.json")
     try:
         with open(buy_path, "r", encoding="utf-8") as f:
             buy_list = json.load(f)
