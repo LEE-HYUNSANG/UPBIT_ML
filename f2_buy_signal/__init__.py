@@ -8,6 +8,12 @@ from importlib import import_module
 from pathlib import Path
 
 _submodules = {"01_buy_indicator", "02_ml_buy_signal", "03_buy_signal_engine"}
+from .check_signals import check_signals
+
+
+def reload_strategy_settings() -> None:
+    """Placeholder for runtime strategy reload."""
+    return None
 
 
 def __getattr__(name: str):
@@ -83,4 +89,3 @@ def check_signals(symbol: str) -> dict[str, bool]:
 
 
 __all__ = [*list(_submodules), "reload_strategy_settings", "check_signals"]
-
